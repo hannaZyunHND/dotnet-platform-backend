@@ -1,0 +1,102 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+@using PlatformWEB.Services.Product.ViewModel;
+@using PlatformWEB.Services.BannerAds.ViewModel;
+@using Utils;
+@using Microsoft.AspNetCore.Localization
+@using Microsoft.AspNetCore.Mvc.Localization
+@using Microsoft.AspNetCore.Http
+@inject IHttpContextAccessor HttpContextAccessor
+@using PlatformWEB.Utility
+@inject ICookieUtility cookieUtility
+@inject PlatformWEB.Services.BannerAds.Repository.IBannerAdsRepository _bannerAdsRepository
+@model List<ProductMinify>;
+@{
+    var total = ViewBag.Total;
+    var id = ViewBag.Id;
+    var culture = Context.Features.Get<IRequestCultureFeature>().RequestCulture.Culture.TwoLetterISOLanguageName.ToLower();
+    var culture_code = Context.Features.Get<IRequestCultureFeature>().RequestCulture.Culture.ToString();
+    var base_uri_culture = "/" + culture;
+    var domain = Context.Request.Host.ToString();
+    var cookie_location = cookieUtility.SetCookieDefault();
+    var location_id = cookie_location.LocationId;
+    var location_name = cookie_location.LocationName;
+    var cultureHome = _bannerAdsRepository.GetBannerAds_By_Code(culture_code, "W2G_Culture_Home");
+    var cultureSanPham = _bannerAdsRepository.GetBannerAds_By_Code(culture_code, "W2G_Culture_SanPham");
+    var cultures = WebHelper.ConvertSlideCulture(cultureSanPham);
+    cultures.AddRange(WebHelper.ConvertSlideCulture(cultureHome));
+}
+
+@{
+    var zoneName = ViewBag.ZoneName as string;
+
+}
+@if (Model != null)
+{
+    <div class="inner-section-2">
+        <div class="box-head inner-center">
+            <h2 class="inner-title">
+                @zoneName
+            </h2>
+        </div>
+        <ul class="nav nav-tabs">
+            <li class="nav-item">
+                <button class="nav-link active" data-toggle="tab" data-target="#tab-esim-3-1">
+                    @Html.Raw(WebHelper.GetCultureText(cultures, "PHYSICAL_SIM_TAB"))
+                </button>
+            </li>
+            <li class="nav-item">
+                <button class="nav-link" data-toggle="tab" data-target="#tab-esim-3-2">
+                    @Html.Raw(WebHelper.GetCultureText(cultures, "ESIM_TAB"))
+                </button>
+            </li>
+        </ul>
+        @if (id != 4) //Id zone Viet Nam INPUT_SERIAL_NUMBER
+        {
+            <div class="input-group mb-4  group-check-serial">
+                <input type="text" class="form-control input-check-serial" placeholder="@Html.Raw(WebHelper.GetCultureText(cultures, "INPUT_SERIAL_NUMBER"))">
+                <div class="input-group-append">
+                    <button class="btn btn-outline-secondary btn-check-serial" type="button">
+                        <i class="fa-solid fa-magnifying-glass"></i>
+                    </button>
+                </div>
+                <i class="fa-solid fa-magnifying-glass icon icon-del" style="color:red"></i>
+                @*<div class="clear-serial-number-container">
+                    <a href="javascript:;"><small class="clear-serial-number">@Html.Raw(WebHelper.GetCultureText(cultures, "CLEAR_SERIAL_CODE"))</small></a>
+                </div>*@
+
+
+            </div>
+            
+        }
+
+
+        <div class="tab-content">
+            <!-- Tab Dữ liệu -->
+            <div class="tab-pane fade show active" id="tab-esim-3-1">
+                <div class="row">
+                    @foreach (var psim in Model.Where(r => r.SimType.Equals("Physical Sim")))
+                    {
+                        @await Component.InvokeAsync("ItemProductv2", new { pr = psim })
+
+                    }
+                </div>
+            </div>
+            <!-- Hết Tab Dữ liệu -->
+            <!-- Tab Dữ liệu / Cuộc gọi / Tin nhắn -->
+            <div class="tab-pane fade" id="tab-esim-3-2">
+                <div class="row">
+                    @foreach (var psim in Model.Where(r => r.SimType.Equals("E-Sim")))
+                    {
+                        @await Component.InvokeAsync("ItemProductv2", new { pr = psim })
+                    }
+                </div>
+            </div>
+            <!-- Hết Tab Dữ liệu / Cuộc gọi / Tin nhắn -->
+        </div>
+    </div>
+}
+

@@ -1,0 +1,226 @@
+﻿@using MI.Entity.Enums;
+@using PlatformWEBAPI.Services.Zone.ViewModal
+@using PlatformWEBAPI.Services.Zone.Repository
+@using Microsoft.AspNetCore.Localization
+@using Microsoft.AspNetCore.Mvc.Localization
+@using Microsoft.AspNetCore.Http
+@using PlatformWEBAPI.Services.Article.Repository
+@using PlatformWEBAPI.Utility
+@inject IHttpContextAccessor HttpContextAccessor
+@inject IArticleRepository articleRepository;
+@inject IZoneRepository zoneRepository;
+@using PlatformWEBAPI.Services.Article.ViewModel;
+@using Utils
+@{
+    var culture = Context.Features.Get<IRequestCultureFeature>().RequestCulture.Culture.TwoLetterISOLanguageName.ToLower();
+    var culture_code = Context.Features.Get<IRequestCultureFeature>().RequestCulture.Culture.ToString();
+    var base_uri_culture = "/" + culture;
+    var domain = Context.Request.Host.ToString();
+    ZoneDetail zoneDetail = new ZoneDetail();
+    List<ZoneByTreeViewMinify> zoneByTreeViewMinifies = new List<ZoneByTreeViewMinify>();
+    List<ArticleMinify> lstArticleMinify = new List<ArticleMinify>();
+    ArticleMinify articleMinify = new ArticleMinify();
+    
+    if (ViewBag.Detail != null)
+    {
+        zoneDetail = ViewBag.Detail;
+    }
+    if (ViewBag.ZoneChilds != null)
+    {
+        zoneByTreeViewMinifies = (List<ZoneByTreeViewMinify>)ViewBag.ZoneChilds;
+    }
+    if (ViewBag.Top_newest != null)
+    {
+        lstArticleMinify = (List<ArticleMinify>)ViewBag.Top_newest;
+        if (lstArticleMinify.Count() > 0)
+        {
+            articleMinify = lstArticleMinify.OrderByDescending(n => n.Id).First();
+        }
+
+    }
+    int PageIndex = (int)ViewBag.pageIndex;
+    int PageSize = (int)ViewBag.pageSize;
+    int TotalPage = (int)ViewBag.TotalPage;
+    int Paging = 0;
+    if ((TotalPage % PageSize) == 0)
+    {
+        Paging = TotalPage / PageSize;
+    }
+    else
+    {
+        Paging = (TotalPage / PageSize) + 1;
+    }
+}
+@{
+    ViewData["Title"] = "Tuyển dụng";
+    //Layout = "~/Views/Shared/_LayoutPublicHome.cshtml";
+}
+
+
+
+<!-- Banner Text Recruitment -->
+<div class="container mobi-hidden mb-30">
+    <div class="banner-text-recruitment">
+        <div class="banner-text-recruitment__image">
+            <img src="~/top-ten-travel/images/logo-2.png" alt="Logo" />
+        </div>
+        <div class="banner-text-recruitment__content">
+            <div class="banner-text-recruitment__title">
+                Tuyển dụng nhiều vị trí với mức thu nhập hấp dẫn
+            </div>
+            <div class="banner-text-recruitment__desc">
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua
+            </div>
+        </div>
+    </div>
+</div>
+<!-- End Banner Text Recruitment -->
+<!-- Page Recruitment -->
+<div class="page-recruitment mb-45">
+    <div class="container">
+        <!-- Menu Horizontal -->
+        <div class="blog-cate-horizontal">
+            <ul class="blog-cate-horizontal__list">
+                @{
+                    var firstZone = zoneByTreeViewMinifies.FirstOrDefault();
+                    if (firstZone != null)
+                    {
+                        foreach (var item in zoneByTreeViewMinifies)
+                        {
+                            <li class="blog-cate-horizontal__item">
+                                <a href="@LinkRedirectUrlUtility.BlogLinkUrl(item.Url)" class="blog-cate-horizontal__link @(((zoneDetail.Id == item.Id) || (item.Id == firstZone.Id)) ? "active" : "")">@item.Name</a>
+                            </li>
+                        }
+
+                    }
+                }
+
+            </ul>
+        </div>
+        <!-- End Menu Horizontal -->
+
+        @{ 
+
+        } 
+
+        <div class="page-recruitment__wrap">
+            <!-- List Recruitment -->
+            <div class="recruitment-list">
+                <h4 class="recruitment-list__title">Mới nhất</h4>
+                <div class="recruitment-list__box">
+                    @{
+                        var currentId = 0;
+                        if (zoneDetail.Id == firstZone.Id)
+                        {
+                            currentId = firstZone.Id;
+                        }
+                        else
+                        {
+                            currentId = zoneDetail.Id;
+                        }
+                        var total = 0;
+                        var lsTuyenDungArt = articleRepository.GetArticlesInZoneId_Minify_FullFilter(currentId, (int)TypeZone.Recruitment, (int)TypeArticle.Recument, 2, culture_code, "", PageIndex, 10, out total);
+                        <div class="paging-container" style="display:none" data-total="@total" data-size="10" data-currentpage="@PageIndex"></div>
+                        foreach (var item in lsTuyenDungArt)
+                        {
+                            item.ArticleRecruitment = Newtonsoft.Json.JsonConvert.DeserializeObject<MI.Entity.CustomClass.ArticleRecruitment>(item.Metadata);
+                            <!-- Item -->
+                            <div class="recruitment-list__item">
+                                <div class="recruitment-list__item-image">
+                                    <img src="~/top-ten-travel/images/icons/people-blue.svg" alt="Icon User">
+                                </div>
+                                <div class="recruitment-list__item-content">
+                                    <h4 class="recruitment-list__item-title">
+                                        <a href="@LinkRedirectUrlUtility.BlogDetailUrl(item.Url)">@item.Title</a>
+                                    </h4>
+                                    <div class="recruitment-list__item-meta">
+                                        <div class="recruitment-list__item-meta-box">
+                                            <img src="~/top-ten-travel/images/icons/people-gray.svg" alt="Icon User">
+                                            <span>@item.ArticleRecruitment.Position</span>
+                                        </div>
+                                        <div class="recruitment-list__item-meta-box">
+                                            <img src="~/top-ten-travel/images/icons/heart-gray.svg" alt="Icon Heart">
+                                            <span>@item.ArticleRecruitment.Count</span>
+                                        </div>
+                                        <div class="recruitment-list__item-meta-box">
+                                            <img src="~/top-ten-travel/images/icons/salary-gray.svg" alt="Icon Salary">
+                                            <span>@item.ArticleRecruitment.Salary</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- End Item -->
+                        }
+                    }
+                </div>
+                
+                <!-- Pagination -->
+                <div class="pagin"></div>
+                <!-- End Pagination -->
+            </div>
+            <!-- End List Recruitment -->
+            <!-- Recruitment Highlight -->
+            <div class="recruitment-highlight">
+                @{
+                    var firstTuyenDungBlog = lsTuyenDungArt.FirstOrDefault();
+                    if (firstTuyenDungBlog != null)
+                    {
+                        var recuirmentDetail  = Newtonsoft.Json.JsonConvert.DeserializeObject<MI.Entity.CustomClass.ArticleRecruitment>(firstTuyenDungBlog.Metadata);
+                        <h4 class="recruitment-highlight__title">
+                            Tiêu điểm
+                        </h4>
+                        <div class="recruitment-highlight__box">
+                            <h4 class="recruitment-highlight__box-title">
+                                <a href="chi-tiet-tuyen-dung.html">
+                                    @firstTuyenDungBlog.Title
+                                </a>
+                            </h4>
+                            <div class="recruitment-highlight__meta">
+                                <div class="recruitment-highlight__meta-item">
+                                    <div class="recruitment-highlight__meta-item-box">
+                                        <img src="~/top-ten-travel/images/icons/people-gray.svg" alt="Icon User">
+                                        <span>@recuirmentDetail.Position</span>
+                                    </div>
+                                    <div class="recruitment-highlight__meta-item-box">
+                                        <img src="~/top-ten-travel/images/icons/location-gray-outline.svg" alt="Icon Location">
+                                        <span>@recuirmentDetail.Address</span>
+                                    </div>
+                                    <div class="recruitment-highlight__meta-item-box">
+                                        <img src="~/top-ten-travel/images/icons/heart-gray.svg" alt="Icon Heart">
+                                        <span>@recuirmentDetail.Count</span>
+                                    </div>
+                                    <div class="recruitment-highlight__meta-item-box">
+                                        <img src="~/top-ten-travel/images/icons/salary-gray.svg" alt="Icon Salary">
+                                        <span>@recuirmentDetail.Salary</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="recruitment-highlight__content">
+                                <h5 class="recruitment-highlight__content-title">
+                                    Mô tả công việc:
+                                </h5>
+                                <div class="recruitment-highlight__content-desc">
+                                    @Html.Raw(firstTuyenDungBlog.Description)
+                                </div>
+                            </div>
+                            <div class="recruitment-highlight__button">
+                                <a href="@LinkRedirectUrlUtility.BlogDetailUrl(firstTuyenDungBlog.Url)">Xem chi tiết</a>
+                            </div>
+                        </div>
+                    }
+                }
+
+            </div>
+            <!-- End Recruitment Highlight -->
+        </div>
+
+    </div>
+</div>
+
+
+
+
+@section scripts {
+    <script type="text/javascript" src="~/js/controller/recruitmentController.js" asp-append-version="true"></script>
+
+}

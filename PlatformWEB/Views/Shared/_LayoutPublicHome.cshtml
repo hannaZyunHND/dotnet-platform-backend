@@ -1,0 +1,1153 @@
+﻿@using Microsoft.AspNetCore.Builder
+@using Microsoft.AspNetCore.Http.Features
+@using Microsoft.AspNetCore.Localization
+@using Microsoft.AspNetCore.Mvc.Localization
+@using Microsoft.Extensions.Options
+@using PlatformWEB.Services.Zone.ViewModal
+@using PlatformWEB.Services.Zone.Repository
+@using PlatformWEB.Services.BannerAds.Repository
+@using PlatformWEB.Services.BannerAds.ViewModel
+@using Microsoft.AspNetCore.Http
+@using Newtonsoft.Json
+@using PlatformWEB.Utility
+@using MI.Entity.Models
+@using Utils
+@using MI.Entity.Enums
+@using Microsoft.AspNetCore.Http.Extensions
+
+@using PlatformWEB.Services.Extra.Repository
+@using PlatformWEB.Services.Locations.Repository
+@using PlatformWEB.Services.Locations.ViewModal
+@using PlatformWEB.Services.Product.Repository
+@inject IHttpContextAccessor HttpContextAccessor
+@inject ICookieUtility cookieUtility
+@inject IZoneRepository zoneRepository
+@inject IConfigSEOUtility configSEOUtility
+@inject IBannerAdsRepository bannerAdsRepository
+@inject IExtraRepository extraRepository
+@inject IViewLocalizer Localizer
+@inject ILocationsRepository locationsRepository
+@inject IProductRepository productRepository
+@inject IOptions<RequestLocalizationOptions> LocOptions
+
+
+@{
+    var requestCulture = Context.Features.Get<IRequestCultureFeature>();
+    var cultureItems = LocOptions.Value.SupportedUICultures
+        .Select(c => new SelectListItem { Value = c.Name, Text = c.DisplayName })
+        .ToList();
+    
+}
+
+
+@{
+
+    Layout = null;
+    var culture = Context.Features.Get<IRequestCultureFeature>().RequestCulture.Culture.TwoLetterISOLanguageName.ToLower();
+    var culture_code = Context.Features.Get<IRequestCultureFeature>().RequestCulture.Culture.ToString();
+
+    var isHome = false;
+    var path = Context.Request.Path.ToString();
+
+    if (path.Length <= 1)
+    {
+
+        isHome = true;
+
+    }
+    else
+    {
+        path = path.Replace("/", "");
+
+    }
+    var zoneProduct = zoneRepository.GetZoneByTreeViewMinifies((int)TypeZone.Product, culture_code, 0);
+    if(zoneProduct.Where(r => r.Url.ToLower().Contains(path.ToLower())).Any())
+    {
+        isHome = true;
+    }
+    //var base_uri_culture = "/" + culture;
+    var base_uri_culture = "/";
+    var domain = Context.Request.Scheme + "://" + Context.Request.Host.ToString() + "/";
+    var domain_full = Context.Request.GetDisplayUrl().ToString();
+    //var cookie_location = cookieUtility.SetCookieDefault();
+    //var location_id = cookie_location.LocationId;
+    //var location_name = cookie_location.LocationName;
+
+
+    List<LocationViewModel> locationViewModels = new List<LocationViewModel>();
+    locationViewModels = locationsRepository.GetLocations(culture_code);
+
+    List<ZoneSugget> zoneSugget = new List<ZoneSugget>();
+    zoneSugget = zoneRepository.GetZoneSugget(culture_code);
+
+
+
+    //Tour_DauTrang_KhoiLinkHeader
+
+}
+@inject IViewLocalizer _localizer
+@using PlatformWEB.Services.Config.Repository
+@{
+    var _ver = WebHelper.Version();
+    var favicon = bannerAdsRepository.GetConfigByName(culture_code, "Favicon");
+
+    var logo = bannerAdsRepository.GetConfigByName(culture_code, "Logo");
+    var LinkFanpage = bannerAdsRepository.GetConfigByName(culture_code, "LinkFanpage");
+    var LinkIntagram = bannerAdsRepository.GetConfigByName(culture_code, "LinkIntagram");
+    var ZaloPlugin = bannerAdsRepository.GetConfigByName(culture_code, "ZaloPlugin");
+    var Zalo = bannerAdsRepository.GetConfigByName(culture_code, "zalo");
+    var LinkYoutube = bannerAdsRepository.GetConfigByName(culture_code, "LinkYoutube");
+    var layout_culture = bannerAdsRepository.GetBannerAds_By_Code(culture_code, "W2G_Culture_Layout");
+    var cultures = WebHelper.ConvertSlide(layout_culture);
+
+                       //var LinkFanpage = bannerAdsRepository.GetConfigByName(culture_code, "LinkTwiter");
+}
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+
+    @*<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />*@
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    @*<meta name="robots" content="noindex">
+        <meta name="googlebot" content="noindex">*@
+    <meta name="revisit-after" content="1 days" />
+    <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
+
+
+    <link rel="shortcut icon" href="@UIHelper.StoreFilePath(favicon, false)" />
+    @*@Html.Raw(configSEOUtility.ConfigWebsite(domain_full, "DiDongXanh", domain.Equals(domain_full) ? true : false))
+        <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,400i,600,600i,700,700i&display=swap&subset=vietnamese"
+              rel="preload">
+        <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,400i,600,600i,700,700i&display=swap&subset=vietnamese"
+              rel="stylesheet">*@
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <link rel="icon" href="assets/images/core/favicon.png" />
+
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="~/assets/css/bootstrap.min.css" />
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.9.0/slick.css" integrity="sha512-wR4oNhLBHf7smjy0K4oqzdWumd+r5/+6QO/vDda76MW5iug4PT7v86FoEkySIJft3XA0Ae6axhIvHrqwm793Nw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.9.0/slick-theme.css" integrity="sha512-6lLUdeQ5uheMFbWm3CP271l14RsX1xtx+J5x2yeIDkkiBpeVTNhTqijME7GgRKKi6hCqovwCoBTlRBEC20M8Mg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="~/assets/css/swiper-bundle.min.css" />
+    <link rel="stylesheet" href="~/assets/css/viewer.css" />
+    <link rel="stylesheet" href="~/assets/css/styles.css" />
+    <link rel="stylesheet" href="~/assets/css/custom.css" />
+    <link href="~/assets/css/mobile-custom.css" rel="stylesheet" />
+    <!-- jQuery UI -->
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/sweetalert2/11.10.8/sweetalert2.css" integrity="sha512-n1PBkhxQLVIma0hnm731gu/40gByOeBjlm5Z/PgwNxhJnyW1wYG8v7gPJDT6jpk0cMHfL8vUGUVjz3t4gXyZYQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    @Html.Raw(bannerAdsRepository.GetConfigByName(culture_code, "ScriptHeader"))
+    @RenderSection("Styles", required: false)
+
+
+</head>
+<body class="bg-light">
+
+    @*@Html.Raw(bannerAdsRepository.GetConfigByName(culture_code, "ScriptBody"))*@
+
+    <!-- Schema-->
+    <!-- Header -->
+    <!-- Header -->
+    <header class="header @(isHome?"header-white": "")">
+        <div class="container">
+            <div class="inner-wrap">
+                <div class="inner-left">
+                    <div class="inner-logo">
+                        <a href="/">
+                            <img src="~/assets/images/core/logo-way2go.png" alt="Way 2 Go">
+                        </a>
+                    </div>
+                    <a href="javascript:;" data-toggle="modal" data-target="#modalChangeLanguage" class="select-languge-button select-languge-button-mobile">
+                        @*<i class="fa-solid fa-earth-asia inner-icon-before"></i>*@
+                    </a>
+                </div>
+                <div class="inner-right">
+                    <ul class="inner-menu">
+                        @{
+                            var W2G_MENU_ITEM1 = bannerAdsRepository.GetBannerAds_By_Code(culture_code, "W2G_MENU_ITEM1");
+                            if (W2G_MENU_ITEM1 != null)
+                            {
+                                var banners = WebHelper.ConvertSlide(W2G_MENU_ITEM1);
+                                if (banners != null)
+                                {
+                                    var _first = banners.FirstOrDefault();
+                                    if (_first != null)
+                                    {
+                                        <li class="inner-item">
+                                            <a href="@_first.Url">
+                                                @_first.Title
+                                            </a>
+                                            @*<i class="fa-solid fa-angle-down inner-icon-after"></i>*@
+                                            @*<div class="inner-sub-menu">
+                                                    <ul>
+                                                        @foreach (var item in banners.Skip(1))
+                                                        {
+                                                            <li>
+                                                                <a href="@item.Url">@item.Title</a>
+                                                            </li>
+                                                        }
+
+                                                    </ul>
+                                                </div>*@
+                                        </li>
+                                    }
+                                }
+
+
+                            }
+
+                        }
+                        @{
+                            var W2G_MENU_ITEM2 = bannerAdsRepository.GetBannerAds_By_Code(culture_code, "W2G_MENU_ITEM2");
+                            if (W2G_MENU_ITEM2 != null)
+                            {
+                                var banners = WebHelper.ConvertSlide(W2G_MENU_ITEM2);
+                                if (banners != null)
+                                {
+                                    var _first = banners.FirstOrDefault();
+                                    if (_first != null)
+                                    {
+                                        <li class="inner-item">
+                                            <a href="@_first.Url">
+                                                @_first.Title
+                                            </a>
+                                            @*<i class="fa-solid fa-angle-down inner-icon-after"></i>*@
+                                            @*<div class="inner-sub-menu">
+                                                    <ul>
+                                                        @foreach (var item in banners.Skip(1))
+                                                        {
+                                                            <li>
+                                                                <a href="@item.Url">@item.Title</a>
+                                                            </li>
+                                                        }
+
+                                                    </ul>
+                                                </div>*@
+                                        </li>
+                                    }
+                                }
+
+
+                            }
+
+                        }
+
+                        <li class="inner-item menu-my-account">
+                            <i class="fa-regular fa-circle-user inner-icon-before"></i>
+                            <a href="#" class="account-customer-name">
+                                @Html.Raw(WebHelper.GetCultureText(cultures, "TAI_KHOAN"))
+                            </a>
+                            <div class="inner-sub-menu non-login">
+                                <ul>
+                                    <li>
+                                        <a href="/my-cart">@Html.Raw(WebHelper.GetCultureText(cultures, "GIO_HANG"))</a>
+                                    </li>
+                                    <li>
+                                        <a href="javascript:void(0)" class="link-sign-up">@Html.Raw(WebHelper.GetCultureText(cultures, "DANG_KY"))</a>
+                                    </li>
+                                    <li>
+                                        <a href="javascript:void(0)" class="link-login">@Html.Raw(WebHelper.GetCultureText(cultures, "DANG_NHAP"))</a>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="inner-sub-menu logged-in" style="display:none">
+                                <ul>
+                                    <li>
+                                        <a href="/my-sim">@Html.Raw(WebHelper.GetCultureText(cultures, "SIM_CUA_TOI"))</a>
+                                    </li>
+                                    <li>
+                                        <a href="/my-cart">@Html.Raw(WebHelper.GetCultureText(cultures, "GIO_HANG"))</a>
+                                    </li>
+                                    <li>
+                                        <a href="javascript:void(0)" class="change-password">@Html.Raw(WebHelper.GetCultureText(cultures, "DOI_MAT_KHAU"))</a>
+                                    </li>
+                                    <li>
+                                        <a href="javascript:void(0)" class="link-logout">@Html.Raw(WebHelper.GetCultureText(cultures, "LOG_OUT"))</a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </li>
+                        @*<li class="inner-item menu-register">
+
+                                <a href="#" class="account-register-link">
+                                    Đăng ký
+                                </a>
+                            </li>*@
+                        <li class="inner-item">
+                            <a href="javascript:;" data-toggle="modal" data-target="#modalChangeLanguage" class="select-languge-button">
+                                <i class="fa-solid fa-earth-asia inner-icon-before"></i>
+                                <span></span>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </header>
+    <!-- End Header -->
+    <!-- End Header -->
+    @*end*@
+
+
+
+
+
+
+
+    @*</cache>*@
+
+    @RenderBody()
+
+    @*<cache expires-after="@TimeSpan.FromMinutes(5)">*@
+    <br />
+    <!--Khoi Banner Bottom-->
+    <!-- Section 23 -->
+    @{
+        var W2G_Banner_ChanTrang = bannerAdsRepository.GetBannerAds_By_Code(culture_code, "W2G_Banner_ChanTrang");
+        if (W2G_Banner_ChanTrang != null)
+        {
+            var banners = WebHelper.ConvertSlide(W2G_Banner_ChanTrang);
+            if (banners != null)
+            {
+                var _first = banners.FirstOrDefault();
+                if (_first != null)
+                {
+                    <div class="section-23" style="background-image: url(@UIHelper.StoreFilePath(_first.Image, false))">
+                        <div class="container">
+                            <div class="inner-section-1">
+                                <div class="inner-content">
+                                    <h2 class="inner-title">
+                                        @_first.Title
+                                    </h2>
+                                    <div class="inner-desc">
+                                        @Html.Raw(_first.Description)
+                                    </div>
+                                </div>
+                                @{
+                                    var _second = banners.Skip(1).FirstOrDefault();
+                                    if (_second != null)
+                                    {
+                                        <div class="inner-image">
+                                            <img src="@UIHelper.StoreFilePath(_second.Image, false)" alt="@_second.Title">
+                                        </div>
+                                    }
+                                }
+
+                            </div>
+                            @{
+                                var _third = banners.Skip(2).FirstOrDefault();
+                                if (_third != null)
+                                {
+                                    <div class="inner-section-2">
+                                        <div class="inner-content">
+                                            @{
+                                                var description = UIHelper.ClearHtmlTag(_third.Description);
+                                                if (!string.IsNullOrEmpty(description))
+                                                {
+                                                    var ls = description.Split("|");
+                                                    if (ls.Count() > 0)
+                                                    {
+                                                        <div class="inner-title">
+                                                            @Html.Raw(ls[0])
+                                                        </div>
+                                                    }
+                                                    if (ls.Count() > 1)
+                                                    {
+                                                        <div class="inner-desc">
+                                                            @Html.Raw(ls[1])
+                                                        </div>
+                                                    }
+
+
+                                                }
+                                            }
+                                            <a href="@_third.Url" target="_blank" class="button button-white button-full">@_third.Title</a>
+                                        </div>
+                                    </div>
+
+
+
+
+                                }
+                            }
+
+                        </div>
+                    </div>
+                }
+
+            }
+        }
+    }
+
+    <!-- End Section 23 -->
+    <!-- Footer -->
+    <footer class="footer footer-black">
+        <div class="inner-top">
+            <div class="container">
+                <div class="row">
+                    <div class="col-xl-2 col-lg-4 col-md-4 col-sm-6 col-12 ">
+                        @{
+                            var W2G_ChanTrang_Khoi1 = bannerAdsRepository.GetBannerAds_By_Code(culture_code, "W2G_ChanTrang_Khoi1");
+                            if (W2G_ChanTrang_Khoi1 != null)
+                            {
+                                var banners = WebHelper.ConvertSlide(W2G_ChanTrang_Khoi1);
+                                if (banners != null)
+                                {
+                                    var _first = banners.FirstOrDefault();
+                                    if (_first != null)
+                                    {
+                                        <div class="inner-logo">
+                                            <a href="/">
+                                                <img src="assets/images/core/logo-way2go.png" alt="">
+                                            </a>
+                                        </div>
+                                        <div class="inner-desc inner-desc-info">
+                                            @foreach (var item in banners)
+                                            {
+                                                <div class="footer-info-item">
+                                                    <i class="@item.Title"></i>
+                                                    <span>@Html.Raw(item.Description)</span>
+                                                </div>
+
+                                            }
+                                        </div>
+                                    }
+                                }
+                            }
+                        }
+
+                    </div>
+                    <div class="col-xl-10 col-lg-8 col-md-8 col-sm-6 col-12">
+                        <div class="row row-cols-lg-6 row-cols-md-3 row-cols-sm-2 row-cols-1 text-center">
+                            @{
+                                for (var i = 2; i < 8; i++)
+                                {
+                                    var W2G_ChanTrang_Khoi = bannerAdsRepository.GetBannerAds_By_Code(culture_code, "W2G_ChanTrang_Khoi" + i);
+                                    if (W2G_ChanTrang_Khoi != null)
+                                    {
+                                        var banners = WebHelper.ConvertSlide(W2G_ChanTrang_Khoi);
+                                        if (banners != null)
+                                        {
+                                            var _first = banners.FirstOrDefault();
+                                            if (_first != null)
+                                            {
+                                                <!--col-xl-2 col-lg-4 col-md-4 col-sm-6 col-12-->
+                                                <div class="col">
+                                                    <div class="inner-menu">
+                                                        <a href="@_first.Url">
+                                                            <h3 class="inner-title">
+                                                                <span>@_first.Title</span>
+                                                                <i class="fa-solid fa-angle-down"></i>
+                                                            </h3>
+                                                        </a>
+
+                                                        <div class="inner-list">
+                                                            @foreach (var item in banners.Skip(1))
+                                                            {
+                                                                <a href="@item.Url">
+                                                                    @item.Title
+                                                                </a>
+                                                            }
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            }
+
+
+                                        }
+
+
+                                    }
+                                }
+
+                            }
+                        </div>
+                    </div>
+
+
+
+                </div>
+            </div>
+        </div>
+        @{
+            var W2G_ChanTrang_Khoi_Cuoi = bannerAdsRepository.GetBannerAds_By_Code(culture_code, "W2G_ChanTrang_Khoi_Cuoi");
+            if (W2G_ChanTrang_Khoi_Cuoi != null)
+            {
+                var banners = WebHelper.ConvertSlide(W2G_ChanTrang_Khoi_Cuoi);
+                if (banners != null)
+                {
+                    <div class="inner-middle">
+                        <div class="container">
+                            <div class="inner-wrap">
+                                <div class="inner-left">
+                                    <div class="inner-copyright">
+                                        ©2024 Way2Go
+                                    </div>
+                                    <div class="inner-links">
+                                        @foreach (var item in banners.Skip(0).Take(banners.Count - 1))
+                                        {
+                                            <a href="@item.Url">@item.Title</a>
+                                        }
+
+                                    </div>
+                                    <div class="inner-language">
+                                        <a href="javascript:;" data-toggle="modal" data-target="#modalChangeLanguage" class="select-languge-button">
+                                            <i class="fa-solid fa-earth-asia inner-icon-before"></i>
+                                            <span>Tiếng Việt</span>
+                                        </a>
+                                    </div>
+                                </div>
+                                <div class="inner-right">
+                                    <div class="inner-socials">
+                                        @{
+                                            var _last = banners.LastOrDefault();
+                                            if (_last != null)
+                                            {
+                                                <div class="inner-label">
+                                                    @_last.Title
+                                                </div>
+                                            }
+                                        }
+
+                                        <div class="inner-list">
+                                            @{
+                                                var W2G_FOOTER_SOCIAL = bannerAdsRepository.GetBannerAds_By_Code(culture_code, "W2G_FOOTER_SOCIAL");
+                                                if (W2G_FOOTER_SOCIAL != null)
+                                                {
+                                                    var bannersIcon = WebHelper.ConvertSlide(W2G_FOOTER_SOCIAL);
+                                                    if (bannersIcon != null)
+                                                    {
+                                                        foreach (var item in bannersIcon)
+                                                        {
+                                                            <a href="@item.Url" target="_blank">
+                                                                <i class="@item.Title"></i>
+                                                            </a>
+                                                        }
+                                                    }
+                                                }
+                                            }
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                }
+            }
+        }
+
+        <div class="inner-bottom">
+            <div class="container">
+                <div class="inner-images">
+                    <img src="assets/images/icons/icon-visa.svg" alt="Visa">
+                    <img src="assets/images/icons/icon-mastercard.svg" alt="MasterCard">
+                    <img src="assets/images/icons/icon-amex.svg" alt="AMEX">
+                    <img src="assets/images/icons/icon-union-pay.svg" alt="Union Pay">
+                    <img src="assets/images/icons/icon-paypal.svg" alt="PayPal">
+                    <img src="assets/images/icons/icon-alipay.svg" alt="AliPay">
+                    <img src="assets/images/icons/icon-jcb.svg" alt="JCB">
+                </div>
+            </div>
+        </div>
+    </footer>
+    <!-- End Footer -->
+    <!-- mobile-bottom-menu -->
+    <div class="mobile-bottom-menu-margin"></div>
+    <div class="mobile-bottom-menu">
+        <a href="/" class="inner-item active">
+            <i class="fa-solid fa-home"></i>
+            <span>@Html.Raw(WebHelper.GetCultureText(cultures, "CUA_HANG"))</span>
+        </a>
+        <a href="/pickup-points" class="inner-item">
+            <i class="fa-solid fa-location-crosshairs"></i>
+            <span>@Html.Raw(WebHelper.GetCultureText(cultures, "PICKUP_POINT"))</span>
+        </a>
+        <a href="javascript:void(0)" class="inner-item mobile-menu-account">
+            <i class="fa-regular fa-circle-user"></i>
+            <span>@Html.Raw(WebHelper.GetCultureText(cultures, "HO_SO"))</span>
+        </a>
+        <div class="inner-sub-menu menu-mobile non-login">
+            <ul>
+                <li>
+                    <a href="/my-cart">@Html.Raw(WebHelper.GetCultureText(cultures, "GIO_HANG"))</a>
+                </li>
+                <li>
+                    <a href="javascript:void(0)" class="link-sign-up">@Html.Raw(WebHelper.GetCultureText(cultures, "DANG_KY"))</a>
+                </li>
+                <li>
+                    <a href="javascript:void(0)" class="link-login">@Html.Raw(WebHelper.GetCultureText(cultures, "DANG_NHAP"))</a>
+                </li>
+            </ul>
+        </div>
+        <div class="inner-sub-menu menu-mobile logged-in" style="display:none">
+            <ul>
+                <li>
+                    <a href="/my-sim">@Html.Raw(WebHelper.GetCultureText(cultures, "SIM_CUA_TOI"))</a>
+                </li>
+                <li>
+                    <a href="/my-cart">@Html.Raw(WebHelper.GetCultureText(cultures, "GIO_HANG"))</a>
+                </li>
+                <li>
+                    <a href="javascript:void(0)" class="change-password">@Html.Raw(WebHelper.GetCultureText(cultures, "DOI_MAT_KHAU"))</a>
+                </li>
+                <li>
+                    <a href="javascript:void(0)" class="link-logout">@Html.Raw(WebHelper.GetCultureText(cultures, "LOG_OUT"))</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- Back to top-->
+    <a href="#" class="btn  back-to-top" role="button" aria-label="Quay lại đầu trang" style="position: fixed; bottom: 100px; right: 20px; display: none; z-index: 1000; background: linear-gradient(270deg, #aa5481, #e2444f); opacity: 1; color: white">↑</a>
+
+    <!-- End mobile-bottom-menu -->
+    <!-- Modal Buy Sim -->
+    <div class="modal fade modal-buy-sim" id="modalBuySim" tabindex="-1" aria-hidden="true">
+
+    </div>
+    <!-- End Modal Buy Sim -->
+    <!-- Modal Search Language -->
+    <div class="modal fade modal-language" id="modal-coverage" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-body">
+                    <button type="button" class="inner-close" data-dismiss="modal" aria-label="Close">
+                        <i class="fa-solid fa-circle-xmark"></i>
+                    </button>
+                    <div class="inner-main box-language">
+                        <div class="inner-title">
+                            @Html.Raw(WebHelper.GetCultureText(cultures, "CAC_QUOC_GIA_DUOC_HO_TRO_LABEL"))
+                        </div>
+                        <div class="box-search">
+                            <form action="">
+                                <input type="text" placeholder="@Html.Raw(WebHelper.GetCultureText(cultures, "CAC_QUOC_GIA_DUOC_HO_TRO_DESC"))">
+                                <button type="submit">
+                                    <i class="fa-solid fa-magnifying-glass"></i>
+                                </button>
+                            </form>
+                        </div>
+                        <div class="inner-list">
+                            <ul>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- End Modal Search Language -->
+    <!-- Modal Search Network -->
+    <div class="modal fade modal-language modal-search-network" id="modalSearchNetwork" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-body">
+                    <button type="button" class="inner-close" data-dismiss="modal" aria-label="Close">
+                        <i class="fa-solid fa-circle-xmark"></i>
+                    </button>
+                    <div class="inner-main box-language">
+                        <div class="inner-title">
+                            Mạng
+                        </div>
+                        <div class="inner-desc">
+                            Tốc độ có thể thay đổi tùy thuộc vào vị trí.
+                        </div>
+                        <div class="box-search">
+                            <form action="">
+                                <input type="text" placeholder="Tên quốc gia">
+                                <button type="submit">
+                                    <i class="fa-solid fa-magnifying-glass"></i>
+                                </button>
+                            </form>
+                        </div>
+                        <div class="inner-list">
+                            <ul>
+                                <li>
+                                    <a href="javascript:;">
+                                        <img class="inner-flag" src="assets/images/icons/flag-viet-nam.png" alt="">
+                                        <span class="inner-label">Việt Nam</span>
+                                        <div class="inner-list-network">
+                                            <span class="inner-item-network">
+                                                Zain KSA
+                                                <img src="assets/images/icons/icon-5g.svg" alt="">
+                                            </span>
+                                            <span class="inner-item-network">
+                                                Mobily
+                                                <img src="assets/images/icons/icon-4g.svg" alt="">
+                                            </span>
+                                        </div>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="javascript:;">
+                                        <img class="inner-flag" src="assets/images/icons/flag-campuchia.png" alt="">
+                                        <span class="inner-label">Campuchia</span>
+                                        <div class="inner-list-network">
+                                            <span class="inner-item-network">
+                                                Zain KSA
+                                                <img src="assets/images/icons/icon-5g.svg" alt="">
+                                            </span>
+                                            <span class="inner-item-network">
+                                                Mobily
+                                                <img src="assets/images/icons/icon-4g.svg" alt="">
+                                            </span>
+                                            <span class="inner-item-network">
+                                                Orange
+                                                <img src="assets/images/icons/icon-3g.svg" alt="">
+                                            </span>
+                                        </div>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="javascript:;">
+                                        <img class="inner-flag" src="assets/images/icons/flag-hoa-ky.png" alt="">
+                                        <span class="inner-label">Hoa Kỳ</span>
+                                        <div class="inner-list-network">
+                                            <span class="inner-item-network">
+                                                Zain KSA
+                                                <img src="assets/images/icons/icon-5g.svg" alt="">
+                                            </span>
+                                        </div>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="javascript:;">
+                                        <img class="inner-flag" src="assets/images/icons/flag-indonesia.png" alt="">
+                                        <span class="inner-label">Indonesia</span>
+                                        <div class="inner-list-network">
+                                            <span class="inner-item-network">
+                                                Zain KSA
+                                                <img src="assets/images/icons/icon-5g.svg" alt="">
+                                            </span>
+                                        </div>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="javascript:;">
+                                        <img class="inner-flag" src="assets/images/icons/flag-malaysia.png" alt="">
+                                        <span class="inner-label">Malaysia</span>
+                                        <div class="inner-list-network">
+                                            <span class="inner-item-network">
+                                                Zain KSA
+                                                <img src="assets/images/icons/icon-5g.svg" alt="">
+                                            </span>
+                                        </div>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="javascript:;">
+                                        <img class="inner-flag" src="assets/images/icons/flag-new-zealand.png" alt="">
+                                        <span class="inner-label">New Zealand</span>
+                                        <div class="inner-list-network">
+                                            <span class="inner-item-network">
+                                                Zain KSA
+                                                <img src="assets/images/icons/icon-5g.svg" alt="">
+                                            </span>
+                                        </div>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="javascript:;">
+                                        <img class="inner-flag" src="assets/images/icons/flag-nhat-ban.png" alt="">
+                                        <span class="inner-label">Nhật Bản</span>
+                                        <div class="inner-list-network">
+                                            <span class="inner-item-network">
+                                                Zain KSA
+                                                <img src="assets/images/icons/icon-5g.svg" alt="">
+                                            </span>
+                                        </div>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="javascript:;">
+                                        <img class="inner-flag" src="assets/images/icons/flag-philippines.png" alt="">
+                                        <span class="inner-label">Philippines</span>
+                                        <div class="inner-list-network">
+                                            <span class="inner-item-network">
+                                                Zain KSA
+                                                <img src="assets/images/icons/icon-5g.svg" alt="">
+                                            </span>
+                                        </div>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="javascript:;">
+                                        <img class="inner-flag" src="assets/images/icons/flag-singapore.png" alt="">
+                                        <span class="inner-label">Singapore</span>
+                                        <div class="inner-list-network">
+                                            <span class="inner-item-network">
+                                                Zain KSA
+                                                <img src="assets/images/icons/icon-5g.svg" alt="">
+                                            </span>
+                                        </div>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="javascript:;">
+                                        <img class="inner-flag" src="assets/images/icons/flag-thai-lan.png" alt="">
+                                        <span class="inner-label">Thái Lan</span>
+                                        <div class="inner-list-network">
+                                            <span class="inner-item-network">
+                                                Zain KSA
+                                                <img src="assets/images/icons/icon-5g.svg" alt="">
+                                            </span>
+                                        </div>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="javascript:;">
+                                        <img class="inner-flag" src="assets/images/icons/flag-trung-quoc.png" alt="">
+                                        <span class="inner-label">Trung Quốc</span>
+                                        <div class="inner-list-network">
+                                            <span class="inner-item-network">
+                                                Zain KSA
+                                                <img src="assets/images/icons/icon-5g.svg" alt="">
+                                            </span>
+                                        </div>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="javascript:;">
+                                        <img class="inner-flag" src="assets/images/icons/flag-uc.png" alt="">
+                                        <span class="inner-label">Úc</span>
+                                        <div class="inner-list-network">
+                                            <span class="inner-item-network">
+                                                Zain KSA
+                                                <img src="assets/images/icons/icon-5g.svg" alt="">
+                                            </span>
+                                        </div>
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- End Modal Search Network -->
+    <!-- Modal Change Language -->
+    <div class="modal fade modal-language" id="modalChangeLanguage" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-body">
+                    <button type="button" class="inner-close" data-dismiss="modal" aria-label="Close">
+                        <i class="fa-solid fa-circle-xmark"></i>
+                    </button>
+                    <div class="inner-main box-language">
+                        <div class="inner-title">
+                            @Html.Raw(WebHelper.GetCultureText(cultures, "NGON_NGU"))
+                        </div>
+                        <div class="box-search">
+                            <form action="">
+                                <input type="text" placeholder="@Html.Raw(WebHelper.GetCultureText(cultures, "NGON_NGU"))">
+                                <button type="button">
+                                    <i class="fa-solid fa-magnifying-glass"></i>
+                                </button>
+                            </form>
+                        </div>
+                        <div class="inner-list">
+                            <ul>
+                                <li>
+                                    <a href="#">
+                                        <span>Tiếng Việt</span>
+                                        <i class="fa-solid fa-circle-check"></i>
+                                    </a>
+                                </li>
+
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--Modal Login-->
+    <div class="modal fade modal-language" id="modalLogin" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-body">
+                    <button type="button" class="inner-close" data-dismiss="modal" aria-label="Close">
+                        <i class="fa-solid fa-circle-xmark"></i>
+                    </button>
+                    <div class="inner-main box-language">
+                        <div class="inner-title">
+                            @Html.Raw(WebHelper.GetCultureText(cultures, "MD_DANG_NHAP_LABEL"))
+                        </div>
+                        <div class="box-search">
+                            <form action="">
+                                <input type="text" class="input-login-email" placeholder="@Html.Raw(WebHelper.GetCultureText(cultures, "MD_DANG_NHAP_EMAIL"))">
+                                @*<button type="submit">
+                                        <i class="fa-solid fa-envelope"></i>
+                                    </button>*@
+                            </form>
+                        </div>
+                        <div class="box-search">
+                            <form action="">
+                                <input type="password" class="input-login-password" placeholder="@Html.Raw(WebHelper.GetCultureText(cultures, "MD_DANG_NHAP_PASSWORD"))">
+                                @*<button type="submit">
+                                        <i class="fa-solid fa-envelope"></i>
+                                    </button>*@
+                            </form>
+                        </div>
+
+                        <div class="inner-button" style="text-align:center; margin-bottom:30px">
+                            <button type="button" class="btn-login">
+                                @Html.Raw(WebHelper.GetCultureText(cultures, "MD_DANG_NHAP_LABEL"))
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!--Modal Signup-->
+    <div class="modal fade modal-language" id="modalSignup" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-body">
+                    <button type="button" class="inner-close" data-dismiss="modal" aria-label="Close">
+                        <i class="fa-solid fa-circle-xmark"></i>
+                    </button>
+                    <div class="inner-main box-language">
+                        <div class="inner-title">
+                            @Html.Raw(WebHelper.GetCultureText(cultures, "MD_DANG_KY_LABEL"))
+                        </div>
+                        <div class="box-search">
+                            <form action="">
+                                <input type="text" class="input-signup-email" placeholder="@Html.Raw(WebHelper.GetCultureText(cultures, "MD_DANG_NHAP_EMAIL"))">
+                                @*<button type="submit">
+                                        <i class="fa-solid fa-envelope"></i>
+                                    </button>*@
+                            </form>
+                        </div>
+                        <div class="box-search">
+                            <form action="">
+                                <input type="password" class="input-signup-password" placeholder="@Html.Raw(WebHelper.GetCultureText(cultures, "MD_DANG_NHAP_PASSWORD"))">
+                                @*<button type="submit">
+                                        <i class="fa-solid fa-envelope"></i>
+                                    </button>*@
+                            </form>
+                        </div>
+                        <div class="box-search">
+                            <form action="">
+                                <input type="password" class="input-signup-confirm-password" placeholder="@Html.Raw(WebHelper.GetCultureText(cultures, "MD_DANG_KY_CONFIRM_PASSWORD"))">
+                                @*<button type="submit">
+                                        <i class="fa-solid fa-envelope"></i>
+                                    </button>*@
+                            </form>
+                        </div>
+
+                        <div class="inner-button" style="text-align:center; margin-bottom:30px">
+                            <button type="button" class="btn-sign-up">
+                                @Html.Raw(WebHelper.GetCultureText(cultures, "MD_DANG_KY_LABEL"))
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Change Password-->
+    <div class="modal fade modal-language" id="modalChangePassword" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-body">
+                    <button type="button" class="inner-close" data-dismiss="modal" aria-label="Close">
+                        <i class="fa-solid fa-circle-xmark"></i>
+                    </button>
+                    <div class="inner-main box-language">
+                        <div class="inner-title">
+                            @Html.Raw(WebHelper.GetCultureText(cultures, "MD_DOI_MAT_KHAU_LABEL"))
+                        </div>
+                        <div class="box-search">
+                            <form action="">
+                                <input type="password" class="input-change-old-pass" placeholder="@Html.Raw(WebHelper.GetCultureText(cultures, "MD_DOI_MAT_KHAU_MAT_KHAU_CU"))">
+                                @*<button type="submit">
+                                        <i class="fa-solid fa-envelope"></i>
+                                    </button>*@
+                            </form>
+                        </div>
+                        <div class="box-search">
+                            <form action="">
+                                <input type="password" class="input-change-new-pass" placeholder="@Html.Raw(WebHelper.GetCultureText(cultures, "MD_DOI_MAT_KHAU_MAT_KHAU_MOI"))">
+                                @*<button type="submit">
+                                        <i class="fa-solid fa-envelope"></i>
+                                    </button>*@
+                            </form>
+                        </div>
+                        <div class="box-search">
+                            <form action="">
+                                <input type="password" class="input-change-new-confirm-pass" placeholder="@Html.Raw(WebHelper.GetCultureText(cultures, "MD_DOI_MAT_KHAU_MAT_KHAU_XAC_NHAN"))">
+                                @*<button type="submit">
+                                        <i class="fa-solid fa-envelope"></i>
+                                    </button>*@
+                            </form>
+                        </div>
+
+                        <div class="inner-button" style="text-align:center; margin-bottom:30px">
+                            <button type="button" class="btn-change-password">
+                                @Html.Raw(WebHelper.GetCultureText(cultures, "MD_DOI_MAT_KHAU_MAT_KHAU_BUTTON"))
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="loading-screen">
+        <div class="loading-icon"></div>
+        <div class="loading-text">@Html.Raw(WebHelper.GetCultureText(cultures, "LOADING"))</div>
+    </div>
+
+
+    <script type="text/javascript" src="~/vendor/jquery-3.3.1.min.js?v=@_ver"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.13.2/jquery-ui.min.js" integrity="sha512-57oZ/vW8ANMjR/KQ6Be9v/+/h6bq9/l3f0Oc7vn6qMqyhvPd1cvKBRWWpzu0QoneImqr2SkmO4MSqU+RpHom3Q==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    @*<script src="~/design/js/jquery-3.5.1.slim.min.js"></script>*@
+    @*<script type="text/javascript" src="~/js/jquery-ui.min.js?v=@_ver"></script>*@
+    <script type="text/javascript" src="~/vendor/popper.min.js?v=@_ver"></script>
+    <script type="text/javascript" src="~/vendor/bootstrap.min.js?v=@_ver"></script>
+    @*<script type="text/javascript" src="~/js/libs/jquery-autocompleter/dist/jquery.autocompleter.min.js?v=@_ver"></script>*@
+
+
+
+    @*<script src="~/design/js/swiper-bundle.min.js"></script>*@
+    <script type="text/javascript" src="~/vendor/wow.min.js?v=@_ver"></script>
+    <script type="text/javascript" src="~/js/libs/momentjs/momentJS.js?v=@_ver"></script>
+    <script type="text/javascript" src="~/js/libs/daterangepicker-master/daterangepicker.js?v=@_ver"></script>
+    <script type="text/javascript" src="~/js/libs/paginationjs/paginationJS.js?v=@_ver"></script>
+    <script type="text/javascript" src="~/js/libs/vakata-jstree-6dce227/jstree.min.js?v=@_ver"></script>
+
+
+    <!-- Javascript -->
+    <script src="~/assets/js/swiper-bundle.min.js"></script>
+    <script src="~/assets/js/viewer.js"></script>
+    <script src="~/assets/js/main.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert2/11.10.8/sweetalert2.min.js" integrity="sha512-FbWDiO6LEOsPMMxeEvwrJPNzc0cinzzC0cB/+I2NFlfBPFlZJ3JHSYJBtdK7PhMn0VQlCY1qxflEG+rplMwGUg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.9.0/slick.min.js" integrity="sha512-HGOnQO9+SP1V92SrtZfjqxxtLmVzqZpjFFekvzZVWoiASSQgSr4cw9Kqd2+l8Llp4Gm0G8GIFJ4ddwZilcdb8A==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+    <script type="text/javascript" src="~/js/core/core.js?v=@_ver"></script>
+
+
+    @*<script src="~/design/js/swiper-bundle.min.js"></script>*@
+
+    @*<script type="text/javascript" src="~/js/controller/menuController.js"></script>
+        <script type="text/javascript" src="~/js/controller/orderController.js"></script>
+        <script type="text/javascript" src="~/js/controller/extraController.js"></script>*@
+
+    <script>
+        $(document).ready(function () {
+            $(window).scroll(function () {
+                if ($(this).scrollTop() > 100) {
+                    $('.back-to-top').fadeIn();
+                } else {
+                    $('.back-to-top').fadeOut();
+                }
+            });
+            $('.back-to-top').click(function () {
+                $('body,html').animate({
+                    scrollTop: 0
+                }, 800);
+                return false;
+            });
+        });
+    </script>
+
+    <script>
+        $('.footer-black .inner-top p').each((index, value) => {
+            var _html = $(value).text();
+            var _splitted = _html.split(":");
+            if (_splitted.length == 2) {
+                var i_tag = `<i class="${_splitted[0]}"></i>`
+                var span_tag = `<span>${_splitted[1]}</span>`;
+                var replaceHtml = i_tag + span_tag;
+                $(value).html('').html(replaceHtml);
+            }
+        })
+    </script>
+    <script type="text/javascript" src="~/js/libs/yall-js/dist/yall.min.js"></script>
+    <script src="~/js/slick.min.js" asp-append-version="true" type="text/javascript"></script>
+    <script type="text/javascript">
+        document.addEventListener("DOMContentLoaded", yall);
+    </script>
+    <script src="https://accounts.google.com/gsi/client" async></script>
+
+    <div id="g_id_onload"
+         data-client_id="631353789436-9gls3n8msbv4dj320sko05nkqc6ojr0i.apps.googleusercontent.com"
+         data-context="signin"
+         data-callback="onLoginGoogleSuccess"
+         data-nonce=""
+         data-itp_support="true">
+    </div>
+    <script>
+        function decodeJwtResponse(token) {
+            var base64Url = token.split('.')[1];
+            var base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
+            var jsonPayload = decodeURIComponent(window.atob(base64).split('').map(function (c) {
+                return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
+            }).join(''));
+
+            return JSON.parse(jsonPayload);
+        }
+        function onLoginGoogleSuccess(response) {
+            // decodeJwtResponse() is a custom function defined by you
+            // to decode the credential response.
+            const responsePayload = decodeJwtResponse(response.credential);
+
+            console.log("ID: " + responsePayload.sub);
+            console.log('Full Name: ' + responsePayload.name);
+            console.log('Given Name: ' + responsePayload.given_name);
+            console.log('Family Name: ' + responsePayload.family_name);
+            console.log("Image URL: " + responsePayload.picture);
+            console.log("Email: " + responsePayload.email);
+
+            var url = "/Customer/DoSignUp";
+            $.post(url, { email: responsePayload.email, password: responsePayload.sub }).then(function (response) {
+                var customerInfo = {
+                    randomId: responsePayload.sub,
+                    id: response,
+                    email: responsePayload.email,
+                    pickupPoint: ""
+                }
+                //Save Local Storage
+                localStorage.setItem('customerInfo', JSON.stringify(customerInfo));
+                Swal.fire({
+                    title: "Success!",
+                    text: `Đăng ký tài khoản thành công!`,
+                    icon: "success"
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        R.CheckingCustomerInfo();
+                        $('#modalSignup').modal('hide');
+                    }
+                });
+            }).fail(function (error) {
+                Swal.fire({
+                    title: "LỖI!",
+                    text: `Tài khoản đã tồn tại!`,
+                    icon: "error"
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        $("#modalSignup").modal('hide');
+                    }
+                });
+            })
+        }
+    </script>
+    @*<script async defer crossorigin="anonymous" src="https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v7.0&appId=2323475157962564&autoLogAppEvents=1" nonce="Z6tf66vh"></script>*@
+    @*@Html.Raw(bannerAdsRepository.GetConfigByName(culture_code, "ScriptFooter"))*@
+    @RenderSection("Scripts", required: false)
+
+
+
+</body>
+
+</html>

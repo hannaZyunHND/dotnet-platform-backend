@@ -1,0 +1,115 @@
+﻿@using PlatformWEBAPI.Services.Zone.ViewModal
+@using PlatformWEBAPI.Services.Zone.Repository
+@using PlatformWEBAPI.Services.BannerAds.ViewModel
+@using PlatformWEBAPI.Services.Extra.ViewModel
+@using PlatformWEBAPI.Services.BannerAds.Repository
+@using MI.Entity.Models
+@using PlatformWEBAPI.Services.Product.Repository
+@using PlatformWEBAPI.Services.Extra.Repository
+@using Microsoft.AspNetCore.Http
+@using Microsoft.AspNetCore.Localization
+@using Microsoft.AspNetCore.Mvc.Localization
+@using Utils
+@inject IHttpContextAccessor HttpContextAccessor
+@using PlatformWEBAPI.Utility
+@inject ICookieUtility cookieUtility
+@inject IConfigSEOUtility configSEOUtility
+@inject IProductRepository productRepository
+@inject IBannerAdsRepository bannerAdsRepository
+@inject IExtraRepository extraRepository
+@inject IZoneRepository zoneRepository
+@{
+    ViewData["Title"] = "ESSearchResult";
+    Layout = "~/Views/Shared/_LayoutPublicHome.cshtml";
+
+}
+@{
+
+    //Layout = "~/Views/Shared/_LayoutPublicHome.cshtml";
+
+
+
+    //var zone_detail = ViewBag.ZoneDetail as ZoneDetail;
+
+    var cookie_location = cookieUtility.SetCookieDefault();
+    var location_id = cookie_location.LocationId;
+    var location_name = cookie_location.LocationName;
+    var culture = Context.Features.Get<IRequestCultureFeature>().RequestCulture.Culture.TwoLetterISOLanguageName.ToLower();
+    var culture_code = Context.Features.Get<IRequestCultureFeature>().RequestCulture.Culture.ToString();
+    var base_uri_culture = "/" + culture;
+    var domain = Context.Request.Host.ToString();
+    var z = zoneRepository.GetZoneByTreeViewMinifies((int)MI.Entity.Enums.TypeZone.Product, culture_code, 0);
+    var zone_detail = z.Where(r => r.ParentId == 0).FirstOrDefault();
+}
+@section styles{
+    <style>
+        .color-circle {
+            height: 20px;
+            width: 20px;
+            border-radius: 50%;
+            display: inline-block; /*border: 1px solid #ffffff;*/
+        }
+
+        .picking-active {
+            border: 1px solid red !important;
+        }
+    </style>
+}
+
+
+<section class="loc-kq">
+    <div class="container">
+        <div class="d-flex align-items-center">
+            <div>
+                Tìm thấy <span class="nuber-kq"></span> kết quả :
+            </div>
+            <div>
+                <ul class="nav cust-navtab1" id="myTab" role="tablist">
+                    <li class="nav-item">
+                        <a class="nav-link active" id="home-tab" data-toggle="tab" href="#news" role="tab" aria-controls="home" aria-selected="true">
+                            <label class="label-checkbox mb-0">
+                                Sản phẩm
+                                <input type="checkbox" checked="" data-name="Sản phẩm">
+                                <span class="checkmark"></span>
+                            </label>
+                        </a>
+                    </li>
+                    @*<li class="nav-item">
+                            <a class="nav-link" id="profile-tab" data-toggle="tab" href="#spmoi" role="tab" aria-controls="profile" aria-selected="false">
+                                <label class="label-checkbox  mb-0">
+                                    Bài viết
+                                    <input type="checkbox" checked="" class="choose-promotion" data-is-discount-price="0" data-value="0" data-type="free-setup" data-id="" data-name="Sản phẩm">
+                                    <span class="checkmark"></span>
+                                </label>
+                            </a>
+                        </li>*@
+                </ul>
+            </div>
+        </div>
+        <div class="form-book">
+            <div class="tab-content" id="myTabContent">
+                <div class="tab-pane fade show active" style="font-size: 15px;" id="news" role="tabpanel" aria-labelledby="home-tab">
+                    
+                    <div class="list-prod-search bg-fff">
+                        <div class="container">
+                            <p class="txt-all-sp">Tất cả sản phẩm : <strong class="tk-keyword"></strong></p>
+                            <div class="row no-gutters _binding_product_query_db">
+                                @*@await Component.InvokeAsync("GetElasticAll", new { keyword = keyword, index = index, size = size });*@
+                            </div>
+                            <div class="text-center my-5 pb-4">
+                                <a href="javascript:void(0)" class="btn btn-outline-view-more _view-more-product">Xem thêm<i class="fas fa-chevron-down ml-2 " aria-hidden="true"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                
+            </div>
+        </div>
+
+    </div>
+</section>
+@section scripts{
+
+    <script src="~/js/controller/esSearchController.js"></script>
+}

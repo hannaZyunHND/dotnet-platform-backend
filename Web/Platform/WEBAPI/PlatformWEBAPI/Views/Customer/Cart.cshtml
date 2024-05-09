@@ -1,0 +1,206 @@
+﻿@using PlatformWEBAPI.Services.Product.ViewModel
+@using PlatformWEBAPI.Services.Product.Repository
+@using PlatformWEBAPI.Services.Article.ViewModel
+@using PlatformWEBAPI.Services.Article.Repository
+@using PlatformWEBAPI.Services.Zone.Repository
+@using PlatformWEBAPI.Services.BannerAds.Repository
+@using PlatformWEBAPI.Services.Extra.ViewModel
+@using PlatformWEBAPI.Services.BannerAds.ViewModel
+@using Microsoft.AspNetCore.Localization
+@using Microsoft.AspNetCore.Mvc.Localization
+@using Microsoft.AspNetCore.Http
+@using MI.Entity.Enums
+@using Newtonsoft.Json
+@using MI.Entity.CustomClass
+@using Microsoft.AspNetCore.Http.Extensions
+@using MI.Entity.Models
+@using PlatformWEBAPI.Services.Locations.Repository
+@using PlatformWEBAPI.Services.Locations.ViewModal
+@inject IHttpContextAccessor HttpContextAccessor
+@using PlatformWEBAPI.Utility
+@inject ICookieUtility cookieUtility
+@inject IArticleRepository articleRepository
+@inject IZoneRepository zoneRepository
+@inject IBannerAdsRepository bannerAdsRepository
+@inject IProductRepository productRepository
+@inject ILocationsRepository localtionRepository
+@inject IConfigSEOUtility configSEOUtility
+@inject IViewLocalizer Localizer
+@inject IConfigSEOUtility configSEO
+@inject IBannerAdsRepository _bannerAdsRepository
+
+@using Utils
+@{
+    var culture = Context.Features.Get<IRequestCultureFeature>().RequestCulture.Culture.TwoLetterISOLanguageName.ToLower();
+    var culture_code = Context.Features.Get<IRequestCultureFeature>().RequestCulture.Culture.ToString();
+    var base_uri_culture = "/" + culture;
+    var domain = Context.Request.Host.ToString();
+    //HttpContext.Current.Request.Url.AbsoluteUri;
+    var domain_full = Context.Request.GetDisplayUrl();
+
+}
+@{
+    ViewData["Title"] = "ProductDetail";
+    //Layout = "~/Views/Shared/_LayoutPublicHome.cshtml";
+    var detail = ViewBag.Infomation as ProductDetail;
+
+    var specification_detail = ViewBag.Spectification as List<ProductSpectificationDetail>;
+    var product_same_zone = ViewBag.SameZone as List<ProductMinify>;
+    var same_total = ViewBag.SameTotal;
+    var zone_id = ViewBag.Zone;
+    var zone_url = ViewBag.ZoneUrl;
+    var cookie_location = cookieUtility.SetCookieDefault();
+    var location_id = cookie_location.LocationId;
+    var location_name = cookie_location.LocationName;
+    var cultureSanPham = _bannerAdsRepository.GetBannerAds_By_Code(culture_code, "W2G_Culture_SanPham");
+    var cultureDetail = _bannerAdsRepository.GetBannerAds_By_Code(culture_code, "W2G_Culture_MySim");
+    var _add = WebHelper.ConvertSlideCulture(cultureDetail);
+    var cultures = WebHelper.ConvertSlideCulture(cultureSanPham);
+    cultures.AddRange(_add);
+
+
+}
+@{
+    ViewData["Title"] = "Cart";
+    Layout = "~/Views/Shared/_LayoutPublicHome.cshtml";
+}
+
+<!-- eSIM của tôi -->
+<div class="section-1">
+    <div class="container">
+        <div class="inner-main">
+            <h1 class="inner-title">@Html.Raw(WebHelper.GetCultureText(cultures, "SIM_CUA_TOI"))</h1>
+        </div>
+    </div>
+</div>
+<!-- End eSIM của tôi -->
+<!-- Tabs Các loại sim -->
+<div class="section-2">
+    <div class="inner-tabs">
+        <div class="container">
+            <ul class="nav nav-tabs">
+                <li class="nav-item">
+                    <button class="nav-link " data-toggle="tab" data-target="#tab-esim-1">
+                        @Html.Raw(WebHelper.GetCultureText(cultures, "SIM_DA_MUA"))
+                    </button>
+                </li>
+                <li class="nav-item">
+                    <button class="nav-link active" data-toggle="tab" data-target="#tab-esim-2">
+                        @Html.Raw(WebHelper.GetCultureText(cultures, "SIM_TRONG_GIO_HANG"))
+                    </button>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <div class="inner-panels">
+        <div class="container">
+            <div class="tab-content my-sim-container">
+                <div class="tab-pane fade " id="tab-esim-1"></div>
+                <!-- Các eSIM đã lưu kho -->
+                <div class="tab-pane fade show active" id="tab-esim-2">
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- End Tabs Các loại sim -->
+<!-- Bạn đã sẵn sàng dùng thử eSIM -->
+@{
+    var W2G_MySIM_Khoi_1 = _bannerAdsRepository.GetBannerAds_By_Code(culture_code, "W2G_MySIM_Khoi_1");
+    if (W2G_MySIM_Khoi_1 != null)
+    {
+        var banners = WebHelper.ConvertSlide(W2G_MySIM_Khoi_1);
+        if (banners != null)
+        {
+            var _first = banners.FirstOrDefault();
+            if (_first != null)
+            {
+                <div class="section-6">
+                    <div class="container">
+                        <div class="inner-wrap">
+                            <div class="inner-content">
+                                <h2 class="inner-title">
+                                    @_first.Title
+                                </h2>
+                                <div class="inner-desc">
+                                    @Html.Raw(_first.Description)
+                                </div>
+                                <div class="inner-list">
+                                    <a href="#" target="_blank">
+                                        <img src="assets/images/icons/Apple-AppStore.svg" alt="">
+                                    </a>
+                                    <a href="#" target="_blank">
+                                        <img src="assets/images/icons/GooglePlayStore.svg" alt="">
+                                    </a>
+                                </div>
+                            </div>
+                            <div class="inner-image">
+                                <img src="@UIHelper.StoreFilePath(_first.Image, false)" alt="@_first.Title">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+        }
+    }
+}
+
+<!-- End Bạn đã sẵn sàng dùng thử eSIM -->
+<!-- Bạn có cần trợ giúp không? -->
+<div class="section-7">
+    <div class="container">
+        <div class="row">
+            @{
+                var W2G_MySIM_Khoi_2 = _bannerAdsRepository.GetBannerAds_By_Code(culture_code, "W2G_MySIM_Khoi_2");
+                if (W2G_MySIM_Khoi_2 != null)
+                {
+                    var banners = WebHelper.ConvertSlide(W2G_MySIM_Khoi_2);
+                    if (banners != null)
+                    {
+                        foreach (var item in banners)
+                        {
+                            var splited = item.Title.Split("|");
+                            var title = "";
+                            var button = "";
+                            if (splited.Length > 0)
+                            {
+                                title = splited[0];
+                            }
+                            if (splited.Length > 1)
+                            {
+                                button = splited[1];
+                            }
+                            <div class="col-xl-6 col-lg-6 mb-40">
+                                <div class="inner-wrap inner-bg-white">
+                                    <div class="inner-main">
+                                        <div class="inner-image">
+                                            <img src="@UIHelper.StoreFilePath(item.Image, false)" alt="@item.Title">
+                                        </div>
+                                        <h2 class="inner-title">
+                                            @title
+                                        </h2>
+                                        <div class="inner-desc">
+                                            @Html.Raw(item.Description)
+                                        </div>
+                                        <a href="@item.Url" class="inner-button">
+                                            @button
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        }
+                    }
+                }
+            }
+        </div>
+    </div>
+</div>
+<!-- End Bạn có cần trợ giúp không? -->
+
+@section Scripts{
+    <script src="~/js/controller/customerController.js"></script>
+}
+
+

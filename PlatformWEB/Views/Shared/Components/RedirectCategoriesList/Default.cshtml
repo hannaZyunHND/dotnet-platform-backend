@@ -1,0 +1,299 @@
+﻿@using MI.Entity.Enums;
+@using System.Linq;
+@using PlatformWEB.Services.Zone.ViewModal
+@using PlatformWEB.Services.Zone.Repository
+@using Microsoft.AspNetCore.Localization
+@using Microsoft.AspNetCore.Mvc.Localization
+@using Microsoft.AspNetCore.Http
+@using PlatformWEB.Services.Article.Repository
+@using PlatformWEB.Services.BannerAds.Repository
+@using PlatformWEB.Services.Product.ViewModel;
+@using PlatformWEB.Utility
+@using PlatformWEB.Services.Locations.ViewModal
+@inject IHttpContextAccessor HttpContextAccessor
+@inject IArticleRepository articleRepository;
+@inject IZoneRepository zoneRepository
+@inject IBannerAdsRepository bannerAdsRepository
+@using MI.Entity.Models
+@using Utils
+@{
+    var culture = Context.Features.Get<IRequestCultureFeature>().RequestCulture.Culture.TwoLetterISOLanguageName.ToLower();
+    var culture_code = Context.Features.Get<IRequestCultureFeature>().RequestCulture.Culture.ToString();
+    var base_uri_culture = "/" + culture;
+    var domain = Context.Request.Host.ToString();
+}
+@{
+    ViewData["Title"] = "CategoriesList";
+    //Layout = "~/Views/Shared/_LayoutPublicHome.cshtml";
+    var zoneId = ViewBag.CateId;
+    var total = ViewBag.total_row ?? 0;
+    var category_zone_list = zoneRepository.GetZoneByTreeViewMinifies((int)TypeZone.Visa, culture_code, 0);
+    var list_resutl = category_zone_list.Where(r => r.ParentId == zoneId).OrderBy(r => r.SortOrder).ToList();
+
+    var blog_zone_parent = category_zone_list.Where(r => r.Id == zoneId).FirstOrDefault();
+    var Banner_Blog = new DetailBanerAds();
+    var Banner_Blog_Cache = bannerAdsRepository.GetBannerAds_By_Code(culture_code, "Banner_Blog");
+    if (Banner_Blog_Cache != null)
+    {
+        Banner_Blog = Newtonsoft.Json.JsonConvert.DeserializeObject<DetailBanerAds>(Banner_Blog_Cache.MetaData);
+    }
+    var total_list = list_resutl.Count();
+    var listLocations = ViewBag.Locations as List<LocationViewModel>;
+
+    var list_zone = zoneRepository.GetZoneByTreeViewShowMenuMinifies(1, culture_code, 0, 1);
+    var list_zone_first = list_zone.Where(r => r.ParentId == 0 && r.IsShowMenu == 1).OrderBy(r => r.SortOrder).Take(5).ToList();
+}
+
+@section styles {
+    @if (blog_zone_parent != null)
+    {
+        <style type="text/css">
+        .banner-page {
+            background: url(@UIHelper.StoreFilePath(@Banner_Blog.Image)) no-repeat center;
+            min-height: 200px;
+            background-size: cover;
+            display: flex;
+        }
+        </style>
+    }
+}
+<style>
+    .setSelected {
+        background-color: #0c784c !important;
+        color: white !important;
+    }
+</style>
+<!-- Breadcrumb -->
+<div class="container">
+    <ol class="breadcrumb">
+        <li><a href="/">Trang chủ</a></li>
+        <li><a href="#">Thu cũ đổi mới</a></li>
+    </ol>
+</div>
+<!-- End Breadcrumb -->
+<!-- Banner Full Width -->
+<div class="container">
+    <div class="banner-full">
+        <a href="#">
+            <img src="~/design/images/banner/banner-7.png" alt="Banner" />
+        </a>
+    </div>
+</div>
+<!-- End Banner Full Width -->
+<!-- Định giá máy cũ Online 1 -->
+<div class="container mt-30">
+    <div class="section-head">
+        <h4 class="section-head__title">Định giá máy cũ Online</h4>
+        <div class="section-head__link">
+            @{
+                if (list_zone_first != null && list_zone_first.Any())
+                {
+                    foreach (var item in list_zone_first)
+                    {
+                        <div class="section-head__link-item">
+                            <a onclick="loadProductCat('@item.Id',this)">@item.Name</a>
+                        </div>
+
+                    }
+                }
+            }
+            <div class="section-head__link-item">
+                <a onClick="window.location.reload();">Xem tất cả</a>
+            </div>
+        </div>
+    </div>
+    <div class="products-grid" id="ListProduct">
+        <!-- Item -->
+        @foreach (ProductOldRenewalViewModel item in Model)
+        {
+            var link_tar = string.Format("/{0}.pn{1}.html", item.Url, item.ProductId);
+            <div class="products-grid__item">
+                <div class="product-item-grid">
+                    <div class="product-item-grid__image">
+                        <a href="@link_tar">
+                            <img asp-append-version="true" src="@UIHelper.StoreFilePath(item.Avatar)" class="w-100 " alt="@item.Name" />
+                        </a>
+                    </div>
+                    <div class="product-item-grid__content">
+                        <h4 class="product-item-grid__title">
+                            @item.Name
+                        </h4>
+                        <div class="product-item-grid__price">
+                            <span class="product-item-grid__price-label">Giá thu cũ tham khảo:</span>
+                            <p class="product-item-grid__price-new">@UIHelper.FormatNumber(item.Price)₫</p>
+                        </div>
+                        <div class="product-item-grid__footer">
+                            <a href="@link_tar" class="product-item-grid__button">Đổi mới</a>
+                            <span class="product-item-grid__button btn-resell btnBanLai" data-product="@(Json.Serialize(item).ToString())">Bán lại</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+        <!-- End Item -->
+    </div>
+
+    <!-- Load More -->
+    @if (total > 0)
+    {
+        <div class="text-center">
+            <button id="buttonLoadMore" class="load-more-product" data-page="1" data-zoneId="0" data-viewBy="0">
+                Xem thêm sản phẩm
+            </button>
+        </div>
+    }
+    <!-- End Load More -->
+</div>
+<!-- Hết Định giá máy cũ Online -->
+<!-- Modal Bán Lại -->
+<style>
+    #modalBanLai img {
+        height: 300px !important;
+    }
+</style>
+<div class="modal fade modal-resell" id="modalBanLai" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">THÔNG TIN THU CŨ ĐỔI MỚI</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="resell-main">
+                    <div class="resell-main__product">
+                        <div class="resell-main__product-image" id="avatar">
+                            <img src="~/design/images/products/pro-1.png" alt="Product Item" style="height:200px !important">
+                        </div>
+                        <div class="resell-main__product-name">
+                            <span>Tên sản phẩm: </span>
+                            <strong id="name">iPhone 11 64GB Quốc Tế (Likenew) 1</strong>
+                        </div>
+                        <div class="resell-main__product-price">
+                            <span>Giá máy cũ thu lại: </span>
+                            <strong id="price">5.290.000₫</strong>
+                        </div>
+                    </div>
+                    <input type="hidden" class="form-control" id="productId" placeholder="Nhập họ và tên">
+
+                    <div class="resell-main__info">
+                        <form action="">
+                            <div class="row">
+                                <div class="col-md-6 col-12">
+                                    <div class="form-group">
+                                        <label for="fullname">Họ và tên: *</label>
+                                        <input type="text" class="form-control" id="fullname" placeholder="Nhập họ và tên">
+                                    </div>
+                                </div>
+                                <div class="col-md-6 col-12">
+                                    <div class="form-group">
+                                        <label for="phone">Số điện thoại: *</label>
+                                        <input type="text" class="form-control" id="phone" placeholder="Nhập số điện thoại!">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="form-group col-6">
+                                    <label for="location">Khu vực: *</label>
+                                    <select class="form-control" id="location">
+                                        <option value="0" selected>Chọn</option>
+                                        @if (listLocations != null && listLocations.Any())
+                                        {
+                                            foreach (LocationViewModel item in listLocations)
+                                            {
+                                                <option value="@item.Id">@item.Name</option>
+                                            }
+                                        }
+                                    </select>
+                                </div>
+                                <div class="form-group col-6">
+                                    <label for="location">Chi nhánh: *</label>
+                                    <select class="form-control" id="department">
+                                        <option value="0" selected>Chọn</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <p class="resell-main__note"><i>* Quý Khách vui lòng đem máy tới cửa hàng để được định giá và bán lại - lên đời với giá tốt nhất.</i></p>
+                            <div class="text-center mt-30">
+                                <button type="button" class="btn btn-success" onclick="submitRequestCustomerProduct(1)">BÁN NGAY</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Hết Modal Bán Lại -->
+
+<div class="container">
+
+    @*<div class="rating">
+        <div class="rating__head">
+            <h4 class="rating__head-title">Đánh giá sản phẩm</h4>
+            <a href="#" class="rating__button">Đánh giá ngay</a>
+        </div>
+        <div class="rating__main">
+            <div class="rating__average">
+                <h2 class="rating__average-number">4,5</h2>
+                <div class="rating__average-stars">
+                    <i class="fas fa-star checked"></i>
+                    <i class="fas fa-star checked"></i>
+                    <i class="fas fa-star checked"></i>
+                    <i class="fas fa-star checked"></i>
+                    <i class="fas fa-star"></i>
+                </div>
+                <a href="#" class="rating__average-link">303  đánh giá</a>
+            </div>
+            <div class="rating__line">
+                <div class="rating__line-item">
+                    <div class="rating__line-number">5</div>
+                    <div class="rating__line-bar">
+                        <div class="rating__line-barsub" style="width: 100%;"></div>
+                    </div>
+                    <div class="rating__line-percent">100%</div>
+                </div>
+                <div class="rating__line-item">
+                    <div class="rating__line-number">4</div>
+                    <div class="rating__line-bar">
+                        <div class="rating__line-barsub" style="width: 80%;"></div>
+                    </div>
+                    <div class="rating__line-percent">80%</div>
+                </div>
+                <div class="rating__line-item">
+                    <div class="rating__line-number">3</div>
+                    <div class="rating__line-bar">
+                        <div class="rating__line-barsub" style="width: 60%;"></div>
+                    </div>
+                    <div class="rating__line-percent">60%</div>
+                </div>
+                <div class="rating__line-item">
+                    <div class="rating__line-number">2</div>
+                    <div class="rating__line-bar">
+                        <div class="rating__line-barsub" style="width: 20%;"></div>
+                    </div>
+                    <div class="rating__line-percent">20%</div>
+                </div>
+                <div class="rating__line-item">
+                    <div class="rating__line-number">1</div>
+                    <div class="rating__line-bar">
+                        <div class="rating__line-barsub" style="width: 0%;"></div>
+                    </div>
+                    <div class="rating__line-percent">0%</div>
+                </div>
+            </div>
+        </div>
+    </div>*@
+
+    <!--Gửi Comment-->
+    <div class="comments comment_binding">
+        @await Component.InvokeAsync("Comment", new { object_id = (int)ObjectIdComment.ThuCu, object_type = (int)CommentType.ProductOldRenewal })
+    </div>
+    <!--Đánh giá end-->
+</div>
+
+
+@section Scripts{
+        <script type="text/javascript" src="~/js/controller/categoriesList1Controller.js" asp-append-version="true"></script>
+    }

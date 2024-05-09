@@ -1,0 +1,131 @@
+﻿@using MI.Entity.Enums;
+@using PlatformWEB.Services.Zone.ViewModal
+@using PlatformWEB.Services.Zone.Repository
+@using PlatformWEB.Services.Article.ViewModel
+@using Microsoft.AspNetCore.Localization
+@using Microsoft.AspNetCore.Mvc.Localization
+@using Microsoft.AspNetCore.Http
+@using Microsoft.AspNetCore.Http.Extensions
+@using PlatformWEB.Services.Article.Repository
+@using PlatformWEB.Utility
+@inject IHttpContextAccessor HttpContextAccessor
+@inject IArticleRepository articleRepository;
+@inject IZoneRepository zoneRepository;
+@using PlatformWEB.Services.BannerAds.Repository
+@using PlatformWEB.Services.Extra.ViewModel
+@using PlatformWEB.Services.BannerAds.ViewModel
+@inject IBannerAdsRepository _bannerAdsRepository
+@using Utils
+@{
+    var culture = Context.Features.Get<IRequestCultureFeature>().RequestCulture.Culture.TwoLetterISOLanguageName.ToLower();
+    var culture_code = Context.Features.Get<IRequestCultureFeature>().RequestCulture.Culture.ToString();
+    var base_uri_culture = "/" + culture;
+    var domain = Context.Request.Host.ToString();
+    var domain_full = Context.Request.GetDisplayUrl();
+
+}
+@{
+    ViewData["Title"] = "BlogDetail";
+    //Layout = "~/Views/Shared/_LayoutPublicHome.cshtml";
+}
+@{
+    var cultureBaiViet = _bannerAdsRepository.GetBannerAds_By_Code(culture_code, "W2G_Culture_TermAndCondition");
+
+    var cultures = WebHelper.ConvertSlideCulture(cultureBaiViet);
+
+    var W2G_Term_and_Condition = _bannerAdsRepository.GetBannerAds_By_Code(culture_code, "W2G_Term_and_Condition");
+
+
+}
+@section styles {
+    <style>
+        .term-content {
+            text-align: justify;
+            border-left: 1px solid #ddd;
+            padding-left: 40px;
+            padding-right: 40px;
+        }
+
+        .section-10 .inner-content{
+            margin-right:10px;
+        }
+        span {
+            font-family: var(--font-1) !important;
+            background: unset !important;
+        } 
+        
+    </style>
+}
+
+@{
+    ViewData["Title"] = "TermAndCondition";
+    Layout = "~/Views/Shared/_LayoutPublicHome.cshtml";
+}
+
+<!-- Page Header -->
+<div class="page-header">
+    <div class="container">
+        <h2 class="inner-title">
+            @Html.Raw(WebHelper.GetCultureText(cultures, "TERM_TITLE"))
+        </h2>
+    </div>
+</div>
+<!-- End Page Header -->
+<!-- Detail -->
+<div class="section-10">
+    <div class="container">
+        <div class="inner-wrap">
+            
+            <div class="inner-main">
+                <div class="row justify-content-center">
+                    <div class="col-xl-3 col-lg-3 col-md-3 col-sm-11 col-11">
+                        <div class="inner-navigation-page">
+                            
+                            <div class="inner-title">@Html.Raw(WebHelper.GetCultureText(cultures, "TERM_NAVIGATION"))</div>
+                            <div class="inner-main-navigation">
+                                <div class="navigation-list">
+                                    <ul>
+                                        @{
+                                            var banners = WebHelper.ConvertSlide(W2G_Term_and_Condition);
+                                            if (banners != null)
+                                            {
+                                                foreach (var item in banners)
+                                                {
+                                                    <li>
+                                                        <a href="#@item.Url">@item.Title</a>
+                                                    </li>
+                                                }
+                                            }
+                                        }
+
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xl-9 col-lg-9 col-md-9 col-sm-11 col-11 term-content">
+                       
+                        <div class="inner-content">
+                            @foreach(var item in banners)
+            {
+                <div id="@item.Url">
+                    @Html.Raw(item.Description)
+                </div>
+            }
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+@section scripts {
+    <script>
+        $('.inner-content span').each((i, v) => {
+
+        })
+    </script>
+}

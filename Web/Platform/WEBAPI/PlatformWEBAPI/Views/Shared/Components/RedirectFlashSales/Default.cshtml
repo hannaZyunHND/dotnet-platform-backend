@@ -1,0 +1,391 @@
+﻿@using PlatformWEBAPI.Services.Zone.ViewModal
+@using PlatformWEBAPI.Services.Zone.Repository
+@using PlatformWEBAPI.Services.BannerAds.ViewModel
+@using PlatformWEBAPI.Services.Extra.ViewModel
+@using PlatformWEBAPI.Services.BannerAds.Repository
+@using MI.Entity.Models
+@using MI.Entity.Enums
+
+@using PlatformWEBAPI.Services.Product.Repository
+@using PlatformWEBAPI.Services.Extra.Repository
+@using Microsoft.AspNetCore.Http
+@using Microsoft.AspNetCore.Localization
+@using Microsoft.AspNetCore.Mvc.Localization
+@using Utils
+@inject IHttpContextAccessor HttpContextAccessor
+@using PlatformWEBAPI.Utility
+@inject ICookieUtility cookieUtility
+@inject IConfigSEOUtility configSEOUtility
+@inject IProductRepository productRepository
+@inject IZoneRepository zoneRepository
+@inject IBannerAdsRepository bannerAdsRepository
+@inject IExtraRepository extraRepository
+@{
+
+    //Layout = "~/Views/Shared/_LayoutPublicHome.cshtml";
+    var zone_tree_view = ViewBag.ZoneTreeViewAll as List<ZoneByTreeViewMinify>;
+    var zone_detail = ViewBag.ZoneDetail as ZoneDetail;
+    var fPrice = (double)ViewBag.FPrice;
+    var tPrice = (double)ViewBag.TPrice;
+    var cookie_location = cookieUtility.SetCookieDefault();
+    var location_id = cookie_location.LocationId;
+    var location_name = cookie_location.LocationName;
+    var culture = Context.Features.Get<IRequestCultureFeature>().RequestCulture.Culture.TwoLetterISOLanguageName.ToLower();
+    var culture_code = Context.Features.Get<IRequestCultureFeature>().RequestCulture.Culture.ToString();
+    var base_uri_culture = "/" + culture;
+    var domain = Context.Request.Host.ToString();
+    var Banner_Danhmuc_Sanpham_Anhto = new DetailBanerAds();
+    var Banner_Danhmuc_Sanpham_Anhnho_tren = new DetailBanerAds();
+    var Banner_Danhmuc_Sanpham_Anhnho_duoi = new DetailBanerAds();
+    var Banner_Danhmuc_Sanpham_Anhto_Cache = bannerAdsRepository.GetBannerAds_By_Code(culture_code, "Banner_Danhmuc_Sanpham_Anhto");
+    var Banner_Danhmuc_Sanpham_Anhnho_tren_Cahche = bannerAdsRepository.GetBannerAds_By_Code(culture_code, "Banner_Danhmuc_Sanpham_Anhnho_tren");
+    var Banner_Danhmuc_Sanpham_Anhnho_duoi_Cahche = bannerAdsRepository.GetBannerAds_By_Code(culture_code, "Banner_Danhmuc_Sanpham_Anhnho_duoi");
+    if (Banner_Danhmuc_Sanpham_Anhto_Cache != null)
+    {
+        Banner_Danhmuc_Sanpham_Anhto = Newtonsoft.Json.JsonConvert.DeserializeObject<DetailBanerAds>(Banner_Danhmuc_Sanpham_Anhto_Cache.MetaData);
+    }
+    if (Banner_Danhmuc_Sanpham_Anhnho_tren_Cahche != null)
+    {
+        Banner_Danhmuc_Sanpham_Anhnho_tren = Newtonsoft.Json.JsonConvert.DeserializeObject<DetailBanerAds>(Banner_Danhmuc_Sanpham_Anhnho_tren_Cahche.MetaData);
+    }
+    if (Banner_Danhmuc_Sanpham_Anhnho_duoi_Cahche != null)
+    {
+        Banner_Danhmuc_Sanpham_Anhnho_duoi = Newtonsoft.Json.JsonConvert.DeserializeObject<DetailBanerAds>(Banner_Danhmuc_Sanpham_Anhnho_duoi_Cahche.MetaData);
+    }
+    var index = (int)ViewBag.Index;
+    var size = (int)ViewBag.Size;
+    var name_brand = ViewBag.Name;
+}
+
+@{
+
+    //list danh muc
+    var list_zone_all = zoneRepository.GetZoneByTreeViewShowMenuMinifies(1, culture_code, 0, 1);
+    var list_zone_child = list_zone_all.Where(r => (r.ParentId == zone_detail.Id) && r.IsShowMenu == 1).ToList();
+    if (list_zone_child.Count == 0)
+    {
+        list_zone_child = list_zone_all.Where(r => (r.ParentId == zone_detail.ParentId) && r.IsShowMenu == 1).ToList();
+    }
+}
+@section styles{
+    @{ var bind_meta = "";}
+    @if (zone_detail != null)
+    {
+
+        bind_meta += configSEOUtility.ConfigMeta(zone_detail.MetaTitle, zone_detail.MetaDescription, zone_detail.MetaKeyword);
+        bind_meta += configSEOUtility.ConfigSocialMeta();
+    }
+    @Html.Raw(bind_meta)
+    <style>
+        .color-circle {
+            height: 20px;
+            width: 20px;
+            border-radius: 50%;
+            display: inline-block;
+            /*border: 1px solid #ffffff;*/
+        }
+
+        .picking-active {
+            border: 1px solid red !important;
+        }
+
+        .detail img {
+            max-width: 100% !important;
+        }
+
+        .zone_item-product.activeCat {
+            background: #0c784c;
+            color: white;
+        }
+    </style>
+}
+<div id="zone-current" data-id="@zone_detail.Id" style="display:none"></div>
+@*@{ var list_zone_first = zone_tree_view.Where(r => r.level == 1);
+    if (zone_tree_view.Count() == 1)
+    {
+        //list_zone_first = zone_tree_view.Where(r => r.level == 0);
+        list_zone_first = zoneRepository.GetZoneByTreeViewMinifies((int)TypeZone.Product, culture_code, (int)zone_detail.ParentId).Where(r => r.ParentId > 0 && r.ParentId == zone_detail.Id);
+    }
+}*@
+
+
+<!-- Breadcrumb -->
+
+<div class="container">
+    @await Component.InvokeAsync("Breadcrumb", new { zone_id = zone_detail.Id })
+</div>
+<!-- End Breadcrumb -->
+<!-- Banner Full Width -->
+<div class="container mobi-hidden">
+    <div class="banner-full">
+        <a href="#">
+            <img src="~/top-ten-travel/images/banner/banner-6.png" alt="Banner" />
+        </a>
+    </div>
+</div>
+<!-- End Banner Full Width -->
+<!-- Category Slide -->
+<div class="category-slide mt-20">
+    <div class="container">
+        <div class="swiper js-category-slide">
+            <div class="swiper-wrapper category-slide__wrap">
+                @{
+                    var list_manufactures = extraRepository.GetManufactures(culture_code);
+                    if (list_manufactures != null && list_manufactures.Any())
+                    {
+                        @foreach (var item in list_manufactures)
+                        {
+                            <div class="swiper-slide category-slide__item">
+                                <a href="@item.Url" title="@item.Name">
+                                    <img src="@UIHelper.StoreFilePath(item.Avatar, false)" alt="Partners" />
+                                    <span class="category-slide__item-title">@item.Name</span>
+                                </a>
+                            </div>
+                        }
+                    }
+
+                }
+                
+            </div>
+            <div class="swiper-button-next"></div>
+            <div class="swiper-button-prev"></div>
+        </div>
+    </div>
+</div>
+<!-- End Category Slide -->
+<!-- Category Tags -->
+@{
+    var danh_muc_cap_2 = zone_tree_view.Where(r => r.level == 1).ToList();
+    var danh_muc_cap_3 = zone_tree_view.Where(r => r.level == 2).ToList();
+    var zone_target_in_tree = zone_tree_view.Where(r => r.Id == zone_detail.Id).FirstOrDefault();
+    if (zone_target_in_tree != null)
+    {
+        var zone_target_level = zone_target_in_tree.level;
+        var zone_target_root = zone_target_in_tree.root;
+        danh_muc_cap_2 = danh_muc_cap_2.Where(r => r.root == zone_target_root).ToList();
+
+        danh_muc_cap_3 = danh_muc_cap_3.Where(r => r.root == zone_target_root).ToList();
+        if(zone_target_level == 1)
+        {
+            danh_muc_cap_3 = danh_muc_cap_3.Where(r => r.ParentId == zone_detail.Id).ToList();
+        }
+        if(zone_target_level == 2)
+        {
+            danh_muc_cap_3 = danh_muc_cap_3.Where(r => r.ParentId == zone_detail.ParentId).ToList();
+        }
+
+    }
+    
+}
+<div class="container mt-10">
+    <div class="category-tags">
+        @foreach (var item in danh_muc_cap_2)
+        {
+            var _class_active = "";
+            if(zone_detail.Id == item.Id || zone_detail.ParentId == item.Id)
+            {
+                _class_active = "category-tags__active";
+            }
+        <a href="@LinkRedirectUrlUtility.ProductCategoryUrl(item.Url)" class="@_class_active" title="@item.Name">@item.Name</a>
+            
+        }
+
+    </div>
+</div>
+
+<div class="container mt-10">
+    <div class="category-tags">
+        @foreach (var item in danh_muc_cap_3)
+        {
+            var _class_active = "";
+            if (zone_detail.Id == item.Id || zone_detail.ParentId == item.Id)
+            {
+                _class_active = "category-tags__active";
+            }
+            <a href="@LinkRedirectUrlUtility.ProductCategoryUrl(item.Url)" class="@_class_active" title="@item.Name">@item.Name</a>
+
+        }
+    </div>
+</div>
+<!-- End Category Tags -->
+<!-- Product Filters -->
+<div class="container mt-20">
+    <div class="product-filters">
+        <div class="product-filters__wrap">
+            <div class="product-filters__title">Bộ lọc:</div>
+            <!-- Box -->
+            <div class="product-filters__facet">
+                <label>
+                    <a href="javascript:;">Mức giá <i class="fa fa-angle-down" aria-hidden="true"></i></a>
+                </label>
+                <div class="product-filters__sub filter-item price">
+
+                    <ul>
+                        @{
+                            var ls_flt2 = zone_detail.Filter;
+                            if (!string.IsNullOrEmpty(ls_flt2))
+                            {
+                                var l = ls_flt2.Split(',');
+                                var count_filter = 1;
+                                foreach (var item in l)
+                                {
+                                    var st = int.Parse(item.Split('-')[0]);
+                                    var en = int.Parse(item.Split('-')[1]);
+                                    var value_builder = string.Format("{0}-{1}", st, en);
+                                    var text_builder = string.Format("{0} - {1}", UIHelper.ConvertMoneyText(st), UIHelper.ConvertMoneyText(en));
+                                    if (count_filter == 1)
+                                    {
+                                        text_builder = string.Format("Dưới {0}", UIHelper.ConvertMoneyText(en));
+                                    }
+                                    if (count_filter == l.Count())
+                                    {
+                                        text_builder = string.Format("Trên {0}", UIHelper.ConvertMoneyText(st));
+                                    }
+                                    <li>
+                                        <input type="checkbox" data-filterd="price" data-value="@value_builder" style="height: 20px;width: 20px;">
+
+                                        @text_builder
+
+                                    </li>
+                                    count_filter++;
+                                }
+                            }
+                            else
+                            {
+                                <li>
+                                    <input type="checkbox" style="height: 20px; width: 20px;" data-filterd="price" data-value="0-200000">
+                                    Từ 0 - 200k
+                                </li>
+                                <li>
+                                    <input type="checkbox" style="height: 20px; width: 20px;" data-filterd="price" data-value="200000-500000">
+                                    200k - 500k
+                                </li>
+                                <li>
+                                    <input type="checkbox" style="height: 20px; width: 20px;" data-filterd="price" data-value="1000000-2000000">
+                                    1tr - 2tr
+                                </li>
+                                <li>
+                                    <input type="checkbox" style="height: 20px; width: 20px;" data - filterd="price" data-value="2000000-5000000">
+                                    2tr - 5tr
+                                </li>
+                            }
+                        }
+
+                    </ul>
+                </div>
+            </div>
+            <!-- End Box -->
+            <!-- Box -->
+            @{ var list_filter = productRepository.GetFilterProductByZoneId(zone_detail.Id, culture_code).Take(4);}
+            @foreach (var item in list_filter)
+            {
+                <div class="product-filters__facet">
+                    <label>
+                        <a href="javascript:;">@item.Name<i class="fa fa-angle-down" aria-hidden="true"></i></a>
+                    </label>
+                    <div class="product-filters__sub filter-item dynamic-filter">
+                        <ul>
+                            @foreach (var i in item.Values)
+                            {
+                                <li>
+                                    <input type="checkbox" style="height: 20px;width: 20px;" data-filterd="spectification" data-value="@i.Value" data-spec="@i.SpectificationId">
+                                    @i.Value
+                                </li>
+
+                            }
+                        </ul>
+                    </div>
+
+                </div>
+            }
+            <!-- End Box -->
+        </div>
+        <div class="setop-prod mobi-hidden">
+            <select class="form-control">
+                <option hidden="" value="">Lọc theo</option>
+                <option value="3">Nổi bật nhất</option>
+                <option value="2">Giá giảm dần</option>
+                <option value="1">Giá tăng dần</option>
+            </select>
+        </div>
+    </div>
+</div>
+<!-- End Product Filters -->
+<!-- Only Show Mobile -->
+@*<div class="container mt-20 desktop-hidden">
+    <div class="product-filters__mobi">
+        <div class="product-filters__mobi-title">
+            Sắp xếp theo
+        </div>
+        <div class="product-filters__mobi-list">
+            <ul>
+                <li>
+                    <a href="#">Giá cao</a>
+                </li>
+                <li>
+                    <a href="#">Giá thấp</a>
+                </li>
+                <li>
+                    <a href="#" class="active">Xem nhiều</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>*@
+<!-- End Only Show Mobile -->
+<!-- End Product Filters -->
+<!-- Tour Miền Bắc -->
+<div class="container mt-45 mb-45" id="append-filter">
+    <div class="section-head">
+        <h4 class="section-head__title">@zone_detail.Name</h4>
+    </div>
+    <div class="row js-product-load-more _binding_product">
+       
+    </div>
+
+    <!-- Load More -->
+    <div class="text-center">
+        <button id="buttonLoadMore" class="load-more-product button-view-more">Xem thêm <span class="tong_so_sp"></span> sản phẩm</button>
+    </div>
+    <!-- End Load More -->
+</div>
+<!-- Hết Tour Miền Bắc -->
+<!-- Product Content -->
+<div class="container mb-45">
+    <div class="product-detail-main__content">
+        <h4 class="product-detail-main__content-title">
+            Đánh Giá Chi Tiết Tour
+        </h4>
+        <div class="product-detail-main__content-text">
+            @Html.Raw(zone_detail.Content)
+        </div>
+        <div class="product-detail-main__content-view-more">
+            <a class="view-more" href="javascript:;" id="viewMoreContent">
+                Xem thêm <i class="fa fa-plus"></i>
+            </a>
+            <a class="view-less" href="javascript:;" id="viewLessContent">
+                Thu gọn <i class="fa fa-minus"></i>
+            </a>
+        </div>
+    </div>
+</div>
+<!-- End Content Product -->
+
+
+
+
+
+
+<style>
+    .detail h3 {
+        display: block !important;
+    }
+
+    .detail h2 {
+        display: block !important;
+    }
+</style>
+@*@section Scripts{
+        <script type="text/javascript" src="~/js/controller/productController.js" asp-append-version="true"></script>
+    }*@
+

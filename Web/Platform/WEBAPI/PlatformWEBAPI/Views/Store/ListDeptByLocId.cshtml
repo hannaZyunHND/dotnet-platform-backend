@@ -1,0 +1,24 @@
+﻿@using PlatformWEBAPI.Services.Store.ViewModel
+@model List<StoreResponse>
+@{
+    Layout = null;
+}
+
+@if (Model != null)
+{
+    foreach (var item in Model)
+    {
+        <label class="label-checkbox mb-2 pr-4 dropdown-item cust-drop-item">
+            <span class="_address">@item.Address</span>
+            <input type="radio" name="department" class="_choosen" required />
+            <span class="checkmark"></span>
+        </label>
+
+        <li style="display:none;">
+            <a href="javascript:void(0)">
+                <img src="~/design/images/icons/circle-outline-gray.svg" alt="Icon Circle">
+                <span>@item.Address</span>
+            </a>
+        </li>
+    }
+}

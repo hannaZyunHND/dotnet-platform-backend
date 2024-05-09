@@ -1,0 +1,55 @@
+﻿@using PlatformWEB.Services.Product.ViewModel;
+@using Utils;
+@using Microsoft.AspNetCore.Localization
+@using Microsoft.AspNetCore.Mvc.Localization
+@using Microsoft.AspNetCore.Http
+@inject IHttpContextAccessor HttpContextAccessor
+@using PlatformWEB.Utility
+@inject ICookieUtility cookieUtility
+@using PlatformWEB.Services.BannerAds.Repository
+@using PlatformWEB.Services.Extra.ViewModel
+@using PlatformWEB.Services.BannerAds.ViewModel
+@inject IBannerAdsRepository _bannerAdsRepository
+@model List<ProductMinify>;
+@{
+    var total = ViewBag.Total;
+    var id = ViewBag.Id;
+    var culture = Context.Features.Get<IRequestCultureFeature>().RequestCulture.Culture.TwoLetterISOLanguageName.ToLower();
+    var culture_code = Context.Features.Get<IRequestCultureFeature>().RequestCulture.Culture.ToString();
+    var base_uri_culture = "/" + culture;
+    var domain = Context.Request.Host.ToString();
+    var cookie_location = cookieUtility.SetCookieDefault();
+    var location_id = cookie_location.LocationId;
+    var location_name = cookie_location.LocationName;
+    var cultureSanPham = _bannerAdsRepository.GetBannerAds_By_Code(culture_code, "W2G_Culture_SanPham");
+    var cultureDetail = _bannerAdsRepository.GetBannerAds_By_Code(culture_code, "W2G_Culture_MySim");
+    var _add = WebHelper.ConvertSlideCulture(cultureDetail);
+    var cultures = WebHelper.ConvertSlideCulture(cultureSanPham);
+    cultures.AddRange(_add);
+}
+
+@if (Model != null)
+{
+    <div class="row">
+        @foreach (var psim in Model)
+        {
+            @await Component.InvokeAsync("ItemProductv2", new { pr = psim, isLinked = true })
+        }
+    </div>
+    <div class="row justify-content-center mt-10">
+        <div class="col-xl-5 col-lg-6 col-md-8 col-sm-10 col-12">
+            <div class="box-head type-2 text-center">
+                <h2 class="inner-title">
+                    @Html.Raw(WebHelper.GetCultureText(cultures, "MUA_GIO_HANG_LABEL"))
+                </h2>
+                <div class="inner-desc">
+                    @Html.Raw(WebHelper.GetCultureText(cultures, "MUA_GIO_HANG_DESC"))
+                </div>
+            </div>
+            <a href="javascript:void(0)" class="button button-full btn-buy-all-carts">
+                @Html.Raw(WebHelper.GetCultureText(cultures, "MUA_GIO_HANG_BUTTON"))
+            </a>
+        </div>
+    </div>
+}
+

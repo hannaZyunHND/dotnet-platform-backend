@@ -1,0 +1,144 @@
+﻿
+@using PlatformWEB.Services.Product.ViewModel;
+@using Utils;
+@using Microsoft.AspNetCore.Localization
+@using Microsoft.AspNetCore.Mvc.Localization
+@using Microsoft.AspNetCore.Http
+@using PlatformWEB.Services.BannerAds.Repository
+@using PlatformWEB.Services.Extra.ViewModel
+@using PlatformWEB.Services.BannerAds.ViewModel
+@inject IBannerAdsRepository _bannerAdsRepository
+@inject IHttpContextAccessor HttpContextAccessor
+@using PlatformWEB.Utility
+@inject ICookieUtility cookieUtility
+@model List<ProductMinify>;
+@{
+    var total = ViewBag.Total;
+    var id = ViewBag.Id;
+    var culture = Context.Features.Get<IRequestCultureFeature>().RequestCulture.Culture.TwoLetterISOLanguageName.ToLower();
+    var culture_code = Context.Features.Get<IRequestCultureFeature>().RequestCulture.Culture.ToString();
+    var base_uri_culture = "/" + culture;
+    var domain = Context.Request.Host.ToString();
+    var cookie_location = cookieUtility.SetCookieDefault();
+    var location_id = cookie_location.LocationId;
+    var location_name = cookie_location.LocationName;
+    var cultureSanPham = _bannerAdsRepository.GetBannerAds_By_Code(culture_code, "W2G_Culture_SanPham");
+    var cultureDetail = _bannerAdsRepository.GetBannerAds_By_Code(culture_code, "W2G_Culture_MySim");
+    var _add = WebHelper.ConvertSlideCulture(cultureDetail);
+    var cultures = WebHelper.ConvertSlideCulture(cultureSanPham);
+    cultures.AddRange(_add);
+}
+
+@{
+    var list_product = Model;
+}
+
+<!-- Các eSIM hiện tại -->
+<div class="row">
+    @foreach (var item in Model)
+    {
+        <div class="col-xl-4 col-lg-4 col-md-6 col-sm-12 col-12 mb-30">
+            <div class="sim-package-item inner-bg-red" style="background:@item.GradientColor">
+                <div class="inner-header">
+                    <div class="inner-title">
+                        @item.Title
+                    </div>
+                    <div class="inner-image">
+                        <img src="@UIHelper.StoreFilePath(item.Avatar, false)" alt="@item.Title">
+                    </div>
+                </div>
+                <div class="sim-package-info">
+                    <ul class="inner-list">
+                        @if (!(item.simPack == "Package"))
+                        {
+                            <li>
+                                <span class="inner-label">
+                                    <i class="fa-solid fa-microchip"></i> @Html.Raw(WebHelper.GetCultureText(cultures, "ICCID"))
+                                </span>
+                                <span class="inner-value">
+                                    @item.ICCID
+                                </span>
+                            </li>
+                        }
+
+                        <li>
+                            <span class="inner-label">
+                                <i class="fa-solid fa-globe"></i> @Html.Raw(WebHelper.GetCultureText(cultures, "PHAM_VI_PHU_SONG"))
+                            </span>
+                            <span class="inner-value">
+                                @{
+                                    <a href="javascript:;" class="inner-button open-modal-coverage" data-coverage="@item.Coverage" data-toggle="modal" data-target="#modalSearchLanguage">
+                                        @{ var _t = 0;}
+                                        @if (int.TryParse(item.stringCoverage, out _t))
+                                        {
+                                            @item.stringCoverage @Html.Raw(WebHelper.GetCultureText(cultures, "QUOC_GIA_BUTTON"))
+                                        }
+                                        else
+                                        {
+                                            @item.stringCoverage
+                                        }
+
+                                    </a>
+                                }
+                            </span>
+                        </li>
+                        @if (!string.IsNullOrEmpty(item.DataLimit))
+                        {
+                            <li>
+                                <span class="inner-label">
+                                    <i class="fa-solid fa-right-left inner-rotate-90"></i> @Html.Raw(WebHelper.GetCultureText(cultures, "DU_LIEU"))
+                                </span>
+                                @if (item.DataLimit.Split("/").Length > 1)
+                                {
+                                    <span class="inner-value">
+                                        @item.DataLimit.Split("/")[0] / @Html.Raw(WebHelper.GetCultureText(cultures, "NGAY").Replace("s", ""))
+                                    </span>
+                                }
+                                else
+                                {
+                                    <span class="inner-value">
+                                        @item.DataLimit
+                                    </span>
+                                }
+
+                            </li>
+
+                        }
+                    </ul>
+                </div>
+
+                <div class="inner-footer">
+                    @if (!(item.simPack == "Package"))
+                    {
+                        <div class="row">
+                            <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12" data-sim-pack="@item.simPack">
+                                <a href="javascript:void(0)" class="inner-buy-now choose-top-up" data-id="@item.ProductId" data-order-id="@item.OrderId" data-order-iccid="@item.ICCID">
+                                    @Html.Raw(WebHelper.GetCultureText(cultures, "NAP_TIEN_BUTTON"))
+                                </a>
+                            </div>
+                        </div>
+                    }
+
+                </div>
+            </div>
+        </div>
+    }
+
+</div>
+<div class="row justify-content-center mt-10">
+    <div class="col-xl-5 col-lg-6 col-md-8 col-sm-10 col-12">
+        <div class="box-head type-2 text-center">
+            <h2 class="inner-title">
+                @Html.Raw(WebHelper.GetCultureText(cultures, "MUA_MOT_SIM_MOI_LABEL"))
+            </h2>
+            <div class="inner-desc">
+                @Html.Raw(WebHelper.GetCultureText(cultures, "MUA_MOT_SIM_MOI_DESC"))
+            </div>
+        </div>
+        <a href="/" class="button button-full">
+            @Html.Raw(WebHelper.GetCultureText(cultures, "MUA_MOT_SIM_MOI_BUTTON"))
+        </a>
+    </div>
+</div>
+<!-- Hết Các eSIM hiện tại -->
+<!-- Hết Các eSIM đã lưu kho -->

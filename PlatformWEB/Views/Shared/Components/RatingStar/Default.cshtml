@@ -1,0 +1,44 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@using MI.Entity.Enums;
+@using PlatformWEB.Services.Zone.ViewModal
+@using PlatformWEB.Services.Article.ViewModel
+@using PlatformWEB.Services.Extra.ViewModel
+@using Microsoft.AspNetCore.Localization
+@using Microsoft.AspNetCore.Mvc.Localization
+@using Microsoft.AspNetCore.Http
+@using PlatformWEB.Services.Article.Repository
+@using PlatformWEB.Services.Extra.Repository
+@using PlatformWEB.Services.Zone.Repository
+@inject IHttpContextAccessor HttpContextAccessor
+@inject IArticleRepository articleRepository;
+@inject IZoneRepository zoneRepository;
+@inject IExtraRepository extraRepository;
+@using Utils
+@{
+    var culture = Context.Features.Get<IRequestCultureFeature>().RequestCulture.Culture.TwoLetterISOLanguageName.ToLower();
+    var culture_code = Context.Features.Get<IRequestCultureFeature>().RequestCulture.Culture.ToString();
+    var base_uri_culture = "/" + culture;
+    var domain = Context.Request.Host.ToString();
+}
+
+@{
+    var obj_id = ViewBag.ObjId;
+    var obj_type = ViewBag.ObjType;
+    var hTag = ViewBag.HTag;
+    var rate = extraRepository.GetRatingByObjectId(obj_id, obj_type);
+}
+
+<div class="star-rating @(hTag) text-center" data-id="@obj_id" data-type="@obj_type">
+    @{ var rating_rounded = (int)Math.Round(rate);}
+    @for (int i = 0; i < 5; i++)
+    {
+        var class_text = "fas fa-star";
+        if (i + 1 <= rating_rounded)
+        {
+            class_text += " checked";
+        }
+        <i class="@class_text" aria-hidden="true"></i>
+    }
+</div>

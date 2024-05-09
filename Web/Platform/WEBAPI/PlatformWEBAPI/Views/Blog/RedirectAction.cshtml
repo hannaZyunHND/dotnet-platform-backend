@@ -1,0 +1,189 @@
+﻿@using MI.Entity.Enums;
+@using PlatformWEBAPI.Services.Zone.ViewModal
+@using PlatformWEBAPI.Services.Article.ViewModel
+@using PlatformWEBAPI.Services.Product.ViewModel
+@using PlatformWEBAPI.Services.Extra.ViewModel
+@using Microsoft.AspNetCore.Http.Extensions
+@using Microsoft.AspNetCore.Localization
+@using Microsoft.AspNetCore.Mvc.Localization
+@using Microsoft.AspNetCore.Http
+@using PlatformWEBAPI.Services.Article.Repository
+@using PlatformWEBAPI.Services.Extra.Repository
+@using PlatformWEBAPI.Services.Zone.Repository
+@using PlatformWEBAPI.Services.Product.Repository
+@inject IHttpContextAccessor HttpContextAccessor
+@inject IArticleRepository articleRepository;
+@inject IZoneRepository zoneRepository;
+@inject IExtraRepository extraRepository;
+@inject IProductRepository productRepository;
+@inject ICookieUtility cookieUtility;
+@inject IConfigSEOUtility configSEOUtility;
+@using Utils
+@using PlatformWEBAPI.Utility
+@{
+
+    Layout = "~/Views/Shared/_LayoutPublicHome.cshtml";
+    var culture = Context.Features.Get<IRequestCultureFeature>().RequestCulture.Culture.TwoLetterISOLanguageName.ToLower();
+    var culture_code = Context.Features.Get<IRequestCultureFeature>().RequestCulture.Culture.ToString();
+    //var base_uri_culture = "/" + culture;
+    var base_uri_culture = "/";
+    var domain = Context.Request.Host.ToString();
+    var cookie_location = cookieUtility.SetCookieDefault();
+    var location_id = cookie_location.LocationId;
+    var location_name = cookie_location.LocationName;
+    var obj_type = ViewBag.Type;
+    var obj_id = ViewBag.ZoneId;
+    var domain_full = Context.Request.GetDisplayUrl();
+    //var zone_parent = ViewBag.Parent;
+    //var a = (int)ViewBag.Type;
+    ////var zone_id = ViewBag.ZoneId;
+    //var a = int.TryParse(ViewBag.Type, out zone_type);
+    //var b = int.TryParse(ViewBag.ZoneId, out zone_id);
+
+}
+
+@if (obj_type == (int)TypeArticle.Product)
+{
+    var p_detail = productRepository.GetProductInfomationDetail(obj_id, culture_code);
+    var bind_meta = "";
+    if (p_detail != null)
+    {
+
+        @section styles{
+            @Html.Raw(configSEOUtility.ConfigMeta(string.IsNullOrEmpty(p_detail.MetaTitle) == true ? p_detail.Title : p_detail.MetaTitle, p_detail.MetaDescription, p_detail.MetaKeyword))
+            @Html.Raw(configSEOUtility.ConfigSocialMeta("default dbAppID", domain_full, p_detail.SocialTitle, Utility.DecodeHtml(p_detail.SocialDescription), string.IsNullOrEmpty(p_detail.SocialImage) ? p_detail.Avatar : p_detail.SocialImage))
+            @*@Html.Raw(configSEOUtility.ConfigShemaOrgProduct(p_detail))*@
+            @await Component.InvokeAsync("SEO_Product", new { article = p_detail })
+            <script src="https://www.wiris.net/demo/plugins/app/WIRISplugins.js?viewer=image"></script>
+            
+        }
+        @await Component.InvokeAsync("RedirectProductDetail", new { p_detail = p_detail });
+        @section scripts{
+           
+            <script type="text/javascript" src="~/js/libs/momentjs/momentJS.js" asp-append-version="true"></script>
+            <script type="text/javascript" src="~/js/libs/daterangepicker-master/daterangepicker.js" asp-append-version="true"></script>
+            <script type="text/javascript" src="~/js/libs/paginationjs/paginationJS.js" asp-append-version="true"></script>
+            <script type="text/javascript" src="~/js/controller/productDetailController.js" asp-append-version="true"></script>
+        }
+    }
+
+}
+@if (obj_type == (int)TypeArticle.Blog || obj_type == (int)TypeArticle.Video)
+{
+    ArticleDetail a_detail = articleRepository.GetArticleDetail(obj_id, culture_code);
+    if (a_detail != null)
+    {
+        @section styles {
+            @Html.Raw(configSEOUtility.ConfigMeta(string.IsNullOrEmpty(a_detail.MetaTitle) == true ? a_detail.Title : a_detail.MetaTitle, a_detail.MetaDescription, a_detail.MetaKeyword))
+            @if (a_detail.MetaNoIndex != null && a_detail.MetaNoIndex.Contains("true"))
+            {
+                @Html.Raw(configSEOUtility.ConfigMeta("robots", "noindex"));
+            }
+            @if (a_detail.MetaCanonical != null && a_detail.MetaCanonical.Contains("true"))
+            {
+                @Html.Raw(configSEOUtility.ConfigLink("canonical", domain_full));
+            }
+            @Html.Raw(configSEOUtility.ConfigSocialMeta("default dbAppID", domain_full, a_detail.SocialTitle, Utility.DecodeHtml(a_detail.SocialDescription), string.IsNullOrEmpty(a_detail.SocialImage) ? a_detail.Avatar : a_detail.SocialImage))
+            @await Component.InvokeAsync("SEO_Article", new { article = a_detail })
+            
+
+            @*@Html.Raw(configSEOUtility.ConfigShemaOrgArticle(a_detail, domain_full, domain))*@
+            
+        }
+
+        @await Component.InvokeAsync("RedirectBlogDetail", new { a_detail = a_detail });
+        @section scripts {
+            <script type="text/javascript" src="~/js/libs/momentjs/momentJS.js" asp-append-version="true"></script>
+            <script type="text/javascript" src="~/js/libs/daterangepicker-master/daterangepicker.js" asp-append-version="true"></script>
+            <script type="text/javascript" src="~/js/libs/paginationjs/paginationJS.js" asp-append-version="true"></script>
+            <script type="text/javascript" src="~/js/controller/blogDetailController.js" asp-append-version="true"></script>
+            @*<script src="https://www.wiris.net/demo/plugins/app/WIRISplugins.js?viewer=image"></script>*@
+
+
+
+        }
+    }
+}
+@if (obj_type == (int)TypeArticle.Recument)
+{
+    var a_detail = articleRepository.GetArticleDetail(obj_id, culture_code);
+    if (a_detail != null)
+    {
+        @section styles {
+            @Html.Raw(configSEOUtility.ConfigMeta(string.IsNullOrEmpty(a_detail.MetaTitle) == true ? a_detail.Title : a_detail.MetaTitle, a_detail.MetaDescription, a_detail.MetaKeyword))
+            @Html.Raw(configSEOUtility.ConfigSocialMeta("default dbAppID", domain_full, a_detail.SocialTitle, Utility.DecodeHtml(a_detail.SocialDescription), UIHelper.StoreFilePath(a_detail.SocialImage)))
+            @await Component.InvokeAsync("SEO_Article", new { article = a_detail })
+            @*@Html.Raw(configSEOUtility.ConfigShemaOrgArticle(a_detail, domain_full, domain))*@
+            <style type="text/css">
+                .banner-page {
+                    background: url(@UIHelper.StoreFilePath(a_detail.ZoneBanner)) no-repeat center;
+                    min-height: 200px;
+                    background-size: cover;
+                    display: flex;
+                }
+
+        .detail-container img{
+            max-width:100% !important;
+            display: block;
+            margin: 0 auto;
+        }
+                .detail-container > .maintain-ul li::before {
+                    content: "\25AA";
+                    color: orange;
+                    font-weight: bold;
+                    display: inline-block;
+                    margin-right: 10px;
+                    /*content: "\2022";*/ /* Add content: \2022 is the CSS Code/unicode for a bullet */
+                    /*color: red;*/ /* Change the color */
+                    /*font-weight: bold;*/ /* If you want it to be bold */
+                    /*display: inline-block;*/ /* Needed to add space between the bullet and the text */
+                    /*width: 1em;*/ /* Also needed for space (tweak if needed) */
+                    /*margin-left: -1em;*/ /* Also needed for space (tweak if needed) */
+                }
+                .detail-container .maintain-ul-smaller li::before {
+                    content: "\25AA";
+                    color: black;
+                    font-weight: bold;
+                    display: inline-block;
+                    font-size: 15px;
+                    margin-right: 10px;
+                    margin-left: 15px;
+                }
+                /*.detail-container a img {
+                    max-width: 100% !important;
+                    display: block;
+                    margin: 0 auto;
+                }*/
+                .detail-container a {
+                    color: blue;
+                }
+
+                .detail-container h2 {
+                    font-size: 20px;
+                }
+
+                .detail-container h3 {
+                    font-size: 18px;
+                }
+
+                .detail-container h4 {
+                    font-size: 16px;
+                }
+            </style>
+        }
+
+        @await Component.InvokeAsync("RedirectRecumentDetail", new { a_detail = a_detail });
+        @section scripts {
+            <script type="text/javascript" src="~/js/libs/momentjs/momentJS.js" asp-append-version="true"></script>
+            <script type="text/javascript" src="~/js/libs/daterangepicker-master/daterangepicker.js" asp-append-version="true"></script>
+            <script type="text/javascript" src="~/js/libs/paginationjs/paginationJS.js" asp-append-version="true"></script>
+            <script type="text/javascript" src="~/js/controller/blogDetailController.js" asp-append-version="true"></script>
+
+        }
+    }
+}
+
+@*@if (zone_type == (int)TypeZone.Article && zone_parent == 0)
+    {
+        @await Component.InvokeAsync("RedirectBlogList1", new { zone_id = zone_id });
+    }*@

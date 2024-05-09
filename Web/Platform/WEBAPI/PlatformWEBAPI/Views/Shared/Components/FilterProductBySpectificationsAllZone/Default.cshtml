@@ -1,0 +1,60 @@
+﻿@using PlatformWEBAPI.Services.Zone.ViewModal
+@using PlatformWEBAPI.Services.BannerAds.ViewModel
+@using PlatformWEBAPI.Services.Extra.ViewModel
+@using PlatformWEBAPI.Services.BannerAds.Repository
+@using MI.Entity.Models
+@using PlatformWEBAPI.Services.Product.Repository
+@using PlatformWEBAPI.Services.Extra.Repository
+@using Microsoft.AspNetCore.Http
+@using Microsoft.AspNetCore.Localization
+@using Microsoft.AspNetCore.Mvc.Localization
+@using Utils
+@inject IHttpContextAccessor HttpContextAccessor
+@using PlatformWEBAPI.Utility
+@using PlatformWEBAPI.Services.Product.ViewModel;
+@inject ICookieUtility cookieUtility
+@inject IConfigSEOUtility configSEOUtility
+@inject IProductRepository productRepository
+@inject IBannerAdsRepository bannerAdsRepository
+@inject IExtraRepository extraRepository
+@{
+    //ViewData["Title"] = "FilterProductByRegion";
+    //Layout = "~/Views/Shared/_LayoutPublicHome.cshtml";
+    var cookie_location = cookieUtility.SetCookieDefault();
+    var location_id = cookie_location.LocationId;
+    var location_name = cookie_location.LocationName;
+    var culture = Context.Features.Get<IRequestCultureFeature>().RequestCulture.Culture.TwoLetterISOLanguageName.ToLower();
+    var culture_code = Context.Features.Get<IRequestCultureFeature>().RequestCulture.Culture.ToString();
+    var base_uri_culture = "/" + culture;
+    var domain = Context.Request.Host.ToString();
+    var total = (int)ViewBag.Total;
+    var size = (int)ViewBag.Size;
+    var index = (int)ViewBag.Index;
+    var url = ViewBag.Url;
+    var zone_id = ViewBag.ZoneId;
+    var pageIndex = 1;
+    var listxxxx = Model;
+    var cvc = listxxxx.OrderByDescending(x => x.ProductId);
+}
+@model List<ProductMinify>;
+@if (Model != null)
+{
+    @*<div class="paging-container" data-total="@total" data-currentpage="@index" data-size="@size" style="display:none"></div>*@
+    <div class="set-total" data-total="@total" data-id="@zone_id" data-is-rendered="@Model.Count()" data-index="@index" data-size="@size" style="display:none"></div>
+
+
+
+    @*<div class="paging-container" data-total="@total" data-currentpage="@index" data-size="@size" style="display:none"></div>*@
+    @foreach (var item in listxxxx)
+    {
+
+        var link_tar = string.Format("/{0}.html", item.Url);
+        <div class="col-lg-3 col-md-4 col-sm-6 col-6 mb-30">
+            @await Component.InvokeAsync("ItemProduct", new { pr = item, isLazy = false })
+        </div>
+    }
+}
+@section scripts{
+
+    <script type="text/javascript" asp-append-version="true" src="~/js/controller/filterProductController.js"></script>
+}

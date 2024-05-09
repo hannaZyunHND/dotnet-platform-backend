@@ -1,0 +1,105 @@
+﻿using Microsoft.AspNetCore.Localization;
+using Microsoft.AspNetCore.Mvc;
+using PlatformWEBAPI.Services.Order.Repository;
+using PlatformWEBAPI.Services.Product.Repository;
+using PlatformWEBAPI.Services.Product.ViewModel;
+using PlatformWEBAPI.Services.Promotion.Repository;
+using PlatformWEBAPI.Services.Zone.Repository;
+using PlatformWEBAPI.Utility;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+
+namespace PlatformWEBAPI.ViewComponents
+{
+    public class OrderComboViewComponent : ViewComponent
+    {
+        private readonly IZoneRepository _zoneRepository;
+        private readonly IProductRepository _productRepository;
+        private readonly IPromotionRepository _promotionRepository;
+        private readonly IOrderRepository _orderRepository;
+        private readonly ICookieUtility _cookieUnitily;
+        const string CookieLocationId = "_LocationId";
+        const string CookieLocationName = "_LocationName";
+        private string _currentLanguage;
+        private string _currentLanguageCode;
+        private string CurrentLanguage
+        {
+            get
+            {
+                if (!string.IsNullOrEmpty(_currentLanguage))
+                    return _currentLanguage;
+
+                if (string.IsNullOrEmpty(_currentLanguage))
+                {
+                    var feature = HttpContext.Features.Get<IRequestCultureFeature>();
+                    _currentLanguage = feature.RequestCulture.Culture.TwoLetterISOLanguageName.ToLower();
+                }
+
+                return _currentLanguage;
+            }
+        }
+        private string CurrentLanguageCode
+        {
+            get
+            {
+                if (!string.IsNullOrEmpty(_currentLanguageCode))
+                    return _currentLanguageCode;
+
+                if (string.IsNullOrEmpty(_currentLanguageCode))
+                {
+                    IRequestCultureFeature feature = HttpContext.Features.Get<IRequestCultureFeature>();
+                    _currentLanguageCode = feature.RequestCulture.Culture.ToString();
+                }
+
+                return _currentLanguageCode;
+            }
+
+
+        }
+        public OrderComboViewComponent(IZoneRepository zoneRepository, IProductRepository productRepository, IPromotionRepository promotionRepository, IOrderRepository orderRepository, ICookieUtility cookieUtility)
+        {
+            _zoneRepository = zoneRepository;
+            _productRepository = productRepository;
+            _promotionRepository = promotionRepository;
+            _orderRepository = orderRepository;
+            _cookieUnitily = cookieUtility;
+        }
+        public IViewComponentResult Invoke(string product_ids)
+        {
+            if (product_ids != null)
+            {
+                var combo_product = new List<ProductMinify>();
+                List<ProductMinify> model2 = null;
+                //Lay danh sach san pham theo list product_id
+                var cookie_location = _cookieUnitily.SetCookieDefault();
+                var total = 0;
+                var model = _productRepository.GetProductInListProductsMinify(product_ids, cookie_location.LocationId, CurrentLanguageCode, 1, 10, out total);
+                var list_promotion_item = new List<int>();
+
+
+                var split = product_ids.Split(',');
+                int id_product = 0;
+
+                foreach (var item in split)
+                {
+                    id_product = int.Parse(item);
+                    id_product = Convert.ToInt32(item);
+                    model2 = _productRepository.GetProductsInProductById(product_ids, "com-bo", cookie_location.LocationId, CurrentLanguageCode, 1, 10, out total);
+                    for (int i = 0; i < model2.Count(); i++)
+                    {
+                        combo_product.Add(model2[i]);
+                    }
+                }
+
+                //v2: Lay tat ca khuyen mai, sau nay co the cache cai nay
+                var promotions = _promotionRepository.GetAllPromotions(CurrentLanguageCode);
+                ViewBag.Promotions = promotions;
+                ViewBag.Product = model;
+                return View(combo_product);
+            }
+            return null;
+        }
+    }
+}

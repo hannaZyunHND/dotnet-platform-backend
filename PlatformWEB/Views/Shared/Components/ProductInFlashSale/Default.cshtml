@@ -1,0 +1,44 @@
+﻿@using PlatformWEB.Services.Product.ViewModel;
+@using PlatformWEB.Services.FlashSale.ViewModel;
+@using Utils;
+@using Microsoft.AspNetCore.Localization
+@using Microsoft.AspNetCore.Mvc.Localization
+@using Microsoft.AspNetCore.Http
+
+@using PlatformWEB.Utility
+@using MI.Entity.Enums
+@inject IHttpContextAccessor HttpContextAccessor
+@inject ICookieUtility cookieUtility
+@model List<ProductInFlashSale>;
+@{
+    var total = ViewBag.Total;
+    var pageIndex = (int)ViewBag.PageIndex;
+    var pageSize = (int)ViewBag.PageSize;
+    var culture = Context.Features.Get<IRequestCultureFeature>().RequestCulture.Culture.TwoLetterISOLanguageName.ToLower();
+    var culture_code = Context.Features.Get<IRequestCultureFeature>().RequestCulture.Culture.ToString();
+    var base_uri_culture = "/" + culture;
+    var domain = Context.Request.Host.ToString();
+    var cookie_location = cookieUtility.SetCookieDefault();
+    //var location_id = cookie_location.LocationId;
+    //var location_name = cookie_location.LocationName;
+    var product_list = Model;
+}
+@{
+    ViewData["Title"] = "Default";
+}
+
+@foreach (var item in product_list)
+{
+<div class="col-lg-3 col-md-4 col-sm-6 col-6">
+    @{var link_tar = string.Format("/{0}.html", item.Url);}
+    <div class="products-grid__item" style="display:block;">
+        @await Component.InvokeAsync("ItemProduct", new { pr = item, isLazy = false })
+    </div>
+</div>
+}
+
+
+
+
+
+

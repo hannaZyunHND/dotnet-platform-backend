@@ -1,0 +1,267 @@
+﻿@using PlatformWEB.Services.Product.ViewModel
+@using PlatformWEB.Services.Product.Repository
+@inject IProductRepository _productRepository;
+@using PlatformWEB.Services.Product.ViewModel;
+@using Utils;
+@using Microsoft.AspNetCore.Localization
+@using Microsoft.AspNetCore.Mvc.Localization
+@using Microsoft.AspNetCore.Http
+@inject IHttpContextAccessor HttpContextAccessor
+@using PlatformWEB.Utility
+@inject ICookieUtility cookieUtility
+@using PlatformWEB.Services.Order.ViewModal;
+@using PlatformWEB.Services.BannerAds.ViewModel
+@using PlatformWEB.Services.BannerAds.Repository
+@using PlatformWEB.Services.Extra.ViewModel
+@using PlatformWEB.Services.BannerAds.ViewModel
+@inject IBannerAdsRepository _bannerAdsRepository
+@{
+    var total = ViewBag.Total;
+    var id = ViewBag.Id;
+    var index = ViewBag.Index;
+    var size = ViewBag.Size;
+    var culture = Context.Features.Get<IRequestCultureFeature>().RequestCulture.Culture.TwoLetterISOLanguageName.ToLower();
+    var culture_code = Context.Features.Get<IRequestCultureFeature>().RequestCulture.Culture.ToString();
+    var base_uri_culture = "/" + culture;
+    var domain = Context.Request.Host.ToString();
+    var cookie_location = cookieUtility.SetCookieDefault();
+    var location_id = cookie_location.LocationId;
+    var location_name = cookie_location.LocationName;
+    var topUpHistory = ViewBag.TopUpHistory as List<OrderDetailViewModel>;
+    var cultureSanPham = _bannerAdsRepository.GetBannerAds_By_Code(culture_code, "W2G_Culture_SanPham");
+    var cultureDetail = _bannerAdsRepository.GetBannerAds_By_Code(culture_code, "W2G_Culture_MySim");
+    var _add = WebHelper.ConvertSlideCulture(cultureDetail);
+    var cultures = WebHelper.ConvertSlideCulture(cultureSanPham);
+    cultures.AddRange(_add);
+}
+
+
+
+@model ProductDetail
+
+@if (Model != null)
+{
+
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-body">
+                <div class="inner-section-1" style="background: @Model.GradientColor">
+                    <button type="button" class="inner-close" data-dismiss="modal" aria-label="Close">
+                        <i class="fa-solid fa-circle-xmark"></i>
+                    </button>
+                    <h2 class="inner-title">@Model.Title</h2>
+                    <div class="inner-image">
+                        <img src="@UIHelper.StoreFilePath(Model.Avatar, false)" alt="@Model.Title">
+                    </div>
+                    <div class="inner-info">
+                        <div class="sim-package-info">
+                            <ul class="inner-list">
+                                <li>
+                                    <span class="inner-label">
+                                        <i class="fa-solid fa-globe"></i> @Html.Raw(WebHelper.GetCultureText(cultures, "ICCID"))
+                                    </span>
+                                    <span class="inner-value">
+                                        @ViewBag.OrderICCID
+                                    </span>
+                                </li>
+                                @if (!string.IsNullOrEmpty(Model.DataLimit))
+                                {
+                                    <li>
+                                        <span class="inner-label">
+                                            <i class="fa-solid fa-right-left inner-rotate-90"></i> @Html.Raw(WebHelper.GetCultureText(cultures, "DU_LIEU"))
+                                        </span>
+                                        @if (Model.DataLimit.Split("/").Length > 1)
+                                        {
+                                            <span class="inner-value">
+                                                @Model.DataLimit.Split("/")[0] / @Html.Raw(WebHelper.GetCultureText(cultures, "NGAY").Replace("s", ""))
+                                            </span>
+                                        }
+                                        else
+                                        {
+                                            <span class="inner-value">
+                                                @Model.DataLimit
+                                            </span>
+                                        }
+
+                                    </li>
+
+                                }
+                                @*<li>
+                            <span class="inner-label">
+                                <i class="fa-solid fa-phone-volume"></i> @Html.Raw(WebHelper.GetCultureText(cultures, "CUOC_GOI"))
+                            </span>
+                            <span class="inner-value">
+                                @Model.PhoneMinute @Html.Raw(WebHelper.GetCultureText(cultures, "PHUT"))
+                            </span>
+                        </li>
+                        <li>
+                            <span class="inner-label">
+                                <i class="fa-solid fa-message"></i> @Html.Raw(WebHelper.GetCultureText(cultures, "TIN_NHAN"))
+                            </span>
+                            <span class="inner-value">
+                                @Model.SmsNumber SMS
+                            </span>
+                        </li>*@
+                                <li>
+                                    <span class="inner-label">
+                                        <i class="fa-solid fa-calendar"></i> @Html.Raw(WebHelper.GetCultureText(cultures, "HIEU_LUC"))
+                                    </span>
+                                    <span class="inner-value">
+                                        @Model.Validity @Html.Raw(WebHelper.GetCultureText(cultures, "NGAY"))
+                                    </span>
+                                </li>
+                                @*<li>
+                            <span class="inner-label">
+                                <i class="fa-solid fa-tag"></i> GIÁ
+                            </span>
+                            <span class="inner-value inner-price">
+                                US $@Model.Price
+                            </span>
+                        </li>*@
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="inner-section-2">
+                    <div class="inner-title">
+                        @Html.Raw(WebHelper.GetCultureText(cultures, "LICH_SU_NAP_TIEN_LABEL"))
+                    </div>
+                    <div class="top-up-history inner-list">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>@Html.Raw(WebHelper.GetCultureText(cultures, "LICH_SU_NAP_TIEN_NGAY"))</th>
+                                    <th>@Html.Raw(WebHelper.GetCultureText(cultures, "LICH_SU_NAP_TIEN_TEN_GOI_CUOC"))</th>
+                                    <th>@Html.Raw(WebHelper.GetCultureText(cultures, "LICH_SU_NAP_TIEN_GIA_TIEN"))</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @{
+                                    if (topUpHistory != null)
+                                    {
+                                        foreach (var item in topUpHistory)
+                                        {
+                                            <tr>
+                                                <td width="10%">@item.CreatedDate.Value.ToString("dd/MM/yyyy")</td>
+                                                <td width="50%">@item.ProductName.Replace(";", "-")</td>
+                                                <td width="30%">VND @(UIHelper.FormatNumber(item.Price))</td>
+                                            </tr>
+                                        }
+
+                                    }
+                                }
+
+                            </tbody>
+                        </table>
+                    </div>
+                    <hr />
+                    <div class="inner-title">
+                        @{
+                            var childs = _productRepository.GetProductByParentId(Model.Id, culture_code);
+                        }
+                        @*@Html.Raw(WebHelper.GetCultureText(cultures, "CAC_GOI_NAP_TIEN_CO_SAN")) (@childs.Count)*@
+                    </div>
+
+                    <div class="inner-list">
+                        <div class="swiper swiperSimAvailable">
+                            <div class="swiper-wrapper">
+                                @{
+
+                                    if (childs != null)
+                                    {
+                                        foreach (var item in childs)
+                                        {
+                                            <div class="swiper-slide">
+                                                <div class="sim-package-item" style="background: @Model.GradientColor">
+                                                    <div class="inner-header">
+                                                        <div class="inner-title-2">
+                                                            @(item.Title.Split(";").Last() ?? "")
+                                                        </div>
+                                                    </div>
+                                                    <div class="sim-package-info">
+                                                        <ul class="inner-list">
+                                                            <li>
+                                                                <span class="inner-label">
+                                                                    <i class="fa-solid fa-right-left inner-rotate-90"></i> @Html.Raw(WebHelper.GetCultureText(cultures, "DU_LIEU"))
+                                                                </span>
+                                                                <span class="inner-value">
+                                                                    @item.DataLimit GB
+                                                                </span>
+                                                            </li>
+                                                            @if (!string.IsNullOrEmpty(item.PhoneMinute))
+                                                            {
+                                                                <li>
+                                                                    <span class="inner-label">
+                                                                        <i class="fa-solid fa-phone-volume"></i> @Html.Raw(WebHelper.GetCultureText(cultures, "CUOC_GOI"))
+                                                                    </span>
+                                                                    <span class="inner-value">
+                                                                        @item.PhoneMinute @Html.Raw(WebHelper.GetCultureText(cultures, "PHUT"))
+                                                                    </span>
+                                                                </li>
+                                                            }
+                                                            @if (string.IsNullOrEmpty(item.SmsNumber))
+                                                            {
+                                                                <li>
+                                                                    <span class="inner-label">
+                                                                        <i class="fa-solid fa-message"></i> @Html.Raw(WebHelper.GetCultureText(cultures, "TIN_NHAN"))
+                                                                    </span>
+                                                                    <span class="inner-value">
+                                                                        @item.SmsNumber SMS
+                                                                    </span>
+                                                                </li>
+                                                            }
+
+                                                            <li>
+                                                                <span class="inner-label">
+                                                                    <i class="fa-solid fa-calendar"></i> @Html.Raw(WebHelper.GetCultureText(cultures, "HIEU_LUC"))
+                                                                </span>
+                                                                <span class="inner-value">
+                                                                    @item.Validity @Html.Raw(WebHelper.GetCultureText(cultures, "NGAY"))
+                                                                </span>
+                                                            </li>
+                                                            <li>
+                                                                <span class="inner-label">
+                                                                    <i class="fa-solid fa-tag"></i> @Html.Raw(WebHelper.GetCultureText(cultures, "GIA"))
+                                                                </span>
+                                                                <span class="inner-value inner-price">
+                                                                    US $ @item.Price
+                                                                </span>
+                                                            </li>
+                                                        </ul>
+                                                    </div>
+                                                    <div class="inner-footer">
+                                                        <a href="javascript:;" class="inner-buy-top-up-now inner-buy-now" data-topup-id="@item.ProductId" data-order-id="@ViewBag.OrderId" data-product-url="@item.Url"
+                                                           @*data-toggle="modal" data-target="#modalBuySim"*@>
+                                                            @Html.Raw(WebHelper.GetCultureText(cultures, "MUA_NGAY_BUTTON"))
+                                                        </a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        }
+                                    }
+                                }
+
+
+                            </div>
+                            <div class="swiper-button-next"></div>
+                            <div class="swiper-button-prev"></div>
+                            <div class="swiper-pagination"></div>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="inner-section-4 sim-package-detail">
+                    <div class="row align-items-center">
+                        
+                        <div class="col-xl-5 col-lg-5 col-md-5 col-sm-5 col-5">
+                            <a href="javascript:;" class="inner-button buy-iccid-top-up" data-serial="@ViewBag.OrderICCID" data-modal-text='@Html.Raw(WebHelper.GetCultureText(cultures, "SU_DUNG_SERIAL_DESC"))'>
+                                @Html.Raw(WebHelper.GetCultureText(cultures, "SU_DUNG_SERIAL"))
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+

@@ -1,0 +1,152 @@
+﻿@using PlatformWEB.Services.Product.Repository
+@using PlatformWEB.Services.Zone.Repository
+@using MI.Entity.Enums
+@using PlatformWEB.Services.BannerAds.Repository
+@using PlatformWEB.Services.FlashSale.Repository
+@using Microsoft.AspNetCore.Localization
+@using Microsoft.AspNetCore.Http
+@using PlatformWEB.Services.Article.Repository
+@using Newtonsoft.Json
+@using PlatformWEB.Utility
+@using Microsoft.AspNetCore.Mvc.RazorPages
+@using MI.Entity.Models
+@using PlatformWEB.Services.Extra.ViewModel
+@using PlatformWEB.Services.Extra.Repository
+@using Microsoft.AspNetCore.Http.Extensions
+@using Microsoft.AspNetCore.Mvc.Localization
+@using PlatformWEB.Services.Order.ViewModal
+
+@inject IHttpContextAccessor HttpContextAccessor
+@inject ICookieUtility cookieUtility
+@inject IConfigSEOUtility configSEOUtility
+@inject IArticleRepository articleRepository
+@inject IBannerAdsRepository bannerAdsRepository
+@inject IFlashSaleRepository flashSaleRepository
+@inject IExtraRepository extraRepository
+@inject IProductRepository productRepository
+@inject IZoneRepository zoneRepository
+@inject IViewLocalizer localizer
+
+@using Utils
+@{
+    var culture = Context.Features.Get<IRequestCultureFeature>().RequestCulture.Culture.TwoLetterISOLanguageName.ToLower();
+    var culture_code = Context.Features.Get<IRequestCultureFeature>().RequestCulture.Culture.ToString();
+    var base_uri_culture = "/" + culture;
+    var domain = Context.Request.Host.ToString();
+    var domain_full = Context.Request.GetDisplayUrl();
+
+    const string CookieLocationId = "_LocationId";
+    const string CookieLocationName = "_LocationName";
+
+
+
+}
+
+
+@{
+    ViewData["Title"] = "SuccessOrder";
+    Layout = "~/Views/Shared/_LayoutPublicHome.cshtml";
+    
+}
+@model List<PlatformWEB.Services.Order.ViewModal.OrderDetail>;
+    <!-- Thanh toán -->
+    @if (Model != null)
+    {
+    <div class="section-8">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-xl-8 col-lg-9">
+                    <div class="row">
+                        <div class="col-xl-6 col-lg-6 col-md-6">
+                            <div class="inner-section-5">
+                                <div class="inner-icon-success">
+                                    <i class="fa-solid fa-check"></i>
+                                </div>
+                                <div class="inner-title">
+                                    Cảm ơn đơn hàng của bạn.
+                                </div>
+                                <div class="inner-desc">
+                                    Chúng tôi đã gửi cho bạn một biên lai xác nhận đến <span class="customer-email"></span>
+                                </div>
+                                <div class="inner-order-id">
+                                    ID ĐƠN HÀNG: <span class="order-id">@Model.FirstOrDefault().OrderCode</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xl-6 col-lg-6 col-md-6">
+                            <div class="inner-section-6">
+                                <div class="inner-title">
+                                    Cách để cài đặt một eSIM
+                                </div>
+                                <div class="inner-desc">
+                                    Bạn có thể cài đặt eSIM của mình ngay bây giờ bằng cách truy cập chi tiết eSIM.
+                                </div>
+                                <a href="/my-sim" class="inner-button">
+                                    <i class="fa-solid fa-microchip"></i>
+                                    <span>Vào chi tiết eSIM</span>
+                                    <i class="fa-solid fa-angle-right"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    @{
+                        var products = Model.Select(r => r.ProductId);
+                        foreach (var item in products)
+                        {
+                            var prod = productRepository.GetProductInfomationDetail(item, culture_code);
+                            if (prod != null)
+                            {
+                                <div class="inner-section-1">
+                                    <div class="inner-image">
+                                        <img src="@UIHelper.StoreFilePath(prod.Avatar, false)" alt="@prod.Title">
+                                    </div>
+                                    <div class="inner-info type-2">
+                                        <div class="inner-title">
+                                            @prod.Title
+                                        </div>
+                                        <div class="sim-package-info">
+                                            <ul class="inner-list">
+                                                @await Component.InvokeAsync("ItemProductv3", new { pr = prod })
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            }
+                        }
+                    }
+
+                    <div class="inner-section-3 show-mobile">
+                        <div class="inner-title type-2">
+                            Chi tiết thanh toán
+                        </div>
+                        <div class="inner-list-price">
+                            <div class="inner-price">
+                                <span class="inner-label">PHƯƠNG THỨC THANH TOÁN</span>
+                                <span class="inner-value">
+                                    <img src="assets/images/icons/icon-visa.svg" alt="" class="showcase-image">
+                                    <span class="showcase-text"></span>
+                                </span>
+                            </div>
+                            <div class="inner-price">
+                                <span class="inner-label">TỔNG GIÁ</span>
+                                <span class="inner-value">
+                                    VND <span class="total-price">@UIHelper.FormatNumber(Model.Sum(r => r.LogPrice))</span>
+                                </span>
+                            </div>
+                        </div>
+                        <div class="inner-button">
+                            <a href="/my-sim" class="inner-button-complete inner-full">
+                                XEM CHI TIẾT eSIM
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- End Thanh toán -->
+    }
+
+@section Scripts{ 
+    <script src="~/js/controller/paymentController.js"></script>
+}

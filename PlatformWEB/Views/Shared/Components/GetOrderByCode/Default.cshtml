@@ -1,0 +1,153 @@
+﻿
+@using Utils;
+@using Microsoft.AspNetCore.Localization
+@using Microsoft.AspNetCore.Mvc.Localization
+@using Microsoft.AspNetCore.Http
+@using PlatformWEB.Services.Order.ViewModal;
+@inject IHttpContextAccessor HttpContextAccessor
+@using PlatformWEB.Utility
+@inject ICookieUtility cookieUtility
+
+@model List<OrderDetail>;
+@{
+    var list_Order = Model;
+
+    var CodeName = ViewBag.OrderCode;
+}
+
+<style>
+    /* .login div {
+            margin: 0 auto;
+            max-width: 100% !important;
+
+            padding: 25px 0;
+            background-color: none !important;
+        }*/
+    /* #list_order{
+            background: #fff;
+        }
+        .cate{
+            height:100% !important;
+        }
+        .login .btn {
+            width: 255px !important;
+            height: 100% !important;
+            padding: 10px !important;
+        }*/
+</style>
+
+@if (list_Order.Count() >0)
+{
+    var product_with_big_thumb = list_Order.FirstOrDefault();
+    var order_code = product_with_big_thumb.OrderCode;
+    var order_customer = product_with_big_thumb.CustomerName;
+    var order_address = product_with_big_thumb.Address;
+    var order_phone = product_with_big_thumb.PhoneNumber;
+    var order_createDate = product_with_big_thumb.CreatedDate;
+    float tong_tien = 0;
+
+    <div class="row" style="margin: 0 auto; ">
+        <div class="col-lg-12 col-md-12 col-12">
+            <div>
+                <p> Mã số đơn hàng: <span class="font-weight-600 order-code">@order_code</span></p>
+                @*<a class="btn" href="@("/kiem-tra-don-hang")"><i class="fa fa-refresh" aria-hidden="true"></i> Tra cứu email khác</a>*@
+            </div>
+            <div class="row">
+                <div class="mb-3 col-lg-6 col-md-12 col-12">
+                    <label class="font-weight-bold mb-1 ">Thông tin khách hàng</label>
+                    <div class="customer-id" data-id="0" style="display:none;"></div>
+                    <div>- Anh/ Chị: <span class="font-weight-600 customer-name" style="text-transform:uppercase;">@order_customer</span></div>
+                    <div>- SĐT: <span class="font-weight-600 customer-phone">@order_phone</span></div>
+                    <div>- Địa chỉ:<span class="font-weight-600 customer-address">@order_address</span></div>
+                </div>
+                <div class="mb-3 col-lg-6 col-md-12 col-12">
+                    <label class="font-weight-bold mb-1">Thông tin khác</label>
+                    <ul class="list_extra_infomation"><li>Thanh toán tiền mặt khi nhận hàng</li></ul>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-12 col-md-12 col-12">
+            <p> Thời gian đặt hàng: <span class="font-weight-600 order-time">@order_createDate</span></p>
+            <div class="mb-3">
+                <label class="font-weight-bold mb-1 ">Thông tin đơn hàng</label>
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th>Sản phẩm</th>
+                            <th>Số lượng</th>
+                            <th>Giá bán</th>
+                            @*<th>Tổng tiền</th>*@
+                            <th>KM đi kèm</th>
+                        </tr>
+                    </thead>
+                    <tbody class="table-infomation-product">
+
+                        <tr class="table-report-item" style="display:none">
+                            <td class="product-id" hidden="">1</td>
+                            <td class="product-name">SP A</td>
+                            <td class="product-quantity">5</td>
+                            <td class="product-price">1.000.000 đ</td>
+                            <td class="product-total-price">5.000.000 đ</td>
+                            <td class="product-promotion">
+                                <ul class="product-promotion-ul"></ul>
+                            </td>
+                        </tr>
+                        @foreach (var item in list_Order)
+                        {
+                            <tr class="table-report-item table-report-item-append" style="display: table-row;">
+                                <td class="product-id" hidden="">@item.ProductId</td>
+                                <td class="product-name">@item.ProductName</td>
+                                <td class="product-quantity">@item.Quantity</td>
+                                <td class="product-price">@UIHelper.FormatNumber(@item.LogPrice)</td>
+                                @*<td class="product-total-price">32,500,000</td>*@
+                                <td class="product-promotion">
+                                    <ul class="product-promotion-ul"></ul>
+                                </td>
+                            </tr>
+
+                            tong_tien += (item.Quantity * (float)(item.LogPrice));
+                        }
+                    </tbody>
+                </table>
+            </div>
+            <hr>
+            <div class="d-flex">
+                <h3>Tổng tiền: </h3>
+                <h3 class="ml-auto font-weight-600 color-EE7D22 code-promotion">@UIHelper.FormatNumber(tong_tien) vnđ</h3>
+            </div>
+            @*<div class="d-flex">
+                    <div>Trị giá voucher: </div>
+                    <div class="ml-auto font-weight-600 color-EE7D22 values-promotion">0</div>
+                </div>
+                <div class="d-flex">
+                    <div>Số tiền cần thanh toán: </div>
+                    <div class="ml-auto font-weight-600 color-EE7D22 total-payment">32,500,000vnd</div>
+                </div>*@
+        </div>
+    </div>
+}
+else
+{
+    <div class="cate" style="border: none !important; padding: 15px;">
+        <div class="user" style=" display: flex; justify-content: space-between; padding: 0 0 15px 0 !important; margin: 0 !important;">
+            @*<h3>Chào bạn: <span style=" text-transform: uppercase; font-family: sans-serif;">@order_customer</span></h3>*@
+            <h5 style="text-align: left; margin: 0 !important; padding: 11px 0 !important; ">Mã đơn hàng: <span style="font-weight:600; "> @CodeName</span></h5>
+            <a class="btn" href="@("/kiem-tra-don-hang")"><i class="fa fa-refresh" aria-hidden="true"></i> Tra cứu mã khác</a>
+        </div>
+        
+        <div class="list" id="list_order">
+
+            <div class="notfound_list">
+                <a href="/"><img src="~/design/images/gio-hang-rong-desk.png" title="Tiếp tục tra cứu"></a>
+                <p>Bạn chưa có đơn hàng nào</p>
+                <a class="button_direct" href="/" style="font-size:20px;">Về trang chủ</a>
+                <div>
+                    Bạn vui lòng liên hệ với bên đại lý nếu có thắc mắc
+                </div>
+            </div>
+
+
+        </div>
+    </div>
+}
+

@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="255px" height="255px" viewBox="0 0 255 255" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>Web/*_Assets/Modules/Data Card/Desktop/Light Mode</title>
+    <defs>
+        <rect id="path-1" x="0" y="0" width="255" height="255" rx="7"></rect>
+        <filter x="-19.6%" y="-15.7%" width="139.2%" height="139.2%" filterUnits="objectBoundingBox" id="filter-2">
+            <feOffset dx="0" dy="10" in="SourceAlpha" result="shadowOffsetOuter1"></feOffset>
+            <feGaussianBlur stdDeviation="15" in="shadowOffsetOuter1" result="shadowBlurOuter1"></feGaussianBlur>
+            <feColorMatrix values="0 0 0 0 0   0 0 0 0 0   0 0 0 0 0  0 0 0 0.15 0" type="matrix" in="shadowBlurOuter1"></feColorMatrix>
+        </filter>
+        <linearGradient x1="48.6115988%" y1="-5.57962362%" x2="51.0459457%" y2="95.9895576%" id="linearGradient-3">
+            <stop stop-color="#A75584" offset="1.98%"></stop>
+            <stop stop-color="#B6496F" offset="42.05%"></stop>
+            <stop stop-color="#BF4868" offset="57.37%"></stop>
+            <stop stop-color="#D64455" offset="81.9%"></stop>
+            <stop stop-color="#E0434D" offset="90.56%"></stop>
+        </linearGradient>
+        <linearGradient x1="73.8216873%" y1="9.99230135%" x2="38.7985067%" y2="107.384706%" id="linearGradient-4">
+            <stop stop-color="#FFE065" offset="0%"></stop>
+            <stop stop-color="#FFDC54" offset="2.41%"></stop>
+            <stop stop-color="#FFC906" offset="12.84%"></stop>
+            <stop stop-color="#FEC30C" offset="14.49%"></stop>
+            <stop stop-color="#F59D31" offset="26%"></stop>
+            <stop stop-color="#F28F3F" offset="32.06%"></stop>
+            <stop stop-color="#ED6948" offset="100%"></stop>
+        </linearGradient>
+        <linearGradient x1="44.3431327%" y1="-0.0450236125%" x2="56.5830329%" y2="109.768242%" id="linearGradient-5">
+            <stop stop-color="#CF5C6C" offset="1.81%"></stop>
+            <stop stop-color="#D85F68" offset="9.04%"></stop>
+            <stop stop-color="#EB6661" offset="26.82%"></stop>
+            <stop stop-color="#F1685F" offset="39.56%"></stop>
+            <stop stop-color="#F0774F" offset="65.21%"></stop>
+            <stop stop-color="#F08441" offset="95.68%"></stop>
+        </linearGradient>
+    </defs>
+    <g id="Web/*_Assets/Modules/Data-Card/Desktop/Light-Mode" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="_Assets/Global/Wrapper/Light-Mode" fill-rule="nonzero">
+            <g id="Rectangle">
+                <use fill="black" fill-opacity="1" filter="url(#filter-2)" xlink:href="#path-1"></use>
+                <use fill="#FFFFFF" xlink:href="#path-1"></use>
+            </g>
+        </g>
+        <g id="_Assets/Logo/Non-Name/Light-Mode" transform="translate(127.551686, 207.486387) rotate(-315.000000) translate(-127.551686, -207.486387) translate(-22.857123, 84.241127)" fill-rule="nonzero">
+            <g id="Airalo-Logo" transform="translate(-0.000000, -0.000000)">
+                <path d="M300.816248,12.1947205 L300.816248,171.926611 C300.816248,171.926611 301.356986,196.661091 280.949623,220.151167 C260.542261,243.641243 233.749197,246.487385 226.650849,246.487385 C219.5525,246.487385 196.128886,246.487385 196.128886,246.487385 L199.989063,68.8009768 C199.989063,68.8009768 200.498543,42.0886164 222.743787,19.7771189 C243.951316,-1.48744959 271.013185,0.0233879748 271.013185,0.0233879748 L289.113818,0.0233879748 C289.113818,0.0233879748 300.816248,-1.0830968 300.816248,12.1947205 Z" id="Path" fill="url(#linearGradient-3)"></path>
+                <path d="M98.9243273,138.271294 L99.8151373,246.484251 L10.6153657,246.484251 C10.6153657,246.484251 0,246.236624 0,237.920748 C0,229.604873 0,205.465951 0,205.465951 C0,205.465951 -0.393170102,181.571522 18.0356565,161.507474 C36.4644831,141.443426 58.4471726,138.801028 65.2923439,138.801028 C72.1375153,138.801028 98.9243273,138.271294 98.9243273,138.271294 Z" id="Path" fill="url(#linearGradient-4)"></path>
+                <path d="M200.432905,246.487385 L94.8547323,246.487385 L98.9243273,138.274429 C98.9243273,138.274429 97.6740677,112.511827 121.403995,89.6110403 C137.682375,73.8977027 152.801139,69.9325377 166.003881,69.9325377 C179.206622,69.9325377 199.970309,69.9325377 199.970309,69.9325377 L200.432905,246.487385 Z" id="Path" fill="url(#linearGradient-5)"></path>
+                <path d="M196.035117,246.49052 C196.035117,246.49052 197.826113,246.49052 200.429779,246.49052 L199.964057,69.9294032 L196.035117,246.49052 Z" id="Path" fill="#B50D31" opacity="0.61"></path>
+                <polygon id="Path" fill="#C84E28" opacity="0.59" points="98.918076 136.939124 94.7547115 246.487385 99.7088652 246.487385"></polygon>
+            </g>
+        </g>
+    </g>
+</svg>

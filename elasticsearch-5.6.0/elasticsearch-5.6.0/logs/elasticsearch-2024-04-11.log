@@ -1,0 +1,63 @@
+[2024-04-11T11:22:21,466][INFO ][o.e.n.Node               ] [] initializing ...
+[2024-04-11T11:22:21,653][INFO ][o.e.e.NodeEnvironment    ] [-uPqMDo] using [1] data paths, mounts [[(C:)]], net usable_space [112.3gb], net total_space [255.2gb], spins? [unknown], types [NTFS]
+[2024-04-11T11:22:21,654][INFO ][o.e.e.NodeEnvironment    ] [-uPqMDo] heap size [1.9gb], compressed ordinary object pointers [true]
+[2024-04-11T11:22:21,657][INFO ][o.e.n.Node               ] node name [-uPqMDo] derived from node ID [-uPqMDoDQuW1jIayQ3FJkA]; set [node.name] to override
+[2024-04-11T11:22:21,657][INFO ][o.e.n.Node               ] version[5.6.0], pid[10764], build[781a835/2017-09-07T03:09:58.087Z], OS[Windows 11/10.0/amd64], JVM[OpenLogic-OpenJDK/OpenJDK 64-Bit Server VM/1.8.0_402-402/25.402-b06]
+[2024-04-11T11:22:21,659][INFO ][o.e.n.Node               ] JVM arguments [-Xms2g, -Xmx2g, -XX:+UseConcMarkSweepGC, -XX:CMSInitiatingOccupancyFraction=75, -XX:+UseCMSInitiatingOccupancyOnly, -XX:+AlwaysPreTouch, -Xss1m, -Djava.awt.headless=true, -Dfile.encoding=UTF-8, -Djna.nosys=true, -Djdk.io.permissionsUseCanonicalPath=true, -Dio.netty.noUnsafe=true, -Dio.netty.noKeySetOptimization=true, -Dio.netty.recycler.maxCapacityPerThread=0, -Dlog4j.shutdownHookEnabled=false, -Dlog4j2.disable.jmx=true, -Dlog4j.skipJansi=true, -XX:+HeapDumpOnOutOfMemoryError, -Delasticsearch, -Des.path.home=C:\WEBCORE\elasticsearch-5.6.0\elasticsearch-5.6.0]
+[2024-04-11T11:22:23,963][INFO ][o.e.p.PluginsService     ] [-uPqMDo] loaded module [aggs-matrix-stats]
+[2024-04-11T11:22:23,963][INFO ][o.e.p.PluginsService     ] [-uPqMDo] loaded module [ingest-common]
+[2024-04-11T11:22:23,964][INFO ][o.e.p.PluginsService     ] [-uPqMDo] loaded module [lang-expression]
+[2024-04-11T11:22:23,964][INFO ][o.e.p.PluginsService     ] [-uPqMDo] loaded module [lang-groovy]
+[2024-04-11T11:22:23,964][INFO ][o.e.p.PluginsService     ] [-uPqMDo] loaded module [lang-mustache]
+[2024-04-11T11:22:23,965][INFO ][o.e.p.PluginsService     ] [-uPqMDo] loaded module [lang-painless]
+[2024-04-11T11:22:23,965][INFO ][o.e.p.PluginsService     ] [-uPqMDo] loaded module [parent-join]
+[2024-04-11T11:22:23,965][INFO ][o.e.p.PluginsService     ] [-uPqMDo] loaded module [percolator]
+[2024-04-11T11:22:23,966][INFO ][o.e.p.PluginsService     ] [-uPqMDo] loaded module [reindex]
+[2024-04-11T11:22:23,967][INFO ][o.e.p.PluginsService     ] [-uPqMDo] loaded module [transport-netty3]
+[2024-04-11T11:22:23,967][INFO ][o.e.p.PluginsService     ] [-uPqMDo] loaded module [transport-netty4]
+[2024-04-11T11:22:23,968][INFO ][o.e.p.PluginsService     ] [-uPqMDo] no plugins loaded
+[2024-04-11T11:22:28,403][INFO ][o.e.d.DiscoveryModule    ] [-uPqMDo] using discovery type [zen]
+[2024-04-11T11:22:29,397][INFO ][o.e.n.Node               ] initialized
+[2024-04-11T11:22:29,398][INFO ][o.e.n.Node               ] [-uPqMDo] starting ...
+[2024-04-11T11:22:29,946][INFO ][o.e.t.TransportService   ] [-uPqMDo] publish_address {127.0.0.1:9300}, bound_addresses {127.0.0.1:9300}, {[::1]:9300}
+[2024-04-11T11:22:33,018][INFO ][o.e.c.s.ClusterService   ] [-uPqMDo] new_master {-uPqMDo}{-uPqMDoDQuW1jIayQ3FJkA}{JZHjeJqLRo-DzbFoQryFKw}{127.0.0.1}{127.0.0.1:9300}, reason: zen-disco-elected-as-master ([0] nodes joined)
+[2024-04-11T11:22:33,058][INFO ][o.e.g.GatewayService     ] [-uPqMDo] recovered [0] indices into cluster_state
+[2024-04-11T11:22:33,573][INFO ][o.e.h.n.Netty4HttpServerTransport] [-uPqMDo] publish_address {127.0.0.1:9200}, bound_addresses {127.0.0.1:9200}, {[::1]:9200}
+[2024-04-11T11:22:33,575][INFO ][o.e.n.Node               ] [-uPqMDo] started
+[2024-04-11T11:44:16,476][INFO ][o.e.c.m.MetaDataCreateIndexService] [-uPqMDo] [elastic_way2go] creating index, cause [api], templates [], shards [5]/[1], mappings [essearchitem]
+[2024-04-11T11:44:22,328][INFO ][o.e.c.m.MetaDataDeleteIndexService] [-uPqMDo] [elastic_way2go/gxOj2U6FQoKc4VRpd4tb5g] deleting index
+[2024-04-11T11:44:23,005][INFO ][o.e.c.m.MetaDataCreateIndexService] [-uPqMDo] [elastic_way2go] creating index, cause [api], templates [], shards [5]/[1], mappings [essearchitem]
+[2024-04-11T11:46:40,062][INFO ][o.e.c.m.MetaDataDeleteIndexService] [-uPqMDo] [elastic_way2go/CAqpDBcWQoOFnWjTMBIx-A] deleting index
+[2024-04-11T11:46:40,330][DEBUG][o.e.a.a.i.d.TransportDeleteIndexAction] [-uPqMDo] failed to delete indices [[[elastic_way2go/CAqpDBcWQoOFnWjTMBIx-A]]]
+org.elasticsearch.index.IndexNotFoundException: no such index
+	at org.elasticsearch.cluster.metadata.MetaData.getIndexSafe(MetaData.java:473) ~[elasticsearch-5.6.0.jar:5.6.0]
+	at org.elasticsearch.cluster.metadata.MetaDataDeleteIndexService.lambda$deleteIndices$0(MetaDataDeleteIndexService.java:89) ~[elasticsearch-5.6.0.jar:5.6.0]
+	at java.util.stream.ReferencePipeline$3$1.accept(ReferencePipeline.java:193) ~[?:1.8.0_402-402]
+	at java.util.HashMap$KeySpliterator.forEachRemaining(HashMap.java:1580) ~[?:1.8.0_402-402]
+	at java.util.stream.AbstractPipeline.copyInto(AbstractPipeline.java:482) ~[?:1.8.0_402-402]
+	at java.util.stream.AbstractPipeline.wrapAndCopyInto(AbstractPipeline.java:472) ~[?:1.8.0_402-402]
+	at java.util.stream.ReduceOps$ReduceOp.evaluateSequential(ReduceOps.java:708) ~[?:1.8.0_402-402]
+	at java.util.stream.AbstractPipeline.evaluate(AbstractPipeline.java:234) ~[?:1.8.0_402-402]
+	at java.util.stream.ReferencePipeline.collect(ReferencePipeline.java:566) ~[?:1.8.0_402-402]
+	at org.elasticsearch.cluster.metadata.MetaDataDeleteIndexService.deleteIndices(MetaDataDeleteIndexService.java:89) ~[elasticsearch-5.6.0.jar:5.6.0]
+	at org.elasticsearch.cluster.metadata.MetaDataDeleteIndexService$1.execute(MetaDataDeleteIndexService.java:79) ~[elasticsearch-5.6.0.jar:5.6.0]
+	at org.elasticsearch.cluster.ClusterStateUpdateTask.execute(ClusterStateUpdateTask.java:45) ~[elasticsearch-5.6.0.jar:5.6.0]
+	at org.elasticsearch.cluster.service.ClusterService.executeTasks(ClusterService.java:634) ~[elasticsearch-5.6.0.jar:5.6.0]
+	at org.elasticsearch.cluster.service.ClusterService.calculateTaskOutputs(ClusterService.java:612) ~[elasticsearch-5.6.0.jar:5.6.0]
+	at org.elasticsearch.cluster.service.ClusterService.runTasks(ClusterService.java:571) [elasticsearch-5.6.0.jar:5.6.0]
+	at org.elasticsearch.cluster.service.ClusterService$ClusterServiceTaskBatcher.run(ClusterService.java:263) [elasticsearch-5.6.0.jar:5.6.0]
+	at org.elasticsearch.cluster.service.TaskBatcher.runIfNotProcessed(TaskBatcher.java:150) [elasticsearch-5.6.0.jar:5.6.0]
+	at org.elasticsearch.cluster.service.TaskBatcher$BatchedTask.run(TaskBatcher.java:188) [elasticsearch-5.6.0.jar:5.6.0]
+	at org.elasticsearch.common.util.concurrent.ThreadContext$ContextPreservingRunnable.run(ThreadContext.java:569) [elasticsearch-5.6.0.jar:5.6.0]
+	at org.elasticsearch.common.util.concurrent.PrioritizedEsThreadPoolExecutor$TieBreakingPrioritizedRunnable.runAndClean(PrioritizedEsThreadPoolExecutor.java:247) [elasticsearch-5.6.0.jar:5.6.0]
+	at org.elasticsearch.common.util.concurrent.PrioritizedEsThreadPoolExecutor$TieBreakingPrioritizedRunnable.run(PrioritizedEsThreadPoolExecutor.java:210) [elasticsearch-5.6.0.jar:5.6.0]
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1149) [?:1.8.0_402-402]
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624) [?:1.8.0_402-402]
+	at java.lang.Thread.run(Thread.java:750) [?:1.8.0_402-402]
+[2024-04-11T11:46:40,590][INFO ][o.e.c.m.MetaDataCreateIndexService] [-uPqMDo] [elastic_way2go] creating index, cause [api], templates [], shards [5]/[1], mappings [essearchitem]
+[2024-04-11T12:17:39,348][INFO ][o.e.c.m.MetaDataDeleteIndexService] [-uPqMDo] [elastic_way2go/5VHswXnzSr2PaNFBVWVF0A] deleting index
+[2024-04-11T12:17:40,290][INFO ][o.e.c.m.MetaDataCreateIndexService] [-uPqMDo] [elastic_way2go] creating index, cause [api], templates [], shards [5]/[1], mappings [essearchitem]
+[2024-04-11T12:20:21,050][INFO ][o.e.c.m.MetaDataDeleteIndexService] [-uPqMDo] [elastic_way2go/BPQ97ZSSRka8fMprCalwfw] deleting index
+[2024-04-11T12:20:33,619][INFO ][o.e.c.m.MetaDataCreateIndexService] [-uPqMDo] [elastic_way2go] creating index, cause [api], templates [], shards [5]/[1], mappings [essearchitem]
+[2024-04-11T16:17:53,241][INFO ][o.e.c.m.MetaDataDeleteIndexService] [-uPqMDo] [elastic_way2go/AOO74ZUTSvqH_YOFNbnI9A] deleting index
+[2024-04-11T16:17:53,687][INFO ][o.e.c.m.MetaDataCreateIndexService] [-uPqMDo] [elastic_way2go] creating index, cause [api], templates [], shards [5]/[1], mappings [essearchitem]

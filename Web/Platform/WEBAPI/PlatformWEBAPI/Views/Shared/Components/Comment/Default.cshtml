@@ -1,0 +1,296 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@using MI.Entity.Enums;
+@using PlatformWEBAPI.Services.Zone.ViewModal
+@using PlatformWEBAPI.Services.Article.ViewModel
+@using PlatformWEBAPI.Services.Extra.ViewModel
+@using Microsoft.AspNetCore.Localization
+@using Microsoft.AspNetCore.Mvc.Localization
+@using Microsoft.AspNetCore.Http
+@using PlatformWEBAPI.Services.Article.Repository
+@using PlatformWEBAPI.Services.Extra.Repository
+@using PlatformWEBAPI.Services.Zone.Repository
+
+@using PlatformWEBAPI.Utility
+@inject IHttpContextAccessor HttpContextAccessor
+@inject IArticleRepository articleRepository;
+@inject IZoneRepository zoneRepository;
+@inject IExtraRepository extraRepository;
+@using Utils
+@{
+    var culture = Context.Features.Get<IRequestCultureFeature>().RequestCulture.Culture.TwoLetterISOLanguageName.ToLower();
+    var culture_code = Context.Features.Get<IRequestCultureFeature>().RequestCulture.Culture.ToString();
+    var base_uri_culture = "/" + culture;
+    var domain = Context.Request.Host.ToString();
+    var _ver = WebHelper.Version();
+}
+
+@{
+    var obj_id = (int)ViewBag.ObjId;
+    var obj_type = (int)ViewBag.ObjType;
+    var index = (int)ViewBag.Index;
+    var size = (int)ViewBag.Size;
+    var comments = new List<CommentDetail>();
+    if (obj_id != null && obj_type != null)
+    {
+        comments = extraRepository.GetCommentPublisedByObjectId(obj_id, obj_type);
+    }
+
+    //var list_zone_parents = zoneRepository.GetListZoneByParentId((int)TypeZone.AllButProduct, culture_code);
+}
+
+
+<div class="comments__head">
+    <h2 class="comments__head-title">@comments.Count() bình luận</h2>
+    <div class="comments__search search-comment">
+        <input type="text" placeholder="Search">
+        <i class="fas fa-search"></i>
+    </div>
+</div>
+
+<div class="comments__form">
+    <form id="comment-form" data-type="comment" data-object-id="@obj_id" data-object-type="@obj_type" data-lang="@culture_code">
+        <textarea class="comments__form-content txt_content" rows="4" placeholder="Mời bạn bình luận tại đây" minlength="50"></textarea>
+
+        <div class="comments__form-footer">
+            <div class="comments__form-input-file">
+                <img asp-append-version="true" src="~/images/camera.svg" class="img-fluid" />
+                <input type="file" class="input-choose-file " accept="image/*" data-target-url="" />
+            </div>
+            <input type="text" style="font-size: 14px;" class="txt_name" placeholder="Tên (bắt buộc)" required>
+            <input type="text" style="font-size: 14px;" class="txt_phoneOrEmail" placeholder="Email (bắt buộc)" required>
+            <button class="send-comment " data-type="comment" data-object-id="@obj_id" data-object-type="@obj_type" data-lang="@culture_code" type="submit">Gửi</button>
+        </div>
+    </form>
+</div>
+
+@{
+    var list_comment_parents = comments.Where(r => r.ParentId == 0);
+    var total = list_comment_parents.Count();
+
+    var skip = (int)((index - 1) * size);
+    var res = list_comment_parents.Skip(skip).Take(size);
+}
+
+<div class="comments__list list-comment comment-binding">
+    @foreach (var item in res)
+    {
+        <!-- Item -->
+        <div class="comments__item comment_infomation" data-id=" @item.Id " data-object-id="@obj_id" data-object-type="@obj_type">
+
+            @if (!string.IsNullOrEmpty(item.Avatar))
+            {
+                <div class="comments__item-avatar avatar">
+                    <img src="@UIHelper.StoreFilePath(item.Avatar.Replace("\\","/"),false,"","")" style="max-width:300px;max-height:300px" />
+                </div>
+            }
+            else
+            {
+                <div class="comments__item-avatar avatar" data-name="@item.Name.ToString()">
+
+                </div>
+            }
+            <div class="comments__item-info media-body">
+                <h5 class="comments__item-name"><a href="#">@item.Name</a></h5>
+                <div class="comments__item-content">
+                    @item.Content
+                </div>
+                <div class="comments__action">
+                    <a href="javascript:void(0)" class="reply_comment comments__button-reply" data->Trả lời</a>
+                    <a href="javascript:void(0)" class="comments__button-like active">
+                        <i class="fa fa-thumbs-up"></i> Thích
+                    </a>
+                    <span class="comments__time time">
+                        @item.CreatedDate.ToString("dd/MM/yyyy hh:mm")
+                    </span>
+                </div>
+
+                <div class="_comment_reply"></div>
+                @{ var list_comment_reply = comments.Where(r => r.ParentId == item.Id).OrderBy(r => r.CreatedDate);}
+                @foreach (var rep in list_comment_reply)
+                {
+
+                    <div class="comments__reply media-body">
+
+                        <a class="" href="javascript:void(0)" style="margin-right:5px;">
+                            @if (!string.IsNullOrEmpty(rep.CreatedByAdminId))
+                            {
+                                @*<div class="comments__item-avatar">
+                                        <img asp-append-version="true" src="~/design/images/logo.png?v=@_ver" class="img-fluid avatar-1"
+                                             alt="@rep.Name" style="width:140px!important; height:50px!important;">
+                                    </div>*@
+                                <img asp-append-version="true" src="~/design/images/logo_new.png?v=@_ver" class="img-fluid avatar-1"
+                                     alt="@rep.Name" style="height: 50px !important; border-radius: 50%;">
+                            }
+                            else
+                            {
+                                <div class="avatar" data-name="@rep.Name"></div>
+                            }
+                        </a>
+                        <div class="comments__item-info">
+                            @if (!string.IsNullOrEmpty(rep.Avatar))
+                            {
+                                <img src="@UIHelper.StoreFilePath(rep.Avatar.Replace("\\","/"),false,"","")" />
+                            }
+                            @if (!string.IsNullOrEmpty(rep.CreatedByAdminId))
+                            {
+                                <h5 class="comments__item-name">
+                                    <a href="#" class="name">@rep.Name</a>
+                                    <span class="comments__type-user qtv">Quản trị viên</span>
+                                </h5>
+                            }
+                            else
+                            {
+                                <h5 class="comments__item-name">
+                                    <a href="#" class="name">@rep.Name</a>
+                                </h5>
+                            }
+
+                            <div class="comments__item-content">
+                                @rep.Content
+                            </div>
+                            <div class="comments__action">
+                                <a href="javascript:void(0)" class="comments__button-reply reply_comment">Trả lời</a>
+                                <a href="javascript:void(0)" class="comments__button-like">
+                                    <i class="fa fa-thumbs-up"></i> Thích
+                                </a>
+                                <a href="javascript:void(0)" class="comments__button-unlike">
+                                    <i class="fa fa-thumbs-down"></i> Không thích
+                                </a>
+                                <span class="comments__time time">
+                                    @rep.CreatedDate.ToString("dd/MM/yyyy hh:mm")
+                                </span>
+                            </div>
+                            <div class="_comment_reply"></div>
+
+
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+        <!-- End Item -->
+    }
+</div>
+<!-- Button View More -->
+@*<div class="comments__view-more">
+        <a href="#">
+            Xem thêm <i class="fa fa-plus"></i>
+        </a>
+    </div>*@
+
+<!--Comment cũ-->
+@*<div class="list-comment comments__list comment-binding">
+    @foreach (var item in res)
+    {
+        <div class="media mb-3 comment_infomation" data-id="@item.Id" data-object-id="@obj_id" data-object-type="@obj_type">
+
+            <div class="avatar mr-3" data-name="@item.Name.ToString()"></div>
+            <div class="media-body">
+                <div class="comment-img">
+                    @if (!string.IsNullOrEmpty(item.Avatar))
+                    {
+                        <img src="@UIHelper.StoreFilePath(item.Avatar.Replace("\\","/"),false,"","")" style="max-width:300px;max-height:300px" />
+                    }
+
+                </div>
+                <h6 class="name">@item.Name</h6>
+                <div class="comment-ct ">
+                    @item.Content
+                </div>
+                <div class="d-flex flex-wrap">
+                    <a href="javascript:void(0)" class="btn-link small mr-3 mb-2 reply_comment" data->Trả lời</a>
+                    <a href="javascript:void(0)" class="btn-link small mr-3 mb-2">
+                        <i class="fas fa-thumbs-up mr-2"></i>Thích
+                    </a>
+                    <span class="time small mb-2">@item.CreatedDate.ToString("dd/MM/yyyy hh:mm")</span>
+                </div>
+                <div class="_comment_reply"></div>
+                @{ var list_comment_reply = comments.Where(r => r.ParentId == item.Id).OrderBy(r => r.CreatedDate);}
+                @foreach (var rep in list_comment_reply)
+                {
+                    <div class="media sub  mt-3">
+                        <a class="" href="javascript:void(0)">
+                            @if (!string.IsNullOrEmpty(rep.CreatedByAdminId))
+                            {
+                                <img asp-append-version="true" src="~/design/images/logo.png?v=@_ver" class="img-fluid avatar-1 mr-3"
+                                     alt="@rep.Name" style="width:120px!important; height:50px!important;">
+                            }
+                            else
+                            {
+                                <div class="avatar  mr-3" data-name="@rep.Name"></div>
+                            }
+
+                        </a>
+                        <div class="media-body">
+                            <div class="comment-img">
+                                @if (!string.IsNullOrEmpty(rep.Avatar))
+                                {
+                                    <img src="@UIHelper.StoreFilePath(rep.Avatar.Replace("\\","/"),false,"","")" />
+                                }
+
+                            </div>
+                            @if (!string.IsNullOrEmpty(rep.CreatedByAdminId))
+                            {
+                                <h6 class="name qtv">@rep.Name</h6>
+                                <div class="qtv">Quản trị viên</div>
+                            }
+                            else
+                            {
+                                <h6 class="name">@rep.Name</h6>
+                            }
+
+
+                            <div class="comment-ct">
+                                @rep.Content
+                            </div>
+                            <div class="d-flex flex-wrap">
+                                <a href="javascript:void(0)" class="btn-link small mr-3 mb-2 reply_comment">Trả lời</a>
+                                <a href="javascript:void(0)" class="btn-link small mr-3 mb-2">
+                                    <i class="fas fa-thumbs-up mr-2"></i>Hài lòng
+                                </a>
+                                <a href="javascript:void(0)" class="btn-link small mr-3 mb-2">
+                                    <i class="fas fa-thumbs-down mr-2"></i>Không hài lòng
+                                </a>
+                                <span class="time small mb-2">@rep.CreatedDate.ToString("dd/MM/yyyy hh:mm")</span>
+                            </div>
+                            <div class="_comment_reply"></div>
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+    }
+</div>*@
+
+<div class="comment-paging comments__view-more" data-total="@total" data-size="@size" data-object-id="@obj_id" data-object-type="@obj_type">
+
+</div>
+
+
+
+
+@*
+
+    $('#demo').pagination({
+        dataSource: 'https://api.flickr.com/services/feeds/photos_public.gne?tags=cat&tagmode=any&format=json&jsoncallback=?',
+        locator: 'items',
+        totalNumberLocator: function(response) {
+            // you can return totalNumber by analyzing response content
+            return Math.floor(Math.random() * (1000 - 100)) + 100;
+        },
+        pageSize: 20,
+        ajax: {
+            beforeSend: function() {
+                dataContainer.html('Loading data from flickr.com ...');
+            }
+        },
+        callback: function(data, pagination) {
+            // template method of yourself
+            var html = template(data);
+            dataContainer.html(html);
+        }
+    })
+
+*@

@@ -1,0 +1,63 @@
+﻿@using PlatformWEBAPI.Services.Zone.ViewModal
+@using PlatformWEBAPI.Services.BannerAds.ViewModel
+@using PlatformWEBAPI.Services.Extra.ViewModel
+@using PlatformWEBAPI.Services.BannerAds.Repository
+@using MI.Entity.Models
+@using PlatformWEBAPI.Services.Product.Repository
+@using PlatformWEBAPI.Services.Extra.Repository
+@using Microsoft.AspNetCore.Http
+@using Microsoft.AspNetCore.Localization
+@using Microsoft.AspNetCore.Mvc.Localization
+@using Utils
+@inject IHttpContextAccessor HttpContextAccessor
+@using PlatformWEBAPI.Utility
+@using PlatformWEBAPI.Services.Product.ViewModel;
+@inject ICookieUtility cookieUtility
+@inject IConfigSEOUtility configSEOUtility
+@inject IProductRepository productRepository
+@inject IBannerAdsRepository bannerAdsRepository
+@inject IExtraRepository extraRepository
+@{
+
+    Layout = "~/Views/Shared/_LayoutPublicHome.cshtml";
+    var cookie_location = cookieUtility.SetCookieDefault();
+    var location_id = cookie_location.LocationId;
+    var location_name = cookie_location.LocationName;
+    var culture = Context.Features.Get<IRequestCultureFeature>().RequestCulture.Culture.TwoLetterISOLanguageName.ToLower();
+    var culture_code = Context.Features.Get<IRequestCultureFeature>().RequestCulture.Culture.ToString();
+    var base_uri_culture = "/" + culture;
+    var domain = Context.Request.Host.ToString();
+    var total = (int)ViewBag.Total;
+    var pageSize = (int)ViewBag.Size;
+    var url = ViewBag.Url;
+    var zone_id = ViewBag.ZoneId;
+    var pageIndex = 1;
+}
+@model List<ProductMinify>;
+<div class="container mb-3">
+    @await Component.InvokeAsync("Breadcrumb", new { zone_id = zone_id })
+</div>
+<div class="container mt-45 mb-45" id="append-filter">
+    <div class="row js-product-load-more _binding_product">
+        @if (Model != null)
+        {
+            foreach (var item in Model)
+            {
+                <div class="col-lg-3 col-md-4 col-sm-6 col-6">
+                    @{var link_tar = string.Format("/{0}.html", item.Url);}
+                    <div class="products-grid__item" style="display:block;">
+                        @await Component.InvokeAsync("ItemProduct", new { pr = item, isLazy = false })
+                    </div>
+                </div>
+
+            }
+        }
+    </div>
+</div>
+    
+
+
+    @section scripts{
+
+        <script type="text/javascript" asp-append-version="true" src="~/js/controller/filterProductController.js"></script>
+    }

@@ -1,0 +1,86 @@
+﻿@using PlatformWEBAPI.Services.Product.Repository
+@using PlatformWEBAPI.Services.Product.ViewModel
+@using PlatformWEBAPI.Services.Zone.Repository
+@using PlatformWEBAPI.Services.Zone.ViewModal
+@using MI.Entity.Enums
+
+@using PlatformWEBAPI.Services.FlashSale.Repository
+@using PlatformWEBAPI.Services.Article.ViewModel
+@using Microsoft.AspNetCore.Localization
+@using Microsoft.AspNetCore.Mvc.Localization
+@using Microsoft.AspNetCore.Http
+@using PlatformWEBAPI.Services.Article.Repository
+@using PlatformWEBAPI.Utility
+@inject IHttpContextAccessor HttpContextAccessor
+@inject ICookieUtility cookieUtility
+
+@using Utils
+@{
+    var culture = Context.Features.Get<IRequestCultureFeature>().RequestCulture.Culture.TwoLetterISOLanguageName.ToLower();
+    var culture_code = Context.Features.Get<IRequestCultureFeature>().RequestCulture.Culture.ToString();
+    var base_uri_culture = "/" + culture;
+    var domain = Context.Request.Host.ToString();
+    var cookie_location = cookieUtility.SetCookieDefault();
+    var location_id = cookie_location.LocationId;
+    var location_name = cookie_location.LocationName;
+    var type = ViewBag.Type;
+}
+@inject IProductRepository productRepository
+@inject IZoneRepository zoneRepository
+@inject IFlashSaleRepository flashSaleRepository
+
+@{
+    var list_zone_type_region = ViewBag.Zones as List<ZoneByTreeViewMinify>;
+    var region_parent = ViewBag.Parent as ZoneByTreeViewMinify;
+    var banner = ViewBag.Banner;
+    var style_div_with_banner = "";
+    if (!string.IsNullOrEmpty(banner))
+    {
+        style_div_with_banner = "style=\"background: url(/" + banner + ") no-repeat top center;background-size: cover;\"";
+    }
+    var slide = ViewBag.Slide;
+    var list_region_child = list_zone_type_region.Where(r => r.ParentId == region_parent.Id).OrderBy(r =>
+    r.SortOrder).ToList();
+    
+    var count_item_five_part_two_line = 15;
+}
+
+<div class="container mb-45">
+    <div class="section-head">
+        <h4 class="section-head__title">@region_parent.Name</h4>
+    </div>
+    <div class="row">
+        @{
+            var link_parent = "javascript:void(0)";
+            var page_size = 8;
+            var page_index = 1;
+            var first_childs = list_region_child.FirstOrDefault();
+            if(first_childs == null)
+            {
+                first_childs = region_parent;
+            }
+            var total_first_child_1 = 0;
+            var products_in_first_child = productRepository.GetProductInRegionByZoneIdMinify(first_childs.Id, location_id,
+                culture_code, page_index, page_size, out total_first_child_1).OrderByDescending(r => r.IsHot).ToList();
+            link_parent = first_childs.UrlOld;
+            var link_view_more = string.Format("/danh-muc/{0}", region_parent.Url);
+        }
+        @foreach (var item in products_in_first_child)
+        {
+            <!-- Item -->
+        <div class="col-lg-3 col-md-4 col-sm-6 col-6 mb-30">
+            @await Component.InvokeAsync("ItemProduct", new { pr = item, isLazy = false })
+        </div>
+            <!-- End Item -->
+        }
+
+      
+    </div>
+    <div class="text-center">
+        <a href="@link_view_more" class="btn btn-outline-main">
+            Xem tất cả
+        </a>
+    </div>
+</div>
+
+

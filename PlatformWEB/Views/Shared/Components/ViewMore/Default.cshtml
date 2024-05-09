@@ -1,0 +1,37 @@
+﻿@using PlatformWEB.Services.Product.ViewModel;
+@using Utils;
+@using Microsoft.AspNetCore.Localization
+@using Microsoft.AspNetCore.Mvc.Localization
+@{
+    var culture = Context.Features.Get<IRequestCultureFeature>().RequestCulture.Culture.TwoLetterISOLanguageName.ToLower();
+    var culture_code = Context.Features.Get<IRequestCultureFeature>().RequestCulture.Culture.ToString();
+    var base_uri_culture = "/" + culture;
+    var domain = Context.Request.Host.ToString();
+}
+@model List<ProductMinify>;
+@{
+    var size = ViewBag.Total;
+    var item_left = 2;
+    var item_right = 2;
+    var item_in_row = item_left + item_right;
+    var number_of_page = size / item_in_row + 1;
+}
+
+@{
+    var list_product = Model;
+    var id = ViewBag.Id;
+    var list_cutted = new List<List<ProductMinify>>();
+
+    for (int i = 0; i < number_of_page; i++)
+    {
+        var r = Model.Skip(i * item_in_row).Take(item_in_row).ToList();
+        list_cutted.Add(r);
+    }
+}
+
+@foreach (var item in list_product)
+{
+    <div class="col-lg-3 col-md-4 col-sm-6 col-6 mb-30">
+        @await Component.InvokeAsync("ItemProduct", new { pr = item, isLazy = false })
+    </div>
+}

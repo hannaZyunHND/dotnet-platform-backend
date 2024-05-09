@@ -1,0 +1,66 @@
+﻿@using MI.Entity.Enums;
+@using PlatformWEB.Services.Zone.ViewModal
+@using PlatformWEB.Services.Article.ViewModel
+@using Microsoft.AspNetCore.Localization
+@using Microsoft.AspNetCore.Mvc.Localization
+@using Microsoft.AspNetCore.Http
+@using PlatformWEB.Services.Article.Repository
+@using PlatformWEB.Services.Zone.Repository
+@using PlatformWEB.Utility
+@inject IHttpContextAccessor HttpContextAccessor
+@inject IArticleRepository articleRepository;
+@inject IZoneRepository zoneRepository;
+@using Utils
+@{
+    var culture = Context.Features.Get<IRequestCultureFeature>().RequestCulture.Culture.TwoLetterISOLanguageName.ToLower();
+    var culture_code = Context.Features.Get<IRequestCultureFeature>().RequestCulture.Culture.ToString();
+    var base_uri_culture = "/" + culture;
+    var domain = Context.Request.Host.ToString();
+}
+
+@{
+    var list_zone_parents = zoneRepository.GetListZoneByParentId((int)TypeZone.AllButProduct, culture_code);
+
+}
+@section styles {
+
+
+}
+
+<h4 class="page-news-right__news-title">
+    Tin xem nhiều nhất
+</h4>
+
+@{
+    var t = 0;
+    var list_newest = articleRepository.GetArticlesInZoneId_Minify_FullFilter(0, (int)TypeZone.AllButProduct, 0, 2, culture_code, "", 1, 5, out t);
+    var list_xemnhieunhat=list_newest.OrderByDescending(x => x.ViewCount);
+
+}
+
+
+
+
+<div class="page-news-right__news-list">
+    @foreach (var item in list_xemnhieunhat)
+    {
+        var link_Tar = LinkRedirectUrlUtility.BlogDetailUrl(item.Url);
+
+
+        <div class="page-news-right__news-item @item.ViewCount">
+            <div class="news-item-small">
+                <div class="news-item-small__image">
+                    <a href="@link_Tar">
+                        <img src="@UIHelper.StoreFilePath(item.Avatar)" alt="@item.Title">
+                    </a>
+                </div>
+                <div class="news-item-small__content">
+                    <h4 class="news-item-small__title ">
+                        <a href="@link_Tar">@UIHelper.TrimByWord(item.Title, 10, "...")</a>
+                    </h4>
+                    <div class="news-item-small__time">@UIHelper.GetLongDate(item.CreatedDate)</div>
+                </div>
+            </div>
+        </div>
+    }
+</div>

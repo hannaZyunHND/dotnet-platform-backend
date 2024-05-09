@@ -1,0 +1,300 @@
+﻿@using MI.Entity.Enums;
+@using PlatformWEBAPI.Services.Zone.ViewModal
+@using Microsoft.AspNetCore.Localization
+@using Microsoft.AspNetCore.Http
+@using PlatformWEBAPI.Services.Article.Repository
+@using PlatformWEBAPI.Services.Extra.Repository
+@using PlatformWEBAPI.Services.Zone.Repository
+@using PlatformWEBAPI.Services.Product.Repository
+@inject IHttpContextAccessor HttpContextAccessor
+@inject IArticleRepository articleRepository;
+@inject IZoneRepository zoneRepository;
+@inject IExtraRepository extraRepository;
+@inject IProductRepository productRepository;
+@inject ICookieUtility cookieUtility;
+@inject IConfigSEOUtility configSEOUtility;
+@using Utils
+@using PlatformWEBAPI.Utility
+@{
+    ViewData["Title"] = "RedirectAction";
+    Layout = "~/Views/Shared/_LayoutPublicHome.cshtml";
+    var culture = Context.Features.Get<IRequestCultureFeature>().RequestCulture.Culture.TwoLetterISOLanguageName.ToLower();
+    var culture_code = Context.Features.Get<IRequestCultureFeature>().RequestCulture.Culture.ToString();
+    //var base_uri_culture = "/" + culture;
+    var base_uri_culture = "/";
+    var domain = Context.Request.Host.ToString();
+    var cookie_location = cookieUtility.SetCookieDefault();
+    var location_id = cookie_location.LocationId;
+    var location_name = cookie_location.LocationName;
+    var zone_type = ViewBag.Type;
+    var zone_id = ViewBag.ZoneId;
+    var zone_parent = ViewBag.Parent;
+    var is_have_child = ViewBag.IsHaveChild;
+    var pageIndex = ViewBag.PageIndex;
+    var pageSize = ViewBag.PageSize;
+    var priceRange = ViewBag.PriceRange;
+    //var a = (int)ViewBag.Type;
+    ////var zone_id = ViewBag.ZoneId;
+    //var a = int.TryParse(ViewBag.Type, out zone_type);
+    //var b = int.TryParse(ViewBag.ZoneId, out zone_id);
+
+}
+
+@if (zone_type == (int)TypeZone.Product)
+{
+    var zone_detail = zoneRepository.GetZoneDetail(zone_id, culture_code) as ZoneDetail;
+    if (zone_detail != null)
+    {
+        @section styles{
+            @{ var bind_meta = "";}
+            @if (zone_detail != null)
+            {
+                // lấy mặc định meta description, ko lấy content
+                //bind_meta += configSEOUtility.ConfigMeta(zone_detail.MetaTitle, string.IsNullOrEmpty(zone_detail.MetaDescription) ? UIHelper.TrimByWord(zone_detail.Content, 20, "...") : zone_detail.MetaDescription, zone_detail.MetaKeyword);
+                //bind_meta += configSEOUtility.ConfigSocialMeta("default app id", domain, zone_detail.MetaTitle, string.IsNullOrEmpty(zone_detail.MetaDescription) ? UIHelper.TrimByWord(zone_detail.Content, 20, "...") : zone_detail.MetaDescription, UIHelper.StoreFilePath(string.IsNullOrEmpty(zone_detail.Avatar) ? WebHelper.GetFirstImage(zone_detail.Content) : zone_detail.Avatar));
+
+
+
+                var x = "";
+                if (!string.IsNullOrEmpty(zone_detail.Content))
+                {
+                    x = UIHelper.ClearHtmlTag(zone_detail.Content);
+                }
+
+
+                bind_meta += configSEOUtility.ConfigMeta(zone_detail.MetaTitle, string.IsNullOrEmpty(zone_detail.MetaDescription) ? UIHelper.TrimByWord(x, 20, "...") : zone_detail.MetaDescription, zone_detail.MetaKeyword);
+                bind_meta += configSEOUtility.ConfigSocialMeta("default app id", domain, zone_detail.MetaTitle, string.IsNullOrEmpty(zone_detail.MetaDescription) ? UIHelper.TrimByWord(UIHelper.ClearHtmlTag(x), 20, "...") : zone_detail.MetaDescription, string.IsNullOrEmpty(zone_detail.Avatar) ? WebHelper.GetFirstImage(zone_detail.Content) : zone_detail.Avatar);
+
+            }
+            @Html.Raw(bind_meta)
+
+        }
+    }
+
+    @await Component.InvokeAsync("RedirectProductList", new { zoneDetal = zone_detail, pageIndex = pageIndex, pageSize = pageSize, priceRange = priceRange });
+    @section Scripts{
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/velocity/2.0.5/velocity.min.js"></script>
+
+        <script type="text/javascript" src="~/js/controller/homeController.js"></script>
+
+    }
+}
+
+@if (zone_type != (int)TypeZone.Product && zone_type != (int)TypeZone.Visa && zone_type != (int)TypeZone.Recruitment && zone_type != (int)TypeZone.DiemDen)
+{
+    var zone_blog_parent = zoneRepository.GetZoneDetail(zone_id, culture_code);
+    @section styles {
+
+        @if (zone_blog_parent != null)
+        {
+            @Html.Raw(configSEOUtility.ConfigMeta(zone_blog_parent.MetaTitle, zone_blog_parent.MetaDescription, zone_blog_parent.MetaKeyword))
+            @Html.Raw(configSEOUtility.ConfigSocialMeta("default fbAddId", domain + "/" + zone_blog_parent.Url, zone_blog_parent.MetaTitle, zone_blog_parent.MetaDescription, UIHelper.StoreFilePath(zone_blog_parent.Banner, false)))
+            <style type="text/css">
+
+        .banner-page {
+            background: url(@UIHelper.StoreFilePath(zone_blog_parent.Banner, false)) no-repeat center;
+                min-height: 200px;
+                background-size: cover;
+            display: flex;
+            }
+
+            </style>
+        }
+    }
+    if (zone_blog_parent != null)
+    {
+        @await Component.InvokeAsync("RedirectBlogListProvider", new { zone = zone_blog_parent, pageIndex = pageIndex, pageSize = pageSize });
+        @section scripts {
+            <script type="text/javascript" src="~/js/libs/momentjs/momentJS.js" asp-append-version="true"></script>
+            <script type="text/javascript" src="~/js/libs/daterangepicker-master/daterangepicker.js" asp-append-version="true"></script>
+            <script type="text/javascript" src="~/js/libs/paginationjs/paginationJS.js" asp-append-version="true"></script>
+            <script type="text/javascript" src="~/js/controller/blogDetailController.js" asp-append-version="true"></script>
+            <script type="text/javascript" src="~/js/controller/blogList2Controller.js" asp-append-version="true"></script>
+
+        }
+    }
+
+}
+@if (zone_type == (int)TypeZone.Recruitment)
+{
+    var zone = zoneRepository.GetZoneDetail(zone_id, culture_code);
+    if (zone != null)
+    {
+        @section styles {
+            @Html.Raw(configSEOUtility.ConfigMeta(zone.MetaTitle, zone.MetaDescription, zone.MetaKeyword))
+            @Html.Raw(configSEOUtility.ConfigSocialMeta("default fbAddId", domain + "/" + zone.Url, zone.MetaTitle, zone.MetaDescription, UIHelper.StoreFilePath(zone.Banner, false)))
+            <style type="text/css">
+            .banner-page {
+                background: url(@UIHelper.StoreFilePath(zone.Banner, false)) no-repeat center;
+                min-height: 200px;
+                background-size: cover;
+                display: flex;
+
+                }
+            </style>
+
+        }
+        @await Component.InvokeAsync("RedirectRecrument", new { zoneDetail = zone, pageIndex = pageIndex, pageSize = pageSize });
+        @section scripts {
+            <script type="text/javascript" src="~/js/libs/momentjs/momentJS.js" asp-append-version="true"></script>
+            <script type="text/javascript" src="~/js/libs/daterangepicker-master/daterangepicker.js" asp-append-version="true"></script>
+            <script type="text/javascript" src="~/js/libs/paginationjs/paginationJS.js" asp-append-version="true"></script>
+            <script type="text/javascript" src="~/js/controller/blogDetailController.js" asp-append-version="true"></script>
+            <script type="text/javascript" src="~/js/controller/blogList2Controller.js" asp-append-version="true"></script>
+
+            <script type="text/javascript" src="~/js/controller/quotationController.js" asp-append-version="true"></script>
+        }
+    }
+
+
+}
+
+
+
+
+@*@if (zone_type != (int)TypeZone.Product)
+    {
+        var list_zone_blog = zoneRepository.GetZoneByTreeViewMinifies((int)TypeZone.AllButProduct, culture_code, 0);
+        var zone_blog_parent = zoneRepository.GetZoneDetail(zone_id, culture_code);
+
+        @section styles {
+
+            @if (zone_blog_parent != null)
+            {
+                @Html.Raw(configSEOUtility.ConfigMeta(zone_blog_parent.MetaTitle, zone_blog_parent.MetaDescription, zone_blog_parent.MetaKeyword))
+                @Html.Raw(configSEOUtility.ConfigSocialMeta("default fbAddId", domain + "/" + zone_blog_parent.Url, zone_blog_parent.MetaTitle, zone_blog_parent.MetaDescription, UIHelper.StoreFilePath(zone_blog_parent.Banner, false)))
+                <style type="text/css">
+
+            .banner-page {
+                background: url(@UIHelper.StoreFilePath(zone_blog_parent.Banner, false)) no-repeat center;
+                    min-height: 200px;
+                    background-size: cover;
+                display: flex;
+                }
+
+                </style>
+            }
+
+        }
+
+        @await Component.InvokeAsync("RedirectBlogList1", new { zones = list_zone_blog, id = zone_id });
+        @section scripts {
+            <script type="text/javascript" src="~/js/libs/momentjs/momentJS.js" asp-append-version="true"></script>
+            <script type="text/javascript" src="~/js/libs/daterangepicker-master/daterangepicker.js" asp-append-version="true"></script>
+            <script type="text/javascript" src="~/js/libs/paginationjs/paginationJS.js" asp-append-version="true"></script>
+            <script type="text/javascript" src="~/js/controller/blogDetailController.js" asp-append-version="true"></script>
+
+        }
+    }
+    @if (zone_type == (int)TypeZone.Article && is_have_child == 0)
+    {
+        var zone = zoneRepository.GetZoneDetail(zone_id, culture_code);
+        if (zone != null)
+        {
+            @section styles {
+                @Html.Raw(configSEOUtility.ConfigMeta(zone.MetaTitle, zone.MetaDescription, zone.MetaKeyword))
+                @Html.Raw(configSEOUtility.ConfigSocialMeta("default fbAddId", domain + "/" + zone.Url, zone.MetaTitle, zone.MetaDescription, UIHelper.StoreFilePath(zone.Banner, false)))
+                <style type="text/css">
+            .banner-page {
+                background: url(@UIHelper.StoreFilePath(zone.Banner, false)) no-repeat center;
+                min-height: 200px;
+                background-size: cover;
+                display: flex;
+
+                }
+                </style>
+
+            }
+            @await Component.InvokeAsync("RedirectBlogList2", new { zone = zone, pageIndex = pageIndex, pageSize = pageSize });
+            @section scripts{
+
+                <script type="text/javascript" src="~/js/libs/momentjs/momentJS.js" asp-append-version="true"></script>
+                <script type="text/javascript" src="~/js/libs/daterangepicker-master/daterangepicker.js" asp-append-version="true"></script>
+                <script type="text/javascript" src="~/js/libs/paginationjs/paginationJS.js" asp-append-version="true"></script>
+                <script type="text/javascript" src="~/js/controller/blogList2Controller.js" asp-append-version="true"></script>
+            }
+
+        }
+
+    }
+    @if (zone_type == (int)TypeZone.Promotion)
+    {
+        @await Component.InvokeAsync("RedirectPromotionList", new { pageIndex = pageIndex, pageSize = pageSize });
+        @section scripts {
+            <script type="text/javascript" src="~/js/libs/momentjs/momentJS.js" asp-append-version="true"></script>
+            <script type="text/javascript" src="~/js/libs/daterangepicker-master/daterangepicker.js" asp-append-version="true"></script>
+            <script type="text/javascript" src="~/js/libs/paginationjs/paginationJS.js" asp-append-version="true"></script>
+            <script type="text/javascript" src="~/js/controller/promotionController.js" asp-append-version="true"></script>
+
+        }
+
+    }
+    @if (zone_type == (int)TypeZone.Quotation)
+    {
+        @await Component.InvokeAsync("RedirectQuotationList", new { pageIndex = pageIndex, pageSize = pageSize });
+        @section scripts {
+            <script type="text/javascript" src="~/js/libs/momentjs/momentJS.js" asp-append-version="true"></script>
+            <script type="text/javascript" src="~/js/libs/daterangepicker-master/daterangepicker.js" asp-append-version="true"></script>
+            <script type="text/javascript" src="~/js/libs/paginationjs/paginationJS.js" asp-append-version="true"></script>
+            <script type="text/javascript" src="~/js/controller/quotationController.js" asp-append-version="true"></script>
+
+        }
+
+    }
+    @if (zone_type == (int)TypeZone.Recruitment)
+    {
+        var zone = zoneRepository.GetZoneDetail(zone_id, culture_code);
+        if (zone != null)
+        {
+            @section styles {
+                @Html.Raw(configSEOUtility.ConfigMeta(zone.MetaTitle, zone.MetaDescription, zone.MetaKeyword))
+                @Html.Raw(configSEOUtility.ConfigSocialMeta("default fbAddId", domain + "/" + zone.Url, zone.MetaTitle, zone.MetaDescription, UIHelper.StoreFilePath(zone.Banner, false)))
+                <style type="text/css">
+            .banner-page {
+                background: url(@UIHelper.StoreFilePath(zone.Banner, false)) no-repeat center;
+                min-height: 200px;
+                background-size: cover;
+                display: flex;
+
+                }
+                </style>
+
+            }
+            @await Component.InvokeAsync("RedirectRecrument", new { zoneDetail = zone, pageIndex = pageIndex, pageSize = pageSize });
+            @section scripts {
+                <script type="text/javascript" src="~/js/libs/momentjs/momentJS.js" asp-append-version="true"></script>
+                <script type="text/javascript" src="~/js/libs/daterangepicker-master/daterangepicker.js" asp-append-version="true"></script>
+                <script type="text/javascript" src="~/js/libs/paginationjs/paginationJS.js" asp-append-version="true"></script>
+                <script type="text/javascript" src="~/js/controller/quotationController.js" asp-append-version="true"></script>
+            }
+        }
+
+
+    }*@
+@if (zone_type == (int)TypeZone.Visa && zone_parent == 0)
+{
+    @await Component.InvokeAsync("RedirectCategoriesList", new { zoneId = zone_id, pageIndex = pageIndex, pageSize = pageSize });
+    @section scripts {
+        <script type="text/javascript" src="~/js/libs/momentjs/momentJS.js" asp-append-version="true"></script>
+        <script type="text/javascript" src="~/js/libs/daterangepicker-master/daterangepicker.js" asp-append-version="true"></script>
+        <script type="text/javascript" src="~/js/libs/paginationjs/paginationJS.js" asp-append-version="true"></script>
+        <script type="text/javascript" src="~/js/controller/categoriesList1Controller.js" asp-append-version="true"></script>
+
+    }
+}
+@if (zone_type == (int)TypeZone.Visa && zone_parent > 0)
+{
+    @await Component.InvokeAsync("RedirectCategoriesList1", new { zoneId = zone_id, pageIndex = pageIndex, pageSize = pageSize, priceRange = priceRange });
+    @section scripts {
+        <script type="text/javascript" src="~/js/libs/momentjs/momentJS.js" asp-append-version="true"></script>
+        <script type="text/javascript" src="~/js/libs/daterangepicker-master/daterangepicker.js" asp-append-version="true"></script>
+        <script type="text/javascript" src="~/js/libs/paginationjs/paginationJS.js" asp-append-version="true"></script>
+        <script type="text/javascript" src="~/js/controller/categoriesList1Controller.js" asp-append-version="true"></script>
+
+    }
+}
+
+
+
+
+

@@ -1,0 +1,312 @@
+﻿@using PlatformWEB.Services.Product.ViewModel
+@using PlatformWEB.Services.Product.Repository
+@using PlatformWEB.Services.BannerAds.Repository
+@using PlatformWEB.Services.BannerAds.ViewModel
+@inject IBannerAdsRepository _bannerAdsRepository;
+@inject IProductRepository _productRepository;
+@using PlatformWEB.Services.Product.ViewModel;
+@using Utils;
+@using Microsoft.AspNetCore.Localization
+@using Microsoft.AspNetCore.Mvc.Localization
+@using Microsoft.AspNetCore.Http
+@inject IHttpContextAccessor HttpContextAccessor
+@using PlatformWEB.Utility
+@inject ICookieUtility cookieUtility
+@{
+    var total = ViewBag.Total;
+    var id = ViewBag.Id;
+    var index = ViewBag.Index;
+    var size = ViewBag.Size;
+    var culture = Context.Features.Get<IRequestCultureFeature>().RequestCulture.Culture.TwoLetterISOLanguageName.ToLower();
+    var culture_code = Context.Features.Get<IRequestCultureFeature>().RequestCulture.Culture.ToString();
+    var base_uri_culture = "/" + culture;
+    var domain = Context.Request.Host.ToString();
+    var cookie_location = cookieUtility.SetCookieDefault();
+    var location_id = cookie_location.LocationId;
+    var location_name = cookie_location.LocationName;
+
+    var cultureSanPham = _bannerAdsRepository.GetBannerAds_By_Code(culture_code, "W2G_Culture_SanPham");
+    var cultureHome = _bannerAdsRepository.GetBannerAds_By_Code(culture_code, "W2G_Culture_SanPham");
+
+    var cultures = WebHelper.ConvertSlideCulture(cultureSanPham);
+    cultures.AddRange(WebHelper.ConvertSlideCulture(cultureHome));
+}
+
+
+
+@model ProductDetail
+
+@if (Model != null)
+{
+
+    <div class="modal-dialog modal-dialog-centered sim-package-detail" data-sim-pack="@Model.simPack" data-sim-type="@Model.SimType">
+        <div class="modal-content">
+            <div class="modal-body">
+                <div class="inner-section-1" style="background: @Model.GradientColor">
+                    <button type="button" class="inner-close" data-dismiss="modal" aria-label="Close">
+                        <i class="fa-solid fa-circle-xmark"></i>
+                    </button>
+                    <h2 class="inner-title">@Model.Title</h2>
+                    <div class="inner-image">
+                        <img src="@UIHelper.StoreFilePath(Model.Avatar, false)" alt="@Model.Title">
+                    </div>
+                    <div class="inner-info">
+                        <div class="sim-package-info">
+                            <ul class="inner-list">
+                                @await Component.InvokeAsync("ItemProductv3", new { pr = Model })
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                @{
+                    var childs = _productRepository.GetProductByParentId(Model.Id, culture_code);
+                }
+                @if (childs.Count > 0)
+                {
+                    <div class="inner-section-2 sim-package-detail">
+                        <div class="inner-title">
+
+                            @Html.Raw(WebHelper.GetCultureText(cultures, "CAC_GOI_NHAP_TIEN_CO_SAN")) (@childs.Count)
+                        </div>
+                        <div class="inner-list">
+                            <div class="swiper swiperSimAvailable">
+                                <div class="swiper-wrapper">
+                                    @{
+
+                                        if (childs != null)
+                                        {
+                                            foreach (var item in childs)
+                                            {
+                                                <div class="swiper-slide">
+                                                    <div class="sim-package-item" style="background: @Model.GradientColor">
+                                                        <div class="inner-header">
+                                                            <div class="inner-title-2">
+                                                                @(item.Title.Split(";").Last() ?? "")
+                                                            </div>
+                                                        </div>
+                                                        <div class="sim-package-info">
+                                                            <ul class="inner-list">
+                                                                <li>
+                                                                    <span class="inner-label">
+                                                                        <i class="fa-solid fa-right-left inner-rotate-90"></i> @Html.Raw(WebHelper.GetCultureText(cultures, "DU_LIEU"))
+                                                                    </span>
+                                                                    <span class="inner-value">
+                                                                        @item.DataLimit GB
+                                                                    </span>
+                                                                </li>
+                                                                @if (!string.IsNullOrEmpty(item.PhoneMinute))
+                                                                {
+                                                                    <li>
+                                                                        <span class="inner-label">
+                                                                            <i class="fa-solid fa-phone-volume"></i> @Html.Raw(WebHelper.GetCultureText(cultures, "CUOC_GOI"))
+                                                                        </span>
+                                                                        <span class="inner-value">
+                                                                            @item.PhoneMinute @Html.Raw(WebHelper.GetCultureText(cultures, "PHUT"))
+                                                                        </span>
+                                                                    </li>
+                                                                }
+                                                                @if (!string.IsNullOrEmpty(item.SmsNumber))
+                                                                {
+                                                                    <li>
+                                                                        <span class="inner-label">
+                                                                            <i class="fa-solid fa-message"></i> @Html.Raw(WebHelper.GetCultureText(cultures, "TIN_NHAN"))
+                                                                        </span>
+                                                                        <span class="inner-value">
+                                                                            @item.SmsNumber SMS
+                                                                        </span>
+                                                                    </li>
+                                                                }
+
+                                                                <li>
+                                                                    <span class="inner-label">
+                                                                        <i class="fa-solid fa-calendar"></i> @Html.Raw(WebHelper.GetCultureText(cultures, "HIEU_LUC"))
+                                                                    </span>
+                                                                    <span class="inner-value">
+                                                                        @item.Validity @Html.Raw(WebHelper.GetCultureText(cultures, "NGAY"))
+                                                                    </span>
+                                                                </li>
+                                                                
+                                                            </ul>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            }
+                                        }
+                                    }
+
+
+                                </div>
+                                <div class="swiper-button-next"></div>
+                                <div class="swiper-button-prev"></div>
+                                <div class="swiper-pagination"></div>
+                            </div>
+                        </div>
+                    </div>
+                }
+
+                <div class="inner-section-3 mt-3">
+                    <div class="row">
+                        <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6">
+                            <div class="inner-box">
+                                <div class="inner-title">
+                                    @Html.Raw(WebHelper.GetCultureText(cultures, "CAC_QUOC_GIA_HO_TRO"))
+                                </div>
+                                <div class="inner-box-child box-language">
+                                    <div class="box-search">
+                                        <form action="">
+                                            <input type="text" placeholder="@Html.Raw(WebHelper.GetCultureText(cultures, "FILTER_QUOC_GIA_PLACEHOLDER"))">
+                                            <button type="submit">
+                                                <i class="fa-solid fa-magnifying-glass"></i>
+                                            </button>
+                                        </form>
+                                    </div>
+                                    <div class="inner-list type-2">
+                                        <ul>
+                                            @await Component.InvokeAsync("ModalListOfCountries", new { zoneIds = Model.Coverage })
+
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6">
+                            <div class="inner-box">
+                                <div class="inner-title">
+                                    @Html.Raw(WebHelper.GetCultureText(cultures, "THONG_TIN_BO_SUNG"))
+
+                                </div>
+                                <div class="inner-box-child">
+                                    <div class="additional-information">
+                                        @{
+                                            //Lay spectification
+                                            var product_spectification_detail = _productRepository.GetProductSpectificationDetail(Model.Id, culture_code);
+                                            if (product_spectification_detail != null)
+                                            {
+                                                foreach (var item in product_spectification_detail)
+                                                {
+                                                    <div class="inner-item">
+                                                        @*<div class="inner-icon-left">
+                                                    <i class="fa-regular fa-file-lines"></i>
+                                                </div>*@
+                                                        <div class="inner-info">
+                                                            <div class="inner-title">
+                                                                @item.Name
+                                                            </div>
+                                                            <div class="inner-desc">
+                                                                @item.Value
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                }
+                                            }
+                                        }
+                                        @*<div class="inner-item" data-toggle="modal" data-target="#modalSearchNetwork">
+                                    <div class="inner-icon-left">
+                                        <i class="fa-solid fa-wifi"></i>
+                                    </div>
+                                    <div class="inner-info">
+                                        <div class="inner-title">
+                                            MẠNG
+                                        </div>
+                                        <div class="inner-desc">
+                                            Kiểm tra các mạng khả dụng
+                                        </div>
+                                    </div>
+                                    <div class="inner-icon-right">
+                                        <i class="fa-solid fa-angle-right"></i>
+                                    </div>
+                                </div>
+
+                                <div class="inner-item">
+                                    <div class="inner-icon-left">
+                                        <i class="fa-solid fa-clipboard-check"></i>
+                                    </div>
+                                    <div class="inner-info">
+                                        <div class="inner-title">
+                                            CHÍNH SÁCH KÍCH HOẠT
+                                        </div>
+                                        <div class="inner-desc">
+                                            Thời hạn hiệu lực sẽ bắt đầu khi eSIM kết nối với bất kỳ mạng lưới được hỗ trợ nào.
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="inner-item">
+                                    <div class="inner-icon-left">
+                                        <i class="fa-solid fa-fingerprint"></i>
+                                    </div>
+                                    <div class="inner-info">
+                                        <div class="inner-title">
+                                            eKYC (XÁC MINH DANH TÍNH)
+                                        </div>
+                                        <div class="inner-desc">
+                                            Không bắt buộc
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="inner-item">
+                                    <div class="inner-icon-left">
+                                        <i class="fa-solid fa-file-invoice-dollar"></i>
+                                    </div>
+                                    <div class="inner-info">
+                                        <div class="inner-title">
+                                            TÙY CHỌN NẠP TIỀN
+                                        </div>
+                                        <div class="inner-desc">
+                                            Có sẵn
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="inner-item">
+                                    <div class="inner-icon-left">
+                                        <i class="fa-solid fa-circle-info"></i>
+                                    </div>
+                                    <div class="inner-info">
+                                        <div class="inner-title">
+                                            THÔNG TIN KHÁC
+                                        </div>
+                                        <div class="inner-desc">
+                                            This eSIM comes with +43 phone number for global usage. Call forwarding and voicemail are not supported.
+                                        </div>
+                                    </div>
+                                </div>*@
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="inner-section-4 sim-package-detail">
+                    <div class="row align-items-center">
+                        <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-6">
+                            <div class="inner-price current-price hide-current-price">
+                                VND  @(UIHelper.FormatNumber(Model.Price))<br />
+                                <small>~ USD <span class="convert-usd">@Math.Round(Model.Price / 25200, 2) </span></small>
+                            </div>
+                            <div class="inner-price down-price">
+                                VND  @(UIHelper.FormatNumber(Model.Price - 15000))<br />
+                                <small>~ USD <span class="convert-usd">@Math.Round((Model.Price-15000) / 25200, 2) </span></small>
+                            </div>
+                        </div>
+                        <div class="col-xl-3 col-lg-3 col-md-3 col-sm-3 col-3">
+                            <a href="javascript:void(0)" class="inner-button add-sim-to-cart" 
+                               data-id="@Model.Id" 
+                               data-message="@Html.Raw(WebHelper.GetCultureText(cultures, "MD_THEM_GIO_HANG_DESC"))" 
+                               data-message-button="@Html.Raw(WebHelper.GetCultureText(cultures, "MD_THEM_GIO_HANG_BUTTON"))"
+                               data-title="@Html.Raw(WebHelper.GetCultureText(cultures, "MD_THEM_GIO_HANG_TITLE"))"
+                               data-sim-type="@Model.SimType"
+                               data-price="@Model.Price">
+                                @Html.Raw(WebHelper.GetCultureText(cultures, "THEM_VAO_GIO_HANG_BUTTON"))
+                            </a>
+                        </div>
+                        <div class="col-xl-3 col-lg-3 col-md-3 col-sm-3 col-3">
+                            <a href="@PlatformWEB.Utility.LinkRedirectUrlUtility.ProductDetailUrl(Model.Url)" class="inner-button">
+                                @Html.Raw(WebHelper.GetCultureText(cultures, "MUA_BUTTON"))
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+

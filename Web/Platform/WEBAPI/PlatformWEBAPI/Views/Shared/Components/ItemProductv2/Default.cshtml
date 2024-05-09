@@ -1,0 +1,171 @@
+﻿@using PlatformWEBAPI.Services.Product.ViewModel;
+@using Utils;
+@using Microsoft.AspNetCore.Localization
+@using Microsoft.AspNetCore.Mvc.Localization
+@using Microsoft.AspNetCore.Http
+@inject IHttpContextAccessor HttpContextAccessor
+@using PlatformWEBAPI.Utility
+@inject PlatformWEBAPI.Services.BannerAds.Repository.IBannerAdsRepository _bannerAdsRepository
+@using MI.Entity.Enums
+@inject ICookieUtility cookieUtility
+
+@model ProductMinify;
+@{
+    var psim = Model;
+    var link_ta = LinkRedirectUrlUtility.ProductDetailUrl(psim.Url);
+    bool isLazy = ViewBag.IsLazy;
+    bool isPayOff = ViewBag.IsPayOff;
+    bool isH4 = ViewBag.isH4;
+    var total = ViewBag.Total;
+    var isLinked = ViewBag.isLinked;
+    var id = ViewBag.Id;
+    var culture = Context.Features.Get<IRequestCultureFeature>().RequestCulture.Culture.TwoLetterISOLanguageName.ToLower();
+    var culture_code = Context.Features.Get<IRequestCultureFeature>().RequestCulture.Culture.ToString();
+    var base_uri_culture = "/" + culture;
+    var domain = Context.Request.Host.ToString();
+    var cookie_location = cookieUtility.SetCookieDefault();
+    var location_id = cookie_location.LocationId;
+    var location_name = cookie_location.LocationName;
+    var cultureSanPham = _bannerAdsRepository.GetBannerAds_By_Code(culture_code, "W2G_Culture_SanPham");
+    var cultures = WebHelper.ConvertSlideCulture(cultureSanPham);
+}
+
+
+@if (psim != null)
+{
+    <div class="col-xl-4 col-lg-4 col-md-6 col-sm-12 col-12 mb-30">
+        <div class="sim-package-item" style="background:@psim.GradientColor;" data-sim-pack="@psim.simPack" data-sim-type="@psim.SimType">
+            <div class="inner-header">
+                <div class="inner-title">
+                    @psim.Title
+                </div>
+                <div class="inner-image">
+                    <img src="@UIHelper.StoreFilePath(psim.Avatar)" alt="@psim.Name">
+                </div>
+            </div>
+            <div class="sim-package-info">
+                <ul class="inner-list">
+                    <li>
+                        <span class="inner-label">
+                            <i class="fa-solid fa-globe"></i> @Html.Raw(WebHelper.GetCultureText(cultures, "PHAM_VI_PHU_SONG"))
+                        </span>
+                        <span class="inner-value">
+                            <a href="javascript:;" class="inner-button open-modal-coverage" data-coverage="@psim.Coverage" data-toggle="modal" data-target="#modalSearchLanguage">
+                                @{ var _t = 0;}
+                                @if (int.TryParse(psim.stringCoverage, out _t))
+                                {
+                                    @psim.stringCoverage @(" ") @Html.Raw(WebHelper.GetCultureText(cultures, "QUOC_GIA_BUTTON"))
+                                }
+                                else
+                                {
+                                    @psim.stringCoverage
+                                }
+
+                            </a>
+                        </span>
+                    </li>
+
+                    @if (!string.IsNullOrEmpty(psim.DataLimit))
+                    {
+                        <li>
+                            <span class="inner-label">
+                                <i class="fa-solid fa-right-left inner-rotate-90"></i> @Html.Raw(WebHelper.GetCultureText(cultures, "DU_LIEU"))
+                            </span>
+                            @if (psim.DataLimit.Split("/").Length > 1)
+                            {
+                                <span class="inner-value">
+                                    @psim.DataLimit.Split("/")[0] / @Html.Raw(WebHelper.GetCultureText(cultures, "NGAY").Replace("s", ""))
+                                </span>
+                            }
+                            else
+                            {
+                                <span class="inner-value">
+                                    @psim.DataLimit
+                                </span>
+                            }
+
+                        </li>
+
+                    }
+                    @if (!string.IsNullOrEmpty(psim.phoneMinuteInNetwork))
+                    {
+                        <li>
+                            <span class="inner-label">
+                                <i class="fa-solid fa-phone-volume"></i>@Html.Raw(WebHelper.GetCultureText(cultures, "CUOC_GOI_NOI_MANG"))
+                            </span>
+                            <span class="inner-value">
+                                @psim.phoneMinuteInNetwork @Html.Raw(WebHelper.GetCultureText(cultures, "PHUT"))
+                                <br />
+                                <small>(@("<") 10 @Html.Raw(WebHelper.GetCultureText(cultures, "PHUT")) / @Html.Raw(WebHelper.GetCultureText(cultures, "CUOC_GOI")) )</small>
+                            </span>
+
+                        </li>
+                    }
+                    @if (!string.IsNullOrEmpty(psim.phoneMinuteOutNetwork))
+                    {
+                        <li>
+                            <span class="inner-label">
+                                <i class="fa-solid fa-phone-volume"></i>@Html.Raw(WebHelper.GetCultureText(cultures, "CUOC_GOI_NGOAI_MANG"))
+                            </span>
+                            <span class="inner-value">
+                                @psim.phoneMinuteOutNetwork @Html.Raw(WebHelper.GetCultureText(cultures, "PHUT"))
+                            </span>
+                        </li>
+
+                    }
+                    @if (!string.IsNullOrEmpty(psim.SmsNumber))
+                    {
+                        <li>
+                            <span class="inner-label">
+                                <i class="fa-solid fa-message"></i> @Html.Raw(WebHelper.GetCultureText(cultures, "TIN_NHAN"))
+                            </span>
+                            <span class="inner-value">
+                                @psim.SmsNumber SMS
+                            </span>
+                        </li>
+                    }
+                    @if (!string.IsNullOrEmpty(psim.Validity))
+                    {
+                        <li>
+                            <span class="inner-label">
+                                <i class="fa-solid fa-calendar"></i> @Html.Raw(WebHelper.GetCultureText(cultures, "HIEU_LUC"))
+                            </span>
+                            <span class="inner-value">
+                                @psim.Validity @Html.Raw(WebHelper.GetCultureText(cultures, "NGAY"))
+                            </span>
+                        </li>
+                    }
+
+                    <li class="current-price">
+                        <span class="inner-label">
+                            <i class="fa-solid fa-tag"></i> @Html.Raw(WebHelper.GetCultureText(cultures, "GIA"))
+                        </span>
+                        <span class="inner-value inner-price" data-price="@psim.Price">
+                            @psim.Unit  @(psim.Price < 1000 ? psim.Price.ToString() : UIHelper.FormatNumber(psim.Price))
+                            <br />
+                            <small>~ USD <span class="convert-usd">@Math.Round(psim.Price / 25200, 2) </span></small>
+                        </span>
+                    </li>
+                    <li class="down-price">
+                        <span class="inner-label">
+                            <i class="fa-solid fa-tag"></i> @Html.Raw(WebHelper.GetCultureText(cultures, "GIA_GIAM"))
+                        </span>
+                        <span class="inner-value inner-price" data-price="@psim.Price">
+                            @psim.Unit  @(psim.Price < 1000 ? psim.Price.ToString() : UIHelper.FormatNumber(psim.Price - 15000))
+                            <br />
+                            <small>~ USD <span class="convert-usd">@Math.Round((psim.Price - 15000) / 25200, 2) </span></small>
+                        </span>
+                    </li>
+                </ul>
+            </div>
+            <div class="inner-footer">
+                <a href="@(!isLinked ? "javascript:;" : LinkRedirectUrlUtility.ProductDetailUrl(psim.Url))" class="inner-buy-now" data-id="@psim.ProductId"
+                   @*data-toggle="modal" data-target="#modalBuySim"*@>
+                    @Html.Raw(WebHelper.GetCultureText(cultures, "MUA_NGAY_BUTTON"))
+                </a>
+            </div>
+        </div>
+    </div>
+
+
+}

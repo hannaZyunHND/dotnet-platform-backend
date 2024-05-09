@@ -1,0 +1,111 @@
+﻿@using PlatformWEBAPI.Services.Product.ViewModel
+@using PlatformWEBAPI.Services.Promotion.ViewModel
+@using Microsoft.AspNetCore.Localization
+@using Microsoft.AspNetCore.Mvc.Localization
+@using Microsoft.AspNetCore.Http
+@using PlatformWEBAPI.Services.Product.Repository
+@using PlatformWEBAPI.Services.Extra.Repository
+@inject IHttpContextAccessor HttpContextAccessor
+@using  PlatformWEBAPI.Utility
+@inject ICookieUtility cookieUtility
+@inject IExtraRepository extraRepository
+@inject IProductRepository productRepository
+
+@using Utils
+@{
+    var culture = Context.Features.Get<IRequestCultureFeature>().RequestCulture.Culture.TwoLetterISOLanguageName.ToLower();
+    var culture_code = Context.Features.Get<IRequestCultureFeature>().RequestCulture.Culture.ToString();
+    var base_uri_culture = "/" + culture;
+    var domain = Context.Request.Host.ToString();
+    var cookie_location = cookieUtility.SetCookieDefault();
+    var location_id = cookie_location.LocationId;
+    var location_name = cookie_location.LocationName;
+    var total = 10;
+
+}
+@{
+    var promotions = ViewBag.Promotions as List<PromotionViewModel>;
+    var pr = ViewBag.Product as List<ProductMinify>;
+}
+
+@model List<ProductMinify>;
+
+
+@foreach (var item in pr)
+{
+    var link_target = string.Format("/{0}.html", item.Url);
+
+    <!-- Item -->
+    <div class="cart-detail__item item" id="item-@item.ProductId" data-id="@item.ProductId" data-sale-price="@(item.FlashSaleId > 0 ? item.ProductPriceInFlashSale : (item.SalePrice > 0 ? item.SalePrice : item.Price) )" data-name="@item.Title" data-is-flash-sale="@item.FlashSaleId">
+        <label class="label-checkbox mobi-hidden">
+            <input type="checkbox" class="choosen-item" checked>
+            <span class="checkmark"></span>
+        </label>
+        <div class="cart-detail__item-image">
+            <img asp-append-version="true" src="@UIHelper.StoreFilePath(item.Avatar)" class="" alt="@item.Title" />
+        </div>
+        <div class="cart-detail__item-content">
+            <div class="cart-detail__item-content-top">
+                <h4 class="cart-detail__item-title">
+                    <a href="@LinkRedirectUrlUtility.ProductDetailUrl(item.Url)">
+                        @item.Title <small class="ma-giam-gia" data-ma="" data-gia="" data-options="" data-totaldiscount=""></small>
+                    </a>
+                </h4>
+                <div class="cart-detail__item-price price-new item-sum">
+                    5.500.000đ
+                </div>
+            </div>
+            <div class="cart-detail__item-content-main">
+                <div class="cart-detail__item-quantity">
+                    <ul>
+                        <li>
+                            <div class="inner-label">Người lớn</div>
+                            <div class="cart-detail__item-amount">
+                                <button class="btn-sub" type="button">
+                                    <i class="fas fa-minus"></i>
+                                </button>
+                                <input type="number" class="li-so-nguoi-lon ip-sl" data-gia="@item.GiaNguoiLon" value="1" minlength="1">
+                                <button class="btn-add" type="button">
+                                    <i class="fas fa-plus"></i>
+                                </button>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="inner-label">Trẻ em</div>
+                            <div class="cart-detail__item-amount">
+                                <button class="btn-sub" type="button">
+                                    <i class="fas fa-minus"></i>
+                                </button>
+                                <input type="number" class="li-so-tre-em ip-sl" data-gia="@item.GiaTreEm" value="1" minlength="1">
+                                <button class="btn-add" type="button">
+                                    <i class="fas fa-plus"></i>
+                                </button>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="inner-label">Em bé</div>
+                            <div class="cart-detail__item-amount">
+                                <button class="btn-sub" type="button">
+                                    <i class="fas fa-minus"></i>
+                                </button>
+                                <input type="number" class="li-so-em-be ip-sl" data-gia="@item.GiaEmBe" value="1" minlength="1">
+                                <button class="btn-add" type="button">
+                                    <i class="fas fa-plus"></i>
+                                </button>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+                <a href="javascript:void(0)" class="cart-detail__item-delete-mobi desktop-hidden remove-cart-item">
+                    Xóa khỏi giỏ
+                </a>
+            </div>
+        </div>
+        <a href="javascript:void(0)" class="cart-detail__item-delete mobi-hidden remove-cart-item">
+            <img src="~/top-ten-travel/images/icons/close.svg" alt="Icon Delete Product" />
+        </a>
+    </div>
+    <!-- End Item -->
+
+}
+

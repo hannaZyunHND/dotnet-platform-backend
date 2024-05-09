@@ -1,0 +1,68 @@
+﻿@using PlatformWEB.Services.Product.ViewModel;
+@using Utils;
+@using Microsoft.AspNetCore.Localization
+@using Microsoft.AspNetCore.Mvc.Localization
+@using Microsoft.AspNetCore.Http
+@using PlatformWEB.Services.BannerAds.Repository
+
+@inject IHttpContextAccessor HttpContextAccessor
+@using PlatformWEB.Utility
+@inject ICookieUtility cookieUtility
+@using PlatformWEB.Services.Zone.Repository
+@inject IZoneRepository zoneRepository
+@inject IViewLocalizer localizer
+@inject IBannerAdsRepository bannerAdsRepository
+
+@{
+    var culture = Context.Features.Get<IRequestCultureFeature>().RequestCulture.Culture.TwoLetterISOLanguageName.ToLower();
+    var culture_code = Context.Features.Get<IRequestCultureFeature>().RequestCulture.Culture.ToString();
+    var base_uri_culture = "/" + culture;
+    var domain = Context.Request.Host.ToString();
+
+    var localZone = zoneRepository.GetListZoneByParentId((int)MI.Entity.Enums.TypeZone.Product, culture_code).Where(r => r.Url.Contains("local")).FirstOrDefault();
+
+    var homeCultures = bannerAdsRepository.GetBannerAds_By_Code(culture_code, "W2G_Culture_Home");
+    var cultures = WebHelper.ConvertSlide(homeCultures);
+
+}
+
+<div class="inner-section-1">
+    <div class="inner-section-local-container">
+        <div class="box-head">
+            <h2 class="inner-title">
+                @Html.Raw(WebHelper.GetCultureText(cultures, "CAC_QUOC_GIA"))
+            </h2>
+        </div>
+        <div class="row inner-list" show-country="20">
+            @if (localZone != null)
+            {
+                var countrys = zoneRepository.GetZoneByTreeViewMinifies((int)MI.Entity.Enums.TypeZone.Product, culture_code, localZone.Id);
+                if (countrys != null)
+                {
+                    foreach (var c in countrys.Where(r => r.level > 0).OrderBy(r => r.SortOrder))
+                    {
+                        <div class="col-xl-3 col-lg-4 col-md-6 col-sm-6 col-12 inner-item d-none">
+                            <a href="javascript:void(0)" class="country-item" data-id="@c.Id" data-url="@c.Url">
+                                <img class="inner-icon" src="@UIHelper.StoreFilePath(c.Icon, false)" alt="@c.Name">
+                                <span class="inner-label">
+                                    @c.Name
+                                </span>
+
+                            </a>
+                        </div>
+                    }
+                }
+            }
+
+
+        </div>
+    </div>
+
+
+    <div class="inner-button-bottom">
+        <a href="javascript:;" class="button-show-all" button-show-all=""
+           text-hidden="@Html.Raw(WebHelper.GetCultureText(cultures, "FIND_COUNTRIES"))" text-show="@Html.Raw(WebHelper.GetCultureText(cultures, "FIND_COUNTRIES"))">
+            @Html.Raw(WebHelper.GetCultureText(cultures, "FIND_COUNTRIES"))
+        </a>
+    </div>
+</div>

@@ -1,0 +1,152 @@
+﻿@using PlatformWEBAPI.Services.Product.ViewModel
+@using PlatformWEBAPI.Services.Promotion.ViewModel
+@using Microsoft.AspNetCore.Localization
+@using Microsoft.AspNetCore.Mvc.Localization
+@using Microsoft.AspNetCore.Http
+@using PlatformWEBAPI.Utility
+@using PlatformWEBAPI.Services.Product.Repository
+@using PlatformWEBAPI.Services.Extra.Repository
+@using MI.Entity.Enums
+@inject IHttpContextAccessor HttpContextAccessor
+@using  PlatformWEBAPI.Utility
+@inject ICookieUtility cookieUtility
+@inject IExtraRepository extraRepository
+@inject IProductRepository productRepository
+
+@using Utils
+@{
+    var culture = Context.Features.Get<IRequestCultureFeature>().RequestCulture.Culture.TwoLetterISOLanguageName.ToLower();
+    var culture_code = Context.Features.Get<IRequestCultureFeature>().RequestCulture.Culture.ToString();
+    var base_uri_culture = "/" + culture;
+    var domain = Context.Request.Host.ToString();
+    var cookie_location = cookieUtility.SetCookieDefault();
+    var location_id = cookie_location.LocationId;
+    var location_name = cookie_location.LocationName;
+    var total = 10;
+
+}
+@{
+    var promotions = ViewBag.Promotions as List<PromotionViewModel>;
+    var pr = ViewBag.Product as List<ProductMinify>;
+}
+
+@model List<ProductMinify>;
+
+@if (Model != null && Model.Any())
+{
+    <h4 class="products-combo__title">
+        Sản phẩm bán kèm
+    </h4>
+    <div class="products-combo__wrap">
+        <div class="products-combo__list">
+            <div class="swiper js-products-combo">
+                <div class="swiper-wrapper products-slide__wrap row">
+                    @foreach (var item in Model)
+                    {
+                        <!-- Item -->
+                        <div class="swiper-slide products-slide__item col-4">
+                            <div class="product-item-grid">
+                                <div class="product-item-grid__image">
+                                    <a href="@item.Url">
+                                        <img asp-append-version="true" src="@UIHelper.StoreFilePath(item.Avatar, false)" alt="@item.Title" />
+                                    </a>
+                                    <div class="product-item-grid__pay">Trả góp 0%</div>
+                                    @{
+                                        if (item.DiscountPercent != null && item.DiscountPercent > 0)
+                                        {
+                                            <div class="product-item-grid__discount">
+                                                <img src="~/design/images/icons/flash-yellow.svg" alt="Icon Flash" />
+                                                <span>Giảm @item.DiscountPercent %</span>
+                                            </div>
+
+                                        }
+                                    }
+                                </div>
+                                <div class="product-item-grid__content">
+                                    <h4 class="product-item-grid__title">
+                                        <a href="@item.Url">@item.Title </a>
+                                    </h4>
+                                    @{
+                                        if (item.SalePrice != null && item.SalePrice < item.Price)
+                                        {
+                                            <div class="product-item-grid__price">
+                                                <p class="product-item-grid__price-new">@UIHelper.FormatNumber(item.SalePrice) đ</p>
+                                                <p class="product-item-grid__price-old">@UIHelper.FormatNumber(item.Price) đ</p>
+                                            </div>
+                                        }
+                                        else
+                                        {
+                                            <div class="product-item-grid__price">
+                                                <p class="product-item-grid__price-new">@UIHelper.FormatNumber(item.Price) đ</p>
+                                            </div>
+                                        }
+                                    }
+                                    <div class="product-item-grid__desc">
+                                        Thu cũ lên đời, giá tốt nhất thị trường
+                                    </div>
+                                    <div class="product-item-grid__rating">
+                                        <div class="product-item-grid__rating-stars">
+                                            @await Component.InvokeAsync("RatingStar", new { object_id = @item.ProductId, object_type = (int)TypeRating.Product, hTag = "" })
+                                        </div>
+                                        <div class="product-item-grid__rating-number"> (@item.CountRate)</div>
+                                    </div>
+                                </div>
+                                <div class="product-item-grid__check">
+                                    <label class="label-checkbox">
+                                        <input type="checkbox" name="combocheck" checked value="@item.ProductId">
+                                        <span class="checkmark"></span>
+                                    </label>
+                                </div>
+                            </div>
+                            @*<div class="products-slide__item-plus">
+                                    <img src="~/design/images/icons/plus-green.svg" alt="Icon Plus">
+                                </div>*@
+                        </div>
+                        <!-- End Item -->
+                    }
+                </div>
+            </div>
+        </div>
+        <div class="products-combo__total">
+            <div class="products-combo__total-price-old">
+                @UIHelper.FormatNumber(Model.Sum(item => item.Price)) đ
+            </div>
+            <div class="products-combo__total-price">
+                @UIHelper.FormatNumber(Model.Sum(item => item.SalePrice)) đ
+            </div>
+            <div class="btn-buy-now" class="products-combo__btn" id="add-cart-combo-2">
+                    <a href="#">Thêm vào giỏ hàng</a>
+                </div>
+
+        </div>
+    </div>
+}
+<script>
+    $(document).ready(function () {
+        $("#add-cart-combo-2").click(function () {
+
+            var searchIDs = $('input[name=combocheck]:checked').map(function () {
+                return $(this).val();
+            });
+
+            if (searchIDs.get().length > 0) {
+                searchIDs.get().map(item => {
+                     var cart_item = {
+                        product_id: item,
+                        quantity: 1,
+                        add_time: Date.parse(new Date()),
+                        promotion: []
+                    }
+                    console.log(cart_item);
+                    //Add to localStorage
+                    var arrProduct = JSON.parse(localStorage.getItem("arrProduct"));
+                    arrProduct.push(cart_item);
+
+                    localStorage.setItem("arrProduct", JSON.stringify(arrProduct));
+                });
+                location.reload();
+            }
+        });
+    });
+</script>
+

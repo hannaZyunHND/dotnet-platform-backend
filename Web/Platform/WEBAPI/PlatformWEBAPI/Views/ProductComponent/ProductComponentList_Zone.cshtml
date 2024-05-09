@@ -1,0 +1,260 @@
+﻿@using PlatformWEBAPI.Services.BannerAds.Repository
+@using MI.Entity.Enums;
+@using PlatformWEBAPI.Services.Zone.ViewModal
+@using PlatformWEBAPI.Services.Locations.ViewModal
+@using Microsoft.AspNetCore.Localization
+@using Microsoft.AspNetCore.Mvc.Localization
+@using Microsoft.AspNetCore.Http
+@using PlatformWEBAPI.Services.Article.Repository
+@using PlatformWEBAPI.Services.Zone.Repository
+@using PlatformWEBAPI.Services.Product.Repository
+@inject IHttpContextAccessor HttpContextAccessor
+@inject IArticleRepository articleRepository;
+@inject IProductRepository productRepository;
+@inject IZoneRepository zoneRepository;
+@inject IConfigSEOUtility configSEOUtility
+@inject IBannerAdsRepository bannerAdsRepository;
+@using PlatformWEBAPI.Services.Product.ViewModel;
+@using PlatformWEBAPI.Utility
+@using Utils
+@using Microsoft.AspNetCore.Http.Extensions;
+@{
+    var culture = Context.Features.Get<IRequestCultureFeature>().RequestCulture.Culture.TwoLetterISOLanguageName.ToLower();
+    var culture_code = Context.Features.Get<IRequestCultureFeature>().RequestCulture.Culture.ToString();
+    var base_uri_culture = "/" + culture;
+    var domain = Context.Request.Host.ToString();
+    var listLocations = ViewBag.Locations as List<LocationViewModel>;
+    var zoneId = (int)ViewBag.ZoneId;
+    var zoneParentId = (int)ViewBag.ZoneParentSelected;
+    //var productCpn = productRepository.GetAllProductComponent();
+    var list_zone_all = zoneRepository.GetZoneByTreeViewShowMenuMinifies((int)TypeZone.Product, culture_code, 0, 0);
+    var zone_detail = ViewBag.ZoneDetail as ZoneDetail;
+
+    var k1 = list_zone_all.Where(r => r.ParentId == 0).ToList();
+    var k2 = list_zone_all.Where(r => r.level == 1).ToList();
+    var k3 = list_zone_all.Where(r => r.level == 2).ToList();
+
+    var selected_k1_id = 0;
+    var selected_k2_id = 0;
+    var selected_k3_id = 0;
+    var affected = list_zone_all.Where(r => r.Id == zoneId).FirstOrDefault();
+
+    var root_selected = 0;
+    var level_selected = 0;
+    var alias = ViewBag.Alias as string;
+    var fullUrl = ViewBag.FullUrl as string;
+    
+    if (!alias.Equals("all"))
+    {
+        if (affected.level == 0)
+        {
+            selected_k1_id = affected.Id;
+            k2 = k2.Where(r => r.ParentId == affected.Id).ToList();
+            k3 = new List<ZoneByTreeViewMinify>();
+        }
+        if (affected.level == 1)
+        {
+            selected_k1_id = affected.ParentId;
+            selected_k2_id = affected.Id;
+            k2 = k2.Where(r => r.root == affected.root).ToList();
+            k3 = k3.Where(r => r.root == affected.root && r.ParentId == affected.Id).ToList();
+        }
+        if (affected.level == 2)
+        {
+            var god_parent = list_zone_all.Where(r => r.root == affected.root && r.level == 0).FirstOrDefault();
+            if (god_parent != null)
+            {
+                selected_k1_id = god_parent.Id;
+                selected_k2_id = affected.ParentId;
+                selected_k3_id = affected.Id;
+            }
+        }
+    }
+
+
+    var zoneSelectedId = (int)ViewBag.ZoneSelectedId;
+    var xxx = zoneRepository.GetZoneDetail(zoneId, culture_code) as ZoneDetail;
+}
+
+@section styles{
+    @{ var bind_meta = "";}
+    @if (zone_detail != null)
+    {
+
+        bind_meta += configSEOUtility.ConfigMeta(zone_detail.MetaTitle, zone_detail.MetaDescription, zone_detail.MetaKeyword);
+        bind_meta += configSEOUtility.ConfigSocialMeta();
+    }
+    @Html.Raw(bind_meta)
+}
+
+@{
+    ViewData["Title"] = "Linh kiện";
+    Layout = "~/Views/Shared/_LayoutPublicHome.cshtml";
+    var blog_zone_parent = ViewBag.ZoneParent as ZoneByTreeViewMinify;
+    //setSelected
+    var bild_html = "";
+    
+}
+
+<style>
+    .setSelected {
+        background-color: #0c784c !important;
+        color: white;
+    }
+
+    .unShowLoadMore {
+        visibility: hidden;
+    }
+    .comments img{
+        width:100%
+    }
+</style>
+
+<div class="container my-3">
+    <nav aria-label="breadcrumb ">
+        <ol class="breadcrumb jan-breadcrumb">
+            <li class="breadcrumb-item"><a href="#">Home</a></li>
+            <li class="breadcrumb-item active" aria-current="page">Sửa chữa</li>
+        </ol>
+    </nav>
+</div>
+
+
+
+<div class="container">
+   
+
+    @if (k1.Any())
+    {
+        <div class="mb-3">
+            <p style="color:green; font-weight:bold">Danh mục</p>
+            <div id="list_parent_zone" class="zone_list-product" style="display: flex; flex-wrap: wrap; margin-bottom: 10px; ">
+                @*<div id='itemParent--1' class="zone_item-product zone-parent @(alias.Equals("all")?"setSelected":"")" onclick="redirectUrl('all')"><span>Tất cả</span></div>*@
+                @foreach (var item in k1)
+                {
+                    <div id='itemParent-@item.Id' class="zone_item-product zone-parent @(item.Url.Equals(alias)?"setSelected":"") @(selected_k1_id == item.Id ? "setSelected":"")" onclick="redirectUrl('@item.Url')"><span>@item.Name</span></div>
+                    <a href="@LinkRedirectUrlUtility.FixinglUrl(item.Url)">
+
+                    </a>
+                }
+            </div>
+            <input type="hidden" id="parentZoneId" value="0" />
+        </div>
+
+    }
+    @if (k2.Any())
+    {
+        <div class="mb-3">
+            <p style="color:green; font-weight:bold">Dòng máy</p>
+            <div id="list_child_zone" class="zone_list-product zone-child" style="display: flex; flex-wrap: wrap; margin-bottom: 10px; position:relative;">
+                @foreach (var item in k2)
+                {
+                    <div id='itemChild-@item.Id' class="zone_item-product zone-child @(item.Url.Equals(alias)?"setSelected":"") @(selected_k2_id == item.Id ? "setSelected":"")" onclick="redirectUrl('@item.Url')"><span>@item.Name</span></div>
+                }
+                @*<div style="position:absolute; right:0;">
+                    <input type="text" class="form-control search-sua-chua" placeholder="Tìm kiếm và ấn Enter" style=""/>
+                </div>*@
+            </div>
+            <input type="hidden" id="childZoneId" value="0" />
+            <div style="display: flex; flex-wrap: wrap; margin-bottom: 10px; position:relative;">
+                <div style="position:absolute; right:0;">
+                    <input type="text" class="form-control search-sua-chua" placeholder="Tìm kiếm và ấn Enter" style=""/>
+                </div>
+            </div>
+        </div>
+        <br>
+    }
+    @if (k3.Any())
+    {
+        <div class="mb-3">
+            <h6 style="color:green; font-weight:bold">Dòng máy</h6>
+            <div id="list_child_zone" class="zone_list-product zone-child" style="display: flex; flex-wrap: wrap; margin-bottom: 10px; ">
+                @foreach (var item in k3)
+                {
+                    <div id='itemChild-@item.Id' class="zone_item-product zone-child @(item.Url.Equals(alias)?"setSelected":"") @(selected_k3_id == item.Id ? "setSelected":"")" onclick="redirectUrl('@item.Url')"><span>@item.Name</span></div>
+                }
+            </div>
+            <input type="hidden" id="childZoneId" value="0" />
+        </div>
+    }
+    @*@if (productCpn.Any())
+        {
+        <div class="mb-3">
+        <h6 style="color:green; font-weight:bold">Linh kiện</h6>
+        <div class="zone_list-product" style="display: flex; flex-wrap: wrap; margin-bottom: 10px; ">
+        @foreach (var item in productCpn)
+        {
+        <div class="zone_item-product zone-productCpn" id='itemProductCpn-@item.Id' onclick="getCpnById('@item.Id')"><span>@item.Name</span></div>
+        }
+        <input type="hidden" id="productCpnId" value="0" />
+        </div>
+        </div>
+        }*@
+    <div class="mb-3" id="productCpnListData" style="display:none">
+        <h6 style="color:green; font-weight:bold">Linh kiện</h6>
+        <div class="zone_list-product" id="list-proCpn" style="display: flex; flex-wrap: wrap; margin-bottom: 10px; ">
+        </div>
+        <input type="hidden" id="productCpnId" value="0" />
+    </div>
+    <div class="row">
+        <h1 class="h1-sua-chua">
+            @if(selected_k1_id > 0 && selected_k2_id == 0)
+            {
+                var zone_selected = list_zone_all.Where(r => r.Id == selected_k1_id).FirstOrDefault();
+                if(zone_selected != null)
+                {
+                    @Html.Raw(string.Format("{0}", zone_selected.Name));
+                }
+            }
+            @if(selected_k2_id > 0)
+            {
+                var zone_selected_k2 = list_zone_all.Where(r => r.Id == selected_k2_id).FirstOrDefault();
+                if(zone_selected_k2 != null)
+                {
+                    var zone_selected_k1 = list_zone_all.Where(r => r.Id == zone_selected_k2.ParentId).FirstOrDefault();
+                    if(zone_selected_k1 != null){
+                        @Html.Raw(string.Format("{0}-{1}",zone_selected_k1.Name, zone_selected_k2.Name));
+                    }
+                }
+            }
+        </h1>
+    </div>
+    <div class="row" id="listProductComponent">
+        @foreach (var item in Model)
+        {
+            var link_tar = string.Format("/{0}.html", item.Url);
+            <div class="col-md-3 col-sm-3 col-6 mb-3">
+                @await Component.InvokeAsync("ItemProduct", new { pr = item, isLazy = false, isPayOff = false, isH4 = false })
+            </div>
+        }
+    </div>
+    <div id="loadmorebutton" class="text-center">
+        <input id="pageNumber" type="hidden" value="1" />
+        <button id="buttonLoadMore" onclick="loadmoredata()" class="load-more-product">
+            Xem thêm sản phẩm
+        </button>
+    </div>
+    <div class="comments">
+        @if (xxx != null)
+        {
+            @Html.Raw(xxx.Content)
+
+        }
+        else
+        {
+            @Html.Raw(bannerAdsRepository.GetConfigByName(culture_code, "CoCau"))
+        }
+
+    </div>
+    <!--Gửi Comment-->
+    <div class="comments comment_binding">
+        @await Component.InvokeAsync("Comment", new { object_id = (int)ObjectIdComment.SuaChua, object_type = (int)CommentType.ProductComponent })
+    </div>
+
+</div>
+
+
+
+@section scripts {
+<script type="text/javascript" src="~/js/controller/productCpnController.js?v=@WebHelper.Version()"></script>
+}

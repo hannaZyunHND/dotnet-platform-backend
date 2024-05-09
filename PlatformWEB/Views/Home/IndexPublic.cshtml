@@ -1,0 +1,357 @@
+﻿@using PlatformWEB.Services.Product.Repository
+@using PlatformWEB.Services.Zone.Repository
+@using MI.Entity.Enums
+@using PlatformWEB.Services.BannerAds.Repository
+@using PlatformWEB.Services.FlashSale.Repository
+@using Microsoft.AspNetCore.Localization
+@using Microsoft.AspNetCore.Http
+@using PlatformWEB.Services.Article.Repository
+@using Newtonsoft.Json
+@using PlatformWEB.Utility
+@using Microsoft.AspNetCore.Mvc.RazorPages
+@using MI.Entity.Models
+@using PlatformWEB.Services.Extra.ViewModel
+@using PlatformWEB.Services.Extra.Repository
+@using Microsoft.AspNetCore.Http.Extensions
+@using Microsoft.AspNetCore.Mvc.Localization
+
+@inject IHttpContextAccessor HttpContextAccessor
+@inject ICookieUtility cookieUtility
+@inject IConfigSEOUtility configSEOUtility
+@inject IArticleRepository articleRepository
+@inject IBannerAdsRepository bannerAdsRepository
+@inject IFlashSaleRepository flashSaleRepository
+@inject IExtraRepository extraRepository
+
+@using Utils
+@{
+    var culture = Context.Features.Get<IRequestCultureFeature>().RequestCulture.Culture.TwoLetterISOLanguageName.ToLower();
+    var culture_code = Context.Features.Get<IRequestCultureFeature>().RequestCulture.Culture.ToString();
+    var base_uri_culture = "/" + culture;
+    var domain = Context.Request.Host.ToString();
+    var domain_full = Context.Request.GetDisplayUrl();
+
+    const string CookieLocationId = "_LocationId";
+    const string CookieLocationName = "_LocationName";
+    //var cookie_location = cookieUtility.SetCookieDefault();
+    //var location_id = cookie_location.LocationId;
+    //var location_name = cookie_location.LocationName;
+
+
+    var title = bannerAdsRepository.GetConfigByName(culture_code, "TitleHome");
+    var DesWeb = bannerAdsRepository.GetConfigByName(culture_code, "DesWeb");
+    var MetaKeyword = bannerAdsRepository.GetConfigByName(culture_code, "MetaKeyword");
+    var FacebookAppId = bannerAdsRepository.GetConfigByName(culture_code, "FacebookAppId");
+    var SEOGoogle = bannerAdsRepository.GetConfigByName(culture_code, "SeoPhoto");
+    //var FacebookAppId = bannerAdsRepository.GetConfigByName(culture_code, "FacebookAppId ");
+
+    var list_zone2 = zoneRepository.GetZoneByTreeViewShowMenuMinifies(1, culture_code, 0, 0);
+
+    var W2G_Banner_TrangChu = bannerAdsRepository.GetBannerAds_By_Code(culture_code, "W2G_Banner_TrangChu");
+    var homeCultures = bannerAdsRepository.GetBannerAds_By_Code(culture_code, "W2G_Culture_Home");
+    var cultures = WebHelper.ConvertSlide(homeCultures);
+
+
+
+}
+@inject IProductRepository productRepository
+@inject IZoneRepository zoneRepository
+@inject IViewLocalizer localizer
+
+@{
+    //ViewData["Title"] = "IndexPublic";
+    Layout = "~/Views/Shared/_LayoutPublicHome.cshtml";
+}
+@section styles{
+    @*<title>Trang chủ | Way 2 Go</title>*@
+    @Html.Raw(configSEOUtility.ConfigSocialMeta("default appID", domain_full, title, DesWeb, SEOGoogle))
+    @Html.Raw(configSEOUtility.ConfigMeta(title, DesWeb, MetaKeyword))
+
+
+    @*@Html.Raw(configSEOUtility.ConfigShemaOrg(domain_full,title,SEOGoogle, DateTime.Now, DateTime.Now,title,"Di Động Xanh",SEOGoogle,DesWeb))*@
+}
+
+@*<cache expires-after="@TimeSpan.FromMinutes(5)">*@
+@*<cache expires-after="@TimeSpan.FromMinutes(30)" vary-by-cookie=".AspNetCore.Culture, _LocationId">*@
+
+<!-- Background Header -->
+
+
+
+@{
+    if (W2G_Banner_TrangChu != null)
+    {
+        var banners = WebHelper.ConvertSlide(W2G_Banner_TrangChu);
+        if (banners != null)
+        {
+            var _first = banners.FirstOrDefault();
+            var _last = banners.LastOrDefault();
+            if (_first != null && _last != null)
+            {
+                <div class="section-19 home-banner">
+                    <img src="@UIHelper.StoreFilePath(_first.Image, false)" alt="@_first.Title" data-mobile="@UIHelper.StoreFilePath(_last.Image, false)">
+                </div>
+                <!-- Luôn kết nối dù bạn đi đâu -->
+                <div class="section-1 inner-trans">
+                    <div class="container">
+                        <div class="inner-main inner-left">
+                            <h1 class="inner-title">@_first.Title</h1>
+                            <div class="inner-desc">
+                                @Html.Raw(_first.Description)
+                            </div>
+
+                            <div class="box-search" box-search>
+                                <form class="box-form">
+
+                                    @*<select class="select-search-box"></select>*@
+
+                                    <input type="text" class="input-search-box" placeholder="@Html.Raw(WebHelper.GetCultureText(cultures, "PLACEHOLDER_SEARCH"))">
+                                    <button type="submit">
+                                        <i class="fa-solid fa-magnifying-glass"></i>
+                                    </button>
+
+                                    <div id="search-results" class="dropdown-menu" style="width: 100%; display: none;">
+                                    </div>
+                                </form>
+                            </div>
+
+                            @*<div class="box-search" box-search>
+                                    <form action="">
+                                        <input type="text" placeholder="@Html.Raw(WebHelper.GetCultureText(cultures, "PLACEHOLDER_SEARCH"))">
+                                        <button type="submit">
+                                            <i class="fa-solid fa-magnifying-glass"></i>
+                                        </button>
+                                    </form>
+                                </div>*@
+                        </div>
+                    </div>
+                </div>
+                <!-- End Luôn kết nối dù bạn đi đâu -->
+
+            }
+        }
+    }
+}
+<!-- End Background Header -->
+<!-- Tabs Các loại sim -->
+@{
+    var background_url = "";
+    var W2G_Banner_KhoiQuocGia = bannerAdsRepository.GetBannerAds_By_Code(culture_code, "W2G_Banner_KhoiQuocGia");
+    if (W2G_Banner_KhoiQuocGia != null)
+    {
+        var banners = WebHelper.ConvertSlide(W2G_Banner_KhoiQuocGia);
+        if (banners != null)
+        {
+            var _first = banners.FirstOrDefault();
+            if (_first != null)
+            {
+                background_url = UIHelper.StoreFilePath(_first.Image, false);
+            }
+        }
+    }
+}
+<div class="section-2">
+    <div class="inner-tabs inner-trans">
+        <div class="container">
+            <ul class="nav nav-tabs">
+                <li class="nav-item">
+                    <button class="nav-link active tab-1" data-toggle="tab" data-target="#tab-esim-1">
+                        @Html.Raw(WebHelper.GetCultureText(cultures, "TAB_1"))
+                    </button>
+                </li>
+                <li class="nav-item">
+                    <button class="nav-link tab-2" data-toggle="tab" data-target="#tab-esim-2">
+                        @Html.Raw(WebHelper.GetCultureText(cultures, "TAB_2"))
+                    </button>
+                </li>
+                <li class="nav-item">
+                    <button class="nav-link" data-toggle="tab" data-target="#tab-esim-3">
+                        @Html.Raw(WebHelper.GetCultureText(cultures, "TAB_3"))
+                    </button>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <!--style="background: url(@background_url) no-repeat center center"-->
+    <div class="inner-panels" style="background: url(@background_url) no-repeat center center; background-size:cover ">
+        <div class="container">
+            <div class="tab-content">
+                <!-- Các quốc gia phổ biến -->
+                <div class="tab-pane fade show active" id="tab-esim-1">
+                    @await Component.InvokeAsync("ListOfCountry")
+                </div>
+                <!-- Hết Các quốc gia phổ biến -->
+                <!-- eSIM khu vực -->
+                <div class="tab-pane fade" id="tab-esim-2">
+                    @await Component.InvokeAsync("ListOfRegion")
+                </div>
+                <!-- Hết eSIM khu vực -->
+                <!-- eSIM toàn cầu -->
+                <div class="tab-pane fade" id="tab-esim-3">
+                    @await Component.InvokeAsync("ListOfGlobal")
+                </div>
+                <!-- Hết eSIM toàn cầu -->
+            </div>
+        </div>
+    </div>
+</div>
+<!-- End Tabs Các loại sim -->
+<!-- Banner Full -->
+@{
+    var W2G_Banner_ThanTrang = bannerAdsRepository.GetBannerAds_By_Code(culture_code, "W2G_Banner_ThanTrang");
+    if (W2G_Banner_ThanTrang != null)
+    {
+        var banners = WebHelper.ConvertSlide(W2G_Banner_ThanTrang);
+        if (banners != null)
+        {
+            var _first = banners.FirstOrDefault();
+            if (_first != null)
+            {
+                <div class="section-20">
+                    <a href="@_first.Url">
+                        <img src="@UIHelper.StoreFilePath(_first.Image, false)" alt="@_first.Title">
+                    </a>
+                </div>
+            }
+
+        }
+    }
+}
+
+<!-- End Banner Full -->
+<!-- Why Way2Go -->
+@{
+    var W2G_Khoi_2_ThanTrang = bannerAdsRepository.GetBannerAds_By_Code(culture_code, "W2G_Khoi_2_ThanTrang");
+    if (W2G_Khoi_2_ThanTrang != null)
+    {
+        var banners = WebHelper.ConvertSlide(W2G_Khoi_2_ThanTrang);
+        if (banners != null)
+        {
+            var _first = banners.FirstOrDefault();
+            if (_first != null)
+            {
+                <div class="section-21 mobile-none">
+                    <div class="container">
+                        <div class="box-head">
+                            <h2 class="inner-title">
+                                @_first.Title
+                            </h2>
+                        </div>
+                        <div class="row">
+                            @foreach (var item in banners.Skip(1).Take(3))
+                            {
+                                <div class="col-xl-4 col-lg-4 col-md-4 col-sm-12 col-12 mb-30">
+                                    <div class="inner-item">
+                                        <div class="inner-image">
+                                            <img src="@UIHelper.StoreFilePath(item.Image, false)" alt="@item.Title">
+                                        </div>
+                                        <h3 class="inner-title">
+                                            @item.Title
+                                        </h3>
+                                        <div class="inner-desc">
+                                            @Html.Raw(item.Description)
+                                        </div>
+                                    </div>
+                                </div>
+                            }
+                        </div>
+                    </div>
+                </div>
+
+                <div class="section-21 pc-none">
+                    <div class="container">
+                        <div class="box-head">
+                            <h2 class="inner-title">
+                                @_first.Title
+                            </h2>
+                        </div>
+                        <div class="row">
+                            @foreach (var item in banners.Skip(1).Take(3))
+                            {
+                                <div class="col-xl-4 col-lg-4 col-md-4 col-sm-12 col-12 mb-30 slide-mobile-item">
+                                    <div class="inner-item">
+                                        <div class="inner-image">
+                                            <img src="@UIHelper.StoreFilePath(item.Image, false)" alt="@item.Title">
+                                        </div>
+                                        <h3 class="inner-title">
+                                            @item.Title
+                                        </h3>
+                                        <div class="inner-desc">
+                                            @Html.Raw(item.Description)
+                                        </div>
+                                    </div>
+                                </div>
+                            }
+                        </div>
+                    </div>
+                </div>
+            }
+        }
+    }
+}
+
+<!-- End Why Way2Go -->
+
+
+@{
+    var W2G_Feedback_Slide = bannerAdsRepository.GetBannerAds_By_Code(culture_code, "W2G_Feedback_Slide");
+    if (W2G_Feedback_Slide != null)
+    {
+        var banners = WebHelper.ConvertSlide(W2G_Feedback_Slide);
+        if (banners != null)
+        {
+            var _first = banners.FirstOrDefault();
+            if (_first != null)
+            {
+                <div class="section-21 feedback-block">
+                    <div class="container">
+                        <div class="box-head">
+                            <h2 class="inner-title">
+                                @_first.Title
+                            </h2>
+                        </div>
+                        <div class="row doitac-slide-wrapper">
+                            @{
+                                var dts = banners.Skip(1).ToList();
+                            }
+
+
+                            @foreach (var item in banners.Skip(1))
+                            {
+                                <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-6 mb-30">
+                                    <div class="inner-item">
+                                        <div class="feedback-title-block">
+                                            <img src="@UIHelper.StoreFilePath(item.Image, false)" class="feedback-item-flag" />
+                                            <h3 class="inner-title feedback-item-title">
+                                                @item.Title
+                                            </h3>
+
+                                        </div>
+
+                                        <div class="inner-desc" style="text-align:justify">
+                                            @Html.Raw(item.Description)
+                                        </div>
+                                    </div>
+                                </div>
+
+                            }
+
+                        </div>
+                    </div>
+                </div>
+            }
+        }
+    }
+}
+<div class="culture-info" data-package-alert-title="@WebHelper.GetCultureText(cultures, "ALERT_PACKAGE_TITLE")" data-package-alert-desc="@WebHelper.GetCultureText(cultures, "ALERT_PACKAGE_DESC")" data-package-alert-button="@WebHelper.GetCultureText(cultures, "ALERT_PACKAGE_BUTTON")"></div>
+
+<!-- End Our Partners -->
+
+@section scripts{
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/velocity/2.0.5/velocity.min.js"></script>
+
+    <script type="text/javascript" src="~/js/controller/homeController.js"></script>
+
+
+
+}

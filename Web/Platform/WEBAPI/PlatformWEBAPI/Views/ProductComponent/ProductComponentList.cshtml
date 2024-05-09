@@ -1,0 +1,136 @@
+﻿@using PlatformWEBAPI.Services.BannerAds.Repository
+@using MI.Entity.Enums;
+@using PlatformWEBAPI.Services.Zone.ViewModal
+@using PlatformWEBAPI.Services.Locations.ViewModal
+@using Microsoft.AspNetCore.Localization
+@using Microsoft.AspNetCore.Mvc.Localization
+@using Microsoft.AspNetCore.Http
+@using PlatformWEBAPI.Services.Article.Repository
+@using PlatformWEBAPI.Services.Zone.Repository
+@using PlatformWEBAPI.Services.Product.Repository
+@inject IHttpContextAccessor HttpContextAccessor
+@inject IArticleRepository articleRepository;
+@inject IProductRepository productRepository;
+@inject IZoneRepository zoneRepository;
+@inject IBannerAdsRepository bannerAdsRepository;
+@using PlatformWEBAPI.Services.Product.ViewModel;
+@using PlatformWEBAPI.Utility
+@using Utils
+@{
+    var culture = Context.Features.Get<IRequestCultureFeature>().RequestCulture.Culture.TwoLetterISOLanguageName.ToLower();
+    var culture_code = Context.Features.Get<IRequestCultureFeature>().RequestCulture.Culture.ToString();
+    var base_uri_culture = "/" + culture;
+    var domain = Context.Request.Host.ToString();
+    var listLocations = ViewBag.Locations as List<LocationViewModel>;
+
+    //var productCpn = productRepository.GetAllProductComponent();
+    var list_zone_all = zoneRepository.GetZoneByTreeViewShowMenuMinifies(1, culture_code, 0, 1);
+    var list_zone_parent = list_zone_all.Where(r => r.ParentId == 0 && r.IsShowMenu == 1).ToList();
+    var list_zone_child = list_zone_all.Where(r => r.ParentId != 0 && r.IsShowMenu == 1).ToList();
+    var zoneId = ViewBag.ZoneId;
+    var xxx = zoneRepository.GetZoneDetail(264, culture_code);
+}
+
+@{
+    ViewData["Title"] = "Linh kiện";
+    Layout = "~/Views/Shared/_LayoutPublicHome.cshtml";
+    var blog_zone_parent = ViewBag.ZoneParent as ZoneByTreeViewMinify;
+}
+<style>
+    .setSelected {
+        background-color: #0c784c !important;
+        color: white;
+    }
+    .unShowLoadMore{
+        visibility: hidden;
+    }
+</style>
+<div class="container my-3">
+    <nav aria-label="breadcrumb ">
+        <ol class="breadcrumb jan-breadcrumb">
+            <li class="breadcrumb-item"><a href="#">Home</a></li>
+            <li class="breadcrumb-item active" aria-current="page">Sửa chữa</li>
+        </ol>
+    </nav>
+</div>
+
+
+
+<div class="container">
+
+    @if (list_zone_parent.Any())
+    {<div class="mb-3">
+            <h6 style="color:green; font-weight:bold">Danh mục</h6>
+            <div id="list_parent_zone" class="zone_list-product" style="display: flex; flex-wrap: wrap; margin-bottom: 10px; ">
+                <div id='itemParent--1' class="zone_item-product zone-parent" onclick="changeChildZone(-1)"><span>Tất cả</span></div>
+                @foreach (var item in list_zone_parent)
+                {
+                    <div id='itemParent-@item.Id' class="zone_item-product zone-parent" onclick="changeChildZone('@item.Id')"><span>@item.Name</span></div>
+                }
+            </div>
+            <input type="hidden" id="parentZoneId" value="0" />
+        </div>
+
+    }
+    @if (list_zone_child.Any())
+    {
+        <div class="mb-3">
+            <h6 style="color:green; font-weight:bold">Dòng máy</h6>
+            <div id="list_child_zone" class="zone_list-product zone-child" style="display: flex; flex-wrap: wrap; margin-bottom: 10px; ">
+                @foreach (var item in list_zone_child)
+                {
+                    <div id='itemChild-@item.Id' class="zone_item-product zone-child" onclick="setChildZoneValue('@item.Id')"><span>@item.Name</span></div>
+                }
+            </div>
+            <input type="hidden" id="childZoneId" value="0" />
+        </div>
+    }
+    @*@if (productCpn.Any())
+        {
+            <div class="mb-3">
+                <h6 style="color:green; font-weight:bold">Linh kiện</h6>
+                <div class="zone_list-product" style="display: flex; flex-wrap: wrap; margin-bottom: 10px; ">
+                    @foreach (var item in productCpn)
+                    {
+                        <div class="zone_item-product zone-productCpn" id='itemProductCpn-@item.Id' onclick="getCpnById('@item.Id')"><span>@item.Name</span></div>
+                    }
+                    <input type="hidden" id="productCpnId" value="0" />
+                </div>
+            </div>
+        }*@
+    <div class="mb-3" id="productCpnListData" style="display:none">
+        <h6 style="color:green; font-weight:bold">Linh kiện</h6>
+        <div class="zone_list-product" id="list-proCpn" style="display: flex; flex-wrap: wrap; margin-bottom: 10px; ">
+
+        </div>
+        <input type="hidden" id="productCpnId" value="0" />
+    </div>
+    <div class="row" id="listProductComponent">
+        @foreach (var item in Model)
+        {
+            var link_tar = string.Format("/{0}.html", item.Url);
+            <div class="col-md-3 col-sm-3 col-6 mb-3">
+                @await Component.InvokeAsync("ItemProduct", new { pr = item, isLazy = false, isPayOff = false })
+            </div>
+        }
+    </div>
+    <div id="loadmorebutton" class="text-center">
+        <input id="pageNumber" type="hidden" value="1" />
+        <button id="buttonLoadMore" onclick="loadmoredata()" class="load-more-product">
+            Xem thêm sản phẩm
+        </button>
+    </div>
+    <!--Gửi Comment-->
+    <div class="comments comment_binding">
+        @await Component.InvokeAsync("Comment", new { object_id = (int)ObjectIdComment.SuaChua, object_type = (int)CommentType.ProductComponent })
+    </div>
+    <div class="comments">
+        @Html.Raw(bannerAdsRepository.GetConfigByName(culture_code, "CoCau"))
+    </div>
+    </div>
+
+
+
+@section scripts {
+    <script type="text/javascript" src="~/js/controller/productCpnController.js?v=@WebHelper.Version()"></script>
+}

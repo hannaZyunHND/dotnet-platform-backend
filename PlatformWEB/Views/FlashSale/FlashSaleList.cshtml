@@ -1,0 +1,204 @@
+﻿@using PlatformWEB.Services.Zone.ViewModal
+@using PlatformWEB.Services.Zone.Repository
+@using PlatformWEB.Services.BannerAds.ViewModel
+@using PlatformWEB.Services.Extra.ViewModel
+@using PlatformWEB.Services.BannerAds.Repository
+@using PlatformWEB.Services.FlashSale.Repository
+@using MI.Entity.Models
+@using MI.Entity.Enums
+
+@using PlatformWEB.Services.Product.Repository
+@using PlatformWEB.Services.Extra.Repository
+@using Microsoft.AspNetCore.Http
+@using Microsoft.AspNetCore.Localization
+@using Microsoft.AspNetCore.Mvc.Localization
+@using Utils
+@inject IHttpContextAccessor HttpContextAccessor
+@using PlatformWEB.Utility
+@inject ICookieUtility cookieUtility
+@inject IConfigSEOUtility configSEOUtility
+@inject IProductRepository productRepository
+@inject IZoneRepository zoneRepository
+@inject IBannerAdsRepository bannerAdsRepository
+@inject IExtraRepository extraRepository
+@inject IFlashSaleRepository flashSaleRepository
+@{
+
+    Layout = "~/Views/Shared/_LayoutPublicHome.cshtml";
+
+    var cookie_location = cookieUtility.SetCookieDefault();
+    var location_id = cookie_location.LocationId;
+    var location_name = cookie_location.LocationName;
+    var culture = Context.Features.Get<IRequestCultureFeature>().RequestCulture.Culture.TwoLetterISOLanguageName.ToLower();
+    var culture_code = Context.Features.Get<IRequestCultureFeature>().RequestCulture.Culture.ToString();
+    var base_uri_culture = "/" + culture;
+    var domain = Context.Request.Host.ToString();
+
+}
+
+@section styles{
+    @{ var bind_meta = "";}
+    
+    @Html.Raw(bind_meta)
+    <style>
+        .color-circle {
+            height: 20px;
+            width: 20px;
+            border-radius: 50%;
+            display: inline-block;
+            /*border: 1px solid #ffffff;*/
+        }
+
+        .picking-active {
+            border: 1px solid red !important;
+        }
+
+        .detail img {
+            max-width: 100% !important;
+        }
+
+        .zone_item-product.activeCat {
+            background: #0c784c;
+            color: white;
+        }
+    </style>
+}
+
+@*@{ var list_zone_first = zone_tree_view.Where(r => r.level == 1);
+        if (zone_tree_view.Count() == 1)
+        {
+            //list_zone_first = zone_tree_view.Where(r => r.level == 0);
+            list_zone_first = zoneRepository.GetZoneByTreeViewMinifies((int)TypeZone.Product, culture_code, (int)zone_detail.ParentId).Where(r => r.ParentId > 0 && r.ParentId == zone_detail.Id);
+        }
+    }*@
+
+
+<!-- Breadcrumb -->
+
+<div class="container">
+    @*@await Component.InvokeAsync("Breadcrumb", new { zone_id = zone_detail.Id })*@
+</div>
+<!-- End Breadcrumb -->
+<!-- Banner Full Width -->
+<div class="container mobi-hidden">
+    <div class="banner-full">
+        <a href="#">
+            <img src="~/top-ten-travel/images/banner/banner-6.png" alt="Banner" />
+        </a>
+    </div>
+</div>
+<!-- End Banner Full Width -->
+<!-- Category Slide -->
+<div class="category-slide mt-20">
+    <div class="container">
+        <div class="swiper js-category-slide">
+            <div class="swiper-wrapper category-slide__wrap">
+                @{
+                    var list_manufactures = extraRepository.GetManufactures(culture_code);
+                    if (list_manufactures != null && list_manufactures.Any())
+                    {
+                        @foreach (var item in list_manufactures)
+                        {
+                            <div class="swiper-slide category-slide__item">
+                                <a href="@item.Url" title="@item.Name">
+                                    <img src="@UIHelper.StoreFilePath(item.Avatar, false)" alt="Partners" />
+                                    <span class="category-slide__item-title">@item.Name</span>
+                                </a>
+                            </div>
+                        }
+                    }
+
+                }
+
+            </div>
+            <div class="swiper-button-next"></div>
+            <div class="swiper-button-prev"></div>
+        </div>
+    </div>
+</div>
+<!-- End Category Slide -->
+<!-- Category Tags -->
+@{
+    
+
+    var time = DateTime.Now;
+    var list_flash_sale = flashSaleRepository.GetFlashSaleByTime(time);
+    var flashSaleFirst = list_flash_sale.FirstOrDefault();
+}
+<div class="container mt-10">
+    <div class="category-tags">
+        @for (int i = 0; i < list_flash_sale.Count(); i++)
+        {
+            var _class_active = "";
+            if (i == 0)
+            {
+                _class_active = "category-tags__active";
+            }
+            <a href="javascript:void(0)" class="@_class_active picking-flash-sale" data-flashsaleid="@list_flash_sale[i].Id" title="@list_flash_sale[i].Name">@list_flash_sale[i].Name</a>
+        }
+
+    </div>
+</div>
+
+
+@if (flashSaleFirst != null)
+{
+    <div class="container mt-45 mb-45" id="append-filter">
+        <div class="section-head">
+            <h4 class="section-head__title">@flashSaleFirst.Name</h4>
+        </div>
+        <div class="row js-product-load-more _binding_flashsale">
+            @{
+                var tt = 0;
+                var products = flashSaleRepository.GetProductInFlashSale(flashSaleFirst.Id, location_id, culture_code, 1, 100, out tt);
+                foreach (var item in products)
+                {
+                    <div class="col-lg-3 col-md-4 col-sm-6 col-6">
+                        @{var link_tar = string.Format("/{0}.html", item.Url);}
+                        <div class="products-grid__item" style="display:block;">
+                            @await Component.InvokeAsync("ItemProduct", new { pr = item, isLazy = false })
+                        </div>
+                    </div>
+                }
+
+            }
+        </div>
+
+        <!-- Load More -->
+        <!--<div class="text-center">
+            <button id="buttonLoadMore" class="load-more-product button-view-more">Xem thêm <span class="tong_so_sp"></span> sản phẩm</button>
+        </div>-->
+        <!-- End Load More -->
+    </div>
+}
+
+
+
+
+
+
+<style>
+    .detail h3 {
+        display: block !important;
+    }
+
+    .detail h2 {
+        display: block !important;
+    }
+</style>
+@*@section Scripts{
+        <script type="text/javascript" src="~/js/controller/productController.js" asp-append-version="true"></script>
+    }*@
+
+
+@section scripts{
+    <script type="text/javascript" src="~/js/libs/momentjs/momentJS.js" asp-append-version="true"></script>
+    <script type="text/javascript" src="~/js/libs/daterangepicker-master/daterangepicker.js" asp-append-version="true"></script>
+    <script type="text/javascript" src="~/js/libs/paginationjs/paginationJS.js" asp-append-version="true"></script>
+    <script type="text/javascript" src="~/js/libs/momentjs/momentJS.js" asp-append-version="true"></script>
+    <script type="text/javascript" src="~/js/libs/daterangepicker-master/daterangepicker.js" asp-append-version="true"></script>
+    <script type="text/javascript" src="~/js/libs/paginationjs/paginationJS.js" asp-append-version="true"></script>
+    <script type="text/javascript" asp-append-version="true" src="~/js/controller/flashsaleController.js"></script>
+
+}
+

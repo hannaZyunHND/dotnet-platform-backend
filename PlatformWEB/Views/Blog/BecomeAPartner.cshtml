@@ -1,0 +1,370 @@
+﻿@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_LayoutPublicHome.cshtml";
+}
+@using PlatformWEB.Services.Product.Repository
+@using PlatformWEB.Services.Zone.Repository
+@using MI.Entity.Enums
+@using PlatformWEB.Services.BannerAds.Repository
+@using PlatformWEB.Services.FlashSale.Repository
+@using Microsoft.AspNetCore.Localization
+@using Microsoft.AspNetCore.Http
+@using PlatformWEB.Services.Article.Repository
+@using Newtonsoft.Json
+@using PlatformWEB.Utility
+@using Microsoft.AspNetCore.Mvc.RazorPages
+@using MI.Entity.Models
+@using PlatformWEB.Services.Extra.ViewModel
+@using PlatformWEB.Services.Extra.Repository
+@using Microsoft.AspNetCore.Http.Extensions
+@using Microsoft.AspNetCore.Mvc.Localization
+
+@inject IHttpContextAccessor HttpContextAccessor
+@inject ICookieUtility cookieUtility
+@inject IConfigSEOUtility configSEOUtility
+@inject IArticleRepository articleRepository
+@inject IBannerAdsRepository bannerAdsRepository
+@inject IFlashSaleRepository flashSaleRepository
+@inject IExtraRepository extraRepository
+
+@using Utils
+@{
+    var culture = Context.Features.Get<IRequestCultureFeature>().RequestCulture.Culture.TwoLetterISOLanguageName.ToLower();
+    var culture_code = Context.Features.Get<IRequestCultureFeature>().RequestCulture.Culture.ToString();
+    var base_uri_culture = "/" + culture;
+    var domain = Context.Request.Host.ToString();
+    var domain_full = Context.Request.GetDisplayUrl();
+
+    const string CookieLocationId = "_LocationId";
+    const string CookieLocationName = "_LocationName";
+
+    var cultureSanPham = bannerAdsRepository.GetBannerAds_By_Code(culture_code, "W2G_Culture_BecomeAPartner");
+    var cultures = WebHelper.ConvertSlideCulture(cultureSanPham);
+
+}
+@inject IProductRepository productRepository
+@inject IZoneRepository zoneRepository
+@inject IViewLocalizer localizer
+
+@{
+    var W2G_BecomeAPartner_KhoiTieuDe = bannerAdsRepository.GetBannerAds_By_Code(culture_code, "W2G_BecomeAPartner_KhoiTieuDe");
+    if (W2G_BecomeAPartner_KhoiTieuDe != null)
+    {
+        var banners = WebHelper.ConvertSlide(W2G_BecomeAPartner_KhoiTieuDe);
+        if (banners != null)
+        {
+            var _first = banners.FirstOrDefault();
+            if (_first != null)
+            {
+                <!-- Page Header -->
+                <div class="page-header">
+                    <div class="container">
+                        <h2 class="inner-title">
+                            @_first.Title
+                        </h2>
+                    </div>
+                </div>
+                <!-- End Page Header -->
+            }
+        }
+
+    }
+}
+
+@section styles {
+    <style>
+        .section .inner-desc span {
+            font-size: 1rem !important;
+            text-align: justify;
+        }
+
+        .section .inner-desc p {
+            font-size: 1rem !important;
+            text-align: justify;
+        }
+    </style>
+}
+
+@{
+    var W2G_BecomeAPartner_Khoi1 = bannerAdsRepository.GetBannerAds_By_Code(culture_code, "W2G_BecomeAPartner_Khoi1");
+    if (W2G_BecomeAPartner_Khoi1 != null)
+    {
+        var banners = WebHelper.ConvertSlide(W2G_BecomeAPartner_Khoi1);
+        if (banners != null)
+        {
+            var _first = banners.FirstOrDefault();
+            if (_first != null)
+            {
+                <div class="section-13">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-xl-12">
+                                <div class="inner-main">
+                                    <h2 class="inner-title">@_first.Title</h2>
+                                    <div class="inner-desc">@Html.Raw(_first.Description)</div>
+                                    @{
+                                        var _second = banners.LastOrDefault();
+                                        if (_second != null)
+                                        {
+                                            @*<a href="@_second.Url" class="button button-full button-max-350">
+                                                    @_second.Title
+                                                </a>*@
+                                        }
+                                    }
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+        }
+    }
+}
+@{
+    var W2G_BecomeAPartner_Khoi3 = bannerAdsRepository.GetBannerAds_By_Code(culture_code, "W2G_BecomeAPartner_Khoi3");
+    if (W2G_BecomeAPartner_Khoi3 != null)
+    {
+        var banners = WebHelper.ConvertSlide(W2G_BecomeAPartner_Khoi3);
+        if (banners != null)
+        {
+            var _first = banners.FirstOrDefault();
+            if (_first != null)
+            {
+                <div class="section-15 section">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-xl-6 col-lg-6">
+                                <div class="inner-content">
+                                    <h2 class="inner-title">
+                                        @_first.Title
+                                    </h2>
+                                    <div class="inner-desc">
+                                        @Html.Raw(_first.Description)
+                                    </div>
+                                    @*<a href="#" class="button button-full button-max-350">
+                                            THAM GIA CÙNG CHÚNG TÔI
+                                        </a>*@
+                                </div>
+                            </div>
+                            <div class="col-xl-6 col-lg-6">
+                                <div class="inner-list-box">
+                                    @foreach (var item in banners.Skip(1))
+                                    {
+                                        var desc = UIHelper.ClearHtmlTag(item.Description);
+                                        var arrDesc = desc.Split("|");
+                                        var percent = "";
+                                        var description = "";
+                                        if (arrDesc.Length > 0)
+                                        {
+                                            percent = arrDesc[0];
+                                        }
+                                        if (arrDesc.Length > 1)
+                                        {
+                                            description = arrDesc[1];
+                                        }
+                                        <div class="inner-box" style="background-image:url(@UIHelper.StoreFilePath(item.Image, false))">
+                                            <div class="inner-title">
+                                                @item.Title
+                                            </div>
+                                            <div class="inner-title-2">
+                                                @Html.Raw(percent)
+                                            </div>
+                                            <div class="inner-desc">
+                                                @Html.Raw(description)
+                                            </div>
+                                        </div>
+                                    }
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            }
+        }
+    }
+}
+
+@{
+    //W2G_BecomeAPartner_Khoi6
+    var W2G_BecomeAPartner_Khoi6 = bannerAdsRepository.GetBannerAds_By_Code(culture_code, "W2G_BecomeAPartner_Khoi6");
+    if (W2G_BecomeAPartner_Khoi6 != null)
+    {
+        var banners = WebHelper.ConvertSlide(W2G_BecomeAPartner_Khoi6);
+        if (banners != null)
+        {
+            var _first = banners.FirstOrDefault();
+            if (_first != null)
+            {
+                <!-- Đối tác API -->
+                <div class="section-17 section">
+                    <div class="container">
+                        <div class="row justify-content-around align-items-center">
+                            <div class="col-xl-5 col-lg-5 order-lg-1 order-1">
+                                <div class="inner-image">
+                                    <img src="@UIHelper.StoreFilePath(_first.Image, false)" alt="@_first.Title">
+                                </div>
+                            </div>
+                            <div class="col-xl-7 col-lg-7 order-lg-2 order-2">
+                                @{
+                                    var W2G_BecomeAPartner_Khoi5 = bannerAdsRepository.GetBannerAds_By_Code(culture_code, "W2G_BecomeAPartner_Khoi5");
+                                    if (W2G_BecomeAPartner_Khoi5 != null)
+                                    {
+                                        var banners1 = WebHelper.ConvertSlide(W2G_BecomeAPartner_Khoi5);
+                                        if (banners1 != null)
+                                        {
+                                            var _first1 = banners1.FirstOrDefault();
+                                            if (_first1 != null)
+                                            {
+                                                <div class="inner-content mb-5">
+                                                    <h2 class="inner-title">
+                                                        @_first1.Title
+                                                    </h2>
+                                                    <div class="inner-desc">
+                                                        @Html.Raw(_first1.Description)
+                                                    </div>
+
+                                                </div>
+                                            }
+                                        }
+                                    }
+                                }
+                                <div class="inner-content">
+                                    <h2 class="inner-title">
+                                        @_first.Title
+                                    </h2>
+                                    <div class="inner-desc">
+                                        @Html.Raw(_first.Description)
+                                    </div>
+                                    <div class="inner-buttons">
+                                        @{
+                                            var buttonConfig = banners.Skip(1).ToList();
+                                        }
+                                        @for (var i = 0; i < buttonConfig.Count(); i++)
+                                        {
+                                            <a href="@buttonConfig[i].Url" class="button @(i == 0 ? "button-white" : "")">@buttonConfig[i].Title</a>
+                                        }
+
+                                    </div>
+                                </div>
+
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+                <!-- End Đối tác API -->
+            }
+        }
+    }
+
+}
+
+@{
+    //W2G_BecomeAPartner_Khoi7
+    var W2G_BecomeAPartner_Khoi7 = bannerAdsRepository.GetBannerAds_By_Code(culture_code, "W2G_BecomeAPartner_Khoi7");
+    if (W2G_BecomeAPartner_Khoi7 != null)
+    {
+        var banners = WebHelper.ConvertSlide(W2G_BecomeAPartner_Khoi7);
+        if (banners != null)
+        {
+            var _first = banners.FirstOrDefault();
+            if (_first != null)
+            {
+                <!-- Đối tác API -->
+                <div class="section-17 section">
+                    <div class="container">
+                        <div class="row justify-content-around align-items-center">
+                            <div class="col-xl-7 col-lg-7 order-lg-1 order-2">
+                                <div class="inner-content mb-3">
+                                    <h2 class="inner-title">
+                                        @_first.Title
+                                    </h2>
+                                    <div class="inner-desc">
+                                        @Html.Raw(_first.Description)
+                                    </div>
+
+                                </div>
+                                @{
+                                    //W2G_BecomeAPartner_Khoi8
+                                    var W2G_BecomeAPartner_Khoi8 = bannerAdsRepository.GetBannerAds_By_Code(culture_code, "W2G_BecomeAPartner_Khoi8");
+                                    if (W2G_BecomeAPartner_Khoi8 != null)
+                                    {
+                                        var banners1 = WebHelper.ConvertSlide(W2G_BecomeAPartner_Khoi8);
+                                        if (banners1 != null)
+                                        {
+                                            var _first1 = banners1.FirstOrDefault();
+                                            if (_first1 != null)
+                                            {
+                                                <div class="inner-content">
+                                                    <h2 class="inner-title">
+                                                        @_first1.Title
+                                                    </h2>
+                                                    <div class="inner-desc">
+                                                        @Html.Raw(_first1.Description)
+                                                    </div>
+
+                                                </div>
+                                            }
+                                        }
+                                    }
+
+                                }
+
+                            </div>
+                            <div class="col-xl-5 col-lg-5 order-lg-2 order-1">
+                                <div class="inner-image">
+                                    <img src="@UIHelper.StoreFilePath(_first.Image, false)" alt="@_first.Title">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- End Đối tác API -->
+            }
+        }
+    }
+}
+
+
+@{
+    //W2G_BecomeAPartner_KhoiCuoi
+    var W2G_BecomeAPartner_KhoiCuoi = bannerAdsRepository.GetBannerAds_By_Code(culture_code, "W2G_BecomeAPartner_KhoiCuoi");
+    if (W2G_BecomeAPartner_KhoiCuoi != null)
+    {
+        var banners = WebHelper.ConvertSlide(W2G_BecomeAPartner_KhoiCuoi);
+        if (banners != null)
+        {
+            var _first = banners.FirstOrDefault();
+            if (_first != null)
+            {
+                <div class="section-18" id="collaborator">
+                    <div class="container">
+                        <div class="inner-main" style="background: url(@UIHelper.StoreFilePath(_first.Image, false)) no-repeat 50%; background-size:cover">
+                            <div class="inner-content" style="color:white">
+                                <h2 class="inner-title">@_first.Title</h2>
+                                <div class="inner-desc">
+                                    @Html.Raw(_first.Description)
+                                </div>
+                                <a href="@_first.Url" class="button button-full button-max-350">
+                                    @Html.Raw(WebHelper.GetCultureText(cultures, "LIEN_HE_BUTTON"))
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+        }
+    }
+}
+@section scripts{
+    <script>
+        //var color = $('.section-18 .inner-desc span').attr('style');
+        ////alert(color);
+        //$('.section-18 .inner-content').attr('style', color);
+    </script>
+}
+
+
+<!-- End Page About -->

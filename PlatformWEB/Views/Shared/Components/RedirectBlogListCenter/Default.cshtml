@@ -1,0 +1,135 @@
+﻿@using MI.Entity.Enums;
+@using PlatformWEB.Services.Zone.ViewModal
+@using Microsoft.AspNetCore.Localization
+@using Microsoft.AspNetCore.Mvc.Localization
+@using Microsoft.AspNetCore.Http
+@using PlatformWEB.Services.Article.Repository
+@using PlatformWEB.Services.Article.ViewModel
+@using PlatformWEB.Services.Zone.Repository
+@using PlatformWEB.Utility
+@inject IHttpContextAccessor HttpContextAccessor
+@inject IArticleRepository articleRepository;
+@inject IZoneRepository zoneRepository;
+@model ZoneDetail;
+@using Utils
+@{
+    var index = (int)ViewBag.Index;
+    var size = (int)ViewBag.Size;
+
+    var culture = Context.Features.Get<IRequestCultureFeature>().RequestCulture.Culture.TwoLetterISOLanguageName.ToLower();
+    var culture_code = Context.Features.Get<IRequestCultureFeature>().RequestCulture.Culture.ToString();
+    //var base_uri_culture = "/" + culture;
+    var base_uri_culture = "/";
+    var domain = Context.Request.Host.ToString();
+    var total = 0;
+    var list_bai_viet = articleRepository.GetArticlesInZoneParent(Model.Id, culture_code, index, size, out total);
+    var bai_viet_top = list_bai_viet.FirstOrDefault();
+
+    var item_max = 0;
+    var noi_bat_nhat = new ArticleMinify();
+    if (bai_viet_top != null)
+    {
+         item_max = list_bai_viet.Max(x => x.ViewCount);
+          noi_bat_nhat = list_bai_viet.Where(x => x.ViewCount == item_max).FirstOrDefault();
+    }
+    var bai_viet_con = list_bai_viet.Skip(1).Take(size - 1).ToList();
+
+
+}
+@{
+    Layout = null;
+}
+
+<div class="blog-detail page-news-main__tabs">
+    <ul class="nav" role="tablist">
+        <li class="nav-item" role="presentation">
+            <a class="nav-link active" data-toggle="pill" href="#tab-moi-nhat" role="tab" aria-selected="false">Mới nhất</a>
+        </li>
+        <li class="nav-item" role="presentation">
+            <a class="nav-link" data-toggle="pill" href="#tab-noi-bat" aria-selected="true">Nổi bật tuần qua</a>
+        </li>
+        
+    </ul>
+    <div class="paging-container" style="display:none" data-total="@total" data-size="@size" data-currentpage="@index"></div>
+
+    <div class="tab-content">
+        @if (bai_viet_top != null)
+        {
+            var link = LinkRedirectUrlUtility.BlogDetailUrl(bai_viet_top.Url);
+            <div class="tab-pane fade show active"  id="tab-moi-nhat" role="tabpanel">
+                <div class="page-news-main__tabs-item">
+                    <div class="news-item-small">
+                        <div class="news-item-small__image">
+                            <a href="@link">
+                                <img src="@UIHelper.StoreFilePath(bai_viet_top.Avatar, false)" alt="@bai_viet_top.Title">
+                            </a>
+                        </div>
+                        <div class="news-item-small__content">
+                            <h4 class="news-item-small__title">
+                                <a href="@link" data-link="@bai_viet_top.Url" >@bai_viet_top.Title</a>
+                            </h4>
+                            <div class="news-item-small__desc">
+                                @Html.Raw(UIHelper.TrimByWord(UIHelper.ClearHtmlTag(bai_viet_top.Description), 20, "..."))
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+            var link2 = LinkRedirectUrlUtility.BlogDetailUrl(noi_bat_nhat.Url);
+            <div class="tab-pane fade"  id="tab-noi-bat" role="tabpanel">
+                <div class="page-news-main__tabs-item">
+                    <div class="news-item-small">
+                        <div class="news-item-small__image">
+                            <a href="@link2">
+                                <img src="@UIHelper.StoreFilePath(noi_bat_nhat.Avatar, false)" alt="@bai_viet_top.Title">
+                            </a>
+                        </div>
+                        <div class="news-item-small__content">
+                            <h4 class="news-item-small__title">
+                                <a href="@link2">@noi_bat_nhat.Title</a>
+                            </h4>
+                            <div class="news-item-small__desc">
+                                @Html.Raw(UIHelper.TrimByWord(UIHelper.ClearHtmlTag(noi_bat_nhat.Description), 20, "..."))
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+
+    <div class="page-news-main__list">
+
+
+        @foreach (var item in bai_viet_con)
+        {
+            var link = LinkRedirectUrlUtility.BlogDetailUrl(item.Url);
+            <!-- Item -->
+            <div class="page-news-main__item">
+                <div class="news-item-small">
+                    <div class="news-item-small__image">
+                        <a href="@link">
+                            <img src="@UIHelper.StoreFilePath(item.Avatar, false)" alt="@item.Title">
+                        </a>
+                    </div>
+                    <div class="news-item-small__content">
+                        <h4 class="news-item-small__title">
+                            <a href="@link"> @item.Title</a>
+                        </h4>
+                        <div class="news-item-small__desc trl-news">
+                            @Html.Raw(UIHelper.TrimByWord(UIHelper.ClearHtmlTag(item.Description), 20, "..."))
+                        </div>
+                        <div class="news-item-small__footer date-artic">
+                            <div class="news-item-small__time">@UIHelper.GetLongDate(item.CreatedDate) @item.CreatedDate.ToString("dd/MM/yyyy")</div>
+                            <a href="@link" class="news-item-small__link see-more">Xem thêm</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- End Item -->
+
+        }
+    </div>
+</div>

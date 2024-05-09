@@ -1,0 +1,9 @@
+﻿@using PlatformWEBAPI.Services.Zone.ViewModal
+@{
+    ViewData["Title"] = "Home Page";
+    var zone = ViewBag.Zone as List<ZoneByTreeViewMinify>;
+}
+
+@foreach (var item in zone) { 
+    <h1>@item.Name</h1>
+}

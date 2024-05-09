@@ -1,0 +1,601 @@
+﻿
+@{
+    ViewData["Title"] = "BuyAllCart";
+    Layout = "~/Views/Shared/_LayoutPublicHome.cshtml";
+}
+@using PlatformWEBAPI.Services.Product.ViewModel
+@using PlatformWEBAPI.Services.Product.Repository
+@using PlatformWEBAPI.Services.Article.ViewModel
+@using PlatformWEBAPI.Services.Article.Repository
+@using PlatformWEBAPI.Services.Zone.Repository
+@using PlatformWEBAPI.Services.BannerAds.Repository
+@using PlatformWEBAPI.Services.Extra.ViewModel
+@using PlatformWEBAPI.Services.BannerAds.ViewModel
+@using Microsoft.AspNetCore.Localization
+@using Microsoft.AspNetCore.Mvc.Localization
+@using Microsoft.AspNetCore.Http
+@using MI.Entity.Enums
+@using Newtonsoft.Json
+@using MI.Entity.CustomClass
+@using Microsoft.AspNetCore.Http.Extensions
+@using MI.Entity.Models
+@using PlatformWEBAPI.Services.Locations.Repository
+@using PlatformWEBAPI.Services.Locations.ViewModal
+@using PlatformWEBAPI.Services.BannerAds.Repository
+@inject IBannerAdsRepository _bannerAdsRepository
+@inject IHttpContextAccessor HttpContextAccessor
+@using PlatformWEBAPI.Utility
+@inject ICookieUtility cookieUtility
+@inject IArticleRepository articleRepository
+@inject IZoneRepository zoneRepository
+@inject IBannerAdsRepository bannerAdsRepository
+@inject IProductRepository productRepository
+@inject ILocationsRepository localtionRepository
+@inject IConfigSEOUtility configSEOUtility
+@inject IViewLocalizer Localizer
+@inject IConfigSEOUtility configSEO
+@model List<ProductMinify>
+
+@using Utils
+@{
+    var culture = Context.Features.Get<IRequestCultureFeature>().RequestCulture.Culture.TwoLetterISOLanguageName.ToLower();
+    var culture_code = Context.Features.Get<IRequestCultureFeature>().RequestCulture.Culture.ToString();
+    var base_uri_culture = "/" + culture;
+    var domain = Context.Request.Host.ToString();
+    //HttpContext.Current.Request.Url.AbsoluteUri;
+    var domain_full = Context.Request.GetDisplayUrl();
+}
+@{
+
+    var cookie_location = cookieUtility.SetCookieDefault();
+    var location_id = cookie_location.LocationId;
+    var location_name = cookie_location.LocationName;
+    var cultureSanPham = _bannerAdsRepository.GetBannerAds_By_Code(culture_code, "W2G_Culture_SanPham");
+    var cultureDetail = _bannerAdsRepository.GetBannerAds_By_Code(culture_code, "W2G_Culture_ProductDetail");
+    var _add = WebHelper.ConvertSlideCulture(cultureDetail);
+    var cultures = WebHelper.ConvertSlideCulture(cultureSanPham);
+    cultures.AddRange(_add);
+
+
+}
+
+@inject IViewLocalizer _localizer
+@if (Model != null)
+{
+    @*@Html.Raw(configSEO.ConfigShemaOrgProduct(detail))*@
+
+    <div id="culture-modal-payment"
+         data-success-title="@Html.Raw(WebHelper.GetCultureText(cultures, "BUY_MD_TITLE_SUCCESS", true))"
+         data-success-left="@Html.Raw(WebHelper.GetCultureText(cultures, "BUY_MD_DESC_CREATE_EMAIL_LEFT", true))"
+         data-success-right="@Html.Raw(WebHelper.GetCultureText(cultures, "BUY_MD_DESC_CREATE_EMAIL_RIGHT", true))"
+         data-success-nomail="@Html.Raw(WebHelper.GetCultureText(cultures, "BUY_MD_DESC_CREATE_NON_EMAIL", true))"
+         data-error-title="@Html.Raw(WebHelper.GetCultureText(cultures, "BUY_MD_TITLE_ERROR", true))"
+         data-error-desc="@Html.Raw(WebHelper.GetCultureText(cultures, "BUY_MD_DESC_ERROR", true))"
+         data-button="@Html.Raw(WebHelper.GetCultureText(cultures, "BUY_MD_BUTTON", true))"></div>
+    <!-- Thanh toán -->
+    <div class="section-8">
+        <div class="container">
+            <div class="row slide-buy-cart-item">
+                @foreach (var psim in Model)
+                {
+                    <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12 mb-30 sim-item" data-id="@psim.ProductId" data-price-each="@psim.Price">
+                        <div class="sim-package-item" style="background:@psim.GradientColor">
+                            <div class="remove-sim-item">
+                                <i class="fa-solid fa-x"></i>
+                            </div>
+                            <div class="inner-header">
+                                <div class="inner-title">
+                                    @psim.Title
+                                </div>
+                                <div class="inner-image">
+                                    <img src="@UIHelper.StoreFilePath(psim.Avatar)" alt="@psim.Name">
+                                </div>
+                            </div>
+                            <div class="sim-package-info">
+                                <ul class="inner-list">
+                                    @await Component.InvokeAsync("ItemProductv4", new { pr = psim })
+                                    <li>
+                                        <span class="inner-label">
+                                            <i class="fa-solid fa-tag"></i> @WebHelper.GetCultureText(cultures, "SO_LUONG")
+                                        </span>
+                                        <span class="inner-value add-quantity">
+                                            +
+                                        </span>
+                                        <span class="inner-value inner-quantity">
+
+                                        </span>
+                                        <span class="inner-value minus-quantity">
+                                            -
+                                        </span>
+                                    </li>
+
+                                </ul>
+                            </div>
+
+                        </div>
+                    </div>
+                }
+            </div>
+            <div class="row justify-content-center">
+                <div class="col-xl-8 col-lg-9">
+                    <div class="inner-section-1">
+
+                    </div>
+                    <div class="inner-section-2 payment-info">
+                        <div class="row">
+                            <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12">
+                                <div class="inner-box">
+                                    <div class="inner-title">
+                                        @Html.Raw(WebHelper.GetCultureText(cultures, "CHON_PHUONG_THUC_THANH_TOAN_LABEL", true))
+                                    </div>
+                                    <div class="inner-desc">
+                                        @Html.Raw(WebHelper.GetCultureText(cultures, "CHON_PHUONG_THUC_THANH_TOAN_DESC", true))
+                                    </div>
+                                    <a class="inner-button-modal" href="javascript:;" data-toggle="modal" data-target="#modalChoosePayment">
+                                        <span class="payment-show-case">@Html.Raw(WebHelper.GetCultureText(cultures, "CHON_PHUONG_THUC_THANH_TOAN_BUTTON", true))</span>
+                                        <i class="fa-solid fa-angle-right"></i>
+                                    </a>
+                                    <div class="small-warning-payment" style="display:none">
+                                        <small style="color:red">@Html.Raw(WebHelper.GetCultureText(cultures, "CHON_PHUONG_THUC_THANH_TOAN_ERROR", true))</small>
+                                    </div>
+                                </div>
+                            </div>
+                            @if (false)
+                            {
+                                <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12">
+                                    <div class="inner-box">
+                                        <div class="inner-title">
+                                            @Html.Raw(WebHelper.GetCultureText(cultures, "SERIAL_TITLE", true))
+                                        </div>
+                                        <div class="inner-desc">
+                                            @Html.Raw(WebHelper.GetCultureText(cultures, "SERIAL_DESC", true))
+                                        </div>
+                                        <a class="inner-button-modal button-serial-modal-text" href="javascript:;" data-toggle="modal" data-target="#modalMaGiamGia">
+                                            <span class="button-serial-modal-text">@Html.Raw(WebHelper.GetCultureText(cultures, "SERIAL_BUTTON", true))</span>
+                                            <i class="fa-solid fa-angle-right"></i>
+                                        </a>
+                                    </div>
+                                </div>
+                            }
+
+                            <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12">
+                                <div class="inner-box">
+                                    <div class="inner-title">
+                                        @Html.Raw(WebHelper.GetCultureText(cultures, "EMAIL_THANH_TOAN_TITLE", true))
+                                    </div>
+                                    <div class="inner-desc ">
+                                        @Html.Raw(WebHelper.GetCultureText(cultures, "EMAIL_THANH_TOAN_DESC", true))
+                                    </div>
+                                    <a class="inner-button-modal" href="javascript:;" data-toggle="modal" data-target="#modalEmailNhanSim">
+                                        <span class="inner-desc-thong-tin-bo-sung-email">@Html.Raw(WebHelper.GetCultureText(cultures, "EMAIL_THANH_TOAN_BUTTON", true))</span>
+                                        <i class="fa-solid fa-angle-right"></i>
+                                    </a>
+                                    <div class="small-warning-email" style="display:none">
+                                        <small style="color:red">@Html.Raw(WebHelper.GetCultureText(cultures, "EMAIL_ERROR", true))</small>
+                                    </div>
+                                </div>
+
+                            </div>
+                            @if (true)
+                            {
+                                <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 pickup-block">
+                                    <div class="inner-box">
+                                        <div class="inner-title">
+                                            @Html.Raw(WebHelper.GetCultureText(cultures, "PICKUP_POINT_TITLE", true))
+                                        </div>
+                                        <div class="inner-desc ">
+                                            @Html.Raw(WebHelper.GetCultureText(cultures, "PICKUP_POINT_DESC", true))
+                                        </div>
+                                        <a class="inner-button-modal" href="javascript:;" data-toggle="modal" data-target="#modalNhamSim">
+                                            <span class="inner-desc-thong-tin-bo-sung-pickup-point">@Html.Raw(WebHelper.GetCultureText(cultures, "PICKUP_POINT_BUTTON", true))</span>
+                                            <i class="fa-solid fa-angle-right"></i>
+                                        </a>
+                                        <div class="small-warning-pickup-points" style="display:none">
+                                            <small style="color:red">@Html.Raw(WebHelper.GetCultureText(cultures, "PICKUP_POINT_ERROR", true))</small>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            }
+
+                        </div>
+                    </div>
+                    <div class="inner-section-3">
+                        <div class="inner-title">
+                            @Html.Raw(WebHelper.GetCultureText(cultures, "THONG_TIN_BO_SUNG_LABEL", true))
+                        </div>
+                        <div class="inner-desc">
+                            @Html.Raw(WebHelper.GetCultureText(cultures, "THONG_TIN_BO_SUNG_DESC", true))
+                        </div>
+                        <div class="inner-list-price">
+                            @*<div class="inner-price inner-change-item-ccid">
+                                    <span class="inner-label"> @Html.Raw(WebHelper.GetCultureHtml(cultures, "DISCOUNT_BLANK_SIM"))</span>
+                                    <span class="inner-value" data-price="15000" data-id="@detail.Id" data-promotion="" data-serial-number="">- VND @(UIHelper.FormatNumber(15000))</span>
+                                </div>*@
+                            <div class="inner-price">
+                                <span class="inner-label"> @Html.Raw(WebHelper.GetCultureText(cultures, "TONG_GIA", true))</span>
+                                <span class="inner-value after-price total-price" data-price="" data-id="" data-promotion="" data-serial-number="" data-unit=""></span>
+                            </div>
+                        </div>
+                        <div class="custom-checkbox-container">
+                            <div class="custom-checkbox">
+                                <input type="checkbox" name="" id="checkbox-terms" class="custom-checkbox-input">
+                                <label for="checkbox-terms">
+                                    @if (cultures.Where(r => r.Title.Equals("CHECKBOX_1")).FirstOrDefault() != null)
+                                    {
+                                        @Html.Raw(cultures.Where(r => r.Title.Equals("CHECKBOX_1")).FirstOrDefault().Description)
+                                    }
+
+
+                                    @*@Html.Raw(WebHelper.GetCultureText(cultures, "CHECKBOX_1", true))*@
+                                </label>
+
+                            </div>
+                            <div class="small-warning-term warning-checkbox" style="display:none">
+                                <small style="color:red">@Html.Raw(WebHelper.GetCultureText(cultures, "WARNING_TERM", true))</small>
+                            </div>
+                        </div>
+
+                        @if (Model.Select(r => r.SimType).Contains("E-Sim"))
+                        {
+                            <div class="custom-checkbox-container">
+                                <div class="custom-checkbox">
+                                    <input type="checkbox" name="" id="checkbox-terms-2" class="custom-checkbox-input">
+                                    <label for="checkbox-terms">
+                                        @if (cultures.Where(r => r.Title.Equals("CHECKBOX_2")).FirstOrDefault() != null)
+                                        {
+                                            @Html.Raw(cultures.Where(r => r.Title.Equals("CHECKBOX_2")).FirstOrDefault().Description)
+                                        }
+                                        @*@Html.Raw(WebHelper.GetCultureText(cultures, "CHECKBOX_2", true))*@
+                                    </label>
+                                </div>
+                                <div class="small-warning-term warning-checkbox" style="display:none">
+                                    <small style="color:red">@Html.Raw(WebHelper.GetCultureText(cultures, "WARNING_ESIM", true))</small>
+                                </div>
+                            </div>
+                        }
+
+                        <div class="inner-button">
+                            <a href="javascript:void(0)" class="inner-button-complete order-complete">
+                                @Html.Raw(WebHelper.GetCultureText(cultures, "HOAN_TAT_DON_HANG", true))
+                            </a>
+                        </div>
+                    </div>
+
+                    <!-- Show Mobile -->
+                    <div class="inner-section-4">
+                        <div class="inner-left">
+                            <a href="javascript:;" class="inner-price" data-toggle="modal" data-target="#modalOrderSummary">
+                                <div class="inner-label">
+                                    @Html.Raw(WebHelper.GetCultureText(cultures, "SO_TIEN_CAN_THANH_TOAN", true))
+                                </div>
+                                <div class="inner-value ">
+                                    <span class="inner-mobile-price">VND <span class="inner-mobile-price-detail"></span></span>
+                                    <span><i class="fa-solid fa-angle-right"></i></span>
+                                </div>
+                            </a>
+                        </div>
+                        <div class="inner-right">
+                            <a href="javascript:void(0)" class="inner-button order-complete">@Html.Raw(WebHelper.GetCultureText(cultures, "HOAN_TAT_DON_HANG", true))</a>
+                        </div>
+                    </div>
+                    <!-- End Show Mobile -->
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- End Thanh toán -->
+
+    <!-- Modal Choose Payment -->
+    <div class="modal fade modal-basic" id="modalChoosePayment" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-body">
+                    <div class="inner-head">
+                        <button type="button" class="inner-close" data-dismiss="modal" aria-label="Close">
+                            <i class="fa-solid fa-circle-xmark"></i>
+                        </button>
+                        <div class="inner-title">
+                            @Html.Raw(WebHelper.GetCultureText(cultures, "MD_CHON_PHUONG_THUC_THANH_TOAN", true))
+                        </div>
+                    </div>
+                    <div class="inner-main">
+                        <div class="inner-title">
+                            @Html.Raw(WebHelper.GetCultureText(cultures, "MD_PHUONG_THUC_THANH_TOAN_LABEL", true))
+                        </div>
+                        <div class="inner-desc">
+                            @Html.Raw(WebHelper.GetCultureText(cultures, "MD_PHUONG_THUC_THANH_TOAN_DESC", true))
+                        </div>
+                        <div class="inner-list-method">
+                            <div class="inner-item" @*data-toggle="modal" data-target="#modalAddPayment"*@>
+                                <div class="inner-icon">
+                                    <img src="assets/images/icons/icon-card.svg" alt="">
+                                </div>
+                                <div class="inner-content">
+                                    <div class="inner-title" data-showcase="onepay">@Html.Raw(WebHelper.GetCultureText(cultures, "MD_PHUONG_THUC_THANH_TOAN_THE", true))</div>
+                                    <div class="inner-desc">Visa, Mastercard, AMEX, CUP</div>
+                                </div>
+                                <a href="javascript:;" class="inner-button-choose">
+                                    @Html.Raw(WebHelper.GetCultureText(cultures, "MD_PHUONG_THUC_THANH_TOAN_BUTTON", true))
+                                </a>
+                                @*<div class="inner-icon-right">
+                                        <i class="fa-solid fa-angle-right"></i>
+                                    </div>*@
+                            </div>
+                            <div class="inner-item">
+                                <div class="inner-icon">
+                                    <img src="assets/images/icons/icon-paypal.svg" alt="paypal">
+                                </div>
+                                <div class="inner-content">
+                                    <div class="inner-title" data-showcase="paypal"> @Html.Raw(WebHelper.GetCultureText(cultures, "PayPal", true))</div>
+                                </div>
+                                <a href="javascript:;" class="inner-button-choose">
+                                    @Html.Raw(WebHelper.GetCultureText(cultures, "MD_PHUONG_THUC_THANH_TOAN_BUTTON", true))
+                                </a>
+                            </div>
+                            <div class="inner-item cod-hide">
+                                <div class="inner-icon">
+                                    <img src="assets/images/icons/cod.webp" alt="Cash On Delivery">
+                                </div>
+                                <div class="inner-content">
+                                    <div class="inner-title" data-showcase="cod">Cash On Delivery</div>
+                                </div>
+                                <a href="javascript:;" class="inner-button-choose">
+                                    @Html.Raw(WebHelper.GetCultureText(cultures, "MD_PHUONG_THUC_THANH_TOAN_BUTTON", true))
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- End Modal Choose Payment -->
+
+    <!-- Modal Add Payment -->
+    <div class="modal fade modal-basic" id="modalAddPayment" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-body">
+                    <div class="inner-head">
+                        <button type="button" class="inner-close" data-dismiss="modal" aria-label="Close">
+                            <i class="fa-solid fa-circle-xmark"></i>
+                        </button>
+                        <div class="inner-title">
+                            <i class="fa-solid fa-angle-left" data-dismiss="modal" aria-label="Close"></i> @Html.Raw(WebHelper.GetCultureText(cultures, "MD_PHUONG_THUC_THANH_TOAN_THE_THEM_THE_MOI", true))
+                        </div>
+                    </div>
+                    <div class="inner-main">
+                        <div class="inner-form">
+                            <div class="box-list-bank">
+                                <img src="assets/images/icons/icon-visa.svg" alt="">
+                                <img src="assets/images/icons/icon-mastercard.svg" alt="">
+                                <img src="assets/images/icons/icon-amex.svg" alt="">
+                                <img src="assets/images/icons/icon-union-pay.svg" alt="">
+                                <img src="assets/images/icons/icon-jcb.svg" alt="">
+                            </div>
+                            <form action="" class="form-add-card">
+
+                                <div class="box-input">
+                                    <input type="text" name="" id="card-holder-number" placeholder="1234 1234 1234 1234" maxlength="19" required>
+                                    <label for="card-holder-number">@Html.Raw(WebHelper.GetCultureText(cultures, "MD_PHUONG_THUC_THANH_TOAN_THE_SO_THE", true))</label>
+                                </div>
+
+                                <div class="box-input">
+                                    <input type="text" name="" id="card-holder-name" placeholder="" pattern="[a-zA-Z\s]*" maxlength="50" required>
+                                    <label for="card-holder-name">@Html.Raw(WebHelper.GetCultureText(cultures, "MD_PHUONG_THUC_THANH_TOAN_THE_TEN_TREN_THE", true))</label>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-xl-7 col-lg-7 col-md-7 col-sm-7">
+                                        <div class="box-input">
+                                            <input type="text" name="" id="card-holder-date" placeholder="MM/YYYY" pattern="\d{2}/\d{4}" maxlength="7" required>
+                                            <label for="card-holder-date">@Html.Raw(WebHelper.GetCultureText(cultures, "MD_PHUONG_THUC_THANH_TOAN_THE_NGAY_HET_HAN", true))</label>
+                                        </div>
+                                    </div>
+                                    <div class="col-xl-5 col-lg-5 col-md-5 col-sm-5">
+                                        <div class="box-input">
+                                            <input type="text" name="" id="card-holder-cvv" placeholder="CVV" pattern="\d*" maxlength="4" required>
+                                            <label for="card-holder-cvv">CVV</label>
+                                        </div>
+                                    </div>
+                                </div>
+
+
+                                @*<div class="box-input-toggle">
+                                        <div class="box-toggle">
+                                            <div class="toggle-node"></div>
+                                        </div>
+                                        <span class="inner-desc">Tôi muốn lưu thẻ của mình một cách bảo mật.</span>
+                                    </div>*@
+
+                                <div class="inner-text-1">@Html.Raw(WebHelper.GetCultureText(cultures, "MD_PHUONG_THUC_THANH_TOAN_THE_TIM_HIEU_BAO_MAT_LABEL", true))</div>
+                                <div class="inner-text-2">@Html.Raw(WebHelper.GetCultureText(cultures, "MD_PHUONG_THUC_THANH_TOAN_THE_TIM_HIEU_BAO_MAT_DESC", true))</div>
+
+                                <img src="assets/images/icons/icon-powered-by-stripe.svg" height="28px" width="auto" alt="">
+
+                                <div class="inner-button">
+                                    <button type="button">
+                                        @Html.Raw(WebHelper.GetCultureText(cultures, "MD_PHUONG_THUC_THANH_TOAN_THE_BUTTON", true))
+                                    </button>
+                                </div>
+
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- End Modal Add Payment -->
+    <!-- Modal Chon dia diem thanh toan-->
+    <div class="modal fade modal-language" id="modalEmailNhanSim" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-body">
+                    <button type="button" class="inner-close" data-dismiss="modal" aria-label="Close">
+                        <i class="fa-solid fa-circle-xmark"></i>
+                    </button>
+                    <div class="inner-main box-language">
+                        <div class="inner-title">
+                            @Html.Raw(WebHelper.GetCultureText(cultures, "MD_NHAN_HOA_DON_EMAIL", true))
+                        </div>
+                        <div class="box-search">
+                            <form action="">
+                                <input type="text" class="input-email" placeholder="@Html.Raw(WebHelper.GetCultureText(cultures, "MD_NHAN_HOA_DON_EMAIL_PLACEHOLDER", true))">
+                                <button type="button">
+                                    <i class="fa-solid fa-envelope"></i>
+                                </button>
+                            </form>
+                        </div>
+                        <div class="inner-button" style="text-align:center; margin-bottom:30px">
+                            <button type="button" class="btn-save-info-pickup">
+                                @Html.Raw(WebHelper.GetCultureText(cultures, "MD_NHAN_HOA_DON_BUTTON", true))
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Chon dia diem thanh toan-->
+    <div class="modal fade modal-language" id="modalNhamSim" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-body">
+                    <button type="button" class="inner-close" data-dismiss="modal" aria-label="Close">
+                        <i class="fa-solid fa-circle-xmark"></i>
+                    </button>
+                    <div class="inner-main box-language">
+                        <div class="inner-title">
+                            @Html.Raw(WebHelper.GetCultureText(cultures, "MD_NHAN_HOA_DON_DIA_DIEM_NHAN_SIM", true))
+                        </div>
+                        <div class="box-search">
+                            <form action="">
+                                <input type="text" class="input-pickup-point" placeholder="@Html.Raw(WebHelper.GetCultureText(cultures, "MD_NHAN_HOA_DON_DIA_DIEM_NHAN_SIM_PLACEHOLDER", true))">
+                                <button type="button">
+                                    <i class="fa-solid fa-location-crosshairs"></i>
+                                </button>
+                            </form>
+                        </div>
+                        <div class="inner-list">
+                            <ul class="inner-list-ul">
+                                <li>
+                                    <a href="#">
+                                        <span>Tiếng Việt</span>
+                                        <i class="fa-solid fa-circle-check"></i>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="#">
+                                        <span>English</span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="#">
+                                        <span>Русский</span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="#">
+                                        <span>Українська</span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="#">
+                                        <span>Українська</span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="#">
+                                        <span>Українська</span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="#">
+                                        <span>Українська</span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="#">
+                                        <span>Українська</span>
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="inner-button" style="text-align:center; margin-bottom:30px">
+                            <button type="button" class="btn-save-info-pickup-location">
+                                @Html.Raw(WebHelper.GetCultureText(cultures, "MD_NHAN_HOA_DON_BUTTON", true))
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--Modal Ap dung ma giam gia-->
+    <div class="modal fade modal-language" id="modalMaGiamGia" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-body">
+                    <button type="button" class="inner-close" data-dismiss="modal" aria-label="Close">
+                        <i class="fa-solid fa-circle-xmark"></i>
+                    </button>
+                    <div class="inner-main box-language">
+                        <div class="inner-title">
+                            @Html.Raw(WebHelper.GetCultureText(cultures, "MD_SERIAL_TITLE", true))
+                        </div>
+                        <div class="box-search">
+                            <form action="">
+                                <input type="text" class="input-voucher" placeholder="@Html.Raw(WebHelper.GetCultureText(cultures, "MD_SERIAL_PLACEHOLDER", true))">
+                                <button type="button">
+                                    <i class="fa-solid fa-envelope"></i>
+                                </button>
+                            </form>
+                        </div>
+
+                        <div class="inner-button" style="text-align:center; margin-bottom:30px">
+                            <button type="button" class="btn-save-voucher-code">
+                                @Html.Raw(WebHelper.GetCultureText(cultures, "MD_SERIAL_BUTTON", true))
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade modal-language" id="modalEsimDevice" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-body">
+                    <button type="button" class="inner-close" data-dismiss="modal" aria-label="Close">
+                        <i class="fa-solid fa-circle-xmark"></i>
+                    </button>
+                    <div class="inner-main box-language">
+                        @*<div class="inner-title">
+                                @Html.Raw(WebHelper.GetCultureText(cultures, "MD_ESIM_DEVICE_TITLE", true))
+                            </div>
+                            <div class="box-search">
+                                <form action="">
+                                    <input type="text" class="input-pickup-point" placeholder="@Html.Raw(WebHelper.GetCultureText(cultures, "MD_ESIM_DEVICE_PLACE_HOLDER", true))">
+                                    <button type="button">
+                                        <i class="fa-solid fa-location-crosshairs"></i>
+                                    </button>
+                                </form>
+                            </div>*@
+                        <div class="inner-content" style="padding:20px">
+                            @Html.Raw(WebHelper.GetCultureHtml(cultures, "MD_ESIM_DEVICE_CONTENT"))
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
+@section scripts{
+    <script src="~/js/controller/buyAllCartController.js"></script>
+}

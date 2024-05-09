@@ -1,0 +1,106 @@
+﻿@using MI.Entity.Enums;
+@using PlatformWEB.Services.Zone.ViewModal
+@using PlatformWEB.Services.Zone.Repository
+@using PlatformWEB.Services.Article.ViewModel
+@using Microsoft.AspNetCore.Localization
+@using Microsoft.AspNetCore.Mvc.Localization
+@using Microsoft.AspNetCore.Http
+@using Microsoft.AspNetCore.Http.Extensions
+@using PlatformWEB.Services.Article.Repository
+@using PlatformWEB.Utility
+@inject IHttpContextAccessor HttpContextAccessor
+@inject IArticleRepository articleRepository;
+@inject IZoneRepository zoneRepository;
+@using PlatformWEB.Services.BannerAds.Repository
+@using PlatformWEB.Services.Extra.ViewModel
+@using PlatformWEB.Services.BannerAds.ViewModel
+@inject IBannerAdsRepository _bannerAdsRepository
+@using Utils
+@{
+    var culture = Context.Features.Get<IRequestCultureFeature>().RequestCulture.Culture.TwoLetterISOLanguageName.ToLower();
+    var culture_code = Context.Features.Get<IRequestCultureFeature>().RequestCulture.Culture.ToString();
+    var base_uri_culture = "/" + culture;
+    var domain = Context.Request.Host.ToString();
+    var domain_full = Context.Request.GetDisplayUrl();
+
+}
+@{
+    ViewData["Title"] = "BlogDetail";
+    //Layout = "~/Views/Shared/_LayoutPublicHome.cshtml";
+}
+@{
+    var blog_zone_parent = new ZoneByTreeViewMinify();
+    var detail = ViewBag.Detail as ArticleDetail;
+    var zone_id = detail.ZoneId;
+    var zone_target = zoneRepository.GetZoneDetail(zone_id, culture_code);
+    var parent = zoneRepository.GetBreadcrumbByZoneId(zone_id, culture_code).Where(r => r.level == 0).FirstOrDefault();
+    if (parent != null)
+    {
+        blog_zone_parent = parent;
+    }
+    var list_zone_parent = zoneRepository.GetListZoneByParentId((int)TypeZone.AllButProduct, culture_code).Where(r => r.Type != (int)TypeZone.Visa && r.Type != (int)TypeZone.DiemDen).ToList();
+    var cultureBaiViet = _bannerAdsRepository.GetBannerAds_By_Code(culture_code, "W2G_Culture_BaiViet");
+
+    var cultures = WebHelper.ConvertSlideCulture(cultureBaiViet);
+
+}
+@section styles {
+
+}
+
+@if (detail != null && zone_target != null)
+{
+
+}
+<!-- Page Header -->
+<div class="page-header">
+    <div class="container">
+        <h2 class="inner-title">
+            @zone_target.Name
+        </h2>
+    </div>
+</div>
+<!-- End Page Header -->
+<!-- Detail -->
+<div class="section-10">
+    <div class="container">
+        <div class="inner-wrap">
+            <div class="inner-back">
+                <a href="@LinkRedirectUrlUtility.BlogLinkUrl(zone_target.Url)"><i class="fa-solid fa-arrow-left-long"></i> @Html.Raw(WebHelper.GetCultureText(cultures, "XEM_TAT_CA_BACK"))</a>
+            </div>
+            <div class="inner-main">
+                <div class="row justify-content-center">
+                    <div class="col-xl-8 col-lg-9 col-md-11 col-sm-11 col-11">
+                        <div class="inner-head">
+                            <h1 class="inner-title">
+                                @detail.Title
+                            </h1>
+                            <div class="inner-time">@detail.CreatedDate.ToString("dd/MM/yyyy")</div>
+                            <div class="inner-author">
+                                @*<img src="@UIHelper.StoreFilePath(detail.ZoneBanner, false)" alt="@detail.Title">*@
+                                <span>@detail.Author</span>
+                            </div>
+                        </div>
+                        <div class="inner-image">
+                            <img src="@UIHelper.StoreFilePath(detail.Avatar, false)" alt="@detail.Title">
+                        </div>
+                        <div class="inner-content">
+                            @Html.Raw(detail.Body)
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+            <div class="row justify-content-center mt-40">
+                <div class="col-xl-4 col-lg-6 col-sm-8 col-12">
+                    <a href="@LinkRedirectUrlUtility.BlogLinkUrl(zone_target.Url)" class="button button-full">@Html.Raw(WebHelper.GetCultureText(cultures, "XEM_TAT_CA_BUTTON"))</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- End Detail -->
+@section Scripts {
+
+}

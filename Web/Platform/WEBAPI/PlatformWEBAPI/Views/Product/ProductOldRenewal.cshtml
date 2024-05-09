@@ -1,0 +1,419 @@
+﻿@using PlatformWEBAPI.Services.Product.ViewModel;
+@using Utils
+@using MI.Entity.Enums;
+@using PlatformWEBAPI.Utility
+@using PlatformWEBAPI.Services.Locations.ViewModal
+@using PlatformWEBAPI.Services.Zone.ViewModal
+@using PlatformWEBAPI.Services.Zone.Repository
+@using Microsoft.AspNetCore.Localization
+@model List<ProductOldRenewalViewModel>;
+
+@using MI.Entity.Models
+@inject IZoneRepository zoneRepository
+@{
+    var culture_code = Context.Features.Get<IRequestCultureFeature>().RequestCulture.Culture.ToString();
+    Layout = "~/Views/Shared/_LayoutPublicHome.cshtml";
+    ViewData["Title"] = "ProductOldRenewal";
+    var firstProduct = Model.FirstOrDefault();
+    var total = ViewBag.Total_row;
+    var lstProduct = ViewBag.ListProduct as List<ProductMinify>;
+    var listLocations = ViewBag.Locations as List<LocationViewModel>;
+    var list_zone = zoneRepository.GetZoneByTreeViewShowMenuMinifies(1, culture_code, 0, 1);
+    var list_zone_first = list_zone.Where(r => r.ParentId == 0 && r.IsShowMenu == 1).OrderBy(r => r.SortOrder).Take(5).ToList();
+}
+<div class="container">
+    <ol class="breadcrumb">
+        <li><a href="/">Trang chủ</a></li>
+        <li><a href="#">Thu cũ đổi mới</a></li>
+    </ol>
+</div>
+<!-- End Breadcrumb -->
+<!-- Banner Full Width -->
+<div class="container">
+    <div class="banner-full">
+        <a href="#">
+            <img src="~/design//images/banner/banner-7.png" alt="Banner" />
+        </a>
+    </div>
+</div>
+<!-- End Banner Full Width -->
+<!-- Comeback -->
+<div class="container">
+    <div class="box-comeback">
+        <a href="thu-cu-doi-moi" class="btn-comeback"><i class="fas fa-reply"></i> Quay lại chọn máy khác</a>
+    </div>
+</div>
+<!-- End Comeback -->
+<!-- Product Collected -->
+<div class="container">
+    <div class="product-collected">
+        <div class="product-collected__image">
+            <a href="thu-cu-doi-moi.html">
+                <img src="@UIHelper.StoreFilePath(firstProduct.Avatar, false)" alt="@firstProduct.Name">
+            </a>
+        </div>
+        <div class="product-collected__info">
+            <div class="product-collected__name">
+                Máy cũ của bạn là: <a href="#" target="_blank">@firstProduct.Name</a>
+            </div>
+            <div class="product-collected__status">
+                <p class="product-collected__status-title">Tình trạng máy cũ:</p>
+                <div class="product-collected__status-list">
+                    @for (int i = 0; i < Model.Count(); i++)
+                    {
+                        <label class="label-checkbox">
+                            <span class="label-checkbox__label">@Model[i].DescriptionType</span>
+                            <input type="radio" name="collected-type" onclick="typeMobileVersion(this, '@firstProduct.ProductId');" value="@Model[i].Price" @(i == 0 ? "checked" : "")>
+                            <span class="checkmark"></span>
+                        </label>
+                    }
+                </div>
+                <div class="product-collected__price">
+                    Giá thu cũ tham khảo: <strong class="Price-option" id="firstPrice">@UIHelper.FormatNumber(firstProduct.Price)</strong>
+                </div>
+                <div class="product-collected__note">
+                    Lưu ý: Mức giá thu mua được tạm tính theo điều kiện quý khách chọn (chúng tôi sẽ thẩm định lại giá máy của quý khách chính xác hơn tại shop).
+                </div>
+                <div class="product-collected__button">
+                    @*<a href="#" class="btn-getnew" data-toggle="modal" data-target="#modalDoiMoi" onclick="openModal('@UIHelper.StoreFilePath(firstProduct.Avatar)?v=@WebHelper.Version()', '@firstProduct.Name', '@UIHelper.FormatNumber(firstProduct.Price)',@firstProduct.ProductId)">Chọn sản phẩm đổi mới</a>*@
+                    <a href="thu-cu-doi-moi" class="btn-getnew">Chọn lại</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- End Product Collected -->
+<!-- Modal Bán Lại -->
+<div class="modal fade modal-resell" id="modalDoiMoi" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">THÔNG TIN THU CŨ ĐỔI MỚI</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="resell-main">
+                    <div class="resell-main__product">
+                        <div class="resell-main__product-image">
+                            <img id="imgAvtModal" src="images/products/pro-1.png" alt="Product Item">
+                        </div>
+                        <div class="resell-main__product-name">
+                            <span>Tên sản phẩm: </span>
+                            <strong id="titleModal">iPhone 11 64GB Quốc Tế (Likenew) 1</strong>
+                        </div>
+                        <div class="resell-main__product-price">
+                            <span>Giá máy cũ thu lại: </span>
+                            <strong id="priceModal">5.290.000₫</strong>
+                        </div>
+                        <div class="resell-main__product-price">
+                            <span>Bù giá chênh lệch: </span>
+                            <strong id="priceDifferenceModal">5.290.000₫</strong>
+                        </div>
+                    </div>
+                    <input type="hidden" class="form-control" id="productId">
+                    <input type="hidden" class="form-control" id="oldProductId">
+
+                    <div class="resell-main__info">
+                        <form action="">
+                            <div class="row">
+                                <div class="col-md-6 col-12">
+                                    <div class="form-group">
+                                        <label for="fullname">Họ và tên: *</label>
+                                        <input type="text" class="form-control" id="fullname" placeholder="Nhập họ và tên">
+                                    </div>
+                                </div>
+                                <div class="col-md-6 col-12">
+                                    <div class="form-group">
+                                        <label for="phone">Số điện thoại: *</label>
+                                        <input type="text" class="form-control" id="phone" placeholder="Nhập số điện thoại!">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="form-group col-6">
+                                    <label for="location">Khu vực: *</label>
+                                    <select class="form-control" id="location">
+                                        <option value="0" selected>Chọn</option>
+                                        @if (listLocations != null && listLocations.Any())
+                                        {
+                                            foreach (LocationViewModel item in listLocations)
+                                            {
+                                                <option value="@item.Id">@item.Name</option>
+                                            }
+                                        }
+                                    </select>
+                                </div>
+                                <div class="form-group col-6">
+                                    <label for="location">Chi nhánh: *</label>
+                                    <select class="form-control" id="department">
+                                        <option value="0" selected>Chọn</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <p class="resell-main__note"><i>* Quý Khách vui lòng đem máy tới cửa hàng để được định giá và bán lại - lên đời với giá tốt nhất.</i></p>
+                            <div class="text-center mt-30">
+                                <button type="button" class="btn btn-success" onclick="submitRequestCustomerProduct(2)">ĐỔI NGAY</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Hết Modal Bán Lại -->
+<!-- Chọn sản phẩm bạn muốn lên đời -->
+<div class="container mt-30">
+    <div class="section-head">
+        <h4 class="section-head__title">Chọn sản phẩm bạn muốn lên đời</h4>
+        <div class="section-head__link">
+            @{
+                if (list_zone_first != null && list_zone_first.Any())
+                {
+                    foreach (var item in list_zone_first)
+                    {
+                        <div class="section-head__link-item">
+                            <a onclick="loadProductRenewCat('@item.Id')">@item.Name</a>
+                        </div>
+
+                    }
+                }
+            }
+            <div class="section-head__link-item">
+                <a onClick="window.location.reload();">Xem tất cả</a>
+            </div>
+        </div>
+    </div>
+    <div class="products-grid products-getnew" id="ListProduct">
+        <!-- Item -->
+        @if (lstProduct != null)
+        {
+            foreach (var item in lstProduct)
+            {
+                var link_tar = string.Format("/{0}.html", item.Url, item.ProductId);
+                <div class="products-grid__item">
+                    <div class="product-item-grid">
+                        <div class="product-item-grid__image">
+                            <a href="@link_tar">
+                                <img asp-append-version="true" src="@UIHelper.StoreFilePath(item.Avatar)?v=@WebHelper.Version()" class="w-100 " alt="@item.Name" />
+                            </a>
+                        </div>
+                        <div class="product-item-grid__content">
+                            <h4 class="product-item-grid__title">
+                                <a href="@link_tar">@item.Title</a>
+                            </h4>
+                            <div class="products-getnew__price">
+                                <div class="products-getnew__current-price">Giá khuyến mãi: <span>@UIHelper.FormatNumber(item.DefaultPrice > 0 ? item.DefaultPrice : item.Price)₫</span></div>
+                                <div class="products-getnew__guess-price">Giá thu cũ tham khảo: <span>@UIHelper.FormatNumber(item.PriceRefer)</span></div>
+                                @{
+                                    decimal discount = item.DiscountAmount;
+                                    decimal Percebt = 0;
+                                    if (item.DiscountPercent > 0)
+                                    {
+                                        discount = item.DefaultPrice / 100 * item.DiscountPercent;
+                                        Percebt = item.DiscountPercent;
+                                    }
+                                    decimal differencePrice = item.Price - firstProduct.Price - discount;
+                                }
+                                <div class="products-getnew__promotion-price">Trợ giá @Decimal.ToInt32(Percebt)%: <span>@(discount > 0 ? UIHelper.FormatNumber(discount) : "0")₫</span></div>
+                                <span class="products-getnew__line"></span>
+                                <div class="products-getnew__total-price">
+                                    Bù chênh lệch trả thẳng:<span>@UIHelper.FormatNumber(differencePrice)₫</span>
+                                </div>
+                            </div>
+                            <div class="products-getnew__button">
+                                <a href="#" class="btn-getnew" data-toggle="modal" data-target="#modalDoiMoi" onclick="openModalDoiMoi('@UIHelper.StoreFilePath(item.Avatar)?v=@WebHelper.Version()', '@firstProduct.Name', '@UIHelper.FormatNumber(item.PriceRefer)',@item.ProductId, '@UIHelper.FormatNumber(differencePrice)', '@firstProduct.ProductId')">Đổi ngay</a>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+        }
+        <!-- End Item -->
+    </div>
+
+    <!-- Load More -->
+    @if (total > 0)
+    {
+        <div class="text-center">
+            <button id="buttonLoadMore" class="load-more-product" data-page="1" data-zoneId="0" data-viewBy="1">
+                Xem thêm <span class="count_product">@total</span> sản phẩm
+            </button>
+        </div>
+    }
+    <!-- End Load More -->
+</div>
+<!-- Hết Chọn sản phẩm bạn muốn lên đời -->
+
+<div class="container">
+    <!-- Rating -->
+    <div class="rating">
+        <div class="rating__head">
+            <h4 class="rating__head-title">Đánh giá sản phẩm</h4>
+            <a href="#" class="rating__button">Đánh giá ngay</a>
+        </div>
+        <div class="rating__main">
+            <div class="rating__average">
+                <h2 class="rating__average-number">4,5</h2>
+                <div class="rating__average-stars">
+                    <i class="fas fa-star checked"></i>
+                    <i class="fas fa-star checked"></i>
+                    <i class="fas fa-star checked"></i>
+                    <i class="fas fa-star checked"></i>
+                    <i class="fas fa-star"></i>
+                </div>
+                <a href="#" class="rating__average-link">303  đánh giá</a>
+            </div>
+            <div class="rating__line">
+                <div class="rating__line-item">
+                    <div class="rating__line-number">5</div>
+                    <div class="rating__line-bar">
+                        <div class="rating__line-barsub" style="width: 100%;"></div>
+                    </div>
+                    <div class="rating__line-percent">100%</div>
+                </div>
+                <div class="rating__line-item">
+                    <div class="rating__line-number">4</div>
+                    <div class="rating__line-bar">
+                        <div class="rating__line-barsub" style="width: 80%;"></div>
+                    </div>
+                    <div class="rating__line-percent">80%</div>
+                </div>
+                <div class="rating__line-item">
+                    <div class="rating__line-number">3</div>
+                    <div class="rating__line-bar">
+                        <div class="rating__line-barsub" style="width: 60%;"></div>
+                    </div>
+                    <div class="rating__line-percent">60%</div>
+                </div>
+                <div class="rating__line-item">
+                    <div class="rating__line-number">2</div>
+                    <div class="rating__line-bar">
+                        <div class="rating__line-barsub" style="width: 20%;"></div>
+                    </div>
+                    <div class="rating__line-percent">20%</div>
+                </div>
+                <div class="rating__line-item">
+                    <div class="rating__line-number">1</div>
+                    <div class="rating__line-bar">
+                        <div class="rating__line-barsub" style="width: 0%;"></div>
+                    </div>
+                    <div class="rating__line-percent">0%</div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- End Rating -->
+    <!-- Comments -->
+    <div class="comments">
+        <div class="comments__head">
+            <h4 class="comments__head-title">165 bình luận</h4>
+            <div class="comments__search">
+                <input type="text" placeholder="Search">
+                <i class="fas fa-search"></i>
+            </div>
+        </div>
+        <div class="comments__form">
+            <form action="">
+                <textarea class="comments__form-content" rows="4" placeholder="Type your topic here"></textarea>
+            </form>
+            <div class="comments__form-footer">
+                <div class="comments__form-input-file">
+                    <img src="~/design//images/icons/camera.svg" alt="Icon Camera" />
+                    <input type="file" accept="image/*" />
+                </div>
+                <input type="text" placeholder="Tên (bắt buộc)" required />
+                <input type="email" placeholder="Email (bắt buộc)" required />
+                <button type="submit">Gửi</button>
+            </div>
+        </div>
+        <div class="comments__list">
+            <!-- Item -->
+            <div class="comments__item">
+                <div class="comments__item-avatar">
+                    <img src="~/design//images/users/1.png" alt="Avatar" />
+                </div>
+                <div class="comments__item-info">
+                    <h5 class="comments__item-name"><a href="#">Tomothy Flores</a></h5>
+                    <div class="comments__item-content">
+                        <p>Phòng khách 7.2mx4.8mX3m thì dùng máy lạnh loại nào treo tường hay tủ đứng? cảm ơn anh.</p>
+                    </div>
+                    <div class="comments__action">
+                        <a href="#" class="comments__button-reply">Trả lời</a>
+                        <a href="#" class="comments__button-like active">
+                            <i class="fa fa-thumbs-up"></i> Thích
+                        </a>
+                        <span class="comments__time">
+                            <i class="fa fa-calendar-o"></i> 10/9/2019  10:46
+                        </span>
+                    </div>
+                    <div class="comments__reply">
+                        <div class="comments__item-avatar">
+                            <img src="~/design//images/users/1.png" alt="Avatar" />
+                        </div>
+                        <div class="comments__item-info">
+                            <h5 class="comments__item-name">
+                                <a href="#">Tomothy Flores</a>
+                                <span class="comments__type-user">Quản trị viên</span>
+                            </h5>
+                            <div class="comments__item-content">
+                                <p>Chào anh!</p>
+                                <p>Dạ nếu phòng anh có chiều dài 7.2m và chiều rộng là 4.8m thì anh nên sử dụng máy lạnh có công suất 2.5HP. Thông tin đến anh! </p>
+                            </div>
+                            <div class="comments__action">
+                                <a href="#" class="comments__button-reply">Trả lời</a>
+                                <a href="#" class="comments__button-like">
+                                    <i class="fa fa-thumbs-up"></i> Thích
+                                </a>
+                                <a href="#" class="comments__button-unlike">
+                                    <i class="fa fa-thumbs-down"></i> Không thích
+                                </a>
+                                <span class="comments__time">
+                                    <i class="fa fa-calendar-o"></i> 10/9/2019  10:46
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- End Item -->
+            <!-- Item -->
+            <div class="comments__item">
+                <div class="comments__item-avatar">
+                    <img src="~/design//images/users/1.png" alt="Avatar" />
+                </div>
+                <div class="comments__item-info">
+                    <h5 class="comments__item-name"><a href="#">Tomothy Flores</a></h5>
+                    <div class="comments__item-content">
+                        <p>Phòng khách 7.2mx4.8mX3m thì dùng máy lạnh loại nào treo tường hay tủ đứng? cảm ơn anh.</p>
+                    </div>
+                    <div class="comments__action">
+                        <a href="#" class="comments__button-reply">Trả lời</a>
+                        <a href="#" class="comments__button-like">
+                            <i class="fa fa-thumbs-up"></i> Thích
+                        </a>
+                        <span class="comments__time">
+                            <i class="fa fa-calendar-o"></i> 10/9/2019  10:46
+                        </span>
+                    </div>
+                </div>
+            </div>
+            <!-- End Item -->
+            <!-- Button View More -->
+            <div class="comments__view-more">
+                <a href="#">
+                    Xem thêm <i class="fa fa-plus"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+    <!-- End Comments -->
+</div>
+
+
+@section Scripts{
+    <script src="~/js/controller/categoriesList1Controller.js"></script>
+}

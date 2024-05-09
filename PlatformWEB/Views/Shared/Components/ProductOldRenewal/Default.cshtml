@@ -1,0 +1,63 @@
+﻿@using PlatformWEB.Services.Product.ViewModel;
+@using PlatformWEB.Utility
+@using Utils;
+
+@foreach (var item in Model)
+{
+    var link_tar = string.Format("/{0}.pn{1}.html", item.Url, item.ProductId);
+    if (ViewBag.Type_view == 0)
+    {
+        <div class="products-grid__item">
+            <div class="product-item-grid">
+                <div class="product-item-grid__image">
+                    <a href="@link_tar">
+                        <img asp-append-version="true" src="@UIHelper.StoreFilePath(item.Avatar)?v=@WebHelper.Version()" class="w-100 " alt="@item.Name" />
+                    </a>
+                </div>
+                <div class="product-item-grid__content">
+                    <h4 class="product-item-grid__title">
+                        <a href="chi-tiet-san-pham.html">@item.Name</a>
+                    </h4>
+                    <div class="product-item-grid__price">
+                        <span class="product-item-grid__price-label">Giá thu cũ tham khảo:</span>
+                        <p class="product-item-grid__price-new">@UIHelper.FormatNumber(item.Price)₫</p>
+                    </div>
+                    <div class="product-item-grid__footer">
+                        <a href="@link_tar" class="product-item-grid__button">Đổi mới</a>
+                        <span class="product-item-grid__button btn-resell" data-toggle="modal" data-target="#modalBanLai">Bán lại</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+    else
+    {
+        <div class="products-grid__item">
+            <div class="product-item-grid">
+                <div class="product-item-grid__image">
+                    <a href="@link_tar">
+                        <img asp-append-version="true" src="@UIHelper.StoreFilePath(item.Avatar)?v=@WebHelper.Version()" class="w-100 " alt="@item.Name" />
+                    </a>
+                </div>
+                <div class="product-item-grid__content">
+                    <h4 class="product-item-grid__title">
+                        <a href="@link_tar">iPhone 11 64GB Quốc Tế (Likenew) 1</a>
+                    </h4>
+                    <div class="products-getnew__price">
+                        <div class="products-getnew__current-price">Giá khuyến mãi: <span>49.990.000₫</span></div>
+                        <div class="products-getnew__guess-price">Giá thu cũ tham khảo: <span>15.860.870₫</span></div>
+                        <div class="products-getnew__promotion-price">Trợ giá 20%: <span>2.379.130₫</span></div>
+                        <span class="products-getnew__line"></span>
+                        <div class="products-getnew__total-price">
+                            Bù chênh lệch trả thẳng:<span>31.750.000₫</span>
+                        </div>
+                    </div>
+                    <div class="products-getnew__button">
+                        <a href="#">Đổi ngay</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+
+}

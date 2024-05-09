@@ -1,0 +1,41 @@
+﻿@using PlatformWEBAPI.Services.Product.ViewModel;
+@using PlatformWEBAPI.Services.Zone.ViewModal;
+@using PlatformWEBAPI.Services.Zone.Repository;
+@using Utils;
+@using Microsoft.AspNetCore.Localization
+@using Microsoft.AspNetCore.Mvc.Localization
+@using Microsoft.AspNetCore.Http
+@inject IHttpContextAccessor HttpContextAccessor
+@inject IZoneRepository zoneRepository
+@using PlatformWEBAPI.Utility
+@inject ICookieUtility cookieUtility
+@model List<ProductMinify>;
+@inject PlatformWEBAPI.Services.BannerAds.Repository.IBannerAdsRepository _bannerAdsRepository
+@{
+    var total = ViewBag.Total;
+
+    var culture = Context.Features.Get<IRequestCultureFeature>().RequestCulture.Culture.TwoLetterISOLanguageName.ToLower();
+    var culture_code = Context.Features.Get<IRequestCultureFeature>().RequestCulture.Culture.ToString();
+    var base_uri_culture = "/" + culture;
+    var domain = Context.Request.Host.ToString();
+    var cookie_location = cookieUtility.SetCookieDefault();
+    var location_id = cookie_location.LocationId;
+    var location_name = cookie_location.LocationName;
+    var cultureSanPham = _bannerAdsRepository.GetBannerAds_By_Code(culture_code, "W2G_Culture_SanPham");
+    var cultureDetail = _bannerAdsRepository.GetBannerAds_By_Code(culture_code, "W2G_Culture_MySim");
+    var _add = WebHelper.ConvertSlideCulture(cultureDetail);
+    var cultures = WebHelper.ConvertSlideCulture(cultureSanPham);
+    cultures.AddRange(_add);
+}
+
+
+@if (Model != null)
+{
+    <div class="row sim-slide">
+        @foreach (var psim in Model)
+        {
+            @await Component.InvokeAsync("ItemProductv2", new { pr = psim })
+        }
+    </div>
+
+}

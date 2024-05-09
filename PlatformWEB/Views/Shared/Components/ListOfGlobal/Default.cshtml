@@ -1,0 +1,75 @@
+﻿@using PlatformWEB.Services.Product.ViewModel;
+@using Utils;
+@using Microsoft.AspNetCore.Localization
+@using Microsoft.AspNetCore.Mvc.Localization
+@using Microsoft.AspNetCore.Http
+@inject IHttpContextAccessor HttpContextAccessor
+@using PlatformWEB.Utility
+@inject ICookieUtility cookieUtility
+@using PlatformWEB.Services.Zone.Repository
+@inject IZoneRepository zoneRepository
+@inject IViewLocalizer localizer
+@inject PlatformWEB.Services.Product.Repository.IProductRepository productRepository
+@inject PlatformWEB.Services.BannerAds.Repository.IBannerAdsRepository _bannerAdsRepository
+@{
+    var culture = Context.Features.Get<IRequestCultureFeature>().RequestCulture.Culture.TwoLetterISOLanguageName.ToLower();
+    var culture_code = Context.Features.Get<IRequestCultureFeature>().RequestCulture.Culture.ToString();
+    var base_uri_culture = "/" + culture;
+    var domain = Context.Request.Host.ToString();
+
+    var localZone = zoneRepository.GetListZoneByParentId((int)MI.Entity.Enums.TypeZone.Product, culture_code).Where(r => r.Url.Contains("global")).FirstOrDefault();
+    var cultureSanPham = _bannerAdsRepository.GetBannerAds_By_Code(culture_code, "W2G_Culture_SanPham");
+    var cultures = WebHelper.ConvertSlideCulture(cultureSanPham);
+
+
+}
+
+@if (localZone != null)
+{
+    <div class="inner-section-2">
+        <div class="box-head inner-center">
+            <h2 class="inner-title">
+                @localZone.Name
+            </h2>
+        </div>
+        <ul class="nav nav-tabs">
+            <li class="nav-item">
+                <button class="nav-link active" data-toggle="tab" data-target="#tab-esim-3-1">
+                    @Html.Raw(WebHelper.GetCultureText(cultures, "PHYSICAL_SIM_TAB"))
+                </button>
+            </li>
+            <li class="nav-item">
+                <button class="nav-link" data-toggle="tab" data-target="#tab-esim-3-2">
+                    @Html.Raw(WebHelper.GetCultureText(cultures, "ESIM_TAB"))
+                </button>
+            </li>
+        </ul>
+        @{
+            int _total = 0;
+            var products = productRepository.GetProductMinifiesTreeViewByZoneParentId(localZone.Id, culture_code, 0, 1, 18, out _total);
+        }
+
+        <div class="tab-content">
+            <!-- Tab Dữ liệu -->
+            <div class="tab-pane fade show active" id="tab-esim-3-1">
+                <div class="row">
+                    @foreach (var psim in products.Where(r => r.SimType.Equals("Physical Sim")))
+                    {
+                        @await Component.InvokeAsync("ItemProductv2", new { pr = psim })
+                    }
+                </div>
+            </div>
+            <!-- Hết Tab Dữ liệu -->
+            <!-- Tab Dữ liệu / Cuộc gọi / Tin nhắn -->
+            <div class="tab-pane fade" id="tab-esim-3-2">
+                <div class="row">
+                    @foreach (var psim in products.Where(r => r.SimType.Equals("E-Sim")))
+                    {
+                        @await Component.InvokeAsync("ItemProductv2", new { pr = psim })
+                    }
+                </div>
+            </div>
+            <!-- Hết Tab Dữ liệu / Cuộc gọi / Tin nhắn -->
+        </div>
+    </div>
+}

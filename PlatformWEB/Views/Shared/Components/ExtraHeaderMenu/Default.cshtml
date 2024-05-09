@@ -1,0 +1,103 @@
+﻿=
+@using Microsoft.AspNetCore.Builder
+@using Microsoft.AspNetCore.Http.Features
+@using Microsoft.AspNetCore.Localization
+@using Microsoft.AspNetCore.Mvc.Localization
+@using Microsoft.Extensions.Options
+@using PlatformWEB.Services.Zone.ViewModal
+@using PlatformWEB.Services.Zone.Repository
+@using PlatformWEB.Services.BannerAds.Repository
+@using PlatformWEB.Services.BannerAds.ViewModel
+@using Microsoft.AspNetCore.Http
+@using Newtonsoft.Json
+@using PlatformWEB.Utility
+@using MI.Entity.Models
+@using Utils
+@using MI.Entity.Enums
+@using Microsoft.AspNetCore.Http.Extensions
+
+@using PlatformWEB.Services.Extra.Repository
+@using PlatformWEB.Services.Locations.Repository
+@using PlatformWEB.Services.Locations.ViewModal
+@using PlatformWEB.Services.Product.Repository
+@inject IHttpContextAccessor HttpContextAccessor
+@inject ICookieUtility cookieUtility
+@inject IZoneRepository zoneRepository
+@inject IConfigSEOUtility configSEOUtility
+@inject IBannerAdsRepository bannerAdsRepository
+@inject IExtraRepository extraRepository
+@inject IViewLocalizer Localizer
+@inject ILocationsRepository locationsRepository
+@inject IProductRepository productRepository
+@inject IOptions<RequestLocalizationOptions> LocOptions
+@using Utils
+@{
+    var culture = Context.Features.Get<IRequestCultureFeature>().RequestCulture.Culture.TwoLetterISOLanguageName.ToLower();
+    var culture_code = Context.Features.Get<IRequestCultureFeature>().RequestCulture.Culture.ToString();
+    var base_uri_culture = "/" + culture;
+    var domain = Context.Request.Host.ToString();
+    var domain_full = Context.Request.GetDisplayUrl();
+
+    const string CookieLocationId = "_LocationId";
+    const string CookieLocationName = "_LocationName";
+    var cookie_location = cookieUtility.SetCookieDefault();
+    var location_id = cookie_location.LocationId;
+    var location_name = cookie_location.LocationName;
+
+
+
+
+}
+
+
+@{
+    var list_zone2 = zoneRepository.GetZoneByTreeViewShowMenuMinifies(1, culture_code, 0, 0);
+    var list_zone_first2 = list_zone2.Where(r => r.ParentId == 0).OrderBy(r => r.SortOrder).Take(6).ToList();
+}
+<div class="header-menu">
+    <div class="container">
+        <div class="header-menu__wrap">
+            @foreach (var item in list_zone_first2)
+            {
+            <div class="header-menu__item">
+                <a href="javascript:void(0)">
+                    <span class="header-menu__item-icon">
+                        <img src="@UIHelper.StoreFilePath(item.Icon, false)" alt="Icon">
+                    </span>
+                    <span>@item.Name</span>
+                    
+                </a>
+                @{
+                    var sameRootLv1 = list_zone2.Where(r => r.ParentId == item.Id);
+                }
+                <div class="menu-sub">
+                    <div class="menu-sub__wrap">
+                        @if (sameRootLv1.Count() > 0)
+                        {
+                            foreach (var lv1 in sameRootLv1)
+                            {
+                                <div class="menu-sub__box">
+                                    <h4><a href="@LinkRedirectUrlUtility.ProductCategoryUrl(lv1.Url)">@lv1.Name</a></h4>
+                                    <ul>
+                                        @{
+                                            var sameRootLv2 = list_zone2.Where(r => r.root == lv1.root && r.level == lv1.level + 1 && r.ParentId == lv1.Id);
+                                            foreach (var lv2 in sameRootLv2)
+                                            {
+                                                <li><a href="@LinkRedirectUrlUtility.ProductCategoryUrl(lv2.Url)">@lv2.Name</a></li>
+                                            }
+                                        }
+                                    </ul>
+                                </div>
+                            }
+                        }
+                        
+
+                    </div>
+                </div>
+            </div>
+            }
+
+            
+        </div>
+    </div>
+</div>

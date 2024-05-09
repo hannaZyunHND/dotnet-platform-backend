@@ -1,0 +1,294 @@
+﻿@using PlatformWEB.Services.Product.Repository
+@using PlatformWEB.Services.Zone.Repository
+@using MI.Entity.Enums
+@using PlatformWEB.Services.BannerAds.Repository
+@using PlatformWEB.Services.Store.Repository
+@using PlatformWEB.Services.Locations.Repository
+@using PlatformWEB.Services.Store.ViewModel
+@using PlatformWEB.Services.Locations.ViewModal
+@using PlatformWEB.Services.FlashSale.Repository
+@using Microsoft.AspNetCore.Localization
+@using Microsoft.AspNetCore.Http
+@using PlatformWEB.Services.Article.Repository
+@using Newtonsoft.Json
+@using PlatformWEB.Utility
+@using Microsoft.AspNetCore.Mvc.RazorPages
+@using MI.Entity.Models
+@inject IHttpContextAccessor HttpContextAccessor
+@inject ICookieUtility cookieUtility
+@inject IConfigSEOUtility configSEOUtility
+@inject IArticleRepository articleRepository
+@inject IBannerAdsRepository bannerAdsRepository
+@inject IStoreRepository storeRepository
+@inject ILocationsRepository locationsRepository
+
+@using Utils
+@{
+    var culture = Context.Features.Get<IRequestCultureFeature>().RequestCulture.Culture.TwoLetterISOLanguageName.ToLower();
+    var culture_code = Context.Features.Get<IRequestCultureFeature>().RequestCulture.Culture.ToString();
+    var base_uri_culture = "/" + culture;
+    var domain = Context.Request.Host.ToString();
+
+    const string CookieLocationId = "_LocationId";
+    const string CookieLocationName = "_LocationName";
+    var cookie_location = cookieUtility.SetCookieDefault();
+    var location_id = cookie_location.LocationId;
+    var location_name = cookie_location.LocationName;
+    //string urlImages = "https://jhcms.migroup.asia/uploads";
+    //List<BannerAdsViewModel> lstBannerAds = new List<BannerAdsViewModel>();
+    //lstBannerAds = bannerAdsRepository.GetBannerAds(culture_code);
+    var northside_add = bannerAdsRepository.GetConfigByName(culture_code, "northside_address");
+    var northside_hotline = bannerAdsRepository.GetConfigByName(culture_code, "northside_hotline");
+    var northside_email = bannerAdsRepository.GetConfigByName(culture_code, "northside_email");
+    var southside_add = bannerAdsRepository.GetConfigByName(culture_code, "southside_address");
+    var southside_hotline = bannerAdsRepository.GetConfigByName(culture_code, "southside_hotline");
+    var southside_email = bannerAdsRepository.GetConfigByName(culture_code, "southside_email");
+}
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_LayoutPublicHome.cshtml";
+    var logo = bannerAdsRepository.GetConfigByName(culture_code, "Logo");
+    var title = bannerAdsRepository.GetConfigByName(culture_code, "TitleHome");
+    var cultureSanPham = bannerAdsRepository.GetBannerAds_By_Code(culture_code, "W2G_Culture_LienHe");
+    var cultures = WebHelper.ConvertSlideCulture(cultureSanPham);
+}
+@section styles{
+    <style>
+        .fa-brands {
+            /*padding-left: 20px;*/
+            font-size: 18px;
+            color:white
+        }
+
+        /*.container {
+            padding: 100px 0 50px;
+        }*/
+
+        .select_maps {
+            height: 650px;
+            background-size: cover;
+            background-repeat: no-repeat;
+            display: flex;
+            justify-content: center;
+            flex-direction: column;
+            align-items: center;
+            margin: 0 auto;
+        }
+
+        .cot2 {
+            display: flex;
+            justify-content: center;
+            flex-direction: column;
+            /* padding-left: 50px; */
+        }
+
+        .contact_r {
+            display: flex;
+            justify-content: center;
+            flex-direction: column;
+        }
+
+        .bao {
+            padding-bottom: 100px;
+        }
+
+        .fa-mobile-alt {
+            color: white;
+        }
+
+        .fa-envelope {
+            color: white;
+        }
+
+        .btn {
+            padding: 10px 40px;
+        }
+
+        .img-cuoi {
+            background-image: url(assets/images/background/bg-gt.jpg);
+            background-size: cover;
+            background-repeat: no-repeat;
+            
+            margin: auto;
+            border-radius: 20px;
+        }
+
+        .lable {
+            font-weight: bold;
+        }
+        .a-icon{
+            margin-right: 20px
+        }
+        
+    </style>
+}
+<!-- Page Header -->
+<div class="page-header">
+    <div class="container">
+        <h2 class="inner-title">
+            @Html.Raw(WebHelper.GetCultureText(cultures, "LIEN_HE_TITLE"))
+        </h2>
+    </div>
+</div>
+<!-- End Page Header -->
+<!-- Page About -->
+
+<div class="container mt-5">
+    <div class="row bao" style="margin:0 ;align-items:center;">
+        @{
+            var W2G_LIENHE_BANNER = bannerAdsRepository.GetBannerAds_By_Code(culture_code, "W2G_LIENHE_BANNER");
+            if (W2G_LIENHE_BANNER != null)
+            {
+                var banners = WebHelper.ConvertSlide(W2G_LIENHE_BANNER);
+                if (banners != null)
+                {
+                    var _first = banners.FirstOrDefault();
+                    if (_first != null)
+                    {
+                        <div style="background-image:url(@UIHelper.StoreFilePath(_first.Image, false)) ;"
+                             class="select_maps col-md-6 col-sm-12 col-xs-12">
+                            <div class="aa mid_fot_h contact_r" style="padding-top:35px">
+                                <ul class="contact padding-0" style="list-style: none;">
+                                    <li class="li_footer_h" style=" padding-bottom: 25px;">
+                                        <div class="li-footer-item">
+                                            <i class="fas fa-map-marker-alt"></i>
+                                            <span class="txt_content_child" style="color: rgb(255, 255, 255);">
+
+                                                @Html.Raw(WebHelper.GetCultureHtml(cultures, "DIA_CHI_LABEL"))
+                                            </span>
+                                        </div>
+                                        
+                                    </li>
+
+                                    <li class="li_footer_h" style=" padding-bottom: 25px;">
+                                        <div class="li-footer-item">
+                                            <i class="fas fa-mobile-alt"></i>
+
+                                            <a href="tel:0902227715" style="color: rgb(255, 255, 255);">@Html.Raw(WebHelper.GetCultureText(cultures, "SO_DIEN_THOAI_LABEL"))</a>
+                                        </div>
+                                        
+                                    </li>
+                                    <li class="li_footer_h" style=" padding-bottom: 10px;">
+                                        <div class="li-footer-item">
+                                            <i class="far fa-envelope"></i>
+
+                                            <a style="color: rgb(255, 255, 255);" href="mailto:support@consortio-services.com">
+                                                @Html.Raw(WebHelper.GetCultureText(cultures, "EMAIL_LABEL"))
+                                            </a>
+                                        </div>
+                                        
+                                    </li>
+                                    <li>
+                                        <div class="inner-list li_footer_h" style=" padding-top: 10px;">
+                                            @{
+                                                var W2G_FOOTER_SOCIAL = bannerAdsRepository.GetBannerAds_By_Code(culture_code, "W2G_FOOTER_SOCIAL");
+                                                if (W2G_FOOTER_SOCIAL != null)
+                                                {
+                                                    var bannersIcon = WebHelper.ConvertSlide(W2G_FOOTER_SOCIAL);
+                                                    if (bannersIcon != null)
+                                                    {
+                                                        foreach (var item in bannersIcon)
+                                                        {
+                                                            <a class="a-icon" href="@item.Url" target="_blank">
+                                                                <i class="@item.Title"></i>
+                                                            </a>
+                                                        }
+                                                    }
+                                                }
+                                            }
+                                        </div>
+                                    </li>
+                                </ul>
+                                
+                            </div>
+
+
+                        </div>
+                    }
+                }
+            }
+        }
+
+
+        <div class="select_maps col-md-6 col-sm-12 col-xs-12 cot2 p-5">
+            <div class="page-login page_cotact">
+                <h3 class="title-head-contact a-left" style="padding-bottom: 10px;"><span>@Html.Raw(WebHelper.GetCultureText(cultures, "SEND_MESSAGE_LABEL"))</span></h3>
+                <div class="title-head-contact a-left" style="padding-bottom: 20px;">
+                    <span>@Html.Raw(WebHelper.GetCultureText(cultures, "SEND_MESSAGE_DESC"))</span>
+                </div>
+
+                <div id="pagelogins">
+                    <form method="post" action="" accept-charset="UTF-8">
+                        <input type="hidden" name="_token" value="lGxlanTLrSvzabbOITPee7nNSDI0fGMp6zZRHZ7G">
+                        <input name="FormType" type="hidden" value="contact">
+                        <input name="utf8" type="hidden" value="true">
+
+                        <div class="form-signup clearfix">
+                            <div class="row group_contact">
+                                <fieldset class="form-group col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                    <label class="lable" for="full_name">@Html.Raw(WebHelper.GetCultureText(cultures, "FULL_NAME_LABEL").Trim()):</label>
+                                    <input style="font-size: 16px;" placeholder="@Html.Raw(WebHelper.GetCultureText(cultures, "FULL_NAME_LABEL"))" type="text"
+                                           class="form-control form-control-lg" value="" name="contact[name]" id="full_name" required>
+                                </fieldset>
+                                <fieldset class="form-group col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                    <label class="lable" for="email1">@Html.Raw(WebHelper.GetCultureText(cultures, "SEND_EMAIL_LABEL").Trim()):</label>
+                                    <input style="font-size: 16px;" placeholder="@Html.Raw(WebHelper.GetCultureText(cultures, "SEND_EMAIL_LABEL"))" type="email"
+                                           pattern="[a-z0-9._%+-]+[a-z0-9.-]+\.[a-z]{2,4}$" id="email1" class="form-control form-control-lg"
+                                           value="" name="contact[email]" required>
+                                </fieldset>
+                                <fieldset class="form-group col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                    <label class="lable" for="phone">@Html.Raw(WebHelper.GetCultureText(cultures, "PHONE_LABEL").Trim()):</label>
+                                    <input style="font-size: 16px;" type="text" placeholder="@Html.Raw(WebHelper.GetCultureText(cultures, "PHONE_LABEL"))" name="contact[phone]"
+                                           class="form-control form-control-lg" value="" id="phone">
+                                </fieldset>
+                                <fieldset class="form-group col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                    <label class="lable" for="comment">@Html.Raw(WebHelper.GetCultureText(cultures, "MESSAGE_LABEL").Trim()):</label>
+                                    <textarea style="font-size: 16px;" placeholder="@Html.Raw(WebHelper.GetCultureText(cultures, "MESSAGE_LABEL"))" name="contact[content]" id="comment"
+                                              class="form-control content-area form-control-lg" rows="5" required></textarea>
+                                </fieldset>
+                                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                    <button type="submit" style="background-color: var(--color-main); font-size: 14px;"
+                                            class="btn btn-primary margin-top-20">
+                                        @Html.Raw(WebHelper.GetCultureText(cultures, "SEND_MESSAGE_BUTTON"))
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+    @if (W2G_LIENHE_BANNER != null)
+    {
+        var banners = WebHelper.ConvertSlide(W2G_LIENHE_BANNER);
+        if (banners != null)
+        {
+            var _second = banners.LastOrDefault();
+            if (_second != null)
+            {
+                <div class="img-cuoi mb-3">
+                    <div class="img-cuoi mb-3">
+                        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3724.197088566953!2d105.84086687596968!3d21.024798587913214!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3135ab90d7b3e48d%3A0x4d8a788c9073ef46!2zVMOyYSBuaMOgIFBhY2lmaWMsIDgzQiBQLiBMw70gVGjGsOG7nW5nIEtp4buHdCwgQ-G7rWEgTmFtLCBIb8OgbiBLaeG6v20sIEjDoCBO4buZaSAxMDAwMDAsIFZp4buHdCBOYW0!5e0!3m2!1svi!2s!4v1712153165439!5m2!1svi!2s" width="100%" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                    </div>
+                </div>
+                
+            }
+        }
+    }
+
+
+</div>
+
+
+
+@section scripts{
+
+    @*<script type="text/javascript" src="~/js/libs/daterangepicker-master/daterangepicker.js" asp-append-version="true"></script>
+        <script type="text/javascript" src="~/js/libs/paginationjs/paginationJS.js" asp-append-version="true"></script>*@
+    <script type="text/javascript" asp-append-version="true" src="~/js/controller/contactController.js"></script>
+
+
+}

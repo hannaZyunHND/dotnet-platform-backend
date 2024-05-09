@@ -1,0 +1,57 @@
+﻿@using PlatformWEBAPI.Services.Product.ViewModel;
+@using PlatformWEBAPI.Services.Product.Repository;
+@using Utils;
+@using Microsoft.AspNetCore.Localization
+@using Microsoft.AspNetCore.Mvc.Localization
+@using Microsoft.AspNetCore.Http
+@inject IHttpContextAccessor HttpContextAccessor
+@using PlatformWEBAPI.Utility
+
+@using MI.Entity.Enums
+@inject ICookieUtility cookieUtility
+@inject IProductRepository productRepository
+
+@{
+
+
+    var culture = Context.Features.Get<IRequestCultureFeature>().RequestCulture.Culture.TwoLetterISOLanguageName.ToLower();
+    var culture_code = Context.Features.Get<IRequestCultureFeature>().RequestCulture.Culture.ToString();
+    var base_uri_culture = "/" + culture;
+    var domain = Context.Request.Host.ToString();
+    var cookie_location = cookieUtility.SetCookieDefault();
+    var location_id = cookie_location.LocationId;
+    var location_name = cookie_location.LocationName;
+}
+
+@{
+    var product_ids = ViewBag.Product_Ids;
+    //var list_zone_parents = zoneRepository.GetListZoneByParentId((int)TypeZone.AllButProduct, culture_code);
+    var total_last_seen = 0;
+    var list_product_last_seen = new List<ProductMinify>();
+    list_product_last_seen = productRepository.GetProductInListProductsMinify(product_ids, location_id, culture_code, 1, 5, out total_last_seen);
+
+}
+
+
+<!-- Products Combo -->
+
+    <div class="products-segment__head">
+        <h4 class="products-segment__title">Tour Đề Xuất</h4>
+    </div>
+    <div class="products-segment__list _binding_last_seen_product">
+        <div class="swiper js-products-combo">
+            <div class="swiper-wrapper products-segment__wrap">
+                @foreach (var item in list_product_last_seen)
+                {
+                    <!-- Item -->
+                    @await Component.InvokeAsync("ItemProductv2", new { pr = item, isLazy = false })
+                    <!-- End Item -->
+                }
+
+            </div>
+            <div class="swiper-button-next"></div>
+            <div class="swiper-button-prev"></div>
+        </div>
+    </div>
+
+<!-- End Products Combo -->

@@ -1,0 +1,219 @@
+﻿
+@using PlatformWEBAPI.Services.Product.Repository
+@using PlatformWEBAPI.Services.Zone.Repository
+@using MI.Entity.Enums
+@using PlatformWEBAPI.Services.BannerAds.Repository
+@using PlatformWEBAPI.Services.Store.Repository
+@using PlatformWEBAPI.Services.Locations.Repository
+@using PlatformWEBAPI.Services.Store.ViewModel
+@using PlatformWEBAPI.Services.Locations.ViewModal
+@using PlatformWEBAPI.Services.FlashSale.Repository
+@using Microsoft.AspNetCore.Localization
+@using Microsoft.AspNetCore.Http
+@using PlatformWEBAPI.Services.Article.Repository
+@using Newtonsoft.Json
+@using PlatformWEBAPI.Utility
+@using Microsoft.AspNetCore.Mvc.RazorPages
+@using MI.Entity.Models
+@inject IHttpContextAccessor HttpContextAccessor
+@inject ICookieUtility cookieUtility
+@inject IConfigSEOUtility configSEOUtility
+@inject IArticleRepository articleRepository
+@inject IBannerAdsRepository bannerAdsRepository
+@inject IStoreRepository storeRepository
+@inject ILocationsRepository locationsRepository
+
+@using Utils
+@{
+    var culture = Context.Features.Get<IRequestCultureFeature>().RequestCulture.Culture.TwoLetterISOLanguageName.ToLower();
+    var culture_code = Context.Features.Get<IRequestCultureFeature>().RequestCulture.Culture.ToString();
+    var base_uri_culture = "/" + culture;
+    var domain = Context.Request.Host.ToString();
+
+    const string CookieLocationId = "_LocationId";
+    const string CookieLocationName = "_LocationName";
+    var cookie_location = cookieUtility.SetCookieDefault();
+    var location_id = cookie_location.LocationId;
+    var location_name = cookie_location.LocationName;
+    //string urlImages = "https://jhcms.migroup.asia/uploads";
+    //List<BannerAdsViewModel> lstBannerAds = new List<BannerAdsViewModel>();
+    //lstBannerAds = bannerAdsRepository.GetBannerAds(culture_code);
+    var northside_add = bannerAdsRepository.GetConfigByName(culture_code, "northside_address");
+    var northside_hotline = bannerAdsRepository.GetConfigByName(culture_code, "northside_hotline");
+    var northside_email = bannerAdsRepository.GetConfigByName(culture_code, "northside_email");
+    var southside_add = bannerAdsRepository.GetConfigByName(culture_code, "southside_address");
+    var southside_hotline = bannerAdsRepository.GetConfigByName(culture_code, "southside_hotline");
+    var southside_email = bannerAdsRepository.GetConfigByName(culture_code, "southside_email");
+}
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_LayoutPublicHome.cshtml";
+    var logo = bannerAdsRepository.GetConfigByName(culture_code, "Logo");
+    var title = bannerAdsRepository.GetConfigByName(culture_code, "TitleHome");
+    var cultureSanPham = bannerAdsRepository.GetBannerAds_By_Code(culture_code, "W2G_Culture_FAQ");
+    var cultures = WebHelper.ConvertSlideCulture(cultureSanPham);
+}
+@section styles{
+    <style>
+        .btn-block {
+            font-size: 22px;
+            text-decoration: none !important;
+            color: black;
+        }
+
+        .btn.focus,
+        .btn:focus {
+            box-shadow: none !important;
+        }
+        .arrow {
+            display: inline-block;
+            width: 0;
+            height: 0;
+            vertical-align: middle;
+            content: "";
+            border-top: 0.3em solid;
+            border-right: 0.3em solid transparent;
+            border-bottom: 0;
+            border-left: 0.3em solid transparent;
+            transition: transform 0.3s ease;
+        }
+
+        /*.collapsed .arrow {
+            transform: rotate(180deg);
+        }*/
+        .accordion-button {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+    </style>
+    
+
+}
+<div class="page-header">
+    <div class="container">
+        <h2 class="inner-title">
+            @Html.Raw(WebHelper.GetCultureText(cultures, "FAQ_TITLE"))
+        </h2>
+    </div>
+</div>
+<div class="container mt-5">
+    <ul class="nav nav-tabs">
+        <li class="nav-item">
+            <a class="nav-link active" data-toggle="tab" href="#tab-foreign">  @Html.Raw(WebHelper.GetCultureText(cultures, "FAQ_TAB_2"))</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link " data-toggle="tab" href="#tab-vn">  @Html.Raw(WebHelper.GetCultureText(cultures, "FAQ_TAB_1"))</a>
+        </li>
+
+    </ul>
+
+    <div class="tab-content mt-3">
+
+        <div class="tab-pane fade " id="tab-vn">
+            <div class="block1">
+
+                <div class="accordion" id="accordionExample-vn">
+                    @{
+                        var W2G_FAQ_VIET_NAM = bannerAdsRepository.GetBannerAds_By_Code(culture_code, "W2G_FAQ_VIET_NAM");
+                        if (W2G_FAQ_VIET_NAM != null)
+                        {
+                            var banners = WebHelper.ConvertSlide(W2G_FAQ_VIET_NAM);
+                            if (banners != null)
+                            {
+                                for (var i = 0; i < banners.Count; i++)
+                                {
+                                    <div class="card">
+                                        <div class="card-header" id="vn-@i">
+                                            <h1 class="mb-0">
+                                                <button class="btn btn-link btn-block text-left accordion-button" type="button" data-toggle="collapse"
+                                                        data-target="#collapse-vn-@i" aria-expanded="@(i == 0 ? "true" : "false")" aria-controls="collapse-vn-@i">
+                                                    @banners[i].Title
+                                                    <span class="arrow"></span>
+                                                </button>
+                                            </h1>
+                                        </div>
+
+                                        <div id="collapse-vn-@i" class="collapse" aria-labelledby="vn-@i" data-parent="#accordionExample-vn">
+                                            <div class="card-body">
+                                                @if (!string.IsNullOrEmpty(banners[i].Image))
+                                                {
+                                                    <img src="@UIHelper.StoreFilePath(banners[i].Image, false)" class="img-fluid" />
+                                                }
+                                                else
+                                                {
+                                                    @Html.Raw(banners[i].Description)
+                                                }
+                                            </div>
+                                        </div>
+                                    </div>
+                                }
+                            }
+                        }
+                    }
+                </div>
+            </div>
+        </div>
+        <div class="tab-pane fade show active" id="tab-foreign">
+            <div class="block1">
+
+                <div class="accordion" id="accordionExample-qt">
+                    @{
+                        var W2G_FAQ_QUOC_TE = bannerAdsRepository.GetBannerAds_By_Code(culture_code, "W2G_FAQ_QUOC_TE");
+                        if (W2G_FAQ_QUOC_TE != null)
+                        {
+                            var banners = WebHelper.ConvertSlide(W2G_FAQ_QUOC_TE);
+                            if (banners != null)
+                            {
+                                for (var i = 0; i < banners.Count; i++)
+                                {
+                                    <div class="card">
+                                        <div class="card-header" id="vn-@i">
+                                            <h1 class="mb-0">
+                                                <button class="btn btn-link btn-block text-left accordion-button" type="button" data-toggle="collapse"
+                                                        data-target="#collapse-vn-@i" aria-expanded="@(i == 0 ? "true" : "false")" aria-controls="collapse-vn-@i">
+                                                    @banners[i].Title
+                                                    <span class="arrow"></span>
+                                                </button>
+                                            </h1>
+                                        </div>
+
+                                        <div id="collapse-vn-@i" class="collapse" aria-labelledby="vn-@i" data-parent="#accordionExample-qt">
+                                            <div class="card-body">
+                                                @if (!string.IsNullOrEmpty(banners[i].Image))
+                                                {
+                                                    <img src="@UIHelper.StoreFilePath(banners[i].Image, false)" class="img-fluid" />
+                                                }
+                                                else
+                                                {
+                                                    @Html.Raw(banners[i].Description)
+                                                }
+                                            </div>
+                                        </div>
+                                    </div>
+                                }
+                            }
+                        }
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts{ 
+
+    <script>
+        $(document).ready(function () {
+            //$('.accordion-button').click(function () {
+            //    $(this).find('.arrow').toggleClass('rotate');
+            //    // Kiểm tra xem có class "collapsed" hay không, nếu có thì xoay mũi tên
+            //    if ($(this).hasClass('collapsed')) {
+            //        $(this).find('.arrow').addClass('rotate');
+            //    } else {
+            //        $(this).find('.arrow').removeClass('rotate');
+            //    }
+            //});
+        });
+    </script>
+}

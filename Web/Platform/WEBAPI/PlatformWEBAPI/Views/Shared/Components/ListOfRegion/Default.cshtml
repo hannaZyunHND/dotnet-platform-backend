@@ -1,0 +1,51 @@
+﻿@using PlatformWEBAPI.Services.Product.ViewModel;
+@using Utils;
+@using Microsoft.AspNetCore.Localization
+@using Microsoft.AspNetCore.Mvc.Localization
+@using Microsoft.AspNetCore.Http
+@inject IHttpContextAccessor HttpContextAccessor
+@using PlatformWEBAPI.Utility
+@inject ICookieUtility cookieUtility
+@using PlatformWEBAPI.Services.Zone.Repository
+@inject IZoneRepository zoneRepository
+@inject IViewLocalizer localizer
+@{
+    var culture = Context.Features.Get<IRequestCultureFeature>().RequestCulture.Culture.TwoLetterISOLanguageName.ToLower();
+    var culture_code = Context.Features.Get<IRequestCultureFeature>().RequestCulture.Culture.ToString();
+    var base_uri_culture = "/" + culture;
+    var domain = Context.Request.Host.ToString();
+
+    var localZone = zoneRepository.GetListZoneByParentId((int)MI.Entity.Enums.TypeZone.Product, culture_code).Where(r => r.Url.Contains("region")).FirstOrDefault();
+
+
+}
+
+@if (localZone != null)
+{
+    <div class="inner-section-1 inner-section-region">
+        <div class="box-head inner-center">
+            <h2 class="inner-title">
+                @localZone.Name
+            </h2>
+        </div>
+        <div class="row inner-list">
+            @if (localZone != null)
+            {
+                var regions = zoneRepository.GetZoneByTreeViewMinifies(localZone.Type, culture_code, localZone.Id).Where(r => r.ParentId > 0).OrderBy(r => r.SortOrder);
+                foreach (var item in regions)
+                {
+                    <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12 inner-item">
+                        <a href="javascript:;" class="country-item region-item" data-id="@item.Id">
+                            <img class="inner-icon" src="@UIHelper.StoreFilePath(item.Icon)" alt="@item.Name">
+                            <span class="inner-label">
+                                @item.Name
+                            </span>
+                            <i class="fa-solid fa-angle-down"></i>
+                        </a>
+                    </div>
+                }
+            }
+
+        </div>
+    </div>
+}

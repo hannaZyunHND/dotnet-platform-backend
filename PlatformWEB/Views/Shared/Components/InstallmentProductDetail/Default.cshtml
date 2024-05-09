@@ -1,0 +1,343 @@
+﻿@using PlatformWEB.Services.Product.ViewModel
+@using PlatformWEB.Services.Product.Repository
+@using PlatformWEB.Services.Article.ViewModel
+@using PlatformWEB.Services.Article.Repository
+@using PlatformWEB.Services.Zone.Repository
+@using PlatformWEB.Services.BannerAds.Repository
+@using PlatformWEB.Services.Extra.ViewModel
+@using PlatformWEB.Services.BannerAds.ViewModel
+@using PlatformWEB.Services.BankInstallment.Repository
+@using PlatformWEB.Services.BankInstallment.ViewModel
+@using Microsoft.AspNetCore.Localization
+@using Microsoft.AspNetCore.Mvc.Localization
+@using Microsoft.AspNetCore.Http
+@using MI.Entity.Enums
+@using Newtonsoft.Json
+@using MI.Entity.CustomClass
+@using Microsoft.AspNetCore.Http.Extensions
+@using MI.Entity.Models
+
+@using System.IO;
+@using Microsoft.AspNetCore.Hosting;
+@inject IHttpContextAccessor HttpContextAccessor
+@using PlatformWEB.Utility
+@inject ICookieUtility cookieUtility
+@inject IArticleRepository articleRepository
+@inject IZoneRepository zoneRepository
+@inject IBannerAdsRepository bannerAdsRepository
+@inject IBankInstallmentRepository bankInstallmentRepository
+@inject IProductRepository productRepository
+@inject IConfigSEOUtility configSEOUtility
+@inject IViewLocalizer Localizer
+@model PlatformWEB.ViewModel.Installment.InstallmentProductDetailViewModel;
+@inject IHostingEnvironment env
+@using Utils
+@{
+    var culture = Context.Features.Get<IRequestCultureFeature>().RequestCulture.Culture.TwoLetterISOLanguageName.ToLower();
+    var culture_code = Context.Features.Get<IRequestCultureFeature>().RequestCulture.Culture.ToString();
+    var base_uri_culture = "/" + culture;
+    var domain = Context.Request.Host.ToString();
+    var domain_full = Context.Request.GetDisplayUrl();
+    ViewData["Title"] = "ProductDetail";
+    var detail = Model.Infomation as ProductDetail;
+    var specification_detail = Model.Spectification as List<ProductSpectificationDetail>;
+    var product_same_zone = Model.SameZone as List<ProductMinify>;
+    
+    var same_total = Model.SameTotal;
+    var zone_id = Model.Infomation.ZoneId;
+    var zone_url = Model.Infomation.ZoneUrl;
+    var location_id = Model.LocationId;
+    var location_name = Model.LocationName;
+    var product_price_details = Model.ListLocation as List<ProductPriceInLocationDetail>;
+    var default_price_detail = Model.DefaultLocationPrice as ProductPriceInLocationDetail;
+    var combo = Model.Combo as List<ProductMinify>;
+    var promotions = Model.Promotion as List<PromotionInProduct>;
+    var comments = Model.Comments as List<CommentDetail>;
+    var meta_file = new FileProduct();
+
+    var banktype = 0;
+    if (domain_full.Contains("tra-gop"))
+    {
+        banktype = 1;
+    }
+    else
+    {
+        banktype = 2;
+    }
+
+    if (detail.MetaFile != null)
+    {
+        meta_file = Newtonsoft.Json.JsonConvert.DeserializeObject<FileProduct>(detail.MetaFile);
+    }
+    var lstLink = new List<DetailBanerAds>();
+    var lstLink_Cahche = bannerAdsRepository.GetBannerAds_By_Code(culture_code, "Hau_Mai_1");
+    if (lstLink != null)
+    {
+        lstLink = JsonConvert.DeserializeObject<List<DetailBanerAds>>(lstLink_Cahche.MetaData).Where(r => r.Show == true).ToList();
+    }
+}
+@inject IViewLocalizer _localizer
+
+
+@if (detail != null)
+{
+    
+    <div class="container my-3">
+        @await Component.InvokeAsync("Breadcrumb", new { zone_id = detail.ZoneId })
+    </div>
+    <form class="cart-detail">
+        <div class="container">
+            <div class="cart-detail__wrap">
+                <!-- List Product -->
+                <div class="cart-detail-list">
+                    <div class="cart-detail-list__head">
+                        <h4 class="cart-detail-list__head-title">
+                            Sản phẩm
+                        </h4>
+                        <a href="/" class="cart-detail-list__head-link">
+                            <span>Quay lại mua hàng</span> <i class="fa fa-angle-right"></i>
+                        </a>
+                    </div>
+                    <div class="cart-detail-list__main">
+                        @{
+
+                            decimal left = 0;
+                            decimal right = 0;
+                            if (detail.FlashSaleId > 0)
+                            {
+                                left = detail.ProductPriceInFlashSale;
+                                right = default_price_detail.Price;
+                            }
+                            if (detail.FlashSaleId <= 0 && (default_price_detail.SalePrice > 0 && default_price_detail.SalePrice < default_price_detail.Price))
+                            {
+                                left = default_price_detail.SalePrice;
+                                right = default_price_detail.Price;
+                            }
+                            if (detail.FlashSaleId <= 0 && (default_price_detail.SalePrice == 0 || default_price_detail.SalePrice >= default_price_detail.Price))
+                            {
+                                left = default_price_detail.Price;
+                                right = 0;
+                            }
+
+
+                        }
+                        <!-- Item -->
+                        <div class="cart-detail__item" data-id="@detail.Id"
+                             data-name="@detail.Title"
+                             data-sale-price="@left">
+                            <label class="label-checkbox mobi-hidden">
+                                <input type="checkbox" checked>
+                                <span class="checkmark"></span>
+                            </label>
+
+                            <div class="cart-detail__item-image">
+                                <img src="@UIHelper.StoreFilePath(detail.Avatar)" alt="@detail.Title" />
+                            </div>
+
+                            <div class="cart-detail__item-content">
+                                <div class="cart-detail__item-content-top">
+                                    <h4 class="cart-detail__item-title">
+                                        <a href="javascript:void(0)">
+                                            @detail.Title
+                                        </a>
+                                    </h4>
+
+                                    <div class="cart-detail__item-price" data-price="@left">
+
+                                        @UIHelper.FormatNumber(left) ₫
+                                    </div>
+                                </div>
+                                <div class="cart-detail__item-type">Màu: xanh</div>
+                                <div class="cart-detail__item-content-main">
+                                    <div class="cart-detail__item-desc">
+                                        @(Html.Raw(!string.IsNullOrEmpty(detail.Description) ? detail.Description : ""))
+                                    </div>
+
+                                    <div class="cart-detail__item-amount">
+                                        <button class="btn-sub" type="button" id="minus">
+                                            <i class="fas fa-minus"></i>
+                                        </button>
+                                        <input type="number" id="quantity" value="1" minlength="1" data-quantit="@detail.Quantity">
+                                        <button class="btn-add" type="button" id="plus">
+                                            <i class="fas fa-plus"></i>
+                                        </button>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                        <!-- End Item -->
+                    </div>
+
+                    <div class="cart-detail-list__footer">
+                        <div class="cart-detail-list__footer-item">
+                            <span>Mọi thông tin trả góp dưới đây chỉ mang tính chất tham khảo, Quý khách vui lòng liên hệ qua hotline <a href="tel:0901176222">0901.176.222</a> hoặc đến trực tiếp Cửa hàng của Di Động Xanh để biết thông tin trả góp chi tiết nhất.</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- End Tabs -->
+                <!-- Box Bank -->
+                <div class="productId" data-id="@detail.Id" style="display:none"></div>
+                <div class="cart-detail-boxbank">
+                    <h4 class="cart-detail-boxbank__title">Bước 1: Chọn ngân hàng trả góp</h4>
+                    <div class="cart-detail-boxbank__list" id="bankList">
+                        @{
+                            var bankList = bankInstallmentRepository.GetBankInstallmentInProduct(detail.Id, banktype);
+                            var count = 1;
+                            foreach (var item in bankList)
+                            {
+                                <label class="bank-checkbox">
+                                    <input type="radio" name="bank-radio" value="@item.Id" data-productId="@detail.Id" data-name="@item.Name">
+                                    <span class="checkmark">
+                                        <img src="@UIHelper.StoreFilePath(item.Avatar, false)" alt="Logo Bank" />
+                                    </span>
+                                </label>
+                                count++;
+                            }
+                        }
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6 col-sm-6 col-12 ky-han">
+                            <h4 class="cart-detail-boxbank__title">Bước 2: Chọn kỳ hạn</h4>
+                            <div class="form-group">
+                                <select class="form-control cart-detail-boxbank__select" id="ky-han-slb">
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-md-6 col-sm-6 col-12 tra-truoc">
+                            <h4 class="cart-detail-boxbank__title">Bước 3: Chọn số tiền trả trước</h4>
+                            <div class="form-group">
+                                <select class="form-control cart-detail-boxbank__select" id="tra-truoc-slb">
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <table class="table table-bordered cart-detail-boxbank__table " style="display:none">
+                        <thead>
+                            <tr>
+                                <th colspan="2">
+                                    Bảng thông tin trả góp tham khảo
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <th>Số tháng trả góp</th>
+                                <td class="so-thang-tra-gop">12 tháng</td>
+                            </tr>
+                            <tr>
+                                <th>Góp mỗi tháng</th>
+                                <td class="gop-moi-thang">448.750đ</td>
+                            </tr>
+                            <tr>
+                                <th>Tổng tiền trả góp</th>
+                                <td class="tong-tien-tra-gop">385.000đ</td>
+                            </tr>
+                            <tr>
+                                <th>Chênh lệch với mua trả thẳng</th>
+                                <td class="chenh-lech-tra-thang">385.000đ</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <div class="infor-customer cart-detail-form">
+                        <h4 class="cart-detail-form__title">Thông tin khách hàng</h4>
+
+                        <div class="cart-detail-form__gender">
+                            <label class="label-checkbox">
+                                <span class="label-checkbox__label">Nam</span>
+                                <input type="radio" name="gender-radio" value="male" checked>
+                                <span class="checkmark"></span>
+                            </label>
+                            <label class="label-checkbox">
+                                <span class="label-checkbox__label">Nữ</span>
+                                <input type="radio" name="gender-radio" value="female">
+                                <span class="checkmark"></span>
+                            </label>
+                        </div>
+
+                        @*<div class="form-row mb-4">
+                                <div class="col-sm-6 col-12">
+                                    <input type="text" class="form-control mb-3 name" placeholder="Họ và tên" required>
+                                </div>
+                                <div class="col-sm-6 col-12">
+                                    <input type="text" class="form-control mb-3 phone-number" placeholder="Số điện thoại" required>
+                                </div>
+                                <div class="col-sm-12 col-12">
+                                    <textarea rows="4" type="text" class="form-control mb-3 note" placeholder="Ghi chú" minlength="10"></textarea>
+                                </div>
+                            </div>*@
+
+                        <div class="row">
+                            <div class="col-md-6 col-sm-12 col-12">
+                                <input type="text" class="form-control name" placeholder="Họ và tên" required>
+                            </div>
+                            <div class="col-md-6 col-sm-12 col-12">
+                                <input type="text" class="form-control phone-number" placeholder="Số điện thoại" required>
+                            </div>
+                            <div class="col-md-12 col-sm-12 col-12">
+                                <textarea rows="4" type="text" class="form-control note" placeholder="Ghi chú" minlength="10"></textarea>
+                            </div>
+                        </div>
+
+
+
+
+                        @{
+                            var provinces_result = new Dictionary<string, TinhThanh>();
+                            var provinces_json_part = env.WebRootFileProvider.GetFileInfo("hanhchinhvn-master/dist/tinh_tp.json")?.PhysicalPath;
+                            if (provinces_json_part != null)
+                            {
+                                var file_content = File.ReadAllText(provinces_json_part);
+                                if (file_content != null)
+                                {
+                                    provinces_result = Newtonsoft.Json.JsonConvert.DeserializeObject<Dictionary<string, TinhThanh>>(file_content);
+                                }
+                            }
+                        }
+                        <h4 class="cart-detail-form__title">Chọn địa chỉ và thời gian nhận hàng</h4>
+                        <div class="row">
+                            <div class="col-sm-6 col-12">
+                                <select class="form-control mb-3 tinh-thanh" required>
+                                    <option hidden value="">Chọn Tỉnh/Thành</option>
+                                    @foreach (var item in provinces_result)
+                                    {
+                                        <option value="@item.Key">@item.Value.name</option>
+                                    }
+                                </select>
+                            </div>
+                            <div class="col-sm-6 col-12">
+                                <select class="form-control mb-3 quan-huyen" disabled required>
+                                    <option hidden value="">Chọn Quận/Huyện</option>
+                                    <option value="Tân Phú">Tân Phú</option>
+                                </select>
+                            </div>
+                            <div class="col-sm-6 col-12">
+                                <select class="form-control mb-3 phuong-xa" disabled required>
+                                    <option hidden value="">Chọn Phường/Xã</option>
+                                    <option value="Hồ Chí Minh">Hồ Chí Minh</option>
+                                </select>
+                            </div>
+                            <div class="col-sm-6 col-12">
+                                <input type="text" class="form-control mb-3 so-nha" placeholder="Số nhà, tên đường/phố">
+                            </div>
+
+                        </div>
+                        @* --------------------------- *@
+                        <div class="text-center">
+                            <button class="cart-detail-form__button" type="submit">
+                                Đặt tư vấn
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <!-- End Box Bank -->
+                <!-- End List Product -->
+            </div>
+        </div>
+    </form>
+
+
+
+}
+
