@@ -8,7 +8,113 @@
         <b-tabs class="col-md-12" pills>
             <b-tab title="1. Thông tin chung" active>
                 <div class="row productedit">
-                    <div class="col-sm-6 col-md-8">
+                    <div class="col-md-12">
+                        <div class="card">
+                            <div class="card-header">
+                                Đăng bài
+                            </div>
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <button class="btn btn-info btn-submit-form col-md-12 btncus" type="submit" @click="DoAddEdit()">
+                                            <i class="fa fa-save"></i> Cập nhật
+                                        </button>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <button class="btn btn-success col-md-12 btncus" type="button" @click="DoRefesh()">
+                                            <i class="fa fa-refresh"></i> Làm mới
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-6 col-md-12">
+
+                        <div class="card" hidden>
+                            <div class="card-header">
+                                Phân loại sản phẩm
+                            </div>
+                            <div class="card-body">
+                                <b-form-group label="Mô tả thời gian">
+                                    <!--<Datepicker v-model="demoDate" />-->
+                                    <b-form-input v-model="objRequest.ngayDem" type="text" placeholder="số ngày và số đêm" required></b-form-input>
+                                </b-form-group>
+                                <b-form-group label="Ngày bắt đầu">
+                                    <!--<Datepicker v-model="demoDate" />-->
+                                    <b-form-input v-model="objRequest.ngayBatDau" type="date" placeholder="" required></b-form-input>
+                                </b-form-group>
+                                <b-form-group label="Ngày kết thúc">
+                                    <!--<Datepicker v-model="demoDate" />-->
+                                    <b-form-input v-model="objRequest.ngayKetThuc" type="date" placeholder="" required></b-form-input>
+                                </b-form-group>
+                                <b-form-group label="Phương tiện">
+                                    <treeselect :multiple="true"
+                                                :flat="false"
+                                                :options="ListPhuongTien"
+                                                placeholder="Chọn phương tiện"
+                                                v-model="requestPhuongTien" />
+                                </b-form-group>
+                                <b-form-group label="Nhà cung cấp">
+                                    <v-select v-model="objRequest.manufacturerId" :options="ManufacturerIds" :reduce="x=>x.id" label="name" placeholder="Chọn nhà cung cấp"></v-select>
+                                </b-form-group>
+                                <b-form-group label="Đơn vị">
+                                    <b-form-input v-model="objRequest.unit" placeholder="Đơn vị" required></b-form-input>
+                                </b-form-group>
+                                <b-form-group label="Số lượng">
+                                    <b-form-input v-model="objRequest.quantity" placeholder="Số lượng" required type="number"></b-form-input>
+                                </b-form-group>
+                                <b-form-group label="Mã Voucher">
+                                    <b-form-input v-model="objRequest.voucher" placeholder="Mã Voucher" required></b-form-input>
+                                </b-form-group>
+                                <b-form-group label="Ngày hết hạn khuyến mại">
+                                    <b-form-input type="date" v-model="objRequest.exprirePromotion" placeholder="Ngày hết hạn khuyến mại"></b-form-input>
+                                </b-form-group>
+                                <b-form-group>
+                                    <b-form-checkbox v-model="objRequest.isInstallment"> Trả góp</b-form-checkbox>
+                                </b-form-group>
+                                <b-form-group>
+                                    <b-form-checkbox v-model="objRequest.vat"> Có VAT</b-form-checkbox>
+                                </b-form-group>
+                                <b-form-group>
+                                    <label class="typo__label">Chọn thuộc tính</label>
+                                    <treeselect :multiple="true"
+                                                :flat="true"
+                                                :options="Properties"
+                                                placeholder="Xin mời bạn lựa chọn thuộc tính"
+                                                v-model="ListProperty" />
+                                </b-form-group>
+                                <b-form-group label="Chính sách bảo hành">
+                                    <select v-model="objRequest.guarantee" class="form-control">
+                                        <option value="">Chọn chính sách</option>
+                                        <option :value="item.key" v-for="item in ListGuarantee">
+                                            {{item.value}}
+                                        </option>
+                                    </select>
+                                </b-form-group>
+                                <b-form-group label="Loại linh kiện">
+                                    <select v-model="objRequest.productCpnId" class="form-control">
+                                        <option value="0">Chọn</option>
+                                        <option :value="item.id" v-for="item in ListProductComponent">
+                                            {{item.name}}
+                                        </option>
+                                    </select>
+                                </b-form-group>
+                                <!--<b-form-group label="Sản Phẩm cha">
+                    <treeselect :multiple="false"
+                                :flat="false"
+                                :options="ListProductParent"
+                                placeholder="Xin mời bạn lựa chọn thuộc tính"
+                                v-model="ProductParent" />
+                </b-form-group>-->
+
+                            </div>
+
+
+                        </div>
+                        
+                    </div>
+                    <div class="col-sm-6 col-md-12">
                         <div class="card">
                             <div class="card-header">
                                 Thông tin chính
@@ -26,7 +132,7 @@
                                                     v-model="ZoneValues"
                                                     :default-expanded-level="Infinity" />
                                     </b-form-group>
-                                    <b-form-group label="Chọn điểm đến" hidden>
+                                    <b-form-group label="Chọn điểm đến">
                                         <treeselect :multiple="true"
                                                     :flat="true"
                                                     :options="DiemDenOptions"
@@ -34,6 +140,24 @@
                                                     v-model="DiemDenValues"
                                                     :default-expanded-level="Infinity" />
                                     </b-form-group>
+                                    <b-form-group label="Chọn Tag">
+                                        <treeselect :multiple="true"
+                                                    :flat="true"
+                                                    :options="TagOptions"
+                                                    placeholder="Xin mời bạn lựa chọn tag"
+                                                    v-model="TagValues"
+                                                    :default-expanded-level="Infinity" />
+                                    </b-form-group>
+                                    <b-form-group label="Chọn các option sản phẩm" v-if="objRequest.id > 0">
+                                        <treeselect :multiple="true"
+                                                    :flat="true"
+                                                    :options="OpOptions"
+                                                    placeholder="Xin mời bạn lựa chọn các option sản phẩm"
+                                                    v-model="optionValues"
+                                                    :default-expanded-level="Infinity"
+                                                    @input="updateProductOptions()" />
+                                    </b-form-group>
+
 
                                     <b-form-group label="Danh sách ảnh">
                                         <div class="notice-upload-image">
@@ -98,7 +222,51 @@
                         </div>
                         <div class="card">
                             <div class="card-header">
-                                Giá và các phiên bản sản phẩm
+                                <b-row>
+                                    <b-col md="10">
+                                        Ảnh
+                                    </b-col>
+                                </b-row>
+                            </div>
+                            <div class="card-body">
+                                <b-form-group label="Ảnh đại diện">
+                                    <b-form-group>
+                                        <a @click="openImg('Img')">
+                                            <div style="width:150px;display:flex" class=" gallery-upload-file ui-sortable">
+                                                <div style="padding:0" class="col-md-12 col-xs-12  r-queue-item ui-sortable-handle">
+                                                    <div v-if="objRequest.avatar != null && objRequest.avatar != undefined &&  objRequest.avatar.length > 0">
+                                                        <img alt="Ảnh lỗi" style="height:150px;width:150px" :src="pathImgs(objRequest.avatar)" class="preview-image img-thumbnail">
+                                                    </div>
+                                                    <div v-else>
+                                                        <i class="fa fa-picture-o"></i>
+                                                        <p>[Chọn ảnh]</p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </a>
+                                    </b-form-group>
+                                </b-form-group>
+                            </div>
+                        </div>
+
+                        <div class="card">
+                            <div class="card-header">
+                                More Info
+                            </div>
+                            <div class="card-body">
+                                
+                                <b-form-group label="Sản Phẩm cha">
+                                    <treeselect :multiple="false"
+                                                :flat="false"
+                                                :options="ListProductParent"
+                                                placeholder="Xin mời bạn lựa chọn SP cha"
+                                                v-model="ProductParent" />
+                                </b-form-group>
+                            </div>
+                        </div>
+                        <div class="card">
+                            <div class="card-header">
+                                Giá sản phẩm
                             </div>
                             <div class="card-body">
                                 <b-row>
@@ -128,7 +296,7 @@
                                     </b-col>
 
                                 </b-row>
-                                <b-row hidden>
+                                <b-row>
                                     <b-col>
                                         <b-form-group label="Giá người lớn">
                                             <b-form-input :min="0" v-model="objRequest.giaNguoiLon" type="number" placeholder="Giá người lớn" required></b-form-input>
@@ -157,20 +325,20 @@
                             </div>
                         </div>
 
-                        <div class="card" hidden>
+                        <div class="card" v-if="objRequest.id > 0">
                             <div class="card-header">
                                 <b-row>
                                     <b-col md="11">
-                                        Giá và các ngày khởi hành
+                                        Option giá
                                     </b-col>
                                     <b-col md="1">
                                         <b-btn v-b-toggle.collapseolerenewal variant="primary" class="pull-right"><i class="fa fa-angle-double-down" aria-hidden="true"></i></b-btn>
                                     </b-col>
                                 </b-row>
                             </div>
-                            <b-collapse id="collapseolerenewal" class="mt-2">
+                            <b-collapse id="collapseolerenewal" class="mt-2 scrolling-wrapper" fluid>
                                 <div class="card-body">
-                                    <h4>Thêm lịch khởi hành</h4>
+                                    <h4>Thêm Option giá</h4>
                                     <b-row>
                                         <b-col>
                                             <button class="btn btn-info btn-submit-form col-md-12 btncus" type="submit" @click="AddNewPhienBan()">
@@ -179,62 +347,60 @@
                                         </b-col>
                                     </b-row>
                                     <br />
-                                    <b-row v-for="(item, index) in objRequestPhienBans">
-                                        <b-col>
+                                    <b-container  fluid>
+                                        <b-row v-for="(item, index) in objRequestPhienBans" class="scrolling-wrapper">
                                             <b-row>
-                                                <b-col style="display:none">
-                                                    <b-form-group label="Id">
-                                                        <b-form-input v-model="item.id" type="number" placeholder="Tên phiên bản" required></b-form-input>
-                                                    </b-form-group>
-                                                </b-col>
-                                                <b-col style="display:none">
-                                                    <b-form-group label="ParentId">
-                                                        <b-form-input v-model="item.parentId" type="number" placeholder="Tên phiên bản" required></b-form-input>
-                                                    </b-form-group>
-                                                </b-col>
-                                                <b-col>
-                                                    <b-form-group label="Ngày bắt đầu">
-                                                        <!--<Datepicker v-model="demoDate" />-->
-                                                        <b-form-input v-model="item.ngayBatDau" type="date" placeholder="" required></b-form-input>
-                                                    </b-form-group>
-                                                    <b-form-group label="Ngày kết thúc">
-                                                        <!--<Datepicker v-model="demoDate" />-->
-                                                        <b-form-input v-model="item.ngayKetThuc" type="date" placeholder="" required></b-form-input>
+                                                <b-col style="min-width: 100px;" class="flex-item" v-for="(option, indexOption) in selectedProductOptions">
+                                                    <b-form-group :label="option.parent.label">
+                                                        <treeselect :multiple="false"
+                                                                    :flat="false"
+                                                                    :options="option.childs"
+                                                                    placeholder="Xin mời bạn lựa chọn SP cha"
+                                                                    v-model="item.selectedOptions[indexOption]" />
                                                     </b-form-group>
                                                 </b-col>
                                                 <b-col>
-                                                    <b-form-group label="Giá người lớn">
-                                                        <b-form-input @change="" :min="0" v-model="item.giaNguoiLon" type="number" placeholder="Giá người lớn" required></b-form-input>
-                                                    </b-form-group>
-                                                </b-col>
-                                                <b-col>
-                                                    <b-form-group label="Giá trẻ em">
-                                                        <b-form-input @change="" :min="0" v-model="item.giaTreEm" type="number" placeholder="Giá trẻ em"></b-form-input>
-                                                    </b-form-group>
-                                                </b-col>
-                                                <b-col>
-                                                    <b-form-group label="Giá emn bé">
-                                                        <b-form-input v-model="item.giaEmBe" :min="0" type="number" placeholder="Giá emn bé"></b-form-input>
-                                                    </b-form-group>
-                                                </b-col>
-                                                <b-col>
-                                                    <b-row>
-                                                        <b-col>
-                                                            <button class="btn btn-danger btn-submit-form col-md-12 btncus" type="submit" @click="DoDelPhienBan(index)">
-                                                                <i class="fa fa-trash"></i> Xóa
-                                                            </button>
-                                                        </b-col>
-                                                    </b-row>
+                                                    <button class="btn btn-success btn-submit-form col-md-12 btncus" type="submit" @click="AddNewPhienBan()">
+                                                        <i class="fa fa-add"></i> Thêm
+                                                    </button>
+                                                    <button class="btn btn-danger btn-submit-form col-md-12 btncus" type="submit" @click="DoDelPhienBan(index)">
+                                                        <i class="fa fa-trash"></i> Xóa
+                                                    </button>
+
                                                 </b-col>
                                             </b-row>
+                                            <b-row>
+                                                <b-col style="min-width: 100px;" class="flex-item">
+                                                    <b-form-group label="Ng.lớn (Giá mặc định)">
+                                                        <b-form-input @change="" :min="0" v-model="item.priceEachNguoiLon" type="number" placeholder="Giá người lớn" required></b-form-input>
+                                                    </b-form-group>
+                                                </b-col>
+                                                <b-col style="min-width: 100px;" class="flex-item">
+                                                    <b-form-group label="Trẻ em">
+                                                        <b-form-input @change="" :min="0" v-model="item.priceEachTreEm" type="number" placeholder="Giá trẻ em"></b-form-input>
+                                                    </b-form-group>
+                                                </b-col>
+                                                <b-col style="min-width: 100px;" class="flex-item">
+                                                    <b-form-group label="Ng.lớn (Giá NET)">
+                                                        <b-form-input @change="" :min="0" v-model="item.netEachNguoiLon" type="number" placeholder="Giá người lớn (NET)" required></b-form-input>
+                                                    </b-form-group>
+                                                </b-col>
+                                                <b-col style="min-width: 100px;" class="flex-item">
+                                                    <b-form-group label="Trẻ em (Giá NET)">
+                                                        <b-form-input @change="" :min="0" v-model="item.netEachTreEm" type="number" placeholder="Giá trẻ em (NET)"></b-form-input>
+                                                    </b-form-group>
+                                                </b-col>
+                                            </b-row>
+                                            
 
-                                        </b-col>
-                                    </b-row>
+                                        </b-row>
+                                    </b-container>
+                                    
                                 </div>
                             </b-collapse>
                         </div>
 
-                        <div class="card">
+                        <div class="card" hidden>
                             <div class="card-header">
                                 <b-row>
                                     <b-col md="11">
@@ -307,7 +473,7 @@
                                 </div>
                             </b-collapse>
                         </div>
-                        <div class="card">
+                        <div class="card" hidden>
                             <div class="card-header">
                                 <b-row>
                                     <b-col md="11">
@@ -350,202 +516,34 @@
                             </b-collapse>
                         </div>
                     </div>
-                    <div class="col-sm-6 col-md-4">
-                        <div class="card">
-                            <div class="card-header">
-                                Đăng bài
-                            </div>
-                            <div class="card-body">
-                                <div class="row">
-                                    <div class="col-md-6">
-                                        <button class="btn btn-info btn-submit-form col-md-12 btncus" type="submit" @click="DoAddEdit()">
-                                            <i class="fa fa-save"></i> Cập nhật
-                                        </button>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <button class="btn btn-success col-md-12 btncus" type="button" @click="DoRefesh()">
-                                            <i class="fa fa-refresh"></i> Làm mới
-                                        </button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="card" hidden>
-                            <div class="card-header">
-                                Phân loại sản phẩm
-                            </div>
-                            <div class="card-body">
-                                <b-form-group label="Mô tả thời gian">
-                                    <!--<Datepicker v-model="demoDate" />-->
-                                    <b-form-input v-model="objRequest.ngayDem" type="text" placeholder="số ngày và số đêm" required></b-form-input>
-                                </b-form-group>
-                                <b-form-group label="Ngày bắt đầu">
-                                    <!--<Datepicker v-model="demoDate" />-->
-                                    <b-form-input v-model="objRequest.ngayBatDau" type="date" placeholder="" required></b-form-input>
-                                </b-form-group>
-                                <b-form-group label="Ngày kết thúc">
-                                    <!--<Datepicker v-model="demoDate" />-->
-                                    <b-form-input v-model="objRequest.ngayKetThuc" type="date" placeholder="" required></b-form-input>
-                                </b-form-group>
-                                <b-form-group label="Phương tiện">
-                                    <treeselect :multiple="true"
-                                                :flat="false"
-                                                :options="ListPhuongTien"
-                                                placeholder="Chọn phương tiện"
-                                                v-model="requestPhuongTien" />
-                                </b-form-group>
-                                <b-form-group label="Nhà cung cấp">
-                                    <v-select v-model="objRequest.manufacturerId" :options="ManufacturerIds" :reduce="x=>x.id" label="name" placeholder="Chọn nhà cung cấp"></v-select>
-                                </b-form-group>
-                                <b-form-group label="Đơn vị">
-                                    <b-form-input v-model="objRequest.unit" placeholder="Đơn vị" required></b-form-input>
-                                </b-form-group>
-                                <b-form-group label="Số lượng">
-                                    <b-form-input v-model="objRequest.quantity" placeholder="Số lượng" required type="number"></b-form-input>
-                                </b-form-group>
-                                <b-form-group label="Mã Voucher">
-                                    <b-form-input v-model="objRequest.voucher" placeholder="Mã Voucher" required></b-form-input>
-                                </b-form-group>
-                                <b-form-group label="Ngày hết hạn khuyến mại">
-                                    <b-form-input type="date" v-model="objRequest.exprirePromotion" placeholder="Ngày hết hạn khuyến mại"></b-form-input>
-                                </b-form-group>
-                                <b-form-group>
-                                    <b-form-checkbox v-model="objRequest.isInstallment"> Trả góp</b-form-checkbox>
-                                </b-form-group>
-                                <b-form-group>
-                                    <b-form-checkbox v-model="objRequest.vat"> Có VAT</b-form-checkbox>
-                                </b-form-group>
-                                <b-form-group>
-                                    <label class="typo__label">Chọn thuộc tính</label>
-                                    <treeselect :multiple="true"
-                                                :flat="true"
-                                                :options="Properties"
-                                                placeholder="Xin mời bạn lựa chọn thuộc tính"
-                                                v-model="ListProperty" />
-                                </b-form-group>
-                                <b-form-group label="Chính sách bảo hành">
-                                    <select v-model="objRequest.guarantee" class="form-control">
-                                        <option value="">Chọn chính sách</option>
-                                        <option :value="item.key" v-for="item in ListGuarantee">
-                                            {{item.value}}
-                                        </option>
-                                    </select>
-                                </b-form-group>
-                                <b-form-group label="Loại linh kiện">
-                                    <select v-model="objRequest.productCpnId" class="form-control">
-                                        <option value="0">Chọn</option>
-                                        <option :value="item.id" v-for="item in ListProductComponent">
-                                            {{item.name}}
-                                        </option>
-                                    </select>
-                                </b-form-group>
-                                <b-form-group label="Sản Phẩm cha">
-                                    <treeselect :multiple="false"
-                                                :flat="false"
-                                                :options="ListProductParent"
-                                                placeholder="Xin mời bạn lựa chọn thuộc tính"
-                                                v-model="ProductParent" />
-                                </b-form-group>
 
-                            </div>
-
-
-                        </div>
-                        <div class="card">
-                            <div class="card-header">
-                                <b-row>
-                                    <b-col md="10">
-                                        Ảnh
-                                    </b-col>
-                                </b-row>
-                            </div>
-                            <div class="card-body">
-                                <b-form-group label="Ảnh đại diện">
-                                    <b-form-group>
-                                        <a @click="openImg('Img')">
-                                            <div style="width:150px;display:flex" class=" gallery-upload-file ui-sortable">
-                                                <div style="padding:0" class="col-md-12 col-xs-12  r-queue-item ui-sortable-handle">
-                                                    <div v-if="objRequest.avatar != null && objRequest.avatar != undefined &&  objRequest.avatar.length > 0">
-                                                        <img alt="Ảnh lỗi" style="height:150px;width:150px" :src="pathImgs(objRequest.avatar)" class="preview-image img-thumbnail">
-                                                    </div>
-                                                    <div v-else>
-                                                        <i class="fa fa-picture-o"></i>
-                                                        <p>[Chọn ảnh]</p>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </a>
-                                    </b-form-group>
-                                </b-form-group>
-                            </div>
-                        </div>
-
-                        <div class="card">
-                            <div class="card-header">
-                                More Info
-                            </div>
-                            <div class="card-body">
-                                <b-form-group label="SIM TYPE" v-slot="{ ariaDescribedby }">
-                                    <b-form-radio v-model="objRequest.simType" :aria-describedby="ariaDescribedby" name="simType" value="Physical Sim">Physical Sim</b-form-radio>
-                                    <b-form-radio v-model="objRequest.simType" :aria-describedby="ariaDescribedby" name="simType" value="E-Sim">E-Sim</b-form-radio>
-                                </b-form-group>
-                                <b-form-group label="SIM PACK" v-slot="{ ariaDescribedby }">
-                                    <b-form-radio v-model="objRequest.simPack" :aria-describedby="ariaDescribedby" name="simPack" value="Package">Package</b-form-radio>
-                                    <b-form-radio v-model="objRequest.simPack" :aria-describedby="ariaDescribedby" name="simPack" value="Gói cước">Gói cước</b-form-radio>
-                                    <b-form-radio v-model="objRequest.simPack" :aria-describedby="ariaDescribedby" name="simPack" value="MBF_P">Mobifone Package</b-form-radio>
-                                    <b-form-radio v-model="objRequest.simPack" :aria-describedby="ariaDescribedby" name="simPack" value="MBF_T">Mobifone Topup</b-form-radio>
-                                </b-form-group>
-                                <b-form-group label="Mã sản phẩm">
-                                    <b-form-input v-model="objRequest.code" placeholder="Mã sản phẩm" required></b-form-input>
-                                </b-form-group>
-                                <b-form-group label="Mã Joytel Code">
-                                    <b-form-input v-model="objRequest.joytelProductCode" placeholder="Mã JoyTel Code" required></b-form-input>
-                                </b-form-group>
-                                <b-form-group label="Màu nền">
-                                    <b-form-input v-model="objRequest.gradientColor" placeholder="Màu nền" required></b-form-input>
-                                </b-form-group>
-                                <b-form-group label="COVERAGE">
-                                    <treeselect :multiple="true"
-                                                :flat="true"
-                                                :options="countryOptions"
-                                                placeholder="Xin mời bạn lựa chọn quốc gia hỗ trợ"
-                                                v-model="objRequest.coverage"
-                                                :default-expanded-level="Infinity" />
-                                    <!--<b-form-input v-model="objRequest.coverage" placeholder="Coverage"></b-form-input>-->
-                                </b-form-group>
-                                <b-form-group label="DATA">
-                                    <b-form-input v-model="objRequest.dataLimit" placeholder="Data" @change="" type="text" required></b-form-input>
-                                </b-form-group>
-                                <b-form-group label="VALIDITY">
-                                    <b-form-input v-model="objRequest.validity" placeholder="Validity" @change="" type="text" required></b-form-input>
-                                </b-form-group>
-                                <b-form-group label="Số lượng SMS">
-                                    <b-form-input v-model="objRequest.smsNumber" placeholder="SMS" @change="" type="text" required></b-form-input>
-                                </b-form-group>
-                                <b-form-group label="Số lượng Phút gọi">
-                                    <b-form-input v-model="objRequest.phoneMinute" placeholder="Phone Minute" @change="" type="text" required></b-form-input>
-                                </b-form-group>
-                                <b-form-group label="Phút gọi nội mạng">
-                                    <b-form-input v-model="objRequest.phoneMinuteInNetwork" placeholder="Nội mạng" @change="" type="text" required></b-form-input>
-                                </b-form-group>
-                                <b-form-group label="Phút gọi ngoại mạng">
-                                    <b-form-input v-model="objRequest.phoneMinuteOutNetwork" placeholder="Ngoại mạng" @change="" type="text" required></b-form-input>
-                                </b-form-group>
-                                <b-form-group label="Phút gọi nội vùng">
-                                    <b-form-input v-model="objRequest.phoneMinuteInRegion" placeholder="Nội vùng" @change="" type="text" required></b-form-input>
-                                </b-form-group>
-                                <b-form-group label="Phút gọi ngoại vùng">
-                                    <b-form-input v-model="objRequest.phoneMinuteOutRegion" placeholder="Ngoại vùng" @change="" type="text" required></b-form-input>
-                                </b-form-group>
-                            </div>
-                        </div>
-                    </div>
                 </div>
             </b-tab>
             <b-tab v-if="objRequest.id > 0" @click="StartLoadLang()" title="2. Thông tin ngôn ngữ">
                 <div>
                     <div class="row productedit">
-                        <div class="col-sm-6 col-md-8">
+                        <div class="col-sm-6 col-md-12">
+                            <div class="card">
+                                <div class="card-header">
+                                    Thao tác
+                                </div>
+                                <div class="card-body">
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <button class="btn btn-info btn-submit-form col-md-12 btncus" type="submit" @click="DoAddDetail()">
+                                                <i class="fa fa-save"></i> Cập nhật
+                                            </button>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <button class="btn btn-success col-md-12 btncus" type="button" @click="DoRefesh()">
+                                                <i class="fa fa-refresh"></i> Làm mới
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-6 col-md-12">
                             <div class="card">
                                 <div class="card-header">
                                     Thông tin ngôn ngữ
@@ -578,6 +576,16 @@
                                         <b-form-group label="Đường dẫn cũ">
                                             <b-form-input v-model="objRequestDetail.urlOld" placeholder="Đường dẫn" required></b-form-input>
                                         </b-form-group>
+                                        <b-form-group label="Location">
+                                            <b-form-input v-model="objRequestDetail.location" placeholder="Địa chỉ" required></b-form-input>
+                                        </b-form-group>
+                                        <b-form-group label="Location Iframe">
+                                            <b-form-input v-model="objRequestDetail.locationIframe" placeholder="Mã embed bản đồ" required></b-form-input>
+                                        </b-form-group>
+                                        <b-form-group label="Location Iframe">
+                                            <b-form-input v-model="objRequestDetail.unit" placeholder="Đơn vị sản phẩm" required></b-form-input>
+                                        </b-form-group>
+
                                         <b-form-group label="Mô tả">
                                             <ckeditor tag-name="textarea"
                                                       v-model="objRequestDetail.description" :rows="3" :config="editorConfig">
@@ -598,7 +606,136 @@
                                     </b-form>
                                 </div>
                             </div>
+                            <div class="card">
+                                <div class="card-header">
+                                    <b-row>
+                                        <b-col md="11">
+                                            Thông tin
+                                        </b-col>
+                                        <b-col md="1">
+                                            <b-btn v-b-toggle.collapseSocial3 variant="primary" class="pull-right"><i class="fa fa-angle-double-down" aria-hidden="true"></i></b-btn>
+                                        </b-col>
+                                    </b-row>
+                                </div>
+                                <b-collapse id="collapseSocial3" class="mt-2">
+                                    <div class="card-body">
 
+                                        <b-row v-for="(item,index) in LichTrinhTour">
+                                            <b-col md="10">
+                                                <b-form-group label="Tiêu đề">
+                                                    <b-form-input v-model="item.tieuDe" placeholder="Tiêu đề" required></b-form-input>
+                                                </b-form-group>
+                                                <b-form-group label="Nội dung">
+                                                    <MIEditor :contentEditor="item.noiDung" v-on:handleEditorInput="tour_getOrSetData_lichTour" :index="index"></MIEditor>
+                                                </b-form-group>
+                                            </b-col>
+                                            <b-col md="2">
+                                                <b-row>
+                                                    <b-col md="12">
+                                                        <button class="btn btn-primary btn-submit-form col-md-12 btncus" type="submit" @click="tour_DoAddLichTour()">
+                                                            <i class="fa fa-trash"></i> Thêm
+                                                        </button>
+                                                    </b-col>
+                                                    <b-col md="12">
+                                                        <button class="btn btn-danger btn-submit-form col-md-12 btncus" type="submit" @click="tour_DoDelLichTour(index)">
+                                                            <i class="fa fa-trash"></i> Xóa
+                                                        </button>
+                                                    </b-col>
+                                                </b-row>
+
+                                            </b-col>
+                                        </b-row>
+
+                                    </div>
+                                </b-collapse>
+                            </div>
+                            <div class="card">
+                                <div class="card-header">
+                                    <b-row>
+                                        <b-col md="11">
+                                            Note
+                                        </b-col>
+                                        <b-col md="1">
+                                            <b-btn v-b-toggle.collapseSocial4 variant="primary" class="pull-right"><i class="fa fa-angle-double-down" aria-hidden="true"></i></b-btn>
+                                        </b-col>
+                                    </b-row>
+                                </div>
+                                <b-collapse id="collapseSocial4" class="mt-2">
+                                    <div class="card-body">
+
+                                        <b-row v-for="(item,index) in ThongTinTour">
+                                            <b-col md="10">
+                                                <b-form-group label="Tiêu đề">
+                                                    <b-form-input v-model="item.tieuDe" placeholder="Tiêu đề" required></b-form-input>
+                                                </b-form-group>
+                                                <b-form-group label="Nội dung">
+                                                    <MIEditor :contentEditor="item.noiDung" v-on:handleEditorInput="tour_getOrSetData_thongTinTour" :index="index"></MIEditor>
+                                                </b-form-group>
+                                            </b-col>
+                                            <b-col md="2">
+                                                <b-row>
+                                                    <b-col md="12">
+                                                        <button class="btn btn-primary btn-submit-form col-md-12 btncus" type="submit" @click="tour_DoAddThongTinTour()">
+                                                            <i class="fa fa-trash"></i> Thêm
+                                                        </button>
+                                                    </b-col>
+                                                    <b-col md="12">
+                                                        <button class="btn btn-danger btn-submit-form col-md-12 btncus" type="submit" @click="tour_DoDelThongTinTour(index)">
+                                                            <i class="fa fa-trash"></i> Xóa
+                                                        </button>
+                                                    </b-col>
+                                                </b-row>
+
+                                            </b-col>
+
+
+                                        </b-row>
+
+                                    </div>
+                                </b-collapse>
+                            </div>
+                            <div class="card">
+                                <div class="card-header">
+                                    <b-row>
+                                        <b-col md="11">
+                                            Policy
+                                        </b-col>
+                                        <b-col md="1">
+                                            <b-btn v-b-toggle.collapseSocial5 variant="primary" class="pull-right"><i class="fa fa-angle-double-down" aria-hidden="true"></i></b-btn>
+                                        </b-col>
+                                    </b-row>
+                                </div>
+                                <b-collapse id="collapseSocial5" class="mt-2">
+                                    <div class="card-body">
+
+                                        <b-row v-for="(item,index) in ThuTucVisa">
+                                            <b-col md="10">
+                                                <b-form-group label="Tiêu đề">
+                                                    <b-form-input v-model="item.tieuDe" placeholder="Tiêu đề" required></b-form-input>
+                                                </b-form-group>
+                                                <b-form-group label="Nội dung">
+                                                    <MIEditor :contentEditor="item.noiDung" v-on:handleEditorInput="tour_getOrSetData_thuTucVisa" :index="index"></MIEditor>
+                                                </b-form-group>
+                                            </b-col>
+                                            <b-col md="2">
+                                                <b-row>
+                                                    <b-col md="12">
+                                                        <button class="btn btn-primary btn-submit-form col-md-12 btncus" type="submit" @click="tour_DoAddThuTucVisa()">
+                                                            <i class="fa fa-trash"></i> Thêm
+                                                        </button>
+                                                    </b-col>
+                                                    <b-col md="12">
+                                                        <button class="btn btn-danger btn-submit-form col-md-12 btncus" type="submit" @click="tour_DoDelThuTucVisa(index)">
+                                                            <i class="fa fa-trash"></i> Xóa
+                                                        </button>
+                                                    </b-col>
+                                                </b-row>
+                                            </b-col>
+                                        </b-row>
+
+                                    </div>
+                                </b-collapse>
+                            </div>
                             <div class="card">
                                 <div class="card-header">
                                     <b-row>
@@ -679,158 +816,9 @@
                                     </div>
                                 </b-collapse>
                             </div>
-                            <div class="card">
-                                <div class="card-header">
-                                    <b-row>
-                                        <b-col md="11">
-                                            Lịch trình tour
-                                        </b-col>
-                                        <b-col md="1">
-                                            <b-btn v-b-toggle.collapseSocial3 variant="primary" class="pull-right"><i class="fa fa-angle-double-down" aria-hidden="true"></i></b-btn>
-                                        </b-col>
-                                    </b-row>
-                                </div>
-                                <b-collapse id="collapseSocial3" class="mt-2">
-                                    <div class="card-body">
 
-                                        <b-row v-for="(item,index) in LichTrinhTour">
-                                            <b-col md="10">
-                                                <b-form-group label="Tiêu đề">
-                                                    <b-form-input v-model="item.tieuDe" placeholder="Tiêu đề" required></b-form-input>
-                                                </b-form-group>
-                                                <b-form-group label="Nội dung">
-                                                    <MIEditor :contentEditor="item.noiDung" v-on:handleEditorInput="tour_getOrSetData_lichTour" :index="index"></MIEditor>
-                                                </b-form-group>
-                                            </b-col>
-                                            <b-col md="2">
-                                                <b-row>
-                                                    <b-col md="12">
-                                                        <button class="btn btn-primary btn-submit-form col-md-12 btncus" type="submit" @click="tour_DoAddLichTour()">
-                                                            <i class="fa fa-trash"></i> Thêm
-                                                        </button>
-                                                    </b-col>
-                                                    <b-col md="12">
-                                                        <button class="btn btn-danger btn-submit-form col-md-12 btncus" type="submit" @click="tour_DoDelLichTour(index)">
-                                                            <i class="fa fa-trash"></i> Xóa
-                                                        </button>
-                                                    </b-col>
-                                                </b-row>
-                                                
-                                            </b-col>
-                                        </b-row>
-
-                                    </div>
-                                </b-collapse>
-                            </div>
-                            <div class="card">
-                                <div class="card-header">
-                                    <b-row>
-                                        <b-col md="11">
-                                            Thông tin chi tiết tour
-                                        </b-col>
-                                        <b-col md="1">
-                                            <b-btn v-b-toggle.collapseSocial4 variant="primary" class="pull-right"><i class="fa fa-angle-double-down" aria-hidden="true"></i></b-btn>
-                                        </b-col>
-                                    </b-row>
-                                </div>
-                                <b-collapse id="collapseSocial4" class="mt-2">
-                                    <div class="card-body">
-
-                                        <b-row v-for="(item,index) in ThongTinTour">
-                                            <b-col md="10">
-                                                <b-form-group label="Tiêu đề">
-                                                    <b-form-input v-model="item.tieuDe" placeholder="Tiêu đề" required></b-form-input>
-                                                </b-form-group>
-                                                <b-form-group label="Nội dung">
-                                                    <MIEditor :contentEditor="item.noiDung" v-on:handleEditorInput="tour_getOrSetData_thongTinTour" :index="index"></MIEditor>
-                                                </b-form-group>
-                                            </b-col>
-                                            <b-col md="2">
-                                                <b-row>
-                                                    <b-col md="12">
-                                                        <button class="btn btn-primary btn-submit-form col-md-12 btncus" type="submit" @click="tour_DoAddThongTinTour()">
-                                                            <i class="fa fa-trash"></i> Thêm
-                                                        </button>
-                                                    </b-col>
-                                                    <b-col md="12">
-                                                        <button class="btn btn-danger btn-submit-form col-md-12 btncus" type="submit" @click="tour_DoDelThongTinTour(index)">
-                                                            <i class="fa fa-trash"></i> Xóa
-                                                        </button>
-                                                    </b-col>
-                                                </b-row>
-
-                                            </b-col>
-                                            
-
-                                        </b-row>
-
-                                    </div>
-                                </b-collapse>
-                            </div>
-                            <div class="card">
-                                <div class="card-header">
-                                    <b-row>
-                                        <b-col md="11">
-                                            Thủ tục visa
-                                        </b-col>
-                                        <b-col md="1">
-                                            <b-btn v-b-toggle.collapseSocial5 variant="primary" class="pull-right"><i class="fa fa-angle-double-down" aria-hidden="true"></i></b-btn>
-                                        </b-col>
-                                    </b-row>
-                                </div>
-                                <b-collapse id="collapseSocial5" class="mt-2">
-                                    <div class="card-body">
-
-                                        <b-row v-for="(item,index) in ThuTucVisa">
-                                            <b-col md="10">
-                                                <b-form-group label="Tiêu đề">
-                                                    <b-form-input v-model="item.tieuDe" placeholder="Tiêu đề" required></b-form-input>
-                                                </b-form-group>
-                                                <b-form-group label="Nội dung">
-                                                    <MIEditor :contentEditor="item.noiDung" v-on:handleEditorInput="tour_getOrSetData_thuTucVisa" :index="index"></MIEditor>
-                                                </b-form-group>
-                                            </b-col>
-                                            <b-col md="2">
-                                                <b-row>
-                                                    <b-col md="12">
-                                                        <button class="btn btn-primary btn-submit-form col-md-12 btncus" type="submit" @click="tour_DoAddThuTucVisa()">
-                                                            <i class="fa fa-trash"></i> Thêm
-                                                        </button>
-                                                    </b-col>
-                                                    <b-col md="12">
-                                                        <button class="btn btn-danger btn-submit-form col-md-12 btncus" type="submit" @click="tour_DoDelThuTucVisa(index)">
-                                                            <i class="fa fa-trash"></i> Xóa
-                                                        </button>
-                                                    </b-col>
-                                                </b-row>
-                                            </b-col>
-                                        </b-row>
-
-                                    </div>
-                                </b-collapse>
-                            </div>
                         </div>
-                        <div class="col-sm-6 col-md-4">
-                            <div class="card">
-                                <div class="card-header">
-                                    Thao tác
-                                </div>
-                                <div class="card-body">
-                                    <div class="row">
-                                        <div class="col-md-6">
-                                            <button class="btn btn-info btn-submit-form col-md-12 btncus" type="submit" @click="DoAddDetail()">
-                                                <i class="fa fa-save"></i> Cập nhật
-                                            </button>
-                                        </div>
-                                        <div class="col-md-6">
-                                            <button class="btn btn-success col-md-12 btncus" type="button" @click="DoRefesh()">
-                                                <i class="fa fa-refresh"></i> Làm mới
-                                            </button>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+
                     </div>
                 </div>
             </b-tab>
@@ -944,7 +932,8 @@
                     vat: false,
                     exprirePromotion: moment(String(new Date())).format('YYYY-MM-DD'),
                     productCpnId: 0,
-                    coverage : []
+                    coverage: [],
+                    id:0
                 },
                 objRequestDetail: {
                     url: "",
@@ -959,9 +948,7 @@
                 templatePhienBan: {
                     giaNguoiLon: 0,
                     giaTreEm: 0,
-                    giaEmBe: 0,
-                    tenPhienBan: "",
-                    mauSac: []
+                    selectedOptions: [],
                 },
 
                 currentPhienBan: {},
@@ -978,15 +965,18 @@
                 ManufacturerIds: [],//Danh sách nhà cung cấp
                 ZoneOptions: [],
                 DiemDenOptions: [],
+                TagOptions: [],
+                OpOptions: [],
                 ZoneValues: [],
                 DiemDenValues: [],
+                TagValues: [],
                 ArticleValues: [],
                 ProductUnit: [],
                 Properties: [],
                 ListProperty: [],
                 Colors: [],
                 ListColors: [],
-                ProductParent: "",
+                ProductParent: 0,
                 ListProductParent: [],
                 ListPhuongTien: [],
                 ListAllTags: [],
@@ -1012,7 +1002,12 @@
                 },
                 requestPhuongTien: [],
                 serialNumbers: [],
-                countryOptions: []
+                countryOptions: [],
+                optionValues: [],
+                selectedProductOptions: [],
+                isUpdatingSelectProductOption: false,  // Biến cờ để theo dõi trạng thái cập nhật,
+                convertedArr: [],
+                zoneTreeViewOptionById : []
             };
         },
         created: {},
@@ -1045,40 +1040,50 @@
 
                 this.getProduct(this.$route.params.id).then(respose => {
                     this.objRequest = respose.data;
-                    console.log(this.objRequest)
+                    ////console.log(this.objRequest)
                     
                     $this.ListProperty = respose.listProp;
                     $this.ListColors = respose.listColor;
                     $this.ZoneValues = respose.listCat;
                     $this.DiemDenValues = respose.listDiemDen;
+                    $this.TagValues = respose.listTagOption;
+                    $this.optionValues = respose.listProductOption;
+                    
+                    //$this.optionValues.forEach((value, index) => {
+                        
+                    //})
+                    
+                    
                     $this.ListArticle = respose.listArticle;
                     $this.ListImg = this.objRequest.avatarArray.split(",");
-                    $this.ProductParent = respose.data.parentId;
-                    this.objRequest.coverage = this.objRequest.coverage.split(',');
+                    if (respose.data.parentId) {
+                        $this.ProductParent = respose.data.parentId;
+                    }
+                    
+                    
 
 
                     $this.loadOptionArticleDefault(respose.data.articleId);
 
 
                 });
-                //this.getPhienBanInProduct(this.$route.params.id).then(response => {
-                //    this.objRequestPhienBans = response.data;
-                //    this.objRequestPhienBans.forEach((value) => {
-                //        if (value.ngayBatDau != null)
-                //            value.ngayBatDau = moment(String(value.ngayBatDau)).format('YYYY-MM-DD')
-                //        if (value.ngayKetThuc != null)
-                //            value.ngayKetThuc = moment(String(value.ngayKetThuc)).format('YYYY-MM-DD')
-                //    })
-                //});
+                this.getPhienBanInProduct(this.$route.params.id).then(response => {
+                    //console.log(response);
+                    if (response.data) {
+                        this.objRequestPhienBans = response.data;
+                    }
+                    
+                    
+                });
                 this.getTopUpInProduct(this.$route.params.id).then((response) => {
-                    console.log(response.data)
+                    ////console.log(response.data)
                     response.data.map(element => {
                         element.title = element.title.split(';')[0]
                     })
                     this.objRequestTopUp = response.data;
                 })
                 this.getSerialNumbersByProductId(this.$route.params.id).then((response) => {
-                    //console.log(response);
+                    //////console.log(response);
                     this.serialNumbers = response;
                 })
 
@@ -1127,7 +1132,7 @@
                     this.ListAllTags = this.convertTags(response.listData);
                 }
                 catch (ex) {
-                    console.log(ex);
+                    ////console.log(ex);
                 }
             });
             this.getGuarantee().then(response => {
@@ -1135,7 +1140,7 @@
                     this.ListGuarantee = response;
                 }
                 catch (ex) {
-                    console.log(ex);
+                    ////console.log(ex);
                 }
             });
             this.getAllTypeMaterial().then(response => {
@@ -1143,7 +1148,7 @@
                     this.ListTypeMaterial = response.listData;
                 }
                 catch (ex) {
-                    console.log(ex);
+                    ////console.log(ex);
                 }
             });
             this.getAllCatProductComponent().then(response => {
@@ -1151,7 +1156,7 @@
                     this.ListProductComponent = response.listData;
                 }
                 catch (ex) {
-                    console.log(ex);
+                    ////console.log(ex);
                 }
             });
 
@@ -1190,6 +1195,7 @@
                 "getAllLanguages",
                 "addProductInLanguage",
                 "getZones",
+                "getZonesTreeviewById",
                 "deleteProduct",
                 "productUnitGet",
                 "getPropertyProduct",
@@ -1208,6 +1214,83 @@
                 "getSerialNumbersByProductId",
                 "fmFileUploadExcel_ImportSeiralNumber"
             ]),
+            updateProductOptions() {
+                console.log(this.zoneTreeViewOptionById)
+                console.log(this.optionValues)
+                // Đặt cờ isUpdating để ngăn chặn các lời gọi hàm tiếp theo
+
+                if (this.zoneTreeViewOptionById) {
+                    if (this.selectedProductOptions.length > 0) {
+                        this.selectedProductOptions = [];
+                    }
+
+                    //sort lại optionValue ở đây
+                    this.optionValues.sort((a, b) => a - b)
+                    this.convertdArr = [];
+                    this.optionValues.forEach((item, index) => {
+                        let _parent = this.zoneTreeViewOptionById.find(r => r.id == item);
+                        let _childs = this.zoneTreeViewOptionById.filter(r => r.parentId == item);
+                        ////console.log(_childs)
+                        let obj = {
+                            parent: _parent,
+                            childs: _childs
+                        }
+                        ////console.log(obj)
+                        let arrItem = []
+                        obj.childs.forEach((c, index_c) => {
+                            arrItem.push(c.id)
+                        })
+                        console.log(item)
+                        this.convertdArr.push(arrItem)
+                        this.selectedProductOptions.push(obj);
+                    })
+                    //Bat dau kiem tra o day
+                    console.log(this.selectedProductOptions)
+                    if (this.convertdArr.length > 0) {
+                        if (this.objRequestPhienBans) {
+                            this.objRequestPhienBans.forEach((pb, indexPb) => {
+                                let isAdd = "";
+                                if (pb.selectedOptions.length < this.convertdArr.length) {
+                                    isAdd = "add"
+                                }
+                                else if (pb.selectedOptions.length > this.convertdArr.length) {
+                                    isAdd = "minus"
+                                }
+                                else {
+
+                                }
+
+                                if (isAdd === "add") {
+                                    for (var i = 0; i < this.convertdArr.length; i++) {
+                                        //Kiem tra xem arr convertedArr[i] co chua phan tu pb.selectedOptions[i] khong
+                                        //Neu khong co thi them vao mang pb.selectedOptions[i] gia tri -1
+                                        //neu do dai ma khong dai bang gia tri thu i thi push them vao
+                                        console.log(this.convertdArr[i], pb.selectedOptions[i])
+                                        if (!this.convertdArr[i].includes(pb.selectedOptions[i])) {
+                                            pb.selectedOptions.splice(i, 0, -1)
+                                        }
+                                        if (pb.selectedOptions.length < i + 1) {
+                                            pb.selectedOptions.push(-1)
+                                        }
+                                    }
+                                }
+                                if (isAdd === "minus") {
+                                    for (var i = 0; i < this.convertdArr.length; i++) {
+                                        //Kiem tra xem arr convertedArr[i] co chua phan tu pb.selectedOptions[i] khong
+                                        //Neu khong co thi them vao mang pb.selectedOptions[i] gia tri -1
+                                        //neu do dai ma khong dai bang gia tri thu i thi push them vao
+
+                                        if (!this.convertdArr[i].includes(pb.selectedOptions[i])) {
+                                            pb.selectedOptions.splice(i, 1)
+                                        }
+                                    }
+                                }
+                            })
+                        }
+                    }
+                }
+
+            },
             onUploadSerialClick() {
                 // Mở input file khi click vào nút "Upload Data"
                 this.$refs.fileInput.click();
@@ -1217,7 +1300,7 @@
 
                 // Kiểm tra xem có file được chọn không
                 if (!selectedFile) {
-                    console.log('Không có file nào được chọn.');
+                    //////console.log('Không có file nào được chọn.');
                     return;
                 }
 
@@ -1231,7 +1314,7 @@
                     formData.append('productId', productId); // Thêm tham số productId vào formData
 
                     this.fmFileUploadExcel_ImportSeiralNumber(formData).then((response) => {
-                        console.log(response);
+                        ////console.log(response);
                     })
 
                     // Gửi formData lên server bằng fetch hoặc axios
@@ -1244,13 +1327,13 @@
                         throw new Error('Lỗi khi gửi file lên server.');
                     }
 
-                    console.log('File đã được gửi thành công lên server.');
+                    ////console.log('File đã được gửi thành công lên server.');
 
                     // Đọc dữ liệu từ file Excel và in ra cột 1 và 2
                     const excelData = await response.json();
-                    console.log('Dữ liệu từ file Excel:');
+                    ////console.log('Dữ liệu từ file Excel:');
                     for (const row of excelData) {
-                        console.log('Cột 1:', row.column1, ', Cột 2:', row.column2);
+                        ////console.log('Cột 1:', row.column1, ', Cột 2:', row.column2);
                     }
                 } catch (error) {
                     console.error('Đã xảy ra lỗi:', error.message);
@@ -1288,22 +1371,22 @@
                 });
             },
             tour_getOrSetData_lichTour(value) {
-                //console.log(value)
+                //////console.log(value)
                 var dt = JSON.parse(value);
-                console.log(dt)
+                ////console.log(dt)
                 this.LichTrinhTour[dt.index].noiDung = dt.content;
             },
             tour_getOrSetData_thongTinTour(value) {
-                //console.log(value)
+                //////console.log(value)
                 var dt = JSON.parse(value);
-                console.log(dt)
+                ////console.log(dt)
                 this.ThongTinTour[dt.index].noiDung = dt.content;
                 
             },
             tour_getOrSetData_thuTucVisa(value) {
-                //console.log(value)
+                //////console.log(value)
                 var dt = JSON.parse(value);
-                console.log(dt)
+                ////console.log(dt)
                 this.ThuTucVisa[dt.index].noiDung = dt.content;
             },
             loadOptions({ action, searchQuery, callback }) {
@@ -1356,18 +1439,36 @@
                 this.getZones(1).then(respose => {
                     
                     var data = respose.listData;
-                    
+                    ////console.log(data)
                     this.ZoneOptions = unflatten(data);
-                    console.log(this.ZoneOptions);
-                    var countries = respose.listData.filter(element => element.parentId == 3 || element.id == 3);
-                    console.log(countries);
-                    this.countryOptions = unflatten(countries);
+                    ////console.log(this.ZoneOptions);
+                    //var countries = respose.listData.filter(element => element.parentId == 3 || element.id == 3);
+                    //////console.log(countries);
+                    //this.countryOptions = unflatten(countries);
                 });
                 this.getZones(5).then(respose => {
                     var data = respose.listData;
 
                     this.DiemDenOptions = unflatten(data);
                 });
+                this.getZones(4).then(respose => {
+                    var data = respose.listData;
+
+                    this.TagOptions = unflatten(data);
+                });
+                this.getZones(3).then(response => { //Lay danh sach option san pham
+                    var data = response.listData;
+                    ////console.log(data)
+                    this.OpOptions = unflatten(data);
+                    ////console.log(this.OpOptions)
+                })
+                this.getZonesTreeviewById(0).then((r) => {
+                    r.listData.forEach(v => {
+                        this.zoneTreeViewOptionById.push(v)
+                    })
+                    this.updateProductOptions();
+                })
+                
                 this.isLoading = false;
             },
             slugM: function () {
@@ -1393,7 +1494,7 @@
                 this.isLoading = true;
                 this.getLanguageById(this.objRequest.id).then(respose => {
                     if (respose.listData != null && respose.listData.length > 0) {
-                        //console.log(respose);
+                        //////console.log(respose);
                         //debugger-
                         this.objRequestDetails = respose.listData;
                         if (this.objRequestDetails != null && this.objRequestDetails != undefined && this.objRequestDetails.length > 0) {
@@ -1410,14 +1511,14 @@
                                     this.statusCanonical = objCanonical.Status;
                                     this.valueCanonical = objCanonical.Value;
                                 }
-                                console.log(obj[0])
+                                ////console.log(obj[0])
                                 if (obj[0].lichTour != null)
                                     this.LichTrinhTour = JSON.parse(obj[0].lichTour);
                                 if (obj[0].thongTinTour != null)
                                     this.ThongTinTour = JSON.parse(obj[0].thongTinTour);
                                 if (obj[0].thuTucVisa != null)
                                     this.ThuTucVisa = JSON.parse(obj[0].thuTucVisa);
-                                //console.log(this.LichTrinhTour, this.ThongTinTour, this.ThuTucVisa)
+                                //////console.log(this.LichTrinhTour, this.ThongTinTour, this.ThuTucVisa)
                             } else {
                                 this.objRequestDetail = this.objRequestDetails[0];
                                 //
@@ -1430,7 +1531,7 @@
                                     this.statusCanonical = objCanonical.Status;
                                     this.valueCanonical = objCanonical.Value;
                                 }
-                                console.log(this.objRequestDetails[0].lichTour)
+                                ////console.log(this.objRequestDetails[0].lichTour)
                                 if (this.objRequestDetails[0].lichTour != null)
                                     this.LichTrinhTour = JSON.parse(this.objRequestDetails[0].lichTour);
                                 else
@@ -1468,7 +1569,8 @@
                 this.ListImg.splice(index, 1);
             },
             DoAddEdit() {
-                this.isLoading = true;
+                //this.isLoading = true;
+                //debugger
                 this.objRequest.metaFile = JSON.stringify(this.FileMeta);
                 this.objRequest.avatarArray = this.ListImg.join();
                 this.objRequest.propertyId = this.ListProperty.join();
@@ -1477,8 +1579,6 @@
                 this.objRequest.ParentId = this.ProductParent;
                 this.objRequest.articleId = this.ArticleValues.map(x => x.key).join();
                 this.objRequest.phuongTien = this.requestPhuongTien.join();
-                this.objRequest.topUpsAvalible = JSON.stringify(this.objRequestTopUp);
-                this.objRequest.coverage = this.objRequest.coverage.toString()
                 
                 let lstzone = [];
                 var requestId = this.objRequest.id;
@@ -1497,7 +1597,7 @@
                         lstzone.push(obj);
                     }
                     catch (ex) {
-                        console.log(ex);
+                        ////console.log(ex);
                     }
                 });
                 this.DiemDenValues.forEach(function (item, index) {
@@ -1515,79 +1615,99 @@
                         lstzone.push(obj);
                     }
                     catch (ex) {
-                        console.log(ex);
+                        ////console.log(ex);
                     }
                 });
+                this.TagValues.forEach(function (item, index) {
+                    var isPrimarykey = false;
+                    if (index == 0) {
+                        isPrimarykey = true;
+                    }
+                    try {
+                        var obj = {};
+                        obj.ZoneId = item;
+                        obj.ProductId = requestId;
+                        obj.IsPrimary = isPrimarykey;
+                        //obj.IsHot = false;
+                        obj.BigThumb = "";
+                        lstzone.push(obj);
+                    }
+                    catch (ex) {
+                        ////console.log(ex);
+                    }
+                });
+                this.optionValues.forEach(function (item, index) {
+                    var isPrimarykey = false;
+                    if (index == 0) {
+                        isPrimarykey = true;
+                    }
+                    try {
+                        var obj = {};
+                        obj.ZoneId = item;
+                        obj.ProductId = requestId;
+                        obj.IsPrimary = isPrimarykey;
+                        //obj.IsHot = false;
+                        obj.BigThumb = "";
+                        lstzone.push(obj);
+                    }
+                    catch (ex) {
+                        ////console.log(ex);
+                    }
+                });
+                ////console.log(this.optionValues)
                 this.objRequest.ProductInZone = lstzone;
                 //this.objRequest.avatar = this.Img;
-                console.log(this.objRequestPhienBans);
+                ////console.log(this.objRequestPhienBans);
+                
                 var data = {
                     product: this.objRequest,
                     phienBans: JSON.parse(JSON.stringify(this.objRequestPhienBans)),
-                    simTopUps: JSON.parse(this.objRequest.topUpsAvalible)
                 }
-                console.log(data)
+                //console.log(data);
                 if (this.objRequest.id > 0) {
                     
                     this.updateProduct(data)
                         .then(response => {
                             if (response.success == true) {
-                                if (this.ListOldRenewal.length > 0) {
-                                    this.ListOldRenewal = this.ListOldRenewal.map(x => { x.productId = this.objRequest.id; return x; })
-                                    this.insertOrUpdate(this.ListOldRenewal)
-                                        .then(response2 => {
-                                            if (!response2.success)
-                                                this.$toast.error(response2.message, {});
-                                            this.LoadListOld(this.objRequest.id )
-                                        })
-                                }
+                                
                                 this.$toast.success(response.message, {});
-                                this.isLoading = false;
+                                this.isloading = false;
                                 router.push({ path: `/admin/product/list` });
                             }
                             else {
                                 this.$toast.error(response.message, {});
-                                this.isLoading = false;
+                                this.isloading = false;
 
                             }
 
                         })
                         .catch(e => {
-                            this.$toast.error(msgNotify.error + ". Error:" + e, {});
-                            this.isLoading = false;
+                            this.$toast.error(msgNotify.error + ". error:" + e, {});
+                            this.isloading = false;
                         });
                 } else {
-                    this.addProduct(this.objRequest)
+                    this.addProduct(data.product)
                         .then(response => {
+                            //console.log(response)
                             if (response.success == true) {
 
-                                if (this.ListOldRenewal.length > 0) {
-                                    this.ListOldRenewal = this.ListOldRenewal.map(x => { x.productId = response.id; return x; })
-                                    this.insertOrUpdate(this.ListOldRenewal)
-                                        .then(response2 => {
-                                            if (!response2.success) {
-                                                this.$toast.error(response2.message, {});
-                                                this.LoadListOld(response.id)
-                                            }
-
-                                        })
-                                }
+                                
                                 this.$toast.success(response.message, {});
                                 this.objRequest.id = response.id;
-                                this.objRequestDetail.ProductId = response.id;
+                                this.objRequestDetail.productid = response.id;
                                 this.$router.push({
                                     path: "/admin/product/edit/" + response.id,
                                 });
-                                this.isLoading = false;
+                                this.isloading = false;
                             }
                             else {
                                 this.$toast.error(response.message, {});
-                                this.isLoading = false;
+                                this.isloading = false;
                             }
                         })
                         .catch(e => {
-                            this.$toast.error(msgNotify.error + ". Error:" + e, {});
-                            this.isLoading = false;
+                            this.$toast.error(msgNotify.error + ". error:" + e, {});
+                            this.isloading = false;
                         });
                 }
             },
@@ -1654,9 +1774,9 @@
                 this.objRequestDetail.thuTucVisa = JSON.stringify(this.ThuTucVisa)
                 //
 
-                console.log(this.LichTrinhTour)
-                console.log(this.ThongTinTour)
-                console.log(this.ThuTucVisa)
+                ////console.log(this.LichTrinhTour)
+                ////console.log(this.ThongTinTour)
+                ////console.log(this.ThuTucVisa)
                 this.objRequestDetail.listTagName = this.Tags.map(x => {
                     return x.value
                 });
@@ -1737,11 +1857,11 @@
                 //this.ListOldRenewal.push(this.objRequestOldRenewal);
                 //this.objRequestOldRenewal = {};
                 this.objRequestPhienBans.push({
-                    giaNguoiLon: 0,
-                    giaTreEm: 0,
-                    giaEmBe: 0,
-                    tenPhienBan: "",
-                    mauSac: []
+                    priceEachNguoiLon: 0,
+                    priceEachTreEm: 0,
+                    netEachNguoiLon: 0,
+                    netEachTreEm:0,
+                    selectedOptions: [],
                 });
 
             },
@@ -1770,25 +1890,6 @@
                 this.objRequestPhienBans.splice(i, 1);
             },
             
-
-            AddNewMauSac(index) {
-                var newMauSac = this.templatePhienBan;
-                if (this.objRequestPhienBans[index] != null) {
-                    this.objRequestPhienBans[index].mauSac.push({
-                        giaGiam: 0,
-                        percentGiaGiam: 0,
-                        giaPhienBan: 0,
-                        tenPhienBan: "",
-                        mauSac: []
-                    });
-                }
-            },
-            DoDeleteMauSac(indexMauSac, index) {
-                if (this.objRequestPhienBans.length > index) {
-                    this.objRequestPhienBans[index].mauSac.splice(indexMauSac, 1)
-                }
-            },
-
 
             DoEditRenewal() {
                 this.objRequestOldRenewal = this.RdoOldRenewal;

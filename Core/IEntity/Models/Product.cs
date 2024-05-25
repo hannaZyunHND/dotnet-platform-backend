@@ -44,30 +44,30 @@ namespace MI.Entity.Models
         public decimal? GiaTreEm { get; set; } = 0;
         public decimal? GiaEmBe { get; set; } = 0;
 
-        public string NgayDem { get; set; }
-        public DateTime? NgayBatDau { get; set; }
-        public DateTime? NgayKetThuc { get; set; }
-        public string PhuongTien { get; set; }
+        public string NgayDem { get; set; } = "";
+        public DateTime? NgayBatDau { get; set; } = null;
+        public DateTime? NgayKetThuc { get; set; } = null;
+        public string PhuongTien { get; set; } = string.Empty;
 
 
-        // From Way2Go
-        public string SimType { get; set; } = "";
-        public string GradientColor { get; set; } = "";
-        public string Coverage { get; set; } = "";
+        //// From Way2Go
+        //public string SimType { get; set; } = "";
+        //public string GradientColor { get; set; } = "";
+        //public string Coverage { get; set; } = "";
         
         
         
-        public string DataLimit { get; set; } = "";
-        public string Validity { get; set; } = "";
-        public string SmsNumber { get; set; } = "";
-        public string PhoneMinute { get; set; } = "";
-        public string phoneMinuteInNetwork { get; set; } = "";
-        public string phoneMinuteOutNetwork { get; set; } = "";
-        public string phoneMinuteInRegion { get; set; } = "";
-        public string phoneMinuteOutRegion { get; set; } = "";
-        public string simPack { get; set; } = "";
-        public string TopUpsAvalible { get; set; } = string.Empty;
-        public string joytelProductCode { get; set; } = "";
+        //public string DataLimit { get; set; } = "";
+        //public string Validity { get; set; } = "";
+        //public string SmsNumber { get; set; } = "";
+        //public string PhoneMinute { get; set; } = "";
+        //public string phoneMinuteInNetwork { get; set; } = "";
+        //public string phoneMinuteOutNetwork { get; set; } = "";
+        //public string phoneMinuteInRegion { get; set; } = "";
+        //public string phoneMinuteOutRegion { get; set; } = "";
+        //public string simPack { get; set; } = "";
+        //public string TopUpsAvalible { get; set; } = string.Empty;
+        //public string joytelProductCode { get; set; } = "";
 
     }
 }

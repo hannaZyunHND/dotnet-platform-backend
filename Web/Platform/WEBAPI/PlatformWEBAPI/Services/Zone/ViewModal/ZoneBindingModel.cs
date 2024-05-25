@@ -5,6 +5,21 @@ using System.Threading.Tasks;
 
 namespace PlatformWEBAPI.Services.Zone.ViewModal
 {
+    public class RequestGetZoneByType
+    {
+        public int type { get; set; }
+        public string cultureCode { get; set; }
+    }
+
+    public class ResponseZoneMinify
+    {
+        public int id { get; set; }
+        public string alias { get; set; }
+        public string title { get; set; }
+        public string icon { get; set; }
+        public int parentId { get; set; }
+    }
+
     public class ZoneByTreeViewMinify
     {
         public int Id { get; set; }

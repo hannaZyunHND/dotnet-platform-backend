@@ -10,6 +10,16 @@ const getZones = ({ commit }, loai) => {
         alert('ex found:' + e)
     })
 }
+
+const getZonesTreeviewById = ({ commit }, id) => {
+    return HttpService.get(`/api/Zone/GetZonesTreeviewById?id=${id}`, {
+    }).then(response => {
+        return response.data;
+    }).catch(e => {
+        alert('ex found:' + e)
+    })
+}
+
 const getZone = ({ commit }, id) => {
     return HttpService.get(`/api/Zone/GetById?id=${id}`, {
     }).then(response => {
@@ -127,5 +137,6 @@ export default {
     supportsZone,
     updateSortZone,
     updateShowLayout,
-    updateShowSearch
+    updateShowSearch,
+    getZonesTreeviewById
 }

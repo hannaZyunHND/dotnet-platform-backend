@@ -44,7 +44,7 @@ namespace MI.Bo.Bussiness
                 using (IDbContext _context = new IDbContext())
                 {
                     IQueryable<Product> items = _context.Product.AsQueryable();
-                    items = items.Where(r => r.ParentId == 0);
+                    //items = items.Where(r => r.ParentId == 0);
                     items = items.Include(x => x.ProductInLanguage);
 
                     //items = items.Where(x => x.LanguageCode.Trim().Equals(filter.languageCode.Trim()));
@@ -368,6 +368,12 @@ namespace MI.Bo.Bussiness
                     entry.Property(x => x.LichTour).IsModified = true;
                     entry.Property(x => x.ThongTinTour).IsModified = true;
                     entry.Property(x => x.ThuTucVisa).IsModified = true;
+                    entry.Property(x => x.location).IsModified = true;
+                    entry.Property(x => x.locationIframe).IsModified = true;
+                    entry.Property(x => x.unit).IsModified = true;
+
+
+
                     //_context.ProductInLanguage.Update(obj);
                     _context.SaveChanges();
                     return true;

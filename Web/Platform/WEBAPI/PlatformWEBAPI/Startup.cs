@@ -35,6 +35,7 @@ using PlatformWEBAPI.Services.Store.Repository;
 using PlatformWEBAPI.Services.Zone.Repository;
 using PlatformWEBAPI.Utility;
 using StackExchange.Redis;
+
 using System;
 using System.Collections.Generic;
 using System.Globalization;
@@ -157,6 +158,11 @@ namespace PlatformWEBAPI
             services.AddTransient<ICookieUtility, CookieUtility>();
             #endregion
             services.AddResponseCaching();
+            // Đăng ký Swagger generator, xác định một hoặc nhiều tài liệu Swagger
+            services.AddSwaggerGen(c =>
+            {
+                c.SwaggerDoc("v1", new Swashbuckle.AspNetCore.Swagger.Info { Title = "My API", Version = "v1" });
+            });
             //gzip
             services.AddResponseCompression(options =>
             {
@@ -293,318 +299,14 @@ namespace PlatformWEBAPI
             app.UseCors("AllowAll");
             //app.ClearCacheMiddleware();
             //app.RedirectMiddleware();
-            app.UseMvc(routes =>
+            // Phục vụ middleware Swagger và thiết lập endpoint cho JSON và UI của Swagger
+            app.UseSwagger();
+            app.UseSwaggerUI(c =>
             {
-                routes.MapRoute(
-                    name: "LocalizedDefault",
-                    template: "{controller=Home}/{action=IndexPublic}/{id?}"
-                );
-                //routes.MapRoute(
-                //    name: "LocalizedDefault",
-                //    template: "{lang:lang}/{controller=Home}/{action=IndexPublic}/{id?}"
-                //);
-                routes.MapRoute(
-                    name: "SiteMap",
-                    template: "sitemap.xml",
-                    defaults: new { controller = "Extra", action = "SiteMapGenerate" }
-                );
-                routes.MapRoute(
-                    name: "PickupPoint",
-                    template: "pickup-points",
-                    defaults: new { controller = "Blog", action = "PickupPoint" }
-                );
-                routes.MapRoute(
-                    name: "QuestAndAnswer",
-                    template: "frequently-asked-questions",
-                    defaults: new { controller = "Blog", action = "QandA" }
-                );
-                routes.MapRoute(
-                    name: "TermAndCondition",
-                    template: "terms-and-conditions",
-                    defaults: new { controller = "Blog", action = "TermAndCondition" }
-                );
-                routes.MapRoute(
-                    name: "TermAndConditions",
-                    template: "terms-and-conditions",
-                    defaults: new { controller = "Blog", action = "TermAndCondition" }
-                );
-                routes.MapRoute(
-                    name: "BecomeAPartner",
-                    template: "become-a-partner",
-                    defaults: new { controller = "Blog", action = "BecomeAPartner" }
-                );
-                routes.MapRoute(
-                    name: "RobotsTxt",
-                    template: "robots.xml",
-                    defaults: new { controller = "Extra", action = "RobotsTxt" }
-                );
-                routes.MapRoute(
-                    name: "OrdersRemaster",
-                    template: "gio-hang",
-                    defaults: new { controller = "Order", action = "Orders" }
-                );
-                routes.MapRoute(
-                    name: "HomeSearchRemaster",
-                    template: "tim-kiem-nhanh",
-                    defaults: new { controller = "Product", action = "ProductFilterInHome" }
-                );
-                routes.MapRoute(
-                    name: "MySim",
-                    template: "my-sim",
-                    defaults: new { controller = "Customer", action = "Index" }
-                );
-                routes.MapRoute(
-                    name: "BuyAllCart",
-                    template: "buy-all-cart",
-                    defaults: new { controller = "Customer", action = "BuyAllCart" }
-                );
-                routes.MapRoute(
-                    name: "cart",
-                    template: "my-cart",
-                    defaults: new { controller = "Customer", action = "Cart" }
-                );
-                routes.MapRoute(
-                    name: "EsSearchRemaster",
-                    template: "tim-kiem",
-                    defaults: new { controller = "Product", action = "ESSearchResult" }
-                );
-                //routes.MapRoute(
-                //    name: "HomeSearchRemaster",
-                //    template: "tim-kiem-nhanh",
-                //    defaults: new { controller = "Product", action = "ProductFilterInHome" }
-                //);
-                routes.MapRoute(
-                    name: "EsimatesRemaster",
-                    template: "du-toan-cong-trinh",
-                    defaults: new { controller = "Estimates", action = "ContructionEstimates" }
-                );
-                routes.MapRoute(
-                    name: "StoreRemaster",
-                    template: "chi-nhanh",
-                    defaults: new { controller = "Store", action = "StoreList" }
-                );
-                routes.MapRoute(
-                    name: "GioiThieu",
-                    template: "gioi-thieu",
-                    defaults: new { controller = "Blog", action = "GioiThieu" }
-                );
-                routes.MapRoute(
-                    name: "About-Us",
-                    template: "about-us",
-                    defaults: new { controller = "Blog", action = "GioiThieu" }
-                );
-
-                //routes.MapRoute(
-                //    name: "ProductComponentList",
-                //    template: "sua-chua",
-                //    defaults: new { controller = "ProductComponent", action = "ProductComponentList" }
-                //    );
-                routes.MapRoute(
-                    name: "ProductComponentList_Zone",
-                    template: "sua-chua/{alias}",
-                    defaults: new { controller = "ProductComponent", action = "ProductComponentList_Zone" }
-                    );
-
-                routes.MapRoute(
-                    name: "KiemTraDonHang",
-                    template: "kiem-tra-don-hang",
-                    defaults: new { controller = "Order", action = "KiemTraDonHang" }
-                );
-                routes.MapRoute(
-                    name: "FlashSaleRemaster",
-                    template: "flash-sale",
-                    defaults: new { controller = "FlashSale", action = "FlashSaleList" }
-                    );
-                routes.MapRoute(
-                    name: "ContactRemaster",
-                    template: "lien-he",
-                    defaults: new { controller = "Contact", action = "Index" }
-                    );
-                routes.MapRoute(
-                    name: "ContactRemasterEn",
-                    template: "contact-us",
-                    defaults: new { controller = "Contact", action = "Index" }
-                    );
-                routes.MapRoute(
-                    name: "LuckySpin",
-                    template: "{alias}",
-                    defaults: new { controller = "LuckySpin", action = "LuckySpin" },
-                    constraints: new
-                    {
-                        alias = "vong-quay-may-man.html$"
-                    });
-                routes.MapRoute(
-                    name: "P404",
-                    template: "{alias}",
-                    defaults: new { controller = "P404", action = "P404" },
-                    constraints: new
-                    {
-                        alias = "p404.html"
-                    });
-                routes.MapRoute(
-                    name: "ProductChangeNew",
-                    template: "{alias}.pn{id}.html",
-                    defaults: new { controller = "Product", action = "ProductOldRenewal" }
-                    );
-                routes.MapRoute(
-                    name: "ArticleRemaster",
-                    template: "{alias}",
-                    defaults: new { controller = "Blog", action = "RedirectAction" },
-                    constraints: new { alias = ".*\\.html$" }
-                );
-                routes.MapRoute(
-                    name: "ArticleAMPRemaster",
-                    template: "{alias}",
-                    defaults: new { controller = "Blog", action = "AMPRedirectAction" },
-                    constraints: new { alias = ".*\\.amp.html$" }
-                );
-                routes.MapRoute(
-                    name: "ArticleUrlRemaster",
-                    template: "tin-tong-hop/{alias}",
-                    defaults: new { controller = "Zone", action = "RedirectAction" }
-                    //constraints: new { alias = "^((?!.html).)*$" }
-                );
-                routes.MapRoute(
-                    name: "ZoneUrlRemaster",
-                    template: "{alias}",
-                    defaults: new { controller = "Zone", action = "RedirectAction" }
-                    //constraints: new { alias = "^((?!.html).)*$" }
-                );
-                routes.MapRoute(
-                   name: "ZoneUrlRemasterWithPaging",
-                   template: "{alias}/page/{pageIndex}",
-                   defaults: new { controller = "Zone", action = "RedirectAction" }
-               //constraints: new { alias = "^((?!.html).)*$" }
-               );
-                routes.MapRoute(
-                    name: "ProductInRegion",
-                    template: "danh-muc/{region}",
-                    defaults: new { controller = "FilterProduct", action = "FilterProductByRegion" }
-                    //constraints: new { alias = "^((?!.html).)*$" }
-                );
-                routes.MapRoute(
-                    name: "ProductInDiemDen",
-                    template: "diem-den/{region}",
-                    defaults: new { controller = "FilterProduct", action = "FilterProductByDiemDen" }
-                    //constraints: new { alias = "^((?!.html).)*$" }
-                );
-                routes.MapRoute(
-                    name: "ProductInTag",
-                    template: "the/{tag}",
-                    defaults: new { controller = "FilterProduct", action = "FilterProductByTag" }
-                    //constraints: new { alias = "^((?!.html).)*$" }
-                );
-                routes.MapRoute(
-                    name: "ProductCategory",
-                    template: "{lang}/{alias}.c{zoneId}.html",
-                    defaults: new { controller = "Product", action = "ProductList" }
-                    //constraints : new { alias = "[^\\.]",id="1" , lang = "vi" }
-                    );
-                routes.MapRoute(
-                    name: "ProductDetail",
-                    template: "{lang}/{alias}.p{product_id}.html",
-                    defaults: new { controller = "Product", action = "ProductDetail" }
-                    );
-
-                routes.MapRoute(
-                    name: "Orders",
-                    template: "{lang}/cart.html",
-                    defaults: new { controller = "Order", action = "Orders" }
-                    );
-                //routes.MapRoute(
-                //    name: "Blogs",
-                //    template: "{lang}/blog.html",
-                //    defaults: new { controller = "Blog", action = "BlogList1" }
-                //    );
-                routes.MapRoute(
-                    name: "Blogs",
-                    template: "{lang}/{alias}.bp{zone_id}.html",
-                    defaults: new { controller = "Blog", action = "BlogList1" }
-                    );
-                //routes.MapRoute(
-                //    name: "Promotions",
-                //    template: "{lang:lang}/{controller=Promotion}/{action=PromotionList}/{pageIndex?}",
-                //    defaults: new { controller = "Promotion", action = "PromotionList" }
-                //    );
-                routes.MapRoute(
-                    name: "Promotions",
-                    template: "{lang}/promotion.html",
-                    defaults: new { controller = "Promotion", action = "PromotionList" }
-                    );
-                routes.MapRoute(
-                    name: "Recruitment",
-                    template: "{lang}/recruitment.html",
-                    defaults: new { controller = "Recruitment", action = "RecruitmentList" }
-                    );
-                routes.MapRoute(
-                    name: "Quotation",
-                    template: "{lang}/quotation.html",
-                    defaults: new { controller = "Quotation", action = "QuotationList" }
-                    );
-                routes.MapRoute(
-                    name: "DownloadCategory",
-                    template: "{lang}/download-category.html",
-                    defaults: new { controller = "Categories", action = "CategoriesList" }
-                    );
-                routes.MapRoute(
-                    name: "Store",
-                    template: "{lang}/store.html",
-                    defaults: new { controller = "Store", action = "StoreList" }
-                    );
-                routes.MapRoute(
-                    name: "FlashSale",
-                    template: "{lang}/flash-sale.html",
-                    defaults: new { controller = "FlashSale", action = "FlashSaleList" }
-                    );
-                routes.MapRoute(
-                    name: "ArticleByTag",
-                    template: "{lang}/filter-by-{tag}.html",
-                    defaults: new { controller = "Blog", action = "FilterArticleByTag" }
-                    );
-                routes.MapRoute(
-                    name: "BlogCategory",
-                    template: "{lang}/{alias}.b{zoneId}.html",
-                    defaults: new { controller = "Blog", action = "BlogList2" }
-                    );
-                routes.MapRoute(
-                    name: "DownloadCategoryId",
-                    template: "{lang}/{alias}.dc{zoneId}.html",
-                    defaults: new { controller = "Categories", action = "CategoriesList1" }
-                    );
-                routes.MapRoute(
-                    name: "ConstructionEstimates",
-                    template: "{lang}/estimates.html",
-                    defaults: new { controller = "Estimates", action = "ContructionEstimates" }
-                    );
-                routes.MapRoute(
-                    name: "ArticleDetail",
-                    template: "{lang}/{alias}.a{articleId}.html",
-                    defaults: new { controller = "Blog", action = "BlogDetail" }
-                    );
-
-                routes.MapRoute(
-                    name: "RedirectToParentZone",
-                    template: "{lang}/{alias}.redirect{parent_id}.html",
-                    defaults: new { controller = "Extra", action = "RedirectToParentZone" }
-                    );
-                // Trả góp
-                routes.MapRoute(
-                  name: "InstallmentIndex",
-                  template: "/tra-gop/{alias}",
-                  defaults: new { controller = "Installment", action = "Index" }
-                );
-
-                routes.MapRoute(
-                name: "InstallmentIndex1",
-                template: "/cong-ty-tai-chinh/{alias}",
-                defaults: new { controller = "Installment", action = "Index" }
-            );
-
-                //routes.MapRoute(
-                //    name: "default",
-                //    template: "{*catchall}",
-                //    defaults: new { controller = "Home", action = "RedirectToDefaultCulture", lang = "vi" });
+                c.SwaggerEndpoint("/swagger/v1/swagger.json", "My API V1");
+                c.RoutePrefix = string.Empty;  // Đặt Swagger UI là trang chủ
             });
+            app.UseMvc();
 
         }
     }

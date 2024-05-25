@@ -208,84 +208,6 @@ namespace MI.Dapper.Data.Repositories.Impl
             return 0;
         }
 
-        public async Task<int> CloneAProductAsync(int productId, PhienBans phienBans, int isCloneLanguage = 1)
-        {
-            using(var connection = new SqlConnection(_connectionString))
-            {
-                try
-                {
-                    if (connection.State == ConnectionState.Closed)
-                    {
-                        connection.Open();
-                    }
-
-                    var parameters = new DynamicParameters();
-                    parameters.Add("@idProduct", productId);
-                    parameters.Add("@Id", phienBans.id);
-                    parameters.Add("@ParentId", phienBans.parentId);
-                    parameters.Add("@Name", phienBans.tenPhienBan);
-                    parameters.Add("@Price", phienBans.giaPhienBan);
-                    parameters.Add("@DiscountPrice", phienBans.giaGiam);
-                    parameters.Add("@DiscountPercent", phienBans.percentGiaGiam);
-                    parameters.Add("@GiaNguoiLon", phienBans.giaNguoiLon);
-                    parameters.Add("@GiaTreEm", phienBans.giaTreEm);
-                    parameters.Add("@GiaEmBe", phienBans.giaEmBe);
-                    parameters.Add("@NgayBatDau", phienBans.NgayBatDau);
-                    parameters.Add("@NgayKetThuc", phienBans.NgayKetThuc);
-                    parameters.Add("@isCloneLanguage", isCloneLanguage);
-                    
-                    parameters.Add("@outId", dbType: DbType.Int32, direction: ParameterDirection.Output);
-                    var result = await connection.ExecuteAsync("usp_CMS_CloneAProduct", parameters, null, null,
-                        CommandType.StoredProcedure);
-                    var newId = parameters.Get<dynamic>("@outId");
-                    return newId;
-                }
-                catch (Exception e)
-                {
-                }
-
-            }
-            return 0;
-        }
-
-        public async Task<int> CloneAProductAsyncV2(int productId, SimTopUp topup, int isCloneLanguage = 1)
-        {
-            using (var connection = new SqlConnection(_connectionString))
-            {
-                try
-                {
-                    if (connection.State == ConnectionState.Closed)
-                    {
-                        connection.Open();
-                    }
-                    
-                    var parameters = new DynamicParameters();
-                    parameters.Add("@idProduct", productId);
-                    parameters.Add("@id", topup.id);
-                    parameters.Add("@parentId", topup.parentId);
-                    parameters.Add("@title", topup.title);
-                    parameters.Add("@price", topup.price);
-                    parameters.Add("@coverage", topup.coverage);
-                    parameters.Add("@dataLimit", topup.dataLimit);
-                    parameters.Add("@validity", topup.validaty);
-                    parameters.Add("@smsNumber", topup.smsNumber);
-                    parameters.Add("@phoneMinute", topup.phoneMinute);
-                    parameters.Add("@randomString", GenerateRandomString());
-                    parameters.Add("@isCloneLanguage", isCloneLanguage);
-
-                    parameters.Add("@outId", dbType: DbType.Int32, direction: ParameterDirection.Output);
-                    var result = await connection.ExecuteAsync("usp_CMS_CloneAProduct_v2", parameters, null, null,
-                        CommandType.StoredProcedure);
-                    var newId = parameters.Get<dynamic>("@outId");
-                    return newId;
-                }
-                catch (Exception e)
-                {
-                }
-
-            }
-            return 0;
-        }
         //usp_CMS_CloneAProduct_v2
         private string GenerateRandomString()
         {
@@ -493,6 +415,16 @@ namespace MI.Dapper.Data.Repositories.Impl
                 var result = connection.Query<EsSearchItem>("usp_Web_ElasticAll", commandType: CommandType.StoredProcedure).ToList();
                 return result;
             }
+        }
+
+        public Task<int> CloneAProductAsync(int productId, PhienBans phienBans, int isCloneLanguage = 1)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<int> CloneAProductAsyncV2(int productId, SimTopUp topups, int isCloneLanguage = 1)
+        {
+            throw new NotImplementedException();
         }
 
         //Add by AnhNV end

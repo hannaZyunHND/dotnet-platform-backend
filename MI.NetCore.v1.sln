@@ -45,7 +45,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "CMS", "CMS", "{C8B7C49D-419
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PlatformCMS", "Web\Platform\CMS\PlatformCMS\PlatformCMS.csproj", "{3C14E220-D042-4987-8762-D999343E9008}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PlatformWEBAPI", "Web\Platform\WEBAPI\PlatformWEBAPI\PlatformWEBAPI.csproj", "{3DC55B69-A5E7-4C34-9C4A-F2980E6EE54B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PlatformWEBAPI", "Web\Platform\WEBAPI\PlatformWEBAPI\PlatformWEBAPI.csproj", "{3DC55B69-A5E7-4C34-9C4A-F2980E6EE54B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

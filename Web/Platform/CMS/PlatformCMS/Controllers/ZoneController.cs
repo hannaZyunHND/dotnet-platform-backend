@@ -91,6 +91,24 @@ namespace PlatformCMS.Controllers
             }
             return responseData;
         }
+        [HttpGet("GetZonesTreeviewById")]
+        public ResponseData GetZonesTreeviewById(int id)
+        {
+            ResponseData responseData = new ResponseData();
+            try
+            {
+                var data = new List<Zone>();
+                data = MI.Cache.RamCache.DicZone.Values.Where(x => ((id == 0) || (x.ParentId == id || x.Id == id))).ToList();
+                responseData.Success = true;
+                responseData.Message = "Thành công";
+                responseData.ListData = data.Select(x => new { id = x.Id, label = x.Name, parentId = x.ParentId, type = x.Type }).ToList<object>();
+            }
+            catch (Exception ex)
+            {
+
+            }
+            return responseData;
+        }
 
 
 

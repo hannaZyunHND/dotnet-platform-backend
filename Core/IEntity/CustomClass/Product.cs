@@ -29,17 +29,7 @@ namespace MI.Entity.Models
             this.NgayBatDau = null;
             this.NgayKetThuc = null;
             this.PhuongTien = string.Empty;
-            this.GradientColor = string.Empty;
-            this.Coverage = string.Empty;
-            this.DataLimit = "";
-            this.Validity = "";
-            this.SmsNumber = "";
-            this.PhoneMinute = "";
-            this.phoneMinuteInNetwork = "";
-            this.phoneMinuteOutNetwork = "";
-            this.phoneMinuteInRegion = "";
-            this.phoneMinuteOutRegion = "";
-            this.TopUpsAvalible = string.Empty;
+            
     }
         public virtual ICollection<ProductInArticle> ProductInArticle { get; set; }
         public virtual ICollection<ProductInLanguage> ProductInLanguage { get; set; }

@@ -99,7 +99,7 @@ namespace MI.Dal.IDbContext
         public virtual DbSet<BankInstallment> BankInstallment { get; set; }
         public virtual DbSet<ProductInBankInstallment> ProductInBankInstallment { get; set; }
         public virtual DbSet<ProductSerialNumbers> ProductSerialNumbers { get; set; }
-
+        public virtual DbSet<ProductPriceInZoneList> ProductPriceInZoneList { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

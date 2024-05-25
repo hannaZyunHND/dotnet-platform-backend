@@ -7,6 +7,65 @@ using System.Threading.Tasks;
 
 namespace PlatformWEBAPI.Services.Order.ViewModal
 {
+
+
+    public class RequestCreateMultipleItemOrder
+    {
+        public List<Pay> pays { get; set; } = new List<Pay>();
+        public CustomerAuth auth { get; set; } = new CustomerAuth();
+    }
+
+    public class ResponseCreateMultipleItemOrder
+    {
+        public CustomerAuth auth { get; set;  } = new CustomerAuth();
+        public string orderCode { get; set; } = string.Empty;
+    }
+    public class CustomerAuth {
+        public int id { get; set; } = 0;
+        public string email { get; set; } = "";
+        public string firstName { get; set; } = "";
+        public string lastName { get; set; } = "";
+        public string country { get; set; } = "";
+        public string phonePrefix { get; set; } = "";
+        public string phoneNumber { get; set; } = "";
+    }
+    public class Pay
+    {
+        public string choosenDate { get; set; } = "";
+        public combination combination { get; set; } = new combination();
+        public List<currentPickOption> currentPickOption { get; set; } = new List<currentPickOption>();
+        public int numberOfAldut { get; set; } = 0;
+        public int numberOfChildrend { get; set; } = 0;
+        public int couponValue { get; set; } = 0;
+        public int couponType { get; set; } = 0;
+        public int totalPrice { get; set; } = 0;
+        public string avatar { get; set; } = string.Empty;
+        public string bookingName { get; set; } = string.Empty;
+        public int productId { get; set; } = 0;
+        public int productChildId { get; set; } = 0;
+        public string bookingParentName { get; set; } = string.Empty;
+    }
+
+    public class combination
+    {
+        public int id { get; set; } = 0;
+        public string zoneList { get; set; } = "";
+        public int priceEachNguoiLon { get; set; } = 0;
+        public int priceEachTreEm { get; set; } = 0;
+        public int netEachNguoiLon { get; set; } = 0;
+        public int netEachTreEm { get; set; } = 0;
+        public int productId { get; set; } = 0;
+        public List<int> convertedZoneList { get; set; } = new List<int>();
+    }
+
+    public class currentPickOption
+    {
+        public string parentGroup { get; set; } = "";
+        public int pickItem { get; set; } = 0;
+        public string pickItemName { get; set; } = "";
+    }
+
+
     public class OrderViewModel
     {
         public string OrderCode { get; set; }

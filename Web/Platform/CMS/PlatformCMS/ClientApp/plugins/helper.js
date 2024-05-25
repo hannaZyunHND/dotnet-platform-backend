@@ -78,12 +78,15 @@ function unflatten(arr) {
             mappedElem = mappedArr[id];
             // If the element is not at the root level, add it to its parent array of children.
             if (mappedElem.parentId) {
-                try {
-                    mappedArr[mappedElem['parentId']]['children'].push(mappedElem);
+                if (mappedElem.children) {
+                    try {
+                        mappedArr[mappedElem['parentId']]['children'].push(mappedElem);
+                    }
+                    catch (ex) {
+                        console.log(ex);
+                    }
                 }
-                catch (ex) {
-                    console.log(ex);
-                }
+                
             }
             // If the element is at the root level, add it to first level elements array.
             else {
@@ -132,7 +135,7 @@ export function slug(str) {
 
 export function pathImg(title) {
     if (title != null && title != undefined && title.length > 0) {
-        title = "http://way2gocms.hndedu.com/" + "uploads/thumb" + title;
+        title = "http://platformcms.hndedu.com/" + "uploads/thumb" + title;
     }
     return title;
 
@@ -140,7 +143,7 @@ export function pathImg(title) {
 
 export function urlBase(title) {
     if (title != null && title != undefined && title.length > 0) {
-        title = "http://way2gocms.hndedu.com/" + title + ".html";
+        title = "http://platformcms.hndedu.com/" + title + ".html";
     }
     return title;
 

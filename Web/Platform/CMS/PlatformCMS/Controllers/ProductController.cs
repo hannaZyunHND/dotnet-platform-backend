@@ -1,4 +1,5 @@
 using MI.Bo.Bussiness;
+using MI.Dal.IDbContext;
 using MI.Dapper.Data.Models;
 using MI.Dapper.Data.Repositories.Interfaces;
 using MI.Entity.Common;
@@ -190,9 +191,13 @@ namespace PlatformCMS.Controllers
 
                 if (objPro != null)
                 {
-                    var listZoneDiemDen = zoneBCL.FindAll().Where(r => r.Type == (int)TypeZone.DiemDen).Select(r => r.Id).ToList()
-; responseData.ListCat = objPro.ProductInZone.OrderByDescending(x => x.IsPrimary).Select(x => x.ZoneId).Where(r => !listZoneDiemDen.Contains(r)).ToList();
+                    var listZoneDiemDen = zoneBCL.FindAll().Where(r => r.Type == (int)TypeZone.DiemDen).Select(r => r.Id).ToList();
+                    var listZoneOption = zoneBCL.FindAll().Where(r => r.Type == (int)TypeZone.ProductOptions).Select(r => r.Id).ToList();
+                    var listZoneTag = zoneBCL.FindAll().Where(r => r.Type == (int)TypeZone.Tag).Select(r => r.Id).ToList();
+                    responseData.ListCat = objPro.ProductInZone.OrderByDescending(x => x.IsPrimary).Select(x => x.ZoneId).Where(r => !listZoneDiemDen.Contains(r) && !listZoneOption.Contains(r) && !listZoneTag.Contains(r)).ToList();
                     responseData.ListDiemDen = objPro.ProductInZone.OrderByDescending(x => x.IsPrimary).Select(x => x.ZoneId).Where(r => listZoneDiemDen.Contains(r)).ToList();
+                    responseData.ListProductOption = objPro.ProductInZone.OrderByDescending(x => x.IsPrimary).Select(x => x.ZoneId).Where(r => listZoneOption.Contains(r)).ToList();
+                    responseData.ListTagOption = objPro.ProductInZone.OrderByDescending(x => x.IsPrimary).Select(x => x.ZoneId).Where(r => listZoneTag.Contains(r)).ToList();
                     responseData.ListProp = Utils.Utility.SplitStringToListInt(objPro.PropertyId);
                     responseData.ListColor = Utils.Utility.SplitStringToList(objPro.Color);
                     responseData.ListArticle = MI.Cache.RamCache.DicArticle.ToList();
@@ -309,21 +314,8 @@ namespace PlatformCMS.Controllers
                     int result = productBCL.Update(product, product.ProductInZone.ToList());
                     if (result > 0)
                     {
-                        //Update phien ban o day
-                        var productChilds = productBCL.FindAll(r => r.ParentId == product.Id);
-                        foreach (var child in productChilds)
-                        {
-                            productBCL.UpdateTrangThai(new MI.Entity.Models.Product { Id = child.Id, Status = 3 });
-                        }
-                        //await _productRepository.DeleteProductChild(lstProducts, item.id);
-
-                        foreach (var item in request.simTopUps)
-                        {
-                            item.parentId = product.Id;
-
-                            var outId = 0;
-                            outId = await _productRepository.CloneAProductAsyncV2(product.Id, item, 1);
-                        }
+                        // Update phien ban o day
+                        var updatedPhienBan = productBCL.UpdatePhienBan(request.PhienBans, result);
                         responseData.Success = true;
                         responseData.Message = "Thành công";
                         responseData.Id = result;
@@ -349,34 +341,33 @@ namespace PlatformCMS.Controllers
         [HttpGet("GetPhienBan")]
         public List<PhienBans> GetPhienBansByParentId(int idProduct)
         {
+            var response = new List<PhienBans>();
             if (idProduct > 0)
             {
-                var result = _productRepository.GetListPhienBanByParentId(idProduct);
-                var returnResult = new List<PhienBans>();
-                if (result.Count > 0)
+                using (IDbContext context = new IDbContext())
                 {
-                    var node = result.Where(r => r.parentId == idProduct).ToList();
-                    foreach (var item in node)
+                    var res = context.ProductPriceInZoneList.Where(r => r.ProductId == idProduct).ToList();
+                    if(res != null)
                     {
-                        if (item.tenPhienBan.Split(";").Length >= 2)
+                        foreach(var item in res)
                         {
-                            item.tenPhienBan = item.tenPhienBan.Split(";")[1];
-                        }
-                        var leafs = result.Where(r => r.parentId == item.id).ToList();
-                        foreach (var l in leafs)
-                        {
-                            if (l.tenPhienBan.Split(";").Length >= 3)
-                            {
-                                l.tenPhienBan = l.tenPhienBan.Split(";")[2];
+                            var _obj = new PhienBans();
+                            _obj.priceEachNguoiLon = item.PriceEachNguoiLon;
+                            _obj.priceEachTreEm = item.PriceEachTreEm;
+                            _obj.netEachNguoiLon = item.NetEachNguoiLon;
+                            _obj.netEachTreEm = item.NetEachTreEm;
+                            var selectedOptionsStringArr = item.ZoneList.Split(",");
+                            _obj.selectedOptions = new List<int>();
+                            foreach(var option in selectedOptionsStringArr) {
+                                _obj.selectedOptions.Add(int.Parse(option));
                             }
+                            response.Add(_obj);
                         }
-                        item.mauSac.AddRange(leafs);
-                        returnResult.Add(item);
                     }
                 }
-                return returnResult;
+                    
             }
-            return null;
+            return response;
         }
 
         [HttpGet("GetTopUps")]
@@ -542,7 +533,6 @@ namespace PlatformCMS.Controllers
     {
         public MI.Entity.Models.Product Product { get; set; }
         public List<PhienBans> PhienBans { get; set; }
-        public List<SimTopUp> simTopUps { get; set; }
     }
 
 }

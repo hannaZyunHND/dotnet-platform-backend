@@ -28,6 +28,9 @@ namespace MI.Entity.Models
         public string LichTour { get; set; }
         public string ThongTinTour { get; set; }
         public string ThuTucVisa { get; set; }
+        public string location { get; set; }
+        public string locationIframe { get; set; }
+        public string unit { get; set; }
 
         public Product Product { get; set; }
     }

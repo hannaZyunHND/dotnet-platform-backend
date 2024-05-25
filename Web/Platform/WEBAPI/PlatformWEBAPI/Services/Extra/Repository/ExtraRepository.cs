@@ -861,7 +861,7 @@ namespace PlatformWEBAPI.Services.Extra.Repository
                         var prod = orderDetails.Where(r => r.ProductId == productId && r.ICCID == newIccid).FirstOrDefault();
                         if (prod != null)
                         {
-                            var productDetail = _productRepository.GetProductInfomationDetail(productId, "en-US");
+                            var productDetail = _productRepository.GetProductInfomationDetail(productId,"en-US");
                             var dataLimit = productDetail.DataLimit.Replace("NGAY", "DAY");
                             if (productDetail != null)
                             {

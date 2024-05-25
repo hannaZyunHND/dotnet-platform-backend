@@ -32,6 +32,9 @@ namespace MI.Entity.Models
             this.ThuTucVisa = string.Empty;
             this.ThongTinTour = string.Empty;   
             this.LichTour = string.Empty;
+            this.location = string.Empty;
+            this.locationIframe = string.Empty;
+            this.unit = string.Empty;
         }
         public ProductInLanguage(ProductInLanguage obj, List<string> lstTags)
         {
@@ -61,6 +64,9 @@ namespace MI.Entity.Models
             this.ThuTucVisa = obj.ThuTucVisa;
             this.ThongTinTour = obj.ThongTinTour;
             this.LichTour = obj.LichTour;
+            this.location = obj.location;
+            this.locationIframe = obj.locationIframe;
+            this.unit = obj.unit;
         }
     }
 }

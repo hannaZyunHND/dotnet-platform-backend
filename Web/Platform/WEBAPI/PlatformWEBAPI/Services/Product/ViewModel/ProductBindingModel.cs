@@ -1,10 +1,42 @@
-﻿using System;
+﻿using MI.Entity.Models;
+using PlatformWEBAPI.Services.Zone.ViewModal;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
 namespace PlatformWEBAPI.Services.Product.ViewModel
 {
+    public class RequestGetProductDetail
+    {
+        public int id { get; set; } = 0;
+        public string alias { get; set; }
+        public string cultureCode { get; set; }
+    }
+    public class RequestGetProductPriceOptions
+    {
+        public int id { get; set; }
+        public string cultureCode { get; set; }
+    }
+
+    public class RequestPriceFromProductOptionCombination
+    {
+        public int productId { get; set; }
+        public List<int> Combinations { get; set; }
+    }
+
+    public class ResponseGetProductPriceOptions
+    {
+        public ZoneByTreeViewMinify zoneParent { get; set; } = new ZoneByTreeViewMinify();
+        public List<ZoneByTreeViewMinify> zoneChilds { get; set; } = new List<ZoneByTreeViewMinify>();
+        public List<ProductPriceInZoneList> combinations { get; set; } = new List<ProductPriceInZoneList>();
+
+    }
+    public class ResponseGetProductDetail
+    {
+        public ProductDetail productDetail { get; set; }
+    }
+
     public class ProductMinify
     {
         public int ZoneId { get; set; }
@@ -82,7 +114,8 @@ namespace PlatformWEBAPI.Services.Product.ViewModel
         public string phoneMinuteInRegion { get; set; }
         public string phoneMinuteOutRegion { get; set; }
         public string simPack { get; set; }
-
+        public bool isActive { get; set; } = false;
+        public string tagCombineds { get; set; }
         //,[o].OrderCode, [od].ICCID, [od].LogPrice, [o].CreatedDate [OrderCreatedDate]
     }
 
@@ -158,6 +191,14 @@ namespace PlatformWEBAPI.Services.Product.ViewModel
         public string phoneMinuteOutRegion { get; set; }
         public string simPack { get; set; }
         public string joytelProductCode { get; set; }
+
+        public List<ResponseReviewModel> reviews { get; set; } = new List<ResponseReviewModel>();
+
+        public List<ProductMinify> productChilds { get; set; } = new List<ProductMinify>();
+        public List<ProductMinify> productSameZones { get; set; } = new List<ProductMinify>();
+        public string location { get; set; }
+        public string locationIframe { get; set; }
+        public string tagCombineds { get; set; }
 
 
         //public DateTime? NgayBatDau { get; set; }
@@ -303,7 +344,13 @@ namespace PlatformWEBAPI.Services.Product.ViewModel
         public string tieuDe { get; set; }
         public string noiDung { get; set; }
     }
-
+    public class ResponseReviewModel
+    {
+        public string userName { get; set; }
+        public string country { get; set; }
+        public string content { get; set; }
+        public List<string> images { get; set; }
+    }
 
     public class EsSearchItemResult
     {

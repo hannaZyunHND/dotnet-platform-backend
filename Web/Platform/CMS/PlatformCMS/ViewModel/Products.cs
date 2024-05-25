@@ -12,6 +12,9 @@ namespace PlatformCMS.ViewModel
         public Product Data { get; set; }
         public List<int> ListCat { get; set; }
         public List<int> ListDiemDen { get; set; }
+        public List<int> ListProductOption { get; set; }
+        public List<int> ListTagOption { get; set; }
+
         public List<int> ListProp { get; set; }
         public List<string> ListColor { get; set; }
         public List<KeyValuePair<int, string>> ListArticle { get; set; }

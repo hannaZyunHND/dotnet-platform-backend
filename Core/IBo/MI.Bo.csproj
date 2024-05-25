@@ -10,6 +10,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\MI.Dapper.Data\MI.Dapper.Data.csproj" />
     <ProjectReference Include="..\IDal\MI.Dal.csproj" />
     <ProjectReference Include="..\IEntity\MI.Entity.csproj" />
   </ItemGroup>

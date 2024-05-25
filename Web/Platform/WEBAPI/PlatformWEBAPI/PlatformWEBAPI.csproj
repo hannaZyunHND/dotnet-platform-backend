@@ -6,22 +6,122 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="ViewComponents\**" />
+    <Compile Remove="Views\Blog\**" />
+    <Compile Remove="Views\Categories\**" />
     <Compile Remove="Views\Common\**" />
+    <Compile Remove="Views\Contact\**" />
+    <Compile Remove="Views\Customer\**" />
+    <Compile Remove="Views\CutNew\**" />
+    <Compile Remove="Views\Departmant\**" />
+    <Compile Remove="Views\Estimates\**" />
+    <Compile Remove="Views\Extra\**" />
+    <Compile Remove="Views\FilterArticle\**" />
+    <Compile Remove="Views\FilterProduct\**" />
+    <Compile Remove="Views\FlashSale\**" />
+    <Compile Remove="Views\Home\**" />
+    <Compile Remove="Views\Installment\**" />
+    <Compile Remove="Views\LuckySpin\**" />
+    <Compile Remove="Views\Order\**" />
+    <Compile Remove="Views\P404\**" />
+    <Compile Remove="Views\ProductComponent\**" />
+    <Compile Remove="Views\Product\**" />
+    <Compile Remove="Views\Promotion\**" />
+    <Compile Remove="Views\Quotation\**" />
+    <Compile Remove="Views\Recruitment\**" />
+    <Compile Remove="Views\Shared\**" />
+    <Compile Remove="Views\Store\**" />
+    <Compile Remove="Views\Zone\**" />
     <Compile Remove="wwwroot - Copy\**" />
     <Compile Remove="wwwroot\js\autocomplate\**" />
     <Compile Remove="wwwroot\js\libs\comfirm\**" />
     <Compile Remove="wwwroot\vendor\Simple-jQuery-Magnifying-Glass-Image-Zoom-Plugin-magnify-js\**" />
+    <Content Remove="ViewComponents\**" />
+    <Content Remove="Views\Blog\**" />
+    <Content Remove="Views\Categories\**" />
     <Content Remove="Views\Common\**" />
+    <Content Remove="Views\Contact\**" />
+    <Content Remove="Views\Customer\**" />
+    <Content Remove="Views\CutNew\**" />
+    <Content Remove="Views\Departmant\**" />
+    <Content Remove="Views\Estimates\**" />
+    <Content Remove="Views\Extra\**" />
+    <Content Remove="Views\FilterArticle\**" />
+    <Content Remove="Views\FilterProduct\**" />
+    <Content Remove="Views\FlashSale\**" />
+    <Content Remove="Views\Home\**" />
+    <Content Remove="Views\Installment\**" />
+    <Content Remove="Views\LuckySpin\**" />
+    <Content Remove="Views\Order\**" />
+    <Content Remove="Views\P404\**" />
+    <Content Remove="Views\ProductComponent\**" />
+    <Content Remove="Views\Product\**" />
+    <Content Remove="Views\Promotion\**" />
+    <Content Remove="Views\Quotation\**" />
+    <Content Remove="Views\Recruitment\**" />
+    <Content Remove="Views\Shared\**" />
+    <Content Remove="Views\Store\**" />
+    <Content Remove="Views\Zone\**" />
     <Content Remove="wwwroot - Copy\**" />
     <Content Remove="wwwroot\js\autocomplate\**" />
     <Content Remove="wwwroot\js\libs\comfirm\**" />
     <Content Remove="wwwroot\vendor\Simple-jQuery-Magnifying-Glass-Image-Zoom-Plugin-magnify-js\**" />
+    <EmbeddedResource Remove="ViewComponents\**" />
+    <EmbeddedResource Remove="Views\Blog\**" />
+    <EmbeddedResource Remove="Views\Categories\**" />
     <EmbeddedResource Remove="Views\Common\**" />
+    <EmbeddedResource Remove="Views\Contact\**" />
+    <EmbeddedResource Remove="Views\Customer\**" />
+    <EmbeddedResource Remove="Views\CutNew\**" />
+    <EmbeddedResource Remove="Views\Departmant\**" />
+    <EmbeddedResource Remove="Views\Estimates\**" />
+    <EmbeddedResource Remove="Views\Extra\**" />
+    <EmbeddedResource Remove="Views\FilterArticle\**" />
+    <EmbeddedResource Remove="Views\FilterProduct\**" />
+    <EmbeddedResource Remove="Views\FlashSale\**" />
+    <EmbeddedResource Remove="Views\Home\**" />
+    <EmbeddedResource Remove="Views\Installment\**" />
+    <EmbeddedResource Remove="Views\LuckySpin\**" />
+    <EmbeddedResource Remove="Views\Order\**" />
+    <EmbeddedResource Remove="Views\P404\**" />
+    <EmbeddedResource Remove="Views\ProductComponent\**" />
+    <EmbeddedResource Remove="Views\Product\**" />
+    <EmbeddedResource Remove="Views\Promotion\**" />
+    <EmbeddedResource Remove="Views\Quotation\**" />
+    <EmbeddedResource Remove="Views\Recruitment\**" />
+    <EmbeddedResource Remove="Views\Shared\**" />
+    <EmbeddedResource Remove="Views\Store\**" />
+    <EmbeddedResource Remove="Views\Zone\**" />
     <EmbeddedResource Remove="wwwroot - Copy\**" />
     <EmbeddedResource Remove="wwwroot\js\autocomplate\**" />
     <EmbeddedResource Remove="wwwroot\js\libs\comfirm\**" />
     <EmbeddedResource Remove="wwwroot\vendor\Simple-jQuery-Magnifying-Glass-Image-Zoom-Plugin-magnify-js\**" />
+    <None Remove="ViewComponents\**" />
+    <None Remove="Views\Blog\**" />
+    <None Remove="Views\Categories\**" />
     <None Remove="Views\Common\**" />
+    <None Remove="Views\Contact\**" />
+    <None Remove="Views\Customer\**" />
+    <None Remove="Views\CutNew\**" />
+    <None Remove="Views\Departmant\**" />
+    <None Remove="Views\Estimates\**" />
+    <None Remove="Views\Extra\**" />
+    <None Remove="Views\FilterArticle\**" />
+    <None Remove="Views\FilterProduct\**" />
+    <None Remove="Views\FlashSale\**" />
+    <None Remove="Views\Home\**" />
+    <None Remove="Views\Installment\**" />
+    <None Remove="Views\LuckySpin\**" />
+    <None Remove="Views\Order\**" />
+    <None Remove="Views\P404\**" />
+    <None Remove="Views\ProductComponent\**" />
+    <None Remove="Views\Product\**" />
+    <None Remove="Views\Promotion\**" />
+    <None Remove="Views\Quotation\**" />
+    <None Remove="Views\Recruitment\**" />
+    <None Remove="Views\Shared\**" />
+    <None Remove="Views\Store\**" />
+    <None Remove="Views\Zone\**" />
     <None Remove="wwwroot - Copy\**" />
     <None Remove="wwwroot\js\autocomplate\**" />
     <None Remove="wwwroot\js\libs\comfirm\**" />
@@ -29,12 +129,40 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Compile Remove="Controllers\ApiJoyTelController.cs" />
+    <Compile Remove="Controllers\BaseController.cs" />
+    <Compile Remove="Controllers\BlogController.cs" />
+    <Compile Remove="Controllers\CategoriesController.cs" />
     <Compile Remove="Controllers\CommonController.cs" />
+    <Compile Remove="Controllers\ContactController.cs" />
+    <Compile Remove="Controllers\CookieController.cs" />
+    <Compile Remove="Controllers\CustomerController.cs" />
+    <Compile Remove="Controllers\CutNewController.cs" />
+    <Compile Remove="Controllers\EstimatesController.cs" />
+    <Compile Remove="Controllers\ExtraController.cs" />
+    <Compile Remove="Controllers\FilterArticleController.cs" />
+    <Compile Remove="Controllers\FilterProductController.cs" />
+    <Compile Remove="Controllers\FlashSaleController.cs" />
+    <Compile Remove="Controllers\HomeController.cs" />
+    <Compile Remove="Controllers\InstallmentController.cs" />
     <Compile Remove="Controllers\LanguageController.cs" />
+    <Compile Remove="Controllers\LocationController.cs" />
+    <Compile Remove="Controllers\LuckySpinController.cs" />
+    <Compile Remove="Controllers\OrderController.cs" />
+    <Compile Remove="Controllers\P404Controller.cs" />
+    <Compile Remove="Controllers\ProductComponentController.cs" />
+    <Compile Remove="Controllers\ProductController.cs" />
+    <Compile Remove="Controllers\PromotionController.cs" />
+    <Compile Remove="Controllers\QuotationController.cs" />
+    <Compile Remove="Controllers\RecruitmentController.cs" />
+    <Compile Remove="Controllers\SessionController.cs" />
+    <Compile Remove="Controllers\StoreController.cs" />
+    <Compile Remove="Controllers\ZoneController.cs" />
   </ItemGroup>
 
   <ItemGroup>
-    <Content Remove="Views\Product\GetProductByZoneId.cshtml" />
+    <Content Remove="Views\_ViewImports.cshtml" />
+    <Content Remove="Views\_ViewStart.cshtml" />
     <Content Remove="wwwroot\assets\images\background\background-1.svg" />
     <Content Remove="wwwroot\assets\images\banner\banner-1.svg" />
     <Content Remove="wwwroot\assets\images\banner\banner-2.svg" />
@@ -94,6 +222,7 @@
     <PackageReference Include="NLog.Web.AspNetCore" Version="4.9.2" />
     <PackageReference Include="PayPalCheckoutSdk" Version="1.0.4" />
     <PackageReference Include="QRCoder" Version="1.4.3" />
+    <PackageReference Include="Swashbuckle.AspNetCore" Version="4.0.0" />
     <PackageReference Include="Wangkanai.Responsive" Version="2.0.0" />
   </ItemGroup>
 
@@ -435,10 +564,6 @@
     <Content Update="appsettings.json">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Content>
-    <Content Update="Views\Shared\Components\DropdownCart\Default.cshtml">
-      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
-      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
-    </Content>
     <Content Update="wwwroot\assets\css\bootstrap.min.css">
       <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
@@ -683,6 +808,7 @@
 
   <ItemGroup>
     <Folder Include="Resources\Controllers\Home\IndexPublic\" />
+    <Folder Include="Views\" />
     <Folder Include="wwwroot\export-qr-code\" />
   </ItemGroup>
 

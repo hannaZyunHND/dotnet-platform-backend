@@ -1,4 +1,5 @@
 ﻿using Dapper;
+using MI.Dal.IDbContext;
 using MI.Entity.Models;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
@@ -11,6 +12,7 @@ using System.Data;
 using System.Globalization;
 using System.IO;
 using System.Linq;
+using System.Text;
 using System.Threading.Tasks;
 
 namespace PlatformWEBAPI.Services.Order.Repository
@@ -25,7 +27,7 @@ namespace PlatformWEBAPI.Services.Order.Repository
         CouPonDetail GetCouponChildByCode(string Code);
         List<ViewModal.OrderDetail> GetOrderByCode(string orderCode);
 
-        CustomerViewModel DoLogin(CustomerAuthViewModel request);
+        Task<CustomerAuth> DoLogin(CustomerAuthViewModel request);
         int ChangePassword(CustomerAuthViewModel request);
         int DoSignUp(CustomerAuthViewModel request);
 
@@ -39,6 +41,8 @@ namespace PlatformWEBAPI.Services.Order.Repository
         bool UpdateTopupStatus(string orderCode, int productId, string joyTelOrderTid);
         bool UpdateOrderInfomationToEsim(string joytelOrderTid, string joytelOrderCode, string snPin, string snSerial, int orderDetailId);
         OrderGeneratedQRResponse UpdateImageQrCode(string coupon, string imageUrl);
+
+        Task<ResponseCreateMultipleItemOrder> CreateMultipleItemOrderAsync(RequestCreateMultipleItemOrder request);
 
     }
     public class OrderRepository : IOrderRepository
@@ -229,15 +233,30 @@ namespace PlatformWEBAPI.Services.Order.Repository
             return kq;
         }
 
-        public CustomerViewModel DoLogin(CustomerAuthViewModel request)
+        public async Task<CustomerAuth> DoLogin(CustomerAuthViewModel request)
         {
-            var p = new DynamicParameters();
-            var commandText = "usp_Web_GetCustomer_ByEmailAndCode";
-            p.Add("@email", request.email);
-            p.Add("@code", request.password);
-            var result = _executers.ExecuteCommand(_connStr, conn => conn.QueryFirstOrDefault<CustomerViewModel>(commandText, p, commandType: System.Data.CommandType.StoredProcedure));
+            try
+            {
+                using (IDbContext context = new IDbContext())
+                {
+                    var customer = context.Customer.Where(r => r.Pcname.Equals(request.password) && r.Email.Equals(request.email)).FirstOrDefault();
+                    if(customer != null)
+                    {
+                        var response = new CustomerAuth();
+                        response.id = customer.Id;
+                        response.email = customer.Email;
+                        //Lay not cac thong tin ve day;
+                        return response;
+                    }  
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex);
+                return null;
+            }
 
-            return result;
+            return null;
         }
         public int ChangePassword(CustomerAuthViewModel request)
         {
@@ -393,6 +412,127 @@ namespace PlatformWEBAPI.Services.Order.Repository
         }
 
 
+        public async Task<ResponseCreateMultipleItemOrder> CreateMultipleItemOrderAsync(RequestCreateMultipleItemOrder request)
+        {
+            using (IDbContext context = new IDbContext())
+            {
+                try
+                {
+                    if (request.auth != null)
+                    {
+                        //kiem tra xem la co tai khoan chua
+
+                        var customer = context.Customer.Where(r => r.Id == request.auth.id && r.Email.Equals(request.auth.email)).FirstOrDefault();
+                        if (customer == null)
+                        {
+                            //neu chua co thi tao tai khoan 
+                            customer = new Customer();
+                            customer.Email = request.auth.email;
+                            customer.Fullname = request.auth.firstName + " " + request.auth.lastName;
+                            customer.PhoneNumber = request.auth.phoneNumber;
+                            var randomCode = RandomCode(12);
+                            //MK MAC DINH LA 12345678
+                            customer.Name = "12345678";
+                            customer.Pcname = "12345678";
+                            customer.Type = 1;
+                            customer.Source = 1;
+
+                            context.Customer.Add(customer);
+                            await context.SaveChangesAsync();
+                        }
+                        else
+                        {
+                            //neu co roi thi lay id
+                            customer.Email = request.auth.email;
+                            customer.Fullname = request.auth.firstName + " " + request.auth.lastName;
+                            customer.PhoneNumber = request.auth.phoneNumber;
+                            context.Customer.Update(customer);
+                            await context.SaveChangesAsync();
+
+                        }
+                        if (customer.Id > 0)
+                        {
+                            var randomOrderCode = RandomCode(8);
+                            //Tao ra order
+                            var order = new Orders();
+                            order.CustomerId = customer.Id;
+                            order.OrderCode = randomOrderCode;
+                            order.CreatedDate = DateTime.Now;
+                            order.CreatedBy = customer.Email;
+                            order.Status = "TAO_MOI";
+                            order.MetaData = Newtonsoft.Json.JsonConvert.SerializeObject(request);
+
+                            context.Orders.Add(order);
+                            await context.SaveChangesAsync();
+                            if (order.Id > 0)
+                            {
+                                var insertOrderDetail = new List<MI.Entity.Models.OrderDetail>();
+                                //Khoi tao OrderDetail
+                                foreach (var orderItem in request.pays)
+                                {
+                                    var orderDetail = new MI.Entity.Models.OrderDetail();
+                                    orderDetail.OrderId = order.Id;
+                                    if (orderItem.combination != null)
+                                    {
+                                        orderDetail.ProductId = orderItem.combination.productId;
+                                        orderDetail.CombinationZoneList = orderItem.combination.zoneList;
+                                        orderDetail.PriceEach = orderItem.combination.priceEachNguoiLon;
+                                        orderDetail.PriceEachChildren = orderItem.combination.priceEachTreEm;
+
+
+                                    }
+                                    orderDetail.Quantity = orderItem.numberOfAldut;
+                                    orderDetail.QuantityChildren = orderItem.numberOfChildrend;
+                                    orderDetail.LogPrice = orderItem.totalPrice;
+                                    orderDetail.CreatedDate = DateTime.Now;
+                                    orderDetail.ProductParentId = orderItem.productId;
+                                    orderDetail.MetaData = Newtonsoft.Json.JsonConvert.SerializeObject(orderItem);
+                                    insertOrderDetail.Add(orderDetail);
+                                }
+                                context.AddRange(insertOrderDetail);
+                                await context.SaveChangesAsync();
+
+                                //Tra ve
+                                var response = new ResponseCreateMultipleItemOrder();
+                                //Customer
+                                response.auth = new CustomerAuth();
+                                response.auth.firstName = customer.Fullname.Split(" ").FirstOrDefault() ?? " ";
+                                response.auth.lastName = string.Join(" ", customer.Fullname.Split(" ").ToList().Skip(1));
+                                response.auth.phoneNumber = customer.PhoneNumber;
+                                response.auth.email = customer.Email;
+                                response.auth.id = customer.Id;
+                                //Code
+                                response.orderCode = order.OrderCode;
+                                return response;
+                            }
+                        }
+                    }
+                }
+                catch (Exception ex)
+                {
+
+                    //Write log
+                    return null;
+                }
+                
+
+            }
+            return null;
+        }
+
+        private string RandomCode(int size)
+        {
+            var chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789".ToCharArray();
+            var random = new Random();
+            var result = new StringBuilder(size);
+
+            for (int i = 0; i < size; i++)
+            {
+                result.Append(chars[random.Next(chars.Length)]);
+            }
+
+            return result.ToString();
+        }
     }
     public class CouPonDetail
     {

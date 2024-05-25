@@ -1,8 +1,10 @@
 ﻿using MI.Dal.IDbContext;
+//using MI.Dapper.Data.Models;
 using MI.Entity.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using MI.Entity.Models;
 
 namespace MI.Bo.Bussiness
 {
@@ -181,7 +183,7 @@ namespace MI.Bo.Bussiness
             }
             return result;
         }
-        public int Update(Product product, List<ProductInZone> lstObj)
+        public int Update(Entity.Models.Product product, List<ProductInZone> lstObj)
         {
             int result = 0;
             try
@@ -209,7 +211,44 @@ namespace MI.Bo.Bussiness
             }
             return result;
         }
-        public bool UpdateTrangThai(Product entity)
+
+        public int UpdatePhienBan(List<Dapper.Data.Models.PhienBans> phienBans, int productId)
+        {
+            using (IDbContext db = new IDbContext())
+            {
+                try
+                {
+                    //Xoa toan bo phien ban cu
+                    var old = db.ProductPriceInZoneList.Where(r => r.ProductId == productId);
+                    db.RemoveRange(old);
+                    //Add new
+                    var _new = new List<ProductPriceInZoneList>();
+                    foreach (var item in phienBans)
+                    {
+                        var _newPhienBan = new ProductPriceInZoneList();
+                        _newPhienBan.Id = 0;
+                        _newPhienBan.ProductId = productId;
+                        _newPhienBan.PriceEachNguoiLon = item.priceEachNguoiLon;
+                        _newPhienBan.PriceEachTreEm = item.priceEachTreEm;
+                        _newPhienBan.NetEachNguoiLon = item.netEachNguoiLon;
+                        _newPhienBan.NetEachTreEm = item.netEachTreEm;
+                        _newPhienBan.ZoneList = string.Join(",", item.selectedOptions);
+                        _new.Add(_newPhienBan);
+                    }
+
+                    db.ProductPriceInZoneList.AddRange(_new);
+                    db.SaveChanges();
+                    return productId;
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine(ex.Message);
+                    return 0;
+                }
+                
+            }
+        }
+        public bool UpdateTrangThai(Entity.Models.Product entity)
         {
             try
             {
@@ -228,7 +267,7 @@ namespace MI.Bo.Bussiness
             }
             return false;
         }
-        public bool UpdateSort(Product entity)
+        public bool UpdateSort(Entity.Models.Product entity)
         {
             try
             {
