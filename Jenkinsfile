@@ -12,7 +12,7 @@ pipeline {
         stage('Clone Repository') {
             steps {
                 git branch: 'main', url: 'https://github.com/hannaZyunHND/dotnet-platform-backend.git',
-                credentialsId: 'Jenkins_PAT'
+                credentialsId: 'jenkin-huy-access'
             }
         }
         stage('Set Permissions') {
