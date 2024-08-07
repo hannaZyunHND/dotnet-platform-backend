@@ -19,7 +19,7 @@ RUN dotnet restore Web/Platform/CMS/PlatformCMS/PlatformCMS.csproj
 # Copy everything else and build .NET Core application
 COPY . .
 WORKDIR /src/Web/Platform/CMS/PlatformCMS
-RUN dotnet publish -c Release -o /app/publish 
+RUN dotnet publish -c Release -o /app/publish
 
 # Stage 2: Build Vue.js application
 FROM node:14.21.3-buster AS build-vue
