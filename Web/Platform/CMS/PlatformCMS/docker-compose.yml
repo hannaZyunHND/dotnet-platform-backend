@@ -1,14 +1,18 @@
-version: "3"
 services:
-  app:
+  platform-webapi:
     image: phamdat2002/platform-v2-cms:latest
     container_name: platform-v2-cms
     ports:
-      - "5007:80"
-    depends_on:
-      - redis
+      - "5006:80"
+    environment:
+      - REDIS_HOST=redis
+      - REDIS_PORT=6379
+    networks:
+      - mssql_default
+      - redis-net
 
-  redis:
-    image: "redis:latest"
-    ports:
-      - "6379:6379"
+networks:
+  redis-net:
+    external: true
+  mssql_default:
+    external: true
