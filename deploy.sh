@@ -12,9 +12,6 @@ docker container prune -f
 # Xóa các volume không cần thiết
 docker volume prune -f
 
-# Xóa các network không cần thiết
-docker network prune -f
-
 # Xóa tất cả các đối tượng không còn được sử dụng
 docker system prune -a -f
 
