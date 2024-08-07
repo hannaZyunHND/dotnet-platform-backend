@@ -24,15 +24,15 @@ pipeline {
         stage('Build Docker Image') {
             steps {
                 withDockerRegistry(credentialsId: 'docker-hub', url: 'https://index.docker.io/v1/') {
-                    sh 'docker build -f Web/EvisaV2/CMS/EvisaV2CMS/Dockerfile --force-rm -t evisa-v2-cms .'
+                    sh 'docker build -f Web/Platform/CMS/PlatformCMS/Dockerfile --force-rm -t platform-v2-cms .'
                 }
             }
         }
         stage('Push Docker Image') {
             steps {
                 withDockerRegistry(credentialsId: 'docker-hub', url: 'https://index.docker.io/v1/') {
-                    sh 'docker tag evisa-v2-cms phamdat2002/evisa-v2-cms:latest'
-                    sh 'docker push phamdat2002/evisa-v2-cms:latest'
+                    sh 'docker tag platform-v2-cms phamdat2002/platform-v2-cms:latest'
+                    sh 'docker push phamdat2002/platform-v2-cms:latest'
                 }
             }
         }

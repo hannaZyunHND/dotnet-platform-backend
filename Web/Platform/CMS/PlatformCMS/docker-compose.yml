@@ -1,7 +1,7 @@
 version: "3"
 services:
   app:
-    image: platform-v2-cms:latest
+    image: phamdat2002/platform-v2-cms:latest
     container_name: platform-v2-cms
     ports:
       - "5007:80"
