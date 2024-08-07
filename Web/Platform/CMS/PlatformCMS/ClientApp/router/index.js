@@ -109,6 +109,8 @@ const ProductRenewal = () => import('./../pages/productrenewal/list');
 const ProductComponent = () => import('./../pages/productComponent/list');
 const ProductComponentEdit = () => import('./../pages/productComponent/edit');
 
+const SupOrders = () => import('./../pages/supplier/list')
+
 Vue.use(Router);
 
 
@@ -694,6 +696,13 @@ export let router = new Router({
                     path: '/admin/productComponent/edit/:id',
                     name: 'Sửa linh kiện',
                     component: ProductComponentEdit,
+                    meta: { authorize: [] }
+
+                },
+                {
+                    path: '/supplier/orders',
+                    name: 'Quản lý đơn hàng',
+                    component: SupOrders,
                     meta: { authorize: [] }
 
                 },

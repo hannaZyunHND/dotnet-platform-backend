@@ -39,9 +39,26 @@ namespace MI.Entity.Models
         public string CombinationZoneList { get; set; } = string.Empty;
         public decimal PriceEach { get; set; } = 0;
         public decimal PriceEachChildren { get; set; } = 0;
+        public string SupplierStatus { get; set; } = "";
+        public string FileETicket { get; set; } = "";
+        public DateTime? PickingDate { get; set; } = null;
+        public string CancelResponse { get; set; } = "";
+        public string DefaultLanguage { get; set; } = "vi-VN";
+        public string PaymentMethod { get; set; } = "";
+        public string OnepayRef { get; set; } = "";
+        public decimal LogPriceGross { get; set; } = 0;
+        public decimal PriceGross { get; set; } = 0;
 
+        public decimal PriceGrossTreEm { get; set; } = 0;
 
         public Orders Order { get; set; }
         public ICollection<OrderPromotionDetail> OrderPromotionDetail { get; set; }
+        public string noteSpecial { get; set; }
+        public string useAppContact { get; set; }
+        public string useAppContactValue { get; set; }
+        public string useDiffrenceNumber { get; set; }
+        public decimal? rollbackValue { get; set; }
+        public int? rollbackOption { get; set; }
+        public DateTime? RollbackRequestDate { get; set; }
     }
 }

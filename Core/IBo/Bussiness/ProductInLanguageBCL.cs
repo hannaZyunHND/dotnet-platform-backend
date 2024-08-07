@@ -150,9 +150,12 @@ namespace MI.Bo.Bussiness
                 using (IDbContext _context = new IDbContext())
                 {
                     IQueryable<Product> items = _context.Product.AsQueryable();
-                    
-                    items = items.Include(x => x.ProductInLanguage);
+                    IQueryable<Product> childItems = _context.Product.AsQueryable();
 
+                    items = items.Include(x => x.ProductInLanguage);
+                    //childItems = childItems.Include(r => r.ProductInLanguage);
+                    items = items.Where(r => r.ParentId.Value == 0);
+                    //childItems = childItems.Where(r => r.ParentId.Value > 0);
                     //items = items.Where(x => x.LanguageCode.Trim().Equals(filter.languageCode.Trim()));
                     if (!String.IsNullOrEmpty(filter.keyword))
                     {
@@ -208,7 +211,8 @@ namespace MI.Bo.Bussiness
                         items = items.OrderBy(x => x.GetType().GetProperty(filter.sortBy).GetValue(x, null));
                     else
                         items = items.OrderByDescending(x => x.GetType().GetProperty(filter.sortBy).GetValue(x, null));
-                    //items = items.Where(r => r.ParentId.Value == 0);
+                    
+                    
 
                     total = items.Count();
                     filter.pageIndex = filter.pageIndex < 1 ? 1 : filter.pageIndex;

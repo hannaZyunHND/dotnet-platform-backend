@@ -63,6 +63,11 @@ const getAllRole = async () => {
     var response = await HttpService.get('/api/role/getalloptions');
     return response.data;
 };
+const getAllUserSupplier = async () => {
+
+    var response = await HttpService.post('/api/user/GetSuppliers');
+    return response.data;
+}
 
 export default {
     getPageUser,
@@ -72,5 +77,6 @@ export default {
     assignToRole,
     getAllRole,
     getRoleName,
-    lockUser
+    lockUser,
+    getAllUserSupplier
 }

@@ -3,16 +3,6 @@ using Microsoft.AspNetCore.Localization;
 using Microsoft.AspNetCore.Mvc;
 using PayPalCheckoutSdk.Core;
 using PayPalCheckoutSdk.Orders;
-using PlatformWEBAPI.Payment;
-using PlatformWEBAPI.Services.ApiJoyTel.Repository;
-using PlatformWEBAPI.Services.Extra.Repository;
-using PlatformWEBAPI.Services.Locations.Repository;
-using PlatformWEBAPI.Services.Order.Repository;
-using PlatformWEBAPI.Services.Order.ViewModal;
-using PlatformWEBAPI.Services.Product.Repository;
-using PlatformWEBAPI.Services.Promotion.Repository;
-using PlatformWEBAPI.Services.Zone.Repository;
-using PlatformWEBAPI.Utility;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -22,8 +12,18 @@ using System.Resources;
 using System.Threading;
 using System.Threading.Tasks;
 using Utils;
+using Way2GoWEB.Payment;
+using Way2GoWEB.Services.ApiJoyTel.Repository;
+using Way2GoWEB.Services.Extra.Repository;
+using Way2GoWEB.Services.Locations.Repository;
+using Way2GoWEB.Services.Order.Repository;
+using Way2GoWEB.Services.Order.ViewModal;
+using Way2GoWEB.Services.Product.Repository;
+using Way2GoWEB.Services.Promotion.Repository;
+using Way2GoWEB.Services.Zone.Repository;
+using Way2GoWEB.Utility;
 
-namespace PlatformWEBAPI.Controllers
+namespace Way2GoWEB.Controllers
 {
     public class OrderController : BaseController
     {
@@ -188,9 +188,9 @@ namespace PlatformWEBAPI.Controllers
             //return ViewComponent("DropdownCart", new { product_ids = product_ids });
         }
         [HttpGet]
-        public IActionResult GetCouPonByCode(string code)
+        public IActionResult GetCouPonByCode(string code, int productId)
         {
-            var result = _orderRepository.GetCouponChildByCode(code);
+            var result = _orderRepository.GetCouponChildByCode_v2(code, productId);
             return Ok(result);
         }
 
@@ -203,11 +203,11 @@ namespace PlatformWEBAPI.Controllers
         public IActionResult CreateOrderVersionMinify(OrderVersionMinifyRequest request)
         {
 
-
+            
             var response = _orderRepository.CreateOrderVersionMinify(request);
-            if (response.customerId > 0)
+            if(response.customerId > 0)
             {
-
+                
                 //Send mail confirm;
                 try
                 {
@@ -227,8 +227,8 @@ namespace PlatformWEBAPI.Controllers
                 catch (Exception ex)
                 {
 
-                    Console.WriteLine(ex.Message);
-
+                    Console.WriteLine(ex.Message); 
+                   
                 }
 
                 return Ok(response.customerId);
@@ -245,13 +245,33 @@ namespace PlatformWEBAPI.Controllers
             var response = _orderRepository.CreateOrderMultipleVersionMinify(request);
             if (response.customerId > 0)
             {
-
+                //kiem tra discount
+                if (!string.IsNullOrEmpty(request.discountCode))
+                {
+                    bool isActiveDiscount = false;
+                    if(request.productsInfo != null)
+                    {
+                        foreach(var item in request.productsInfo)
+                        {
+                            if (!isActiveDiscount)
+                            {
+                                var code = _orderRepository.GetCouponChildByCode_v2(request.discountCode, item.productId, true);
+                                if (code != null)
+                                {
+                                    isActiveDiscount = true;
+                                }
+                            }
+                            
+                        }
+                    }
+                    
+                }
                 //Send mail confirm;
                 try
                 {
                     if (response.isCreatedAccount == 1)
                     {
-                        _extraRepository.SendEmailRegister_v2(new CustomerAuthViewModel() { email = request.email, password = request.customerRandomId });
+                        _extraRepository.SendEmailRegister_v2(new CustomerAuthViewModel() { email = request.email, password = request.customerRandomId }, CurrentLanguageCode);
                     }
                     var mailConfirmRequest = new SuccessEmailRequest();
                     mailConfirmRequest.email = request.email;
@@ -262,7 +282,7 @@ namespace PlatformWEBAPI.Controllers
                     mailConfirmRequest.productsInfo = request.productsInfo;
 
                     // Gui Email don hang thanh cong
-                    _extraRepository.SendEmailSuccessOrder_v2(mailConfirmRequest);
+                    _extraRepository.SendEmailSuccessOrder_v2(mailConfirmRequest, CurrentLanguageCode);
                     //Lay danh sach san pham phu thuoc vao orderCode
                     var orderDetails = _orderRepository.GetOrderByCode(response.orderCode);
                     if (orderDetails != null)
@@ -279,16 +299,19 @@ namespace PlatformWEBAPI.Controllers
                                     var iccid = request.serialNumber;
                                     var days = int.Parse(productDetail.Validity);
                                     var joytelCode = productDetail.joytelProductCode;
-
+                                    var isMultipleTime = true;
+                                    if (!productDetail.DataLimit.Contains("/"))
+                                    {
+                                        isMultipleTime = false;
+                                    }
                                     // Call o day
-                                    var resultOTA = await _apiJoyTelRepository.RequestOTA(iccid, joytelCode, days);
+                                    var resultOTA = await _apiJoyTelRepository.RequestOTA(iccid, joytelCode, days, isMultipleTime);
                                     if (resultOTA.code == 0)
                                     {
                                         //Cap nhat lai Order
                                         var orderChanged = _orderRepository.UpdateTopupStatus(response.orderCode, productDetail.Id, resultOTA.data.orderTid);
 
                                     }
-
                                 }
                             }
                             if (item.type.Equals("ESIM"))
@@ -299,7 +322,7 @@ namespace PlatformWEBAPI.Controllers
                                 if (productDetail != null)
                                 {
                                     var affected = orderDetails.Where(r => r.Type.Equals("ESIM") && string.IsNullOrEmpty(r.JoyTelOrderTid) && r.ProductId == item.productId).FirstOrDefault();
-                                    if (affected != null)
+                                    if(affected != null)
                                     {
                                         var esimSubmitResponse = await _apiJoyTelRepository.SendEsimRequestSubmit(request.email, productDetail.joytelProductCode, item.quantity);
                                         if (esimSubmitResponse != null)
@@ -308,21 +331,21 @@ namespace PlatformWEBAPI.Controllers
                                             {
                                                 var orderTid = esimSubmitResponse.data.orderTid;
                                                 var orderCode = esimSubmitResponse.data.orderCode;
-                                                Thread.Sleep(10000);
+                                                Thread.Sleep(30000);
                                                 //Goi tiep den eSimQuery
                                                 var esimQueryResponse = await _apiJoyTelRepository.SendEsimQueryRequest(orderCode, orderTid);
                                                 if (esimQueryResponse != null)
                                                 {
-                                                    if (esimQueryResponse.code == 0)
+                                                    if(esimQueryResponse.code == 0)
                                                     {
-                                                        if (esimQueryResponse.data != null)
+                                                        if(esimQueryResponse.data != null)
                                                         {
                                                             //Lay ra snPin
                                                             var itemList = esimQueryResponse.data.itemList.FirstOrDefault();
                                                             if (itemList != null)
                                                             {
                                                                 var sn = itemList.snList.FirstOrDefault();
-                                                                if (sn != null)
+                                                                if(sn != null)
                                                                 {
                                                                     var snPin = sn.snPin;
                                                                     var snSerial = sn.snCode;
@@ -333,23 +356,23 @@ namespace PlatformWEBAPI.Controllers
                                                                         //Thread.Sleep(10000);
                                                                         var esimGetQrResponse = await _apiJoyTelRepository.SendEsimGetQrCode(snPin);
                                                                     }
-
+                                                                    
                                                                 }
 
                                                             }
                                                         }
-
+                                                        
                                                     }
                                                 }
 
                                             }
                                         }
                                     }
-
+                                    
 
                                 }
                             }
-                        }
+                        } 
                     }
                     return Ok(response.customerId);
                 }
@@ -373,6 +396,7 @@ namespace PlatformWEBAPI.Controllers
             var payPalClient = new PayPalHttpClient(new LiveEnvironment(_clientId, _clientSecret)); // Sử dụng môi trường sandbox
             //Khong ho tro thanh toan bang VND
             decimal totalPrice = 0;
+            bool isActiveDiscount = false;
             foreach (var item in rq.productsInfo)
             {
                 var prod = _productRepository.GetProductInfomationDetail(item.productId, CurrentLanguageCode);
@@ -380,24 +404,30 @@ namespace PlatformWEBAPI.Controllers
                 {
                     totalPrice = prod.Price * item.quantity;
                 }
-            }
-            if (!string.IsNullOrEmpty(rq.discountCode))
-            {
-                var code = _orderRepository.GetCouponChildByCode(rq.discountCode);
-                if (code != null)
+                if (!string.IsNullOrEmpty(rq.discountCode))
                 {
-                    decimal discountValue = 0;
-                    decimal.TryParse(code.ValueDiscount, out discountValue);
-                    if (discountValue > 0)
+                    if (!isActiveDiscount)
                     {
-                        if (code.DiscountOption == 1)
+                        var code = _orderRepository.GetCouponChildByCode_v2(rq.discountCode, prod.Id);
+                        if (code != null)
                         {
-                            totalPrice = totalPrice - totalPrice * discountValue / 100;
+                            decimal discountValue = 0;
+                            decimal.TryParse(code.ValueDiscount, out discountValue);
+                            if (discountValue > 0)
+                            {
+                                if (code.DiscountOption == 1)
+                                {
+                                    totalPrice = totalPrice - totalPrice * discountValue / 100;
+                                    isActiveDiscount = true;
+                                }
+                            }
+
                         }
                     }
-
+                    
                 }
             }
+            
 
             if (!string.IsNullOrEmpty(rq.serialNumber))
             {
@@ -408,7 +438,7 @@ namespace PlatformWEBAPI.Controllers
                     totalPrice = totalPrice - 15000;
                 }
             }
-            var usdCulture = Math.Round((totalPrice / 25200), 2);
+            var usdCulture = Math.Round((totalPrice / 25200),2);
             // Tạo đơn hàng
             var order = new OrderRequest()
             {
@@ -471,36 +501,45 @@ namespace PlatformWEBAPI.Controllers
             var customerPhone = "";
             var customerId = rq.customerRandomId;
             decimal totalPrice = 0;
+
+            bool isActiveDiscount = false;
             foreach (var item in rq.productsInfo)
             {
                 var prod = _productRepository.GetProductInfomationDetail(item.productId, CurrentLanguageCode);
                 if (prod != null)
                 {
-                    totalPrice += prod.Price * item.quantity;
+                    totalPrice = prod.Price * item.quantity;
                 }
-            }
-            if (!string.IsNullOrEmpty(rq.discountCode))
-            {
-                var code = _orderRepository.GetCouponChildByCode(rq.discountCode);
-                if (code != null)
+                if (!string.IsNullOrEmpty(rq.discountCode))
                 {
-                    decimal discountValue = 0;
-                    decimal.TryParse(code.ValueDiscount, out discountValue);
-                    if (discountValue > 0)
+                    if (!isActiveDiscount)
                     {
-                        if (code.DiscountOption == 1)
+                        var code = _orderRepository.GetCouponChildByCode_v2(rq.discountCode, prod.Id);
+                        if (code != null)
                         {
-                            totalPrice = totalPrice - totalPrice * discountValue / 100;
+                            decimal discountValue = 0;
+                            decimal.TryParse(code.ValueDiscount, out discountValue);
+                            if (discountValue > 0)
+                            {
+                                if (code.DiscountOption == 1)
+                                {
+                                    totalPrice = totalPrice - totalPrice * discountValue / 100;
+                                    isActiveDiscount = true;
+                                }
+                            }
+
                         }
                     }
 
                 }
             }
+
+            
             if (!string.IsNullOrEmpty(rq.serialNumber))
             {
                 //Kiem tra serial number
                 var serial = _orderRepository.CheckSerialNumber(rq.serialNumber);
-                if (serial != null)
+                if(serial != null)
                 {
                     totalPrice = totalPrice - 15000;
                 }
@@ -509,6 +548,21 @@ namespace PlatformWEBAPI.Controllers
             var result = Onepay.ExcuteGetMethod(orderCode, totalPrice.ToString(), returnUrl, customerEmail);
             return Ok(result);
 
+        }
+        [HttpPost]
+        public IActionResult ConfirmOnepay(RequestConfirmOnepay request)
+        {
+            var response = false;
+            if(request != null)
+            {
+                var decrypedCode = Onepay.Decrypt(request.encrypedCode);
+                if (decrypedCode.Equals(request.transactionId))
+                {
+                    response = true;
+                }
+            }
+            
+            return Ok(response);
         }
         // Hàm xác nhận thanh toán và hoàn tất đơn hàng
         private async Task<bool> ConfirmPaymentPayPalAsync(string token, string PayerID)
@@ -618,7 +672,7 @@ namespace PlatformWEBAPI.Controllers
             return Ok(result);
         }
 
-
+        
 
     }
 }

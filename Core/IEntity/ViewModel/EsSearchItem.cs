@@ -19,5 +19,6 @@ namespace MI.Entity.ViewModel
         public string itemSearchKeywordNorm { get; set; }
         public string languageCode { get; set; }
         public string itemUrl { get; set; }
+        public string _score { get; set; }
     }
 }

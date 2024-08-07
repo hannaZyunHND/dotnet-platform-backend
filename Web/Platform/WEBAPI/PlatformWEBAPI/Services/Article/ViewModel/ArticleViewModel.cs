@@ -6,6 +6,35 @@ using System.Threading.Tasks;
 
 namespace PlatformWEBAPI.Services.Article.ViewModel
 {
+
+    public class RequestGetBlogsHomePage
+    {
+        public string cultureCode { get; set; }
+    }
+
+    public class RequestGetBlogDetailById
+    {
+        public int id { get; set; }
+        public string cultureCode { get; set; }
+    }
+
+    public class RequestGetBlogsSameZone
+    {
+        public int zoneId { get; set; }
+        public string cultureCode { get; set; }
+        public int blogId { get; set; }
+        public int type { get; set; }
+    }
+
+    public class RequestGetBlogsInZone
+    {
+        public int zoneId { get; set; }
+        public string cultureCode { get; set; }
+        public int type { get; set; }
+        public int pageIndex { get; set; } = 1;
+        public int pageSize { get; set; } = 10;
+    }
+
     public class ArticleMinify
     {
         public ArticleMinify()

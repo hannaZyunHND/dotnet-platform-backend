@@ -1,6 +1,8 @@
 ﻿using Dapper;
+using MI.Bo.Bussiness;
 using MI.Dapper.Data.Models;
 using MI.Entity.ViewModel;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Caching.Distributed;
 using Microsoft.Extensions.Configuration;
 using Nest;
@@ -10,6 +12,8 @@ using StackExchange.Redis;
 using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Drawing.Printing;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -18,14 +22,15 @@ namespace PlatformWEBAPI.Services.Product.Repository
 {
     public interface IProductRepository
     {
-        List<ProductMinify> GetProductByKeywords(List<string> keywords, List<string> zoneUrl, string lang_code, int pageNumber, int pageSize, out int total);
+        List<ProductMinify> GetProductByKeywords(List<string> keywords, List<string> zoneUrl, string lang_code, int pageNumber, int pageSize, out int total, string sortBy = "TOP_VIEW", decimal startPrice = 0, decimal endPrice = 10000000);
+        List<ProductMapLocation> GetProductByKeywordsALLMAP(List<string> keywords, List<string> zoneUrl, string lang_code, int pageNumber, int pageSize, out int total, string sortBy = "TOP_VIEW", decimal startPrice = 0, decimal endPrice = 10000000);
         List<ProductMinify> GetProductBySearchdZone(List<int> zone_ids, string lang_code, int pageNumber, int pageSize, out int total);
         List<ProductMinify> GetProductMinifiesTreeViewByZoneParentId(int parentId, string lang_code, int locationId, int pageNumber, int pageSize, out int total);
         List<ProductMinify> GetProductMinifiesTreeViewByZoneParentId(int parentId, string lang_code, int locationId, int pageNumber, int pageSize, int? discountPercent, out int total);
         List<ProductMinify> GetAllProductSortBy(int sort_rate, int locationId, string lang_code, int page_index, int page_size, out int total_row);
         List<ProductMinify> GetProductByParentId(int idProduct, string lang_code);
         List<ProductMinify> GetProductSameZoneByProductId(int idProduct, string lang_code);
-
+        List<ProductBookingNote> GetProductBookingNote(int productId, string lang_code);
         List<ProductMinify> GetProductMinifiesTreeViewByZoneParentIdSkipping(int parentId, string lang_code, int locationId, int skip, int size);
         List<ProductMinify> GetProductsInRegionByZoneParentIdSkipping(int parentId, string lang_code, int locationId, int skip, int size);
         List<ProductMinify> FilterProductBySpectifications(FilterProductBySpectification fp, out int total);
@@ -59,7 +64,9 @@ namespace PlatformWEBAPI.Services.Product.Repository
         List<ProductMinify> GetProductComponent(int zone_id, int zone_childId, int productCpnId, int locationId, string lang_code, string filter, int pageNumber, int pageSize, out int total);
         List<ProductMinify> GetProductByCustomerId(int customerId, string lang_code, int locationId);
         List<ProductMinify> GetProductByListId(List<int> products, string lang_code, int locationId);
+        List<ProductMinify> GetProductByListIdVersionSearch(List<int> products, string lang_code, int locationId, string sortBy = "TOP_VIEW", decimal startPrice = 0, decimal endPrice = 10000000);
         List<EsSearchItem> GetEsSearchResult();
+        ProductMinify GetProductMinifyById(int productId, string cultureCode);
 
         //List<ProductMinify> GetProductsByStringFilter(string filter, string lang_code, int location_id, out int total_row);
     }
@@ -356,44 +363,36 @@ namespace PlatformWEBAPI.Services.Product.Repository
         public List<ProductMinify> GetProductInRegionByZoneIdMinify(int zone_id, int locationId, string lang_code, int pageNumber, int pageSize, out int total)
         {
             var a = pageSize;
-            var keyCache = string.Format("{0}_{1}_{2}_{3}_{4}_{5}", "productInRegion", lang_code, zone_id, locationId, pageNumber, pageSize);
-            var r = new List<ProductMinify>();
-            var p = new DynamicParameters();
-            var commandText = "usp_Web_GetProductInRegionByZoneId_Minify";
-            p.Add("@zone_id", zone_id);
-            p.Add("@lang_code", lang_code);
-            p.Add("@locationId", locationId);
-            p.Add("@pageNumber", pageNumber);
-            p.Add("@pageSize", pageSize);
-            p.Add("@total", dbType: System.Data.DbType.Int32, direction: System.Data.ParameterDirection.Output);
-            r = _executers.ExecuteCommand(_connStr, conn => conn.Query<ProductMinify>(commandText, p, commandType: System.Data.CommandType.StoredProcedure)).ToList();
-            a = p.Get<int>("@total");
-            //get in cache
-            //var result_after_cache = _distributedCache.Get(keyCache);
-            //if (result_after_cache != null)
-            //{
-            //    r = Newtonsoft.Json.JsonConvert.DeserializeObject<List<ProductMinify>>(Encoding.UTF8.GetString(result_after_cache));
-            //}
-            //if (result_after_cache == null)
-            //{
-            //    var p = new DynamicParameters();
-            //    var commandText = "usp_Web_GetProductInRegionByZoneId_Minify";
-            //    p.Add("@zone_id", zone_id);
-            //    p.Add("@lang_code", lang_code);
-            //    p.Add("@locationId", locationId);
-            //    p.Add("@pageNumber", pageNumber);
-            //    p.Add("@pageSize", pageSize);
-            //    p.Add("@total", dbType: System.Data.DbType.Int32, direction: System.Data.ParameterDirection.Output);
-            //    r = _executers.ExecuteCommand(_connStr, conn => conn.Query<ProductMinify>(commandText, p, commandType: System.Data.CommandType.StoredProcedure)).ToList();
-            //    a = p.Get<int>("@total");
-            //    //Add cache
-            //    var add_to_cache = Newtonsoft.Json.JsonConvert.SerializeObject(r);
-            //    result_after_cache = Encoding.UTF8.GetBytes(add_to_cache);
-            //    var cache_options = new DistributedCacheEntryOptions().SetSlidingExpiration(TimeSpan.FromMinutes(5)).SetAbsoluteExpiration(DateTime.Now.AddMinutes(int.Parse(_configuration["Redis:CachingExpireMinute"])));
-            //    _distributedCache.Set(keyCache, result_after_cache, cache_options);
-            //}
-            total = a;
-            return r;
+            var keyCache = string.Format("JT_{0}_{1}_{2}_{3}_{4}_{5}", "GetProductInRegionByZoneIdMinify", zone_id, locationId, lang_code, pageNumber, pageSize);
+            var result = new List<ProductMinify>();
+
+            var result_after_cache = _distributedCache.Get(keyCache);
+            if(result_after_cache != null)
+            {
+                result = Newtonsoft.Json.JsonConvert.DeserializeObject<List<ProductMinify>>(Encoding.UTF8.GetString(result_after_cache));
+                total = 10;
+            }
+            else
+            {
+                var p = new DynamicParameters();
+                var commandText = "usp_Web_GetProductInRegionByZoneId_Minify";
+                p.Add("@zone_id", zone_id);
+                p.Add("@lang_code", lang_code);
+                p.Add("@locationId", locationId);
+                p.Add("@pageNumber", pageNumber);
+                p.Add("@pageSize", pageSize);
+                p.Add("@total", dbType: System.Data.DbType.Int32, direction: System.Data.ParameterDirection.Output);
+                result = _executers.ExecuteCommand(_connStr, conn => conn.Query<ProductMinify>(commandText, p, commandType: System.Data.CommandType.StoredProcedure)).ToList();
+                a = p.Get<int>("@total");
+
+                total = a;
+                var add_to_cache = Newtonsoft.Json.JsonConvert.SerializeObject(result);
+                result_after_cache = Encoding.UTF8.GetBytes(add_to_cache);
+                var cache_options = new DistributedCacheEntryOptions().SetSlidingExpiration(TimeSpan.FromMinutes(60)).SetAbsoluteExpiration(DateTime.Now.AddMinutes(int.Parse(_configuration["Redis:CachingExpireMinute"])));
+                _distributedCache.Set(keyCache, result_after_cache, cache_options);
+            }
+
+            return result;
         }
 
         public List<ProductMinify> GetProductBySearchdZone(List<int> zone_ids,  string lang_code, int pageNumber, int pageSize, out int total)
@@ -420,7 +419,7 @@ namespace PlatformWEBAPI.Services.Product.Repository
             return r;
         }
 
-        public List<ProductMinify> GetProductByKeywords(List<string> keywords, List<string> zoneUrl, string lang_code, int pageNumber, int pageSize, out int total)
+        public List<ProductMinify> GetProductByKeywords(List<string> keywords, List<string> zoneUrl, string lang_code, int pageNumber, int pageSize, out int total, string sortBy = "TOP_VIEW", decimal startPrice = 0, decimal endPrice= 10000000)
         {
             var a = pageSize;
             var r = new List<ProductMinify>();
@@ -440,6 +439,9 @@ namespace PlatformWEBAPI.Services.Product.Repository
             p.Add("@zone_urls", dt.AsTableValuedParameter("type_selectedSearchZoneUrl"));
             p.Add("@lang_code", lang_code);
             p.Add("@PageNumber", pageNumber);
+            p.Add("@SortBy", sortBy);
+            p.Add("@startPrice", startPrice);
+            p.Add("@endPrice", endPrice);
             p.Add("@PageSize", pageSize);
             p.Add("@total", dbType: System.Data.DbType.Int32, direction: System.Data.ParameterDirection.Output);
             r = _executers.ExecuteCommand(_connStr, conn => conn.Query<ProductMinify>(commandText, p, commandType: System.Data.CommandType.StoredProcedure)).ToList();
@@ -476,7 +478,7 @@ namespace PlatformWEBAPI.Services.Product.Repository
                 //Add cache
                 var add_to_cache = Newtonsoft.Json.JsonConvert.SerializeObject(r);
                 result_after_cache = Encoding.UTF8.GetBytes(add_to_cache);
-                var cache_options = new DistributedCacheEntryOptions().SetSlidingExpiration(TimeSpan.FromMinutes(5)).SetAbsoluteExpiration(DateTime.Now.AddMinutes(int.Parse(_configuration["Redis:CachingExpireMinute"])));
+                var cache_options = new DistributedCacheEntryOptions().SetSlidingExpiration(TimeSpan.FromMinutes(60)).SetAbsoluteExpiration(DateTime.Now.AddMinutes(int.Parse(_configuration["Redis:CachingExpireMinute"])));
                 _distributedCache.Set(keyCache, result_after_cache, cache_options);
             }
             total = a;
@@ -836,5 +838,79 @@ namespace PlatformWEBAPI.Services.Product.Repository
             return result;
         }
 
+        public List<ProductMinify> GetProductByListIdVersionSearch(List<int> products, string lang_code, int locationId, string sortBy = "TOP_VIEW", decimal startPrice = 0, decimal endPrice = 10000000)
+        {
+            //usp_Web_GetProductByListProductId
+            var parameters = new DynamicParameters();
+            DataTable dt = new DataTable();
+            dt.Columns.Add("ProductId", typeof(int));
+            foreach (var item in products)
+            {
+                dt.Rows.Add(item);
+            }
+            parameters.Add("@productIds", dt.AsTableValuedParameter("type_product_id_list"));
+            parameters.Add("@lang_code", lang_code);
+            parameters.Add("@locationId", locationId);
+            parameters.Add("@SortBy", sortBy);
+            parameters.Add("@startPrice", startPrice);
+            parameters.Add("@endPrice", endPrice);
+
+            var commandText = "usp_Web_GetProductByListProductIdVersionSearch";
+            var result = _executers.ExecuteCommand(_connStr, conn => conn.Query<ProductMinify>(commandText, parameters, commandType: CommandType.StoredProcedure)).ToList();
+            return result;
+        }
+
+        public List<ProductMapLocation> GetProductByKeywordsALLMAP(List<string> keywords, List<string> zoneUrl, string lang_code, int pageNumber, int pageSize, out int total, string sortBy = "TOP_VIEW", decimal startPrice = 0, decimal endPrice = 10000000)
+        {
+            total = 0;
+            var r = new List<ProductMapLocation>();
+            //get in cache
+            var p = new DynamicParameters();
+            var commandText = "usp_Web_GetProductByKeywords_Minify_ALLMAP";
+            DataTable dt = new DataTable();
+            dt.Columns.Add("zoneUrl", typeof(string));
+            foreach (var item in zoneUrl)
+            {
+                if (!string.IsNullOrEmpty(item))
+                {
+                    dt.Rows.Add(item);
+                }
+
+            }
+            p.Add("@zone_urls", dt.AsTableValuedParameter("type_selectedSearchZoneUrl"));
+            p.Add("@lang_code", lang_code);
+            p.Add("@PageNumber", pageNumber);
+            p.Add("@SortBy", sortBy);
+            p.Add("@startPrice", startPrice);
+            p.Add("@endPrice", endPrice);
+            p.Add("@PageSize", pageSize);
+            r = _executers.ExecuteCommand(_connStr, conn => conn.Query<ProductMapLocation>(commandText, p, commandType: System.Data.CommandType.StoredProcedure)).ToList();
+            return r;
+        }
+
+        public ProductMinify GetProductMinifyById(int productId, string cultureCode)
+        {
+            var r = new ProductMinify();
+            //get in cache
+            var p = new DynamicParameters();
+            var commandText = "usp_Web_GetProductMinifyById";
+            
+            p.Add("@productId", productId);
+            p.Add("@lang_code", cultureCode);
+            r = _executers.ExecuteCommand(_connStr, conn => conn.QueryFirst<ProductMinify>(commandText, p, commandType: System.Data.CommandType.StoredProcedure));
+            return r;
+        }
+
+        public List<ProductBookingNote> GetProductBookingNote(int productId, string lang_code)
+        {
+            //get in cache
+            var p = new DynamicParameters();
+            var commandText = "usp_Web_GetBookingNoteZoneByProductId";
+
+            p.Add("@productId", productId);
+            p.Add("@lang_code", lang_code);
+            var r = _executers.ExecuteCommand(_connStr, conn => conn.Query<ProductBookingNote>(commandText, p, commandType: System.Data.CommandType.StoredProcedure)).ToList();
+            return r;
+        }
     }
 }

@@ -88,16 +88,16 @@ namespace PlatformWEBAPI.Services.Article.Repository
         public List<ArticleMinify> GetArticlesInZoneId_Minify_FullFilter(int zoneId, int zone_type, int article_type, int? isHot, string lang_code, string filter, int? pageIndex, int? pageSize, out int totalRow)
         {
             totalRow = pageSize ?? 10;
-            var keyCache = string.Format("{0}_{1}_{2}_{3}_{4}_{5}", "articleFilter", zoneId, article_type, lang_code, pageIndex.Value, pageSize.Value);
+            var keyCache = string.Format("JT_{0}_{1}_{2}_{3}_{4}_{5}_{6}_{7}", "GetArticlesInZoneId_Minify_FullFilter", zoneId, zone_type, article_type, isHot, lang_code, pageIndex.Value, pageSize.Value);
             var r = new List<ArticleMinify>();
             //get in cache
             var result_after_cache = _distributedCache.Get(keyCache);
             if (result_after_cache != null)
             {
                 r = Newtonsoft.Json.JsonConvert.DeserializeObject<List<ArticleMinify>>(Encoding.UTF8.GetString(result_after_cache));
-
+                totalRow = r.Count;
             }
-            if (result_after_cache == null)
+            else
             {
                 var p = new DynamicParameters();
                 var commandText = "usp_Web_GetArticlesInZoneId_Minify_Full";
@@ -112,15 +112,14 @@ namespace PlatformWEBAPI.Services.Article.Repository
                 p.Add("@totalRow", dbType: System.Data.DbType.Int32, direction: System.Data.ParameterDirection.Output);
                 r = _executers.ExecuteCommand(_connStr, conn => conn.Query<ArticleMinify>(commandText, p, commandType: System.Data.CommandType.StoredProcedure)).ToList();
                 totalRow = p.Get<int>("@totalRow");
-                //Add cache
                 var add_to_cache = Newtonsoft.Json.JsonConvert.SerializeObject(r);
                 result_after_cache = Encoding.UTF8.GetBytes(add_to_cache);
-                var cache_options = new DistributedCacheEntryOptions().SetSlidingExpiration(TimeSpan.FromMinutes(5)).SetAbsoluteExpiration(DateTime.Now.AddMinutes(int.Parse(_configuration["Redis:CachingExpireMinute"])));
+                var cache_options = new DistributedCacheEntryOptions().SetSlidingExpiration(TimeSpan.FromMinutes(60)).SetAbsoluteExpiration(DateTime.Now.AddMinutes(int.Parse(_configuration["Redis:CachingExpireMinute"])));
                 _distributedCache.Set(keyCache, result_after_cache, cache_options);
-
             }
-            return r;
+            
 
+            return r;
 
 
         }

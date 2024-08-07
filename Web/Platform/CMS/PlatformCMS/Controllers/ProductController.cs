@@ -14,6 +14,7 @@ using Newtonsoft.Json;
 using StackExchange.Redis;
 using System;
 using System.Collections.Generic;
+using System.Dynamic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -194,10 +195,14 @@ namespace PlatformCMS.Controllers
                     var listZoneDiemDen = zoneBCL.FindAll().Where(r => r.Type == (int)TypeZone.DiemDen).Select(r => r.Id).ToList();
                     var listZoneOption = zoneBCL.FindAll().Where(r => r.Type == (int)TypeZone.ProductOptions).Select(r => r.Id).ToList();
                     var listZoneTag = zoneBCL.FindAll().Where(r => r.Type == (int)TypeZone.Tag).Select(r => r.Id).ToList();
-                    responseData.ListCat = objPro.ProductInZone.OrderByDescending(x => x.IsPrimary).Select(x => x.ZoneId).Where(r => !listZoneDiemDen.Contains(r) && !listZoneOption.Contains(r) && !listZoneTag.Contains(r)).ToList();
+                    var listZoneNote = zoneBCL.FindAll().Where(r => r.Type == (int)TypeZone.Note).Select(r => r.Id).ToList();
+                    var listZoneCoupon = zoneBCL.FindAll().Where(r => r.Type == (int)TypeZone.Discount).Select(r => r.Id).ToList();
+                    responseData.ListCat = objPro.ProductInZone.OrderByDescending(x => x.IsPrimary).Select(x => x.ZoneId).Where(r => !listZoneDiemDen.Contains(r) && !listZoneOption.Contains(r) && !listZoneTag.Contains(r) && !listZoneNote.Contains(r) && !listZoneCoupon.Contains(r)).ToList();
                     responseData.ListDiemDen = objPro.ProductInZone.OrderByDescending(x => x.IsPrimary).Select(x => x.ZoneId).Where(r => listZoneDiemDen.Contains(r)).ToList();
                     responseData.ListProductOption = objPro.ProductInZone.OrderByDescending(x => x.IsPrimary).Select(x => x.ZoneId).Where(r => listZoneOption.Contains(r)).ToList();
                     responseData.ListTagOption = objPro.ProductInZone.OrderByDescending(x => x.IsPrimary).Select(x => x.ZoneId).Where(r => listZoneTag.Contains(r)).ToList();
+                    responseData.ListNoteOption = objPro.ProductInZone.OrderByDescending(x => x.IsPrimary).Select(x => x.ZoneId).Where(r => listZoneNote.Contains(r)).ToList();
+                    responseData.ListCouponZoneOptions = objPro.ProductInZone.OrderByDescending(x => x.IsPrimary).Select(x => x.ZoneId).Where(r => listZoneCoupon.Contains(r)).ToList();
                     responseData.ListProp = Utils.Utility.SplitStringToListInt(objPro.PropertyId);
                     responseData.ListColor = Utils.Utility.SplitStringToList(objPro.Color);
                     responseData.ListArticle = MI.Cache.RamCache.DicArticle.ToList();
@@ -252,10 +257,17 @@ namespace PlatformCMS.Controllers
                 product.Status = (int)MI.Entity.Enums.StatusProduct.NotPublic;
                 product.CreatedDate = DateTime.Now;
                 product.ParentId = 0;
-                if (String.IsNullOrWhiteSpace(product.Code))
+                var countProduct = 0;
+                using (IDbContext context = new IDbContext())
                 {
-                    product.Code = "SP" + Guid.NewGuid().ToString().Substring(0, 7);
+                    countProduct = context.Product.Count();
                 }
+                
+
+                if (String.IsNullOrWhiteSpace(product.Code))
+                    {
+                    product.Code = CreateProductCode(countProduct);
+                    }
                 var respone = Utils.Utility.AutoCheckSlug(product.Name, product.Url);
                 if (respone.Key)
                 {
@@ -267,6 +279,7 @@ namespace PlatformCMS.Controllers
                     int result1 = productBCL.Add(product, product.ProductInZone.ToList());
                     if (result1 > 0)
                     {
+                        //Update Cancel Policy
                         responseData.Success = true;
                         responseData.Message = "Thành công";
                         responseData.Id = result1;
@@ -298,6 +311,17 @@ namespace PlatformCMS.Controllers
             return responseData;
         }
 
+        private string CreateProductCode(int count)
+        {
+            // Tăng giá trị của count lên 1
+            int orderNumber = count + 1;
+
+            // Tạo chuỗi định dạng với 5 chữ số, có thêm các số 0 ở đầu nếu cần
+            string productCode = $"SP_{orderNumber:D5}";
+
+            return productCode;
+        }
+
         [HttpPut("Update")]
         public async Task<ResponseData> UpdateAsync([FromBody] UpdateProductParameterWithPhienBan request)
         {
@@ -316,6 +340,13 @@ namespace PlatformCMS.Controllers
                     {
                         // Update phien ban o day
                         var updatedPhienBan = productBCL.UpdatePhienBan(request.PhienBans, result);
+                        // Update Cancel Policy
+                        foreach(var item in request.CancelPolicies)
+                        {
+                            item.ProductId = product.Id;
+
+                        }
+                        productBCL.UpdateCancelPolicies(request.CancelPolicies);
                         responseData.Success = true;
                         responseData.Message = "Thành công";
                         responseData.Id = result;
@@ -356,11 +387,19 @@ namespace PlatformCMS.Controllers
                             _obj.priceEachTreEm = item.PriceEachTreEm;
                             _obj.netEachNguoiLon = item.NetEachNguoiLon;
                             _obj.netEachTreEm = item.NetEachTreEm;
+                            _obj.priceEachNguoiGia = item.PriceEachNguoiGia;
+                            _obj.netEachNguoiGia = item.NetEachNguoiGia;
+                            _obj.minimumNguoiLon = item.MinimumNguoiLon;
+                            _obj.minimumTreEm = item.MinimumTreEm;
+                            _obj.minimumNguoiGia = item.MinimumNguoiGia;
+                            _obj.emailSupplier = item.EmailSupplier;
                             var selectedOptionsStringArr = item.ZoneList.Split(",");
                             _obj.selectedOptions = new List<int>();
                             foreach(var option in selectedOptionsStringArr) {
                                 _obj.selectedOptions.Add(int.Parse(option));
                             }
+                            _obj.lastMinuteSetupDay = item.LastMinuteSetupDay;
+                            _obj.lastMinuteSetupTime = item.LastMinuteSetupTime;
                             response.Add(_obj);
                         }
                     }
@@ -368,6 +407,42 @@ namespace PlatformCMS.Controllers
                     
             }
             return response;
+        }
+
+        [HttpGet("GetCancelPolicies")]
+        public async Task<IActionResult> GetCancelPolicies(int idProduct)
+        {
+            if(idProduct > 0)
+            {
+                using (IDbContext context = new IDbContext())
+                {
+                    var result = context.ProductCancelPolicy.Where(r => r.ProductId == idProduct).ToList();
+                    return Ok(result);
+                }
+            }
+            return BadRequest();
+        }
+
+        [HttpGet("GetGiaPhienBanTheoNgay/{zoneList}/{productId}")]
+        public IActionResult GetGiaPhienBanTheoNgay(string zoneList, int productId)
+        {
+            if(!string.IsNullOrEmpty(zoneList) && productId > 0)
+            {
+                var result = productBCL.GetAllProductPriceInZoneListByDate(zoneList, productId).OrderBy(r => r.Date);
+                return Ok(result);
+            }
+            return BadRequest("Co loi xay ra, vui long thu lai");
+            
+        }
+
+
+        [HttpPost("UpdateGiaPhienBanTheoNgay")]
+        public IActionResult UpdateGiaPhienBanTheoNgay([FromBody] List<ProductPriceInZoneListByDate> request)
+        {
+            var result = productBCL.UpdateGiaPhienBanTheoNgay(request);
+            dynamic response = new ExpandoObject();
+            response.status = result;
+            return Ok(response);
         }
 
         [HttpGet("GetTopUps")]
@@ -533,6 +608,8 @@ namespace PlatformCMS.Controllers
     {
         public MI.Entity.Models.Product Product { get; set; }
         public List<PhienBans> PhienBans { get; set; }
+
+        public List<ProductCancelPolicy> CancelPolicies { get; set; } = new List<ProductCancelPolicy>();
     }
 
 }

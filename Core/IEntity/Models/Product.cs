@@ -48,15 +48,17 @@ namespace MI.Entity.Models
         public DateTime? NgayBatDau { get; set; } = null;
         public DateTime? NgayKetThuc { get; set; } = null;
         public string PhuongTien { get; set; } = string.Empty;
+        public string googleMapCrood { get; set; } = "";
+        public string ConfirmOption { get; set; } = "";
 
 
         //// From Way2Go
         //public string SimType { get; set; } = "";
         //public string GradientColor { get; set; } = "";
         //public string Coverage { get; set; } = "";
-        
-        
-        
+
+
+
         //public string DataLimit { get; set; } = "";
         //public string Validity { get; set; } = "";
         //public string SmsNumber { get; set; } = "";

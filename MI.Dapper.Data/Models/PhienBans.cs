@@ -11,7 +11,17 @@ namespace MI.Dapper.Data.Models
         public decimal priceEachTreEm { get; set; } = 0;
         public decimal netEachNguoiLon { get; set; } = 0;
         public decimal netEachTreEm { get; set; } = 0;
+        
+        public decimal priceEachNguoiGia { get; set; } = 0;
+        public decimal netEachNguoiGia { get; set; } = 0;
+        public int minimumNguoiLon { get; set; } = 1;
+        public int minimumTreEm { get; set; } = 0;
+        public int minimumNguoiGia { get; set; } = 0;
+        public string emailSupplier { get; set; }
         public List<int> selectedOptions { get; set; }
+        public string confirmOption { get; set; }
+        public int? lastMinuteSetupDay { get; set; } = 0;
+        public string lastMinuteSetupTime { get; set; } = "";
     }
 
     
@@ -31,5 +41,11 @@ namespace MI.Dapper.Data.Models
         public string smsNumber { get; set; } = "";
         public string phoneMinute { get; set; } = "";
 
+    }
+
+    public class DateInfo
+    {
+        public DateTime Date { get; set; }
+        public string DayOfWeekAbbreviation { get; set; }
     }
 }

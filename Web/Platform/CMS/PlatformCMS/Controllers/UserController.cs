@@ -36,7 +36,21 @@ namespace PlatformCMS.Controllers
             _permissionRepository = permissionRepository;
             _roleManager = roleManager;
         }
+        [HttpPost]
+        [Route("GetSuppliers")]
+        public async Task<IActionResult> GetSuppliers()
+        {
+            var roleName = "Supplier";
+            var role = await _roleManager.FindByNameAsync(roleName);
+            if (role == null)
+            {
+                return NotFound($"Role '{roleName}' does not exist.");
+            }
 
+            var usersInRole = await _userManager.GetUsersInRoleAsync(roleName);
+
+            return Ok(usersInRole);
+        }
         [HttpGet("profile")]
         public async Task<IActionResult> GetCurrentUser()
         {

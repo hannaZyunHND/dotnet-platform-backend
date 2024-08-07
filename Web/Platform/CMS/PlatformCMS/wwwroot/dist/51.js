@@ -1,21 +1,48 @@
 webpackJsonp([51],{
 
-/***/ 1115:
+/***/ 1135:
+/***/ (function(module, exports) {
+
+module.exports = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAALYAAAB+CAYAAACJS+vdAAAACXBIWXMAABcRAAAXEQHKJvM/AAAgAElEQVR4nO19C3wTZbr++4UKC6KNyOq6rtt4XD1nXbXxHF31j9pguYO2yEW5NgUUXUVSEN1V/0txFfciNoqKItBWEJRrqlxKoUu66Fl1V2lVvKy3oq43tLSlQJvMzHt+38w3ky/JJJkk0zbFefiFNDOTyUzyzDPv7Xs/gohgwUImYNqCnc7Vfxleb8ah2Kxf1EIGoXCSZ7vLjMOxiG0hk0BJ7TDjeCxiW8gkUFI7zTgei9gWMgJF99baASDHIraF4w2qbZ1nxnlZxLaQKShUj+OG2150p3tMVrjPQrdjxqI6txgQyqWAAEJQBCkotIgB0bHxmbHNqR6bRWwL3YZbH37VLgZEjxAUFooBAThigxgQW8SgWCoGxYoXn7shaYJbxLbQZZhf+a4dJXRJAcEldgSdQkDIEwMiCDKRo4gNYlB5CEGxSgqIPiko+Gu2FTcaOV7LxrbQlbAzJ9GVpJNYAABu9ghD0T27CyeXbI+KpGRZP6uFrsKSovOp2nrox8157J8qyT1xSF4JABXb10/2xzlEJ7tgwlLxFrEtwOiJa50IYCeIDgRwUOuUIIJspNIXqDwRQD99rq6aHo9ohrD0jkuo3eyjjxmL6iqo+Ea8b/CWivFGPkcldhgsG/sHhGsnP29HSgSkSolORHASxBzGXUqGFgSoj0FsOwHMlV8iAgGoQwQ/IPp2bnWnXbhUdG+tXwoIeczGXvTCE9eVJnrPrAf2OoJHO+qDxwLZgaOBizc+Xagdh0Xs4xjXTVtPVdiFCC6kt33EXIWs0ACAlMD1BOXnxm3rJxtyykYUPOtARCcBoPstRMAcIkEdAnprthX7Uv02i+6tdUsBoZwR+5QXnrguZiTEs/wtR/BIh6vjSHtp8GhHTvBYAAJHAw3BYwFv4GjQt2PjlGaL2McZCoo2OIhCuEJEyJOVFynxZHX1v7T2xrTNCB7Drq1wEQncCFhElM9x12w3FrngUXRvrUMKCJ8KQbFhnXdUzLT6/Mp33WKH4Ake6cjtONIOwaMdwIjNnoMN4tGA2yL2cYCx7o3UNi4ERDcC5BKEFgT0IYKPIPqr1iQfB04Ww0aXuwiCV7HR0b1rx4yk1Xvagp3NQlD0rfOOSph5vK3sH/aOI+3e4NGOIkbsyuCxgKfq2YnyuVrE7sEYO2MTVSaqzAUI0ELtXQTwVVVOSNkkSBfDRpVXIMrqXVxTPaMimd1NW7DTLwRF/zrvqIT2tYqie3Y3Bo8FmteWhau8FRXpYRg3a7MDEDyoxHSzAaCKctxXMb7byMyjZnuxe+jIVXRJ+dARq+p3Vc9IxrGk2yZrKtHto0wfi9g9BONv2kKVWY35HgAAqmoVm8vHd7qZkSx27ZjhHjZiFQ3B+YYOX+nctXOm0WP0R8ajDaDeInYPw4TZPrtsO0tYymqVqToP3rTyelMdwE6CmxHOwy7ChFj9l+Ex7zpT76x2rXl4hN5502VRF45lY2cgJt5SRQntAUSP/OtISH/w0o3PjE062tCdGDpiVSk9B0Bw7KoxrNpRmFHqdwTa2j1rHh7hMfoeS7EzCBNvfdGOgB7C0s4A4KWPdMo3uxn0+BeyWuukHMkIOLmBCIZgKXYG4IbbXrTLDqHsFCKwsJl3w1MFPZXQGoYOX+mjmctdNTMLDb4lDL9Z8pq9/fAxf6CtPbfjcHvJhqcLvUbeZyl2N+LGOVvtSG/VQDxKUhu8BMC7/jggNAc/hO5AhjG/8l2nJIilTKmz2fvKrpvygifQ1uGtrpoel+AWsbsJN87Z6mZOlV01OdYvi51G7sGoZ45vUlhSdH59ycq33cyM8TJyt1Cn1EgRlmWKdDEm3bHNResqACGXlmVSxX7h8WuPK0I/+E6rKyCCs0MCe3tb4Edf7Gy4G7N63bSp1LUilf3NKPWXUuex43C7awNX6BQPlmJ3ESZ5tjsA0cuK5usA4Oznl47pUVGORPC+11oaQGpWaaYD9OrXG35acAkEkDxT9GrrfQHE0nVXZCfrSFKFdhglNViKDbDgzVaXxMo2AZRnWu3mveRkU0g3uWQ7NTWoY7gQEA8AgnvdY6O1W+nsxS87JAkdKCFIkiR/OIpSffkD+T1GxZd/eNgelNAflCA3gASCEkJABOiQAILyAymx4ZgEEECkz1XtErqrr7IbPsepd1bTcJ8hxxE6i9jB9VNdKAhuEAUXisEcEAQAMQgoBltAFPwoBn19Pa+mE/5JGnfva3UBEBfSMk7Frs1VCa2RGgEkkAvqQUL6PxxAJcnglwDql116clJp6ynzdhSiotJ2RChd5x0V9cPMfuiVUpRwoUZs9kxfy7+NqDyjJIFED5gul7ABJfSse3xMRiRqln942B+UMC8oE9cQsaFdwkerr7In7VQahammSHD9NNURihwNoSKb3YoLji25xAOiWNj3rn2dcju+p77VLsnlm4SSi34moExYZT2G1FmGFPa3TGq6jDo9tBA/j66f9XorVYIqCaBi5WXZMUk+Zf4OWs+hmh00W+he5x2lr06EACEISOifBCSC8jON+dGDkIi2Id2UbQe5QLAwhboK0/HMR4edKTa5mTv0/pfLdv3+ygOdcVxm29i+JE6SOk/1xx660NH3d2+bdtv97b5W5dYPxIOI2WwcCOiYG5HqrK2XIgivvFYWiEAKJISColdbqZqXPnv5yWF3HnrLZNEOek6D15aNiks+SlaJkRsYuSl55RUKiZVhWTZ2EgDqelO6kpqAqGFZRoG9s8YyITQdphE7uH6aO4UrN5udWNqdf0AxN0pZ5Vt2InWWbVkgvDoDcIQHRmZJez/RLg5JuQRyJITySX9voSR299r8aiMCVBDlO1hEz+u5R0YmvGAJUZVYJbJCcOTIDkQ9dqL0FVBOIHfynK32tUvHdKstfujAof72n5+S0nvJkfY20w+IwUzFTlVBUspI8bh732EnIlagchcwpM7AETqWOkuMzOp+pIiLhf2dgwB7yIU5Hba3D7yPABc/t2Sk8Qo1QpoVAlOlRk2xFfOEaMSWSU9JLbIDsBFAKe1Uddqo+dOugQV/LgRb3xOS2pWtqQ2E1z7+KHXaJNi/WTtqEbJ/keJbsw1sExN3vdnqlhD3iag4gyIjsUo8+bUyPApEJNo6kXFE3V5ElB+SrNIEBCTyOmVbBAHpg71m71P3Q5cfPeeMPm2Fl8PhsVck5TMQAvWKTU2YeisKHloG2kN9AyU1Q9qiYALce5/8W1J7sdERLxv/F/TKTc2CacR+ry0npdvKh8Hc71L9zAVvtnpFhHJRMxGYWjMyK6RmyhtBZvoQmDpTQgsamRVCUzJLjNAakdX3MjJrD1AvDvni8o/a22LY7kRCmmUCA3Bqrb4GCGO2qtyqCWMjBdQcSfX7SxdDhq2k/azzmhqbYNeD1dD2zeGEexS++B4OV+4B+OYw7K6ZmfnE3tF0Yf2/j/0k6fdtPeJKySue/0ZrhYgwV0+dRYPqjGGEjlZn/iLg1Vlg+xEgRHj18wXEXAnQP8wguZfNv6xeMTOYQqvstSnqrUJVccI5lTII6bSQmQFoddZtXx8G/+JqeGOZH77Y+xF8//5XIB7tAPFoAA7/62s49NqHcHDN3+DQM3sAlQugoTMPzDQb+9tAv/bl/x4MN525B37W96uE27djf9jUMgb2B85MWunnvdFKB60WRYbqIm1n4OxrSQnas7+jbWfgbHMpwuZW10kR+w3fFtk6+YKiyu0z6ncQIHUSYJ7MVWo7yzsn8pkQZnagiFq4DzRll9/smTxnq7ernUim1lFh3e8/+FZ+GIApkyjFgom9+5CSG/7wyWjY9OVV0BTQ95Tbpf7w+pFB8OC3t4L/6K9CnptBlLzR6pQ084M3N8LVWTMbDKizFEedJc7c0FFnxVyR1Zsw2xxAlGRbPc9V12xsUCoBv6LY7CVTZtQUXCVzuB2ukByyu0m10w3TdWoM3jTFDvETYef358LO734Bp/Vqg4G9DgOwVPER4QT4uONU+W8phYyn55+tdgnAp5NI0Y4hUp1jhOrCIicSZ6NDHHUOrQtTZ3kZYRGTiLNa6KprrvDn2ePakoQQWrO8kA/5hSVsbEQ7CAnUKElYwoaqdsXaLqo9GTp8pYsln9JBpxLbNMVmjVk0gtPnb4Inwv5jp8Pbx86QHx8HTmX5PyWxFsYYAxARPBJCjkq6SHUWmP2MMZxBPXXmncF46iwxhY6hzprS6yBhOO6Jeb+mdvYBPqYdFh2BkAOpvlbXs1VUtbsk7Dds5Co7EOIjBraNg4bOdBzBTGKj+j+GHiGihwxatfdbqD7DGLNv/4es1h4xFIFIK1TH9tMgIFQJCIskgEUCQKWI0CBx20aaGwI7fpXQBo6emiSJbW1CKviwX0iVCec4QojMyptCJgsheVS1DX2ZKWL46HJKaj+hIdr0mN0p2UYeppoiyFRY5ap6ewZUCczcO7adJKFhG1tUKuTkmLcRZ1AnkaK+r0VS6jgqNg/K1lUNGq6TAD2IZJ5IyEmghRFR20+ScCe69RICXonAQq1ORHvms5IhpxEjEjbMqSyadPtWWPf4GFMyuTxGXFtpByBe2phSqV8hocaVyaGFlV50KsxzHmkHTpXUidSaI79RiAjuSHWOF6qLkUih6uzYPCi7NBapKbZfld1cfZW9NAjwc0Ss4tU5xVrIIlddc9zw3xMlv24mhFTyyZlwxVZNlBgJG7aAECi68baXKm649UXT4tsjC561yw4ugSI+zp4ivLvTGLFuFOaZIoyw4a/D1ZrI5A+tB4MEn/V6K63Qy0kzkVK5eVB2oW9QtuEv9a9XZzfXXm0vRKUBebpImCWkTiAS0gKc+YEc0aMTNiSUsAElFs7IX0QzmjfcUpV2vnrk2NVuIHKGMFc+FhanwTCTyDBausIMAbOn6uDVmkVfteXIKTYve4iY0DumNdRpJlLqfIOyU749+/PsblZ+mg4SEltWbfrD82QG1VnklDyM3xqZleWhlTlAYM/E2T7/hJu2JJ16Hz3hOfeocWsaCYFyAJKtHksoEhOeQDKILlFrMLUICjX3MURe+iQpSg2IXPjMuFqDTFJSmEYipQXNqR5UOxulWttiKDz25PzLSm9d8hptA5yrJWzo2YosYUOUZTSCGgoLhswURU5Z5EkhHq02zJswa0sLyr2w0Q8I9ZKEzaCZhXTwAh0MQZvBoxMkpX6dsFApvc0ys5r5NkSLbrGNjIBGQgw3m0wX5saxGaHV01ZNEM3U5tQaOYLHw/RXaTQEcyKdQb52OpLgGL6td/tVse1po/Dn2Ztddc1qA5iU4Kprdvrz7AkzboReRDayTz4NmnFk93y5bpslphRzgCMzQWVQAh/jpjuwaV9ONkFKcpKH6gWCCnGVfXFmospiAiq1AZGwz1WIrsXTjTuRpju08WCuKcLb2qqnpRfeUy8AA96YgOgUI5xBNeTHFyGpsefIUJ0AaGYILF370NA84U/Ov6yeACmRX4TFq5nNbSNaTZSmmmFZSe49/D++kIozYbj0fMhphfCwYsg8YttD+HYJULK7ZmanptAjYWpURCUr4RzGyGQM8hcA+xcPIoJdSj2R0lBzVfysXzKgqp2mre0wuuGTd17mVaMkUaTlEzY21fYNS7Nz8XBlcIK8DjiicnwkwNnyISHm7HWO+OpWJLQdxI+SVO6umdklDiMPE6Miqm3Hmx7Rak04xUYDii0COGNV1RlIpHRG2jYd5UkqBLdsweVuIKRBV7UJp9ocG8Nru3mWkojoim5qPky1tfi5ZpCEq34YqfWZTe3qLjVBVJiXUofo8F5U6jwqvp04pc6rM3KqrJfmFrg0t1JnHd1e1gSkc7EYMkV4EEJchEBDeAw7POSnpdk5EyUyc8mXuvJZyzDVVi8OCG3H2/JyQihMtUk81W5IY1RV2jC5CCo6GRN6rel2mFonMkUECDmDEleEBGrGkWUdYxQhdUlRkPNHCOedCHImVa0bOSIgfNxhg0+F9LRj2YLLm2/9898puf1ISG6S4yLDxlMqQ89Uh5GLarDXEij7k9QlNhrVYoXAbMAGgGrWaOllzYGUQhESmdRdFdrTg8lRkRipcy68F6XWCfLTrJWG8jf78vmqugRpbsM2bbLobwO4caAIvzwJoW8WgYAgyf0zgqIEgvyMcKmE0CIAvNzaB94Kpv5VL7vrCkoQ5+yHXqlAgkXxxkUCF91g4yKZYqNmL7N5GhWC8+FBYOMuuXCeqsJyRIaFvEIapmq/Qmqi7LxyVzeZHzxMHMwbSsaocTadZEy4bW3AyBYwXJ0p+hOEX/aR4Mw+CDabTVZKSqYjEsBHx0jaKpkI5/YGmH1WEPplERBp85egqDSGkcmtEFt5APQGCa7ufwTObD8Bdhzrl9bnPv27Qe6bF79MKwHLQgOAIUy11WXA1ZGEVJuLe6uqjSHVVbLDoXBeKLRHNNVG1agnSq2OFttWSF1S0w2Ooh5MTNCoSoCaAoBuMkZxICWe5HEgcep8ei8JRtgFuChbgl42G/QiNBMpymrZIUry86X9EJoFgL2tfeDtYJbpin1FPzxv/Bki9M2yyeocEMNVWiW1KBOc1bZICD/L6oD/zDoh7fqN5fdc6b3pwb1+IpepYi5vaoCmzOxuySIi6ugbTbHlPYVMCZm2qoqrNjRTbSV2zhuMugkbOiGqe2dyEyl1KsxtmBNZHxKVjAk9EwP2NSjRED8iLrz6RBFGDBTgR1mgkZqSnZI5IEqKWlKSSSirZJ6skr1Hp9HPRRf/k42Te9viq7SIkkxmQWL135KS/j/L1tFuxjE8c+9VlEDOWffXlRJJbhYvZ0PDyKva0yrBNUcQNRucMHMiVsJGS7bFStgoHF9Uva2oyzKKRmFeuE9SCaufjGELNIfRQNJRBlX2c3ojXHtaMIzUyJE6wAitEEshFX2cldU+cPGrX4wy6xwpdj/fcGkHvUPID1G5U4jIlFtR76DIq7die1PlbvmsxVQhWfH7vFIC4CQ2UqmOjSRhJgkf+w4lVrR/MRI2obg1F3mBqITNHkLg7OqXMo/UYPaYx5DZrJ86R+AyjuzKT8Ruf57df+XJAvSyEbCREKkVQknhZApTTkUlv/+k6X6zznDkH16+8t8ffNuvqbkdVHKHLixJe6ifH2QPSuqvPmmBzz5tft2sY1GxotTVuGrRYOqsnQ2ELKLVgUYSNrKJovGauyiUv8KSMFxIr5XqCUq4aceWadfs8E3P2DbIJmYeDaTOI9TaQH5Gxo97Q5tKagqZTAJq9i1v2wpMrQVm235Q88HFwxf9LemO+nogTYfXSgEBqja8Dx0GVZo6l999eQT+ueMTONoW2GrGceih/A/XNFY8mF9auXiIHQmMBQKVQEmuk7CJpdqhRE5UwqYKCCmWBPFtScSvAHBWZ52HWTAv3AdcKj3M+lCTNSGSS5qdZmzM4yt7Dnw3eYyjP/0RFJVUFZI3QVAzQeSBCBLAW/7PIXjwiI0MOPpXADgnnfMb+eAr95HPm86iB974/kGoWLYPXMPPhoE/688+MzT+UR1b2fTlEXjvzW/gu4++B3JClvTSA4O3p3MMRvHsH4f61FEq0+6sdiIBGgd3IiEOQiCPj6RIWtEai4kjNNDWyQSIPEtu1dob5ITUyOtX076IgwDg4h2+6Rnfu9vEODaG/U24YqiwZExEqt2IYr/z/sGapz769uYb3bmQ1S8rdPsPU2vFBJAHI0gAH9YfhPf+/oVyPP/6+j9G3FO7tnpx/uRUzs1V+cFVJ77z+f1a/JYAHP6yBV6saICs/n3A/tOT4cST+8jb0ijO4e+OwNGmYyAc6Qjdxk/t/0Eqn50uVj88oj5WGcANs6schKBj/Yr4E6KOHLemkFU1llT7pmVM5CMeTCM2r9YxkzGRkRA+WxkHR9/58u73AW5+aOEhGDzkbLh4sEMjskZq1kPk6wOt8I89n0HzJ98rx6WmGN76fNKIe2rPrF6cn1RH2BF/fHVW34+/egoCAuGMUO2ohbYO+P5fB+F7rW5DdbTCE8zSKf2XJ/mVdjpeeLqgMVF2dtS4NU5lpD2p3LFlakbEqI3AVFMkYeqcJz5wCp4ANDV7zeyqjzs+/e6cnZveg13bPoT+p50Ep+dka71DWlo6oPmLZpBaO7gah4hjfPvzq4fP3HyI/MS+qPrBa+L+SEOXvXXRCZ8dfNbW+G2u3J5fB/JdSWcUCYKavGBOWb8+wkv//8oeQwoVI8c/ZydK+4jGVKa0606YqNiJU+dhHDZig4TjPgBYR5dI7QK0fH4IWj8/FF58o4a5IovNuAXk28N2+PZw2fDJz/8JTu2/j5zUdw+x2b6R1/c+gRrMl0DLkcuzvmo+HQNiWOWaSmTdQraoD+VW/fQUM8ZMdgcqWFmCc8fmqT1qZrNO6AQVkTrXhrToq7XRviJ/fbrg+fwpL3jJwbbTQa1DiVMEHPM4Vf63dfSGto7LAOCyUEaO8MEBBuMfoncmaO8XeOl+V8ZHESIxasJz6lQjg3dsmtrjZjcz13nUS53zJglfIpIC+vwke07gYNv6WFQzxvXYW+lofZL71nnfGQPuTuFtnYphI1bZJQmdrIzWzkpxG9XuTHQgL50jhgAUb980NSMmcEoWZmbCnGHJGL3UeZT9nVx/kf/4+cDRBwgR29/6opfxd6FG2UiQkLEUTdp4TI5YF2tTPPcnDVt/nzm29YjrKl0goQdspICEf/fyOM4hw1YesGXZtmb1630bEHh0+8Yp3TpbQjowc5S6HTje8uG9SLUmqs+YBKlvf+yfNHVb9POzBgz+4Iuml0jT0f7aR/PE4py2SBCMdihBdycRi+Osi/4M5lAOPLmtLd+ZERMgjZ7wnB0lrKCN4pGdkJxCj1aVHEmQbgscbm8D7N4pQNKFmb37nHqpc4xKnaupd3UIWeLhW7cvfUONoxY/MfdSPzn3jAvwx/0DAPHtGhIv6GIsIJMQROfz8ZQTxfYLcwaxMZLdimsnPW8nhPiBkAK1VbGNqI3lY343VDT8Q4atTHrET6bAFGJPnrOVzmuYrZc650LY4eXXBlk15/E3WBwVKh+fe4msIrv+4DoAOQOnY5+ssL0Q7lXU7pNhcRzSx201QLOqp5woHr3ivwbvmn3BW0l8YqeBEPCBjeTa1HoRm01LmydoeJPNyN1pgzU6E6YQGxFcYaPO9dSasz04tabPMTNZc554kzZClOOoj99xSdiojN2L81/oKPh1Hgxkyp3M8eqcQKx1+tZ5DJx5Sgvm/PicPdPP25vsMXUGCqdtcNMurGG9AG3KyBr1kaCZU3Z3z0qWKkwyRdATmYzh67I1oY4emX7A9+yEeLdrL4uj6rbo2jvzl3vJOaefJ501QJugyRgN45gvcdbF2zc557TX2gqvcGz/3f/rlJlmUwGxkVKt+EmujuQH+HLtiePvO2/IsJWZMlmqYaTtPE66fasLkc6vaDR1zqk1xlbrO57Y52ZznAx+fM7/xIyj1twvT87042ElO7bgJwcL5NR3FDovMoKnnBgQf3HGbdvuumxFrGPsDoybsZkWPuUgVWWMmCTVhvJAAZnpyN9RYyJhG+RMgwmKjV6jqfNQCFD7FnX7JN/x5D4nU+tFS2//b0NfaE3ZyLE45CInnHv6e4kcytinEmdx5LoTewvkvDNWblte2Kc6w0gNikC7tMaRtniqTdoIIXUJVPuHpdiTbt9awau1TFwpPLwXSQhNt5WLIBZpZbt66W3/ndTojN1znG8BOM8fsrT+IvLp18vhy0OXktZ2G5IYwhsv/BcD0hn2r23Z/bZte/CazM4mEuJQWzWo5KZt/CTNNKHLbQ9vf3HaArr50BGr7HKMW783oSn17F2JlIlNp4VAxCI+da6XjOHVWhtdo6ypq1o9McrEuGNZvWpXpxxqUggOl9O/h/7l9RL47OB0aD7yn6TpaF/D6UNGejzt5DZb/x99jif13Q29ei3Zcd+gjLGh48FmIw659UXEXO2yetPfopft4e0bpixQd7Gregb1dUqHDFsJ6TTezBQkTezJd2yzA523HFlbXIyfOteLJTOLJMrbnvtUPb3lzaV1v4/ddrEp9Qm7Fvy6DADK1Ncj7qn1QIfQHyVpiLwg0nnKsh2CPifU4Yl926p/e3nGmRiGYSONINGIiKLaNHYt2RDo7UsipG37+skLYuwqrY6ymQLDxJ7i2U5j1dSJ8CBAdqxkjAy9ZEy4Wh+oWj0xjNiepxvszASpe+w3F3daGrp6cb667wc66zMyAcRGGm20jzai1u8PQqr9RqxDpCXCTLV59Ii7FA9dYk+/q8aBErpZ/SmdMJSaBTnRo86TT52zt+vZzh5WkNPtXYSOBxAb8aGNLKQtmnRUO6aZJ9va0ehxhVC6URFEdADgQgRYKJsciDkQRtqUUudqeiZKrecub3Cy21/pY7c6e1yJZCZi3ePX1hMb+dxm47KMoUf2mBvX6Q8cIFCq44b0uCSNvinCJVe0RZpaK73hpAi1NpQ6V5brKTI1D+oevcXZ40aZZCoKizY4e2X1OjXrhF7KvOwYpdplY25YS4ujvNs2TGmmM4NJklRqI2SuZOOmiQCo210zs8cpdgwbO9QCOGzUuc7IGP1R57qpc7rXRVVrJoZ9SZ7lb7nZPCkXd/rZ/kBQ6N5I74B+QRA/PKF31rs2QiZRslLHUQzvsb0QCSwcPW4NnaksWya9OoJd+RVbeqppGMMUie4RQriKphRS5/RvGt4Ls61LnnnLztT6Ue/s3B4x+jnTMda9Uc0S0uSXi/Sy/YbYaPN40BI1hNWMcOn2bG2uSLYcbKSFtQLukaZhzKiIqtYoxRnHaDx13oCAevUesp1H9J3JpDHAke9oaqz9wdro1xdv9LDQZqWvcgKvtM6Js300QzxXngsSw2dGULLrCJKcxJFVu4EQdO/q4nljzEQs59FYC2BjqXO5CXjV6olhxU4lK952MGJ7vTfnGqpbHuDI9w5w5PsHOPKdEcsdA84GSl4AAAiVSURBVBz5dB+fDnDk9+gC+VQxdsamCkbqEl/F+CjzYf3ThR4gcLYyr43SISpCtUGeFsRGinducztrdmRO59RUoKvYaj0FP+pcAZc6jwjvxUidVyKCx7dat4KPqnSz9+aLklFrJ7PHI0NSzeyRzZ5lDHDk29l7mpsaa+vZMnWsn4O1FahX13Hvc7L6CDvbH90mIx2ocTM321ExO+gxF2+pGB/zwt7wzNhG1WYeW7TRSQixc6pdv2PzlB41Ej0edIkdW63RaOq8BRA9W56doPsll6x8x8Eq94rNOImmxtrmGLMX0B97D/XsqdqzsFXUBKQDHPl1XGlshd5kowMc+bLNGXkRsHUOdiHwx0CPydeZptG4WZudXIsE1+by8YZVdkul8W17ImJW90WNOmdhvsgWwHwyhi2gPTScsUjNQGOlB8puuiih2UBVd4Aj30UfnFI7uWVGQFV+C3OqBgPAKU2NtYT93cDW+1grMBe74M5m25xNqwzZBbGP/0x2bPQcPqV9Idl7XewiKWOmkZ/dOUzFuFnyNNLqXcSxZdU4y/nmEDuOnSAZo2wQ5ihWImLp5srxcRVq3qp36I9chMSwWquqy6OM+1vOJ1ACMYIOjmE2VDY11obZnnQ7RtRD7L1RqswUt5SRcy4jrkpW+jm5dN/UX2B3DoCQGaRWyzUyx9aUW/34m7aUsv3Kn7t55fXHjQlhFuKYIoZS5w1IRzMj+DaVjzN6y/UwAunWYuugnikrsNAgJVJJsvMtRpKaW948wJF/gJVmluqZGgwqeVTFdrNjadDbNyMxvSCAkdCbbkx4/GwfLS1VTaWSTSuutxJaMaBPbPU5XK0bCEKzBOgnAPJk8xtTUwr641aUzbzQ0HsZQWQFZpEPSMGZq0uwvpERO5mLRbXJcwc48o2MSEtrUOyE2T4nEwN6Jxi8acXYHtnIpqugS+x1j432p9j4KC7ml+8vZAQ6HpRGvcgWNTXWdup0FRNuqXKz74xeeIUbnxlrmR4JYO7kSolBf6C6spkXHA9JFNUkWEgdyFjRD+ZcUrV1xzFzdDHh1io7QZnQNIL06EYai7ZgCJ07ISKHeeX77YwIx0UCpamx1secN2DOpFuNfrCEkZs5tEV6sfJEmHjri07CFJqGnTdYpE4KXUZsziY16jRmPJjTOJaZJTTcd4jZ22r4j6I4luMaCzf85kVK4n3M9ndseKrguPnOugpdaYrQaELVIzMuSMc+VAcj6Kmf3jo1opLoM+PtV0UFc2LD9sWUWyYeF+NuTCUxc8PtLznknnkE8gBh0fplBRk51VxPADHanzpdzCvf30yLnZYU/8oKUengxjlbCxGRhk6bAbDwhSeusxIuaaBLFHt+5btOtRdcV3xeT8KNd2y1s86m1P94lMa+X3jiOivqkSa6yhShxG5ZUvwrS4U4TLpjWyEzcSiRB7/w+LXWhW8STHMe5bYMseEEklym8HjGJM92x6S523ysfkUOBz6/dIxFahNhimIX31erFijF8t6dyabAj1dMLtnuUUt2qUo//5hF6M6AWaaIMwGxwUBk4rjGlHk7nLJzqNSX0GpB77rHRlu2dCfBLGLTOK1jXPEm76bycXo/Vt5xkkZPGlPm76DOYSmrDKQ1Kxev846y7l6djJSJTSMdUlB0tx86Usg1LWwcPXGtL9jW4a3ZXhz54/3g1GnKndVu7oIuXls26gc5bK07kLLzuKTo/HpmevDmB01KVOiQ2vyKqgzG1AU7XVMX7Kxn2Ud5hMtzj4y0SN2FSMsUKZt1IXV8/MX31dpZyrxw2/rJehm3lnTLNnsCpt5V42AKXcDMjrOfWzLS6mzVDTDLxqYEr48z2KD+eCb29N/uciBCKSFQhCg3cBy85i/DrWhHNyImsafeudOx5uHhRtUmkTPUnE6/60zF9N/tpiPEPUQZIUMJXbzmz8MskyMDEE+x3ZPmbPWvM5A4KH8gPxGx/WBSU5xMwPR7a+0E5e7/ailpyeo/DbVqYDII8ZzHtGYViAB1MLPnle/vcXOZ8HDfV+sourfWy5xkudkPAXA8+0eL1JmGeIrtNCtEt6To/Mb5FfsbeuLsUxTu3++h/cJpy4giZnLQu0/Fsw8NsRIsGQpdYrMoR67Jh0xVrXzeqne8j8y4oEckKIoX+gtBMTnyVBu68sEfZgu1ngbdeuzi+2pLg+3CQrEjCEJ7cPCGZ8wZET2vfH89HfX+yIwLMtaRnLGojs6xo0xJgpADiHV0BoaK+wdbUY4ehChi3/TAXo/QHigLtgvAiN0iBETPlsrYPeGMYl75fiegPAWe75EZF2RU3+WZ9/+NqnMhUnMDkcbd6QRS3vJFLisO3QNB5lXsd6AoFQrHAi7hWNAVbA9kC+0B4IgNQkAEMSC0CAHBJwYEn9Qh+nfVzEzJvpxfvt+NiOWIUFk2s3vJPeuBvfLocUSaXMIckGR1rli1MM8yN3o4srhOpXzHUj00muFMLin+VcW8Ve/QP70lK9/206k7ymZd2GWqePPiV1x06JVCZrnG5QCLbvhWLMyz1Pk4gVFTpHBL5XhTbcySle84AeQxfrmIuIjOHem9Odd0Yt3y5787ENEFCIXsORsAaWs2HyL6Vtx3lVVpdxwilvPoCbYLZWY7j3ooWfF2KdLIA2I2IFTRPoB0KupHb0l+9rBbl7xGHT+5tzXSKfwokZU5KVsAwY+APpDAv/yeQZYyH+eIRWx7sF04JHYEG9YtHdMlEQx5kiXEQkAoYK2KDwBiIyDUI2Cz2nubqNOGhKYLcbG/8zDU35gqMo3AUDX2P3XXFZYq/8AQs/3C1Dt3+sWOYP26pWO6vAMRnXqaKa6dI24sYqvEp40ym5fNv8wKy1mIm3lsZI8ux6O3OP1WqwYL6SBerUijNQDXQk9FPMX2rls6xqqFsNAj0WUtzixY6Ep0ZbdVCxa6BgDwf1bd7EL/oLdxAAAAAElFTkSuQmCC"
+
+/***/ }),
+
+/***/ 1138:
 /***/ (function(module, exports, __webpack_require__) {
 
-exports = module.exports = __webpack_require__(53)();
-// imports
+var Component = __webpack_require__(372)(
+  /* script */
+  __webpack_require__(1172),
+  /* template */
+  __webpack_require__(1549),
+  /* scopeId */
+  null,
+  /* cssModules */
+  null
+)
+Component.options.__file = "C:\\WORKING\\Joytime\\dotnet-platform-backend\\Web\\Platform\\CMS\\PlatformCMS\\ClientApp\\containers\\DefaultHeaderDropdownAccnt.vue"
+if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
+if (Component.options.functional) {console.error("[vue-loader] DefaultHeaderDropdownAccnt.vue: functional components are not supported with templates, they should use render functions.")}
 
+/* hot reload */
+if (true) {(function () {
+  var hotAPI = __webpack_require__(177)
+  hotAPI.install(__webpack_require__(26), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-98ca1fd6", Component.options)
+  } else {
+    hotAPI.reload("data-v-98ca1fd6", Component.options)
+  }
+})()}
 
-// module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", "", {"version":3,"sources":[],"names":[],"mappings":"","file":"listdetail.vue","sourceRoot":""}]);
-
-// exports
+module.exports = Component.exports
 
 
 /***/ }),
 
-/***/ 1222:
+/***/ 1169:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -25,1466 +52,272 @@ Object.defineProperty(exports, "__esModule", {
     value: true
 });
 
-var _extends2 = __webpack_require__(8);
+var _regenerator = __webpack_require__(74);
 
-var _extends3 = _interopRequireDefault(_extends2);
+var _regenerator2 = _interopRequireDefault(_regenerator);
 
-__webpack_require__(792);
+var _asyncToGenerator2 = __webpack_require__(73);
 
-var _constant = __webpack_require__(793);
+var _asyncToGenerator3 = _interopRequireDefault(_asyncToGenerator2);
 
-var _constant2 = _interopRequireDefault(_constant);
+var _vue = __webpack_require__(397);
 
-var _vuex = __webpack_require__(180);
+var _DefaultHeaderDropdownAccnt = __webpack_require__(1138);
 
-var _vueLoadingOverlay = __webpack_require__(376);
+var _DefaultHeaderDropdownAccnt2 = _interopRequireDefault(_DefaultHeaderDropdownAccnt);
 
-var _vueLoadingOverlay2 = _interopRequireDefault(_vueLoadingOverlay);
+var _DefaultHeader = __webpack_require__(1474);
 
-var _qrcode = __webpack_require__(1466);
+var _DefaultHeader2 = _interopRequireDefault(_DefaultHeader);
 
-var _qrcode2 = _interopRequireDefault(_qrcode);
+var _DefaultFooter = __webpack_require__(1473);
+
+var _DefaultFooter2 = _interopRequireDefault(_DefaultFooter);
+
+var _http = __webpack_require__(4);
+
+var _http2 = _interopRequireDefault(_http);
+
+var _router = __webpack_require__(189);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 exports.default = {
-    name: "ordergetbyid",
+    name: "DefaultContainer",
+    components: {
+        AppSidebar: _vue.Sidebar,
+        AppAside: _vue.Aside,
+        Breadcrumb: _vue.Breadcrumb,
+
+        DefaultHeaderDropdownAccnt: _DefaultHeaderDropdownAccnt2.default,
+        SidebarForm: _vue.SidebarForm,
+        SidebarFooter: _vue.SidebarFooter,
+        SidebarHeader: _vue.SidebarHeader,
+        SidebarNav: _vue.SidebarNav,
+        SidebarMinimizer: _vue.SidebarMinimizer,
+        DefaultFooter: _DefaultFooter2.default,
+        DefaultHeader: _DefaultHeader2.default
+    },
     data: function data() {
         return {
-            isLoading: false,
-            fullPage: false,
-            color: "#007bff",
-            currentSort: "Id",
-            currentSortDir: "asc",
-            loading: true,
-            OrderId: 0,
-            TotalPrice: 0,
-            order: {},
-            orderDetail: [],
-            orderDetailPromotion: [],
-            products: [],
-            customer: {},
-            qrSize: 100
+            nav: []
         };
     },
-
-    created: {},
-    components: {
-        Loading: _vueLoadingOverlay2.default,
-        QrcodeVue: _qrcode2.default
-    },
-    mounted: function mounted() {
+    created: function created() {
         var _this = this;
 
-        if (this.$route.params.id > 0) {
-            this.isLoading = true;
-            var initial = this.$route.query.initial;
-            initial = typeof initial != "undefined" ? initial.toLowerCase() : "";
-            this.getOrder(this.$route.params.id).then(function (response) {
-                _this.order = response;
-                console.log(_this.order);
-            });
-            this.isLoading = false;
-        };
+        var getAllFunction = function () {
+            var _ref = (0, _asyncToGenerator3.default)(_regenerator2.default.mark(function _callee() {
+                var response;
+                return _regenerator2.default.wrap(function _callee$(_context) {
+                    while (1) {
+                        switch (_context.prev = _context.next) {
+                            case 0:
+                                _context.next = 2;
+                                return _http2.default.get("/api/permission/functions-view").catch(function (e) {
+                                    localStorage.removeItem('currentUser');
+                                    _router.router.push('/admin/login');
+                                });
+
+                            case 2:
+                                response = _context.sent;
+
+                                _this.nav = response.data;
+                                console.log(_this.nav);
+
+                                return _context.abrupt("return", response.data);
+
+                            case 6:
+                            case "end":
+                                return _context.stop();
+                        }
+                    }
+                }, _callee, _this);
+            }));
+
+            return function getAllFunction() {
+                return _ref.apply(this, arguments);
+            };
+        }();
+        getAllFunction();
     },
 
-
-    computed: (0, _extends3.default)({}, (0, _vuex.mapGetters)(["Order"])),
-
-    methods: (0, _extends3.default)({}, (0, _vuex.mapActions)(["getOrder"]))
+    computed: {
+        name: function name() {
+            return this.$route.name;
+        },
+        list: function list() {
+            return this.$route.matched.filter(function (route) {
+                return route.name || route.meta.label;
+            });
+        }
+    }
 };
 
 /***/ }),
 
-/***/ 1466:
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
+/***/ 1170:
+/***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/*!
- * qrcode.vue v1.7.0
- * A Vue component to generate QRCode.
- * © 2017-2019 @scopewu(https://github.com/scopewu)
- * MIT License.
- */
-var mode = {
-  MODE_NUMBER: 1 << 0,
-  MODE_ALPHA_NUM: 1 << 1,
-  MODE_8BIT_BYTE: 1 << 2,
-  MODE_KANJI: 1 << 3
-};
 
-function QR8bitByte(data) {
-  this.mode = mode.MODE_8BIT_BYTE;
-  this.data = data;
-}
 
-QR8bitByte.prototype = {
-  getLength: function (buffer) {
-    return this.data.length;
-  },
-  write: function (buffer) {
-    for (var i = 0; i < this.data.length; i++) {
-      // not JIS ...
-      buffer.put(this.data.charCodeAt(i), 8);
-    }
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _vue = __webpack_require__(397);
+
+exports.default = {
+  name: 'DefaultFooter',
+  components: {
+    TheFooter: _vue.Footer
   }
 };
-var _8BitByte = QR8bitByte;
-
-var ErrorCorrectLevel = {
-  L: 1,
-  M: 0,
-  Q: 3,
-  H: 2
-};
-
-function QRRSBlock(totalCount, dataCount) {
-  this.totalCount = totalCount;
-  this.dataCount = dataCount;
-}
-
-QRRSBlock.RS_BLOCK_TABLE = [// L
-// M
-// Q
-// H
-// 1
-[1, 26, 19], [1, 26, 16], [1, 26, 13], [1, 26, 9], // 2
-[1, 44, 34], [1, 44, 28], [1, 44, 22], [1, 44, 16], // 3
-[1, 70, 55], [1, 70, 44], [2, 35, 17], [2, 35, 13], // 4		
-[1, 100, 80], [2, 50, 32], [2, 50, 24], [4, 25, 9], // 5
-[1, 134, 108], [2, 67, 43], [2, 33, 15, 2, 34, 16], [2, 33, 11, 2, 34, 12], // 6
-[2, 86, 68], [4, 43, 27], [4, 43, 19], [4, 43, 15], // 7		
-[2, 98, 78], [4, 49, 31], [2, 32, 14, 4, 33, 15], [4, 39, 13, 1, 40, 14], // 8
-[2, 121, 97], [2, 60, 38, 2, 61, 39], [4, 40, 18, 2, 41, 19], [4, 40, 14, 2, 41, 15], // 9
-[2, 146, 116], [3, 58, 36, 2, 59, 37], [4, 36, 16, 4, 37, 17], [4, 36, 12, 4, 37, 13], // 10		
-[2, 86, 68, 2, 87, 69], [4, 69, 43, 1, 70, 44], [6, 43, 19, 2, 44, 20], [6, 43, 15, 2, 44, 16], // 11
-[4, 101, 81], [1, 80, 50, 4, 81, 51], [4, 50, 22, 4, 51, 23], [3, 36, 12, 8, 37, 13], // 12
-[2, 116, 92, 2, 117, 93], [6, 58, 36, 2, 59, 37], [4, 46, 20, 6, 47, 21], [7, 42, 14, 4, 43, 15], // 13
-[4, 133, 107], [8, 59, 37, 1, 60, 38], [8, 44, 20, 4, 45, 21], [12, 33, 11, 4, 34, 12], // 14
-[3, 145, 115, 1, 146, 116], [4, 64, 40, 5, 65, 41], [11, 36, 16, 5, 37, 17], [11, 36, 12, 5, 37, 13], // 15
-[5, 109, 87, 1, 110, 88], [5, 65, 41, 5, 66, 42], [5, 54, 24, 7, 55, 25], [11, 36, 12], // 16
-[5, 122, 98, 1, 123, 99], [7, 73, 45, 3, 74, 46], [15, 43, 19, 2, 44, 20], [3, 45, 15, 13, 46, 16], // 17
-[1, 135, 107, 5, 136, 108], [10, 74, 46, 1, 75, 47], [1, 50, 22, 15, 51, 23], [2, 42, 14, 17, 43, 15], // 18
-[5, 150, 120, 1, 151, 121], [9, 69, 43, 4, 70, 44], [17, 50, 22, 1, 51, 23], [2, 42, 14, 19, 43, 15], // 19
-[3, 141, 113, 4, 142, 114], [3, 70, 44, 11, 71, 45], [17, 47, 21, 4, 48, 22], [9, 39, 13, 16, 40, 14], // 20
-[3, 135, 107, 5, 136, 108], [3, 67, 41, 13, 68, 42], [15, 54, 24, 5, 55, 25], [15, 43, 15, 10, 44, 16], // 21
-[4, 144, 116, 4, 145, 117], [17, 68, 42], [17, 50, 22, 6, 51, 23], [19, 46, 16, 6, 47, 17], // 22
-[2, 139, 111, 7, 140, 112], [17, 74, 46], [7, 54, 24, 16, 55, 25], [34, 37, 13], // 23
-[4, 151, 121, 5, 152, 122], [4, 75, 47, 14, 76, 48], [11, 54, 24, 14, 55, 25], [16, 45, 15, 14, 46, 16], // 24
-[6, 147, 117, 4, 148, 118], [6, 73, 45, 14, 74, 46], [11, 54, 24, 16, 55, 25], [30, 46, 16, 2, 47, 17], // 25
-[8, 132, 106, 4, 133, 107], [8, 75, 47, 13, 76, 48], [7, 54, 24, 22, 55, 25], [22, 45, 15, 13, 46, 16], // 26
-[10, 142, 114, 2, 143, 115], [19, 74, 46, 4, 75, 47], [28, 50, 22, 6, 51, 23], [33, 46, 16, 4, 47, 17], // 27
-[8, 152, 122, 4, 153, 123], [22, 73, 45, 3, 74, 46], [8, 53, 23, 26, 54, 24], [12, 45, 15, 28, 46, 16], // 28
-[3, 147, 117, 10, 148, 118], [3, 73, 45, 23, 74, 46], [4, 54, 24, 31, 55, 25], [11, 45, 15, 31, 46, 16], // 29
-[7, 146, 116, 7, 147, 117], [21, 73, 45, 7, 74, 46], [1, 53, 23, 37, 54, 24], [19, 45, 15, 26, 46, 16], // 30
-[5, 145, 115, 10, 146, 116], [19, 75, 47, 10, 76, 48], [15, 54, 24, 25, 55, 25], [23, 45, 15, 25, 46, 16], // 31
-[13, 145, 115, 3, 146, 116], [2, 74, 46, 29, 75, 47], [42, 54, 24, 1, 55, 25], [23, 45, 15, 28, 46, 16], // 32
-[17, 145, 115], [10, 74, 46, 23, 75, 47], [10, 54, 24, 35, 55, 25], [19, 45, 15, 35, 46, 16], // 33
-[17, 145, 115, 1, 146, 116], [14, 74, 46, 21, 75, 47], [29, 54, 24, 19, 55, 25], [11, 45, 15, 46, 46, 16], // 34
-[13, 145, 115, 6, 146, 116], [14, 74, 46, 23, 75, 47], [44, 54, 24, 7, 55, 25], [59, 46, 16, 1, 47, 17], // 35
-[12, 151, 121, 7, 152, 122], [12, 75, 47, 26, 76, 48], [39, 54, 24, 14, 55, 25], [22, 45, 15, 41, 46, 16], // 36
-[6, 151, 121, 14, 152, 122], [6, 75, 47, 34, 76, 48], [46, 54, 24, 10, 55, 25], [2, 45, 15, 64, 46, 16], // 37
-[17, 152, 122, 4, 153, 123], [29, 74, 46, 14, 75, 47], [49, 54, 24, 10, 55, 25], [24, 45, 15, 46, 46, 16], // 38
-[4, 152, 122, 18, 153, 123], [13, 74, 46, 32, 75, 47], [48, 54, 24, 14, 55, 25], [42, 45, 15, 32, 46, 16], // 39
-[20, 147, 117, 4, 148, 118], [40, 75, 47, 7, 76, 48], [43, 54, 24, 22, 55, 25], [10, 45, 15, 67, 46, 16], // 40
-[19, 148, 118, 6, 149, 119], [18, 75, 47, 31, 76, 48], [34, 54, 24, 34, 55, 25], [20, 45, 15, 61, 46, 16]];
-
-QRRSBlock.getRSBlocks = function (typeNumber, errorCorrectLevel) {
-  var rsBlock = QRRSBlock.getRsBlockTable(typeNumber, errorCorrectLevel);
-
-  if (rsBlock == undefined) {
-    throw new Error("bad rs block @ typeNumber:" + typeNumber + "/errorCorrectLevel:" + errorCorrectLevel);
-  }
-
-  var length = rsBlock.length / 3;
-  var list = new Array();
-
-  for (var i = 0; i < length; i++) {
-    var count = rsBlock[i * 3 + 0];
-    var totalCount = rsBlock[i * 3 + 1];
-    var dataCount = rsBlock[i * 3 + 2];
-
-    for (var j = 0; j < count; j++) {
-      list.push(new QRRSBlock(totalCount, dataCount));
-    }
-  }
-
-  return list;
-};
-
-QRRSBlock.getRsBlockTable = function (typeNumber, errorCorrectLevel) {
-  switch (errorCorrectLevel) {
-    case ErrorCorrectLevel.L:
-      return QRRSBlock.RS_BLOCK_TABLE[(typeNumber - 1) * 4 + 0];
-
-    case ErrorCorrectLevel.M:
-      return QRRSBlock.RS_BLOCK_TABLE[(typeNumber - 1) * 4 + 1];
-
-    case ErrorCorrectLevel.Q:
-      return QRRSBlock.RS_BLOCK_TABLE[(typeNumber - 1) * 4 + 2];
-
-    case ErrorCorrectLevel.H:
-      return QRRSBlock.RS_BLOCK_TABLE[(typeNumber - 1) * 4 + 3];
-
-    default:
-      return undefined;
-  }
-};
-
-var RSBlock = QRRSBlock;
-
-function QRBitBuffer() {
-  this.buffer = new Array();
-  this.length = 0;
-}
-
-QRBitBuffer.prototype = {
-  get: function (index) {
-    var bufIndex = Math.floor(index / 8);
-    return (this.buffer[bufIndex] >>> 7 - index % 8 & 1) == 1;
-  },
-  put: function (num, length) {
-    for (var i = 0; i < length; i++) {
-      this.putBit((num >>> length - i - 1 & 1) == 1);
-    }
-  },
-  getLengthInBits: function () {
-    return this.length;
-  },
-  putBit: function (bit) {
-    var bufIndex = Math.floor(this.length / 8);
-
-    if (this.buffer.length <= bufIndex) {
-      this.buffer.push(0);
-    }
-
-    if (bit) {
-      this.buffer[bufIndex] |= 0x80 >>> this.length % 8;
-    }
-
-    this.length++;
-  }
-};
-var BitBuffer = QRBitBuffer;
-
-var QRMath = {
-  glog: function (n) {
-    if (n < 1) {
-      throw new Error("glog(" + n + ")");
-    }
-
-    return QRMath.LOG_TABLE[n];
-  },
-  gexp: function (n) {
-    while (n < 0) {
-      n += 255;
-    }
-
-    while (n >= 256) {
-      n -= 255;
-    }
-
-    return QRMath.EXP_TABLE[n];
-  },
-  EXP_TABLE: new Array(256),
-  LOG_TABLE: new Array(256)
-};
-
-for (var i = 0; i < 8; i++) {
-  QRMath.EXP_TABLE[i] = 1 << i;
-}
-
-for (var i = 8; i < 256; i++) {
-  QRMath.EXP_TABLE[i] = QRMath.EXP_TABLE[i - 4] ^ QRMath.EXP_TABLE[i - 5] ^ QRMath.EXP_TABLE[i - 6] ^ QRMath.EXP_TABLE[i - 8];
-}
-
-for (var i = 0; i < 255; i++) {
-  QRMath.LOG_TABLE[QRMath.EXP_TABLE[i]] = i;
-}
-
-var math = QRMath;
-
-function QRPolynomial(num, shift) {
-  if (num.length == undefined) {
-    throw new Error(num.length + "/" + shift);
-  }
-
-  var offset = 0;
-
-  while (offset < num.length && num[offset] == 0) {
-    offset++;
-  }
-
-  this.num = new Array(num.length - offset + shift);
-
-  for (var i = 0; i < num.length - offset; i++) {
-    this.num[i] = num[i + offset];
-  }
-}
-
-QRPolynomial.prototype = {
-  get: function (index) {
-    return this.num[index];
-  },
-  getLength: function () {
-    return this.num.length;
-  },
-  multiply: function (e) {
-    var num = new Array(this.getLength() + e.getLength() - 1);
-
-    for (var i = 0; i < this.getLength(); i++) {
-      for (var j = 0; j < e.getLength(); j++) {
-        num[i + j] ^= math.gexp(math.glog(this.get(i)) + math.glog(e.get(j)));
-      }
-    }
-
-    return new QRPolynomial(num, 0);
-  },
-  mod: function (e) {
-    if (this.getLength() - e.getLength() < 0) {
-      return this;
-    }
-
-    var ratio = math.glog(this.get(0)) - math.glog(e.get(0));
-    var num = new Array(this.getLength());
-
-    for (var i = 0; i < this.getLength(); i++) {
-      num[i] = this.get(i);
-    }
-
-    for (var i = 0; i < e.getLength(); i++) {
-      num[i] ^= math.gexp(math.glog(e.get(i)) + ratio);
-    } // recursive call
-
-
-    return new QRPolynomial(num, 0).mod(e);
-  }
-};
-var Polynomial = QRPolynomial;
-
-var QRMaskPattern = {
-  PATTERN000: 0,
-  PATTERN001: 1,
-  PATTERN010: 2,
-  PATTERN011: 3,
-  PATTERN100: 4,
-  PATTERN101: 5,
-  PATTERN110: 6,
-  PATTERN111: 7
-};
-var QRUtil = {
-  PATTERN_POSITION_TABLE: [[], [6, 18], [6, 22], [6, 26], [6, 30], [6, 34], [6, 22, 38], [6, 24, 42], [6, 26, 46], [6, 28, 50], [6, 30, 54], [6, 32, 58], [6, 34, 62], [6, 26, 46, 66], [6, 26, 48, 70], [6, 26, 50, 74], [6, 30, 54, 78], [6, 30, 56, 82], [6, 30, 58, 86], [6, 34, 62, 90], [6, 28, 50, 72, 94], [6, 26, 50, 74, 98], [6, 30, 54, 78, 102], [6, 28, 54, 80, 106], [6, 32, 58, 84, 110], [6, 30, 58, 86, 114], [6, 34, 62, 90, 118], [6, 26, 50, 74, 98, 122], [6, 30, 54, 78, 102, 126], [6, 26, 52, 78, 104, 130], [6, 30, 56, 82, 108, 134], [6, 34, 60, 86, 112, 138], [6, 30, 58, 86, 114, 142], [6, 34, 62, 90, 118, 146], [6, 30, 54, 78, 102, 126, 150], [6, 24, 50, 76, 102, 128, 154], [6, 28, 54, 80, 106, 132, 158], [6, 32, 58, 84, 110, 136, 162], [6, 26, 54, 82, 110, 138, 166], [6, 30, 58, 86, 114, 142, 170]],
-  G15: 1 << 10 | 1 << 8 | 1 << 5 | 1 << 4 | 1 << 2 | 1 << 1 | 1 << 0,
-  G18: 1 << 12 | 1 << 11 | 1 << 10 | 1 << 9 | 1 << 8 | 1 << 5 | 1 << 2 | 1 << 0,
-  G15_MASK: 1 << 14 | 1 << 12 | 1 << 10 | 1 << 4 | 1 << 1,
-  getBCHTypeInfo: function (data) {
-    var d = data << 10;
-
-    while (QRUtil.getBCHDigit(d) - QRUtil.getBCHDigit(QRUtil.G15) >= 0) {
-      d ^= QRUtil.G15 << QRUtil.getBCHDigit(d) - QRUtil.getBCHDigit(QRUtil.G15);
-    }
-
-    return (data << 10 | d) ^ QRUtil.G15_MASK;
-  },
-  getBCHTypeNumber: function (data) {
-    var d = data << 12;
-
-    while (QRUtil.getBCHDigit(d) - QRUtil.getBCHDigit(QRUtil.G18) >= 0) {
-      d ^= QRUtil.G18 << QRUtil.getBCHDigit(d) - QRUtil.getBCHDigit(QRUtil.G18);
-    }
-
-    return data << 12 | d;
-  },
-  getBCHDigit: function (data) {
-    var digit = 0;
-
-    while (data != 0) {
-      digit++;
-      data >>>= 1;
-    }
-
-    return digit;
-  },
-  getPatternPosition: function (typeNumber) {
-    return QRUtil.PATTERN_POSITION_TABLE[typeNumber - 1];
-  },
-  getMask: function (maskPattern, i, j) {
-    switch (maskPattern) {
-      case QRMaskPattern.PATTERN000:
-        return (i + j) % 2 == 0;
-
-      case QRMaskPattern.PATTERN001:
-        return i % 2 == 0;
-
-      case QRMaskPattern.PATTERN010:
-        return j % 3 == 0;
-
-      case QRMaskPattern.PATTERN011:
-        return (i + j) % 3 == 0;
-
-      case QRMaskPattern.PATTERN100:
-        return (Math.floor(i / 2) + Math.floor(j / 3)) % 2 == 0;
-
-      case QRMaskPattern.PATTERN101:
-        return i * j % 2 + i * j % 3 == 0;
-
-      case QRMaskPattern.PATTERN110:
-        return (i * j % 2 + i * j % 3) % 2 == 0;
-
-      case QRMaskPattern.PATTERN111:
-        return (i * j % 3 + (i + j) % 2) % 2 == 0;
-
-      default:
-        throw new Error("bad maskPattern:" + maskPattern);
-    }
-  },
-  getErrorCorrectPolynomial: function (errorCorrectLength) {
-    var a = new Polynomial([1], 0);
-
-    for (var i = 0; i < errorCorrectLength; i++) {
-      a = a.multiply(new Polynomial([1, math.gexp(i)], 0));
-    }
-
-    return a;
-  },
-  getLengthInBits: function (mode$1, type) {
-    if (1 <= type && type < 10) {
-      // 1 - 9
-      switch (mode$1) {
-        case mode.MODE_NUMBER:
-          return 10;
-
-        case mode.MODE_ALPHA_NUM:
-          return 9;
-
-        case mode.MODE_8BIT_BYTE:
-          return 8;
-
-        case mode.MODE_KANJI:
-          return 8;
-
-        default:
-          throw new Error("mode:" + mode$1);
-      }
-    } else if (type < 27) {
-      // 10 - 26
-      switch (mode$1) {
-        case mode.MODE_NUMBER:
-          return 12;
-
-        case mode.MODE_ALPHA_NUM:
-          return 11;
-
-        case mode.MODE_8BIT_BYTE:
-          return 16;
-
-        case mode.MODE_KANJI:
-          return 10;
-
-        default:
-          throw new Error("mode:" + mode$1);
-      }
-    } else if (type < 41) {
-      // 27 - 40
-      switch (mode$1) {
-        case mode.MODE_NUMBER:
-          return 14;
-
-        case mode.MODE_ALPHA_NUM:
-          return 13;
-
-        case mode.MODE_8BIT_BYTE:
-          return 16;
-
-        case mode.MODE_KANJI:
-          return 12;
-
-        default:
-          throw new Error("mode:" + mode$1);
-      }
-    } else {
-      throw new Error("type:" + type);
-    }
-  },
-  getLostPoint: function (qrCode) {
-    var moduleCount = qrCode.getModuleCount();
-    var lostPoint = 0; // LEVEL1
-
-    for (var row = 0; row < moduleCount; row++) {
-      for (var col = 0; col < moduleCount; col++) {
-        var sameCount = 0;
-        var dark = qrCode.isDark(row, col);
-
-        for (var r = -1; r <= 1; r++) {
-          if (row + r < 0 || moduleCount <= row + r) {
-            continue;
-          }
-
-          for (var c = -1; c <= 1; c++) {
-            if (col + c < 0 || moduleCount <= col + c) {
-              continue;
-            }
-
-            if (r == 0 && c == 0) {
-              continue;
-            }
-
-            if (dark == qrCode.isDark(row + r, col + c)) {
-              sameCount++;
-            }
-          }
-        }
-
-        if (sameCount > 5) {
-          lostPoint += 3 + sameCount - 5;
-        }
-      }
-    } // LEVEL2
-
-
-    for (var row = 0; row < moduleCount - 1; row++) {
-      for (var col = 0; col < moduleCount - 1; col++) {
-        var count = 0;
-        if (qrCode.isDark(row, col)) count++;
-        if (qrCode.isDark(row + 1, col)) count++;
-        if (qrCode.isDark(row, col + 1)) count++;
-        if (qrCode.isDark(row + 1, col + 1)) count++;
-
-        if (count == 0 || count == 4) {
-          lostPoint += 3;
-        }
-      }
-    } // LEVEL3
-
-
-    for (var row = 0; row < moduleCount; row++) {
-      for (var col = 0; col < moduleCount - 6; col++) {
-        if (qrCode.isDark(row, col) && !qrCode.isDark(row, col + 1) && qrCode.isDark(row, col + 2) && qrCode.isDark(row, col + 3) && qrCode.isDark(row, col + 4) && !qrCode.isDark(row, col + 5) && qrCode.isDark(row, col + 6)) {
-          lostPoint += 40;
-        }
-      }
-    }
-
-    for (var col = 0; col < moduleCount; col++) {
-      for (var row = 0; row < moduleCount - 6; row++) {
-        if (qrCode.isDark(row, col) && !qrCode.isDark(row + 1, col) && qrCode.isDark(row + 2, col) && qrCode.isDark(row + 3, col) && qrCode.isDark(row + 4, col) && !qrCode.isDark(row + 5, col) && qrCode.isDark(row + 6, col)) {
-          lostPoint += 40;
-        }
-      }
-    } // LEVEL4
-
-
-    var darkCount = 0;
-
-    for (var col = 0; col < moduleCount; col++) {
-      for (var row = 0; row < moduleCount; row++) {
-        if (qrCode.isDark(row, col)) {
-          darkCount++;
-        }
-      }
-    }
-
-    var ratio = Math.abs(100 * darkCount / moduleCount / moduleCount - 50) / 5;
-    lostPoint += ratio * 10;
-    return lostPoint;
-  }
-};
-var util = QRUtil;
-
-function QRCode(typeNumber, errorCorrectLevel) {
-  this.typeNumber = typeNumber;
-  this.errorCorrectLevel = errorCorrectLevel;
-  this.modules = null;
-  this.moduleCount = 0;
-  this.dataCache = null;
-  this.dataList = [];
-} // for client side minification
-
-
-var proto = QRCode.prototype;
-
-proto.addData = function (data) {
-  var newData = new _8BitByte(data);
-  this.dataList.push(newData);
-  this.dataCache = null;
-};
-
-proto.isDark = function (row, col) {
-  if (row < 0 || this.moduleCount <= row || col < 0 || this.moduleCount <= col) {
-    throw new Error(row + "," + col);
-  }
-
-  return this.modules[row][col];
-};
-
-proto.getModuleCount = function () {
-  return this.moduleCount;
-};
-
-proto.make = function () {
-  // Calculate automatically typeNumber if provided is < 1
-  if (this.typeNumber < 1) {
-    var typeNumber = 1;
-
-    for (typeNumber = 1; typeNumber < 40; typeNumber++) {
-      var rsBlocks = RSBlock.getRSBlocks(typeNumber, this.errorCorrectLevel);
-      var buffer = new BitBuffer();
-      var totalDataCount = 0;
-
-      for (var i = 0; i < rsBlocks.length; i++) {
-        totalDataCount += rsBlocks[i].dataCount;
-      }
-
-      for (var i = 0; i < this.dataList.length; i++) {
-        var data = this.dataList[i];
-        buffer.put(data.mode, 4);
-        buffer.put(data.getLength(), util.getLengthInBits(data.mode, typeNumber));
-        data.write(buffer);
-      }
-
-      if (buffer.getLengthInBits() <= totalDataCount * 8) break;
-    }
-
-    this.typeNumber = typeNumber;
-  }
-
-  this.makeImpl(false, this.getBestMaskPattern());
-};
-
-proto.makeImpl = function (test, maskPattern) {
-  this.moduleCount = this.typeNumber * 4 + 17;
-  this.modules = new Array(this.moduleCount);
-
-  for (var row = 0; row < this.moduleCount; row++) {
-    this.modules[row] = new Array(this.moduleCount);
-
-    for (var col = 0; col < this.moduleCount; col++) {
-      this.modules[row][col] = null; //(col + row) % 3;
-    }
-  }
-
-  this.setupPositionProbePattern(0, 0);
-  this.setupPositionProbePattern(this.moduleCount - 7, 0);
-  this.setupPositionProbePattern(0, this.moduleCount - 7);
-  this.setupPositionAdjustPattern();
-  this.setupTimingPattern();
-  this.setupTypeInfo(test, maskPattern);
-
-  if (this.typeNumber >= 7) {
-    this.setupTypeNumber(test);
-  }
-
-  if (this.dataCache == null) {
-    this.dataCache = QRCode.createData(this.typeNumber, this.errorCorrectLevel, this.dataList);
-  }
-
-  this.mapData(this.dataCache, maskPattern);
-};
-
-proto.setupPositionProbePattern = function (row, col) {
-  for (var r = -1; r <= 7; r++) {
-    if (row + r <= -1 || this.moduleCount <= row + r) continue;
-
-    for (var c = -1; c <= 7; c++) {
-      if (col + c <= -1 || this.moduleCount <= col + c) continue;
-
-      if (0 <= r && r <= 6 && (c == 0 || c == 6) || 0 <= c && c <= 6 && (r == 0 || r == 6) || 2 <= r && r <= 4 && 2 <= c && c <= 4) {
-        this.modules[row + r][col + c] = true;
-      } else {
-        this.modules[row + r][col + c] = false;
-      }
-    }
-  }
-};
-
-proto.getBestMaskPattern = function () {
-  var minLostPoint = 0;
-  var pattern = 0;
-
-  for (var i = 0; i < 8; i++) {
-    this.makeImpl(true, i);
-    var lostPoint = util.getLostPoint(this);
-
-    if (i == 0 || minLostPoint > lostPoint) {
-      minLostPoint = lostPoint;
-      pattern = i;
-    }
-  }
-
-  return pattern;
-};
-
-proto.createMovieClip = function (target_mc, instance_name, depth) {
-  var qr_mc = target_mc.createEmptyMovieClip(instance_name, depth);
-  var cs = 1;
-  this.make();
-
-  for (var row = 0; row < this.modules.length; row++) {
-    var y = row * cs;
-
-    for (var col = 0; col < this.modules[row].length; col++) {
-      var x = col * cs;
-      var dark = this.modules[row][col];
-
-      if (dark) {
-        qr_mc.beginFill(0, 100);
-        qr_mc.moveTo(x, y);
-        qr_mc.lineTo(x + cs, y);
-        qr_mc.lineTo(x + cs, y + cs);
-        qr_mc.lineTo(x, y + cs);
-        qr_mc.endFill();
-      }
-    }
-  }
-
-  return qr_mc;
-};
-
-proto.setupTimingPattern = function () {
-  for (var r = 8; r < this.moduleCount - 8; r++) {
-    if (this.modules[r][6] != null) {
-      continue;
-    }
-
-    this.modules[r][6] = r % 2 == 0;
-  }
-
-  for (var c = 8; c < this.moduleCount - 8; c++) {
-    if (this.modules[6][c] != null) {
-      continue;
-    }
-
-    this.modules[6][c] = c % 2 == 0;
-  }
-};
-
-proto.setupPositionAdjustPattern = function () {
-  var pos = util.getPatternPosition(this.typeNumber);
-
-  for (var i = 0; i < pos.length; i++) {
-    for (var j = 0; j < pos.length; j++) {
-      var row = pos[i];
-      var col = pos[j];
-
-      if (this.modules[row][col] != null) {
-        continue;
-      }
-
-      for (var r = -2; r <= 2; r++) {
-        for (var c = -2; c <= 2; c++) {
-          if (r == -2 || r == 2 || c == -2 || c == 2 || r == 0 && c == 0) {
-            this.modules[row + r][col + c] = true;
-          } else {
-            this.modules[row + r][col + c] = false;
-          }
-        }
-      }
-    }
-  }
-};
-
-proto.setupTypeNumber = function (test) {
-  var bits = util.getBCHTypeNumber(this.typeNumber);
-
-  for (var i = 0; i < 18; i++) {
-    var mod = !test && (bits >> i & 1) == 1;
-    this.modules[Math.floor(i / 3)][i % 3 + this.moduleCount - 8 - 3] = mod;
-  }
-
-  for (var i = 0; i < 18; i++) {
-    var mod = !test && (bits >> i & 1) == 1;
-    this.modules[i % 3 + this.moduleCount - 8 - 3][Math.floor(i / 3)] = mod;
-  }
-};
-
-proto.setupTypeInfo = function (test, maskPattern) {
-  var data = this.errorCorrectLevel << 3 | maskPattern;
-  var bits = util.getBCHTypeInfo(data); // vertical		
-
-  for (var i = 0; i < 15; i++) {
-    var mod = !test && (bits >> i & 1) == 1;
-
-    if (i < 6) {
-      this.modules[i][8] = mod;
-    } else if (i < 8) {
-      this.modules[i + 1][8] = mod;
-    } else {
-      this.modules[this.moduleCount - 15 + i][8] = mod;
-    }
-  } // horizontal
-
-
-  for (var i = 0; i < 15; i++) {
-    var mod = !test && (bits >> i & 1) == 1;
-
-    if (i < 8) {
-      this.modules[8][this.moduleCount - i - 1] = mod;
-    } else if (i < 9) {
-      this.modules[8][15 - i - 1 + 1] = mod;
-    } else {
-      this.modules[8][15 - i - 1] = mod;
-    }
-  } // fixed module
-
-
-  this.modules[this.moduleCount - 8][8] = !test;
-};
-
-proto.mapData = function (data, maskPattern) {
-  var inc = -1;
-  var row = this.moduleCount - 1;
-  var bitIndex = 7;
-  var byteIndex = 0;
-
-  for (var col = this.moduleCount - 1; col > 0; col -= 2) {
-    if (col == 6) col--;
-
-    while (true) {
-      for (var c = 0; c < 2; c++) {
-        if (this.modules[row][col - c] == null) {
-          var dark = false;
-
-          if (byteIndex < data.length) {
-            dark = (data[byteIndex] >>> bitIndex & 1) == 1;
-          }
-
-          var mask = util.getMask(maskPattern, row, col - c);
-
-          if (mask) {
-            dark = !dark;
-          }
-
-          this.modules[row][col - c] = dark;
-          bitIndex--;
-
-          if (bitIndex == -1) {
-            byteIndex++;
-            bitIndex = 7;
-          }
-        }
-      }
-
-      row += inc;
-
-      if (row < 0 || this.moduleCount <= row) {
-        row -= inc;
-        inc = -inc;
-        break;
-      }
-    }
-  }
-};
-
-QRCode.PAD0 = 0xEC;
-QRCode.PAD1 = 0x11;
-
-QRCode.createData = function (typeNumber, errorCorrectLevel, dataList) {
-  var rsBlocks = RSBlock.getRSBlocks(typeNumber, errorCorrectLevel);
-  var buffer = new BitBuffer();
-
-  for (var i = 0; i < dataList.length; i++) {
-    var data = dataList[i];
-    buffer.put(data.mode, 4);
-    buffer.put(data.getLength(), util.getLengthInBits(data.mode, typeNumber));
-    data.write(buffer);
-  } // calc num max data.
-
-
-  var totalDataCount = 0;
-
-  for (var i = 0; i < rsBlocks.length; i++) {
-    totalDataCount += rsBlocks[i].dataCount;
-  }
-
-  if (buffer.getLengthInBits() > totalDataCount * 8) {
-    throw new Error("code length overflow. (" + buffer.getLengthInBits() + ">" + totalDataCount * 8 + ")");
-  } // end code
-
-
-  if (buffer.getLengthInBits() + 4 <= totalDataCount * 8) {
-    buffer.put(0, 4);
-  } // padding
-
-
-  while (buffer.getLengthInBits() % 8 != 0) {
-    buffer.putBit(false);
-  } // padding
-
-
-  while (true) {
-    if (buffer.getLengthInBits() >= totalDataCount * 8) {
-      break;
-    }
-
-    buffer.put(QRCode.PAD0, 8);
-
-    if (buffer.getLengthInBits() >= totalDataCount * 8) {
-      break;
-    }
-
-    buffer.put(QRCode.PAD1, 8);
-  }
-
-  return QRCode.createBytes(buffer, rsBlocks);
-};
-
-QRCode.createBytes = function (buffer, rsBlocks) {
-  var offset = 0;
-  var maxDcCount = 0;
-  var maxEcCount = 0;
-  var dcdata = new Array(rsBlocks.length);
-  var ecdata = new Array(rsBlocks.length);
-
-  for (var r = 0; r < rsBlocks.length; r++) {
-    var dcCount = rsBlocks[r].dataCount;
-    var ecCount = rsBlocks[r].totalCount - dcCount;
-    maxDcCount = Math.max(maxDcCount, dcCount);
-    maxEcCount = Math.max(maxEcCount, ecCount);
-    dcdata[r] = new Array(dcCount);
-
-    for (var i = 0; i < dcdata[r].length; i++) {
-      dcdata[r][i] = 0xff & buffer.buffer[i + offset];
-    }
-
-    offset += dcCount;
-    var rsPoly = util.getErrorCorrectPolynomial(ecCount);
-    var rawPoly = new Polynomial(dcdata[r], rsPoly.getLength() - 1);
-    var modPoly = rawPoly.mod(rsPoly);
-    ecdata[r] = new Array(rsPoly.getLength() - 1);
-
-    for (var i = 0; i < ecdata[r].length; i++) {
-      var modIndex = i + modPoly.getLength() - ecdata[r].length;
-      ecdata[r][i] = modIndex >= 0 ? modPoly.get(modIndex) : 0;
-    }
-  }
-
-  var totalCodeCount = 0;
-
-  for (var i = 0; i < rsBlocks.length; i++) {
-    totalCodeCount += rsBlocks[i].totalCount;
-  }
-
-  var data = new Array(totalCodeCount);
-  var index = 0;
-
-  for (var i = 0; i < maxDcCount; i++) {
-    for (var r = 0; r < rsBlocks.length; r++) {
-      if (i < dcdata[r].length) {
-        data[index++] = dcdata[r][i];
-      }
-    }
-  }
-
-  for (var i = 0; i < maxEcCount; i++) {
-    for (var r = 0; r < rsBlocks.length; r++) {
-      if (i < ecdata[r].length) {
-        data[index++] = ecdata[r][i];
-      }
-    }
-  }
-
-  return data;
-};
-
-var QRCode_1 = QRCode;
-
-/**
- * Encode UTF16 to UTF8.
- * See: http://jonisalonen.com/2012/from-utf-16-to-utf-8-in-javascript/
- * @param str {string}
- * @returns {string}
- */
-
-function toUTF8String(str) {
-  var utf8Str = '';
-
-  for (var i = 0; i < str.length; i++) {
-    var charCode = str.charCodeAt(i);
-
-    if (charCode < 0x0080) {
-      utf8Str += String.fromCharCode(charCode);
-    } else if (charCode < 0x0800) {
-      utf8Str += String.fromCharCode(0xc0 | charCode >> 6);
-      utf8Str += String.fromCharCode(0x80 | charCode & 0x3f);
-    } else if (charCode < 0xd800 || charCode >= 0xe000) {
-      utf8Str += String.fromCharCode(0xe0 | charCode >> 12);
-      utf8Str += String.fromCharCode(0x80 | charCode >> 6 & 0x3f);
-      utf8Str += String.fromCharCode(0x80 | charCode & 0x3f);
-    } else {
-      // surrogate pair
-      i++; // UTF-16 encodes 0x10000-0x10FFFF by
-      // subtracting 0x10000 and splitting the
-      // 20 bits of 0x0-0xFFFFF into two halves
-
-      charCode = 0x10000 + ((charCode & 0x3ff) << 10 | str.charCodeAt(i) & 0x3ff);
-      utf8Str += String.fromCharCode(0xf0 | charCode >> 18);
-      utf8Str += String.fromCharCode(0x80 | charCode >> 12 & 0x3f);
-      utf8Str += String.fromCharCode(0x80 | charCode >> 6 & 0x3f);
-      utf8Str += String.fromCharCode(0x80 | charCode & 0x3f);
-    }
-  }
-
-  return utf8Str;
-}
-
-function generatePath(modules) {
-  var margin = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 0;
-  var ops = [];
-  modules.forEach(function (row, y) {
-    var start = null;
-    row.forEach(function (cell, x) {
-      if (!cell && start !== null) {
-        // M0 0h7v1H0z injects the space with the move and drops the comma,
-        // saving a char per operation
-        ops.push("M".concat(start + margin, " ").concat(y + margin, "h").concat(x - start, "v1H").concat(start + margin, "z"));
-        start = null;
-        return;
-      } // end of row, clean up or skip
-
-
-      if (x === row.length - 1) {
-        if (!cell) {
-          // We would have closed the op above already so this can only mean
-          // 2+ light modules in a row.
-          return;
-        }
-
-        if (start === null) {
-          // Just a single dark module.
-          ops.push("M".concat(x + margin, ",").concat(y + margin, " h1v1H").concat(x + margin, "z"));
-        } else {
-          // Otherwise finish the current line.
-          ops.push("M".concat(start + margin, ",").concat(y + margin, " h").concat(x + 1 - start, "v1H").concat(start + margin, "z"));
-        }
-
-        return;
-      }
-
-      if (cell && start === null) {
-        start = x;
-      }
-    });
-  });
-  return ops.join('');
-} // @vue/component
-
-
-var QrcodeVue = {
-  props: {
-    value: {
-      type: String,
-      required: true,
-      default: ''
-    },
-    className: {
-      type: String,
-      default: ''
-    },
-    size: {
-      type: [Number, String],
-      default: 100,
-      validator: function validator(s) {
-        return isNaN(Number(s)) !== true;
-      }
-    },
-    level: {
-      type: String,
-      default: 'L',
-      validator: function validator(l) {
-        return ['L', 'Q', 'M', 'H'].indexOf(l) > -1;
-      }
-    },
-    background: {
-      type: String,
-      default: '#fff'
-    },
-    foreground: {
-      type: String,
-      default: '#000'
-    },
-    renderAs: {
-      type: String,
-      required: false,
-      default: 'canvas',
-      validator: function validator(as) {
-        return ['canvas', 'svg'].indexOf(as) > -1;
-      }
-    }
-  },
-  data: function data() {
-    return {
-      numCells: 0,
-      fgPath: ''
-    };
-  },
-  updated: function updated() {
-    this.render();
-  },
-  mounted: function mounted() {
-    this.render();
-  },
-  methods: {
-    render: function render() {
-      var value = this.value,
-          size = this.size,
-          level = this.level,
-          background = this.background,
-          foreground = this.foreground,
-          renderAs = this.renderAs;
-
-      var _size = size >>> 0; // size to number
-      // We'll use type===-1 to force QRCode to automatically pick the best type
-
-
-      var qrCode = new QRCode_1(-1, ErrorCorrectLevel[level]);
-      qrCode.addData(toUTF8String(value));
-      qrCode.make();
-      var cells = qrCode.modules;
-      var tileW = _size / cells.length;
-      var tileH = _size / cells.length;
-      var scale = window.devicePixelRatio || 1;
-
-      if (renderAs === 'svg') {
-        this.numCells = cells.length; // Drawing strategy: instead of a rect per module, we're going to create a
-        // single path for the dark modules and layer that on top of a light rect,
-        // for a total of 2 DOM nodes. We pay a bit more in string concat but that's
-        // way faster than DOM ops.
-        // For level 1, 441 nodes -> 2
-        // For level 40, 31329 -> 2
-
-        this.fgPath = generatePath(cells);
-      } else {
-        var canvas = this.$refs['qrcode-vue'];
-        var ctx = canvas.getContext('2d');
-        canvas.height = canvas.width = _size * scale;
-        ctx.scale(scale, scale);
-        cells.forEach(function (row, rdx) {
-          row.forEach(function (cell, cdx) {
-            ctx.fillStyle = cell ? foreground : background;
-            var w = Math.ceil((cdx + 1) * tileW) - Math.floor(cdx * tileW);
-            var h = Math.ceil((rdx + 1) * tileH) - Math.floor(rdx * tileH);
-            ctx.fillRect(Math.round(cdx * tileW), Math.round(rdx * tileH), w, h);
-          });
-        });
-      }
-    }
-  },
-  render: function render(createElement) {
-    var className = this.className,
-        value = this.value,
-        level = this.level,
-        background = this.background,
-        foreground = this.foreground,
-        size = this.size,
-        renderAs = this.renderAs,
-        numCells = this.numCells,
-        fgPath = this.fgPath;
-    return createElement('div', {
-      class: this.class || className,
-      attrs: {
-        value: value,
-        level: level,
-        background: background,
-        foreground: foreground
-      }
-    }, [renderAs === 'svg' ? createElement('svg', {
-      attrs: {
-        height: size,
-        width: size,
-        shapeRendering: 'crispEdges',
-        viewBox: "0 0 ".concat(numCells, " ").concat(numCells)
-      },
-      style: {
-        width: size + 'px',
-        height: size + 'px'
-      }
-    }, [createElement('path', {
-      attrs: {
-        fill: background,
-        d: "M0,0 h".concat(numCells, "v").concat(numCells, "H0z")
-      }
-    }), createElement('path', {
-      attrs: {
-        fill: foreground,
-        d: fgPath
-      }
-    })]) : createElement('canvas', {
-      attrs: {
-        height: size,
-        width: size
-      },
-      style: {
-        width: size + 'px',
-        height: size + 'px'
-      },
-      ref: 'qrcode-vue'
-    }, [])]);
-  }
-};
-
-/* harmony default export */ __webpack_exports__["default"] = (QrcodeVue);
-
 
 /***/ }),
 
-/***/ 1580:
+/***/ 1171:
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _c('div', {
-    staticClass: "productadd"
-  }, [_c('loading', {
-    attrs: {
-      "active": _vm.isLoading,
-      "height": 35,
-      "width": 35,
-      "color": _vm.color,
-      "is-full-page": _vm.fullPage
-    },
-    on: {
-      "update:active": function($event) {
-        _vm.isLoading = $event
-      }
-    }
-  }), _vm._v(" "), _c('div', {
-    staticClass: "row productedit"
-  }, [_c('div', {
-    staticClass: "col-md-12"
-  }, [_c('div', {
-    staticClass: "card"
-  }, [_c('div', {
-    staticClass: "card-header"
-  }, [_vm._v("\n                    Thông tin đơn hàng\n                ")]), _vm._v(" "), _c('div', {
-    staticClass: "card-body"
-  }, [_c('div', {
-    staticClass: "row"
-  }, [_c('div', {
-    staticClass: "col-md-4"
-  }, [_c('div', {
-    staticClass: "table-responsive"
-  }, [_c('div', {
-    staticClass: "dataTables_wrapper dt-bootstrap4 no-footer"
-  }, [_c('div', {
-    staticClass: "clear"
-  }), _vm._v(" "), _c('table', {
-    staticClass: "table table-bordered table-mini-text table-style-custom no-margin"
-  }, [_c('tbody', [_vm._m(0), _vm._v(" "), _c('tr', {
-    staticClass: "odd",
-    attrs: {
-      "role": "row"
-    }
-  }, [_c('td', [_vm._v("Mã đơn hàng")]), _vm._v(" "), _c('td', [_vm._v(_vm._s(_vm.order.code))])]), _vm._v(" "), _c('tr', {
-    staticClass: "odd",
-    attrs: {
-      "role": "row"
-    }
-  }, [_c('td', [_vm._v("Trạng thái")]), _vm._v(" "), _c('td', [_vm._v(_vm._s(_vm.order.status))])]), _vm._v(" "), _c('tr', {
-    staticClass: "odd",
-    attrs: {
-      "role": "row"
-    }
-  }, [_c('td', [_vm._v("Điểm nhận hàng")]), _vm._v(" "), _c('td', [_vm._v(_vm._s(_vm.order.note))])]), _vm._v(" "), _c('tr', {
-    staticClass: "odd",
-    attrs: {
-      "role": "row"
-    }
-  }, [_c('td', [_vm._v("Ngày tạo")]), _vm._v(" "), _c('td', [_vm._v(_vm._s(_vm.order.createDate))])]), _vm._v(" "), _c('tr', {
-    staticClass: "odd",
-    attrs: {
-      "role": "row"
-    }
-  }, [_c('td', [_vm._v("Mã voucher")]), _vm._v(" "), _c('td', [_vm._v(_vm._s(_vm.order.odderDetail[0].voucher))])]), _vm._v(" "), _c('tr', {
-    staticClass: "odd",
-    attrs: {
-      "role": "row"
-    }
-  }, [_c('td', [_vm._v("Giá trị voucher")]), _vm._v(" "), _c('td', [_vm._v(_vm._s(_vm.order.odderDetail[0].voucherPrice))])]), _vm._v(" "), _c('tr', {
-    staticClass: "odd",
-    attrs: {
-      "role": "row"
-    }
-  }, [_c('td', [_vm._v("Tổng tiền")]), _vm._v(" "), _c('td', [_vm._v(_vm._s(_vm.order.odderDetail[0].oderPrice))])])])])])])]), _vm._v(" "), _c('div', {
-    staticClass: "col-md-4"
-  }, [_c('div', {
-    staticClass: "table-responsive"
-  }, [_c('div', {
-    staticClass: "dataTables_wrapper dt-bootstrap4 no-footer"
-  }, [_c('div', {
-    staticClass: "clear"
-  }), _vm._v(" "), _c('table', {
-    staticClass: "table table-bordered table-mini-text table-style-custom no-margin"
-  }, [_c('tbody', [_vm._m(1), _vm._v(" "), _c('tr', {
-    staticClass: "odd",
-    attrs: {
-      "role": "row"
-    }
-  }, [_c('td', [_vm._v("Họ và tên")]), _vm._v(" "), _c('td', [_vm._v(_vm._s(_vm.order.customer.name))])]), _vm._v(" "), _c('tr', {
-    staticClass: "odd",
-    attrs: {
-      "role": "row"
-    }
-  }, [_c('td', [_vm._v("Giới tính")]), _vm._v(" "), _c('td', [_vm._v(_vm._s(_vm.order.customer.gender))])]), _vm._v(" "), _c('tr', {
-    staticClass: "odd",
-    attrs: {
-      "role": "row"
-    }
-  }, [_c('td', [_vm._v("Số điện thoại")]), _vm._v(" "), _c('td', [_vm._v(_vm._s(_vm.order.customer.phoneNumber))])]), _vm._v(" "), _c('tr', {
-    staticClass: "odd",
-    attrs: {
-      "role": "row"
-    }
-  }, [_c('td', [_vm._v("Email")]), _vm._v(" "), _c('td', [_vm._v(_vm._s(_vm.order.customer.email))])]), _vm._v(" "), _c('tr', {
-    staticClass: "odd",
-    attrs: {
-      "role": "row"
-    }
-  }, [_c('td', [_vm._v("Địa chỉ")]), _vm._v(" "), _c('td', [_vm._v(_vm._s(_vm.order.address))])]), _vm._v(" "), _c('tr', {
-    staticClass: "odd",
-    attrs: {
-      "role": "row"
-    }
-  }, [_c('td', [_vm._v("Ghi chú")]), _vm._v(" "), _c('td', [_vm._v(_vm._s(_vm.order.customer.note))])])])])])])]), _vm._v(" "), _c('div', {
-    staticClass: "col-md-4"
-  }, [_c('div', {
-    staticClass: "qr-image-container"
-  }, [_c('qrcode-vue', {
-    attrs: {
-      "value": _vm.order.code,
-      "size": _vm.qrSize,
-      "level": "H"
-    }
-  })], 1)])])])])])]), _vm._v(" "), _c('div', {
-    staticClass: "row productedit"
-  }, [_c('div', {
-    staticClass: "col-md-12"
-  }, [_c('div', {
-    staticClass: "card"
-  }, [_c('div', {
-    staticClass: "card-header"
-  }, [_vm._v("\n                    Chi tiết đơn hàng\n                ")]), _vm._v(" "), _c('div', {
-    staticClass: "card-body"
-  }, [_c('div', {
-    staticClass: "row"
-  }, [_c('div', {
-    staticClass: "col-md-12"
-  }, [_c('div', {
-    staticClass: "table-responsive"
-  }, [_c('div', {
-    staticClass: "dataTables_wrapper dt-bootstrap4 no-footer"
-  }, [_c('div', {
-    staticClass: "clear"
-  }), _vm._v(" "), _c('table', {
-    staticClass: "table table-bordered table-mini-text table-style-custom no-margin"
-  }, [_vm._m(2), _vm._v(" "), _c('tbody', _vm._l((_vm.order.odderDetail), function(item, index) {
-    return _c('tr', {
-      staticClass: "odd",
-      attrs: {
-        "role": "row"
-      }
-    }, [_c('td', [_vm._v(_vm._s(index + 1))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(item.code))]), _vm._v(" "), _c('td', [_c('a', {
-      attrs: {
-        "href": item.url
-      }
-    }, [_vm._v(_vm._s(item.name))])]), _vm._v(" "), _c('td', [_vm._v(" " + _vm._s(item.number))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(item.price))]), _vm._v(" "), _c('td', {
-      domProps: {
-        "innerHTML": _vm._s(item.activeStatus)
-      }
-    }), _vm._v(" "), _c('td', [_vm._v(_vm._s((item.oderPrice)))])])
-  }), 0)])])])])])])])])])], 1)
-},staticRenderFns: [function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _c('tr', {
-    staticClass: "odd",
-    attrs: {
-      "role": "row"
-    }
-  }, [_c('td', {
-    attrs: {
-      "colspan": "2"
-    }
-  }, [_c('b', [_vm._v("Thông tin chính")])])])
-},function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _c('tr', {
-    staticClass: "odd",
-    attrs: {
-      "role": "row"
-    }
-  }, [_c('td', {
-    attrs: {
-      "colspan": "2"
-    }
-  }, [_c('b', [_vm._v("Thông tin khách hàng")])])])
-},function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _c('thead', [_c('tr', [_c('th', [_vm._v("STT")]), _vm._v(" "), _c('th', [_vm._v("Mã sản phẩm")]), _vm._v(" "), _c('th', [_vm._v("Sản phẩm")]), _vm._v(" "), _c('th', [_vm._v("SL")]), _vm._v(" "), _c('th', [_vm._v("Giá bán")]), _vm._v(" "), _c('th', [_vm._v("Trạng thái ")]), _vm._v(" "), _c('th', [_vm._v("Thành tiền")])])])
-}]}
-module.exports.render._withStripped = true
-if (true) {
-  module.hot.accept()
-  if (module.hot.data) {
-     __webpack_require__(178).rerender("data-v-f6d96684", module.exports)
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _vue = __webpack_require__(397);
+
+var _DefaultHeaderDropdownAccnt = __webpack_require__(1138);
+
+var _DefaultHeaderDropdownAccnt2 = _interopRequireDefault(_DefaultHeaderDropdownAccnt);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+exports.default = {
+  name: 'DefaultHeader',
+  components: {
+    AsideToggler: _vue.AsideToggler,
+    AppHeader: _vue.Header,
+    DefaultHeaderDropdownAccnt: _DefaultHeaderDropdownAccnt2.default,
+    SidebarToggler: _vue.SidebarToggler
   }
-}
+};
 
 /***/ }),
 
-/***/ 1620:
+/***/ 1172:
 /***/ (function(module, exports, __webpack_require__) {
 
-// style-loader: Adds some css to the DOM by adding a <style> tag
+"use strict";
 
-// load the styles
-var content = __webpack_require__(1115);
-if(typeof content === 'string') content = [[module.i, content, '']];
-if(content.locals) module.exports = content.locals;
-// add the styles to the DOM
-var update = __webpack_require__(797)("870831e8", content, false);
-// Hot Module Replacement
-if(true) {
- // When the styles change, update the <style> tags
- if(!content.locals) {
-   module.hot.accept(1115, function() {
-     var newContent = __webpack_require__(1115);
-     if(typeof newContent === 'string') newContent = [[module.i, newContent, '']];
-     update(newContent);
-   });
- }
- // When the module is disposed, remove the <style> tags
- module.hot.dispose(function() { update(); });
-}
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _regenerator = __webpack_require__(74);
+
+var _regenerator2 = _interopRequireDefault(_regenerator);
+
+var _asyncToGenerator2 = __webpack_require__(73);
+
+var _asyncToGenerator3 = _interopRequireDefault(_asyncToGenerator2);
+
+var _vue = __webpack_require__(397);
+
+var _authenticationRepository = __webpack_require__(113);
+
+var _index = __webpack_require__(189);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+exports.default = {
+    name: 'DefaultHeaderDropdownAccnt',
+    components: {
+        AppHeaderDropdown: _vue.HeaderDropdown
+    },
+    data: function data() {
+        return {
+            itemsCount: 42,
+            accAvatar: '',
+            objRequest: {}
+        };
+    },
+    methods: {
+        GetByIdAvata: function GetByIdAvata() {
+            var _this = this;
+
+            return (0, _asyncToGenerator3.default)(_regenerator2.default.mark(function _callee() {
+                return _regenerator2.default.wrap(function _callee$(_context) {
+                    while (1) {
+                        switch (_context.prev = _context.next) {
+                            case 0:
+                                _context.next = 2;
+                                return _authenticationRepository.authenticationRepository.getCurrentUser();
+
+                            case 2:
+                                _this.objRequest = _context.sent;
+
+                                if (_this.objRequest.avatar) {
+                                    _this.accAvatar = "/uploads" + _this.objRequest.avatar;
+                                } else {
+                                    _this.accAvatar = 'https://i.ibb.co/z6PN2kf/Joy-time-logo-07.png';
+                                }
+
+                                _this.isLoading = false;
+
+                            case 5:
+                            case "end":
+                                return _context.stop();
+                        }
+                    }
+                }, _callee, _this);
+            }))();
+        },
+        logout: function logout() {
+            _authenticationRepository.authenticationRepository.logout();
+            _index.router.push('/admin/login');
+        },
+        profile: function profile() {
+            _index.router.push('/admin/profile');
+        }
+    },
+    created: function created() {
+        this.GetByIdAvata();
+    }
+};
 
 /***/ }),
 
-/***/ 756:
+/***/ 1473:
 /***/ (function(module, exports, __webpack_require__) {
 
-
-/* styles */
-__webpack_require__(1620)
-
-var Component = __webpack_require__(374)(
+var Component = __webpack_require__(372)(
   /* script */
-  __webpack_require__(1222),
+  __webpack_require__(1170),
   /* template */
-  __webpack_require__(1580),
+  __webpack_require__(1511),
   /* scopeId */
   null,
   /* cssModules */
   null
 )
-Component.options.__file = "C:\\PlatformDuLich\\BackEnd\\Web\\Platform\\CMS\\PlatformCMS\\ClientApp\\pages\\orders\\listdetail.vue"
+Component.options.__file = "C:\\WORKING\\Joytime\\dotnet-platform-backend\\Web\\Platform\\CMS\\PlatformCMS\\ClientApp\\containers\\DefaultFooter.vue"
 if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
-if (Component.options.functional) {console.error("[vue-loader] listdetail.vue: functional components are not supported with templates, they should use render functions.")}
+if (Component.options.functional) {console.error("[vue-loader] DefaultFooter.vue: functional components are not supported with templates, they should use render functions.")}
 
 /* hot reload */
 if (true) {(function () {
-  var hotAPI = __webpack_require__(178)
+  var hotAPI = __webpack_require__(177)
   hotAPI.install(__webpack_require__(26), false)
   if (!hotAPI.compatible) return
   module.hot.accept()
   if (!module.hot.data) {
-    hotAPI.createRecord("data-v-f6d96684", Component.options)
+    hotAPI.createRecord("data-v-212d0b1f", Component.options)
   } else {
-    hotAPI.reload("data-v-f6d96684", Component.options)
+    hotAPI.reload("data-v-212d0b1f", Component.options)
   }
 })()}
 
@@ -1493,314 +326,239 @@ module.exports = Component.exports
 
 /***/ }),
 
-/***/ 791:
+/***/ 1474:
 /***/ (function(module, exports, __webpack_require__) {
 
-exports = module.exports = __webpack_require__(53)();
-// imports
+var Component = __webpack_require__(372)(
+  /* script */
+  __webpack_require__(1171),
+  /* template */
+  __webpack_require__(1527),
+  /* scopeId */
+  null,
+  /* cssModules */
+  null
+)
+Component.options.__file = "C:\\WORKING\\Joytime\\dotnet-platform-backend\\Web\\Platform\\CMS\\PlatformCMS\\ClientApp\\containers\\DefaultHeader.vue"
+if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
+if (Component.options.functional) {console.error("[vue-loader] DefaultHeader.vue: functional components are not supported with templates, they should use render functions.")}
 
-
-// module
-exports.push([module.i, ".vld-overlay {\n  bottom: 0;\n  left: 0;\n  position: absolute;\n  right: 0;\n  top: 0;\n  align-items: center;\n  display: none;\n  justify-content: center;\n  overflow: hidden;\n  z-index: 9999;\n}\n\n.vld-overlay.is-active {\n  display: flex;\n}\n\n.vld-overlay.is-full-page {\n  z-index: 9999;\n  position: fixed;\n}\n\n.vld-overlay .vld-background {\n  bottom: 0;\n  left: 0;\n  position: absolute;\n  right: 0;\n  top: 0;\n  background: #fff;\n  opacity: 0.5;\n}\n\n.vld-overlay .vld-icon, .vld-parent {\n  position: relative;\n}\n\n", ""]);
-
-// exports
-
-
-/***/ }),
-
-/***/ 792:
-/***/ (function(module, exports, __webpack_require__) {
-
-// style-loader: Adds some css to the DOM by adding a <style> tag
-
-// load the styles
-var content = __webpack_require__(791);
-if(typeof content === 'string') content = [[module.i, content, '']];
-// add the styles to the DOM
-var update = __webpack_require__(179)(content, {});
-if(content.locals) module.exports = content.locals;
-// Hot Module Replacement
-if(true) {
-	// When the styles change, update the <style> tags
-	if(!content.locals) {
-		module.hot.accept(791, function() {
-			var newContent = __webpack_require__(791);
-			if(typeof newContent === 'string') newContent = [[module.i, newContent, '']];
-			update(newContent);
-		});
-	}
-	// When the module is disposed, remove the <style> tags
-	module.hot.dispose(function() { update(); });
-}
-
-/***/ }),
-
-/***/ 793:
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-   value: true
-});
-var msgNotify = {};
-exports.default = msgNotify;
-
-/***/ }),
-
-/***/ 797:
-/***/ (function(module, exports, __webpack_require__) {
-
-/*
-  MIT License http://www.opensource.org/licenses/mit-license.php
-  Author Tobias Koppers @sokra
-  Modified by Evan You @yyx990803
-*/
-
-var hasDocument = typeof document !== 'undefined'
-
-if (typeof DEBUG !== 'undefined' && DEBUG) {
-  if (!hasDocument) {
-    throw new Error(
-    'vue-style-loader cannot be used in a non-browser environment. ' +
-    "Use { target: 'node' } in your Webpack config to indicate a server-rendering environment."
-  ) }
-}
-
-var listToStyles = __webpack_require__(807)
-
-/*
-type StyleObject = {
-  id: number;
-  parts: Array<StyleObjectPart>
-}
-
-type StyleObjectPart = {
-  css: string;
-  media: string;
-  sourceMap: ?string
-}
-*/
-
-var stylesInDom = {/*
-  [id: number]: {
-    id: number,
-    refs: number,
-    parts: Array<(obj?: StyleObjectPart) => void>
-  }
-*/}
-
-var head = hasDocument && (document.head || document.getElementsByTagName('head')[0])
-var singletonElement = null
-var singletonCounter = 0
-var isProduction = false
-var noop = function () {}
-
-// Force single-tag solution on IE6-9, which has a hard limit on the # of <style>
-// tags it will allow on a page
-var isOldIE = typeof navigator !== 'undefined' && /msie [6-9]\b/.test(navigator.userAgent.toLowerCase())
-
-module.exports = function (parentId, list, _isProduction) {
-  isProduction = _isProduction
-
-  var styles = listToStyles(parentId, list)
-  addStylesToDom(styles)
-
-  return function update (newList) {
-    var mayRemove = []
-    for (var i = 0; i < styles.length; i++) {
-      var item = styles[i]
-      var domStyle = stylesInDom[item.id]
-      domStyle.refs--
-      mayRemove.push(domStyle)
-    }
-    if (newList) {
-      styles = listToStyles(parentId, newList)
-      addStylesToDom(styles)
-    } else {
-      styles = []
-    }
-    for (var i = 0; i < mayRemove.length; i++) {
-      var domStyle = mayRemove[i]
-      if (domStyle.refs === 0) {
-        for (var j = 0; j < domStyle.parts.length; j++) {
-          domStyle.parts[j]()
-        }
-        delete stylesInDom[domStyle.id]
-      }
-    }
-  }
-}
-
-function addStylesToDom (styles /* Array<StyleObject> */) {
-  for (var i = 0; i < styles.length; i++) {
-    var item = styles[i]
-    var domStyle = stylesInDom[item.id]
-    if (domStyle) {
-      domStyle.refs++
-      for (var j = 0; j < domStyle.parts.length; j++) {
-        domStyle.parts[j](item.parts[j])
-      }
-      for (; j < item.parts.length; j++) {
-        domStyle.parts.push(addStyle(item.parts[j]))
-      }
-      if (domStyle.parts.length > item.parts.length) {
-        domStyle.parts.length = item.parts.length
-      }
-    } else {
-      var parts = []
-      for (var j = 0; j < item.parts.length; j++) {
-        parts.push(addStyle(item.parts[j]))
-      }
-      stylesInDom[item.id] = { id: item.id, refs: 1, parts: parts }
-    }
-  }
-}
-
-function createStyleElement () {
-  var styleElement = document.createElement('style')
-  styleElement.type = 'text/css'
-  head.appendChild(styleElement)
-  return styleElement
-}
-
-function addStyle (obj /* StyleObjectPart */) {
-  var update, remove
-  var styleElement = document.querySelector('style[data-vue-ssr-id~="' + obj.id + '"]')
-
-  if (styleElement) {
-    if (isProduction) {
-      // has SSR styles and in production mode.
-      // simply do nothing.
-      return noop
-    } else {
-      // has SSR styles but in dev mode.
-      // for some reason Chrome can't handle source map in server-rendered
-      // style tags - source maps in <style> only works if the style tag is
-      // created and inserted dynamically. So we remove the server rendered
-      // styles and inject new ones.
-      styleElement.parentNode.removeChild(styleElement)
-    }
-  }
-
-  if (isOldIE) {
-    // use singleton mode for IE9.
-    var styleIndex = singletonCounter++
-    styleElement = singletonElement || (singletonElement = createStyleElement())
-    update = applyToSingletonTag.bind(null, styleElement, styleIndex, false)
-    remove = applyToSingletonTag.bind(null, styleElement, styleIndex, true)
+/* hot reload */
+if (true) {(function () {
+  var hotAPI = __webpack_require__(177)
+  hotAPI.install(__webpack_require__(26), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-425f6f11", Component.options)
   } else {
-    // use multi-style-tag mode in all other cases
-    styleElement = createStyleElement()
-    update = applyToTag.bind(null, styleElement)
-    remove = function () {
-      styleElement.parentNode.removeChild(styleElement)
-    }
+    hotAPI.reload("data-v-425f6f11", Component.options)
   }
+})()}
 
-  update(obj)
-
-  return function updateStyle (newObj /* StyleObjectPart */) {
-    if (newObj) {
-      if (newObj.css === obj.css &&
-          newObj.media === obj.media &&
-          newObj.sourceMap === obj.sourceMap) {
-        return
-      }
-      update(obj = newObj)
-    } else {
-      remove()
-    }
-  }
-}
-
-var replaceText = (function () {
-  var textStore = []
-
-  return function (index, replacement) {
-    textStore[index] = replacement
-    return textStore.filter(Boolean).join('\n')
-  }
-})()
-
-function applyToSingletonTag (styleElement, index, remove, obj) {
-  var css = remove ? '' : obj.css
-
-  if (styleElement.styleSheet) {
-    styleElement.styleSheet.cssText = replaceText(index, css)
-  } else {
-    var cssNode = document.createTextNode(css)
-    var childNodes = styleElement.childNodes
-    if (childNodes[index]) styleElement.removeChild(childNodes[index])
-    if (childNodes.length) {
-      styleElement.insertBefore(cssNode, childNodes[index])
-    } else {
-      styleElement.appendChild(cssNode)
-    }
-  }
-}
-
-function applyToTag (styleElement, obj) {
-  var css = obj.css
-  var media = obj.media
-  var sourceMap = obj.sourceMap
-
-  if (media) {
-    styleElement.setAttribute('media', media)
-  }
-
-  if (sourceMap) {
-    // https://developer.chrome.com/devtools/docs/javascript-debugging
-    // this makes source maps inside style tags work properly in Chrome
-    css += '\n/*# sourceURL=' + sourceMap.sources[0] + ' */'
-    // http://stackoverflow.com/a/26603875
-    css += '\n/*# sourceMappingURL=data:application/json;base64,' + btoa(unescape(encodeURIComponent(JSON.stringify(sourceMap)))) + ' */'
-  }
-
-  if (styleElement.styleSheet) {
-    styleElement.styleSheet.cssText = css
-  } else {
-    while (styleElement.firstChild) {
-      styleElement.removeChild(styleElement.firstChild)
-    }
-    styleElement.appendChild(document.createTextNode(css))
-  }
-}
+module.exports = Component.exports
 
 
 /***/ }),
 
-/***/ 807:
-/***/ (function(module, exports) {
+/***/ 1511:
+/***/ (function(module, exports, __webpack_require__) {
 
-/**
- * Translates the list format produced by css-loader into something
- * easier to manipulate.
- */
-module.exports = function listToStyles (parentId, list) {
-  var styles = []
-  var newStyles = {}
-  for (var i = 0; i < list.length; i++) {
-    var item = list[i]
-    var id = item[0]
-    var css = item[1]
-    var media = item[2]
-    var sourceMap = item[3]
-    var part = {
-      id: parentId + ':' + i,
-      css: css,
-      media: media,
-      sourceMap: sourceMap
+module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('TheFooter', [_c('div', [_c('a', {
+    attrs: {
+      "href": "https://coreui.io"
     }
-    if (!newStyles[id]) {
-      styles.push(newStyles[id] = { id: id, parts: [part] })
-    } else {
-      newStyles[id].parts.push(part)
+  }, [_vm._v("CoreUI")]), _vm._v(" "), _c('span', {
+    staticClass: "ml-1"
+  }, [_vm._v("© 2018 creativeLabs.")])]), _vm._v(" "), _c('div', {
+    staticClass: "ml-auto"
+  }, [_c('span', {
+    staticClass: "mr-1"
+  }, [_vm._v("Powered by")]), _vm._v(" "), _c('a', {
+    attrs: {
+      "href": "https://coreui.io"
     }
+  }, [_vm._v("CoreUI for Vue")])])])
+},staticRenderFns: []}
+module.exports.render._withStripped = true
+if (true) {
+  module.hot.accept()
+  if (module.hot.data) {
+     __webpack_require__(177).rerender("data-v-212d0b1f", module.exports)
   }
-  return styles
 }
+
+/***/ }),
+
+/***/ 1527:
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('AppHeader', {
+    attrs: {
+      "fixed": ""
+    }
+  }, [_c('SidebarToggler', {
+    staticClass: "d-lg-none",
+    attrs: {
+      "display": "md",
+      "mobile": ""
+    }
+  }), _vm._v(" "), _c('b-link', {
+    staticClass: "navbar-brand",
+    attrs: {
+      "to": "#"
+    }
+  }, [_c('img', {
+    staticClass: "navbar-brand-full",
+    attrs: {
+      "src": __webpack_require__(1135),
+      "width": "89",
+      "height": "25",
+      "alt": "Logo"
+    }
+  }), _vm._v(" "), _c('img', {
+    staticClass: "navbar-brand-minimized",
+    attrs: {
+      "src": __webpack_require__(1135),
+      "width": "30",
+      "height": "30",
+      "alt": "Logo"
+    }
+  })]), _vm._v(" "), _c('SidebarToggler', {
+    staticClass: "d-md-down-none",
+    attrs: {
+      "display": "lg",
+      "defaultOpen": true
+    }
+  }), _vm._v(" "), _c('b-navbar-nav', {
+    staticClass: "ml-auto"
+  }, [_c('DefaultHeaderDropdownAccnt')], 1), _vm._v(" "), _c('AsideToggler', {
+    staticClass: "d-none d-lg-block"
+  })], 1)
+},staticRenderFns: []}
+module.exports.render._withStripped = true
+if (true) {
+  module.hot.accept()
+  if (module.hot.data) {
+     __webpack_require__(177).rerender("data-v-425f6f11", module.exports)
+  }
+}
+
+/***/ }),
+
+/***/ 1544:
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('div', {
+    staticClass: "app"
+  }, [_c('DefaultHeader'), _vm._v(" "), _c('div', {
+    staticClass: "app-body"
+  }, [_c('AppSidebar', {
+    attrs: {
+      "fixed": ""
+    }
+  }, [_c('SidebarHeader'), _vm._v(" "), _c('SidebarForm'), _vm._v(" "), _c('SidebarNav', {
+    attrs: {
+      "navItems": _vm.nav
+    }
+  }), _vm._v(" "), _c('SidebarFooter'), _vm._v(" "), _c('SidebarMinimizer')], 1), _vm._v(" "), _c('main', {
+    staticClass: "main"
+  }, [_c('Breadcrumb', {
+    attrs: {
+      "list": _vm.list
+    }
+  }), _vm._v(" "), _c('div', {
+    staticClass: "container-fluid"
+  }, [_c('router-view')], 1)], 1)], 1)], 1)
+},staticRenderFns: []}
+module.exports.render._withStripped = true
+if (true) {
+  module.hot.accept()
+  if (module.hot.data) {
+     __webpack_require__(177).rerender("data-v-7ca206ad", module.exports)
+  }
+}
+
+/***/ }),
+
+/***/ 1549:
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('AppHeaderDropdown', {
+    attrs: {
+      "right": "",
+      "no-caret": ""
+    }
+  }, [_c('template', {
+    slot: "header"
+  }, [_c('img', {
+    staticClass: "img-avatar",
+    attrs: {
+      "id": "accImg",
+      "src": _vm.accAvatar,
+      "alt": "user"
+    }
+  })]), _vm._v(" "), _c('template', {
+    slot: "dropdown"
+  }, [_c('b-dropdown-item', [_c('i', {
+    staticClass: "fa fa-user"
+  }), _vm._v(" "), _c('a', {
+    on: {
+      "click": _vm.profile
+    }
+  }, [_vm._v("Hồ sơ người dùng")])]), _vm._v(" "), _c('b-dropdown-divider'), _vm._v(" "), _c('b-dropdown-item', [_vm._v("\n            '"), _c('i', {
+    staticClass: "fa fa-lock"
+  }), _vm._v(" "), _c('a', {
+    on: {
+      "click": _vm.logout
+    }
+  }, [_vm._v("Đăng xuất")])])], 1)], 2)
+},staticRenderFns: []}
+module.exports.render._withStripped = true
+if (true) {
+  module.hot.accept()
+  if (module.hot.data) {
+     __webpack_require__(177).rerender("data-v-98ca1fd6", module.exports)
+  }
+}
+
+/***/ }),
+
+/***/ 702:
+/***/ (function(module, exports, __webpack_require__) {
+
+var Component = __webpack_require__(372)(
+  /* script */
+  __webpack_require__(1169),
+  /* template */
+  __webpack_require__(1544),
+  /* scopeId */
+  null,
+  /* cssModules */
+  null
+)
+Component.options.__file = "C:\\WORKING\\Joytime\\dotnet-platform-backend\\Web\\Platform\\CMS\\PlatformCMS\\ClientApp\\containers\\DefaultContainer.vue"
+if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
+if (Component.options.functional) {console.error("[vue-loader] DefaultContainer.vue: functional components are not supported with templates, they should use render functions.")}
+
+/* hot reload */
+if (true) {(function () {
+  var hotAPI = __webpack_require__(177)
+  hotAPI.install(__webpack_require__(26), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-7ca206ad", Component.options)
+  } else {
+    hotAPI.reload("data-v-7ca206ad", Component.options)
+  }
+})()}
+
+module.exports = Component.exports
 
 
 /***/ })

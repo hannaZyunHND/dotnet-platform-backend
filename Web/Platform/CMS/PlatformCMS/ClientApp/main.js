@@ -6,6 +6,7 @@ import { sync } from 'vuex-router-sync'
 import App from './App.vue'
 import BootstrapVue from 'bootstrap-vue'
 import CoreuiVue from '@coreui/vue';
+import { BadgePlugin } from 'bootstrap-vue'
 
 
 import Toast from "vue-toastification";
@@ -55,6 +56,8 @@ Vue.use(Toast, options);
 Vue.prototype.$http = axios;
 
 Vue.use(BootstrapVue);
+Vue.use(BadgePlugin)
+
 Vue.use(Vuex);
 
 Vue.use(CKEditor);

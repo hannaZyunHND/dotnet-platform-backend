@@ -1,4 +1,5 @@
 ﻿using MI.Entity.Models;
+using Microsoft.AspNetCore.Mvc.RazorPages.Infrastructure;
 using PlatformWEBAPI.Services.Zone.ViewModal;
 using System;
 using System.Collections.Generic;
@@ -7,6 +8,21 @@ using System.Threading.Tasks;
 
 namespace PlatformWEBAPI.Services.Product.ViewModel
 {
+    public class ProductPriceInZoneListByDateWithIsPass
+    {
+        public int Id { get; set; }
+        public string ZoneList { get; set; }
+        public int ProductId { get; set; }
+        public DateTime Date { get; set; }
+        public string DayOfWeek { get; set; }
+        public decimal PriceEachNguoiLon { get; set; }
+        public decimal PriceEachTreEm { get; set; }
+        public decimal PriceEachNguoiGia { get; set; }
+        public decimal NetEachNguoiLon { get; set; }
+        public decimal NetEachTreEm { get; set; }
+        public decimal NetEachNguoiGia { get; set; }
+        public bool isPast { get; set; } = false;
+    }
     public class RequestGetProductDetail
     {
         public int id { get; set; } = 0;
@@ -19,12 +35,47 @@ namespace PlatformWEBAPI.Services.Product.ViewModel
         public string cultureCode { get; set; }
     }
 
+    public class RequestGetProductOptionsPriceByDate
+    {
+        public int id { get; set; }
+        public string combination { get; set; }
+        public int month { get; set; }
+    }
+
+    public class RequestGetProductLastSeen
+    {
+        public List<int> ids { get; set; }
+        public string cultureCode { get; set; }
+    }
+
     public class RequestPriceFromProductOptionCombination
     {
         public int productId { get; set; }
         public List<int> Combinations { get; set; }
     }
 
+    public class RequestAddViewCount
+    {
+        public int productId { get; set; }
+    }
+
+    public class RequestGetCouponByProductId
+    {
+        public int productId { get; set; }
+        public string culture_code { get; set; }
+    }
+    public class RequestCheckCouponCode
+    {
+        public int productId { get; set; }
+        public string culture_code { get; set; }
+        public string couponCode { get; set; }
+    }
+
+    public class RequestCheckChatSessionByCustomerEmail
+    {
+        public string customerEmail { get; set; }
+        
+    }
     public class ResponseGetProductPriceOptions
     {
         public ZoneByTreeViewMinify zoneParent { get; set; } = new ZoneByTreeViewMinify();
@@ -37,6 +88,14 @@ namespace PlatformWEBAPI.Services.Product.ViewModel
         public ProductDetail productDetail { get; set; }
     }
 
+    public class ProductMapLocation
+    {
+        public int Id { get; set; }
+        public string googleMapCrood { get; set; } = "0-0";
+        public decimal lat { get; set; } = 0;
+        public decimal lng { get; set; } = 0;
+        public bool showInfo { get; set; } = false;
+    }
     public class ProductMinify
     {
         public int ZoneId { get; set; }
@@ -116,6 +175,12 @@ namespace PlatformWEBAPI.Services.Product.ViewModel
         public string simPack { get; set; }
         public bool isActive { get; set; } = false;
         public string tagCombineds { get; set; }
+        public bool isShowDetail { get; set; } = false;
+        public string Description { get; set; }
+        public string googleMapCrood { get; set; } = "0-0";
+        public decimal? lat { get; set; }
+        public decimal? lng { get; set; }
+        public int? TotalSale { get; set; } = 0;
         //,[o].OrderCode, [od].ICCID, [od].LogPrice, [o].CreatedDate [OrderCreatedDate]
     }
 
@@ -144,8 +209,15 @@ namespace PlatformWEBAPI.Services.Product.ViewModel
         public string LanguageCode { get; set; }
         public double RateAVG { get; set; }
         public int TotalRate { get; set; }
+        
         public int ZoneId { get; set; }
         public string ZoneUrl { get; set; }
+        public string ZoneName { get; set; }
+
+        public int ZoneCategoryId { get; set; }
+        public string ZoneCategoryUrl { get; set; }
+        public string ZoneCategoyName { get; set; }
+
         public string Avatar { get; set; }
         public int Five_Star { get; set; }
         public int Four_Star { get; set; }
@@ -196,13 +268,38 @@ namespace PlatformWEBAPI.Services.Product.ViewModel
 
         public List<ProductMinify> productChilds { get; set; } = new List<ProductMinify>();
         public List<ProductMinify> productSameZones { get; set; } = new List<ProductMinify>();
+
+        public List<ProductBookingNoteGroup> productBookingNoteGroups { get; set; } = new List<ProductBookingNoteGroup>();
         public string location { get; set; }
         public string locationIframe { get; set; }
         public string tagCombineds { get; set; }
+        public int TotalSale { get; set; } = 0;
+        public string NoteOptions { get; set; } = "";
+    }
+    public class ProductBookingNoteGroup
+    {
+        public int ZoneParentId { get; set; }
+        public string ZoneParentName { get; set; }
+        public List<ProductBookingNote> NoteList { get; set; } = new List<ProductBookingNote>();
+    }
+    public class ProductBookingNote
+    {
+        public int ZoneId { get; set; }
+        public string ZoneName { get; set; }
+        public int ZoneParentId { get; set; }
+        public string ZoneParentName { get; set; }
+        public string bookingNoteType { get; set; }
+        public string noteOptions { get; set; }
+        public List<NoteOptionItem> noteOptionItems { get; set; } = new List<NoteOptionItem>();
+        public string notePlaceHolder { get; set; }
+        public string noteValue { get; set; } = "";
+        public bool? bookingNoteRequired { get; set; } = false;
+    }
 
-
-        //public DateTime? NgayBatDau { get; set; }
-        //public DateTime? NgayKetThuc { get; set; }
+    public class NoteOptionItem
+    {
+        public string label { get; set; }
+        public string value { get; set; }
     }
 
     public class ProductTopUpAvalible
@@ -350,6 +447,8 @@ namespace PlatformWEBAPI.Services.Product.ViewModel
         public string country { get; set; }
         public string content { get; set; }
         public List<string> images { get; set; }
+        public int startNumber { get; set; }
+        public string avatar { get; set; }
     }
 
     public class EsSearchItemResult

@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using MI.Entity.Models;
+//using MI.Dapper.Data.Models;
 
 namespace MI.Bo.Bussiness
 {
@@ -212,6 +213,35 @@ namespace MI.Bo.Bussiness
             return result;
         }
 
+        public List<ProductPriceInZoneListByDate> GetAllProductPriceInZoneListByDate(string zoneList, int productId)
+        {
+            using (IDbContext context = new IDbContext())
+            {
+                var query = context.ProductPriceInZoneListByDate.Where(r => r.ZoneList.Equals(zoneList) && r.ProductId == productId);
+                return query.ToList();
+            }
+        }
+
+        public bool UpdateGiaPhienBanTheoNgay(List<ProductPriceInZoneListByDate> requese)
+        {
+            using (IDbContext context = new IDbContext())
+            {
+                try
+                {
+                    context.ProductPriceInZoneListByDate.UpdateRange(requese);
+                    context.SaveChanges();
+                    return true;
+                }
+                catch (Exception ex)
+                {
+
+                    Console.WriteLine(ex.Message);
+                    return false;
+                }
+                
+            }
+        }
+
         public int UpdatePhienBan(List<Dapper.Data.Models.PhienBans> phienBans, int productId)
         {
             using (IDbContext db = new IDbContext())
@@ -232,11 +262,56 @@ namespace MI.Bo.Bussiness
                         _newPhienBan.PriceEachTreEm = item.priceEachTreEm;
                         _newPhienBan.NetEachNguoiLon = item.netEachNguoiLon;
                         _newPhienBan.NetEachTreEm = item.netEachTreEm;
+                        _newPhienBan.PriceEachNguoiGia = item.priceEachNguoiGia;
+                        _newPhienBan.NetEachNguoiGia = item.netEachNguoiGia;
                         _newPhienBan.ZoneList = string.Join(",", item.selectedOptions);
+                        _newPhienBan.MinimumNguoiLon = item.minimumNguoiLon;
+                        _newPhienBan.MinimumTreEm = item.minimumTreEm;
+                        _newPhienBan.MinimumNguoiGia = item.minimumNguoiGia;
+                        _newPhienBan.EmailSupplier = item.emailSupplier;
+                        _newPhienBan.ConfirmOption = item.confirmOption;
+                        _newPhienBan.LastMinuteSetupDay = item.lastMinuteSetupDay;
+                        _newPhienBan.LastMinuteSetupTime = item.lastMinuteSetupTime;
                         _new.Add(_newPhienBan);
                     }
 
                     db.ProductPriceInZoneList.AddRange(_new);
+                    db.SaveChanges();
+
+                    //Add tiep cho cac phan ve gia theo ngay thang o day
+                    var pricesByDate = new List<ProductPriceInZoneListByDate>();
+                    var allDates = GetDatesOfCurrentYear();
+                    foreach(var item in phienBans)
+                    {
+
+                        //Xoa tat ca cac gia theo ngay cua nam do
+                        //var oldPricesByDate = db.ProductPriceInZoneListByDate.Where(r => r.ProductId == productId && r.ZoneList.Equals(string.Join("", item.selectedOptions)));
+                        //if (oldPricesByDate.Any()) {
+                        //    db.ProductPriceInZoneListByDate.RemoveRange(oldPricesByDate);
+                        //}
+                        var checker = db.ProductPriceInZoneListByDate.Where(r => r.ZoneList.Equals(string.Join(",",item.selectedOptions)) && r.ProductId == productId).Any();
+                        if (!checker)
+                        {
+                            
+                            foreach(var d in allDates)
+                            {
+                                var pByDate = new ProductPriceInZoneListByDate();
+                                pByDate.ZoneList = string.Join(",", item.selectedOptions);
+                                pByDate.ProductId = productId;
+                                pByDate.Date = d.Date;
+                                pByDate.DayOfWeek = d.DayOfWeekAbbreviation;
+                                pByDate.PriceEachNguoiLon = item.priceEachNguoiLon;
+                                pByDate.PriceEachTreEm = item.priceEachTreEm;
+                                pByDate.PriceEachNguoiGia = item.priceEachNguoiGia;
+                                pByDate.NetEachNguoiLon = item.netEachNguoiLon;
+                                pByDate.NetEachTreEm = item.netEachTreEm;
+                                pByDate.NetEachNguoiGia = item.netEachTreEm;
+                                pricesByDate.Add(pByDate);
+
+                            }
+                        }
+                    }
+                    db.ProductPriceInZoneListByDate.AddRange(pricesByDate);
                     db.SaveChanges();
                     return productId;
                 }
@@ -247,6 +322,62 @@ namespace MI.Bo.Bussiness
                 }
                 
             }
+        }
+
+        public void UpdateCancelPolicies(List<ProductCancelPolicy> cancelPolicies)
+        {
+            var productId = 0;
+            if(cancelPolicies.Count > 0)
+            {
+                var _first = cancelPolicies.FirstOrDefault();
+                if(_first != null)
+                {
+                    productId = _first.ProductId;
+                }
+            }
+            using (IDbContext context = new IDbContext())
+            {
+                if(productId > 0)
+                {
+                    var old = context.ProductCancelPolicy.Where(r => r.ProductId == productId);
+                    if (old.Any())
+                    {
+                        context.ProductCancelPolicy.RemoveRange(old);
+                        context.SaveChanges();
+                    }
+                    foreach(var item in cancelPolicies)
+                    {
+                        item.Id = 0;
+                    }
+                    //Them bu vao day
+                    context.ProductCancelPolicy.AddRange(cancelPolicies);
+                    context.SaveChanges();
+
+                }
+                
+            }
+        }
+
+        private List<MI.Dapper.Data.Models.DateInfo> GetDatesOfCurrentYear()
+        {
+            var dateList = new List<MI.Dapper.Data.Models.DateInfo>();
+            int currentYear = DateTime.Now.Year;
+
+            DateTime startDate = new DateTime(currentYear, 1, 1);
+            DateTime endDate = new DateTime(currentYear, 12, 31);
+
+            for (DateTime date = startDate; date <= endDate; date = date.AddDays(1))
+            {
+                var dateInfo = new MI.Dapper.Data.Models.DateInfo
+                {
+                    Date = date,
+                    DayOfWeekAbbreviation = date.ToString("ddd")
+                };
+
+                dateList.Add(dateInfo);
+            }
+
+            return dateList;
         }
         public bool UpdateTrangThai(Entity.Models.Product entity)
         {

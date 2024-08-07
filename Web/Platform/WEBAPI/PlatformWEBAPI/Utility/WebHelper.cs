@@ -46,7 +46,21 @@ namespace PlatformWEBAPI.Utility
 
 
         }
+        public static string RandomCode(int size)
+        {
+            var chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789".ToCharArray();
+            var random = new Random();
+            var result = new StringBuilder(size);
 
+            for (int i = 0; i < size; i++)
+            {
+                result.Append(chars[random.Next(chars.Length)]);
+            }
+
+            return result.ToString();
+        }
+
+        
         public static string RenderLazyLoadBody(string body)
         {
             HtmlDocument doc = new HtmlDocument();

@@ -106,6 +106,29 @@
                             <b-form-group label="Trạng thái">
                                 <b-form-select v-model="objRequest.status" :options="Status"></b-form-select>
                             </b-form-group>
+
+                            <b-form-group label="Tọa độ trên bản đồ">
+                                <b-form-input v-model="objRequest.mapCoords" placeholder="(x, y, bán kính)" required></b-form-input>
+                            </b-form-group>
+                            <b-form-group label="Tọa độ trên Google Map">
+                                <b-form-input v-model="objRequest.googleMapCrood" placeholder="(lat - long)" required></b-form-input>
+                            </b-form-group>
+                            <b-form-group label="Loại note (Chỉ dành cho danh mục Booking Note)">
+                                <select class="form-control" v-model="objRequest.bookingNoteType">
+                                    <option value="">KHÔNG SỬ DỤNG</option>
+                                    <option value="text">Ô text nhập liệu</option>
+                                    <option value="textarea">Ô textarea nhập liệu</option>
+                                    <!--<option value="date">Ô nhập ngày tháng</option>-->
+                                    <option value="datetime-local">Ô nhập ngày tháng - thời gian</option>
+                                    <!--<option value="checkbox">Checkbox nhiều lựa chọn</option>-->
+                                    <option value="radio">Checkbox một lựa chọn</option>
+                                    <option value="select">Select box một lựa chọn</option>
+                                </select>
+                                <small style="color:red">(* Lưu ý: Chuyển sang vùng ngôn ngữ để cập nhật placeholder và các lựa chọn nếu có)</small>
+                            </b-form-group>
+                            <b-form-group label="Tọa độ trên Google Map">
+                                <input type="checkbox" v-model="objRequest.bookingNoteRequired"> Note bắt buộc
+                            </b-form-group>
                         </b-card>
                         <b-card header="Hình ảnh">
                             <b-form-group label="Icon">
@@ -196,6 +219,19 @@
 
                             <b-form-group label="Banner Link">
                                 <b-form-input v-model="objRequestLanguage.bannerLink" placeholder="Đường dẫn khi kích vào BannerLink" required></b-form-input>
+                            </b-form-group>
+                            <b-form-group label="Note placeholder">
+                                <b-form-input v-model="objRequestLanguage.notePlaceHolder" placeholder="Place holder của ô nhập note" required></b-form-input>
+                            </b-form-group>
+                            <b-form-group label="Danh sách lựa chọn Note">
+                                <b-form-input v-model="objRequestLanguage.noteOptions" placeholder="Đường dẫn khi kích vào BannerLink" required></b-form-input>
+                                <small style="color:red">(* Các lựa chọn được phân cách nhau bởi dấu ,)</small>
+                            </b-form-group>
+                            <b-form-group label="Mùa du lịch phổ biến">
+                                <b-form-input v-model="objRequestLanguage.suggestionSeason" placeholder="Mùa du lịch phổ biến" required></b-form-input>
+                            </b-form-group>
+                            <b-form-group label="Thời gian phù hợp để du lịch">
+                                <b-form-input v-model="objRequestLanguage.suggestionTraveldDate" placeholder="Thời gian phù hợp để du lịch" required></b-form-input>
                             </b-form-group>
                         </b-card>
                         <div class="card">

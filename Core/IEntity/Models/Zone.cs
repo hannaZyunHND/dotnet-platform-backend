@@ -27,5 +27,9 @@ namespace MI.Entity.Models
         public string ManufacturerId { get; set; }
         public string Fillter { get; set; }
         public int? ZoneSearchType { get; set; } = 0;
+        public string MapCoords { get; set; } = "";
+        public string googleMapCrood { get; set; } = "";
+        public string bookingNoteType { get; set; } = "";
+        public bool? bookingNoteRequired { get; set; } = false;
     }
 }

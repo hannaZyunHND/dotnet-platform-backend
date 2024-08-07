@@ -3,7 +3,7 @@
         <template slot="header">
             <img id="accImg" :src="accAvatar"
                  class="img-avatar"
-                 alt="admin@bootstrapmaster.com" />
+                 alt="user" />
         </template>
 
         <template slot="dropdown">
@@ -43,7 +43,7 @@
                     this.accAvatar = "/uploads" + this.objRequest.avatar;
                 }
                 else {
-                    this.accAvatar = '../../assets/img/avatars/6.jpg';
+                    this.accAvatar = 'https://i.ibb.co/z6PN2kf/Joy-time-logo-07.png';
                 }
 
                 this.isLoading = false;

@@ -26,5 +26,6 @@ namespace MI.Entity.Models
         public Customer Customer { get; set; }
         public string InstallmentData { get; set; }
         public ICollection<OrderDetail> OrderDetail { get; set; }
+        public string OnepayRef { get; set; } = "";
     }
 }

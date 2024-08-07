@@ -58,7 +58,7 @@ namespace PlatformWEBAPI.Services.Locations.Repository
             ////Add cache
             //var add_to_cache = Newtonsoft.Json.JsonConvert.SerializeObject(r);
             //result_after_cache = Encoding.UTF8.GetBytes(add_to_cache);
-            //var cache_options = new DistributedCacheEntryOptions().SetSlidingExpiration(TimeSpan.FromMinutes(5)).SetAbsoluteExpiration(DateTime.Now.AddMinutes(int.Parse(_configuration["Redis:CachingExpireMinute"])));
+            //var cache_options = new DistributedCacheEntryOptions().SetSlidingExpiration(TimeSpan.FromMinutes(60)).SetAbsoluteExpiration(DateTime.Now.AddMinutes(int.Parse(_configuration["Redis:CachingExpireMinute"])));
             //_distributedCache.Set(keyCache, result_after_cache, cache_options);
             //get in cache
             //var result_after_cache = _distributedCache.Get(keyCache);
@@ -75,7 +75,7 @@ namespace PlatformWEBAPI.Services.Locations.Repository
             //    //Add cache
             //    var add_to_cache = Newtonsoft.Json.JsonConvert.SerializeObject(r);
             //    result_after_cache = Encoding.UTF8.GetBytes(add_to_cache);
-            //    var cache_options = new DistributedCacheEntryOptions().SetSlidingExpiration(TimeSpan.FromMinutes(5)).SetAbsoluteExpiration(DateTime.Now.AddMinutes(int.Parse(_configuration["Redis:CachingExpireMinute"])));
+            //    var cache_options = new DistributedCacheEntryOptions().SetSlidingExpiration(TimeSpan.FromMinutes(60)).SetAbsoluteExpiration(DateTime.Now.AddMinutes(int.Parse(_configuration["Redis:CachingExpireMinute"])));
             //    _distributedCache.Set(keyCache, result_after_cache, cache_options);
             //}
 

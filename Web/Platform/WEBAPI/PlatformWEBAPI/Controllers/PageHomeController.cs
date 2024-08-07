@@ -7,6 +7,9 @@ using PlatformWEBAPI.Services.Zone.Repository;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using PlatformWEBAPI.Services.Product.Repository;
+using PlatformWEBAPI.Services.Product.ViewModel;
+using PlatformWEBAPI.Services.Article.Repository;
+using PlatformWEBAPI.Services.Article.ViewModel;
 
 namespace PlatformWEBAPI.Controllers
 {
@@ -17,11 +20,13 @@ namespace PlatformWEBAPI.Controllers
         private readonly IExtraRepository _extraRepository;
         private readonly IZoneRepository _zoneRepository;
         private readonly IProductRepository _productRepository;
-        public PageHomeController(IExtraRepository extraRepository, IZoneRepository zoneRepository, IProductRepository productRepository)
+        private readonly IArticleRepository _articleRepository;
+        public PageHomeController(IExtraRepository extraRepository, IZoneRepository zoneRepository, IProductRepository productRepository, IArticleRepository articleRepository)
         {
             _extraRepository = extraRepository;
             _zoneRepository = zoneRepository;
             _productRepository = productRepository;
+           _articleRepository = articleRepository;
         }
 
         [HttpPost]
@@ -58,6 +63,33 @@ namespace PlatformWEBAPI.Controllers
             }
             
             return Ok(response);
+        }
+
+        [HttpPost]
+        [Route("GetProductLastSeen")]
+        public async Task<IActionResult> GetProductLastSeen(RequestGetProductLastSeen request)
+        {
+            var response = new List<ProductMinify>();
+            if (request != null)
+            {
+                response = _productRepository.GetProductByListId(request.ids, request.cultureCode, 0);
+            }
+            return Ok(response);    
+        }
+
+
+        [HttpPost]
+        [Route("GetBlogsHomePage")]
+        public async Task<IActionResult> GetBlogsHomePage(RequestGetBlogsHomePage request)
+        {
+            var response = new List<ArticleMinify>();
+            if (request != null)
+            {
+                var _t = 0;
+                response = _articleRepository.GetArticlesInZoneId_Minify_FullFilter(0, (int)TypeZone.All, (int)TypeArticle.Blog, 1, request.cultureCode, "", 1, 12, out _t);
+            }
+            return Ok(response);
+            
         }
     }
 }

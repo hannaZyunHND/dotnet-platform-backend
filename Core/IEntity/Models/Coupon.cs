@@ -15,5 +15,8 @@ namespace MI.Entity.Models
         public int Id { get; set; }
         public DateTime? StartDate { get; set; }
         public DateTime? EndDate { get; set; }
+
+        public string ActivationZoneList { get; set; } = "";
+        public bool IsRepeating { get; set; } = false;
     }
 }

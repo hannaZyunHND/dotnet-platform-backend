@@ -22,6 +22,10 @@ namespace MI.Entity.Models
         public string UrlOld { get; set; }
         public string BreadcrumUrl { get; set; }
         public string QandA { get; set; } = "";
+        public string notePlaceHolder { get; set; } = "";
+        public string noteOptions { get; set; } = "";
+        public string suggestionSeason { get; set; } = "";
+        public string suggestionTraveldDate { get; set; } = "";
         public Language LanguageCodeNavigation { get; set; }
         public Zone Zone { get; set; }
     }

@@ -1,21 +1,21 @@
 webpackJsonp([58],{
 
-/***/ 1079:
+/***/ 1097:
 /***/ (function(module, exports, __webpack_require__) {
 
-exports = module.exports = __webpack_require__(53)();
+exports = module.exports = __webpack_require__(178)();
 // imports
 
 
 // module
-exports.push([module.i, "\n.headerRow[data-v-0704ff92] {\n    padding: .75rem;\n    background-color: #000000;\n    color: #ffffff;\n    font-weight: bold;\n    vertical-align: bottom;\n    border-bottom: 2px solid #dee2e6;\n}\n.bodyRow[data-v-0704ff92] {\n    padding: .75rem;\n    border-top: 1px solid #dee2e6;\n}\n", "", {"version":3,"sources":["C:/PlatformDuLich/BackEnd/Web/Platform/CMS/PlatformCMS/ClientApp/pages/role/assignPermissionRole.vue?1aba7ce8"],"names":[],"mappings":";AA2GA;IACA,gBAAA;IACA,0BAAA;IACA,eAAA;IACA,kBAAA;IACA,uBAAA;IACA,iCAAA;CACA;AAEA;IACA,gBAAA;IACA,8BAAA;CACA","file":"assignPermissionRole.vue","sourcesContent":["<template>\r\n    <div>\r\n        <b-row>\r\n            <b-col>\r\n                <b-container class=\"col-12\">\r\n                    <div id='permissionsTable'>\r\n                        <b-row class='headerRow'>\r\n                            <b-col cols='3'>Danh mục chức năng</b-col>\r\n                            <b-col v-for=\"itemF in actionss\" v-bind:key=\"itemF.name\">{{itemF.name}}</b-col>\r\n                        </b-row>\r\n                        <b-row v-for=\"itemA in functions\" v-bind:key=\"itemA.name\" class=\"bodyRow\">\r\n                            <b-col cols='3' v-if=\"itemA.parentId==null\">{{itemA.name}}</b-col>\r\n                            <b-col cols='3' v-if=\"itemA.parentId!=null\">-- {{itemA.name}}</b-col>\r\n                            <b-col v-for=\"itemF in actionss\" v-bind:key=\"itemF.name\">\r\n                                <b-form-checkbox-group v-bind:id=\"itemF.name\"\r\n                                                       v-bind:name=\"itemF.name + 'Danh mục chức năng'\"\r\n                                                       v-model=\"itemF.functions\">\r\n                                    <b-form-checkbox v-bind:value=\"itemA.id\"></b-form-checkbox>\r\n                                </b-form-checkbox-group>\r\n                            </b-col>\r\n                        </b-row>\r\n                    </div>\r\n                    <div class=\"mt-3\">\r\n                        <div class=\"row\">\r\n                            <div class=\"col-md-12\">\r\n                                <button class=\"btn btn-info btn-submit-form btncus float-right\" type=\"button\"\r\n                                        @click=\"assignPermission()\">\r\n                                    <i class=\"fa fa-save\"></i> Cập nhật\r\n                                </button>\r\n                            </div>\r\n                        </div>\r\n                    </div>\r\n                </b-container>\r\n            </b-col>\r\n        </b-row>\r\n    </div>\r\n\r\n</template>\r\n\r\n\r\n<script>\r\n \r\n    import {mapActions} from \"vuex\";\r\n    import HttpService from \"../../plugins/http\";\r\n    import roleRepository from \"../../repository/roleRepository/roleRepository\";\r\n\r\n    export default {\r\n        name: 'assignPermissionRole',\r\n        data() {\r\n            return {\r\n                functions: [],\r\n\r\n                actionss: [],\r\n            };\r\n        },\r\n        methods: {\r\n            ...mapActions([\"getListFunctions\", \"getListActions\"]),\r\n            async getFunction() {\r\n                let response = await HttpService.get(`/api/role/getallfunctions`\r\n                ).catch(e => {\r\n                    alert('ex found:' + e)\r\n                });\r\n                console.log(response.data);\r\n                this.functions = response.data;\r\n            },\r\n            async getAction() {\r\n                if (this.$route.params.id) {\r\n                    let id = this.$route.params.id;\r\n                    let response = await HttpService.get(`/api/role/getallactions?roleid=${id}`\r\n                    ).catch(e => {\r\n                        alert('ex found:' + e)\r\n                    });\r\n                    console.log(response.data);\r\n                    this.actionss = response.data;\r\n                }\r\n\r\n            },\r\n            async assignPermission() {\r\n                if (this.$route.params.id) {\r\n                    let id = this.$route.params.id;\r\n                    let data = this.actionss;\r\n                    console.log(data);\r\n                    let result;\r\n                    result = await roleRepository.assignPermissionRole(id, data);\r\n                    console.log(result);\r\n                    if (result.success == true) {\r\n                        this.$toast.success(\"tạo thành công\", {});\r\n                        this.isLoading = false;\r\n                        this.$router.go(-1)\r\n                    } else {\r\n                        this.$router.go(-1);\r\n                        this.$toast.error(\"cập nhật thất bại\", {});\r\n                        this.isLoading = false;\r\n                    }\r\n                }\r\n            }\r\n\r\n        },\r\n        async created() {\r\n            await this.getAction();\r\n            await this.getFunction();\r\n        }\r\n    }\r\n</script>\r\n\r\n<!-- Add \"scoped\" attribute to limit CSS to this component only -->\r\n<style scoped>\r\n    .headerRow {\r\n        padding: .75rem;\r\n        background-color: #000000;\r\n        color: #ffffff;\r\n        font-weight: bold;\r\n        vertical-align: bottom;\r\n        border-bottom: 2px solid #dee2e6;\r\n    }\r\n\r\n    .bodyRow {\r\n        padding: .75rem;\r\n        border-top: 1px solid #dee2e6;\r\n    }\r\n</style>\r\n"],"sourceRoot":""}]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", "", {"version":3,"sources":[],"names":[],"mappings":"","file":"edit.vue","sourceRoot":""}]);
 
 // exports
 
 
 /***/ }),
 
-/***/ 1168:
+/***/ 1180:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -25,306 +25,284 @@ Object.defineProperty(exports, "__esModule", {
     value: true
 });
 
-var _http = __webpack_require__(4);
+var _assign = __webpack_require__(375);
 
-var _http2 = _interopRequireDefault(_http);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-var roleRepository = {
-    assignPermissionRole: function assignPermissionRole(id, data) {
-        return _http2.default.post('/api/permission/save-permissions?role=' + id, data).then(function (response) {
-            console.log(response.data);
-            return response.data;
-        }).catch(function (e) {
-            alert('ex found:' + e);
-        });
-    }
-};
-
-exports.default = roleRepository;
-
-/***/ }),
-
-/***/ 1254:
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-    value: true
-});
-
-var _regenerator = __webpack_require__(75);
-
-var _regenerator2 = _interopRequireDefault(_regenerator);
-
-var _asyncToGenerator2 = __webpack_require__(74);
-
-var _asyncToGenerator3 = _interopRequireDefault(_asyncToGenerator2);
+var _assign2 = _interopRequireDefault(_assign);
 
 var _extends2 = __webpack_require__(8);
 
 var _extends3 = _interopRequireDefault(_extends2);
 
+__webpack_require__(776);
+
+var _constant = __webpack_require__(777);
+
+var _constant2 = _interopRequireDefault(_constant);
+
 var _vuex = __webpack_require__(180);
 
-var _http = __webpack_require__(4);
+var _vueLoadingOverlay = __webpack_require__(374);
 
-var _http2 = _interopRequireDefault(_http);
-
-var _roleRepository = __webpack_require__(1168);
-
-var _roleRepository2 = _interopRequireDefault(_roleRepository);
+var _vueLoadingOverlay2 = _interopRequireDefault(_vueLoadingOverlay);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 exports.default = {
-    name: 'assignPermissionRole',
+    name: "AdsEdit",
     data: function data() {
         return {
-            functions: [],
 
-            actionss: []
+            isLoading: false,
+            fullPage: false,
+            color: "#007bff",
+            spinObj: {
+                enable: true,
+                value: 0
+            },
+            Types: [{ value: true, text: "Hiển thị" }, { value: false, text: "Đóng" }]
         };
     },
+    created: function created() {},
+    destroyed: function destroyed() {},
 
-    methods: (0, _extends3.default)({}, (0, _vuex.mapActions)(["getListFunctions", "getListActions"]), {
-        getFunction: function getFunction() {
-            var _this = this;
+    components: {
+        Loading: _vueLoadingOverlay2.default
 
-            return (0, _asyncToGenerator3.default)(_regenerator2.default.mark(function _callee() {
-                var response;
-                return _regenerator2.default.wrap(function _callee$(_context) {
-                    while (1) {
-                        switch (_context.prev = _context.next) {
-                            case 0:
-                                _context.next = 2;
-                                return _http2.default.get("/api/role/getallfunctions").catch(function (e) {
-                                    alert('ex found:' + e);
-                                });
+    },
 
-                            case 2:
-                                response = _context.sent;
+    mounted: function mounted() {
+        var _this = this;
 
-                                console.log(response.data);
-                                _this.functions = response.data;
+        if (this.$route.params.id) {
+            this.isLoading = true;
+            var initial = this.$route.query.initial;
+            initial = typeof initial != "undefined" ? initial.toLowerCase() : "";
+            this.getObj(this.$route.params.id).then(function (respose) {
 
-                            case 5:
-                            case "end":
-                                return _context.stop();
-                        }
-                    }
-                }, _callee, _this);
-            }))();
-        },
-        getAction: function getAction() {
+                _this.spinObj = respose.data;
+            });
+            this.isLoading = false;
+        }
+    },
+
+
+    computed: (0, _extends3.default)({}, (0, _vuex.mapGetters)(["obj"])),
+
+    methods: (0, _extends3.default)({}, (0, _vuex.mapActions)(["addSpin", "editSpin", "getObj"]), {
+        DoAddEdit: function DoAddEdit() {
             var _this2 = this;
 
-            return (0, _asyncToGenerator3.default)(_regenerator2.default.mark(function _callee2() {
-                var id, response;
-                return _regenerator2.default.wrap(function _callee2$(_context2) {
-                    while (1) {
-                        switch (_context2.prev = _context2.next) {
-                            case 0:
-                                if (!_this2.$route.params.id) {
-                                    _context2.next = 7;
-                                    break;
-                                }
+            this.isLoading = true;
+            if (this.spinObj.id) {
 
-                                id = _this2.$route.params.id;
-                                _context2.next = 4;
-                                return _http2.default.get("/api/role/getallactions?roleid=" + id).catch(function (e) {
-                                    alert('ex found:' + e);
-                                });
+                this.editSpin(this.spinObj).then(function (response) {
 
-                            case 4:
-                                response = _context2.sent;
+                    if (response.success) {
 
-                                console.log(response.data);
-                                _this2.actionss = response.data;
-
-                            case 7:
-                            case "end":
-                                return _context2.stop();
-                        }
+                        _this2.$toast.success(response.message, {});
+                        _this2.spinObj = {};
+                        _this2.isLoading = false;
+                    } else {
+                        _this2.$toast.error(response.message, {});
+                        _this2.isLoading = false;
                     }
-                }, _callee2, _this2);
-            }))();
-        },
-        assignPermission: function assignPermission() {
-            var _this3 = this;
-
-            return (0, _asyncToGenerator3.default)(_regenerator2.default.mark(function _callee3() {
-                var id, data, result;
-                return _regenerator2.default.wrap(function _callee3$(_context3) {
-                    while (1) {
-                        switch (_context3.prev = _context3.next) {
-                            case 0:
-                                if (!_this3.$route.params.id) {
-                                    _context3.next = 10;
-                                    break;
-                                }
-
-                                id = _this3.$route.params.id;
-                                data = _this3.actionss;
-
-                                console.log(data);
-                                result = void 0;
-                                _context3.next = 7;
-                                return _roleRepository2.default.assignPermissionRole(id, data);
-
-                            case 7:
-                                result = _context3.sent;
-
-                                console.log(result);
-                                if (result.success == true) {
-                                    _this3.$toast.success("tạo thành công", {});
-                                    _this3.isLoading = false;
-                                    _this3.$router.go(-1);
-                                } else {
-                                    _this3.$router.go(-1);
-                                    _this3.$toast.error("cập nhật thất bại", {});
-                                    _this3.isLoading = false;
-                                }
-
-                            case 10:
-                            case "end":
-                                return _context3.stop();
-                        }
+                }).catch(function (e) {
+                    _this2.$toast.error(_constant2.default.error + ". Error:" + e, {});
+                    _this2.isLoading = false;
+                });
+            } else {
+                this.addSpin(this.spinObj).then(function (response) {
+                    if (response.success) {
+                        _this2.spinObj = {};
+                        _this2.$toast.success(response.message, {});
+                        _this2.isLoading = false;
+                    } else {
+                        _this2.$toast.error(response.message, {});
+                        _this2.isLoading = false;
                     }
-                }, _callee3, _this3);
-            }))();
+                }).catch(function (e) {
+                    _this2.$toast.error(_constant2.default.error + ". Error:" + e, {});
+                    _this2.isLoading = false;
+                });
+            }
         }
     }),
-    created: function created() {
-        var _this4 = this;
-
-        return (0, _asyncToGenerator3.default)(_regenerator2.default.mark(function _callee4() {
-            return _regenerator2.default.wrap(function _callee4$(_context4) {
-                while (1) {
-                    switch (_context4.prev = _context4.next) {
-                        case 0:
-                            _context4.next = 2;
-                            return _this4.getAction();
-
-                        case 2:
-                            _context4.next = 4;
-                            return _this4.getFunction();
-
-                        case 4:
-                        case "end":
-                            return _context4.stop();
-                    }
-                }
-            }, _callee4, _this4);
-        }))();
+    watch: {
+        ads: function ads() {
+            this.spinObj = (0, _assign2.default)({}, this.$store.getters.ads);
+        }
     }
 };
 
 /***/ }),
 
-/***/ 1503:
+/***/ 1564:
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _c('div', [_c('b-row', [_c('b-col', [_c('b-container', {
-    staticClass: "col-12"
+  return _c('div', {
+    staticClass: "row",
+    staticStyle: {
+      "display": "flex",
+      "width": "100%"
+    }
+  }, [_c('loading', {
+    attrs: {
+      "active": _vm.isLoading,
+      "height": 35,
+      "width": 35
+    },
+    on: {
+      "update:active": function($event) {
+        _vm.isLoading = $event
+      }
+    }
+  }), _vm._v(" "), _c('div', {
+    staticClass: "col-md-8"
+  }, [_c('b-card', {
+    staticClass: "mt-3",
+    attrs: {
+      "header": "Thêm / Sửa "
+    }
+  }, [_c('b-form', {
+    staticClass: "form-horizontal"
+  }, [_c('b-form-group', {
+    attrs: {
+      "label": "Tên:",
+      "label-for": "input-1"
+    }
+  }, [_c('b-form-input', {
+    attrs: {
+      "id": "input-1",
+      "type": "text",
+      "required": "",
+      "placeholder": "Tên giải thưởng"
+    },
+    model: {
+      value: (_vm.spinObj.name),
+      callback: function($$v) {
+        _vm.$set(_vm.spinObj, "name", $$v)
+      },
+      expression: "spinObj.name"
+    }
+  })], 1), _vm._v(" "), _c('b-form-group', {
+    attrs: {
+      "label": "Trạng thái"
+    }
+  }, [_c('b-form-select', {
+    attrs: {
+      "options": _vm.Types,
+      "required": ""
+    },
+    model: {
+      value: (_vm.spinObj.enable),
+      callback: function($$v) {
+        _vm.$set(_vm.spinObj, "enable", $$v)
+      },
+      expression: "spinObj.enable"
+    }
+  })], 1), _vm._v(" "), _c('b-form-group', {
+    attrs: {
+      "label": "Tỉ lệ:",
+      "label-for": "input-2"
+    }
+  }, [_c('b-form-input', {
+    attrs: {
+      "id": "input-2",
+      "type": "number",
+      "required": "",
+      "placeholder": "Tỉ lệ"
+    },
+    model: {
+      value: (_vm.spinObj.ratio),
+      callback: function($$v) {
+        _vm.$set(_vm.spinObj, "ratio", $$v)
+      },
+      expression: "spinObj.ratio"
+    }
+  })], 1)], 1)], 1)], 1), _vm._v(" "), _c('div', {
+    staticClass: "col-md-4"
   }, [_c('div', {
-    attrs: {
-      "id": "permissionsTable"
+    staticClass: "mt-3",
+    staticStyle: {
+      "position": "fixed",
+      "width": "25%"
     }
-  }, [_c('b-row', {
-    staticClass: "headerRow"
-  }, [_c('b-col', {
+  }, [_c('b-card', {
     attrs: {
-      "cols": "3"
+      "header": "Đăng bài"
     }
-  }, [_vm._v("Danh mục chức năng")]), _vm._v(" "), _vm._l((_vm.actionss), function(itemF) {
-    return _c('b-col', {
-      key: itemF.name
-    }, [_vm._v(_vm._s(itemF.name))])
-  })], 2), _vm._v(" "), _vm._l((_vm.functions), function(itemA) {
-    return _c('b-row', {
-      key: itemA.name,
-      staticClass: "bodyRow"
-    }, [(itemA.parentId == null) ? _c('b-col', {
-      attrs: {
-        "cols": "3"
-      }
-    }, [_vm._v(_vm._s(itemA.name))]) : _vm._e(), _vm._v(" "), (itemA.parentId != null) ? _c('b-col', {
-      attrs: {
-        "cols": "3"
-      }
-    }, [_vm._v("-- " + _vm._s(itemA.name))]) : _vm._e(), _vm._v(" "), _vm._l((_vm.actionss), function(itemF) {
-      return _c('b-col', {
-        key: itemF.name
-      }, [_c('b-form-checkbox-group', {
-        attrs: {
-          "id": itemF.name,
-          "name": itemF.name + 'Danh mục chức năng'
-        },
-        model: {
-          value: (itemF.functions),
-          callback: function($$v) {
-            _vm.$set(itemF, "functions", $$v)
-          },
-          expression: "itemF.functions"
-        }
-      }, [_c('b-form-checkbox', {
-        attrs: {
-          "value": itemA.id
-        }
-      })], 1)], 1)
-    })], 2)
-  })], 2), _vm._v(" "), _c('div', {
-    staticClass: "mt-3"
   }, [_c('div', {
     staticClass: "row"
   }, [_c('div', {
-    staticClass: "col-md-12"
+    staticClass: "col-md-6"
   }, [_c('button', {
-    staticClass: "btn btn-info btn-submit-form btncus float-right",
+    staticClass: "btn btn-info btn-submit-form col-md-12 btncus",
+    attrs: {
+      "type": "submit"
+    },
+    on: {
+      "click": function($event) {
+        return _vm.DoAddEdit()
+      }
+    }
+  }, [_c('i', {
+    staticClass: "fa fa-save"
+  }), _vm._v(" Lưu\n                        ")])]), _vm._v(" "), _c('div', {
+    staticClass: "col-md-6"
+  }, [_c('button', {
+    staticClass: "btn btn-success col-md-12 btncus",
     attrs: {
       "type": "button"
     },
     on: {
       "click": function($event) {
-        return _vm.assignPermission()
+        return _vm.DoRefesh()
       }
     }
   }, [_c('i', {
-    staticClass: "fa fa-save"
-  }), _vm._v(" Cập nhật\n                            ")])])])])])], 1)], 1)], 1)
+    staticClass: "fa fa-refresh"
+  }), _vm._v(" Làm mới\n                        ")])])]), _vm._v(" "), _c('b-form-group', {
+    staticStyle: {
+      "margin-top": "10px"
+    }
+  }, [_c('b-form-checkbox', {
+    model: {
+      value: (_vm.spinObj.IsEnable),
+      callback: function($$v) {
+        _vm.$set(_vm.spinObj, "IsEnable", $$v)
+      },
+      expression: "spinObj.IsEnable"
+    }
+  }, [_vm._v("Kích hoạt")])], 1)], 1)], 1)])], 1)
 },staticRenderFns: []}
 module.exports.render._withStripped = true
 if (true) {
   module.hot.accept()
   if (module.hot.data) {
-     __webpack_require__(178).rerender("data-v-0704ff92", module.exports)
+     __webpack_require__(177).rerender("data-v-e501258c", module.exports)
   }
 }
 
 /***/ }),
 
-/***/ 1584:
+/***/ 1606:
 /***/ (function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
-var content = __webpack_require__(1079);
+var content = __webpack_require__(1097);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
-var update = __webpack_require__(797)("124606cf", content, false);
+var update = __webpack_require__(781)("2e57db5a", content, false);
 // Hot Module Replacement
 if(true) {
  // When the styles change, update the <style> tags
  if(!content.locals) {
-   module.hot.accept(1079, function() {
-     var newContent = __webpack_require__(1079);
+   module.hot.accept(1097, function() {
+     var newContent = __webpack_require__(1097);
      if(typeof newContent === 'string') newContent = [[module.i, newContent, '']];
      update(newContent);
    });
@@ -335,37 +313,37 @@ if(true) {
 
 /***/ }),
 
-/***/ 780:
+/***/ 710:
 /***/ (function(module, exports, __webpack_require__) {
 
 
 /* styles */
-__webpack_require__(1584)
+__webpack_require__(1606)
 
-var Component = __webpack_require__(374)(
+var Component = __webpack_require__(372)(
   /* script */
-  __webpack_require__(1254),
+  __webpack_require__(1180),
   /* template */
-  __webpack_require__(1503),
+  __webpack_require__(1564),
   /* scopeId */
-  "data-v-0704ff92",
+  null,
   /* cssModules */
   null
 )
-Component.options.__file = "C:\\PlatformDuLich\\BackEnd\\Web\\Platform\\CMS\\PlatformCMS\\ClientApp\\pages\\role\\assignPermissionRole.vue"
+Component.options.__file = "C:\\WORKING\\Joytime\\dotnet-platform-backend\\Web\\Platform\\CMS\\PlatformCMS\\ClientApp\\pages\\LuckySpin\\edit.vue"
 if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
-if (Component.options.functional) {console.error("[vue-loader] assignPermissionRole.vue: functional components are not supported with templates, they should use render functions.")}
+if (Component.options.functional) {console.error("[vue-loader] edit.vue: functional components are not supported with templates, they should use render functions.")}
 
 /* hot reload */
 if (true) {(function () {
-  var hotAPI = __webpack_require__(178)
+  var hotAPI = __webpack_require__(177)
   hotAPI.install(__webpack_require__(26), false)
   if (!hotAPI.compatible) return
   module.hot.accept()
   if (!module.hot.data) {
-    hotAPI.createRecord("data-v-0704ff92", Component.options)
+    hotAPI.createRecord("data-v-e501258c", Component.options)
   } else {
-    hotAPI.reload("data-v-0704ff92", Component.options)
+    hotAPI.reload("data-v-e501258c", Component.options)
   }
 })()}
 
@@ -374,7 +352,63 @@ module.exports = Component.exports
 
 /***/ }),
 
-/***/ 797:
+/***/ 775:
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__(178)();
+// imports
+
+
+// module
+exports.push([module.i, ".vld-overlay {\n  bottom: 0;\n  left: 0;\n  position: absolute;\n  right: 0;\n  top: 0;\n  align-items: center;\n  display: none;\n  justify-content: center;\n  overflow: hidden;\n  z-index: 9999;\n}\n\n.vld-overlay.is-active {\n  display: flex;\n}\n\n.vld-overlay.is-full-page {\n  z-index: 9999;\n  position: fixed;\n}\n\n.vld-overlay .vld-background {\n  bottom: 0;\n  left: 0;\n  position: absolute;\n  right: 0;\n  top: 0;\n  background: #fff;\n  opacity: 0.5;\n}\n\n.vld-overlay .vld-icon, .vld-parent {\n  position: relative;\n}\n\n", ""]);
+
+// exports
+
+
+/***/ }),
+
+/***/ 776:
+/***/ (function(module, exports, __webpack_require__) {
+
+// style-loader: Adds some css to the DOM by adding a <style> tag
+
+// load the styles
+var content = __webpack_require__(775);
+if(typeof content === 'string') content = [[module.i, content, '']];
+// add the styles to the DOM
+var update = __webpack_require__(179)(content, {});
+if(content.locals) module.exports = content.locals;
+// Hot Module Replacement
+if(true) {
+	// When the styles change, update the <style> tags
+	if(!content.locals) {
+		module.hot.accept(775, function() {
+			var newContent = __webpack_require__(775);
+			if(typeof newContent === 'string') newContent = [[module.i, newContent, '']];
+			update(newContent);
+		});
+	}
+	// When the module is disposed, remove the <style> tags
+	module.hot.dispose(function() { update(); });
+}
+
+/***/ }),
+
+/***/ 777:
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+   value: true
+});
+var msgNotify = {};
+exports.default = msgNotify;
+
+/***/ }),
+
+/***/ 781:
 /***/ (function(module, exports, __webpack_require__) {
 
 /*
@@ -393,7 +427,7 @@ if (typeof DEBUG !== 'undefined' && DEBUG) {
   ) }
 }
 
-var listToStyles = __webpack_require__(807)
+var listToStyles = __webpack_require__(790)
 
 /*
 type StyleObject = {
@@ -596,7 +630,7 @@ function applyToTag (styleElement, obj) {
 
 /***/ }),
 
-/***/ 807:
+/***/ 790:
 /***/ (function(module, exports) {
 
 /**

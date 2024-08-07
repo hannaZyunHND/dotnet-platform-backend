@@ -100,6 +100,13 @@ namespace MI.Dal.IDbContext
         public virtual DbSet<ProductInBankInstallment> ProductInBankInstallment { get; set; }
         public virtual DbSet<ProductSerialNumbers> ProductSerialNumbers { get; set; }
         public virtual DbSet<ProductPriceInZoneList> ProductPriceInZoneList { get; set; }
+        public virtual DbSet<ProductPriceInZoneListByDate> ProductPriceInZoneListByDate { get; set; }   
+        public virtual DbSet<ProductCancelPolicy> ProductCancelPolicy { get; set; }
+
+        public virtual DbSet<OrderDetailFeedback> OrderDetailFeedback { get; set; }
+
+        public virtual DbSet<OrderChatSession> OrderChatSession { get; set; }
+        public virtual DbSet<OrderChatSessionDetail> OrderChatSessionDetail { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

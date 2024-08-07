@@ -294,7 +294,7 @@ namespace PlatformWEBAPI
             app.UseResponseCompression();
             app.UseHangfireServer();
             app.UseSession();
-            app.ClearCacheMiddleware();
+            //app.ClearCacheMiddleware();
             // Áp dụng chính sách CORS
             app.UseCors("AllowAll");
             //app.ClearCacheMiddleware();

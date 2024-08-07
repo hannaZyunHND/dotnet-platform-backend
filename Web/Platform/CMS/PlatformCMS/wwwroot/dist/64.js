@@ -1,6 +1,6 @@
 webpackJsonp([64],{
 
-/***/ 1250:
+/***/ 1239:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -14,22 +14,22 @@ var _extends2 = __webpack_require__(8);
 
 var _extends3 = _interopRequireDefault(_extends2);
 
-__webpack_require__(792);
+__webpack_require__(776);
 
-var _constant = __webpack_require__(793);
+var _constant = __webpack_require__(777);
 
 var _constant2 = _interopRequireDefault(_constant);
 
 var _vuex = __webpack_require__(180);
 
-var _vueLoadingOverlay = __webpack_require__(376);
+var _vueLoadingOverlay = __webpack_require__(374);
 
 var _vueLoadingOverlay2 = _interopRequireDefault(_vueLoadingOverlay);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 exports.default = {
-    name: "product",
+    name: "property",
     components: {
         Loading: _vueLoadingOverlay2.default
     },
@@ -41,28 +41,13 @@ exports.default = {
             currentSort: "Id",
             currentSortDir: "asc",
 
+            SearchKeyword: "",
+            SearchLanguageCode: "vi-VN",
+            Language: [],
+
             currentPage: 1,
             pageSize: 10,
             loading: true,
-
-            SearchKeyword: "",
-            SearchLanguageCode: "vi-VN     ",
-            Language: [],
-            searchStatus: 0,
-            ListStatus: [{
-                Id: 0,
-                Text: "Tất cả"
-            }, {
-                Id: 1,
-                Text: "Xuất bản"
-            }, {
-                Id: 2,
-                Text: "Ẩn"
-            }, {
-                Id: 3,
-                Text: "Đã xóa"
-            }],
-
             bootstrapPaginationClasses: {
                 ul: "pagination",
                 li: "page-item",
@@ -79,19 +64,18 @@ exports.default = {
         };
     },
 
-    methods: (0, _extends3.default)({}, (0, _vuex.mapActions)(["getPromotions", "deletePromotion", "getAllLanguages"]), {
+    methods: (0, _extends3.default)({}, (0, _vuex.mapActions)(["getPropertys", "deleteProperty", "getAllLanguages"]), {
         onChangePaging: function onChangePaging() {
             this.isLoading = true;
             var initial = this.$route.query.initial;
             initial = typeof initial != "undefined" ? initial.toLowerCase() : "";
-            this.getPromotions({
+            this.getPropertys({
                 keyword: this.SearchKeyword,
                 languageCode: this.SearchLanguageCode || "vi-VN",
                 pageIndex: this.currentPage,
                 pageSize: this.pageSize,
                 sortBy: this.currentSort,
-                sortDir: this.currentSortDir,
-                status: this.searchStatus
+                sortDir: this.currentSortDir
             });
             this.isLoading = false;
         },
@@ -103,19 +87,18 @@ exports.default = {
             this.currentSort = s;
             this.onChangePaging();
         },
-        remove: function remove(item, status) {
+        remove: function remove(item) {
             var _this = this;
 
-            item.status = status;
             var initial = this.$route.query.initial;
             initial = typeof initial != "undefined" ? initial.toLowerCase() : "";
-            this.deletePromotion(item).then(function (response) {
-                if (response.key == true) {
-                    _this.$toast.success(response.value, {});
+            this.deleteProperty(item).then(function (response) {
+                if (response.success == true) {
+                    _this.$toast.success(response.message, {});
                     _this.onChangePaging();
                     _this.isLoading = false;
                 } else {
-                    _this.$toast.error(response.value, {});
+                    _this.$toast.error(response.message, {});
                     _this.isLoading = false;
                 }
             }).catch(function (e) {
@@ -123,7 +106,7 @@ exports.default = {
             });
         }
     }),
-    computed: (0, _extends3.default)({}, (0, _vuex.mapGetters)(["promotions"])),
+    computed: (0, _extends3.default)({}, (0, _vuex.mapGetters)(["propertys"])),
     mounted: function mounted() {
         this.onChangePaging();
     },
@@ -132,12 +115,7 @@ exports.default = {
         currentPage: function currentPage(newVal) {
             this.currentPage = newVal;
             this.onChangePaging();
-        },
-        SearchLanguageCode: function SearchLanguageCode() {
-            this.currentPage = 1;
-            this.onChangePaging();
-        },
-        searchStatus: function searchStatus() {
+        }, SearchLanguageCode: function SearchLanguageCode() {
             this.currentPage = 1;
             this.onChangePaging();
         }
@@ -146,7 +124,7 @@ exports.default = {
 
 /***/ }),
 
-/***/ 1566:
+/***/ 1546:
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
@@ -187,35 +165,6 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       expression: "SearchKeyword"
     }
   })], 1), _vm._v(" "), _c('b-col', {
-    attrs: {
-      "md": "2"
-    }
-  }, [_c('select', {
-    directives: [{
-      name: "model",
-      rawName: "v-model",
-      value: (_vm.searchStatus),
-      expression: "searchStatus"
-    }],
-    staticClass: "form-control",
-    on: {
-      "change": function($event) {
-        var $$selectedVal = Array.prototype.filter.call($event.target.options, function(o) {
-          return o.selected
-        }).map(function(o) {
-          var val = "_value" in o ? o._value : o.value;
-          return val
-        });
-        _vm.searchStatus = $event.target.multiple ? $$selectedVal : $$selectedVal[0]
-      }
-    }
-  }, _vm._l((_vm.ListStatus), function(item) {
-    return _c('option', {
-      domProps: {
-        "value": item.Id
-      }
-    }, [_vm._v("\n                                " + _vm._s(item.Text) + "\n                            ")])
-  }), 0)]), _vm._v(" "), _c('b-col', {
     attrs: {
       "md": "1"
     }
@@ -263,7 +212,30 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     attrs: {
       "aria-hidden": "true"
     }
-  })])], 1)], 1)], 1)], 1)]), _vm._v(" "), _c('div', {
+  })])], 1)], 1)], 1), _vm._v(" "), _c('b-collapse', {
+    staticClass: "mt-2",
+    attrs: {
+      "id": "collapse1"
+    }
+  }, [_c('b-card', [_c('p', {
+    staticClass: "card-text"
+  }, [_vm._v("Collapse contents Here")]), _vm._v(" "), _c('b-btn', {
+    directives: [{
+      name: "b-toggle",
+      rawName: "v-b-toggle.collapse1_inner",
+      modifiers: {
+        "collapse1_inner": true
+      }
+    }],
+    attrs: {
+      "size": "sm"
+    }
+  }, [_vm._v("Toggle Inner Collapse")]), _vm._v(" "), _c('b-collapse', {
+    staticClass: "mt-2",
+    attrs: {
+      "id": "collapse1_inner"
+    }
+  }, [_c('b-card', [_vm._v("Hello!")])], 1)], 1)], 1)], 1)]), _vm._v(" "), _c('div', {
     staticClass: "card card-data"
   }, [_c('div', {
     staticClass: "card-body"
@@ -299,7 +271,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "mx-1 btn-group mi-paging"
   }, [_c('b-pagination', {
     attrs: {
-      "total-rows": _vm.promotions.total,
+      "total-rows": _vm.propertys.total,
       "per-page": _vm.pageSize,
       "aria-controls": "_product"
     },
@@ -321,27 +293,19 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     attrs: {
       "role": "grid"
     }
-  }, [_vm._m(1), _vm._v(" "), _c('tbody', _vm._l((_vm.promotions.listData), function(item) {
+  }, [_vm._m(1), _vm._v(" "), _c('tbody', _vm._l((_vm.propertys.listData), function(item, index) {
     return _c('tr', {
       staticClass: "odd",
       attrs: {
         "role": "row"
       }
-    }, [_vm._m(2, true), _vm._v(" "), _c('td', [_c('p', [_vm._v(_vm._s(item.name))])]), _vm._v(" "), _c('td', {
-      staticClass: "product-type sorting_1"
-    }, [_vm._v(_vm._s(item.typeName))]), _vm._v(" "), _c('td', {
-      staticClass: "product-isDiscountPrice"
-    }, [(item.isDiscountPrice == true) ? [_vm._v("\n                                        Trừ tiền mặt\n                                    ")] : _vm._e(), _vm._v(" "), (item.isDiscountPrice == false) ? [_vm._v("\n                                        Không trừ tiền mặt\n                                    ")] : _vm._e()], 2), _vm._v(" "), _c('td', {
-      staticClass: "product-value"
-    }, [_vm._v(_vm._s(item.value))]), _vm._v(" "), _c('td', [_c('p', [_vm._v("Ngôn ngữ: " + _vm._s(item.langCount))])]), _vm._v(" "), _c('td', [_c('p', [_vm._v("NBĐ: " + _vm._s(item.startDate))]), _vm._v(" "), _c('p', [_vm._v("NKT: " + _vm._s(item.endDate))])]), _vm._v(" "), _c('td', {
-      staticClass: "text-center"
-    }, [(item.status == 2) ? _c('span', {
-      staticClass: "badge bg-warning"
-    }, [_vm._v("Chưa xuất bản")]) : _vm._e(), _vm._v(" "), (item.status == 1) ? _c('span', {
-      staticClass: "badge bg-success"
-    }, [_vm._v("Xuất bản")]) : _vm._e(), _vm._v(" "), (item.status == 3) ? _c('span', {
-      staticClass: "badge bg-danger"
-    }, [_vm._v("Đã xóa")]) : _vm._e()]), _vm._v(" "), _c('td', {
+    }, [_vm._m(2, true), _vm._v(" "), _c('td', {
+      staticClass: "dt-checkboxes-cell"
+    }, [_vm._v(_vm._s(index + 1))]), _vm._v(" "), _c('td', {
+      staticClass: "product-thumb"
+    }, [_vm._v("\n                                    " + _vm._s(item.name) + "\n                                ")]), _vm._v(" "), _c('td', {
+      staticClass: "product-groupId"
+    }, [_vm._v("\n                                    " + _vm._s(item.groupNane) + "\n                                ")]), _vm._v(" "), _c('td', [_c('p', [_vm._v("Ngôn ngữ: " + _vm._s(item.langCount))])]), _vm._v(" "), _c('td', {
       staticClass: "product-action"
     }, [_c('router-link', {
       attrs: {
@@ -353,75 +317,16 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       staticClass: "action-edit"
     }, [_c('i', {
       staticClass: "fa fa-edit"
-    })])]), _vm._v(" "), (item.status == 2) ? _c('span', {
-      staticClass: "action-show"
-    }, [_c('a', {
-      directives: [{
-        name: "b-tooltip",
-        rawName: "v-b-tooltip.hover",
-        modifiers: {
-          "hover": true
-        }
-      }],
-      attrs: {
-        "title": "Xuất bản"
-      },
-      on: {
-        "click": function($event) {
-          return _vm.remove(item, 1)
-        }
-      }
-    }, [_c('i', {
-      staticClass: "fa fa-check-circle",
-      staticStyle: {
-        "color": "green"
-      }
-    })])]) : _vm._e(), _vm._v(" "), (item.status == 1) ? _c('span', {
-      staticClass: "action-hidden"
-    }, [_c('a', {
-      directives: [{
-        name: "b-tooltip",
-        rawName: "v-b-tooltip.hover",
-        modifiers: {
-          "hover": true
-        }
-      }],
-      attrs: {
-        "title": "Ẩn"
-      },
-      on: {
-        "click": function($event) {
-          return _vm.remove(item, 2)
-        }
-      }
-    }, [_c('i', {
-      staticClass: "fa fa-circle-o",
-      staticStyle: {
-        "color": "gold"
-      }
-    })])]) : _vm._e(), _vm._v(" "), _c('span', {
+    })])]), _vm._v(" "), _c('span', {
       staticClass: "action-delete"
     }, [_c('a', {
-      directives: [{
-        name: "b-tooltip",
-        rawName: "v-b-tooltip.hover",
-        modifiers: {
-          "hover": true
-        }
-      }],
-      attrs: {
-        "title": "Xóa"
-      },
       on: {
         "click": function($event) {
-          return _vm.remove(item, 3)
+          return _vm.remove(item)
         }
       }
     }, [_c('i', {
-      staticClass: "fa fa-trash",
-      staticStyle: {
-        "color": "red"
-      }
+      staticClass: "fa fa-trash"
     })])])], 1)])
   }), 0)])])])])])], 1)
 },staticRenderFns: [function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
@@ -440,7 +345,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     attrs: {
       "role": "row"
     }
-  }, [_c('th'), _vm._v(" "), _c('th', [_vm._v("Tên khuyến mãi")]), _vm._v(" "), _c('th', [_vm._v("Loại khuyến mãi")]), _vm._v(" "), _c('th', [_vm._v("Trừ tiền")]), _vm._v(" "), _c('th', [_vm._v("Giá")]), _vm._v(" "), _c('th', [_vm._v("Ngôn ngữ")]), _vm._v(" "), _c('th', [_vm._v("Ngày tháng")]), _vm._v(" "), _c('th', [_vm._v("Trạng thái")]), _vm._v(" "), _c('th', [_vm._v("Thao tác")])])])
+  }, [_c('th'), _vm._v(" "), _c('th', [_vm._v("STT")]), _vm._v(" "), _c('th', [_vm._v("Tên thuộc tính")]), _vm._v(" "), _c('th', [_vm._v("Nhóm thuộc tính")]), _vm._v(" "), _c('th', [_vm._v("Ngôn ngữ")]), _vm._v(" "), _c('th', [_vm._v("Thao tác")])])])
 },function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
   return _c('td', {
     staticClass: "dt-checkboxes-cell"
@@ -455,39 +360,39 @@ module.exports.render._withStripped = true
 if (true) {
   module.hot.accept()
   if (module.hot.data) {
-     __webpack_require__(178).rerender("data-v-a9f55716", module.exports)
+     __webpack_require__(177).rerender("data-v-80416706", module.exports)
   }
 }
 
 /***/ }),
 
-/***/ 776:
+/***/ 761:
 /***/ (function(module, exports, __webpack_require__) {
 
-var Component = __webpack_require__(374)(
+var Component = __webpack_require__(372)(
   /* script */
-  __webpack_require__(1250),
+  __webpack_require__(1239),
   /* template */
-  __webpack_require__(1566),
+  __webpack_require__(1546),
   /* scopeId */
   null,
   /* cssModules */
   null
 )
-Component.options.__file = "C:\\PlatformDuLich\\BackEnd\\Web\\Platform\\CMS\\PlatformCMS\\ClientApp\\pages\\promotion\\list.vue"
+Component.options.__file = "C:\\WORKING\\Joytime\\dotnet-platform-backend\\Web\\Platform\\CMS\\PlatformCMS\\ClientApp\\pages\\property\\list.vue"
 if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
 if (Component.options.functional) {console.error("[vue-loader] list.vue: functional components are not supported with templates, they should use render functions.")}
 
 /* hot reload */
 if (true) {(function () {
-  var hotAPI = __webpack_require__(178)
+  var hotAPI = __webpack_require__(177)
   hotAPI.install(__webpack_require__(26), false)
   if (!hotAPI.compatible) return
   module.hot.accept()
   if (!module.hot.data) {
-    hotAPI.createRecord("data-v-a9f55716", Component.options)
+    hotAPI.createRecord("data-v-80416706", Component.options)
   } else {
-    hotAPI.reload("data-v-a9f55716", Component.options)
+    hotAPI.reload("data-v-80416706", Component.options)
   }
 })()}
 
@@ -496,10 +401,10 @@ module.exports = Component.exports
 
 /***/ }),
 
-/***/ 791:
+/***/ 775:
 /***/ (function(module, exports, __webpack_require__) {
 
-exports = module.exports = __webpack_require__(53)();
+exports = module.exports = __webpack_require__(178)();
 // imports
 
 
@@ -511,13 +416,13 @@ exports.push([module.i, ".vld-overlay {\n  bottom: 0;\n  left: 0;\n  position: a
 
 /***/ }),
 
-/***/ 792:
+/***/ 776:
 /***/ (function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
-var content = __webpack_require__(791);
+var content = __webpack_require__(775);
 if(typeof content === 'string') content = [[module.i, content, '']];
 // add the styles to the DOM
 var update = __webpack_require__(179)(content, {});
@@ -526,8 +431,8 @@ if(content.locals) module.exports = content.locals;
 if(true) {
 	// When the styles change, update the <style> tags
 	if(!content.locals) {
-		module.hot.accept(791, function() {
-			var newContent = __webpack_require__(791);
+		module.hot.accept(775, function() {
+			var newContent = __webpack_require__(775);
 			if(typeof newContent === 'string') newContent = [[module.i, newContent, '']];
 			update(newContent);
 		});
@@ -538,7 +443,7 @@ if(true) {
 
 /***/ }),
 
-/***/ 793:
+/***/ 777:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";

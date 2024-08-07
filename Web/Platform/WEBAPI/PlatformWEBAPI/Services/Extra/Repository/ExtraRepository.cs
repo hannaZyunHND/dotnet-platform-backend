@@ -249,7 +249,7 @@ namespace PlatformWEBAPI.Services.Extra.Repository
                 //Add cache
                 var add_to_cache = JsonConvert.SerializeObject(result);
                 result_after_cache = Encoding.UTF8.GetBytes(add_to_cache);
-                var cache_options = new DistributedCacheEntryOptions().SetSlidingExpiration(TimeSpan.FromMinutes(5)).SetAbsoluteExpiration(DateTime.Now.AddMinutes(int.Parse(_configuration["Redis:CachingExpireMinute"])));
+                var cache_options = new DistributedCacheEntryOptions().SetSlidingExpiration(TimeSpan.FromMinutes(60)).SetAbsoluteExpiration(DateTime.Now.AddMinutes(int.Parse(_configuration["Redis:CachingExpireMinute"])));
                 _distributedCache.Set(keyCache, result_after_cache, cache_options);
             }
             return result;

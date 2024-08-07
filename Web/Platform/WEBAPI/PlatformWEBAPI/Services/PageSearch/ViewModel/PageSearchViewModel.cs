@@ -24,8 +24,17 @@ namespace PlatformWEBAPI.Services.PageSearch.ViewModel
         public List<string> keywords { get; set; } = new List<string>();
         public List<string> selectedZones { get; set; } = new List<string>();
         public string cultureCode { get; set; } = "vi-VN";
+        public string sortBy { get; set; } = "TOP_VIEW";
+        public decimal startPrice { get; set; } = 0;
+        public decimal endPrice { get; set; } = 10000000;
         public int pageIndex { get; set; } = 1;
         public int pageSize { get; set; } = 12;
+    }
+
+    public class RequestGetProductMinifyById
+    {
+        public int productId { get; set; }
+        public string cultureCode { get; set; }
     }
 
     public class ResponseGetProductBySearchdZone
@@ -36,11 +45,22 @@ namespace PlatformWEBAPI.Services.PageSearch.ViewModel
     public class ResponseGetProductByKeywords
     {
         public List<ProductMinify> products { get; set; }
+
+        public List<ProductMapLocation> itemMaps { get; set; }
         public int total { get; set; }
     }
 
     public class ResponseGetSearchableZone
     {
         public List<ZoneByTreeViewMinify> zones { get; set; } = new List<ZoneByTreeViewMinify>();
+    }
+
+    public class RequestElasticFilter
+    {
+        /*string keyword, string culture_code, int index = 1, int size = 50*/
+        public string keyword { get; set; }
+        public string culture_code { get; set; }
+        public int index { get; set; }
+        public int size { get; set; }
     }
 }

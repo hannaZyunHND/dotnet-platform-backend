@@ -63,6 +63,18 @@
                                                           required></b-form-input>
                                         </b-form-group>
                                     </div>
+                                    <div class="col-md-12">
+                                        <b-form-group label="Danh mục hỗ trợ">
+                                            <treeselect :multiple="true" :flat="true" :options="ListDiscountZones"
+                                            placeholder="Xin mời bạn lựa chọn tag" v-model="objRequest.activationZoneList"
+                                            :default-expanded-level="Infinity" />
+                                        </b-form-group>
+                                    </div>
+                                    <div class="col-md-12">
+                                        <b-form-group label="Mã sử dụng nhiều lần">
+                                            <input type="checkbox" v-model="objRequest.isRepeating" value="isRepeating"> 
+                                        </b-form-group>
+                                    </div>
                                 </div>
                             </b-form>
                         </b-card>
@@ -207,6 +219,9 @@
                     endDate: moment(String(new Date())).format('YYYY-MM-DD'),
                     isCategory: false,
                     listProduct: [],
+                    activationZoneList: [],
+                    isRepeating : false
+
                 },
                 LanguageCodes: [],
                 CouponCodes: [
@@ -233,11 +248,20 @@
                 ListCoupon: [],
 
                 ListProductInCoupon: [],
+                ListDiscountZones: [],
+                ZoneValues: [],
 
             };
         },
         async created() {
             this.LanguageCodes = await productSpecificationTemplateRepository.getAllLanguageOption();
+            this.getZones(8).then(response => {
+                var data = response.listData;
+                ////console.log(data)
+                this.ListDiscountZones = unflatten(data);
+                console.log(this.ListDiscountZones)
+
+            })
             this.GetById();
         },
         destroyed() {
@@ -268,7 +292,8 @@
                 "getCouponById",
                 "uploadFile",
                 "getProductInCoupon",
-                "addProductInCoupon"
+                "addProductInCoupon",
+                "getZones"
             ]),
             removeProduct(index) {
                 this.ListProductInCoupon.splice(index, 1);
@@ -335,7 +360,7 @@
                     this.CouponValues = response.discountOption;
                     this.objRequest.startDate = moment(response.startDate).format('YYYY-MM-DD');
                     this.objRequest.endDate = moment(response.endDate).format('YYYY-MM-DD');
-
+                    this.objRequest.activationZoneList = this.objRequest.activationZoneList.split(',')
                     this.getProduct(id);
                     this.isLoading = false;
                 }
@@ -343,6 +368,9 @@
             async DoAddEdit() {
                 this.isLoading = true;
                 this.objRequest.category = this.SearchZoneId;
+                this.objRequest.activationZoneList = this.objRequest.activationZoneList.toString();
+
+                console.log(this.objRequest)
                 if (this.objRequest.id > 0) {
 
                     var result = await this.updateCoupon(this.objRequest);

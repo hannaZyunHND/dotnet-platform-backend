@@ -1,4 +1,7 @@
-﻿using Microsoft.EntityFrameworkCore.Query.ExpressionVisitors.Internal;
+﻿using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore.Query.ExpressionVisitors.Internal;
+using PlatformWEBAPI.Services.Product.ViewModel;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,14 +16,20 @@ namespace PlatformWEBAPI.Services.Order.ViewModal
     {
         public List<Pay> pays { get; set; } = new List<Pay>();
         public CustomerAuth auth { get; set; } = new CustomerAuth();
+        public string orderCode { get; set; } = "";
+        public string i18Code { get; set; } = "en";
+        public string paymentMethod { get; set; } = "TEST";
+        public OrderNote orderNotes { get; set; } = new OrderNote();
     }
 
     public class ResponseCreateMultipleItemOrder
     {
-        public CustomerAuth auth { get; set;  } = new CustomerAuth();
+        public CustomerAuth auth { get; set; } = new CustomerAuth();
         public string orderCode { get; set; } = string.Empty;
+
     }
-    public class CustomerAuth {
+    public class CustomerAuth
+    {
         public int id { get; set; } = 0;
         public string email { get; set; } = "";
         public string firstName { get; set; } = "";
@@ -28,6 +37,8 @@ namespace PlatformWEBAPI.Services.Order.ViewModal
         public string country { get; set; } = "";
         public string phonePrefix { get; set; } = "";
         public string phoneNumber { get; set; } = "";
+        public bool isNewUser { get; set; } = true;
+        public string pcname { get; set; }
     }
     public class Pay
     {
@@ -44,8 +55,23 @@ namespace PlatformWEBAPI.Services.Order.ViewModal
         public int productId { get; set; } = 0;
         public int productChildId { get; set; } = 0;
         public string bookingParentName { get; set; } = string.Empty;
+        public List<ProductBookingNoteGroup> productBookingNoteGroups { get; set; } = new List<ProductBookingNoteGroup>();
+        public BookingDiscountSelected discountSelected { get; set; } = new BookingDiscountSelected();
     }
 
+    public class OrderNote
+    {
+        public string noteSpecial { get; set; }
+        public string useAppContact { get; set; }
+        public string useAppContactValue { get; set; }
+        public string useDiffrenceNumber { get; set; }
+    }
+    public class BookingDiscountSelected
+    {
+        public string couponCode { get; set; } = "";
+        public string couponDescription { get; set; } = "";
+        public decimal couponPrice { get; set; } = 0;
+    }
     public class combination
     {
         public int id { get; set; } = 0;
@@ -251,4 +277,221 @@ namespace PlatformWEBAPI.Services.Order.ViewModal
         public string SerialNumber { get; set; }
         public string Status { get; set; }
     }
+
+    public class RequestGetOrdersByCustomerId
+    {
+        public int customerId { get; set; }
+        public string cultureCode { get; set; }
+    }
+    public class ResponseGetOrdersByCustomerId
+    {
+        public int OrderId { get; set; } = 0;
+        public string OrderCode { get; set; } = string.Empty;
+        public int OrderDetailId { get; set; } = 0;
+        public int CustomerId { get; set; } = 0;
+        public string QuantityAdult { get; set; } = string.Empty;
+        public string QuantityChildren { get; set; } = string.Empty;
+        public string LogPrice { get; set; } = string.Empty;
+        public DateTime CreatedDate { get; set; } = DateTime.MinValue;
+        public string ActiveStatus { get; set; } = string.Empty;
+        public string MetaData { get; set; } = string.Empty;
+        public int ProductChildId { get; set; } = 0;
+        public string ProductChildTitle { get; set; } = string.Empty;
+        public int ProductParentId { get; set; } = 0;
+        public string ProductParentTitle { get; set; } = string.Empty;
+        public string ProductParentUrl { get; set; } = string.Empty;
+        public string ProductParentAvatar { get; set; } = string.Empty;
+    }
+
+    public class RequestGetOrderItemFullDetail
+    {
+        public int customerId { get; set; }
+        public string orderCode { get; set; }
+        public string orderDetailId { get; set; }
+        public string cultureCode { get; set; }
+    }
+    public class ResponseGetOrderItemFullDetail
+    {
+        public int OrderId { get; set; } = 0;
+        public string OrderCode { get; set; } = string.Empty;
+        public int OrderDetailId { get; set; } = 0;
+        public int CustomerId { get; set; } = 0;
+        public int quantityAldut { get; set; } = 0;
+        public int QuantityChildren { get; set; } = 0;
+        public decimal LogPrice { get; set; } = 0;
+        public DateTime CreatedDate { get; set; } = DateTime.MinValue;
+        public string ActiveStatus { get; set; } = string.Empty;
+        public string MetaData { get; set; } = string.Empty;
+        public int ProductChildId { get; set; } = 0;
+        public string ProductChildTitle { get; set; } = string.Empty;
+        public int ProductParentId { get; set; } = 0;
+        public string ProductParentTitle { get; set; } = string.Empty;
+        public string ProductParentUrl { get; set; } = string.Empty;
+        public string ProductParentAvatar { get; set; } = string.Empty;
+        public string productParentLichTour { get; set; } = string.Empty;
+        public string productParentThuTucVisa { get; set; } = string.Empty;
+        public string productThongTinTour { get; set; } = string.Empty;
+
+
+        //[cc].Fullname, [cc].Email, [cc].PhoneNumber
+        public string FullName { get; set; } = string.Empty;
+        public string Email { get; set; } = string.Empty;
+        public string PhoneNumber { get; set; } = string.Empty;
+
+        public string ZoneTitles { get; set; } = "";
+        public DateTime? PickingDate { get; set; } = null;
+    }
+    public class ResponseGetOrderItemFullDetailForSupplier
+    {
+        public int OrderId { get; set; } = 0;
+        public string OrderCode { get; set; } = string.Empty;
+        public int OrderDetailId { get; set; } = 0;
+        public int CustomerId { get; set; } = 0;
+        public int quantityAldut { get; set; } = 0;
+        public int QuantityChildren { get; set; } = 0;
+        public decimal LogPrice { get; set; } = 0;
+        public DateTime CreatedDate { get; set; } = DateTime.MinValue;
+        public string ActiveStatus { get; set; } = string.Empty;
+        public string MetaData { get; set; } = string.Empty;
+        public int ProductChildId { get; set; } = 0;
+        public string ProductChildTitle { get; set; } = string.Empty;
+        public int ProductParentId { get; set; } = 0;
+        public string ProductParentTitle { get; set; } = string.Empty;
+        public string ProductParentUrl { get; set; } = string.Empty;
+        public string ProductParentAvatar { get; set; } = string.Empty;
+        public string productParentLichTour { get; set; } = string.Empty;
+        public string productParentThuTucVisa { get; set; } = string.Empty;
+        public string productThongTinTour { get; set; } = string.Empty;
+
+
+        //[cc].Fullname, [cc].Email, [cc].PhoneNumber
+        public string FullName { get; set; } = string.Empty;
+        public string Email { get; set; } = string.Empty;
+        public string PhoneNumber { get; set; } = string.Empty;
+
+        public string ZoneTitles { get; set; } = string.Empty;
+        public string EmailSupplier { get; set; } = string.Empty;
+    }
+
+    public class RequestCancelOrdersOrderDetail
+    {
+        public int customerId { get; set; }
+        public string orderCode { get; set; }
+        public int orderDetailId { get; set; }
+        public string cultureCode { get; set; }
+        public decimal rollbackValue { get; set; } = 0;
+        public int rollbackOption { get; set; } = 0;
+    }
+
+
+    public class RequestUpdateOrderDetailCommentWithRating
+    {
+        public int Id { get; set; } = 0;
+        public int OrderDetailId { get; set; } = 0;
+        public string TitleComment { get; set; } = "";
+        public string ContentComment { get; set; } = "";
+        public int Rating { get; set; } = 0;
+        public DateTime CreatedDate { get; set; } = DateTime.Now;
+        public List<string> OldFileUpload { get; set; } = new List<string>();
+        public List<string> NewFileUpload { get; set; } = new List<string>();
+    }
+
+    public class ResponseOrderDetailCommentWithRating
+    {
+        public int Id { get; set; } = 0;
+        public int OrderDetailId { get; set; } = 0;
+        public string TitleComment { get; set; } = "";
+        public string ContentComment { get; set; } = "";
+        public int Rating { get; set; } = 0;
+        public DateTime CreatedDate { get; set; } = DateTime.Now;
+        public List<string> OldFileUpload { get; set; } = new List<string>();
+        public List<string> NewFileUpload { get; set; } = new List<string>();
+    }
+
+    public class ResponseGetLastChatDetailBySessionForCustomer
+    {
+        public string CustomerEmail { get; set; }
+        public string OrderCode { get; set; }
+        public string Avatar { get; set; }
+        public string Content { get; set; }
+        public string DefaultLanguage { get; set; }
+        public int OrderChatSessionDetailId { get; set; }
+        public string Fullname { get; set; }
+    }
+    public class RequestSendNewUserEmail
+    {
+        public int customerId { get; set; }
+        public string customerEmail { get; set; }
+        public string culture_code { get; set; } = "vi-VN";
+        public string username { get; set; } = "";
+        public string password { get; set; } = "";
+        public string customerName { get; set; } = "";
+        public string orderCode { get; set; } = "";
+    }
+
+    public class RequestSendNewOrderEmail
+    {
+        public int customerId { get; set; }
+        public string customerEmail { get; set; }
+        public string culture_code { get; set; } = "vi-VN";
+        public string customerName { get; set; } = "";
+        public string orderCode { get; set; } = "";
+        public string activeStatus { get; set; } = "TAO_MOI";
+    }
+
+    public class OrderDetailMetaData
+    {
+        public string choosenDate { get; set; }
+        public Combination combination { get; set; }
+        public Currentpickoption[] currentPickOption { get; set; }
+        public int numberOfAldut { get; set; }
+        public int numberOfChildrend { get; set; }
+        public int couponValue { get; set; }
+        public int couponType { get; set; }
+        public int totalPrice { get; set; }
+        public string avatar { get; set; }
+        public string bookingName { get; set; }
+        public int productId { get; set; }
+        public int productChildId { get; set; }
+        public string bookingParentName { get; set; }
+        public List<NoteOptions> noteOptions { get; set; } = new List<NoteOptions>();
+    }
+    public class NoteOptions
+    {
+        public string title { get; set; }
+        public string note { get; set; }
+    }
+    public class Combination
+    {
+        public int id { get; set; }
+        public string zoneList { get; set; }
+        public int priceEachNguoiLon { get; set; }
+        public int priceEachTreEm { get; set; }
+        public int netEachNguoiLon { get; set; }
+        public int netEachTreEm { get; set; }
+        public int productId { get; set; }
+        public int[] convertedZoneList { get; set; }
+    }
+
+    public class Currentpickoption
+    {
+        public string parentGroup { get; set; }
+        public int pickItem { get; set; }
+        public string pickItemName { get; set; }
+    }
+
+    
+    public class ResponseGetCouponByProductId
+    {
+        public int CouponId { get; set; }
+        public string CouponCode { get; set; }
+        public int DiscountOption { get; set; }
+        public int ValueDiscount { get; set; }
+        public int ZoneId { get; set; }
+        public string ZoneName { get; set; }
+        public string ZoneDescription { get; set; }
+        public string ZoneContent { get; set; }
+        public bool isActive { get; set; } = false;
+    }
+
 }

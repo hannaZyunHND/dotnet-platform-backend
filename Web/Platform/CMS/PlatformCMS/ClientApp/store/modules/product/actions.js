@@ -265,7 +265,31 @@ const getAllCatProductComponent = ({ commit }) => {
         alert('ex found:' + e)
     })
 }
-
+//GetGiaPhienBanTheoNgay/{zoneList}/{productId}
+const getGiaPhienBanTheoNgay = ({commit}, data) => {
+    return HttpService.get(`/api/Product/GetGiaPhienBanTheoNgay/${data.selectedOptions}/${data.productId}`).then(response => {
+        return response.data;
+    }).catch(e => {
+        alert('ex found:' + e)
+    })
+}
+//UpdateGiaPhienBanTheoNgay
+const updateGiaPhienBanTheoNgay = ({commit}, data) => {
+    return HttpService.post(`/api/Product/UpdateGiaPhienBanTheoNgay`, data).then(response => {
+        return response.data;
+    }).catch(e => {
+        alert('ex found:' + e)
+    })
+}
+const getCancelPolicies = ({commit}, id) => {
+    return HttpService.get(`/api/Product/GetCancelPolicies?idProduct=${id}`, {
+    }).then(response => {
+        return response;
+        //commit("GET_ADS", { ...response.data })
+    }).catch(e => {
+        alert('ex found:' + e)
+    })
+}
 export default {
     getProducts,
     getProduct,
@@ -296,5 +320,8 @@ export default {
     deleteProductComponentById,
     getAllCatProductComponent,
     getTopUpInProduct,
-    getSerialNumbersByProductId
+    getSerialNumbersByProductId,
+    getGiaPhienBanTheoNgay,
+    updateGiaPhienBanTheoNgay,
+    getCancelPolicies
 }

@@ -10,7 +10,17 @@ namespace PlatformWEBAPI.Services.Zone.ViewModal
         public int type { get; set; }
         public string cultureCode { get; set; }
     }
+    public class RequestGetZoneDetailById
+    {
+        public int zoneId { get; set; }
+        public string cultureCode { get; set; }
+    }
 
+    public class RequestGetPromotionDetailByZoneId
+    {
+        public int zoneId { get; set; }
+        public string cultureCode { get; set; }
+    }
     public class ResponseZoneMinify
     {
         public int id { get; set; }
@@ -18,6 +28,26 @@ namespace PlatformWEBAPI.Services.Zone.ViewModal
         public string title { get; set; }
         public string icon { get; set; }
         public int parentId { get; set; }
+        public string mapCroods { get; set; }
+        public int level { get; set; }
+        public string order { get; set; }
+        public string avatar { get; set; }
+    }
+
+    public class ResponseGetZoneDetailMinify
+    {
+        public int id { get; set; }
+        public string name { get; set; }
+        public string googleMapCrood { get; set; }
+        public string content { get; set; }
+        public string avatar { get; set; }
+        public string icon { get; set; }
+        public string banner { get; set; }
+        public string suggestionSeason { get; set; }
+        public string suggestionTraveldDate { get; set; }
+        public string latitude { get; set; }
+        public string longtitude { get; set; }
+
     }
 
     public class ZoneByTreeViewMinify
@@ -46,6 +76,8 @@ namespace PlatformWEBAPI.Services.Zone.ViewModal
         public string Description { get; set; }
         public string Avatar { get; set; }
         public int TotalTour { get; set; }
+        public string MapCoords { get; set; }
+        public string googleMapCrood { get; set; }
         //public string Filter { get; set; }
 
     }

@@ -20,24 +20,13 @@ namespace MI.Entity.Enums
         //[EnumDescription("Điểm đến")]
         [EnumDescription("Điểm đến")]
         DiemDen = 5,
-        //[EnumDescription("Tự viết")]
-        //Visa = 6,
+        [EnumDescription("Note Dịch vụ")]
+        Note = 6,
         [EnumDescription("Vùng hiển thị")]
         Region = 7,
+        [EnumDescription("Khuyến mãi")]
+        Discount = 8,
         
-        //[EnumDescription("Type Combo")] // Tat cac cac type ngoai tru san pham va vung hien thi
-        //Combo = 8,
-        //[EnumDescription("Bất động sản")] // Tat cac cac type ngoai tru san pham va vung hien thi
-        //DuAn = 18,
-        //[EnumDescription("Giải Pháp")] // Tat cac cac type ngoai tru san pham va vung hien thi
-        //GiaiPhap = 19,
-        //[EnumDescription("Dịch Vụ")] // Tat cac cac type ngoai tru san pham va vung hien thi
-        //DichVu = 20,
-        //[EnumDescription("Giới Thiệu")] // Tat cac cac type ngoai tru san pham va vung hien thi
-        //GioiThieu = 21,
-        //[EnumDescription("Sửa chữa")] // Tat cac cac type ngoai tru san pham va vung hien thi
-        //SuaChua = 22,
-
 
     }
     public enum StatusZone : byte

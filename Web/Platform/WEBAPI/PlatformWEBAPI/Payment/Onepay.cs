@@ -1,21 +1,41 @@
-﻿using Nest;
-using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Collections.Generic;
 using System.Net;
-using System.Net.Http;
 using System.Security.Cryptography;
 using System.Text;
-using System.Threading.Tasks;
 using System.Web;
+using System;
+using System.Linq;
+using System.Net.Http;
+using System.Threading.Tasks;
+using Nest;
+using System.IO;
 
-namespace PlatformWEBAPI.Payment
+namespace Way2GoWEB.Payment
 {
+
+    public class ResponseOnepay
+    {
+        public string returnUrl { get; set; }
+        public string merchantTxnRefCrypted { get; set; }
+    }
     public static class Onepay
     {
-        public static string merchantHashCode = "283B9360108CB4C9770479943389C05E";
+        private static readonly string key = "93a8b6c4d2e1f08a45c9d6e3b7f2a1d3";
+        private static readonly string iv = "b1e2d3c4a5f6b7c8";
+
+        //public static string merchantId = "TESTONEPAY";
+        public static string merchantId = "OP_EVISACS2";
+
+        //public static string accessCode = "6BEB2546";
+        public static string accessCode = "B2106B90";
+
+        //public static string merchantHashCode = "6D0870CDE5F24F34F3915FB0045120DB";
+        public static string merchantHashCode = "4D68420A9B98479E9A2CF73A0FC9DF08";
+
         //public static string BASE_URL = "https://mtf.onepay.vn/paygate/vpcpay.op";
         public static string BASE_URL = "https://onepay.vn/paygate/vpcpay.op";
+
+
 
         public static string MerchantSendRequestStatic()
         {
@@ -55,17 +75,17 @@ namespace PlatformWEBAPI.Payment
             return requetsUrl;
         }
 
-        public static string MerchantSendRequestDynamic(string orderCode, string amount, string returnUrl, string customerEmail = "")
+        public static ResponseOnepay MerchantSendRequestDynamic(string orderCode, string amount,string vpcMerchantTxnRef, string returnUrl, string customerEmail = "")
         {
-            long ticks = DateTime.Now.Ticks;
-            string vpcMerchantTxnRef = "TEST_" + ticks.ToString();
+            
+            //string vpcMerchantTxnRef = "TEST_" + ticks.ToString();
             Dictionary<string, string> merchantParams = new Dictionary<string, string>
             {
                 { "vpc_Version", "2" },
                 { "vpc_Currency", "VND" },
                 { "vpc_Command", "pay" },
-                { "vpc_AccessCode", "D2604B54" },
-                { "vpc_Merchant", "OP_EVISACSVN1" },
+                { "vpc_AccessCode", accessCode },
+                { "vpc_Merchant", merchantId },
                 { "vpc_Locale", "en" },
                 { "vpc_ReturnURL", returnUrl },
                 { "vpc_MerchTxnRef", vpcMerchantTxnRef },
@@ -90,7 +110,15 @@ namespace PlatformWEBAPI.Payment
                 queryParam += key + "=" + HttpUtility.UrlEncode(value) + "&";
             }
             var requetsUrl = BASE_URL + "?" + queryParam;
-            return requetsUrl;
+
+            var crypKey = "93a8b6c4d2e1f08a45c9d6e3b7f2a1d3";
+            var crypVector = "b1e2d3c4a5f6b7c8";
+
+            var merchantTxnRefCryped = Encrypt(vpcMerchantTxnRef);
+            var response = new ResponseOnepay();
+            response.returnUrl = requetsUrl;
+            response.merchantTxnRefCrypted = merchantTxnRefCryped;
+            return response;
         }
 
         public static void OnePayVerifySecureHash(string url, string merchantHashCode)
@@ -178,53 +206,65 @@ namespace PlatformWEBAPI.Payment
             return dictSorted;
         }
 
-        public static string ExcuteGetMethod(string orderCode, string amount, string returnUrl, string customerEmail = "", string customerPhone = "", string customerId = "")
+        public static ResponseOnepay ExcuteGetMethod(string orderCode, string amount, string returnUrl, string customerEmail = "", string customerPhone = "", string customerId = "")
         {
-            string uri = MerchantSendRequestDynamic(orderCode, amount, returnUrl, customerEmail);
-
-
-            //string uri = MerchantSendRequestStatic();
-            Console.WriteLine(uri);
-            var request = (HttpWebRequest)WebRequest.Create(uri);
-            request.Method = "GET";
-            request.AllowAutoRedirect = false;
-            try
+            long ticks = DateTime.Now.Ticks;
+            string vpcMerchantTxnRef = "TEST_" + ticks.ToString();
+            var encryptTxnRef = Onepay.Encrypt(vpcMerchantTxnRef);
+            returnUrl = returnUrl + "/" + encryptTxnRef;
+            var generated = MerchantSendRequestDynamic(orderCode, amount,vpcMerchantTxnRef, returnUrl, customerEmail);
+            
+            if(generated != null)
             {
-                using (var webResponse = request.GetResponse())
-                {
-                    // Xử lý phản hồi ở đây
-                    // Lấy và xử lý URL chuyển hướng từ header `Location`
-                    var location = webResponse.Headers["Location"];
-                    Console.WriteLine("Link chuyển hướng: " + location);
-                    return location;
-                }
+                return generated;
+                //var uri = generated.returnUrl;
+                ////string uri = MerchantSendRequestStatic();
+                ////Console.WriteLine(generated.returnUrl);
+                //var request = (HttpWebRequest)WebRequest.Create(uri);
+                //request.Method = "GET";
+                //request.AllowAutoRedirect = false;
+                //try
+                //{
+                //    using (var webResponse = request.GetResponse())
+                //    {
+                //        // Xử lý phản hồi ở đây
+                //        // Lấy và xử lý URL chuyển hướng từ header `Location`
+                //        var location = webResponse.Headers["Location"];
+                //        Console.WriteLine("Link chuyển hướng: " + location);
+                //        generated.returnUrl = location;
+                //        return generated;
+                //    }
+                //}
+                //catch (WebException ex)
+                //{
+                //    if (ex.Response is HttpWebResponse response)
+                //    {
+                //        // Kiểm tra mã trạng thái HTTP
+                //        if (response.StatusCode == HttpStatusCode.Found) // 302 Found
+                //        {
+                //            // Lấy và xử lý URL chuyển hướng từ header `Location`
+                //            var location = response.Headers["Location"];
+                //            Console.WriteLine("Link chuyển hướng: " + location);
+                //            generated.returnUrl = location;
+                //            return generated;
+                //            // Tiếp tục xử lý tại đây nếu cần
+                //        }
+                //    }
+                //}
+                ////using (var webResponse = request.GetResponse())
+                ////{
+                ////    WebHeaderCollection header = webResponse.Headers;
+                ////    var link = header["Location"];
+                ////    Console.WriteLine("Link chuyển hướng: " + link);
+                ////    return link;
+                ////}
+                ////string redirectUrl = GetRedirectUrl(uri).GetAwaiter().GetResult();
+                ////Console.WriteLine("URL chuyển hướng: " + redirectUrl);
+                ////return redirectUrl;
+                //return null;
             }
-            catch (WebException ex)
-            {
-                if (ex.Response is HttpWebResponse response)
-                {
-                    // Kiểm tra mã trạng thái HTTP
-                    if (response.StatusCode == HttpStatusCode.Found) // 302 Found
-                    {
-                        // Lấy và xử lý URL chuyển hướng từ header `Location`
-                        var location = response.Headers["Location"];
-                        Console.WriteLine("Link chuyển hướng: " + location);
-                        return location;
-                        // Tiếp tục xử lý tại đây nếu cần
-                    }
-                }
-            }
-            //using (var webResponse = request.GetResponse())
-            //{
-            //    WebHeaderCollection header = webResponse.Headers;
-            //    var link = header["Location"];
-            //    Console.WriteLine("Link chuyển hướng: " + link);
-            //    return link;
-            //}
-            //string redirectUrl = GetRedirectUrl(uri).GetAwaiter().GetResult();
-            //Console.WriteLine("URL chuyển hướng: " + redirectUrl);
-            //return redirectUrl;
-            return "";
+            return null;
+            
 
         }
         public static async Task<string> GetRedirectUrl(string url)
@@ -245,6 +285,59 @@ namespace PlatformWEBAPI.Payment
                 {
                     // Xử lý các trường hợp khác
                     return null;
+                }
+            }
+        }
+        public static string Encrypt(string plainText)
+        {
+            using (Aes aesAlg = Aes.Create())
+            {
+                aesAlg.Key = Encoding.UTF8.GetBytes(key);
+                aesAlg.IV = Encoding.UTF8.GetBytes(iv);
+
+                ICryptoTransform encryptor = aesAlg.CreateEncryptor(aesAlg.Key, aesAlg.IV);
+
+                using (MemoryStream msEncrypt = new MemoryStream())
+                {
+                    using (CryptoStream csEncrypt = new CryptoStream(msEncrypt, encryptor, CryptoStreamMode.Write))
+                    {
+                        using (StreamWriter swEncrypt = new StreamWriter(csEncrypt))
+                        {
+                            swEncrypt.Write(plainText);
+                        }
+                    }
+                    byte[] encryptedBytes = msEncrypt.ToArray();
+                    string base64String = Convert.ToBase64String(encryptedBytes);
+                    return base64String.Replace('+', '-').Replace('/', '_').Replace("=", "");
+                }
+            }
+        }
+
+        public static string Decrypt(string cipherText)
+        {
+            string base64String = cipherText.Replace('-', '+').Replace('_', '/');
+            switch (cipherText.Length % 4)
+            {
+                case 2: base64String += "=="; break;
+                case 3: base64String += "="; break;
+            }
+
+            using (Aes aesAlg = Aes.Create())
+            {
+                aesAlg.Key = Encoding.UTF8.GetBytes(key);
+                aesAlg.IV = Encoding.UTF8.GetBytes(iv);
+
+                ICryptoTransform decryptor = aesAlg.CreateDecryptor(aesAlg.Key, aesAlg.IV);
+
+                using (MemoryStream msDecrypt = new MemoryStream(Convert.FromBase64String(base64String)))
+                {
+                    using (CryptoStream csDecrypt = new CryptoStream(msDecrypt, decryptor, CryptoStreamMode.Read))
+                    {
+                        using (StreamReader srDecrypt = new StreamReader(csDecrypt))
+                        {
+                            return srDecrypt.ReadToEnd();
+                        }
+                    }
                 }
             }
         }

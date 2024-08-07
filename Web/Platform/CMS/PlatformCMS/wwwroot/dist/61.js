@@ -1,6 +1,181 @@
 webpackJsonp([61],{
 
-/***/ 1258:
+/***/ 1003:
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _regenerator = __webpack_require__(74);
+
+var _regenerator2 = _interopRequireDefault(_regenerator);
+
+var _asyncToGenerator2 = __webpack_require__(73);
+
+var _asyncToGenerator3 = _interopRequireDefault(_asyncToGenerator2);
+
+var _http = __webpack_require__(4);
+
+var _http2 = _interopRequireDefault(_http);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var manufacturersRepository = {
+    getPageManufacturers: function getPageManufacturers(data) {
+        var _this = this;
+
+        return (0, _asyncToGenerator3.default)(_regenerator2.default.mark(function _callee() {
+            var response;
+            return _regenerator2.default.wrap(function _callee$(_context) {
+                while (1) {
+                    switch (_context.prev = _context.next) {
+                        case 0:
+                            _context.next = 2;
+                            return _http2.default.get('/api/Manufacturer/Get?pageIndex=' + data.pageIndex + '&pageSize=' + data.pageSize + '&keyword=' + data.title, {}).catch(function (e) {
+                                alert('ex found:' + e);
+                            });
+
+                        case 2:
+                            response = _context.sent;
+
+                            console.log(response);
+                            return _context.abrupt('return', response.data);
+
+                        case 5:
+                        case 'end':
+                            return _context.stop();
+                    }
+                }
+            }, _callee, _this);
+        }))();
+    },
+    addManufacturers: function addManufacturers(data) {
+        var _this2 = this;
+
+        return (0, _asyncToGenerator3.default)(_regenerator2.default.mark(function _callee2() {
+            var response;
+            return _regenerator2.default.wrap(function _callee2$(_context2) {
+                while (1) {
+                    switch (_context2.prev = _context2.next) {
+                        case 0:
+                            _context2.next = 2;
+                            return _http2.default.post('/api/Manufacturer/Add', data).catch(function (e) {
+                                alert('ex found:' + e);
+                            });
+
+                        case 2:
+                            response = _context2.sent;
+
+                            console.log(response.data);
+                            return _context2.abrupt('return', response.data);
+
+                        case 5:
+                        case 'end':
+                            return _context2.stop();
+                    }
+                }
+            }, _callee2, _this2);
+        }))();
+    },
+    updateManufacturers: function updateManufacturers(data) {
+        var _this3 = this;
+
+        return (0, _asyncToGenerator3.default)(_regenerator2.default.mark(function _callee3() {
+            var response;
+            return _regenerator2.default.wrap(function _callee3$(_context3) {
+                while (1) {
+                    switch (_context3.prev = _context3.next) {
+                        case 0:
+                            _context3.next = 2;
+                            return _http2.default.put('/api/Manufacturer/Update', data).catch(function (e) {
+                                alert('ex found:' + e);
+                            });
+
+                        case 2:
+                            response = _context3.sent;
+
+                            console.log(response.data);
+                            return _context3.abrupt('return', response.data);
+
+                        case 5:
+                        case 'end':
+                            return _context3.stop();
+                    }
+                }
+            }, _callee3, _this3);
+        }))();
+    },
+    getManufacturersById: function getManufacturersById(id) {
+        var _this4 = this;
+
+        return (0, _asyncToGenerator3.default)(_regenerator2.default.mark(function _callee4() {
+            var response;
+            return _regenerator2.default.wrap(function _callee4$(_context4) {
+                while (1) {
+                    switch (_context4.prev = _context4.next) {
+                        case 0:
+                            _context4.next = 2;
+                            return _http2.default.get('/api/Manufacturer/GetById?id=' + id).catch(function (e) {
+                                alert('ex found:' + e);
+                            });
+
+                        case 2:
+                            response = _context4.sent;
+                            return _context4.abrupt('return', response.data);
+
+                        case 4:
+                        case 'end':
+                            return _context4.stop();
+                    }
+                }
+            }, _callee4, _this4);
+        }))();
+    },
+    deleteManufacturers: function deleteManufacturers(data) {
+        return _http2.default.post('/api/Manufacturer/UnPublish?id=' + data).then(function (response) {
+            console.log(response.data);
+            return response.data;
+        }).catch(function (e) {
+            alert('ex found:' + e);
+        });
+    },
+    getAllLanguageOption: function getAllLanguageOption() {
+        var _this5 = this;
+
+        return (0, _asyncToGenerator3.default)(_regenerator2.default.mark(function _callee5() {
+            var response;
+            return _regenerator2.default.wrap(function _callee5$(_context5) {
+                while (1) {
+                    switch (_context5.prev = _context5.next) {
+                        case 0:
+                            _context5.next = 2;
+                            return _http2.default.get('/api/Common/GetAllLanguageOptions').catch(function (e) {
+                                alert('ex found:' + e);
+                            });
+
+                        case 2:
+                            response = _context5.sent;
+                            return _context5.abrupt('return', response.data);
+
+                        case 4:
+                        case 'end':
+                            return _context5.stop();
+                    }
+                }
+            }, _callee5, _this5);
+        }))();
+    }
+};
+
+exports.default = manufacturersRepository;
+
+/***/ }),
+
+/***/ 1248:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -14,368 +189,373 @@ var _extends2 = __webpack_require__(8);
 
 var _extends3 = _interopRequireDefault(_extends2);
 
-__webpack_require__(792);
+var _regenerator = __webpack_require__(74);
 
-var _constant = __webpack_require__(793);
+var _regenerator2 = _interopRequireDefault(_regenerator);
+
+var _asyncToGenerator2 = __webpack_require__(73);
+
+var _asyncToGenerator3 = _interopRequireDefault(_asyncToGenerator2);
+
+__webpack_require__(776);
+
+var _constant = __webpack_require__(777);
 
 var _constant2 = _interopRequireDefault(_constant);
 
 var _vuex = __webpack_require__(180);
 
-var _vueLoadingOverlay = __webpack_require__(376);
+var _vueLoadingOverlay = __webpack_require__(374);
 
 var _vueLoadingOverlay2 = _interopRequireDefault(_vueLoadingOverlay);
 
+var _authenticationRepository = __webpack_require__(113);
+
+var _router = __webpack_require__(189);
+
+var _manufacturerRepository = __webpack_require__(1003);
+
+var _manufacturerRepository2 = _interopRequireDefault(_manufacturerRepository);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-var fields = [{ key: "Id", label: "Mã" }, { key: "Name", label: "Tên", sortable: true }, { key: "Description", label: "Mô tả", sortable: true }, { key: "Url", label: "URL" }, { key: "Invisibled", label: "Tàng hình" }, { key: "IsHotTag", label: "Hot Tag", sortable: true }, { key: "Type", label: "Loại" }, { key: "Is", label: "Thao tác" }];
-
 exports.default = {
-    name: "tags",
+    name: "EditUser",
+    data: function data() {
+        return {
+            editorConfig: {
+                allowedContent: true,
+                extraPlugins: ""
+
+            },
+            disabled: false,
+            isLoading: false,
+            fullPage: false,
+            color: "#007bff",
+            objRequest: {},
+            currentUser: null
+        };
+    },
+    created: function created() {
+        var _this = this;
+
+        return (0, _asyncToGenerator3.default)(_regenerator2.default.mark(function _callee() {
+            return _regenerator2.default.wrap(function _callee$(_context) {
+                while (1) {
+                    switch (_context.prev = _context.next) {
+                        case 0:
+                            _context.next = 2;
+                            return _this.GetById();
+
+                        case 2:
+                        case "end":
+                            return _context.stop();
+                    }
+                }
+            }, _callee, _this);
+        }))();
+    },
+
     components: {
         Loading: _vueLoadingOverlay2.default
     },
-    data: function data() {
-        return {
-            isLoading: false,
-            fields: fields,
-            keyword: '',
 
-            messeger: "",
-            currentSort: "Id",
-            currentSortDir: "asc",
+    mounted: function mounted() {},
 
-            currentPage: 1,
-            pageSize: 10,
-            loading: true,
-            bootstrapPaginationClasses: {
-                ul: "pagination",
-                li: "page-item",
-                liActive: "active",
-                liDisable: "disabled",
-                button: "page-link"
-            },
-            customLabels: {
-                first: "First",
-                prev: "Previous",
-                next: "Next",
-                last: "Last"
-            }
-        };
-    },
 
-    methods: (0, _extends3.default)({}, (0, _vuex.mapActions)(["getTags"]), {
+    computed: {},
+    watch: {},
+    methods: (0, _extends3.default)({}, (0, _vuex.mapActions)(["addUser", "getById", "updateUser"]), {
+        GetById: function GetById() {
+            var _this2 = this;
 
-        onKeyUp: function onKeyUp() {},
-        onChangePaging: function onChangePaging() {
-            this.isLoading = true;
-            var initial = this.$route.query.initial;
-            initial = typeof initial != "undefined" ? initial.toLowerCase() : "";
-            this.getTags({
-                initial: initial,
-                keyword: this.keyword,
-                pageIndex: this.currentPage,
-                pageSize: this.pageSize,
-                sortBy: this.currentSort,
-                sortDir: this.currentSortDir
-            });
-            this.isLoading = false;
+            return (0, _asyncToGenerator3.default)(_regenerator2.default.mark(function _callee2() {
+                var id, response;
+                return _regenerator2.default.wrap(function _callee2$(_context2) {
+                    while (1) {
+                        switch (_context2.prev = _context2.next) {
+                            case 0:
+                                if (!_this2.$route.params.id) {
+                                    _context2.next = 8;
+                                    break;
+                                }
+
+                                id = _this2.$route.params.id;
+                                _context2.next = 4;
+                                return _this2.getById(id);
+
+                            case 4:
+                                response = _context2.sent;
+
+                                _this2.objRequest = response;
+                                _this2.objRequest.Id = response.id;
+                                _this2.isLoading = false;
+
+                            case 8:
+                            case "end":
+                                return _context2.stop();
+                        }
+                    }
+                }, _callee2, _this2);
+            }))();
         },
+        DoAddEdit: function DoAddEdit() {
+            var _this3 = this;
 
-        sortor: function sortor(s) {
-            if (s === this.currentSort) {
-                this.currentSortDir = this.currentSortDir === "asc" ? "desc" : "asc";
-            }
-            this.currentSort = s;
-            this.onChangePaging();
+            return (0, _asyncToGenerator3.default)(_regenerator2.default.mark(function _callee3() {
+                var result;
+                return _regenerator2.default.wrap(function _callee3$(_context3) {
+                    while (1) {
+                        switch (_context3.prev = _context3.next) {
+                            case 0:
+                                _this3.isLoading = true;
+
+                                if (!_this3.objRequest.id) {
+                                    _context3.next = 9;
+                                    break;
+                                }
+
+                                _context3.next = 4;
+                                return _this3.updateUser(_this3.objRequest);
+
+                            case 4:
+                                result = _context3.sent;
+
+                                console.log(result);
+                                if (result.success == true) {
+                                    _this3.$toast.success("tạo thành công", {});
+                                    _this3.isLoading = false;
+                                    _this3.$router.go(-1);
+                                } else {
+                                    _this3.$router.go(-1);
+                                    _this3.$toast.error("cập nhật thất bại", {});
+                                    _this3.isLoading = false;
+                                }
+                                _context3.next = 14;
+                                break;
+
+                            case 9:
+                                _context3.next = 11;
+                                return _this3.addUser(_this3.objRequest);
+
+                            case 11:
+                                result = _context3.sent;
+
+                                console.log(result);
+                                if (result.success == true) {
+                                    _this3.$toast.success("tạo thành công", {});
+                                    _this3.isLoading = false;
+                                    _this3.$router.go(-1);
+                                } else {
+                                    _this3.$router.go(-1);
+                                    _this3.$toast.error("cập nhật thất bại", {});
+                                    _this3.isLoading = false;
+                                }
+
+                            case 14:
+                            case "end":
+                                return _context3.stop();
+                        }
+                    }
+                }, _callee3, _this3);
+            }))();
         },
-        remove: function remove(item) {
-            var _this = this;
-
-            var initial = this.$route.query.initial;
-            initial = typeof initial != "undefined" ? initial.toLowerCase() : "";
-            this.removeAds(item).then(function (response) {
-                if (response.Success == true) {
-                    _this.$toast.success(response.Message, {});
-                    _this.isLoading = false;
-                    _this.onChangePaging();
-                } else {
-                    _this.$toast.success(response.Message, {});
-                    _this.isLoading = false;
-                }
-            }).catch(function (e) {
-                _this.$toast.error(_constant2.default.error + ". Error:" + e, {});
-            });
+        DoRefesh: function DoRefesh() {
+            this.objRequest.Title = "";
         }
-    }),
-    computed: (0, _extends3.default)({}, (0, _vuex.mapGetters)(["tags"])),
-    mounted: function mounted() {
-        this.onChangePaging();
-    },
-
-    watch: {
-        currentPage: function currentPage(newVal) {
-            this.currentPage = newVal;
-            this.onChangePaging();
-        }
-    }
+    })
 };
 
 /***/ }),
 
-/***/ 1536:
+/***/ 1554:
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _c('div', [_c('b-card', {
-    staticClass: "card-filter",
-    attrs: {
-      "header-tag": "header",
-      "footer-tag": "footer"
+  return _c('div', {
+    staticStyle: {
+      "display": "flex",
+      "width": "100%"
     }
-  }, [_c('div', [_c('b-col', {
+  }, [_c('loading', {
     attrs: {
-      "md": "12"
+      "active": _vm.isLoading,
+      "height": 35,
+      "width": 35,
+      "color": _vm.color,
+      "is-full-page": _vm.fullPage
+    },
+    on: {
+      "update:active": function($event) {
+        _vm.isLoading = $event
+      }
     }
-  }, [_c('b-row', {
-    staticClass: "form-group"
-  }, [_c('b-col', {
+  }), _vm._v(" "), _c('b-tabs', {
+    staticClass: "col-md-12",
     attrs: {
-      "md": "4"
+      "pills": ""
+    }
+  }, [_c('b-tab', {
+    attrs: {
+      "title": "1. Nhập thông tin tài khoản",
+      "active": ""
+    }
+  }, [_c('div', {
+    staticClass: "row productedit"
+  }, [_c('div', {
+    staticClass: "col-md-12"
+  }, [_c('b-card', {
+    staticClass: "mt-3 ",
+    attrs: {
+      "header": "Cập nhật tài khoản"
+    }
+  }, [_c('b-form', {
+    staticClass: "form-horizontal"
+  }, [_c('div', {
+    staticClass: "row"
+  }, [_c('div', {
+    staticClass: "col-md-12"
+  }, [_c('div', {
+    staticClass: "col-md-12"
+  }, [_c('b-form-group', {
+    attrs: {
+      "label": "Email"
     }
   }, [_c('b-form-input', {
     attrs: {
-      "type": "text",
-      "placeholder": "Tìm kiếm theo tên"
-    },
-    on: {
-      "keyup": function($event) {
-        if (!$event.type.indexOf('key') && _vm._k($event.keyCode, "enter", 13, $event.key, "Enter")) { return null; }
-        return _vm.onChangePaging()
-      }
+      "placeholder": "Email"
     },
     model: {
-      value: (_vm.keyword),
+      value: (_vm.objRequest.email),
       callback: function($$v) {
-        _vm.keyword = $$v
+        _vm.$set(_vm.objRequest, "email", $$v)
       },
-      expression: "keyword"
+      expression: "objRequest.email"
     }
-  })], 1), _vm._v(" "), _c('b-col', {
+  })], 1)], 1), _vm._v(" "), _c('div', {
+    staticClass: "col-md-12"
+  }, [_c('b-form-group', {
     attrs: {
-      "md": "2"
+      "label": "Tên người dùng"
     }
-  }, [_c('b-form-select', {
+  }, [_c('b-form-input', {
     attrs: {
-      "id": "basicSelect",
-      "plain": true,
-      "options": ['Chọn danh mục', 'Option 1', 'Option 2', 'Option 3'],
-      "value": "Chọn danh mục"
-    }
-  })], 1), _vm._v(" "), _c('b-col', {
-    attrs: {
-      "md": "2"
-    }
-  }, [_c('b-btn', {
-    directives: [{
-      name: "b-toggle",
-      rawName: "v-b-toggle.collapse1",
-      modifiers: {
-        "collapse1": true
-      }
-    }],
-    attrs: {
-      "variant": "primary"
-    }
-  }, [_c('i', {
-    staticClass: "fa fa-angle-double-down",
-    attrs: {
-      "aria-hidden": "true"
-    }
-  })])], 1)], 1)], 1), _vm._v(" "), _c('b-collapse', {
-    staticClass: "mt-2",
-    attrs: {
-      "id": "collapse1"
-    }
-  }, [_c('b-card', [_c('p', {
-    staticClass: "card-text"
-  }, [_vm._v("Collapse contents Here")]), _vm._v(" "), _c('b-btn', {
-    directives: [{
-      name: "b-toggle",
-      rawName: "v-b-toggle.collapse1_inner",
-      modifiers: {
-        "collapse1_inner": true
-      }
-    }],
-    attrs: {
-      "size": "sm"
-    }
-  }, [_vm._v("Toggle Inner Collapse")]), _vm._v(" "), _c('b-collapse', {
-    staticClass: "mt-2",
-    attrs: {
-      "id": "collapse1_inner"
-    }
-  }, [_c('b-card', [_vm._v("Hello!")])], 1)], 1)], 1)], 1)]), _vm._v(" "), _c('div', {
-    staticClass: "card card-data"
-  }, [_c('div', {
-    staticClass: "card-body"
-  }, [_c('div', {
-    staticClass: "mb-2",
-    attrs: {
-      "role": "toolbar",
-      "aria-label": "Toolbar with button groups and dropdown menu"
-    }
-  }, [_c('div', {
-    staticClass: "mx-1 btn-group",
-    attrs: {
-      "role": "group"
-    }
-  }, [_c('router-link', {
-    staticClass: "btn btn-success",
-    attrs: {
-      "to": {
-        path: 'add'
-      }
-    }
-  }, [_c('i', {
-    staticClass: "fa fa-plus"
-  }), _vm._v(" Thêm mới\n                    ")]), _vm._v(" "), _vm._m(0)], 1), _vm._v(" "), _c('b-dropdown', {
-    staticClass: "mx-1",
-    attrs: {
-      "variant": "info",
-      "right": "",
-      "text": "Hành động",
-      "icon": ""
-    }
-  }, [_c('b-dropdown-item', [_vm._v("Kích hoạt")]), _vm._v(" "), _c('b-dropdown-item', [_vm._v("Không kích hoạt")])], 1), _vm._v(" "), _c('div', {
-    staticClass: "mx-1 btn-group mi-paging"
-  }, [_c('b-pagination', {
-    attrs: {
-      "total-rows": _vm.tags.Total,
-      "per-page": _vm.pageSize,
-      "aria-controls": "_tag"
+      "placeholder": "Tên người dùng"
     },
     model: {
-      value: (_vm.currentPage),
+      value: (_vm.objRequest.userName),
       callback: function($$v) {
-        _vm.currentPage = $$v
+        _vm.$set(_vm.objRequest, "userName", $$v)
       },
-      expression: "currentPage"
+      expression: "objRequest.userName"
     }
-  })], 1)], 1), _vm._v(" "), _c('table', {
-    staticClass: "table"
-  }, [_c('thead', {
-    staticClass: "thead-dark table table-centered table-nowrap"
-  }, [_c('tr', _vm._l((_vm.fields), function(field) {
-    return _c('th', {
-      staticClass: "text-center",
-      staticStyle: {
-        "max-width": "150px"
+  })], 1)], 1), _vm._v(" "), _c('div', {
+    staticClass: "col-md-12"
+  }, [_c('b-form-group', {
+    attrs: {
+      "label": "Tên đầy đủ"
+    }
+  }, [_c('b-form-input', {
+    attrs: {
+      "placeholder": "Tên đầy đủ"
+    },
+    model: {
+      value: (_vm.objRequest.fullName),
+      callback: function($$v) {
+        _vm.$set(_vm.objRequest, "fullName", $$v)
       },
-      attrs: {
-        "scope": "col"
+      expression: "objRequest.fullName"
+    }
+  })], 1)], 1), _vm._v(" "), _c('div', {
+    staticClass: "col-md-12"
+  }, [_c('b-form-group', {
+    attrs: {
+      "label": "Địa chỉ"
+    }
+  }, [_c('b-form-input', {
+    attrs: {
+      "placeholder": "Địa chỉ"
+    },
+    model: {
+      value: (_vm.objRequest.address),
+      callback: function($$v) {
+        _vm.$set(_vm.objRequest, "address", $$v)
       },
-      on: {
-        "click": function($event) {
-          field.sortable ? _vm.sortor(field.key) : null
-        }
-      }
-    }, [_vm._v(_vm._s(field.label))])
-  }), 0)]), _vm._v(" "), _c('tbody', _vm._l((_vm.tags.ListData), function(item) {
-    return _c('tr', [_c('td', {
-      staticClass: "text-center",
-      attrs: {
-        "scope": "row"
-      }
-    }, [_vm._v(_vm._s(item.Id))]), _vm._v(" "), _c('td', {
-      staticClass: "text-center"
-    }, [_vm._v(_vm._s(item.Name))]), _vm._v(" "), _c('td', {
-      staticClass: "text-center"
-    }, [_vm._v(_vm._s(item.Description))]), _vm._v(" "), _c('td', {
-      staticClass: "text-center",
-      staticStyle: {
-        "max-width": "150px"
-      }
-    }, [_c('a', {
-      attrs: {
-        "href": item.Url,
-        "title": item.Url
-      }
-    }, [_vm._v("Link")])]), _vm._v(" "), _c('td', {
-      staticClass: "text-center"
-    }, [_vm._v(_vm._s(item.Invisibled))]), _vm._v(" "), _c('td', {
-      staticClass: "text-center"
-    }, [_vm._v(_vm._s(item.IsHotTag))]), _vm._v(" "), _c('td', {
-      staticClass: "text-center"
-    }, [_vm._v(_vm._s(item.Type))]), _vm._v(" "), _c('td', {
-      staticClass: "text-center"
-    }, [_c('router-link', {
-      staticClass: "btn btn-warning",
-      attrs: {
-        "to": {
-          path: 'edit/' + item.Id
-        }
-      }
-    }, [_c('i', {
-      staticClass: "fa fa-edit"
-    })]), _vm._v(" "), _c('button', {
-      staticClass: "btn btn-xs btn-danger",
-      on: {
-        "click": function($event) {
-          return _vm.remove(item)
-        }
-      }
-    }, [_c('i', {
-      staticClass: "fa fa-minus-circle"
-    })])], 1)])
-  }), 0)])])])], 1)
-},staticRenderFns: [function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _c('button', {
-    staticClass: "btn btn-danger",
+      expression: "objRequest.address"
+    }
+  })], 1)], 1), _vm._v(" "), _c('div', {
+    staticClass: "col-md-12"
+  }, [_c('div', {
+    staticClass: "mt-3"
+  }, [_c('div', {
+    staticClass: "row"
+  }, [_c('div', {
+    staticClass: "col-md-4"
+  }, [_c('button', {
+    staticClass: "btn btn-info btn-submit-form col-md-12 btncus",
     attrs: {
       "type": "button"
+    },
+    on: {
+      "click": function($event) {
+        return _vm.DoAddEdit()
+      }
     }
   }, [_c('i', {
-    staticClass: "fa fa-trash-o"
-  }), _vm._v(" Xóa\n                    ")])
-}]}
+    staticClass: "fa fa-save"
+  }), _vm._v(" Cập nhật\n                                                    ")])]), _vm._v(" "), _c('div', {
+    staticClass: "col-md-4"
+  }, [_c('button', {
+    staticClass: "btn btn-success col-md-12 btncus",
+    attrs: {
+      "type": "button"
+    },
+    on: {
+      "click": function($event) {
+        return _vm.DoRefesh()
+      }
+    }
+  }, [_c('i', {
+    staticClass: "fa fa-refresh"
+  }), _vm._v(" Làm mới\n                                                    ")])])])])])])])])], 1)], 1)])])], 1)], 1)
+},staticRenderFns: []}
 module.exports.render._withStripped = true
 if (true) {
   module.hot.accept()
   if (module.hot.data) {
-     __webpack_require__(178).rerender("data-v-3ed27139", module.exports)
+     __webpack_require__(177).rerender("data-v-adef2d9a", module.exports)
   }
 }
 
 /***/ }),
 
-/***/ 784:
+/***/ 770:
 /***/ (function(module, exports, __webpack_require__) {
 
-var Component = __webpack_require__(374)(
+var Component = __webpack_require__(372)(
   /* script */
-  __webpack_require__(1258),
+  __webpack_require__(1248),
   /* template */
-  __webpack_require__(1536),
+  __webpack_require__(1554),
   /* scopeId */
   null,
   /* cssModules */
   null
 )
-Component.options.__file = "C:\\PlatformDuLich\\BackEnd\\Web\\Platform\\CMS\\PlatformCMS\\ClientApp\\pages\\tags\\list.vue"
+Component.options.__file = "C:\\WORKING\\Joytime\\dotnet-platform-backend\\Web\\Platform\\CMS\\PlatformCMS\\ClientApp\\pages\\user\\edit.vue"
 if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
-if (Component.options.functional) {console.error("[vue-loader] list.vue: functional components are not supported with templates, they should use render functions.")}
+if (Component.options.functional) {console.error("[vue-loader] edit.vue: functional components are not supported with templates, they should use render functions.")}
 
 /* hot reload */
 if (true) {(function () {
-  var hotAPI = __webpack_require__(178)
+  var hotAPI = __webpack_require__(177)
   hotAPI.install(__webpack_require__(26), false)
   if (!hotAPI.compatible) return
   module.hot.accept()
   if (!module.hot.data) {
-    hotAPI.createRecord("data-v-3ed27139", Component.options)
+    hotAPI.createRecord("data-v-adef2d9a", Component.options)
   } else {
-    hotAPI.reload("data-v-3ed27139", Component.options)
+    hotAPI.reload("data-v-adef2d9a", Component.options)
   }
 })()}
 
@@ -384,10 +564,10 @@ module.exports = Component.exports
 
 /***/ }),
 
-/***/ 791:
+/***/ 775:
 /***/ (function(module, exports, __webpack_require__) {
 
-exports = module.exports = __webpack_require__(53)();
+exports = module.exports = __webpack_require__(178)();
 // imports
 
 
@@ -399,13 +579,13 @@ exports.push([module.i, ".vld-overlay {\n  bottom: 0;\n  left: 0;\n  position: a
 
 /***/ }),
 
-/***/ 792:
+/***/ 776:
 /***/ (function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
-var content = __webpack_require__(791);
+var content = __webpack_require__(775);
 if(typeof content === 'string') content = [[module.i, content, '']];
 // add the styles to the DOM
 var update = __webpack_require__(179)(content, {});
@@ -414,8 +594,8 @@ if(content.locals) module.exports = content.locals;
 if(true) {
 	// When the styles change, update the <style> tags
 	if(!content.locals) {
-		module.hot.accept(791, function() {
-			var newContent = __webpack_require__(791);
+		module.hot.accept(775, function() {
+			var newContent = __webpack_require__(775);
 			if(typeof newContent === 'string') newContent = [[module.i, newContent, '']];
 			update(newContent);
 		});
@@ -426,7 +606,7 @@ if(true) {
 
 /***/ }),
 
-/***/ 793:
+/***/ 777:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";

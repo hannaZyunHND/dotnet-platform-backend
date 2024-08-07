@@ -20,6 +20,9 @@ namespace MI.Dapper.Data.ViewModels
         public bool IsCategory { get; set; }
         public List<int> Category { get; set; }
         public List<int> ListProduct { get; set; }
+        public string activationZoneList { get; set; }
+        public bool isRepeating { get; set; }
+
 
         public CouponViewModel()
         {
@@ -36,6 +39,8 @@ namespace MI.Dapper.Data.ViewModels
             this.IsCategory = false;
             this.Category =new List<int>();
             this.ListProduct = new List<int>();
+            this.activationZoneList = string.Empty;
+            this.isRepeating = false;
         }
     }
 }

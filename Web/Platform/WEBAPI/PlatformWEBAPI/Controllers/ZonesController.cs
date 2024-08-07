@@ -36,6 +36,10 @@ namespace PlatformWEBAPI.Controllers
                     _obj.icon = item.Icon;
                     _obj.title = item.Name;
                     _obj.alias = item.Url;
+                    _obj.mapCroods = item.MapCoords;
+                    _obj.level = item.level;
+                    _obj.order = item.order;
+                    _obj.avatar = item.Avatar;
                     response.Add(_obj);
                 }
 
@@ -43,5 +47,17 @@ namespace PlatformWEBAPI.Controllers
             return Ok(response);
             
         }
+
+        [HttpPost]
+        [Route("GetZoneDetailMinifyById")]
+        public async Task<IActionResult> GetZoneDetailMinifyById([FromBody] RequestGetZoneDetailById request)
+        {
+            var response = _zoneRepository.GetZoneDetailMinifyById(request.zoneId, request.cultureCode);
+            return Ok(response);
+
+        }
+
+
+
     }
 }

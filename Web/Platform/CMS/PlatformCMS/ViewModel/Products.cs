@@ -14,6 +14,9 @@ namespace PlatformCMS.ViewModel
         public List<int> ListDiemDen { get; set; }
         public List<int> ListProductOption { get; set; }
         public List<int> ListTagOption { get; set; }
+        public List<int> ListNoteOption { get; set; }
+
+        public List<int> ListCouponZoneOptions { get; set; }
 
         public List<int> ListProp { get; set; }
         public List<string> ListColor { get; set; }
