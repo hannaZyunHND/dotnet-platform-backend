@@ -11,7 +11,7 @@ pipeline {
         }
         stage('Clone Repository') {
             steps {
-                git branch: 'main', url: 'https://github.com/hannaZyunHND/dotnet-platform-backend.git',
+                git branch: 'dat-ops', url: 'https://github.com/hannaZyunHND/dotnet-platform-backend.git',
                 credentialsId: 'jenkin-huy-access'
             }
         }
