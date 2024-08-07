@@ -12,13 +12,10 @@ docker container prune -f
 # Xóa các volume không cần thiết
 docker volume prune -f
 
-# Xóa tất cả các đối tượng không còn được sử dụng
-docker system prune -a -f
+# Dừng các container đang chạy mà không xóa network
+docker-compose -f Web/Platform/CMS/PlatformCMS/docker-compose.yml stop
 
-# Dừng các container đang chạy
-docker-compose -f Web/Platform/CMS/PlatformCMS/docker-compose.yml down
-
-# Xóa các container cũ và các network liên quan
+# Xóa các container cũ
 docker-compose -f Web/Platform/CMS/PlatformCMS/docker-compose.yml rm -f
 
 # Pull image mới từ Docker Hub
