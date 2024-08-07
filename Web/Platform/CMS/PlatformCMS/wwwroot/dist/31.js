@@ -1,29 +1,57 @@
 webpackJsonp([31],{
 
-/***/ 1014:
-/***/ (function(module, exports, __webpack_require__) {
-
-module.exports = { "default": __webpack_require__(1016), __esModule: true };
-
-/***/ }),
-
 /***/ 1016:
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(379);
+"use strict";
+
+
+exports.__esModule = true;
+
+var _from = __webpack_require__(951);
+
+var _from2 = _interopRequireDefault(_from);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+exports.default = function (arr) {
+  if (Array.isArray(arr)) {
+    for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) {
+      arr2[i] = arr[i];
+    }
+
+    return arr2;
+  } else {
+    return (0, _from2.default)(arr);
+  }
+};
+
+/***/ }),
+
+/***/ 1031:
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports = { "default": __webpack_require__(1033), __esModule: true };
+
+/***/ }),
+
+/***/ 1033:
+/***/ (function(module, exports, __webpack_require__) {
+
+__webpack_require__(381);
 __webpack_require__(184);
-module.exports = __webpack_require__(1018);
+module.exports = __webpack_require__(1035);
 
 
 /***/ }),
 
-/***/ 1017:
+/***/ 1034:
 /***/ (function(module, exports, __webpack_require__) {
 
 // most Object methods by ES6 should accept primitives
 var $export = __webpack_require__(32);
 var core = __webpack_require__(20);
-var fails = __webpack_require__(103);
+var fails = __webpack_require__(104);
 module.exports = function (KEY, exec) {
   var fn = (core.Object || {})[KEY] || Object[KEY];
   var exp = {};
@@ -34,7 +62,7 @@ module.exports = function (KEY, exec) {
 
 /***/ }),
 
-/***/ 1018:
+/***/ 1035:
 /***/ (function(module, exports, __webpack_require__) {
 
 var anObject = __webpack_require__(38);
@@ -48,7 +76,7 @@ module.exports = __webpack_require__(20).getIterator = function (it) {
 
 /***/ }),
 
-/***/ 1023:
+/***/ 1040:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -58,31 +86,31 @@ Object.defineProperty(exports, "__esModule", {
     value: true
 });
 
-var _assign = __webpack_require__(375);
+var _assign = __webpack_require__(377);
 
 var _assign2 = _interopRequireDefault(_assign);
 
-var _parseInt = __webpack_require__(1254);
+var _parseInt = __webpack_require__(1271);
 
 var _parseInt2 = _interopRequireDefault(_parseInt);
 
-var _toConsumableArray2 = __webpack_require__(999);
+var _toConsumableArray2 = __webpack_require__(1016);
 
 var _toConsumableArray3 = _interopRequireDefault(_toConsumableArray2);
 
-var _from = __webpack_require__(934);
+var _from = __webpack_require__(951);
 
 var _from2 = _interopRequireDefault(_from);
 
-var _keys = __webpack_require__(1031);
+var _keys = __webpack_require__(1048);
 
 var _keys2 = _interopRequireDefault(_keys);
 
-var _classCallCheck2 = __webpack_require__(1255);
+var _classCallCheck2 = __webpack_require__(1272);
 
 var _classCallCheck3 = _interopRequireDefault(_classCallCheck2);
 
-var _createClass2 = __webpack_require__(1256);
+var _createClass2 = __webpack_require__(1273);
 
 var _createClass3 = _interopRequireDefault(_createClass2);
 
@@ -267,29 +295,29 @@ exports.default = CSSProcessor;
 
 /***/ }),
 
-/***/ 1031:
+/***/ 1048:
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = { "default": __webpack_require__(1264), __esModule: true };
+module.exports = { "default": __webpack_require__(1281), __esModule: true };
 
 /***/ }),
 
-/***/ 1069:
+/***/ 1086:
 /***/ (function(module, exports, __webpack_require__) {
 
-exports = module.exports = __webpack_require__(178)();
+exports = module.exports = __webpack_require__(53)();
 // imports
 
 
 // module
-exports.push([module.i, "\n.vue-ads-cursor-pointer i {\n    color: green;\n    padding-right: 15px;\n}\nth .vue-ads-cursor-pointer i {\n    color: green;\n    padding-left: 15px;\n}\nth .vue-ads-flex {\n    text-align: center;\n}\ntd vue-ads-text-sm {\n    text-align: center;\n}\n.vue-ads-p-2 {\n    padding-right: 50px;\n}\n.vue-ads-cursor-pointer .action-item i {\n    color: green;\n    padding-right: 2px;\n}\n", "", {"version":3,"sources":["C:/WORKING/Joytime/dotnet-platform-backend/Web/Platform/CMS/PlatformCMS/ClientApp/pages/zone/list.vue?53e2db57"],"names":[],"mappings":";AA+bA;IACA,aAAA;IACA,oBAAA;CACA;AAEA;IACA,aAAA;IACA,mBAAA;CACA;AAEA;IACA,mBAAA;CACA;AAEA;IACA,mBAAA;CACA;AAEA;IACA,oBAAA;CACA;AAEA;IACA,aAAA;IACA,mBAAA;CACA","file":"list.vue","sourcesContent":["<template>\r\n    <div>\r\n        <b-card header-tag=\"header\" class=\"card-filter\" footer-tag=\"footer\">\r\n            <b-col md=\"12\">\r\n                <b-row class=\"form-group\">\r\n                    <b-col md=\"4\">\r\n                        <b-form-input v-model=\"keyword\" v-on:keyup.enter=\"onChangePaging()\" type=\"text\" placeholder=\"Tìm kiếm theo tên\"></b-form-input>\r\n                    </b-col>\r\n                    <!--<b-col md=\"2\">\r\n                        <b-select :options=\"Language\" v-model=\"SearchLanguageCode\"></b-select>\r\n                    </b-col>-->\r\n                    <b-col md=\"2\">\r\n                        <b-select :options=\"Types\" v-model=\"SearchTypes\"></b-select>\r\n                    </b-col>\r\n                    <b-col md=\"2\">\r\n                        <b-select :options=\"Status\" v-model=\"SearchStatus\"></b-select>\r\n                    </b-col>\r\n                </b-row>\r\n            </b-col>\r\n        </b-card>\r\n        <div class=\"card card-data\">\r\n            <div class=\"card-body\">\r\n                <div role=\"toolbar\" class=\"mb-2\" aria-label=\"Toolbar with button groups and dropdown menu\">\r\n                    <div role=\"group\" class=\"mx-1 btn-group\">\r\n                        <router-link class=\"btn btn-success\" :to=\"{ path: 'add' }\" target='_blank'>\r\n                            <i class=\"fa fa-plus\"></i> Thêm mới\r\n                        </router-link>\r\n                        <button type=\"button\" class=\"btn btn-danger\">\r\n                            <i class=\"fa fa-trash-o\"></i> Xóa\r\n                        </button>\r\n                    </div>\r\n                    <b-dropdown class=\"mx-1\" variant=\"info\" right text=\"Hành động\" icon>\r\n                        <b-dropdown-item>Kích hoạt</b-dropdown-item>\r\n                        <b-dropdown-item>Không kích hoạt</b-dropdown-item>\r\n                    </b-dropdown>\r\n                </div>\r\n            </div>\r\n            <vue-ads-table :columns=\"columns\"\r\n                           :rows=\"unflatten(rows)\">\r\n                <template slot=\"lang\" slot-scope=\"props\">\r\n                    <div align=\"center\">\r\n                        <p>Ngôn ngữ: {{props.row.lang}}</p>\r\n                    </div>\r\n                </template>\r\n                <template slot=\"sortOrder\" slot-scope=\"props\">\r\n                    <div align=\"center\">\r\n                        <input style=\"width:100px\" type=\"number\" class=\"form-control text-center\" v-model=\"props.row.sortOrder\" />\r\n                    </div>\r\n                </template>\r\n                <template slot=\"isShowHome\" slot-scope=\"props\">\r\n                    <div align=\"center\">\r\n                        <span v-if=\"props.row.isShowHome == true\" class=\"badge bg-success\"> Trang chủ</span>\r\n                        <span v-if=\"props.row.isShowSearch == true\" class=\"badge bg-success\"> Gợi ý Search</span>\r\n                        <span v-if=\"props.row.isShowMenu == true\" class=\"badge bg-success\"> Menu</span>\r\n                    </div>\r\n                </template>\r\n                <template slot=\"action\" slot-scope=\"props\">\r\n                    <div class=\"text-center action-item\">\r\n                        <a v-if=\"props.row.isShowHome == false\" v-b-tooltip.hover title=\"Hiển thị trang chủ\" @click=\"showLayout(props.row)\">\r\n                            <i style=\"color:blue\" class=\"fa fa-home\"></i>\r\n                        </a>\r\n                        <a v-if=\"props.row.isShowHome == true\" v-b-tooltip.hover title=\"Hạ hiển thị trang chủ\" @click=\"showLayout(props.row)\">\r\n                            <i style=\"color:blue\" class=\"fa fa-exclamation-circle\"></i>\r\n                        </a>\r\n                        <a v-b-tooltip.hover title=\"Hiển thị gợi ý Seach\" @click=\"showSearch(props.row)\">\r\n                            <i style=\"color:blue\" class=\"fa fa-search\"></i>\r\n                        </a>\r\n                        <router-link v-b-tooltip.hover title=\"Sửa bài viết\" target='_blank' :to=\"{path: 'edit/'+ props.row.id}\">\r\n                            <i style=\"color:gold\" class=\"fa fa-edit\"></i>\r\n                        </router-link>\r\n                        <a v-b-tooltip.hover title=\"Xóa bài viêt\" @click=\"remove(props.row)\">\r\n                            <i style=\"color:red\" class=\"fa fa-minus-circle\"></i>\r\n                        </a>\r\n                        <a v-b-tooltip.hover title=\"Cập nhật vị trí\" @click=\"updateSort(props.row)\">\r\n                            <i style=\"color:forestgreen\" class=\"fa fa-save\"></i>\r\n                        </a>\r\n                    </div>\r\n\r\n                </template>\r\n            </vue-ads-table>\r\n\r\n        </div>\r\n\r\n    </div>\r\n</template>\r\n<script>\r\n    import \"vue-loading-overlay/dist/vue-loading.css\";\r\n    import msgNotify from \"./../../common/constant\";\r\n    import { mapGetters, mapActions } from \"vuex\";\r\n    import Loading from \"vue-loading-overlay\";\r\n    import VueAdsTable from '../../components/Table';\r\n    import { unflatten2 } from \"../../plugins/helper\";\r\n    let columns = [\r\n        //{\r\n        //    property: 'id',\r\n        //    title: 'Mã danh mục',\r\n        //    direction: null,\r\n        //    filterable: true,\r\n        //},\r\n        {\r\n            property: 'name',\r\n            title: 'Tên danh mục',\r\n            direction: null,\r\n            filterable: true,\r\n        },\r\n        {\r\n            property: 'lang',\r\n            title: 'Ngôn ngữ',\r\n            direction: null,\r\n            filterable: true,\r\n        },\r\n        {\r\n            property: 'sortOrder',\r\n            title: 'Sắp xếp',\r\n            direction: null,\r\n            filterable: true,\r\n        },\r\n        {\r\n            property: 'isShowHome',\r\n            title: 'Hiển thị',\r\n            direction: null,\r\n            filterable: true,\r\n        },\r\n        {\r\n            property: 'action',\r\n            title: 'Thao tác',\r\n            direction: null,\r\n            filterable: false,\r\n        },\r\n    ];\r\n\r\n    //const fields = [\r\n    //    { key: \"Id\", label: \"Id\" },\r\n    //    { key: \"Name\", label: \"Name\", sortable: true },\r\n    //    { key: \"Avatar\", label: \"Avatar\" },\r\n    //    { key: \"Background\", label: \"Background\" },\r\n    //    { key: \"Type\", label: \"Type\" },\r\n    //    { key: \"Banner\", label: \"Banner\" },\r\n    //    { key: \"BannerLink\", label: \"BannerLink\" },\r\n    //    { key: \"LanguageCode\", label: \"LanguageCode\" },\r\n    //    { key: \"SortOrder\", label: \"SortOrder\", sortable: true },\r\n    //    { key: \"Is\", label: \"Thao tác\" }\r\n    //];\r\n    let classes = {\r\n        group: {\r\n            'vue-ads-font-bold': true,\r\n            'vue-ads-border-b': true,\r\n            'vue-ads-italic': true,\r\n        },\r\n        '0/all': {\r\n            'vue-ads-py-3': true,\r\n            'vue-ads-px-2': true,\r\n        },\r\n        'even/': {\r\n            'vue-ads-bg-blue-lighter': true,\r\n        },\r\n        'odd/': {\r\n            'vue-ads-bg-blue-lightest': true,\r\n        },\r\n        '0/': {\r\n            'vue-ads-bg-blue-lighter': false,\r\n            'vue-ads-bg-blue-dark': true,\r\n            'vue-ads-text-white': true,\r\n            'vue-ads-font-bold': true,\r\n        },\r\n        '1_/': {\r\n            'hover:vue-ads-bg-red-lighter': true,\r\n        },\r\n        '1_/0': {\r\n            'leftAlign': true\r\n        }\r\n    };\r\n    export default {\r\n        name: \"location\",\r\n        components: {\r\n            Loading,\r\n            VueAdsTable,\r\n        },\r\n        data() {\r\n            return {\r\n                columns,\r\n                classes,\r\n                filter: '',\r\n                start: 0,\r\n                end: 500,\r\n                rows: [],\r\n\r\n                isLoading: false,\r\n                LeftSelect: 0,\r\n                ListLocation: [\r\n                    {\r\n                        id: 1,\r\n                        name: \"Hà Nội\",\r\n                        price: 0,\r\n                        salePrice: 0,\r\n                    }, {\r\n                        id: 2,\r\n                        name: \"TP Hồ Chí Minh\",\r\n                        price: 0,\r\n                        salePrice: 0,\r\n                    },\r\n                    {\r\n                        id: 3,\r\n                        name: \"Thanh Hóa\",\r\n                        price: 0,\r\n                        salePrice: 0,\r\n                    },\r\n                    {\r\n                        id: 4,\r\n                        name: \"Hà Tĩnh\",\r\n                        price: 0,\r\n                        salePrice: 0,\r\n                    }\r\n\r\n                ],\r\n                ListValue: [\r\n                    {\r\n                        id: 1,\r\n                        name: \"Hà Nội\",\r\n                        price: 0,\r\n                        salePrice: 0,\r\n                    }, {\r\n                        id: 2,\r\n                        name: \"TP Hồ Chí Minh\",\r\n                        price: 0,\r\n                        salePrice: 0,\r\n                    },\r\n                ],\r\n\r\n                SearchTypes: 0,\r\n                SearchStatus: 0,\r\n                SearchLanguageCode: \"vi-VN     \",\r\n                messeger: \"\",\r\n                currentSort: \"Id\",\r\n                currentSortDir: \"asc\",\r\n                keyword: \"\",\r\n                currentPage: 1,\r\n                pageSize: 10,\r\n                loading: true,\r\n\r\n                Language: [\r\n\r\n                ],\r\n                Types: [\r\n\r\n                ],\r\n                Status: [\r\n\r\n                ],\r\n\r\n                bootstrapPaginationClasses: {\r\n                    ul: \"pagination\",\r\n                    li: \"page-item\",\r\n                    liActive: \"active\",\r\n                    liDisable: \"disabled\",\r\n                    button: \"page-link\"\r\n                },\r\n                customLabels: {\r\n                    first: \"First\",\r\n                    prev: \"Previous\",\r\n                    next: \"Next\",\r\n                    last: \"Last\"\r\n                }\r\n            };\r\n        },\r\n        methods: {\r\n            ...mapActions([\"getZones\", \"getAllZone\", \"deleteZone\", \"getAllLanguages\", \"supportsZone\", \"updateSortZone\", \"updateShowLayout\", \"updateShowSearch\"]),\r\n            onChangePaging() {\r\n                this.isLoading = true;\r\n                let initial = this.$route.query.initial;\r\n                initial = typeof initial != \"undefined\" ? initial.toLowerCase() : \"\";\r\n                this.getAllZone({\r\n                    tuKhoa: this.keyword || \"\",\r\n                    languageCode: this.SearchLanguageCode || \"vi-VN\",\r\n                    type: this.SearchTypes,\r\n                    status: this.SearchStatus\r\n                }).then(respose => {\r\n                    this.rows = respose.listData;\r\n                });\r\n                this.isLoading = false;\r\n            },\r\n            showLayout(item) {\r\n                this.updateShowLayout(item)\r\n                    .then(response => {\r\n                        if (response.success == true) {\r\n                            this.onChangePaging();\r\n                            this.$toast.success(response.message, {});\r\n                            //this.isLoading = false;\r\n                        } else {\r\n                            this.$toast.error(response.message, {});\r\n                            //this.isLoading = false;\r\n                        }\r\n                    })\r\n                    .catch(e => {\r\n                        this.$toast.error(response.message + \". Error:\" + e, {});\r\n                    });\r\n            },\r\n            showSearch(item) {\r\n                this.updateShowSearch(item)\r\n                    .then(response => {\r\n                        if (response.success == true) {\r\n                            this.onChangePaging();\r\n                            this.$toast.success(response.message, {});\r\n                            //this.isLoading = false;\r\n                        } else {\r\n                            this.$toast.error(response.message, {});\r\n                            //this.isLoading = false;\r\n                        }\r\n                    })\r\n                    .catch(e => {\r\n                        this.$toast.error(response.message + \". Error:\" + e, {});\r\n                    });\r\n            },\r\n            changeValue: function (id) {\r\n                var obj = this.ListLocation.filter(word => word.id === id);\r\n                console.log(this.ListValue);\r\n                this.ListValue.push({\r\n                    id: obj[0].id,\r\n                    name: obj[0].name,\r\n                    price: 0,\r\n                    salePrice: 0,\r\n                });\r\n\r\n                this.ListLocation.splice(obj, 1);\r\n            },\r\n            remove: function (item) {\r\n                //var vm = this;\r\n                if (confirm(\"Bạn có thực sự muốn xoá?\")) {\r\n                    this.deleteZone(item)\r\n                        .then(response => {\r\n                            if (response.success == true) {\r\n                                this.onChangePaging();\r\n                                this.$toast.success(response.message, {});\r\n                                //this.isLoading = false;\r\n\r\n                            } else {\r\n                                this.$toast.error(response.message, {});\r\n                                //this.isLoading = false;\r\n                            }\r\n                        })\r\n                        .catch(e => {\r\n                            this.$toast.error(response.message + \". Error:\" + e, {});\r\n                        });\r\n\r\n                    //vm.$confirm('Confirm Title', 'Confirm Message', function (e) {\r\n                    //    //debugger-\r\n\r\n                    //}, function () {\r\n\r\n                    //})\r\n                }\r\n            },\r\n            updateSort: function (item) {\r\n                //var vm = this;\r\n\r\n                this.updateSortZone(item)\r\n                    .then(response => {\r\n                        if (response.success == true) {\r\n                            //this.onChangePaging();\r\n                            this.$toast.success(response.message, {});\r\n                            ////this.isLoading = false;\r\n\r\n                        } else {\r\n                            this.$toast.error(response.message, {});\r\n                            //this.isLoading = false;\r\n                        }\r\n                    })\r\n                    .catch(e => {\r\n                        this.$toast.error(response.message + \". Error:\" + e, {});\r\n                    });\r\n\r\n                //vm.$confirm('Confirm Title', 'Confirm Message', function (e) {\r\n                //    //debugger-\r\n\r\n                //}, function () {\r\n\r\n                //})\r\n\r\n            },\r\n            unflatten: function (arr) {\r\n                var tree = [],\r\n                    mappedArr = {},\r\n                    arrElem,\r\n                    mappedElem;\r\n                // First map the nodes of the array to an object -> create a hash table.\r\n                for (var i = 0, len = arr.length; i < len; i++) {\r\n                    arrElem = arr[i];\r\n                    mappedArr[arrElem.id] = arrElem;\r\n                    mappedArr[arrElem.id]['_children'] = [];\r\n                }\r\n                for (var id in mappedArr) {\r\n                    if (mappedArr.hasOwnProperty(id)) {\r\n                        mappedElem = mappedArr[id];\r\n                        // If the element is not at the root level, add it to its parent array of children.\r\n                        if (mappedElem.parentId) {\r\n                            try {\r\n                                mappedArr[mappedElem['parentId']]['_children'].push(mappedElem);\r\n                            }\r\n                            catch (ex) {\r\n                                console.log(ex);\r\n                            }\r\n                        }\r\n                        // If the element is at the root level, add it to first level elements array.\r\n                        else {\r\n                            tree.push(mappedElem);\r\n                        }\r\n                    }\r\n                }\r\n                return tree;\r\n            },\r\n        },\r\n        computed: {\r\n            ...mapGetters([\"zones\"])\r\n        },\r\n        mounted() {\r\n            this.supportsZone().then(respose => {\r\n                this.Types = respose.listTypes.map(function (item) {\r\n                    return {\r\n                        value: item.key,\r\n                        text: item.value\r\n                    }\r\n                });\r\n                this.Status = respose.listStatus.map(function (item) {\r\n                    return {\r\n                        value: item.key,\r\n                        text: item.value\r\n                    }\r\n                });\r\n            });\r\n            this.onChangePaging();\r\n        },\r\n        watch: {\r\n            SearchLanguageCode: function () {\r\n                this.onChangePaging();\r\n            },\r\n            SearchTypes: function () {\r\n                this.onChangePaging();\r\n            },\r\n            SearchStatus: function () {\r\n                this.onChangePaging();\r\n            },\r\n        }\r\n    };\r\n</script>\r\n\r\n\r\n<style>\r\n    .vue-ads-cursor-pointer i {\r\n        color: green;\r\n        padding-right: 15px;\r\n    }\r\n\r\n    th .vue-ads-cursor-pointer i {\r\n        color: green;\r\n        padding-left: 15px;\r\n    }\r\n\r\n    th .vue-ads-flex {\r\n        text-align: center;\r\n    }\r\n\r\n    td vue-ads-text-sm {\r\n        text-align: center;\r\n    }\r\n\r\n    .vue-ads-p-2 {\r\n        padding-right: 50px;\r\n    }\r\n\r\n    .vue-ads-cursor-pointer .action-item i {\r\n        color: green;\r\n        padding-right: 2px;\r\n    }\r\n</style>\r\n"],"sourceRoot":""}]);
+exports.push([module.i, "\n.vue-ads-cursor-pointer i {\n    color: green;\n    padding-right: 15px;\n}\nth .vue-ads-cursor-pointer i {\n    color: green;\n    padding-left: 15px;\n}\nth .vue-ads-flex {\n    text-align: center;\n}\ntd vue-ads-text-sm {\n    text-align: center;\n}\n.vue-ads-p-2 {\n    padding-right: 50px;\n}\n.vue-ads-cursor-pointer .action-item i {\n    color: green;\n    padding-right: 2px;\n}\n", "", {"version":3,"sources":["D:/Code/WORKING/dotnet-platform-backend/Web/Platform/CMS/PlatformCMS/ClientApp/pages/zone/list.vue?53e2db57"],"names":[],"mappings":";AA+bA;IACA,aAAA;IACA,oBAAA;CACA;AAEA;IACA,aAAA;IACA,mBAAA;CACA;AAEA;IACA,mBAAA;CACA;AAEA;IACA,mBAAA;CACA;AAEA;IACA,oBAAA;CACA;AAEA;IACA,aAAA;IACA,mBAAA;CACA","file":"list.vue","sourcesContent":["<template>\r\n    <div>\r\n        <b-card header-tag=\"header\" class=\"card-filter\" footer-tag=\"footer\">\r\n            <b-col md=\"12\">\r\n                <b-row class=\"form-group\">\r\n                    <b-col md=\"4\">\r\n                        <b-form-input v-model=\"keyword\" v-on:keyup.enter=\"onChangePaging()\" type=\"text\" placeholder=\"Tìm kiếm theo tên\"></b-form-input>\r\n                    </b-col>\r\n                    <!--<b-col md=\"2\">\r\n                        <b-select :options=\"Language\" v-model=\"SearchLanguageCode\"></b-select>\r\n                    </b-col>-->\r\n                    <b-col md=\"2\">\r\n                        <b-select :options=\"Types\" v-model=\"SearchTypes\"></b-select>\r\n                    </b-col>\r\n                    <b-col md=\"2\">\r\n                        <b-select :options=\"Status\" v-model=\"SearchStatus\"></b-select>\r\n                    </b-col>\r\n                </b-row>\r\n            </b-col>\r\n        </b-card>\r\n        <div class=\"card card-data\">\r\n            <div class=\"card-body\">\r\n                <div role=\"toolbar\" class=\"mb-2\" aria-label=\"Toolbar with button groups and dropdown menu\">\r\n                    <div role=\"group\" class=\"mx-1 btn-group\">\r\n                        <router-link class=\"btn btn-success\" :to=\"{ path: 'add' }\" target='_blank'>\r\n                            <i class=\"fa fa-plus\"></i> Thêm mới\r\n                        </router-link>\r\n                        <button type=\"button\" class=\"btn btn-danger\">\r\n                            <i class=\"fa fa-trash-o\"></i> Xóa\r\n                        </button>\r\n                    </div>\r\n                    <b-dropdown class=\"mx-1\" variant=\"info\" right text=\"Hành động\" icon>\r\n                        <b-dropdown-item>Kích hoạt</b-dropdown-item>\r\n                        <b-dropdown-item>Không kích hoạt</b-dropdown-item>\r\n                    </b-dropdown>\r\n                </div>\r\n            </div>\r\n            <vue-ads-table :columns=\"columns\"\r\n                           :rows=\"unflatten(rows)\">\r\n                <template slot=\"lang\" slot-scope=\"props\">\r\n                    <div align=\"center\">\r\n                        <p>Ngôn ngữ: {{props.row.lang}}</p>\r\n                    </div>\r\n                </template>\r\n                <template slot=\"sortOrder\" slot-scope=\"props\">\r\n                    <div align=\"center\">\r\n                        <input style=\"width:100px\" type=\"number\" class=\"form-control text-center\" v-model=\"props.row.sortOrder\" />\r\n                    </div>\r\n                </template>\r\n                <template slot=\"isShowHome\" slot-scope=\"props\">\r\n                    <div align=\"center\">\r\n                        <span v-if=\"props.row.isShowHome == true\" class=\"badge bg-success\"> Trang chủ</span>\r\n                        <span v-if=\"props.row.isShowSearch == true\" class=\"badge bg-success\"> Gợi ý Search</span>\r\n                        <span v-if=\"props.row.isShowMenu == true\" class=\"badge bg-success\"> Menu</span>\r\n                    </div>\r\n                </template>\r\n                <template slot=\"action\" slot-scope=\"props\">\r\n                    <div class=\"text-center action-item\">\r\n                        <a v-if=\"props.row.isShowHome == false\" v-b-tooltip.hover title=\"Hiển thị trang chủ\" @click=\"showLayout(props.row)\">\r\n                            <i style=\"color:blue\" class=\"fa fa-home\"></i>\r\n                        </a>\r\n                        <a v-if=\"props.row.isShowHome == true\" v-b-tooltip.hover title=\"Hạ hiển thị trang chủ\" @click=\"showLayout(props.row)\">\r\n                            <i style=\"color:blue\" class=\"fa fa-exclamation-circle\"></i>\r\n                        </a>\r\n                        <a v-b-tooltip.hover title=\"Hiển thị gợi ý Seach\" @click=\"showSearch(props.row)\">\r\n                            <i style=\"color:blue\" class=\"fa fa-search\"></i>\r\n                        </a>\r\n                        <router-link v-b-tooltip.hover title=\"Sửa bài viết\" target='_blank' :to=\"{path: 'edit/'+ props.row.id}\">\r\n                            <i style=\"color:gold\" class=\"fa fa-edit\"></i>\r\n                        </router-link>\r\n                        <a v-b-tooltip.hover title=\"Xóa bài viêt\" @click=\"remove(props.row)\">\r\n                            <i style=\"color:red\" class=\"fa fa-minus-circle\"></i>\r\n                        </a>\r\n                        <a v-b-tooltip.hover title=\"Cập nhật vị trí\" @click=\"updateSort(props.row)\">\r\n                            <i style=\"color:forestgreen\" class=\"fa fa-save\"></i>\r\n                        </a>\r\n                    </div>\r\n\r\n                </template>\r\n            </vue-ads-table>\r\n\r\n        </div>\r\n\r\n    </div>\r\n</template>\r\n<script>\r\n    import \"vue-loading-overlay/dist/vue-loading.css\";\r\n    import msgNotify from \"./../../common/constant\";\r\n    import { mapGetters, mapActions } from \"vuex\";\r\n    import Loading from \"vue-loading-overlay\";\r\n    import VueAdsTable from '../../components/Table';\r\n    import { unflatten2 } from \"../../plugins/helper\";\r\n    let columns = [\r\n        //{\r\n        //    property: 'id',\r\n        //    title: 'Mã danh mục',\r\n        //    direction: null,\r\n        //    filterable: true,\r\n        //},\r\n        {\r\n            property: 'name',\r\n            title: 'Tên danh mục',\r\n            direction: null,\r\n            filterable: true,\r\n        },\r\n        {\r\n            property: 'lang',\r\n            title: 'Ngôn ngữ',\r\n            direction: null,\r\n            filterable: true,\r\n        },\r\n        {\r\n            property: 'sortOrder',\r\n            title: 'Sắp xếp',\r\n            direction: null,\r\n            filterable: true,\r\n        },\r\n        {\r\n            property: 'isShowHome',\r\n            title: 'Hiển thị',\r\n            direction: null,\r\n            filterable: true,\r\n        },\r\n        {\r\n            property: 'action',\r\n            title: 'Thao tác',\r\n            direction: null,\r\n            filterable: false,\r\n        },\r\n    ];\r\n\r\n    //const fields = [\r\n    //    { key: \"Id\", label: \"Id\" },\r\n    //    { key: \"Name\", label: \"Name\", sortable: true },\r\n    //    { key: \"Avatar\", label: \"Avatar\" },\r\n    //    { key: \"Background\", label: \"Background\" },\r\n    //    { key: \"Type\", label: \"Type\" },\r\n    //    { key: \"Banner\", label: \"Banner\" },\r\n    //    { key: \"BannerLink\", label: \"BannerLink\" },\r\n    //    { key: \"LanguageCode\", label: \"LanguageCode\" },\r\n    //    { key: \"SortOrder\", label: \"SortOrder\", sortable: true },\r\n    //    { key: \"Is\", label: \"Thao tác\" }\r\n    //];\r\n    let classes = {\r\n        group: {\r\n            'vue-ads-font-bold': true,\r\n            'vue-ads-border-b': true,\r\n            'vue-ads-italic': true,\r\n        },\r\n        '0/all': {\r\n            'vue-ads-py-3': true,\r\n            'vue-ads-px-2': true,\r\n        },\r\n        'even/': {\r\n            'vue-ads-bg-blue-lighter': true,\r\n        },\r\n        'odd/': {\r\n            'vue-ads-bg-blue-lightest': true,\r\n        },\r\n        '0/': {\r\n            'vue-ads-bg-blue-lighter': false,\r\n            'vue-ads-bg-blue-dark': true,\r\n            'vue-ads-text-white': true,\r\n            'vue-ads-font-bold': true,\r\n        },\r\n        '1_/': {\r\n            'hover:vue-ads-bg-red-lighter': true,\r\n        },\r\n        '1_/0': {\r\n            'leftAlign': true\r\n        }\r\n    };\r\n    export default {\r\n        name: \"location\",\r\n        components: {\r\n            Loading,\r\n            VueAdsTable,\r\n        },\r\n        data() {\r\n            return {\r\n                columns,\r\n                classes,\r\n                filter: '',\r\n                start: 0,\r\n                end: 500,\r\n                rows: [],\r\n\r\n                isLoading: false,\r\n                LeftSelect: 0,\r\n                ListLocation: [\r\n                    {\r\n                        id: 1,\r\n                        name: \"Hà Nội\",\r\n                        price: 0,\r\n                        salePrice: 0,\r\n                    }, {\r\n                        id: 2,\r\n                        name: \"TP Hồ Chí Minh\",\r\n                        price: 0,\r\n                        salePrice: 0,\r\n                    },\r\n                    {\r\n                        id: 3,\r\n                        name: \"Thanh Hóa\",\r\n                        price: 0,\r\n                        salePrice: 0,\r\n                    },\r\n                    {\r\n                        id: 4,\r\n                        name: \"Hà Tĩnh\",\r\n                        price: 0,\r\n                        salePrice: 0,\r\n                    }\r\n\r\n                ],\r\n                ListValue: [\r\n                    {\r\n                        id: 1,\r\n                        name: \"Hà Nội\",\r\n                        price: 0,\r\n                        salePrice: 0,\r\n                    }, {\r\n                        id: 2,\r\n                        name: \"TP Hồ Chí Minh\",\r\n                        price: 0,\r\n                        salePrice: 0,\r\n                    },\r\n                ],\r\n\r\n                SearchTypes: 0,\r\n                SearchStatus: 0,\r\n                SearchLanguageCode: \"vi-VN     \",\r\n                messeger: \"\",\r\n                currentSort: \"Id\",\r\n                currentSortDir: \"asc\",\r\n                keyword: \"\",\r\n                currentPage: 1,\r\n                pageSize: 10,\r\n                loading: true,\r\n\r\n                Language: [\r\n\r\n                ],\r\n                Types: [\r\n\r\n                ],\r\n                Status: [\r\n\r\n                ],\r\n\r\n                bootstrapPaginationClasses: {\r\n                    ul: \"pagination\",\r\n                    li: \"page-item\",\r\n                    liActive: \"active\",\r\n                    liDisable: \"disabled\",\r\n                    button: \"page-link\"\r\n                },\r\n                customLabels: {\r\n                    first: \"First\",\r\n                    prev: \"Previous\",\r\n                    next: \"Next\",\r\n                    last: \"Last\"\r\n                }\r\n            };\r\n        },\r\n        methods: {\r\n            ...mapActions([\"getZones\", \"getAllZone\", \"deleteZone\", \"getAllLanguages\", \"supportsZone\", \"updateSortZone\", \"updateShowLayout\", \"updateShowSearch\"]),\r\n            onChangePaging() {\r\n                this.isLoading = true;\r\n                let initial = this.$route.query.initial;\r\n                initial = typeof initial != \"undefined\" ? initial.toLowerCase() : \"\";\r\n                this.getAllZone({\r\n                    tuKhoa: this.keyword || \"\",\r\n                    languageCode: this.SearchLanguageCode || \"vi-VN\",\r\n                    type: this.SearchTypes,\r\n                    status: this.SearchStatus\r\n                }).then(respose => {\r\n                    this.rows = respose.listData;\r\n                });\r\n                this.isLoading = false;\r\n            },\r\n            showLayout(item) {\r\n                this.updateShowLayout(item)\r\n                    .then(response => {\r\n                        if (response.success == true) {\r\n                            this.onChangePaging();\r\n                            this.$toast.success(response.message, {});\r\n                            //this.isLoading = false;\r\n                        } else {\r\n                            this.$toast.error(response.message, {});\r\n                            //this.isLoading = false;\r\n                        }\r\n                    })\r\n                    .catch(e => {\r\n                        this.$toast.error(response.message + \". Error:\" + e, {});\r\n                    });\r\n            },\r\n            showSearch(item) {\r\n                this.updateShowSearch(item)\r\n                    .then(response => {\r\n                        if (response.success == true) {\r\n                            this.onChangePaging();\r\n                            this.$toast.success(response.message, {});\r\n                            //this.isLoading = false;\r\n                        } else {\r\n                            this.$toast.error(response.message, {});\r\n                            //this.isLoading = false;\r\n                        }\r\n                    })\r\n                    .catch(e => {\r\n                        this.$toast.error(response.message + \". Error:\" + e, {});\r\n                    });\r\n            },\r\n            changeValue: function (id) {\r\n                var obj = this.ListLocation.filter(word => word.id === id);\r\n                console.log(this.ListValue);\r\n                this.ListValue.push({\r\n                    id: obj[0].id,\r\n                    name: obj[0].name,\r\n                    price: 0,\r\n                    salePrice: 0,\r\n                });\r\n\r\n                this.ListLocation.splice(obj, 1);\r\n            },\r\n            remove: function (item) {\r\n                //var vm = this;\r\n                if (confirm(\"Bạn có thực sự muốn xoá?\")) {\r\n                    this.deleteZone(item)\r\n                        .then(response => {\r\n                            if (response.success == true) {\r\n                                this.onChangePaging();\r\n                                this.$toast.success(response.message, {});\r\n                                //this.isLoading = false;\r\n\r\n                            } else {\r\n                                this.$toast.error(response.message, {});\r\n                                //this.isLoading = false;\r\n                            }\r\n                        })\r\n                        .catch(e => {\r\n                            this.$toast.error(response.message + \". Error:\" + e, {});\r\n                        });\r\n\r\n                    //vm.$confirm('Confirm Title', 'Confirm Message', function (e) {\r\n                    //    //debugger-\r\n\r\n                    //}, function () {\r\n\r\n                    //})\r\n                }\r\n            },\r\n            updateSort: function (item) {\r\n                //var vm = this;\r\n\r\n                this.updateSortZone(item)\r\n                    .then(response => {\r\n                        if (response.success == true) {\r\n                            //this.onChangePaging();\r\n                            this.$toast.success(response.message, {});\r\n                            ////this.isLoading = false;\r\n\r\n                        } else {\r\n                            this.$toast.error(response.message, {});\r\n                            //this.isLoading = false;\r\n                        }\r\n                    })\r\n                    .catch(e => {\r\n                        this.$toast.error(response.message + \". Error:\" + e, {});\r\n                    });\r\n\r\n                //vm.$confirm('Confirm Title', 'Confirm Message', function (e) {\r\n                //    //debugger-\r\n\r\n                //}, function () {\r\n\r\n                //})\r\n\r\n            },\r\n            unflatten: function (arr) {\r\n                var tree = [],\r\n                    mappedArr = {},\r\n                    arrElem,\r\n                    mappedElem;\r\n                // First map the nodes of the array to an object -> create a hash table.\r\n                for (var i = 0, len = arr.length; i < len; i++) {\r\n                    arrElem = arr[i];\r\n                    mappedArr[arrElem.id] = arrElem;\r\n                    mappedArr[arrElem.id]['_children'] = [];\r\n                }\r\n                for (var id in mappedArr) {\r\n                    if (mappedArr.hasOwnProperty(id)) {\r\n                        mappedElem = mappedArr[id];\r\n                        // If the element is not at the root level, add it to its parent array of children.\r\n                        if (mappedElem.parentId) {\r\n                            try {\r\n                                mappedArr[mappedElem['parentId']]['_children'].push(mappedElem);\r\n                            }\r\n                            catch (ex) {\r\n                                console.log(ex);\r\n                            }\r\n                        }\r\n                        // If the element is at the root level, add it to first level elements array.\r\n                        else {\r\n                            tree.push(mappedElem);\r\n                        }\r\n                    }\r\n                }\r\n                return tree;\r\n            },\r\n        },\r\n        computed: {\r\n            ...mapGetters([\"zones\"])\r\n        },\r\n        mounted() {\r\n            this.supportsZone().then(respose => {\r\n                this.Types = respose.listTypes.map(function (item) {\r\n                    return {\r\n                        value: item.key,\r\n                        text: item.value\r\n                    }\r\n                });\r\n                this.Status = respose.listStatus.map(function (item) {\r\n                    return {\r\n                        value: item.key,\r\n                        text: item.value\r\n                    }\r\n                });\r\n            });\r\n            this.onChangePaging();\r\n        },\r\n        watch: {\r\n            SearchLanguageCode: function () {\r\n                this.onChangePaging();\r\n            },\r\n            SearchTypes: function () {\r\n                this.onChangePaging();\r\n            },\r\n            SearchStatus: function () {\r\n                this.onChangePaging();\r\n            },\r\n        }\r\n    };\r\n</script>\r\n\r\n\r\n<style>\r\n    .vue-ads-cursor-pointer i {\r\n        color: green;\r\n        padding-right: 15px;\r\n    }\r\n\r\n    th .vue-ads-cursor-pointer i {\r\n        color: green;\r\n        padding-left: 15px;\r\n    }\r\n\r\n    th .vue-ads-flex {\r\n        text-align: center;\r\n    }\r\n\r\n    td vue-ads-text-sm {\r\n        text-align: center;\r\n    }\r\n\r\n    .vue-ads-p-2 {\r\n        padding-right: 50px;\r\n    }\r\n\r\n    .vue-ads-cursor-pointer .action-item i {\r\n        color: green;\r\n        padding-right: 2px;\r\n    }\r\n</style>\r\n"],"sourceRoot":""}]);
 
 // exports
 
 
 /***/ }),
 
-/***/ 1106:
+/***/ 1123:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -299,15 +327,15 @@ Object.defineProperty(exports, "__esModule", {
     value: true
 });
 
-var _assign = __webpack_require__(375);
+var _assign = __webpack_require__(377);
 
 var _assign2 = _interopRequireDefault(_assign);
 
-var _ChildrenButton = __webpack_require__(1462);
+var _ChildrenButton = __webpack_require__(1479);
 
 var _ChildrenButton2 = _interopRequireDefault(_ChildrenButton);
 
-var _CSSProcessor = __webpack_require__(1023);
+var _CSSProcessor = __webpack_require__(1040);
 
 var _CSSProcessor2 = _interopRequireDefault(_CSSProcessor);
 
@@ -433,7 +461,7 @@ exports.default = {
 
 /***/ }),
 
-/***/ 1107:
+/***/ 1124:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -490,7 +518,7 @@ exports.default = {
 
 /***/ }),
 
-/***/ 1108:
+/***/ 1125:
 /***/ (function(module, exports) {
 
 module.exports = '\x09\x0A\x0B\x0C\x0D\x20\xA0\u1680\u180E\u2000\u2001\u2002\u2003' +
@@ -499,7 +527,7 @@ module.exports = '\x09\x0A\x0B\x0C\x0D\x20\xA0\u1680\u180E\u2000\u2001\u2002\u20
 
 /***/ }),
 
-/***/ 1136:
+/***/ 1153:
 /***/ (function(module, exports) {
 
 /**
@@ -532,7 +560,7 @@ module.exports = bytesToUuid;
 
 /***/ }),
 
-/***/ 1137:
+/***/ 1154:
 /***/ (function(module, exports) {
 
 // Unique ID creation requires a high quality random # generator.  In the
@@ -573,7 +601,7 @@ if (getRandomValues) {
 
 /***/ }),
 
-/***/ 1143:
+/***/ 1160:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -583,19 +611,19 @@ Object.defineProperty(exports, "__esModule", {
     value: true
 });
 
-var _toConsumableArray2 = __webpack_require__(999);
+var _toConsumableArray2 = __webpack_require__(1016);
 
 var _toConsumableArray3 = _interopRequireDefault(_toConsumableArray2);
 
-var _from = __webpack_require__(934);
+var _from = __webpack_require__(951);
 
 var _from2 = _interopRequireDefault(_from);
 
-var _regenerator = __webpack_require__(74);
+var _regenerator = __webpack_require__(75);
 
 var _regenerator2 = _interopRequireDefault(_regenerator);
 
-var _asyncToGenerator2 = __webpack_require__(73);
+var _asyncToGenerator2 = __webpack_require__(74);
 
 var _asyncToGenerator3 = _interopRequireDefault(_asyncToGenerator2);
 
@@ -785,7 +813,7 @@ exports.default = {
 
 /***/ }),
 
-/***/ 1144:
+/***/ 1161:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -795,7 +823,7 @@ Object.defineProperty(exports, "__esModule", {
     value: true
 });
 
-var _isInteger = __webpack_require__(1253);
+var _isInteger = __webpack_require__(1270);
 
 var _isInteger2 = _interopRequireDefault(_isInteger);
 
@@ -930,7 +958,7 @@ exports.default = {
 
 /***/ }),
 
-/***/ 1145:
+/***/ 1162:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -940,11 +968,11 @@ Object.defineProperty(exports, "__esModule", {
     value: true
 });
 
-var _toConsumableArray2 = __webpack_require__(999);
+var _toConsumableArray2 = __webpack_require__(1016);
 
 var _toConsumableArray3 = _interopRequireDefault(_toConsumableArray2);
 
-var _assign = __webpack_require__(375);
+var _assign = __webpack_require__(377);
 
 var _assign2 = _interopRequireDefault(_assign);
 
@@ -996,7 +1024,7 @@ exports.default = {
 
 /***/ }),
 
-/***/ 1146:
+/***/ 1163:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1006,19 +1034,19 @@ Object.defineProperty(exports, "__esModule", {
     value: true
 });
 
-var _keys = __webpack_require__(1031);
+var _keys = __webpack_require__(1048);
 
 var _keys2 = _interopRequireDefault(_keys);
 
-var _regenerator = __webpack_require__(74);
+var _regenerator = __webpack_require__(75);
 
 var _regenerator2 = _interopRequireDefault(_regenerator);
 
-var _asyncToGenerator2 = __webpack_require__(73);
+var _asyncToGenerator2 = __webpack_require__(74);
 
 var _asyncToGenerator3 = _interopRequireDefault(_asyncToGenerator2);
 
-var _from = __webpack_require__(934);
+var _from = __webpack_require__(951);
 
 var _from2 = _interopRequireDefault(_from);
 
@@ -1128,7 +1156,7 @@ exports.default = {
 
 /***/ }),
 
-/***/ 1147:
+/***/ 1164:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1138,15 +1166,15 @@ Object.defineProperty(exports, "__esModule", {
     value: true
 });
 
-var _toConsumableArray2 = __webpack_require__(999);
+var _toConsumableArray2 = __webpack_require__(1016);
 
 var _toConsumableArray3 = _interopRequireDefault(_toConsumableArray2);
 
-var _regenerator = __webpack_require__(74);
+var _regenerator = __webpack_require__(75);
 
 var _regenerator2 = _interopRequireDefault(_regenerator);
 
-var _asyncToGenerator2 = __webpack_require__(73);
+var _asyncToGenerator2 = __webpack_require__(74);
 
 var _asyncToGenerator3 = _interopRequireDefault(_asyncToGenerator2);
 
@@ -1216,7 +1244,7 @@ exports.default = {
 
 /***/ }),
 
-/***/ 1148:
+/***/ 1165:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1226,15 +1254,15 @@ Object.defineProperty(exports, "__esModule", {
     value: true
 });
 
-var _regenerator = __webpack_require__(74);
+var _regenerator = __webpack_require__(75);
 
 var _regenerator2 = _interopRequireDefault(_regenerator);
 
-var _asyncToGenerator2 = __webpack_require__(73);
+var _asyncToGenerator2 = __webpack_require__(74);
 
 var _asyncToGenerator3 = _interopRequireDefault(_asyncToGenerator2);
 
-var _defineProperty2 = __webpack_require__(936);
+var _defineProperty2 = __webpack_require__(953);
 
 var _defineProperty3 = _interopRequireDefault(_defineProperty2);
 
@@ -1341,7 +1369,7 @@ exports.default = {
 
 /***/ }),
 
-/***/ 1149:
+/***/ 1166:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1380,7 +1408,7 @@ exports.default = {
 
 /***/ }),
 
-/***/ 1150:
+/***/ 1167:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1394,7 +1422,7 @@ var _vue = __webpack_require__(26);
 
 var _vue2 = _interopRequireDefault(_vue);
 
-var _uuid = __webpack_require__(1455);
+var _uuid = __webpack_require__(1472);
 
 var _uuid2 = _interopRequireDefault(_uuid);
 
@@ -1477,7 +1505,7 @@ exports.default = {
 
 /***/ }),
 
-/***/ 1151:
+/***/ 1168:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1487,11 +1515,11 @@ Object.defineProperty(exports, "__esModule", {
     value: true
 });
 
-var _slicedToArray2 = __webpack_require__(1257);
+var _slicedToArray2 = __webpack_require__(1274);
 
 var _slicedToArray3 = _interopRequireDefault(_slicedToArray2);
 
-var _keys = __webpack_require__(1031);
+var _keys = __webpack_require__(1048);
 
 var _keys2 = _interopRequireDefault(_keys);
 
@@ -1572,7 +1600,7 @@ exports.default = {
 
 /***/ }),
 
-/***/ 1152:
+/***/ 1169:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1582,11 +1610,11 @@ Object.defineProperty(exports, "__esModule", {
     value: true
 });
 
-var _assign = __webpack_require__(375);
+var _assign = __webpack_require__(377);
 
 var _assign2 = _interopRequireDefault(_assign);
 
-var _keys = __webpack_require__(1031);
+var _keys = __webpack_require__(1048);
 
 var _keys2 = _interopRequireDefault(_keys);
 
@@ -1636,7 +1664,7 @@ exports.default = {
 
 /***/ }),
 
-/***/ 1153:
+/***/ 1170:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1646,11 +1674,11 @@ Object.defineProperty(exports, "__esModule", {
     value: true
 });
 
-var _regenerator = __webpack_require__(74);
+var _regenerator = __webpack_require__(75);
 
 var _regenerator2 = _interopRequireDefault(_regenerator);
 
-var _asyncToGenerator2 = __webpack_require__(73);
+var _asyncToGenerator2 = __webpack_require__(74);
 
 var _asyncToGenerator3 = _interopRequireDefault(_asyncToGenerator2);
 
@@ -1752,7 +1780,7 @@ exports.default = {
 
 /***/ }),
 
-/***/ 1154:
+/***/ 1171:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1762,11 +1790,11 @@ Object.defineProperty(exports, "__esModule", {
     value: true
 });
 
-var _defaultClasses = __webpack_require__(1156);
+var _defaultClasses = __webpack_require__(1173);
 
 var _defaultClasses2 = _interopRequireDefault(_defaultClasses);
 
-var _CSSProcessor = __webpack_require__(1023);
+var _CSSProcessor = __webpack_require__(1040);
 
 var _CSSProcessor2 = _interopRequireDefault(_CSSProcessor);
 
@@ -1816,7 +1844,7 @@ exports.default = {
 
 /***/ }),
 
-/***/ 1156:
+/***/ 1173:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1877,7 +1905,7 @@ exports.default = {
 
 /***/ }),
 
-/***/ 1157:
+/***/ 1174:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1887,7 +1915,7 @@ Object.defineProperty(exports, "__esModule", {
     value: true
 });
 
-var _cell = __webpack_require__(1106);
+var _cell = __webpack_require__(1123);
 
 var _cell2 = _interopRequireDefault(_cell);
 
@@ -1910,7 +1938,7 @@ exports.default = {
 
 /***/ }),
 
-/***/ 1158:
+/***/ 1175:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1920,7 +1948,7 @@ Object.defineProperty(exports, "__esModule", {
     value: true
 });
 
-var _assign = __webpack_require__(375);
+var _assign = __webpack_require__(377);
 
 var _assign2 = _interopRequireDefault(_assign);
 
@@ -1986,7 +2014,7 @@ exports.default = {
 
 /***/ }),
 
-/***/ 1159:
+/***/ 1176:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1996,15 +2024,15 @@ Object.defineProperty(exports, "__esModule", {
     value: true
 });
 
-var _assign = __webpack_require__(375);
+var _assign = __webpack_require__(377);
 
 var _assign2 = _interopRequireDefault(_assign);
 
-var _cell = __webpack_require__(1106);
+var _cell = __webpack_require__(1123);
 
 var _cell2 = _interopRequireDefault(_cell);
 
-var _sortCell = __webpack_require__(1107);
+var _sortCell = __webpack_require__(1124);
 
 var _sortCell2 = _interopRequireDefault(_sortCell);
 
@@ -2075,7 +2103,7 @@ exports.default = {
 
 /***/ }),
 
-/***/ 1160:
+/***/ 1177:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2085,15 +2113,15 @@ Object.defineProperty(exports, "__esModule", {
     value: true
 });
 
-var _assign = __webpack_require__(375);
+var _assign = __webpack_require__(377);
 
 var _assign2 = _interopRequireDefault(_assign);
 
-var _GroupCell = __webpack_require__(1463);
+var _GroupCell = __webpack_require__(1480);
 
 var _GroupCell2 = _interopRequireDefault(_GroupCell);
 
-var _CSSProcessor = __webpack_require__(1023);
+var _CSSProcessor = __webpack_require__(1040);
 
 var _CSSProcessor2 = _interopRequireDefault(_CSSProcessor);
 
@@ -2159,7 +2187,7 @@ exports.default = {
 
 /***/ }),
 
-/***/ 1161:
+/***/ 1178:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2169,15 +2197,15 @@ Object.defineProperty(exports, "__esModule", {
     value: true
 });
 
-var _assign = __webpack_require__(375);
+var _assign = __webpack_require__(377);
 
 var _assign2 = _interopRequireDefault(_assign);
 
-var _CSSProcessor = __webpack_require__(1023);
+var _CSSProcessor = __webpack_require__(1040);
 
 var _CSSProcessor2 = _interopRequireDefault(_CSSProcessor);
 
-var _sortCell = __webpack_require__(1107);
+var _sortCell = __webpack_require__(1124);
 
 var _sortCell2 = _interopRequireDefault(_sortCell);
 
@@ -2271,7 +2299,7 @@ exports.default = {
 
 /***/ }),
 
-/***/ 1162:
+/***/ 1179:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2281,15 +2309,15 @@ Object.defineProperty(exports, "__esModule", {
     value: true
 });
 
-var _assign = __webpack_require__(375);
+var _assign = __webpack_require__(377);
 
 var _assign2 = _interopRequireDefault(_assign);
 
-var _Cell = __webpack_require__(1461);
+var _Cell = __webpack_require__(1478);
 
 var _Cell2 = _interopRequireDefault(_Cell);
 
-var _CSSProcessor = __webpack_require__(1023);
+var _CSSProcessor = __webpack_require__(1040);
 
 var _CSSProcessor2 = _interopRequireDefault(_CSSProcessor);
 
@@ -2357,7 +2385,7 @@ exports.default = {
 
 /***/ }),
 
-/***/ 1163:
+/***/ 1180:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2367,63 +2395,63 @@ Object.defineProperty(exports, "__esModule", {
     value: true
 });
 
-var _rows = __webpack_require__(1150);
+var _rows = __webpack_require__(1167);
 
 var _rows2 = _interopRequireDefault(_rows);
 
-var _columns = __webpack_require__(1144);
+var _columns = __webpack_require__(1161);
 
 var _columns2 = _interopRequireDefault(_columns);
 
-var _filter = __webpack_require__(1146);
+var _filter = __webpack_require__(1163);
 
 var _filter2 = _interopRequireDefault(_filter);
 
-var _slots = __webpack_require__(1152);
+var _slots = __webpack_require__(1169);
 
 var _slots2 = _interopRequireDefault(_slots);
 
-var _pagination = __webpack_require__(1149);
+var _pagination = __webpack_require__(1166);
 
 var _pagination2 = _interopRequireDefault(_pagination);
 
-var _styling = __webpack_require__(1154);
+var _styling = __webpack_require__(1171);
 
 var _styling2 = _interopRequireDefault(_styling);
 
-var _async = __webpack_require__(1143);
+var _async = __webpack_require__(1160);
 
 var _async2 = _interopRequireDefault(_async);
 
-var _sort = __webpack_require__(1153);
+var _sort = __webpack_require__(1170);
 
 var _sort2 = _interopRequireDefault(_sort);
 
-var _groupBy = __webpack_require__(1148);
+var _groupBy = __webpack_require__(1165);
 
 var _groupBy2 = _interopRequireDefault(_groupBy);
 
-var _flatten = __webpack_require__(1147);
+var _flatten = __webpack_require__(1164);
 
 var _flatten2 = _interopRequireDefault(_flatten);
 
-var _exportData = __webpack_require__(1145);
+var _exportData = __webpack_require__(1162);
 
 var _exportData2 = _interopRequireDefault(_exportData);
 
-var _selection = __webpack_require__(1151);
+var _selection = __webpack_require__(1168);
 
 var _selection2 = _interopRequireDefault(_selection);
 
-var _HeaderCell = __webpack_require__(1465);
+var _HeaderCell = __webpack_require__(1482);
 
 var _HeaderCell2 = _interopRequireDefault(_HeaderCell);
 
-var _Row = __webpack_require__(1466);
+var _Row = __webpack_require__(1483);
 
 var _Row2 = _interopRequireDefault(_Row);
 
-var _GroupRow = __webpack_require__(1464);
+var _GroupRow = __webpack_require__(1481);
 
 var _GroupRow2 = _interopRequireDefault(_GroupRow);
 
@@ -2465,7 +2493,7 @@ exports.default = {
 
 /***/ }),
 
-/***/ 1251:
+/***/ 1268:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2479,23 +2507,23 @@ var _extends2 = __webpack_require__(8);
 
 var _extends3 = _interopRequireDefault(_extends2);
 
-__webpack_require__(776);
+__webpack_require__(793);
 
-var _constant = __webpack_require__(777);
+var _constant = __webpack_require__(794);
 
 var _constant2 = _interopRequireDefault(_constant);
 
 var _vuex = __webpack_require__(180);
 
-var _vueLoadingOverlay = __webpack_require__(374);
+var _vueLoadingOverlay = __webpack_require__(376);
 
 var _vueLoadingOverlay2 = _interopRequireDefault(_vueLoadingOverlay);
 
-var _Table = __webpack_require__(1467);
+var _Table = __webpack_require__(1484);
 
 var _Table2 = _interopRequireDefault(_Table);
 
-var _helper = __webpack_require__(930);
+var _helper = __webpack_require__(947);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -2790,28 +2818,28 @@ exports.default = {
 
 /***/ }),
 
-/***/ 1252:
+/***/ 1269:
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = { "default": __webpack_require__(1261), __esModule: true };
+module.exports = { "default": __webpack_require__(1278), __esModule: true };
 
 /***/ }),
 
-/***/ 1253:
+/***/ 1270:
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = { "default": __webpack_require__(1262), __esModule: true };
+module.exports = { "default": __webpack_require__(1279), __esModule: true };
 
 /***/ }),
 
-/***/ 1254:
+/***/ 1271:
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = { "default": __webpack_require__(1263), __esModule: true };
+module.exports = { "default": __webpack_require__(1280), __esModule: true };
 
 /***/ }),
 
-/***/ 1255:
+/***/ 1272:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2827,7 +2855,7 @@ exports.default = function (instance, Constructor) {
 
 /***/ }),
 
-/***/ 1256:
+/***/ 1273:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2835,7 +2863,7 @@ exports.default = function (instance, Constructor) {
 
 exports.__esModule = true;
 
-var _defineProperty = __webpack_require__(782);
+var _defineProperty = __webpack_require__(799);
 
 var _defineProperty2 = _interopRequireDefault(_defineProperty);
 
@@ -2861,7 +2889,7 @@ exports.default = function () {
 
 /***/ }),
 
-/***/ 1257:
+/***/ 1274:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2869,11 +2897,11 @@ exports.default = function () {
 
 exports.__esModule = true;
 
-var _isIterable2 = __webpack_require__(1252);
+var _isIterable2 = __webpack_require__(1269);
 
 var _isIterable3 = _interopRequireDefault(_isIterable2);
 
-var _getIterator2 = __webpack_require__(1014);
+var _getIterator2 = __webpack_require__(1031);
 
 var _getIterator3 = _interopRequireDefault(_getIterator2);
 
@@ -2919,48 +2947,48 @@ exports.default = function () {
 
 /***/ }),
 
-/***/ 1261:
+/***/ 1278:
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(379);
+__webpack_require__(381);
 __webpack_require__(184);
-module.exports = __webpack_require__(1268);
+module.exports = __webpack_require__(1285);
 
 
 /***/ }),
 
-/***/ 1262:
+/***/ 1279:
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(1269);
+__webpack_require__(1286);
 module.exports = __webpack_require__(20).Number.isInteger;
 
 
 /***/ }),
 
-/***/ 1263:
+/***/ 1280:
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(1270);
+__webpack_require__(1287);
 module.exports = __webpack_require__(20).Number.parseInt;
 
 
 /***/ }),
 
-/***/ 1264:
+/***/ 1281:
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(1271);
+__webpack_require__(1288);
 module.exports = __webpack_require__(20).Object.keys;
 
 
 /***/ }),
 
-/***/ 1265:
+/***/ 1282:
 /***/ (function(module, exports, __webpack_require__) {
 
 // 20.1.2.3 Number.isInteger(number)
-var isObject = __webpack_require__(55);
+var isObject = __webpack_require__(56);
 var floor = Math.floor;
 module.exports = function isInteger(it) {
   return !isObject(it) && isFinite(it) && floor(it) === it;
@@ -2969,12 +2997,12 @@ module.exports = function isInteger(it) {
 
 /***/ }),
 
-/***/ 1266:
+/***/ 1283:
 /***/ (function(module, exports, __webpack_require__) {
 
 var $parseInt = __webpack_require__(21).parseInt;
-var $trim = __webpack_require__(1267).trim;
-var ws = __webpack_require__(1108);
+var $trim = __webpack_require__(1284).trim;
+var ws = __webpack_require__(1125);
 var hex = /^[-+]?0[xX]/;
 
 module.exports = $parseInt(ws + '08') !== 8 || $parseInt(ws + '0x16') !== 22 ? function parseInt(str, radix) {
@@ -2985,13 +3013,13 @@ module.exports = $parseInt(ws + '08') !== 8 || $parseInt(ws + '0x16') !== 22 ? f
 
 /***/ }),
 
-/***/ 1267:
+/***/ 1284:
 /***/ (function(module, exports, __webpack_require__) {
 
 var $export = __webpack_require__(32);
-var defined = __webpack_require__(117);
-var fails = __webpack_require__(103);
-var spaces = __webpack_require__(1108);
+var defined = __webpack_require__(118);
+var fails = __webpack_require__(104);
+var spaces = __webpack_require__(1125);
 var space = '[' + spaces + ']';
 var non = '\u200b\u0085';
 var ltrim = RegExp('^' + space + space + '*');
@@ -3022,12 +3050,12 @@ module.exports = exporter;
 
 /***/ }),
 
-/***/ 1268:
+/***/ 1285:
 /***/ (function(module, exports, __webpack_require__) {
 
 var classof = __webpack_require__(198);
 var ITERATOR = __webpack_require__(23)('iterator');
-var Iterators = __webpack_require__(63);
+var Iterators = __webpack_require__(64);
 module.exports = __webpack_require__(20).isIterable = function (it) {
   var O = Object(it);
   return O[ITERATOR] !== undefined
@@ -3039,36 +3067,36 @@ module.exports = __webpack_require__(20).isIterable = function (it) {
 
 /***/ }),
 
-/***/ 1269:
+/***/ 1286:
 /***/ (function(module, exports, __webpack_require__) {
 
 // 20.1.2.3 Number.isInteger(number)
 var $export = __webpack_require__(32);
 
-$export($export.S, 'Number', { isInteger: __webpack_require__(1265) });
+$export($export.S, 'Number', { isInteger: __webpack_require__(1282) });
 
 
 /***/ }),
 
-/***/ 1270:
+/***/ 1287:
 /***/ (function(module, exports, __webpack_require__) {
 
 var $export = __webpack_require__(32);
-var $parseInt = __webpack_require__(1266);
+var $parseInt = __webpack_require__(1283);
 // 20.1.2.13 Number.parseInt(string, radix)
 $export($export.S + $export.F * (Number.parseInt != $parseInt), 'Number', { parseInt: $parseInt });
 
 
 /***/ }),
 
-/***/ 1271:
+/***/ 1288:
 /***/ (function(module, exports, __webpack_require__) {
 
 // 19.1.2.14 Object.keys(O)
-var toObject = __webpack_require__(109);
+var toObject = __webpack_require__(110);
 var $keys = __webpack_require__(181);
 
-__webpack_require__(1017)('keys', function () {
+__webpack_require__(1034)('keys', function () {
   return function keys(it) {
     return $keys(toObject(it));
   };
@@ -3077,11 +3105,11 @@ __webpack_require__(1017)('keys', function () {
 
 /***/ }),
 
-/***/ 1455:
+/***/ 1472:
 /***/ (function(module, exports, __webpack_require__) {
 
-var v1 = __webpack_require__(1456);
-var v4 = __webpack_require__(1457);
+var v1 = __webpack_require__(1473);
+var v4 = __webpack_require__(1474);
 
 var uuid = v4;
 uuid.v1 = v1;
@@ -3092,11 +3120,11 @@ module.exports = uuid;
 
 /***/ }),
 
-/***/ 1456:
+/***/ 1473:
 /***/ (function(module, exports, __webpack_require__) {
 
-var rng = __webpack_require__(1137);
-var bytesToUuid = __webpack_require__(1136);
+var rng = __webpack_require__(1154);
+var bytesToUuid = __webpack_require__(1153);
 
 // **`v1()` - Generate time-based UUID**
 //
@@ -3208,11 +3236,11 @@ module.exports = v1;
 
 /***/ }),
 
-/***/ 1457:
+/***/ 1474:
 /***/ (function(module, exports, __webpack_require__) {
 
-var rng = __webpack_require__(1137);
-var bytesToUuid = __webpack_require__(1136);
+var rng = __webpack_require__(1154);
+var bytesToUuid = __webpack_require__(1153);
 
 function v4(options, buf, offset) {
   var i = buf && offset || 0;
@@ -3244,12 +3272,12 @@ module.exports = v4;
 
 /***/ }),
 
-/***/ 1461:
+/***/ 1478:
 /***/ (function(module, exports, __webpack_require__) {
 
-var Component = __webpack_require__(372)(
+var Component = __webpack_require__(374)(
   /* script */
-  __webpack_require__(1157),
+  __webpack_require__(1174),
   /* template */
   null,
   /* scopeId */
@@ -3257,12 +3285,12 @@ var Component = __webpack_require__(372)(
   /* cssModules */
   null
 )
-Component.options.__file = "C:\\WORKING\\Joytime\\dotnet-platform-backend\\Web\\Platform\\CMS\\PlatformCMS\\ClientApp\\components\\Cell.vue"
+Component.options.__file = "D:\\Code\\WORKING\\dotnet-platform-backend\\Web\\Platform\\CMS\\PlatformCMS\\ClientApp\\components\\Cell.vue"
 if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
 
 /* hot reload */
 if (true) {(function () {
-  var hotAPI = __webpack_require__(177)
+  var hotAPI = __webpack_require__(178)
   hotAPI.install(__webpack_require__(26), false)
   if (!hotAPI.compatible) return
   module.hot.accept()
@@ -3278,12 +3306,12 @@ module.exports = Component.exports
 
 /***/ }),
 
-/***/ 1462:
+/***/ 1479:
 /***/ (function(module, exports, __webpack_require__) {
 
-var Component = __webpack_require__(372)(
+var Component = __webpack_require__(374)(
   /* script */
-  __webpack_require__(1158),
+  __webpack_require__(1175),
   /* template */
   null,
   /* scopeId */
@@ -3291,12 +3319,12 @@ var Component = __webpack_require__(372)(
   /* cssModules */
   null
 )
-Component.options.__file = "C:\\WORKING\\Joytime\\dotnet-platform-backend\\Web\\Platform\\CMS\\PlatformCMS\\ClientApp\\components\\ChildrenButton.vue"
+Component.options.__file = "D:\\Code\\WORKING\\dotnet-platform-backend\\Web\\Platform\\CMS\\PlatformCMS\\ClientApp\\components\\ChildrenButton.vue"
 if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
 
 /* hot reload */
 if (true) {(function () {
-  var hotAPI = __webpack_require__(177)
+  var hotAPI = __webpack_require__(178)
   hotAPI.install(__webpack_require__(26), false)
   if (!hotAPI.compatible) return
   module.hot.accept()
@@ -3312,12 +3340,12 @@ module.exports = Component.exports
 
 /***/ }),
 
-/***/ 1463:
+/***/ 1480:
 /***/ (function(module, exports, __webpack_require__) {
 
-var Component = __webpack_require__(372)(
+var Component = __webpack_require__(374)(
   /* script */
-  __webpack_require__(1159),
+  __webpack_require__(1176),
   /* template */
   null,
   /* scopeId */
@@ -3325,12 +3353,12 @@ var Component = __webpack_require__(372)(
   /* cssModules */
   null
 )
-Component.options.__file = "C:\\WORKING\\Joytime\\dotnet-platform-backend\\Web\\Platform\\CMS\\PlatformCMS\\ClientApp\\components\\GroupCell.vue"
+Component.options.__file = "D:\\Code\\WORKING\\dotnet-platform-backend\\Web\\Platform\\CMS\\PlatformCMS\\ClientApp\\components\\GroupCell.vue"
 if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
 
 /* hot reload */
 if (true) {(function () {
-  var hotAPI = __webpack_require__(177)
+  var hotAPI = __webpack_require__(178)
   hotAPI.install(__webpack_require__(26), false)
   if (!hotAPI.compatible) return
   module.hot.accept()
@@ -3346,26 +3374,26 @@ module.exports = Component.exports
 
 /***/ }),
 
-/***/ 1464:
+/***/ 1481:
 /***/ (function(module, exports, __webpack_require__) {
 
-var Component = __webpack_require__(372)(
+var Component = __webpack_require__(374)(
   /* script */
-  __webpack_require__(1160),
+  __webpack_require__(1177),
   /* template */
-  __webpack_require__(1522),
+  __webpack_require__(1539),
   /* scopeId */
   null,
   /* cssModules */
   null
 )
-Component.options.__file = "C:\\WORKING\\Joytime\\dotnet-platform-backend\\Web\\Platform\\CMS\\PlatformCMS\\ClientApp\\components\\GroupRow.vue"
+Component.options.__file = "D:\\Code\\WORKING\\dotnet-platform-backend\\Web\\Platform\\CMS\\PlatformCMS\\ClientApp\\components\\GroupRow.vue"
 if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
 if (Component.options.functional) {console.error("[vue-loader] GroupRow.vue: functional components are not supported with templates, they should use render functions.")}
 
 /* hot reload */
 if (true) {(function () {
-  var hotAPI = __webpack_require__(177)
+  var hotAPI = __webpack_require__(178)
   hotAPI.install(__webpack_require__(26), false)
   if (!hotAPI.compatible) return
   module.hot.accept()
@@ -3381,12 +3409,12 @@ module.exports = Component.exports
 
 /***/ }),
 
-/***/ 1465:
+/***/ 1482:
 /***/ (function(module, exports, __webpack_require__) {
 
-var Component = __webpack_require__(372)(
+var Component = __webpack_require__(374)(
   /* script */
-  __webpack_require__(1161),
+  __webpack_require__(1178),
   /* template */
   null,
   /* scopeId */
@@ -3394,12 +3422,12 @@ var Component = __webpack_require__(372)(
   /* cssModules */
   null
 )
-Component.options.__file = "C:\\WORKING\\Joytime\\dotnet-platform-backend\\Web\\Platform\\CMS\\PlatformCMS\\ClientApp\\components\\HeaderCell.vue"
+Component.options.__file = "D:\\Code\\WORKING\\dotnet-platform-backend\\Web\\Platform\\CMS\\PlatformCMS\\ClientApp\\components\\HeaderCell.vue"
 if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
 
 /* hot reload */
 if (true) {(function () {
-  var hotAPI = __webpack_require__(177)
+  var hotAPI = __webpack_require__(178)
   hotAPI.install(__webpack_require__(26), false)
   if (!hotAPI.compatible) return
   module.hot.accept()
@@ -3415,26 +3443,26 @@ module.exports = Component.exports
 
 /***/ }),
 
-/***/ 1466:
+/***/ 1483:
 /***/ (function(module, exports, __webpack_require__) {
 
-var Component = __webpack_require__(372)(
+var Component = __webpack_require__(374)(
   /* script */
-  __webpack_require__(1162),
+  __webpack_require__(1179),
   /* template */
-  __webpack_require__(1558),
+  __webpack_require__(1575),
   /* scopeId */
   null,
   /* cssModules */
   null
 )
-Component.options.__file = "C:\\WORKING\\Joytime\\dotnet-platform-backend\\Web\\Platform\\CMS\\PlatformCMS\\ClientApp\\components\\Row.vue"
+Component.options.__file = "D:\\Code\\WORKING\\dotnet-platform-backend\\Web\\Platform\\CMS\\PlatformCMS\\ClientApp\\components\\Row.vue"
 if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
 if (Component.options.functional) {console.error("[vue-loader] Row.vue: functional components are not supported with templates, they should use render functions.")}
 
 /* hot reload */
 if (true) {(function () {
-  var hotAPI = __webpack_require__(177)
+  var hotAPI = __webpack_require__(178)
   hotAPI.install(__webpack_require__(26), false)
   if (!hotAPI.compatible) return
   module.hot.accept()
@@ -3450,26 +3478,26 @@ module.exports = Component.exports
 
 /***/ }),
 
-/***/ 1467:
+/***/ 1484:
 /***/ (function(module, exports, __webpack_require__) {
 
-var Component = __webpack_require__(372)(
+var Component = __webpack_require__(374)(
   /* script */
-  __webpack_require__(1163),
+  __webpack_require__(1180),
   /* template */
-  __webpack_require__(1532),
+  __webpack_require__(1549),
   /* scopeId */
   null,
   /* cssModules */
   null
 )
-Component.options.__file = "C:\\WORKING\\Joytime\\dotnet-platform-backend\\Web\\Platform\\CMS\\PlatformCMS\\ClientApp\\components\\Table.vue"
+Component.options.__file = "D:\\Code\\WORKING\\dotnet-platform-backend\\Web\\Platform\\CMS\\PlatformCMS\\ClientApp\\components\\Table.vue"
 if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
 if (Component.options.functional) {console.error("[vue-loader] Table.vue: functional components are not supported with templates, they should use render functions.")}
 
 /* hot reload */
 if (true) {(function () {
-  var hotAPI = __webpack_require__(177)
+  var hotAPI = __webpack_require__(178)
   hotAPI.install(__webpack_require__(26), false)
   if (!hotAPI.compatible) return
   module.hot.accept()
@@ -3485,7 +3513,7 @@ module.exports = Component.exports
 
 /***/ }),
 
-/***/ 1498:
+/***/ 1515:
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
@@ -3795,13 +3823,13 @@ module.exports.render._withStripped = true
 if (true) {
   module.hot.accept()
   if (module.hot.data) {
-     __webpack_require__(177).rerender("data-v-104f51f4", module.exports)
+     __webpack_require__(178).rerender("data-v-104f51f4", module.exports)
   }
 }
 
 /***/ }),
 
-/***/ 1522:
+/***/ 1539:
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
@@ -3835,13 +3863,13 @@ module.exports.render._withStripped = true
 if (true) {
   module.hot.accept()
   if (module.hot.data) {
-     __webpack_require__(177).rerender("data-v-3c80e544", module.exports)
+     __webpack_require__(178).rerender("data-v-3c80e544", module.exports)
   }
 }
 
 /***/ }),
 
-/***/ 1532:
+/***/ 1549:
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
@@ -3923,13 +3951,13 @@ module.exports.render._withStripped = true
 if (true) {
   module.hot.accept()
   if (module.hot.data) {
-     __webpack_require__(177).rerender("data-v-52346fb5", module.exports)
+     __webpack_require__(178).rerender("data-v-52346fb5", module.exports)
   }
 }
 
 /***/ }),
 
-/***/ 1558:
+/***/ 1575:
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
@@ -3959,29 +3987,29 @@ module.exports.render._withStripped = true
 if (true) {
   module.hot.accept()
   if (module.hot.data) {
-     __webpack_require__(177).rerender("data-v-c65060fe", module.exports)
+     __webpack_require__(178).rerender("data-v-c65060fe", module.exports)
   }
 }
 
 /***/ }),
 
-/***/ 1578:
+/***/ 1595:
 /***/ (function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
-var content = __webpack_require__(1069);
+var content = __webpack_require__(1086);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
-var update = __webpack_require__(781)("7fb159a3", content, false);
+var update = __webpack_require__(798)("7fb159a3", content, false);
 // Hot Module Replacement
 if(true) {
  // When the styles change, update the <style> tags
  if(!content.locals) {
-   module.hot.accept(1069, function() {
-     var newContent = __webpack_require__(1069);
+   module.hot.accept(1086, function() {
+     var newContent = __webpack_require__(1086);
      if(typeof newContent === 'string') newContent = [[module.i, newContent, '']];
      update(newContent);
    });
@@ -3992,30 +4020,30 @@ if(true) {
 
 /***/ }),
 
-/***/ 773:
+/***/ 790:
 /***/ (function(module, exports, __webpack_require__) {
 
 
 /* styles */
-__webpack_require__(1578)
+__webpack_require__(1595)
 
-var Component = __webpack_require__(372)(
+var Component = __webpack_require__(374)(
   /* script */
-  __webpack_require__(1251),
+  __webpack_require__(1268),
   /* template */
-  __webpack_require__(1498),
+  __webpack_require__(1515),
   /* scopeId */
   null,
   /* cssModules */
   null
 )
-Component.options.__file = "C:\\WORKING\\Joytime\\dotnet-platform-backend\\Web\\Platform\\CMS\\PlatformCMS\\ClientApp\\pages\\zone\\list.vue"
+Component.options.__file = "D:\\Code\\WORKING\\dotnet-platform-backend\\Web\\Platform\\CMS\\PlatformCMS\\ClientApp\\pages\\zone\\list.vue"
 if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
 if (Component.options.functional) {console.error("[vue-loader] list.vue: functional components are not supported with templates, they should use render functions.")}
 
 /* hot reload */
 if (true) {(function () {
-  var hotAPI = __webpack_require__(177)
+  var hotAPI = __webpack_require__(178)
   hotAPI.install(__webpack_require__(26), false)
   if (!hotAPI.compatible) return
   module.hot.accept()
@@ -4031,10 +4059,10 @@ module.exports = Component.exports
 
 /***/ }),
 
-/***/ 775:
+/***/ 792:
 /***/ (function(module, exports, __webpack_require__) {
 
-exports = module.exports = __webpack_require__(178)();
+exports = module.exports = __webpack_require__(53)();
 // imports
 
 
@@ -4046,13 +4074,13 @@ exports.push([module.i, ".vld-overlay {\n  bottom: 0;\n  left: 0;\n  position: a
 
 /***/ }),
 
-/***/ 776:
+/***/ 793:
 /***/ (function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
-var content = __webpack_require__(775);
+var content = __webpack_require__(792);
 if(typeof content === 'string') content = [[module.i, content, '']];
 // add the styles to the DOM
 var update = __webpack_require__(179)(content, {});
@@ -4061,8 +4089,8 @@ if(content.locals) module.exports = content.locals;
 if(true) {
 	// When the styles change, update the <style> tags
 	if(!content.locals) {
-		module.hot.accept(775, function() {
-			var newContent = __webpack_require__(775);
+		module.hot.accept(792, function() {
+			var newContent = __webpack_require__(792);
 			if(typeof newContent === 'string') newContent = [[module.i, newContent, '']];
 			update(newContent);
 		});
@@ -4073,7 +4101,7 @@ if(true) {
 
 /***/ }),
 
-/***/ 777:
+/***/ 794:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -4087,14 +4115,14 @@ exports.default = msgNotify;
 
 /***/ }),
 
-/***/ 778:
+/***/ 795:
 /***/ (function(module, exports, __webpack_require__) {
 
 var global = __webpack_require__(21);
 var core = __webpack_require__(20);
-var LIBRARY = __webpack_require__(104);
-var wksExt = __webpack_require__(779);
-var defineProperty = __webpack_require__(53).f;
+var LIBRARY = __webpack_require__(105);
+var wksExt = __webpack_require__(796);
+var defineProperty = __webpack_require__(54).f;
 module.exports = function (name) {
   var $Symbol = core.Symbol || (core.Symbol = LIBRARY ? {} : global.Symbol || {});
   if (name.charAt(0) != '_' && !(name in $Symbol)) defineProperty($Symbol, name, { value: wksExt.f(name) });
@@ -4103,7 +4131,7 @@ module.exports = function (name) {
 
 /***/ }),
 
-/***/ 779:
+/***/ 796:
 /***/ (function(module, exports, __webpack_require__) {
 
 exports.f = __webpack_require__(23);
@@ -4111,7 +4139,7 @@ exports.f = __webpack_require__(23);
 
 /***/ }),
 
-/***/ 781:
+/***/ 798:
 /***/ (function(module, exports, __webpack_require__) {
 
 /*
@@ -4130,7 +4158,7 @@ if (typeof DEBUG !== 'undefined' && DEBUG) {
   ) }
 }
 
-var listToStyles = __webpack_require__(790)
+var listToStyles = __webpack_require__(807)
 
 /*
 type StyleObject = {
@@ -4333,32 +4361,32 @@ function applyToTag (styleElement, obj) {
 
 /***/ }),
 
-/***/ 782:
+/***/ 799:
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = { "default": __webpack_require__(927), __esModule: true };
+module.exports = { "default": __webpack_require__(944), __esModule: true };
 
 /***/ }),
 
-/***/ 783:
+/***/ 800:
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = { "default": __webpack_require__(940), __esModule: true };
+module.exports = { "default": __webpack_require__(957), __esModule: true };
 
 /***/ }),
 
-/***/ 784:
+/***/ 801:
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = { "default": __webpack_require__(941), __esModule: true };
+module.exports = { "default": __webpack_require__(958), __esModule: true };
 
 /***/ }),
 
-/***/ 785:
+/***/ 802:
 /***/ (function(module, exports, __webpack_require__) {
 
 // 19.1.2.7 / 15.2.3.4 Object.getOwnPropertyNames(O)
-var $keys = __webpack_require__(383);
+var $keys = __webpack_require__(385);
 var hiddenKeys = __webpack_require__(185).concat('length', 'prototype');
 
 exports.f = Object.getOwnPropertyNames || function getOwnPropertyNames(O) {
@@ -4368,7 +4396,7 @@ exports.f = Object.getOwnPropertyNames || function getOwnPropertyNames(O) {
 
 /***/ }),
 
-/***/ 790:
+/***/ 807:
 /***/ (function(module, exports) {
 
 /**
@@ -4402,10 +4430,10 @@ module.exports = function listToStyles (parentId, list) {
 
 /***/ }),
 
-/***/ 927:
+/***/ 944:
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(928);
+__webpack_require__(945);
 var $Object = __webpack_require__(20).Object;
 module.exports = function defineProperty(it, key, desc) {
   return $Object.defineProperty(it, key, desc);
@@ -4414,17 +4442,17 @@ module.exports = function defineProperty(it, key, desc) {
 
 /***/ }),
 
-/***/ 928:
+/***/ 945:
 /***/ (function(module, exports, __webpack_require__) {
 
 var $export = __webpack_require__(32);
 // 19.1.2.4 / 15.2.3.6 Object.defineProperty(O, P, Attributes)
-$export($export.S + $export.F * !__webpack_require__(44), 'Object', { defineProperty: __webpack_require__(53).f });
+$export($export.S + $export.F * !__webpack_require__(44), 'Object', { defineProperty: __webpack_require__(54).f });
 
 
 /***/ }),
 
-/***/ 930:
+/***/ 947:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -4443,7 +4471,7 @@ var _vue = __webpack_require__(26);
 
 var _vue2 = _interopRequireDefault(_vue);
 
-var _jsTreeList = __webpack_require__(938);
+var _jsTreeList = __webpack_require__(955);
 
 var _jsTreeList2 = _interopRequireDefault(_jsTreeList);
 
@@ -4540,18 +4568,18 @@ function urlBase(title) {
 
 /***/ }),
 
-/***/ 932:
+/***/ 949:
 /***/ (function(module, exports, __webpack_require__) {
 
 var META = __webpack_require__(182)('meta');
-var isObject = __webpack_require__(55);
-var has = __webpack_require__(71);
-var setDesc = __webpack_require__(53).f;
+var isObject = __webpack_require__(56);
+var has = __webpack_require__(72);
+var setDesc = __webpack_require__(54).f;
 var id = 0;
 var isExtensible = Object.isExtensible || function () {
   return true;
 };
-var FREEZE = !__webpack_require__(103)(function () {
+var FREEZE = !__webpack_require__(104)(function () {
   return isExtensible(Object.preventExtensions({}));
 });
 var setMeta = function (it) {
@@ -4600,14 +4628,14 @@ var meta = module.exports = {
 
 /***/ }),
 
-/***/ 934:
+/***/ 951:
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = { "default": __webpack_require__(387), __esModule: true };
+module.exports = { "default": __webpack_require__(389), __esModule: true };
 
 /***/ }),
 
-/***/ 936:
+/***/ 953:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -4615,7 +4643,7 @@ module.exports = { "default": __webpack_require__(387), __esModule: true };
 
 exports.__esModule = true;
 
-var _defineProperty = __webpack_require__(782);
+var _defineProperty = __webpack_require__(799);
 
 var _defineProperty2 = _interopRequireDefault(_defineProperty);
 
@@ -4638,29 +4666,29 @@ exports.default = function (obj, key, value) {
 
 /***/ }),
 
-/***/ 938:
+/***/ 955:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_RESULT__;
 
-var _assign = __webpack_require__(375);
+var _assign = __webpack_require__(377);
 
 var _assign2 = _interopRequireDefault(_assign);
 
-var _defineProperty = __webpack_require__(782);
+var _defineProperty = __webpack_require__(799);
 
 var _defineProperty2 = _interopRequireDefault(_defineProperty);
 
-var _iterator = __webpack_require__(784);
+var _iterator = __webpack_require__(801);
 
 var _iterator2 = _interopRequireDefault(_iterator);
 
-var _symbol = __webpack_require__(783);
+var _symbol = __webpack_require__(800);
 
 var _symbol2 = _interopRequireDefault(_symbol);
 
-var _typeof3 = __webpack_require__(939);
+var _typeof3 = __webpack_require__(956);
 
 var _typeof4 = _interopRequireDefault(_typeof3);
 
@@ -5056,7 +5084,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 /***/ }),
 
-/***/ 939:
+/***/ 956:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -5064,11 +5092,11 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 exports.__esModule = true;
 
-var _iterator = __webpack_require__(784);
+var _iterator = __webpack_require__(801);
 
 var _iterator2 = _interopRequireDefault(_iterator);
 
-var _symbol = __webpack_require__(783);
+var _symbol = __webpack_require__(800);
 
 var _symbol2 = _interopRequireDefault(_symbol);
 
@@ -5084,35 +5112,35 @@ exports.default = typeof _symbol2.default === "function" && _typeof(_iterator2.d
 
 /***/ }),
 
-/***/ 940:
+/***/ 957:
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(945);
-__webpack_require__(385);
-__webpack_require__(946);
-__webpack_require__(947);
+__webpack_require__(962);
+__webpack_require__(387);
+__webpack_require__(963);
+__webpack_require__(964);
 module.exports = __webpack_require__(20).Symbol;
 
 
 /***/ }),
 
-/***/ 941:
+/***/ 958:
 /***/ (function(module, exports, __webpack_require__) {
 
 __webpack_require__(184);
-__webpack_require__(379);
-module.exports = __webpack_require__(779).f('iterator');
+__webpack_require__(381);
+module.exports = __webpack_require__(796).f('iterator');
 
 
 /***/ }),
 
-/***/ 942:
+/***/ 959:
 /***/ (function(module, exports, __webpack_require__) {
 
 // all enumerable object keys, includes symbols
 var getKeys = __webpack_require__(181);
-var gOPS = __webpack_require__(376);
-var pIE = __webpack_require__(373);
+var gOPS = __webpack_require__(378);
+var pIE = __webpack_require__(375);
 module.exports = function (it) {
   var result = getKeys(it);
   var getSymbols = gOPS.f;
@@ -5128,15 +5156,15 @@ module.exports = function (it) {
 
 /***/ }),
 
-/***/ 943:
+/***/ 960:
 /***/ (function(module, exports, __webpack_require__) {
 
-var pIE = __webpack_require__(373);
-var createDesc = __webpack_require__(105);
-var toIObject = __webpack_require__(102);
-var toPrimitive = __webpack_require__(377);
-var has = __webpack_require__(71);
-var IE8_DOM_DEFINE = __webpack_require__(380);
+var pIE = __webpack_require__(375);
+var createDesc = __webpack_require__(106);
+var toIObject = __webpack_require__(103);
+var toPrimitive = __webpack_require__(379);
+var has = __webpack_require__(72);
+var IE8_DOM_DEFINE = __webpack_require__(382);
 var gOPD = Object.getOwnPropertyDescriptor;
 
 exports.f = __webpack_require__(44) ? gOPD : function getOwnPropertyDescriptor(O, P) {
@@ -5151,12 +5179,12 @@ exports.f = __webpack_require__(44) ? gOPD : function getOwnPropertyDescriptor(O
 
 /***/ }),
 
-/***/ 944:
+/***/ 961:
 /***/ (function(module, exports, __webpack_require__) {
 
 // fallback for IE11 buggy Object.getOwnPropertyNames with iframe and window
-var toIObject = __webpack_require__(102);
-var gOPN = __webpack_require__(785).f;
+var toIObject = __webpack_require__(103);
+var gOPN = __webpack_require__(802).f;
 var toString = {}.toString;
 
 var windowNames = typeof window == 'object' && window && Object.getOwnPropertyNames
@@ -5177,38 +5205,38 @@ module.exports.f = function getOwnPropertyNames(it) {
 
 /***/ }),
 
-/***/ 945:
+/***/ 962:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 // ECMAScript 6 symbols shim
 var global = __webpack_require__(21);
-var has = __webpack_require__(71);
+var has = __webpack_require__(72);
 var DESCRIPTORS = __webpack_require__(44);
 var $export = __webpack_require__(32);
-var redefine = __webpack_require__(384);
-var META = __webpack_require__(932).KEY;
-var $fails = __webpack_require__(103);
+var redefine = __webpack_require__(386);
+var META = __webpack_require__(949).KEY;
+var $fails = __webpack_require__(104);
 var shared = __webpack_require__(186);
-var setToStringTag = __webpack_require__(110);
+var setToStringTag = __webpack_require__(111);
 var uid = __webpack_require__(182);
 var wks = __webpack_require__(23);
-var wksExt = __webpack_require__(779);
-var wksDefine = __webpack_require__(778);
-var enumKeys = __webpack_require__(942);
-var isArray = __webpack_require__(381);
+var wksExt = __webpack_require__(796);
+var wksDefine = __webpack_require__(795);
+var enumKeys = __webpack_require__(959);
+var isArray = __webpack_require__(383);
 var anObject = __webpack_require__(38);
-var isObject = __webpack_require__(55);
-var toObject = __webpack_require__(109);
-var toIObject = __webpack_require__(102);
-var toPrimitive = __webpack_require__(377);
-var createDesc = __webpack_require__(105);
-var _create = __webpack_require__(382);
-var gOPNExt = __webpack_require__(944);
-var $GOPD = __webpack_require__(943);
-var $GOPS = __webpack_require__(376);
-var $DP = __webpack_require__(53);
+var isObject = __webpack_require__(56);
+var toObject = __webpack_require__(110);
+var toIObject = __webpack_require__(103);
+var toPrimitive = __webpack_require__(379);
+var createDesc = __webpack_require__(106);
+var _create = __webpack_require__(384);
+var gOPNExt = __webpack_require__(961);
+var $GOPD = __webpack_require__(960);
+var $GOPS = __webpack_require__(378);
+var $DP = __webpack_require__(54);
 var $keys = __webpack_require__(181);
 var gOPD = $GOPD.f;
 var dP = $DP.f;
@@ -5332,11 +5360,11 @@ if (!USE_NATIVE) {
 
   $GOPD.f = $getOwnPropertyDescriptor;
   $DP.f = $defineProperty;
-  __webpack_require__(785).f = gOPNExt.f = $getOwnPropertyNames;
-  __webpack_require__(373).f = $propertyIsEnumerable;
+  __webpack_require__(802).f = gOPNExt.f = $getOwnPropertyNames;
+  __webpack_require__(375).f = $propertyIsEnumerable;
   $GOPS.f = $getOwnPropertySymbols;
 
-  if (DESCRIPTORS && !__webpack_require__(104)) {
+  if (DESCRIPTORS && !__webpack_require__(105)) {
     redefine(ObjectProto, 'propertyIsEnumerable', $propertyIsEnumerable, true);
   }
 
@@ -5431,47 +5459,19 @@ setToStringTag(global.JSON, 'JSON', true);
 
 /***/ }),
 
-/***/ 946:
+/***/ 963:
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(778)('asyncIterator');
+__webpack_require__(795)('asyncIterator');
 
 
 /***/ }),
 
-/***/ 947:
+/***/ 964:
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(778)('observable');
+__webpack_require__(795)('observable');
 
-
-/***/ }),
-
-/***/ 999:
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-exports.__esModule = true;
-
-var _from = __webpack_require__(934);
-
-var _from2 = _interopRequireDefault(_from);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-exports.default = function (arr) {
-  if (Array.isArray(arr)) {
-    for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) {
-      arr2[i] = arr[i];
-    }
-
-    return arr2;
-  } else {
-    return (0, _from2.default)(arr);
-  }
-};
 
 /***/ })
 

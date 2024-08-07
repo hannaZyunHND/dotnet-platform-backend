@@ -1,21 +1,21 @@
 webpackJsonp([53],{
 
-/***/ 1099:
+/***/ 1116:
 /***/ (function(module, exports, __webpack_require__) {
 
-exports = module.exports = __webpack_require__(178)();
+exports = module.exports = __webpack_require__(53)();
 // imports
 
 
 // module
-exports.push([module.i, "\n[v-cloak] {\n    display: none;\n}\n.edit {\n    display: none;\n}\n.editing .edit {\n    display: block\n}\n.editing .view {\n    display: none;\n}\n", "", {"version":3,"sources":["C:/WORKING/Joytime/dotnet-platform-backend/Web/Platform/CMS/PlatformCMS/ClientApp/pages/policy/list.vue?1f3ca656"],"names":[],"mappings":";AA0NA;IACA,cAAA;CACA;AAEA;IACA,cAAA;CACA;AAEA;IACA,cAAA;CACA;AAEA;IACA,cAAA;CACA","file":"list.vue","sourcesContent":["\r\n<template>\r\n    <div class=\"list-data\">\r\n        <b-card header-tag=\"header\" class=\"card-filter\"\r\n                footer-tag=\"footer\">\r\n            <div>\r\n                <b-col md=\"12\">\r\n                    <b-row class=\"form-group\">\r\n                        <b-col md=\"4\">\r\n                            <b-form-input @keyup.13=\"onChangePaging()\" v-model=\"SearchKeyword\" type=\"text\" placeholder=\"Tìm kiếm theo tên\"></b-form-input>\r\n                        </b-col>\r\n                        <!--<b-col md=\"2\">\r\n                            <b-select :options=\"Language\" v-model=\"SearchLanguageCode\"></b-select>\r\n                        </b-col>-->\r\n                        <b-col md=\"1\">\r\n                            <b-btn variant=\"info\" class=\"col-lg-12\"><i class=\"fa fa-search\" aria-hidden=\"true\"></i></b-btn>\r\n                        </b-col>\r\n                        <b-col md=\"1\">\r\n                            <b-btn variant=\"primary\" class=\"col-lg-12\"><i class=\"fa fa-refresh\" aria-hidden=\"true\"></i></b-btn>\r\n                        </b-col>\r\n                        <b-col md=\"2\">\r\n                            <b-btn v-b-toggle.collapse1 variant=\"primary\"><i class=\"fa fa-angle-double-down\" aria-hidden=\"true\"></i></b-btn>\r\n                        </b-col>\r\n                    </b-row>\r\n                </b-col>\r\n                <b-collapse id=\"collapse1\" class=\"mt-2\">\r\n                    <b-card>\r\n                        <p class=\"card-text\">Collapse contents Here</p>\r\n                        <b-btn v-b-toggle.collapse1_inner size=\"sm\">Toggle Inner Collapse</b-btn>\r\n                        <b-collapse id=collapse1_inner class=\"mt-2\">\r\n                            <b-card>Hello!</b-card>\r\n                        </b-collapse>\r\n                    </b-card>\r\n                </b-collapse>\r\n            </div>\r\n        </b-card>\r\n        <div class=\"card card-data\">\r\n            <div class=\"card-body\">\r\n                <div role=\"toolbar\" class=\" mb-2\" aria-label=\"Toolbar with button groups and dropdown menu\">\r\n                    <div role=\"group\" class=\"mx-1 btn-group\">\r\n                        <router-link class=\"btn btn-success\" :to=\"{ path: 'add' }\"><i class=\"fa fa-plus\"></i> Thêm mới</router-link>\r\n                        <button type=\"button\" class=\"btn btn-danger\"><i class=\"fa fa-trash-o\"></i> Xóa</button>\r\n                    </div>\r\n                    <b-dropdown class=\"mx-1\" variant=\"info\" right text=\"Hành động\" icon>\r\n                        <b-dropdown-item>Kích hoạt</b-dropdown-item>\r\n                        <b-dropdown-item>Không kích hoạt</b-dropdown-item>\r\n                    </b-dropdown>\r\n                </div>\r\n\r\n                <div class=\"table-responsive\">\r\n                    <div class=\"dataTables_wrapper dt-bootstrap4 no-footer\">\r\n                        <div class=\"clear\"></div>\r\n                        <table class=\"table data-thumb-view dataTable no-footer\" role=\"grid\">\r\n                            <thead class=\"table table-centered table-nowrap\">\r\n                                <tr role=\"row\">\r\n                                    <th><!--<input type=\"checkbox\">--></th>\r\n                                    <th class=\"text-center\">STT</th>\r\n                                    <th class=\"text-center\">Mã chính sách</th>\r\n                                    <th class=\"text-center\">Ngôn ngữ</th>\r\n                                    <th>Thao tác</th>\r\n                                </tr>\r\n                            </thead>\r\n                            <tbody>\r\n                                <tr v-for=\"(item,index) in banneradss\">\r\n                                    <td class=\"dt-checkboxes-cell\"><input type=\"checkbox\" class=\"dt-checkboxes\"></td>\r\n                                    <td class=\"text-center\">{{index}}</td>\r\n                                    <td class=\"text-center\">\r\n                                        {{item.key}}\r\n                                    </td>\r\n                                    <td class=\"text-center\">\r\n                                        <p>Ngôn ngữ: {{item.value}}</p>\r\n                                    </td>\r\n                                    <td>\r\n                                        <b-row>\r\n                                            <div style=\"padding:5px\">\r\n                                                <router-link :to=\"{path: 'edit/'+ item.key}\">\r\n                                                    <span class=\"action-edit\"><i class=\"fa fa-edit\"></i></span>\r\n                                                </router-link>\r\n                                            </div>\r\n                                            <div style=\"padding:5px\">\r\n                                                <span class=\"action-delete\"><a @click=\"remove(item)\"><i style=\"color:red\" class=\"fa fa-trash\"></i></a></span>\r\n                                            </div>\r\n                                        </b-row>\r\n                                    </td>\r\n                                </tr>\r\n                            </tbody>\r\n                        </table>\r\n                    </div>\r\n                </div>\r\n\r\n            </div>\r\n        </div>\r\n    </div>\r\n</template>\r\n<script>\r\n    import \"vue-loading-overlay/dist/vue-loading.css\";\r\n    import msgNotify from \"./../../common/constant\";\r\n    import { mapGetters, mapActions } from \"vuex\";\r\n    import Loading from \"vue-loading-overlay\";\r\n\r\n    export default {\r\n        name: \"policy\",\r\n        components: {\r\n            Loading\r\n        },\r\n        data() {\r\n            return {\r\n                editedItem: null,\r\n                editMode: false,\r\n                isLoading: false,\r\n                _product: {\r\n\r\n                },\r\n                messeger: \"\",\r\n                currentSort: \"Id\",\r\n                currentSortDir: \"asc\",\r\n                SearchKeyword: \"\",\r\n                SearchLanguageCode: \"vi-VN     \",\r\n                SearchLocation: 0,\r\n                currentPage: 1,\r\n                pageSize: 10,\r\n                loading: true,\r\n                item: {},\r\n                Language: [],\r\n                Location: [],\r\n\r\n            };\r\n        },\r\n        methods: {\r\n            ...mapActions([\"getBannerAdss\", \"removeBannerAds\"]),\r\n            onChangePaging() {\r\n                this.isLoading = true;\r\n                let initial = this.$route.query.initial;\r\n                initial = typeof initial != \"undefined\" ? initial.toLowerCase() : \"\";\r\n                this.getBannerAdss({\r\n                    keyword: this.SearchKeyword,\r\n                });\r\n                this.isLoading = false;\r\n            },\r\n            sortor: function (s) {\r\n                if (s === this.currentSort) {\r\n                    this.currentSortDir = this.currentSortDir === \"asc\" ? \"desc\" : \"asc\";\r\n                }\r\n                this.currentSort = s;\r\n                this.onChangePaging();\r\n            },\r\n            remove: function (item) {\r\n                if (confirm(\"Bạn có thực sự muốn xoá?\")) {\r\n                    let initial = this.$route.query.initial;\r\n                    initial = typeof initial != \"undefined\" ? initial.toLowerCase() : \"\";\r\n                    this.removeBannerAds(item.key)\r\n                        .then(response => {\r\n                            debugger\r\n                            if (response.key == true) {\r\n                                this.$toast.success(response.value, {});\r\n                                this.onChangePaging();\r\n                                this.isLoading = false;\r\n                            } else {\r\n                                this.$toast.error(response.value, {});\r\n                                this.isLoading = false;\r\n                            }\r\n                        })\r\n                        .catch(e => {\r\n                            this.$toast.error(msgNotify.error + \". Error:\" + e, {});\r\n                        });\r\n                }\r\n            },\r\n            saveData(item) {\r\n                if (item.id > 0) {\r\n                    this.updateDepartment(item)\r\n                        .then(response => {\r\n                            if (response.success == true) {\r\n                                this.$toast.success(response.message, {});\r\n                                this.isLoading = false;\r\n                                this.editedItem = null;\r\n                            }\r\n                            else {\r\n                                this.$toast.error(response.message, {});\r\n                                this.isLoading = false;\r\n                            }\r\n\r\n                        })\r\n                        .catch(e => {\r\n                            this.$toast.error(msgNotify.error + \". Error:\" + e, {});\r\n                            this.isLoading = false;\r\n                        });\r\n                }\r\n            },\r\n            editData(item) {\r\n                this.beforEditCache = item\r\n                this.editedItem = item\r\n            }\r\n        },\r\n        computed: {\r\n            ...mapGetters([\"banneradss\"])\r\n        },\r\n        mounted() {\r\n            this.onChangePaging();\r\n\r\n\r\n        },\r\n        watch: {\r\n            currentPage: function (newVal) {\r\n                this.currentPage = newVal;\r\n                this.onChangePaging();\r\n            },\r\n            SearchLanguageCode: function () {\r\n                this.currentPage = 1;\r\n                this.onChangePaging();\r\n            },\r\n            SearchLocation: function () {\r\n                this.currentPage = 1;\r\n                this.onChangePaging();\r\n            }\r\n        }\r\n    };\r\n</script>\r\n<style>\r\n    [v-cloak] {\r\n        display: none;\r\n    }\r\n\r\n    .edit {\r\n        display: none;\r\n    }\r\n\r\n    .editing .edit {\r\n        display: block\r\n    }\r\n\r\n    .editing .view {\r\n        display: none;\r\n    }\r\n</style>\r\n\r\n"],"sourceRoot":""}]);
+exports.push([module.i, "\n[v-cloak] {\n    display: none;\n}\n.edit {\n    display: none;\n}\n.editing .edit {\n    display: block\n}\n.editing .view {\n    display: none;\n}\n", "", {"version":3,"sources":["D:/Code/WORKING/dotnet-platform-backend/Web/Platform/CMS/PlatformCMS/ClientApp/pages/policy/list.vue?1f3ca656"],"names":[],"mappings":";AA0NA;IACA,cAAA;CACA;AAEA;IACA,cAAA;CACA;AAEA;IACA,cAAA;CACA;AAEA;IACA,cAAA;CACA","file":"list.vue","sourcesContent":["\r\n<template>\r\n    <div class=\"list-data\">\r\n        <b-card header-tag=\"header\" class=\"card-filter\"\r\n                footer-tag=\"footer\">\r\n            <div>\r\n                <b-col md=\"12\">\r\n                    <b-row class=\"form-group\">\r\n                        <b-col md=\"4\">\r\n                            <b-form-input @keyup.13=\"onChangePaging()\" v-model=\"SearchKeyword\" type=\"text\" placeholder=\"Tìm kiếm theo tên\"></b-form-input>\r\n                        </b-col>\r\n                        <!--<b-col md=\"2\">\r\n                            <b-select :options=\"Language\" v-model=\"SearchLanguageCode\"></b-select>\r\n                        </b-col>-->\r\n                        <b-col md=\"1\">\r\n                            <b-btn variant=\"info\" class=\"col-lg-12\"><i class=\"fa fa-search\" aria-hidden=\"true\"></i></b-btn>\r\n                        </b-col>\r\n                        <b-col md=\"1\">\r\n                            <b-btn variant=\"primary\" class=\"col-lg-12\"><i class=\"fa fa-refresh\" aria-hidden=\"true\"></i></b-btn>\r\n                        </b-col>\r\n                        <b-col md=\"2\">\r\n                            <b-btn v-b-toggle.collapse1 variant=\"primary\"><i class=\"fa fa-angle-double-down\" aria-hidden=\"true\"></i></b-btn>\r\n                        </b-col>\r\n                    </b-row>\r\n                </b-col>\r\n                <b-collapse id=\"collapse1\" class=\"mt-2\">\r\n                    <b-card>\r\n                        <p class=\"card-text\">Collapse contents Here</p>\r\n                        <b-btn v-b-toggle.collapse1_inner size=\"sm\">Toggle Inner Collapse</b-btn>\r\n                        <b-collapse id=collapse1_inner class=\"mt-2\">\r\n                            <b-card>Hello!</b-card>\r\n                        </b-collapse>\r\n                    </b-card>\r\n                </b-collapse>\r\n            </div>\r\n        </b-card>\r\n        <div class=\"card card-data\">\r\n            <div class=\"card-body\">\r\n                <div role=\"toolbar\" class=\" mb-2\" aria-label=\"Toolbar with button groups and dropdown menu\">\r\n                    <div role=\"group\" class=\"mx-1 btn-group\">\r\n                        <router-link class=\"btn btn-success\" :to=\"{ path: 'add' }\"><i class=\"fa fa-plus\"></i> Thêm mới</router-link>\r\n                        <button type=\"button\" class=\"btn btn-danger\"><i class=\"fa fa-trash-o\"></i> Xóa</button>\r\n                    </div>\r\n                    <b-dropdown class=\"mx-1\" variant=\"info\" right text=\"Hành động\" icon>\r\n                        <b-dropdown-item>Kích hoạt</b-dropdown-item>\r\n                        <b-dropdown-item>Không kích hoạt</b-dropdown-item>\r\n                    </b-dropdown>\r\n                </div>\r\n\r\n                <div class=\"table-responsive\">\r\n                    <div class=\"dataTables_wrapper dt-bootstrap4 no-footer\">\r\n                        <div class=\"clear\"></div>\r\n                        <table class=\"table data-thumb-view dataTable no-footer\" role=\"grid\">\r\n                            <thead class=\"table table-centered table-nowrap\">\r\n                                <tr role=\"row\">\r\n                                    <th><!--<input type=\"checkbox\">--></th>\r\n                                    <th class=\"text-center\">STT</th>\r\n                                    <th class=\"text-center\">Mã chính sách</th>\r\n                                    <th class=\"text-center\">Ngôn ngữ</th>\r\n                                    <th>Thao tác</th>\r\n                                </tr>\r\n                            </thead>\r\n                            <tbody>\r\n                                <tr v-for=\"(item,index) in banneradss\">\r\n                                    <td class=\"dt-checkboxes-cell\"><input type=\"checkbox\" class=\"dt-checkboxes\"></td>\r\n                                    <td class=\"text-center\">{{index}}</td>\r\n                                    <td class=\"text-center\">\r\n                                        {{item.key}}\r\n                                    </td>\r\n                                    <td class=\"text-center\">\r\n                                        <p>Ngôn ngữ: {{item.value}}</p>\r\n                                    </td>\r\n                                    <td>\r\n                                        <b-row>\r\n                                            <div style=\"padding:5px\">\r\n                                                <router-link :to=\"{path: 'edit/'+ item.key}\">\r\n                                                    <span class=\"action-edit\"><i class=\"fa fa-edit\"></i></span>\r\n                                                </router-link>\r\n                                            </div>\r\n                                            <div style=\"padding:5px\">\r\n                                                <span class=\"action-delete\"><a @click=\"remove(item)\"><i style=\"color:red\" class=\"fa fa-trash\"></i></a></span>\r\n                                            </div>\r\n                                        </b-row>\r\n                                    </td>\r\n                                </tr>\r\n                            </tbody>\r\n                        </table>\r\n                    </div>\r\n                </div>\r\n\r\n            </div>\r\n        </div>\r\n    </div>\r\n</template>\r\n<script>\r\n    import \"vue-loading-overlay/dist/vue-loading.css\";\r\n    import msgNotify from \"./../../common/constant\";\r\n    import { mapGetters, mapActions } from \"vuex\";\r\n    import Loading from \"vue-loading-overlay\";\r\n\r\n    export default {\r\n        name: \"policy\",\r\n        components: {\r\n            Loading\r\n        },\r\n        data() {\r\n            return {\r\n                editedItem: null,\r\n                editMode: false,\r\n                isLoading: false,\r\n                _product: {\r\n\r\n                },\r\n                messeger: \"\",\r\n                currentSort: \"Id\",\r\n                currentSortDir: \"asc\",\r\n                SearchKeyword: \"\",\r\n                SearchLanguageCode: \"vi-VN     \",\r\n                SearchLocation: 0,\r\n                currentPage: 1,\r\n                pageSize: 10,\r\n                loading: true,\r\n                item: {},\r\n                Language: [],\r\n                Location: [],\r\n\r\n            };\r\n        },\r\n        methods: {\r\n            ...mapActions([\"getBannerAdss\", \"removeBannerAds\"]),\r\n            onChangePaging() {\r\n                this.isLoading = true;\r\n                let initial = this.$route.query.initial;\r\n                initial = typeof initial != \"undefined\" ? initial.toLowerCase() : \"\";\r\n                this.getBannerAdss({\r\n                    keyword: this.SearchKeyword,\r\n                });\r\n                this.isLoading = false;\r\n            },\r\n            sortor: function (s) {\r\n                if (s === this.currentSort) {\r\n                    this.currentSortDir = this.currentSortDir === \"asc\" ? \"desc\" : \"asc\";\r\n                }\r\n                this.currentSort = s;\r\n                this.onChangePaging();\r\n            },\r\n            remove: function (item) {\r\n                if (confirm(\"Bạn có thực sự muốn xoá?\")) {\r\n                    let initial = this.$route.query.initial;\r\n                    initial = typeof initial != \"undefined\" ? initial.toLowerCase() : \"\";\r\n                    this.removeBannerAds(item.key)\r\n                        .then(response => {\r\n                            debugger\r\n                            if (response.key == true) {\r\n                                this.$toast.success(response.value, {});\r\n                                this.onChangePaging();\r\n                                this.isLoading = false;\r\n                            } else {\r\n                                this.$toast.error(response.value, {});\r\n                                this.isLoading = false;\r\n                            }\r\n                        })\r\n                        .catch(e => {\r\n                            this.$toast.error(msgNotify.error + \". Error:\" + e, {});\r\n                        });\r\n                }\r\n            },\r\n            saveData(item) {\r\n                if (item.id > 0) {\r\n                    this.updateDepartment(item)\r\n                        .then(response => {\r\n                            if (response.success == true) {\r\n                                this.$toast.success(response.message, {});\r\n                                this.isLoading = false;\r\n                                this.editedItem = null;\r\n                            }\r\n                            else {\r\n                                this.$toast.error(response.message, {});\r\n                                this.isLoading = false;\r\n                            }\r\n\r\n                        })\r\n                        .catch(e => {\r\n                            this.$toast.error(msgNotify.error + \". Error:\" + e, {});\r\n                            this.isLoading = false;\r\n                        });\r\n                }\r\n            },\r\n            editData(item) {\r\n                this.beforEditCache = item\r\n                this.editedItem = item\r\n            }\r\n        },\r\n        computed: {\r\n            ...mapGetters([\"banneradss\"])\r\n        },\r\n        mounted() {\r\n            this.onChangePaging();\r\n\r\n\r\n        },\r\n        watch: {\r\n            currentPage: function (newVal) {\r\n                this.currentPage = newVal;\r\n                this.onChangePaging();\r\n            },\r\n            SearchLanguageCode: function () {\r\n                this.currentPage = 1;\r\n                this.onChangePaging();\r\n            },\r\n            SearchLocation: function () {\r\n                this.currentPage = 1;\r\n                this.onChangePaging();\r\n            }\r\n        }\r\n    };\r\n</script>\r\n<style>\r\n    [v-cloak] {\r\n        display: none;\r\n    }\r\n\r\n    .edit {\r\n        display: none;\r\n    }\r\n\r\n    .editing .edit {\r\n        display: block\r\n    }\r\n\r\n    .editing .view {\r\n        display: none;\r\n    }\r\n</style>\r\n\r\n"],"sourceRoot":""}]);
 
 // exports
 
 
 /***/ }),
 
-/***/ 1211:
+/***/ 1228:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -29,15 +29,15 @@ var _extends2 = __webpack_require__(8);
 
 var _extends3 = _interopRequireDefault(_extends2);
 
-__webpack_require__(776);
+__webpack_require__(793);
 
-var _constant = __webpack_require__(777);
+var _constant = __webpack_require__(794);
 
 var _constant2 = _interopRequireDefault(_constant);
 
 var _vuex = __webpack_require__(180);
 
-var _vueLoadingOverlay = __webpack_require__(374);
+var _vueLoadingOverlay = __webpack_require__(376);
 
 var _vueLoadingOverlay2 = _interopRequireDefault(_vueLoadingOverlay);
 
@@ -156,7 +156,7 @@ exports.default = {
 
 /***/ }),
 
-/***/ 1566:
+/***/ 1583:
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
@@ -387,29 +387,29 @@ module.exports.render._withStripped = true
 if (true) {
   module.hot.accept()
   if (module.hot.data) {
-     __webpack_require__(177).rerender("data-v-ed1f2600", module.exports)
+     __webpack_require__(178).rerender("data-v-ed1f2600", module.exports)
   }
 }
 
 /***/ }),
 
-/***/ 1608:
+/***/ 1625:
 /***/ (function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
-var content = __webpack_require__(1099);
+var content = __webpack_require__(1116);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
-var update = __webpack_require__(781)("94fa70f4", content, false);
+var update = __webpack_require__(798)("94fa70f4", content, false);
 // Hot Module Replacement
 if(true) {
  // When the styles change, update the <style> tags
  if(!content.locals) {
-   module.hot.accept(1099, function() {
-     var newContent = __webpack_require__(1099);
+   module.hot.accept(1116, function() {
+     var newContent = __webpack_require__(1116);
      if(typeof newContent === 'string') newContent = [[module.i, newContent, '']];
      update(newContent);
    });
@@ -420,30 +420,30 @@ if(true) {
 
 /***/ }),
 
-/***/ 741:
+/***/ 758:
 /***/ (function(module, exports, __webpack_require__) {
 
 
 /* styles */
-__webpack_require__(1608)
+__webpack_require__(1625)
 
-var Component = __webpack_require__(372)(
+var Component = __webpack_require__(374)(
   /* script */
-  __webpack_require__(1211),
+  __webpack_require__(1228),
   /* template */
-  __webpack_require__(1566),
+  __webpack_require__(1583),
   /* scopeId */
   null,
   /* cssModules */
   null
 )
-Component.options.__file = "C:\\WORKING\\Joytime\\dotnet-platform-backend\\Web\\Platform\\CMS\\PlatformCMS\\ClientApp\\pages\\policy\\list.vue"
+Component.options.__file = "D:\\Code\\WORKING\\dotnet-platform-backend\\Web\\Platform\\CMS\\PlatformCMS\\ClientApp\\pages\\policy\\list.vue"
 if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
 if (Component.options.functional) {console.error("[vue-loader] list.vue: functional components are not supported with templates, they should use render functions.")}
 
 /* hot reload */
 if (true) {(function () {
-  var hotAPI = __webpack_require__(177)
+  var hotAPI = __webpack_require__(178)
   hotAPI.install(__webpack_require__(26), false)
   if (!hotAPI.compatible) return
   module.hot.accept()
@@ -459,10 +459,10 @@ module.exports = Component.exports
 
 /***/ }),
 
-/***/ 775:
+/***/ 792:
 /***/ (function(module, exports, __webpack_require__) {
 
-exports = module.exports = __webpack_require__(178)();
+exports = module.exports = __webpack_require__(53)();
 // imports
 
 
@@ -474,13 +474,13 @@ exports.push([module.i, ".vld-overlay {\n  bottom: 0;\n  left: 0;\n  position: a
 
 /***/ }),
 
-/***/ 776:
+/***/ 793:
 /***/ (function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
-var content = __webpack_require__(775);
+var content = __webpack_require__(792);
 if(typeof content === 'string') content = [[module.i, content, '']];
 // add the styles to the DOM
 var update = __webpack_require__(179)(content, {});
@@ -489,8 +489,8 @@ if(content.locals) module.exports = content.locals;
 if(true) {
 	// When the styles change, update the <style> tags
 	if(!content.locals) {
-		module.hot.accept(775, function() {
-			var newContent = __webpack_require__(775);
+		module.hot.accept(792, function() {
+			var newContent = __webpack_require__(792);
 			if(typeof newContent === 'string') newContent = [[module.i, newContent, '']];
 			update(newContent);
 		});
@@ -501,7 +501,7 @@ if(true) {
 
 /***/ }),
 
-/***/ 777:
+/***/ 794:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -515,7 +515,7 @@ exports.default = msgNotify;
 
 /***/ }),
 
-/***/ 781:
+/***/ 798:
 /***/ (function(module, exports, __webpack_require__) {
 
 /*
@@ -534,7 +534,7 @@ if (typeof DEBUG !== 'undefined' && DEBUG) {
   ) }
 }
 
-var listToStyles = __webpack_require__(790)
+var listToStyles = __webpack_require__(807)
 
 /*
 type StyleObject = {
@@ -737,7 +737,7 @@ function applyToTag (styleElement, obj) {
 
 /***/ }),
 
-/***/ 790:
+/***/ 807:
 /***/ (function(module, exports) {
 
 /**

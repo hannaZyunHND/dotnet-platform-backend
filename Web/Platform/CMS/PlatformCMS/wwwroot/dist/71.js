@@ -1,6 +1,6 @@
 webpackJsonp([71],{
 
-/***/ 1182:
+/***/ 1199:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -15,7 +15,7 @@ exports.default = {
 
 /***/ }),
 
-/***/ 1502:
+/***/ 1519:
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
@@ -57,32 +57,32 @@ module.exports.render._withStripped = true
 if (true) {
   module.hot.accept()
   if (module.hot.data) {
-     __webpack_require__(177).rerender("data-v-16c5994e", module.exports)
+     __webpack_require__(178).rerender("data-v-16c5994e", module.exports)
   }
 }
 
 /***/ }),
 
-/***/ 712:
+/***/ 729:
 /***/ (function(module, exports, __webpack_require__) {
 
-var Component = __webpack_require__(372)(
+var Component = __webpack_require__(374)(
   /* script */
-  __webpack_require__(1182),
+  __webpack_require__(1199),
   /* template */
-  __webpack_require__(1502),
+  __webpack_require__(1519),
   /* scopeId */
   null,
   /* cssModules */
   null
 )
-Component.options.__file = "C:\\WORKING\\Joytime\\dotnet-platform-backend\\Web\\Platform\\CMS\\PlatformCMS\\ClientApp\\pages\\Page404.vue"
+Component.options.__file = "D:\\Code\\WORKING\\dotnet-platform-backend\\Web\\Platform\\CMS\\PlatformCMS\\ClientApp\\pages\\Page404.vue"
 if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
 if (Component.options.functional) {console.error("[vue-loader] Page404.vue: functional components are not supported with templates, they should use render functions.")}
 
 /* hot reload */
 if (true) {(function () {
-  var hotAPI = __webpack_require__(177)
+  var hotAPI = __webpack_require__(178)
   hotAPI.install(__webpack_require__(26), false)
   if (!hotAPI.compatible) return
   module.hot.accept()

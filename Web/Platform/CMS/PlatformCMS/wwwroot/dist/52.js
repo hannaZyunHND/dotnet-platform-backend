@@ -1,9 +1,9 @@
 webpackJsonp([52],{
 
-/***/ 1101:
+/***/ 1118:
 /***/ (function(module, exports, __webpack_require__) {
 
-exports = module.exports = __webpack_require__(178)();
+exports = module.exports = __webpack_require__(53)();
 // imports
 
 
@@ -15,7 +15,7 @@ exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\
 
 /***/ }),
 
-/***/ 1209:
+/***/ 1226:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -29,19 +29,19 @@ var _extends2 = __webpack_require__(8);
 
 var _extends3 = _interopRequireDefault(_extends2);
 
-__webpack_require__(776);
+__webpack_require__(793);
 
-var _constant = __webpack_require__(777);
+var _constant = __webpack_require__(794);
 
 var _constant2 = _interopRequireDefault(_constant);
 
 var _vuex = __webpack_require__(180);
 
-var _vueLoadingOverlay = __webpack_require__(374);
+var _vueLoadingOverlay = __webpack_require__(376);
 
 var _vueLoadingOverlay2 = _interopRequireDefault(_vueLoadingOverlay);
 
-var _qrcode = __webpack_require__(1454);
+var _qrcode = __webpack_require__(1471);
 
 var _qrcode2 = _interopRequireDefault(_qrcode);
 
@@ -96,7 +96,7 @@ exports.default = {
 
 /***/ }),
 
-/***/ 1454:
+/***/ 1471:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -1228,7 +1228,7 @@ var QrcodeVue = {
 
 /***/ }),
 
-/***/ 1568:
+/***/ 1585:
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
@@ -1421,29 +1421,29 @@ module.exports.render._withStripped = true
 if (true) {
   module.hot.accept()
   if (module.hot.data) {
-     __webpack_require__(177).rerender("data-v-f6d96684", module.exports)
+     __webpack_require__(178).rerender("data-v-f6d96684", module.exports)
   }
 }
 
 /***/ }),
 
-/***/ 1610:
+/***/ 1627:
 /***/ (function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
-var content = __webpack_require__(1101);
+var content = __webpack_require__(1118);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
-var update = __webpack_require__(781)("870831e8", content, false);
+var update = __webpack_require__(798)("870831e8", content, false);
 // Hot Module Replacement
 if(true) {
  // When the styles change, update the <style> tags
  if(!content.locals) {
-   module.hot.accept(1101, function() {
-     var newContent = __webpack_require__(1101);
+   module.hot.accept(1118, function() {
+     var newContent = __webpack_require__(1118);
      if(typeof newContent === 'string') newContent = [[module.i, newContent, '']];
      update(newContent);
    });
@@ -1454,30 +1454,30 @@ if(true) {
 
 /***/ }),
 
-/***/ 739:
+/***/ 756:
 /***/ (function(module, exports, __webpack_require__) {
 
 
 /* styles */
-__webpack_require__(1610)
+__webpack_require__(1627)
 
-var Component = __webpack_require__(372)(
+var Component = __webpack_require__(374)(
   /* script */
-  __webpack_require__(1209),
+  __webpack_require__(1226),
   /* template */
-  __webpack_require__(1568),
+  __webpack_require__(1585),
   /* scopeId */
   null,
   /* cssModules */
   null
 )
-Component.options.__file = "C:\\WORKING\\Joytime\\dotnet-platform-backend\\Web\\Platform\\CMS\\PlatformCMS\\ClientApp\\pages\\orders\\listdetail.vue"
+Component.options.__file = "D:\\Code\\WORKING\\dotnet-platform-backend\\Web\\Platform\\CMS\\PlatformCMS\\ClientApp\\pages\\orders\\listdetail.vue"
 if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
 if (Component.options.functional) {console.error("[vue-loader] listdetail.vue: functional components are not supported with templates, they should use render functions.")}
 
 /* hot reload */
 if (true) {(function () {
-  var hotAPI = __webpack_require__(177)
+  var hotAPI = __webpack_require__(178)
   hotAPI.install(__webpack_require__(26), false)
   if (!hotAPI.compatible) return
   module.hot.accept()
@@ -1493,10 +1493,10 @@ module.exports = Component.exports
 
 /***/ }),
 
-/***/ 775:
+/***/ 792:
 /***/ (function(module, exports, __webpack_require__) {
 
-exports = module.exports = __webpack_require__(178)();
+exports = module.exports = __webpack_require__(53)();
 // imports
 
 
@@ -1508,13 +1508,13 @@ exports.push([module.i, ".vld-overlay {\n  bottom: 0;\n  left: 0;\n  position: a
 
 /***/ }),
 
-/***/ 776:
+/***/ 793:
 /***/ (function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
-var content = __webpack_require__(775);
+var content = __webpack_require__(792);
 if(typeof content === 'string') content = [[module.i, content, '']];
 // add the styles to the DOM
 var update = __webpack_require__(179)(content, {});
@@ -1523,8 +1523,8 @@ if(content.locals) module.exports = content.locals;
 if(true) {
 	// When the styles change, update the <style> tags
 	if(!content.locals) {
-		module.hot.accept(775, function() {
-			var newContent = __webpack_require__(775);
+		module.hot.accept(792, function() {
+			var newContent = __webpack_require__(792);
 			if(typeof newContent === 'string') newContent = [[module.i, newContent, '']];
 			update(newContent);
 		});
@@ -1535,7 +1535,7 @@ if(true) {
 
 /***/ }),
 
-/***/ 777:
+/***/ 794:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1549,7 +1549,7 @@ exports.default = msgNotify;
 
 /***/ }),
 
-/***/ 781:
+/***/ 798:
 /***/ (function(module, exports, __webpack_require__) {
 
 /*
@@ -1568,7 +1568,7 @@ if (typeof DEBUG !== 'undefined' && DEBUG) {
   ) }
 }
 
-var listToStyles = __webpack_require__(790)
+var listToStyles = __webpack_require__(807)
 
 /*
 type StyleObject = {
@@ -1771,7 +1771,7 @@ function applyToTag (styleElement, obj) {
 
 /***/ }),
 
-/***/ 790:
+/***/ 807:
 /***/ (function(module, exports) {
 
 /**

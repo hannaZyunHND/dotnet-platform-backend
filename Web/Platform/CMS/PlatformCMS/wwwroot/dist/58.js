@@ -1,9 +1,9 @@
 webpackJsonp([58],{
 
-/***/ 1097:
+/***/ 1114:
 /***/ (function(module, exports, __webpack_require__) {
 
-exports = module.exports = __webpack_require__(178)();
+exports = module.exports = __webpack_require__(53)();
 // imports
 
 
@@ -15,7 +15,7 @@ exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\
 
 /***/ }),
 
-/***/ 1180:
+/***/ 1197:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -25,7 +25,7 @@ Object.defineProperty(exports, "__esModule", {
     value: true
 });
 
-var _assign = __webpack_require__(375);
+var _assign = __webpack_require__(377);
 
 var _assign2 = _interopRequireDefault(_assign);
 
@@ -33,15 +33,15 @@ var _extends2 = __webpack_require__(8);
 
 var _extends3 = _interopRequireDefault(_extends2);
 
-__webpack_require__(776);
+__webpack_require__(793);
 
-var _constant = __webpack_require__(777);
+var _constant = __webpack_require__(794);
 
 var _constant2 = _interopRequireDefault(_constant);
 
 var _vuex = __webpack_require__(180);
 
-var _vueLoadingOverlay = __webpack_require__(374);
+var _vueLoadingOverlay = __webpack_require__(376);
 
 var _vueLoadingOverlay2 = _interopRequireDefault(_vueLoadingOverlay);
 
@@ -136,7 +136,7 @@ exports.default = {
 
 /***/ }),
 
-/***/ 1564:
+/***/ 1581:
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
@@ -280,29 +280,29 @@ module.exports.render._withStripped = true
 if (true) {
   module.hot.accept()
   if (module.hot.data) {
-     __webpack_require__(177).rerender("data-v-e501258c", module.exports)
+     __webpack_require__(178).rerender("data-v-e501258c", module.exports)
   }
 }
 
 /***/ }),
 
-/***/ 1606:
+/***/ 1623:
 /***/ (function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
-var content = __webpack_require__(1097);
+var content = __webpack_require__(1114);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
-var update = __webpack_require__(781)("2e57db5a", content, false);
+var update = __webpack_require__(798)("2e57db5a", content, false);
 // Hot Module Replacement
 if(true) {
  // When the styles change, update the <style> tags
  if(!content.locals) {
-   module.hot.accept(1097, function() {
-     var newContent = __webpack_require__(1097);
+   module.hot.accept(1114, function() {
+     var newContent = __webpack_require__(1114);
      if(typeof newContent === 'string') newContent = [[module.i, newContent, '']];
      update(newContent);
    });
@@ -313,30 +313,30 @@ if(true) {
 
 /***/ }),
 
-/***/ 710:
+/***/ 727:
 /***/ (function(module, exports, __webpack_require__) {
 
 
 /* styles */
-__webpack_require__(1606)
+__webpack_require__(1623)
 
-var Component = __webpack_require__(372)(
+var Component = __webpack_require__(374)(
   /* script */
-  __webpack_require__(1180),
+  __webpack_require__(1197),
   /* template */
-  __webpack_require__(1564),
+  __webpack_require__(1581),
   /* scopeId */
   null,
   /* cssModules */
   null
 )
-Component.options.__file = "C:\\WORKING\\Joytime\\dotnet-platform-backend\\Web\\Platform\\CMS\\PlatformCMS\\ClientApp\\pages\\LuckySpin\\edit.vue"
+Component.options.__file = "D:\\Code\\WORKING\\dotnet-platform-backend\\Web\\Platform\\CMS\\PlatformCMS\\ClientApp\\pages\\LuckySpin\\edit.vue"
 if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
 if (Component.options.functional) {console.error("[vue-loader] edit.vue: functional components are not supported with templates, they should use render functions.")}
 
 /* hot reload */
 if (true) {(function () {
-  var hotAPI = __webpack_require__(177)
+  var hotAPI = __webpack_require__(178)
   hotAPI.install(__webpack_require__(26), false)
   if (!hotAPI.compatible) return
   module.hot.accept()
@@ -352,10 +352,10 @@ module.exports = Component.exports
 
 /***/ }),
 
-/***/ 775:
+/***/ 792:
 /***/ (function(module, exports, __webpack_require__) {
 
-exports = module.exports = __webpack_require__(178)();
+exports = module.exports = __webpack_require__(53)();
 // imports
 
 
@@ -367,13 +367,13 @@ exports.push([module.i, ".vld-overlay {\n  bottom: 0;\n  left: 0;\n  position: a
 
 /***/ }),
 
-/***/ 776:
+/***/ 793:
 /***/ (function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
-var content = __webpack_require__(775);
+var content = __webpack_require__(792);
 if(typeof content === 'string') content = [[module.i, content, '']];
 // add the styles to the DOM
 var update = __webpack_require__(179)(content, {});
@@ -382,8 +382,8 @@ if(content.locals) module.exports = content.locals;
 if(true) {
 	// When the styles change, update the <style> tags
 	if(!content.locals) {
-		module.hot.accept(775, function() {
-			var newContent = __webpack_require__(775);
+		module.hot.accept(792, function() {
+			var newContent = __webpack_require__(792);
 			if(typeof newContent === 'string') newContent = [[module.i, newContent, '']];
 			update(newContent);
 		});
@@ -394,7 +394,7 @@ if(true) {
 
 /***/ }),
 
-/***/ 777:
+/***/ 794:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -408,7 +408,7 @@ exports.default = msgNotify;
 
 /***/ }),
 
-/***/ 781:
+/***/ 798:
 /***/ (function(module, exports, __webpack_require__) {
 
 /*
@@ -427,7 +427,7 @@ if (typeof DEBUG !== 'undefined' && DEBUG) {
   ) }
 }
 
-var listToStyles = __webpack_require__(790)
+var listToStyles = __webpack_require__(807)
 
 /*
 type StyleObject = {
@@ -630,7 +630,7 @@ function applyToTag (styleElement, obj) {
 
 /***/ }),
 
-/***/ 790:
+/***/ 807:
 /***/ (function(module, exports) {
 
 /**
