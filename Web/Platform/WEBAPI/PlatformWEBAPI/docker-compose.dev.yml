@@ -1,4 +1,3 @@
-version: "3"
 services:
   platform-dev-webapi:
     image: phamdat2002/platform-dev-webapi:latest
