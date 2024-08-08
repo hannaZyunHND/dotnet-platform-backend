@@ -4,10 +4,15 @@ services:
         container_name: platform-dev-cms
         ports:
             - "5002:80"
-        depends_on:
-            - redis
+        environment:
+            - REDIS_HOST=redis
+            - REDIS_PORT=6379
+        networks:
+            - mssql_default
+            - redis-net
 
-    redis:
-        image: "redis:latest"
-        ports:
-            - "6379:6379"
+networks:
+    redis-net:
+        external: true
+    mssql_default:
+        external: true
