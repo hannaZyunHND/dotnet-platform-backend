@@ -1,13 +1,13 @@
 services:
-  app:
-    image: phamdat2002/platform-dev-cms:latest
-    container_name: platform-dev-cms
-    ports:
-      - "5002:80"
-    depends_on:
-      - redis
+    platform-development-backend:
+        image: phamdat2002/platform-dev-cms:latest
+        container_name: platform-dev-cms
+        ports:
+            - "5002:80"
+        depends_on:
+            - redis
 
-  redis:
-    image: "redis:latest"
-    ports:
-      - "6379:6379"
+    redis:
+        image: "redis:latest"
+        ports:
+            - "6379:6379"

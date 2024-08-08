@@ -1,18 +1,18 @@
 services:
-  platform-webapi:
-    image: phamdat2002/platform-prod-cms:latest
-    container_name: platform-prod-cms
-    ports:
-      - "5001:80"
-    environment:
-      - REDIS_HOST=redis
-      - REDIS_PORT=6379
-    networks:
-      - mssql_default
-      - redis-net
+    platform-production-backend:
+        image: phamdat2002/platform-prod-cms:latest
+        container_name: platform-prod-cms
+        ports:
+            - "5001:80"
+        environment:
+            - REDIS_HOST=redis
+            - REDIS_PORT=6379
+        networks:
+            - mssql_default
+            - redis-net
 
 networks:
-  redis-net:
-    external: true
-  mssql_default:
-    external: true
+    redis-net:
+        external: true
+    mssql_default:
+        external: true
