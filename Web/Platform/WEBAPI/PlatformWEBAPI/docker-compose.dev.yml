@@ -1,0 +1,19 @@
+version: "3"
+services:
+  platform-dev-webapi:
+    image: phamdat2002/platform-dev-webapi:latest
+    container_name: platform-dev-webapi
+    ports:
+      - "5004:80"
+    environment:
+      - REDIS_HOST=redis
+      - REDIS_PORT=6379
+    networks:
+      - mssql_default
+      - redis-net
+
+networks:
+  redis-net:
+    external: true
+  mssql_default:
+    external: true
