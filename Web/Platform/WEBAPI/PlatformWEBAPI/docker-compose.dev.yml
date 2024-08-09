@@ -3,7 +3,7 @@ services:
       image: phamdat2002/platform_webapi_dev:latest
       container_name: platform_webapi_dev
       ports:
-          - "5001:80"
+          - "5004:80"
       environment:
           - REDIS_HOST=redis
           - REDIS_PORT=6379

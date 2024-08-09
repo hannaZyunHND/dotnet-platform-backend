@@ -3,7 +3,7 @@ services:
         image: phamdat2002/platform-prod-cms:latest
         container_name: platform-prod-cms
         ports:
-            - "5001:80"
+            - "5003:80"
         environment:
             - REDIS_HOST=redis
             - REDIS_PORT=6379
