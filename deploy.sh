@@ -22,4 +22,4 @@ docker-compose -f Web/Platform/WEBAPI/PlatformWEBAPI/docker-compose.prod.yml rm 
 docker-compose -f Web/Platform/WEBAPI/PlatformWEBAPI/docker-compose.prod.yml pull
 
 # Chạy container mới
-docker-compose -f Web/Platform/WEBAPI/PlatformWEBAPI/docker-compose.prod.yml up -d --build --no-cache
+docker-compose -f Web/Platform/WEBAPI/PlatformWEBAPI/docker-compose.prod.yml up -d
