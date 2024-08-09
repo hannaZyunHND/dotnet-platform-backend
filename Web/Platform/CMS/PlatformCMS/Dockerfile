@@ -17,7 +17,7 @@ COPY Mi.MemoryCache/*.csproj ./Mi.MemoryCache/
 RUN dotnet restore Web/Platform/CMS/PlatformCMS/PlatformCMS.csproj
 
 # Add ARG variable to allow specifying the build configuration (Release or Debug)
-ARG ENVIRONMENT=Production
+ARG ENVIRONMENT=production
 
 # Copy everything else and build .NET Core application
 COPY . .

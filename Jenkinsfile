@@ -12,7 +12,7 @@ pipeline {
 
         stage('Clone Repository') {
             steps {
-                git branch: 'platform_webapi_dev', url: 'https://github.com/hannaZyunHND/dotnet-platform-backend.git',
+                git branch: 'platform_cms_dev', url: 'https://github.com/hannaZyunHND/dotnet-platform-backend.git',
                 credentialsId: 'jenkin-huy-access'
             }
         }
@@ -27,15 +27,15 @@ pipeline {
         stage('Build Docker Image') {
             steps {
                 withDockerRegistry(credentialsId: 'docker-hub', url: 'https://index.docker.io/v1/') {
-                    sh 'docker build --build-arg ENVIRONMENT=development -f Web/Platform/WEBAPI/PlatformWEBAPI/Dockerfile --force-rm -t platform_webapi_dev .'
+                    sh 'docker build --build-arg ENVIRONMENT=development -f Web/Platform/WEBAPI/PlatformWEBAPI/Dockerfile --force-rm -t platform-cms-dev .'
                 }
             }
         }
         stage('Push Docker Image') {
             steps {
                 withDockerRegistry(credentialsId: 'docker-hub', url: 'https://index.docker.io/v1/') {
-                    sh 'docker tag platform_webapi_dev phamdat2002/platform_webapi_dev:latest'
-                    sh 'docker push phamdat2002/platform_webapi_dev:latest'
+                    sh 'docker tag platform-cms-dev phamdat2002/platform-cms-dev:latest'
+                    sh 'docker push phamdat2002/platform-cms-dev:latest'
                 }
             }
         }

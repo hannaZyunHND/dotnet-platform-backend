@@ -1,7 +1,7 @@
 services:
-    platform-production-backend:
-        image: phamdat2002/platform-prod-cms:latest
-        container_name: platform-prod-cms
+    platform-cms-production:
+        image: phamdat2002/platform-cms-prod:latest
+        container_name: platform-cms-prod
         ports:
             - "5001:80"
         environment:

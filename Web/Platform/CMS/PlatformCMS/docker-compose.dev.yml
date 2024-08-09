@@ -1,7 +1,7 @@
 services:
-    platform-development-backend:
-        image: phamdat2002/platform-dev-cms:latest
-        container_name: platform-dev-cms
+    platform-cms-development:
+        image: phamdat2002/platform-cms-dev:latest
+        container_name: platform-cms-dev
         ports:
             - "5002:80"
         environment:
