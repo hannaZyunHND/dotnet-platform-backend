@@ -1,7 +1,7 @@
 services:
-    platform-production-backend:
-        image: phamdat2002/platform-prod-cms:latest
-        container_name: platform-prod-cms
+    platform_webapi_production:
+        image: phamdat2002/platform_webapi_prod:latest
+        container_name: platform_webapi_prod
         ports:
             - "5003:80"
         environment:

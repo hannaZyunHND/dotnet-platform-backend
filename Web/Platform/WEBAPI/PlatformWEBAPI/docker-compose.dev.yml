@@ -1,5 +1,5 @@
 services:
-  platform_webapi_dev:
+  platform_webapi_development:
       image: phamdat2002/platform_webapi_dev:latest
       container_name: platform_webapi_dev
       ports:
