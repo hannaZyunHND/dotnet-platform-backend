@@ -27,7 +27,7 @@ pipeline {
         stage('Build Docker Image') {
             steps {
                 withDockerRegistry(credentialsId: 'docker-hub', url: 'https://index.docker.io/v1/') {
-                    sh 'docker build --build-arg ENVIRONMENT=development -f Web/Platform/WEBAPI/PlatformWEBAPI/Dockerfile --force-rm -t platform-cms-dev .'
+                    sh 'docker build --build-arg ENVIRONMENT=development -f Web/Platform/CMS/PlatformCMS/Dockerfile --force-rm -t platform-cms-dev .'
                 }
             }
         }
