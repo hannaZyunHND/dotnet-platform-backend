@@ -1,9 +1,9 @@
 services:
-  platform_webapi_production:
-    image: phamdat2002/platform_webapi_prod:latest
-    container_name: platform_webapi_prod
+  platform-cms-production:
+    image: phamdat2002/platform-cms-prod:latest
+    container_name: platform-cms-prod
     ports:
-      - "5003:80"
+      - "5001:80"
     environment:
       - REDIS_HOST=redis
       - REDIS_PORT=6379

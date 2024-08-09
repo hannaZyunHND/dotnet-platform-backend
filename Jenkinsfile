@@ -12,7 +12,7 @@ pipeline {
 
         stage('Clone Repository') {
             steps {
-                git branch: 'platform_cms_dev', url: 'https://github.com/hannaZyunHND/dotnet-platform-backend.git',
+                git branch: 'platform_cms_prod', url: 'https://github.com/hannaZyunHND/dotnet-platform-backend.git',
                 credentialsId: 'jenkin-huy-access'
             }
         }
@@ -27,15 +27,15 @@ pipeline {
         stage('Build Docker Image') {
             steps {
                 withDockerRegistry(credentialsId: 'docker-hub', url: 'https://index.docker.io/v1/') {
-                    sh 'docker build --build-arg ENVIRONMENT=development -f Web/Platform/CMS/PlatformCMS/Dockerfile --force-rm -t platform-cms-dev .'
+                    sh 'docker build --build-arg ENVIRONMENT=production -f Web/Platform/CMS/PlatformCMS/Dockerfile --force-rm -t platform-cms-prod .'
                 }
             }
         }
         stage('Push Docker Image') {
             steps {
                 withDockerRegistry(credentialsId: 'docker-hub', url: 'https://index.docker.io/v1/') {
-                    sh 'docker tag platform-cms-dev phamdat2002/platform-cms-dev:latest'
-                    sh 'docker push phamdat2002/platform-cms-dev:latest'
+                    sh 'docker tag platform-cms-prod phamdat2002/platform-cms-prod:latest'
+                    sh 'docker push phamdat2002/platform-cms-prod:latest'
                 }
             }
         }
