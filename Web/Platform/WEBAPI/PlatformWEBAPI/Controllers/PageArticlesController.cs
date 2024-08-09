@@ -1,11 +1,19 @@
-﻿using MI.Entity.Enums;
+﻿using HtmlAgilityPack;
+using MI.Entity.Enums;
+using MI.Entity.Models;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using PlatformWEBAPI.Services.Article.Repository;
 using PlatformWEBAPI.Services.Article.ViewModel;
+using PlatformWEBAPI.Services.Product.Repository;
+using System;
+using System.Collections.Generic;
 using System.Dynamic;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
+using Utils;
 
 namespace PlatformWEBAPI.Controllers
 {
@@ -15,9 +23,13 @@ namespace PlatformWEBAPI.Controllers
     {
 
         private readonly IArticleRepository _articleRepository;
-        public PageArticlesController(IArticleRepository articleRepository)
+        private readonly IProductRepository _productRepository;
+        private readonly IHostingEnvironment _hostingEnvironment;
+        public PageArticlesController(IArticleRepository articleRepository, IProductRepository productRepository, IHostingEnvironment hostingEnvironment)
         {
             _articleRepository = articleRepository;
+            _productRepository = productRepository;
+            _hostingEnvironment = hostingEnvironment;
         }
 
         [HttpPost]
@@ -29,10 +41,94 @@ namespace PlatformWEBAPI.Controllers
                 var response = _articleRepository.GetArticleDetail(request.id, request.cultureCode);
                 if (response != null)
                 {
+                    var newBody = RenderProductInBlogDetail(response.Body, request.cultureCode);
+                    response.Body = newBody;
                     return Ok(response);
                 }
             }
             return BadRequest();
+        }
+
+
+        private string RenderProductInBlogDetail(string body, string cultureCode)
+        {
+            //data-id-list
+            HtmlDocument doc = new HtmlDocument();
+            if (!string.IsNullOrEmpty(body))
+            {
+                doc.LoadHtml(body);
+                var productTags = doc.DocumentNode.SelectNodes("//product");
+                if (productTags != null)
+                {
+                    foreach (var pTag in productTags)
+                    {
+                        var listId = pTag.GetAttributeValue("data-id-list", "");
+                        if (!string.IsNullOrEmpty(listId))
+                        {
+                            var listIdString = listId.Split(",");
+                            var listIdInt = new List<int>();
+                            foreach(var i in listIdString)
+                            {
+                                var t = 0;
+                                int.TryParse(i, out t);
+                                if(t > 0)
+                                {
+                                    listIdInt.Add(t);   
+                                }
+                            }
+                            var products = _productRepository.GetProductByListId(listIdInt, cultureCode, 0);
+                            var html = "";
+                            if (products != null) 
+                            {
+                                var from = "From";
+                                var bookNow = "Book Now";
+                                var langShortUrl = "en";
+                                if(cultureCode == "vi-VN")
+                                {
+                                    from = "Từ";
+                                    bookNow = "Đặt ngay";
+                                    langShortUrl = "vi";
+                                }
+                                
+
+                                html += $"<div class='container'>";
+                                foreach (var prod in products)
+                                {
+                                    html += $"<div class='row blog-gt'>";
+                                    html += $"<div class='col-12 col-md-3 mb-3 mb-md-0'>";
+                                    html += $"<img class='img-blog img-fluid' src='{UIHelper.StoreFilePath(prod.Avatar, false)}' />";
+                                    html += $"</div>";
+                                    html += $"<div class='col-12 col-md-9 thong-tin-blog'>";
+                                    html += $"<div>";
+                                    html += $"<div class='title-blog'>{prod.Title}</div>";
+                                    html += $"<div class='danh-gia-blog'>";
+                                    html += $"<i class='fas fa-star sao-blog' style='color: #f09b0a;'></i>";
+                                    html += $"<span style='letter-spacing: 0.2px; color: #f09b0a; font-size: 14px; font-weight: 400;'>{Math.Round(prod.Rate,1)}</span>";
+                                    html += $"</div>";
+                                    html += $"</div>";
+                                    html += $"<div class='row price-blog'>";
+                                    html += $"<div class='col-6 inner-footer'>";
+                                    html += $"<div class='inner-price'><span class='from'>{from} </span><span class='gia-ca'><small>VND</small> {UIHelper.FormatNumber(prod.Price)}</span></div>";
+                                    html += $"</div>";
+                                    html += $"<div class='col-6 bao-button text-md-right mt-2 mt-md-0'>";
+                                    html += $"<a href='/{langShortUrl}/products/{prod.ProductId}/{prod.Url}' class='btn inner-button-book'>{bookNow}</a>";
+                                    html += $"</div>";
+                                    html += $"</div>";
+                                    html += $"</div>";
+                                    html += $"</div>";
+                                }
+                                html += $"</div>";
+                            }
+                            // Tôi muốn set html của pTag ở đây thành biến html mà tôi đã dựng
+                            pTag.InnerHtml = html;
+                        }
+                    }
+                }
+
+                return doc.DocumentNode.InnerHtml;
+            }
+            return body;
+            
         }
 
         [HttpPost]

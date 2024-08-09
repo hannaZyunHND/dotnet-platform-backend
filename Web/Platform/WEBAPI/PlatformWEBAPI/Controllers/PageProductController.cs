@@ -131,12 +131,17 @@ namespace PlatformWEBAPI.Controllers
             var response = new ProductDetail();
             if (request != null)
             {
-                
-
                 response = _productRepository.GetProductInfomationDetail(request.id, request.cultureCode);
+                
                 //TourItem
                 if (response != null)
                 {
+                    //Xay dung shortCode o day
+                    //
+                    //
+                    //
+
+
                     //Social Description
                     response.SocialDescription = HttpUtility.HtmlDecode(UIHelper.ClearHtmlTag(response.Description));
                     // Get review
@@ -212,6 +217,8 @@ namespace PlatformWEBAPI.Controllers
                     response.productSameZones = _productRepository.GetProductSameZoneByProductId(response.Id, request.cultureCode);
                     // Get bookingNote
 
+
+
                     var bookingNotes = _productRepository.GetProductBookingNote(response.Id, request.cultureCode);
                     foreach(var item in bookingNotes){
                         item.noteOptionItems = new List<NoteOptionItem>();
@@ -235,6 +242,13 @@ namespace PlatformWEBAPI.Controllers
                                                             NoteList = g.ToList()
                                                         }).ToList();
                     }
+
+                    // Get feedback
+                    var totalFeedback = 0;
+                    var rqFeedback = new RequestGetProductCommentFeedback() { productId = response.Id, index = 1, size= 5 };
+                    response.feedbacks = _productRepository.GetProductCommentFeedback(rqFeedback, out totalFeedback);
+                    response.totalFeedback = totalFeedback;
+                    // 
                     
                 }
             }
@@ -414,7 +428,16 @@ namespace PlatformWEBAPI.Controllers
             return BadRequest("Cannot find product");
         }
 
-        
+        [HttpPost]
+        [Route("GetProductCommentFeedback")]
+        public async Task<IActionResult> GetProductCommentFeedback(RequestGetProductCommentFeedback request)
+        {
+            var total = 0;
+            var responese = _productRepository.GetProductCommentFeedback(request, out total);
+            return Ok(responese);
+        }
+
+
     }
 }
 

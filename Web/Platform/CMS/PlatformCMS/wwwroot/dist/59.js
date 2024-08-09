@@ -1,9 +1,9 @@
 webpackJsonp([59],{
 
-/***/ 1063:
+/***/ 1080:
 /***/ (function(module, exports, __webpack_require__) {
 
-exports = module.exports = __webpack_require__(178)();
+exports = module.exports = __webpack_require__(53)();
 // imports
 
 
@@ -15,7 +15,7 @@ exports.push([module.i, "\n.headerRow[data-v-0704ff92] {\n    padding: .75rem;\n
 
 /***/ }),
 
-/***/ 1155:
+/***/ 1172:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -46,7 +46,7 @@ exports.default = roleRepository;
 
 /***/ }),
 
-/***/ 1241:
+/***/ 1258:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -56,11 +56,11 @@ Object.defineProperty(exports, "__esModule", {
     value: true
 });
 
-var _regenerator = __webpack_require__(74);
+var _regenerator = __webpack_require__(75);
 
 var _regenerator2 = _interopRequireDefault(_regenerator);
 
-var _asyncToGenerator2 = __webpack_require__(73);
+var _asyncToGenerator2 = __webpack_require__(74);
 
 var _asyncToGenerator3 = _interopRequireDefault(_asyncToGenerator2);
 
@@ -74,7 +74,7 @@ var _http = __webpack_require__(4);
 
 var _http2 = _interopRequireDefault(_http);
 
-var _roleRepository = __webpack_require__(1155);
+var _roleRepository = __webpack_require__(1172);
 
 var _roleRepository2 = _interopRequireDefault(_roleRepository);
 
@@ -225,7 +225,7 @@ exports.default = {
 
 /***/ }),
 
-/***/ 1490:
+/***/ 1507:
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
@@ -302,29 +302,29 @@ module.exports.render._withStripped = true
 if (true) {
   module.hot.accept()
   if (module.hot.data) {
-     __webpack_require__(177).rerender("data-v-0704ff92", module.exports)
+     __webpack_require__(178).rerender("data-v-0704ff92", module.exports)
   }
 }
 
 /***/ }),
 
-/***/ 1572:
+/***/ 1589:
 /***/ (function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
-var content = __webpack_require__(1063);
+var content = __webpack_require__(1080);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
-var update = __webpack_require__(781)("124606cf", content, false);
+var update = __webpack_require__(798)("124606cf", content, false);
 // Hot Module Replacement
 if(true) {
  // When the styles change, update the <style> tags
  if(!content.locals) {
-   module.hot.accept(1063, function() {
-     var newContent = __webpack_require__(1063);
+   module.hot.accept(1080, function() {
+     var newContent = __webpack_require__(1080);
      if(typeof newContent === 'string') newContent = [[module.i, newContent, '']];
      update(newContent);
    });
@@ -335,18 +335,18 @@ if(true) {
 
 /***/ }),
 
-/***/ 763:
+/***/ 780:
 /***/ (function(module, exports, __webpack_require__) {
 
 
 /* styles */
-__webpack_require__(1572)
+__webpack_require__(1589)
 
-var Component = __webpack_require__(372)(
+var Component = __webpack_require__(374)(
   /* script */
-  __webpack_require__(1241),
+  __webpack_require__(1258),
   /* template */
-  __webpack_require__(1490),
+  __webpack_require__(1507),
   /* scopeId */
   "data-v-0704ff92",
   /* cssModules */
@@ -358,7 +358,7 @@ if (Component.options.functional) {console.error("[vue-loader] assignPermissionR
 
 /* hot reload */
 if (true) {(function () {
-  var hotAPI = __webpack_require__(177)
+  var hotAPI = __webpack_require__(178)
   hotAPI.install(__webpack_require__(26), false)
   if (!hotAPI.compatible) return
   module.hot.accept()
@@ -374,7 +374,7 @@ module.exports = Component.exports
 
 /***/ }),
 
-/***/ 781:
+/***/ 798:
 /***/ (function(module, exports, __webpack_require__) {
 
 /*
@@ -393,7 +393,7 @@ if (typeof DEBUG !== 'undefined' && DEBUG) {
   ) }
 }
 
-var listToStyles = __webpack_require__(790)
+var listToStyles = __webpack_require__(807)
 
 /*
 type StyleObject = {
@@ -596,7 +596,7 @@ function applyToTag (styleElement, obj) {
 
 /***/ }),
 
-/***/ 790:
+/***/ 807:
 /***/ (function(module, exports) {
 
 /**

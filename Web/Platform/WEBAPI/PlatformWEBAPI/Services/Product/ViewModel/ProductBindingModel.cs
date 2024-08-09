@@ -74,7 +74,7 @@ namespace PlatformWEBAPI.Services.Product.ViewModel
     public class RequestCheckChatSessionByCustomerEmail
     {
         public string customerEmail { get; set; }
-        
+
     }
     public class ResponseGetProductPriceOptions
     {
@@ -181,7 +181,50 @@ namespace PlatformWEBAPI.Services.Product.ViewModel
         public decimal? lat { get; set; }
         public decimal? lng { get; set; }
         public int? TotalSale { get; set; } = 0;
+        // Zone Service properties
+        public int zServiceId { get; set; }
+        public string zServiceName { get; set; }
+        public string zServiceAvatar { get; set; }
+        public string zServiceIcon { get; set; }
+        public string zServiceBanner { get; set; }
+
+        // Zone Destination properties
+        public int zDestinationId { get; set; }
+        public string zDestinationName { get; set; }
+        public string zDestinationAvatar { get; set; }
+        public string zDestinationIcon { get; set; }
+        public string zDestinationBanner { get; set; }
         //,[o].OrderCode, [od].ICCID, [od].LogPrice, [o].CreatedDate [OrderCreatedDate]
+    }
+
+    public class ResponsePromotionDetail
+    {
+        public string Id { get; set; }
+        public string Name { get; set; }
+        public string Url { get; set; }
+        public string Avatar { get; set; }
+        public string Banner { get; set; }
+        public string Background { get; set; }
+        public string Icon { get; set; }
+        public int Type { get; set; }
+        public string Content { get; set; }
+        public bool isHaveProduct { get; set; } = false;
+        public List<ResponseZoneInPromotion> destinations { get; set; } = new List<ResponseZoneInPromotion>();
+        public List<ResponseZoneInPromotion> services { get; set; } = new List<ResponseZoneInPromotion>();
+    }
+
+    public class ResponseZoneInPromotion
+    {
+        public int zoneId { get; set; }
+        public string zoneName { get; set; }
+        public string zoneAvatar { get; set; }
+        public string zoneBanner { get; set; }
+        public string zoneIcon { get; set; }
+        public List<ProductMinify> products { get; set; }
+        public List<ProductMinify> filterdProducts { get; set; }
+        public List<ResponseZoneInPromotion> subZones { get; set; } = new List<ResponseZoneInPromotion>();
+        public bool isActive { get; set; } = false;
+
     }
 
     public class ProductDetail
@@ -209,7 +252,7 @@ namespace PlatformWEBAPI.Services.Product.ViewModel
         public string LanguageCode { get; set; }
         public double RateAVG { get; set; }
         public int TotalRate { get; set; }
-        
+
         public int ZoneId { get; set; }
         public string ZoneUrl { get; set; }
         public string ZoneName { get; set; }
@@ -275,6 +318,12 @@ namespace PlatformWEBAPI.Services.Product.ViewModel
         public string tagCombineds { get; set; }
         public int TotalSale { get; set; } = 0;
         public string NoteOptions { get; set; } = "";
+        public List<ProductCommentFeedback> feedbacks { get; set; } = new List<ProductCommentFeedback>();
+        public int totalFeedback { get; set; } = 0;
+
+
+
+
     }
     public class ProductBookingNoteGroup
     {
@@ -294,6 +343,30 @@ namespace PlatformWEBAPI.Services.Product.ViewModel
         public string notePlaceHolder { get; set; }
         public string noteValue { get; set; } = "";
         public bool? bookingNoteRequired { get; set; } = false;
+    }
+    public class RequestGetProductCommentFeedback
+    {
+        public int productId { get; set; }
+        public int index { get; set; }
+        public int size { get; set; }
+    }
+    public class RequestPromotionDetail
+    {
+        public int promotionId { get; set; }
+        public string cultureCode { get; set; }
+    }
+    public class ProductCommentFeedback
+    {
+        public string customerId { get; set; }
+        public string customerName { get; set; }
+        public string customerEmail { get; set; }
+        public decimal? rating { get; set; }
+        public string commentContent { get; set; }
+        public DateTime? createdDate { get; set; }
+        public string commentTitle { get; set; }
+        public string commentImages { get; set; }
+        public List<string> images { get; set; } = new List<string>();
+        public List<int> ratingStars { get; set; } = new List<int>();
     }
 
     public class NoteOptionItem

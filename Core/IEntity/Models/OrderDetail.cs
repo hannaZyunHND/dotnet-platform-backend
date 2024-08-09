@@ -46,10 +46,10 @@ namespace MI.Entity.Models
         public string DefaultLanguage { get; set; } = "vi-VN";
         public string PaymentMethod { get; set; } = "";
         public string OnepayRef { get; set; } = "";
-        public decimal LogPriceGross { get; set; } = 0;
-        public decimal PriceGross { get; set; } = 0;
+        public decimal? LogPriceGross { get; set; } = 0;
+        public decimal? PriceGross { get; set; } = 0;
 
-        public decimal PriceGrossTreEm { get; set; } = 0;
+        public decimal? PriceGrossTreEm { get; set; } = 0;
 
         public Orders Order { get; set; }
         public ICollection<OrderPromotionDetail> OrderPromotionDetail { get; set; }
@@ -60,5 +60,6 @@ namespace MI.Entity.Models
         public decimal? rollbackValue { get; set; }
         public int? rollbackOption { get; set; }
         public DateTime? RollbackRequestDate { get; set; }
+        public bool? IsNotiFeedback { get; set; }
     }
 }

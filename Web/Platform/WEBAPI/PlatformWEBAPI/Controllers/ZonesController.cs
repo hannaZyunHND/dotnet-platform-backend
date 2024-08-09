@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 using PlatformWEBAPI.Services.Zone.Repository;
 using PlatformWEBAPI.Services.Zone.ViewModal;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace PlatformWEBAPI.Controllers
@@ -28,6 +29,7 @@ namespace PlatformWEBAPI.Controllers
             if(request != null)
             {
                 var result = _zoneRepository.GetZoneByTreeViewMinifies(request.type, request.cultureCode, 0);
+                
                 foreach(var item in result)
                 {
                     var _obj = new ResponseZoneMinify();
@@ -40,8 +42,10 @@ namespace PlatformWEBAPI.Controllers
                     _obj.level = item.level;
                     _obj.order = item.order;
                     _obj.avatar = item.Avatar;
+                    _obj.sortOrder = item.SortOrder;    
                     response.Add(_obj);
                 }
+                response = response.OrderBy(r => r.sortOrder).ToList();
 
             }
             return Ok(response);

@@ -48,8 +48,11 @@ namespace PlatformWEBAPI.Utility
                 //_recurringJobs.RemoveIfExists("minutely");
                 _recurringJobs.AddOrUpdate("minutely", () => _flashSale.AutoUpdateFlashSale(), Cron.Minutely);
                 _recurringJobs.AddOrUpdate("backup", () => _extra.AutoBackupDatabase(), Cron.Weekly);
+                //_recurringJobs.RemoveIfExists("sendMailNotiMessage");
+                //_recurringJobs.RemoveIfExists("sendMailNotiFeedback");
                 _recurringJobs.AddOrUpdate("sendMailToSupplier", () => _orderRepository.SendRequestOrderToSupplierInBackground(), Cron.Minutely);
-                _recurringJobs.AddOrUpdate("sendMailNotiMessage", () => _orderRepository.ResponseGetLastChatDetailBySessionForCustomer(), Cron.Minutely);
+                _recurringJobs.AddOrUpdate("sendMailNotiMessage", () => _orderRepository.ResponseGetLastChatDetailBySessionForCustomer(), Cron.MinuteInterval(10));
+                _recurringJobs.AddOrUpdate("sendMailNotiFeedback", () => _orderRepository.GetOrderNotificationFeedback(), Cron.Daily);
 
             }
             catch (Exception e)

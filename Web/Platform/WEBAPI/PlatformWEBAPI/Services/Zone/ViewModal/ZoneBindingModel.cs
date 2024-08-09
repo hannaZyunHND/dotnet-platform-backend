@@ -32,6 +32,7 @@ namespace PlatformWEBAPI.Services.Zone.ViewModal
         public int level { get; set; }
         public string order { get; set; }
         public string avatar { get; set; }
+        public int sortOrder { get; set; }
     }
 
     public class ResponseGetZoneDetailMinify
