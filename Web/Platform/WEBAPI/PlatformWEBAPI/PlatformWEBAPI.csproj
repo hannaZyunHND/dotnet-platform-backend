@@ -199,6 +199,18 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Remove="appsettingsExample.txt" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="appsettingsExample.txt">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Dapper" Version="2.0.30" />
     <PackageReference Include="EPPlus" Version="7.1.0" />
     <PackageReference Include="Hangfire.AspNetCore" Version="1.7.11" />

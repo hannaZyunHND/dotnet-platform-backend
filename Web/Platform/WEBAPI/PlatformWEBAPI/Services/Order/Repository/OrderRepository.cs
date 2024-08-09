@@ -78,6 +78,8 @@ namespace PlatformWEBAPI.Services.Order.Repository
         List<ResponseGetLastChatDetailBySessionForCustomer> ResponseGetLastChatDetailBySessionForCustomer();
         List<ResponseGetLastChatDetailBySessionForCustomer> CheckChatSessionByCustomerEmail(RequestCheckChatSessionByCustomerEmail request);
         List<ResponseOrderNotificationFeedback> GetOrderNotificationFeedback();
+        ResponseCheckOrderDetailByEmail CheckOrderDetailByEmail(RequestCheckOrderDetailByEmail request);
+
     }
     public class OrderRepository : IOrderRepository
     {
@@ -514,8 +516,6 @@ namespace PlatformWEBAPI.Services.Order.Repository
                             var randomOrderCode = RandomCode(8);
                             //Dem so luong Order
                             var countOrder = context.Orders.Count();
-                            
-
                             //Tao ra order
                             var order = new Orders();
                             order.CustomerId = customer.Id;
@@ -913,6 +913,8 @@ namespace PlatformWEBAPI.Services.Order.Repository
                         mailHooks.Add("[DATA_FULL_NAME]", request.customerName);
                         mailHooks.Add("[DATA_MA_DON_HANG]", detail.OrderCode);
                         mailHooks.Add("[DATA_NGAY_DAT_DICH_VU]", detail.CreatedDate.ToString("dd/MM/yyyy HH:mm:ss"));
+                        //DATA_TEN_SAN_PHAM
+                        mailHooks.Add("[DATA_TEN_SAN_PHAM]", detail.ProductParentTitle);
                         mailHooks.Add("[DATA_TEN_PACKAGE]", detail.ProductChildTitle);
                         mailHooks.Add("[DATA_TEN_FULL_OPTION]", detail.ZoneTitles);
                         mailHooks.Add("[MAIL_NOI_DUNG_SAN_PHAM_AVATAR]", UIHelper.StoreFilePath(detail.ProductParentAvatar));
@@ -1744,6 +1746,28 @@ namespace PlatformWEBAPI.Services.Order.Repository
 
             }
             return null;
+        }
+
+        public ResponseCheckOrderDetailByEmail CheckOrderDetailByEmail(RequestCheckOrderDetailByEmail request)
+        {
+            //usp_Web_CheckOrderDetailByEmail
+            var p = new DynamicParameters();
+            var commandText = "usp_Web_CheckOrderDetailByEmail";
+
+            p.Add("@customerEmail", request.customerEmail);
+            p.Add("@orderDetailId", request.orderDetailId);
+            var result = _executers.ExecuteCommand(_connStr, conn => conn.Query<ResponseGetCouponByProductId>(commandText, p, commandType: System.Data.CommandType.StoredProcedure)).ToList();
+            var response = new ResponseCheckOrderDetailByEmail();
+            if (result.Count > 0)
+            {
+                response.isAuthendicated = true;
+            }
+            else
+            {
+                response.isAuthendicated = false;
+            }
+
+            return response;
         }
     }
 
