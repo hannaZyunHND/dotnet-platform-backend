@@ -221,5 +221,13 @@ namespace PlatformWEBAPI.Controllers
             var response = _orderRepository.CheckChatSessionByCustomerEmail(request);
             return Ok(response);
         }
+
+        [HttpPost]
+        [Route("CheckOrderDetailByEmail")]
+        public async Task<IActionResult> CheckOrderDetailByEmail(RequestCheckOrderDetailByEmail request)
+        {
+            var response = _orderRepository.CheckOrderDetailByEmail(request);
+            return Ok(response);
+        }
     }
 }

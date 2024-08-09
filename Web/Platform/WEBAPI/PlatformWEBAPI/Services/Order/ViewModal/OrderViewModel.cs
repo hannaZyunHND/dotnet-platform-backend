@@ -418,6 +418,28 @@ namespace PlatformWEBAPI.Services.Order.ViewModal
         public int OrderChatSessionDetailId { get; set; }
         public string Fullname { get; set; }
     }
+
+    public class RequestCheckOrderDetailByEmail
+    {
+        public string customerEmail { get; set; }
+        public int orderDetailId { get; set; }
+    }
+    public class ResponseCheckOrderDetailByEmail
+    {
+        public bool isAuthendicated { get; set; }
+    }
+    public class ResponseOrderNotificationFeedback
+    {
+        public string OrderCode { get; set; }
+        public DateTime CreatedDate { get; set; }
+        public string Email { get; set; }
+        public string Fullname { get; set; }
+        public DateTime PickingDate { get; set; }
+        public string DefaultLanguage { get; set; }
+        public string Avatar { get; set; }
+        public string Title { get; set; }
+        public int OrderDetailId { get; set; }
+    }
     public class RequestSendNewUserEmail
     {
         public int customerId { get; set; }

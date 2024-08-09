@@ -160,6 +160,8 @@ namespace PlatformWEBAPI.Utility
 
         }
 
+        
+
         public static string IndexingCss(string body)
         {
             HtmlDocument doc = new HtmlDocument();

@@ -67,6 +67,9 @@ namespace PlatformWEBAPI.Services.Product.Repository
         List<ProductMinify> GetProductByListIdVersionSearch(List<int> products, string lang_code, int locationId, string sortBy = "TOP_VIEW", decimal startPrice = 0, decimal endPrice = 10000000);
         List<EsSearchItem> GetEsSearchResult();
         ProductMinify GetProductMinifyById(int productId, string cultureCode);
+        List<ProductCommentFeedback> GetProductCommentFeedback(RequestGetProductCommentFeedback request, out int total);
+        ResponsePromotionDetail GetPromotionDetail(RequestPromotionDetail request);
+
 
         //List<ProductMinify> GetProductsByStringFilter(string filter, string lang_code, int location_id, out int total_row);
     }
@@ -911,6 +914,140 @@ namespace PlatformWEBAPI.Services.Product.Repository
             p.Add("@lang_code", lang_code);
             var r = _executers.ExecuteCommand(_connStr, conn => conn.Query<ProductBookingNote>(commandText, p, commandType: System.Data.CommandType.StoredProcedure)).ToList();
             return r;
+        }
+
+        public List<ProductCommentFeedback> GetProductCommentFeedback(RequestGetProductCommentFeedback request, out int total)
+        {
+            var p = new DynamicParameters();
+            var commandText = "usp_Web_GetProductFeedbackByProductId";
+            p.Add("@productId", request.productId);
+            p.Add("@index", request.index);
+            p.Add("@size", request.size);
+            p.Add("@total", dbType: System.Data.DbType.Int32, direction: System.Data.ParameterDirection.Output);
+            var result = _executers.ExecuteCommand(_connStr, conn => conn.Query<ProductCommentFeedback>(commandText, p, commandType: System.Data.CommandType.StoredProcedure)).ToList();
+
+            foreach(var item in result)
+            {
+                if (!string.IsNullOrEmpty(item.commentImages))
+                {
+                    item.images = item.commentImages.Split(",").ToList();
+                }
+                item.ratingStars = new List<int>();
+                for(int i = 0; i < item.rating; i++)
+                {
+                    item.ratingStars.Add(i);
+                }
+            }
+
+            total = p.Get<int>("@total");
+            return result;
+        }
+
+        public ResponsePromotionDetail GetPromotionDetail(RequestPromotionDetail request)
+        {
+
+            //Get promotionZone
+            var p = new DynamicParameters();
+            var commandTextFirstQuery = "usp_Web_GetMinifyZonePromotion";
+            var commandTextSecondQuery = "usp_Web_GetProductMinifyByPromotionZoneId";
+            p.Add("@promotionId", request.promotionId);
+            p.Add("@cultureCode", request.cultureCode);
+            
+            var resultPromotion = _executers.ExecuteCommand(_connStr, conn => conn.QueryFirst<ResponsePromotionDetail>(commandTextFirstQuery, p, commandType: System.Data.CommandType.StoredProcedure));
+            if(resultPromotion != null)
+            {
+                var resultProductMinify = _executers.ExecuteCommand(_connStr, conn => conn.Query<ProductMinify>(commandTextSecondQuery, p, commandType: System.Data.CommandType.StoredProcedure)).ToList();
+
+                if(resultProductMinify != null)
+                {
+                    if(resultProductMinify.Count > 0)
+                    {
+                        resultPromotion.isHaveProduct = true;
+                        //Bat dau phan tich tinh toan o day
+                        //Group truoc cac danh sach services
+                        var services = from r in resultProductMinify
+                                       group r by new { r.zServiceId, r.zServiceName, r.zServiceAvatar, r.zServiceBanner, r.zServiceIcon } into groupted
+                                       select new ResponseZoneInPromotion
+                                       {
+                                           zoneId = groupted.Key.zServiceId,
+                                           zoneName = groupted.Key.zServiceName,
+                                           zoneAvatar = groupted.Key.zServiceAvatar,
+                                           zoneBanner = groupted.Key.zServiceBanner,
+                                           zoneIcon = groupted.Key.zServiceIcon,
+                                           products = groupted.ToList()
+                                       };
+                        var destinations = from r in resultProductMinify
+                                           group r by new { r.zDestinationId, r.zDestinationName, r.zDestinationAvatar, r.zDestinationBanner, r.zDestinationIcon } into groupted
+                                           select new ResponseZoneInPromotion
+                                           {
+                                               zoneId = groupted.Key.zDestinationId,
+                                               zoneName = groupted.Key.zDestinationName,
+                                               zoneAvatar = groupted.Key.zDestinationAvatar,
+                                               zoneBanner = groupted.Key.zDestinationBanner,
+                                               zoneIcon = groupted.Key.zDestinationIcon,
+                                               products = groupted.ToList()
+                                           };
+                        resultPromotion.services = services.ToList();
+                        resultPromotion.destinations = destinations.ToList();
+                        resultPromotion.destinations = resultPromotion.destinations.Where(r => r.zoneId > 0).ToList();
+
+                        //Xay dung tiep phan destination
+
+                        var count = 0;
+
+                        foreach (var item in resultPromotion.destinations)
+                        {
+                            if(item.zoneId > 0)
+                            {
+                                var servicesInDestinations = from r in item.products
+                                                             group r by new { r.zServiceId, r.zServiceName, r.zServiceAvatar, r.zServiceBanner, r.zServiceIcon } into groupted
+                                                             select new ResponseZoneInPromotion
+                                                             {
+                                                                 zoneId = groupted.Key.zServiceId,
+                                                                 zoneName = groupted.Key.zServiceName,
+                                                                 zoneAvatar = groupted.Key.zServiceAvatar,
+                                                                 zoneBanner = groupted.Key.zServiceBanner,
+                                                                 zoneIcon = groupted.Key.zServiceIcon,
+                                                                 products = groupted.ToList(),
+                                                                 filterdProducts = new List<ProductMinify>(),
+                                                                 isActive = false
+
+                                                             };
+                                item.subZones = servicesInDestinations.ToList();
+                                item.subZones = item.subZones.Where(r => r.zoneId > 0).ToList();
+                                var _firstSubZone = item.subZones.FirstOrDefault();
+                                if (_firstSubZone != null)
+                                {
+                                    _firstSubZone.isActive = true;
+                                }
+                                var filterdProductsDefault = item.subZones.Where(r => r.isActive == true).FirstOrDefault();
+                                if (filterdProductsDefault != null)
+                                {
+                                    item.filterdProducts = filterdProductsDefault.products;
+                                }
+                            }
+                            else
+                            {
+                                resultPromotion.destinations.Remove(item);
+                            }
+                            
+
+                            count++;
+                        }
+                    }
+                    else
+                    {
+                        resultPromotion.isHaveProduct = false;
+                    }
+                }
+                return resultPromotion;
+            }
+
+            
+
+
+            
+            return null;
         }
     }
 }

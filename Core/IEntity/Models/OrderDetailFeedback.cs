@@ -15,5 +15,6 @@ namespace MI.Entity.Models
         public int Rating { get; set; }
         public DateTime CreatedDate { get; set; } = DateTime.Now;
         public string FileUpload { get; set; }
+        public bool? IsConfirm { get; set; }
     }
 }
