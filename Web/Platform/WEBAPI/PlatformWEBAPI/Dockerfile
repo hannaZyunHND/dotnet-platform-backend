@@ -17,8 +17,16 @@ COPY Mi.MemoryCache/*.csproj ./Mi.MemoryCache/
 
 RUN dotnet restore Web/Platform/WEBAPI/PlatformWEBAPI/PlatformWEBAPI.csproj
 
+
+# Add ARG variable to allow specifying the build configuration (Release or Debug)
+ARG ENVIRONMENT=production
+
 # Copy everything else and build .NET Core application
 COPY . .
+
+# Copy the correct environment file based on the ENVIRONMENT variable
+RUN cp Web/Platform/WEBAPI/PlatformWEBAPI/appsettings.${ENVIRONMENT}.json Web/Platform/WEBAPI/PlatformWEBAPI/appsettings.json
+
 WORKDIR /src/Web/Platform/WEBAPI/PlatformWEBAPI
 RUN dotnet publish -c Release -o /app/publish 
 
