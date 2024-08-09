@@ -1,7 +1,7 @@
 services:
-  platform-prod-webapi:
-    image: phamdat2002/platform-prod-webapi:latest
-    container_name: platform-prod-webapi
+  platform_webapi_production:
+    image: phamdat2002/platform_webapi_prod:latest
+    container_name: platform_webapi_prod
     ports:
       - "5003:80"
     environment:

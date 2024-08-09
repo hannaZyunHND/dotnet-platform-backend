@@ -1,7 +1,7 @@
 services:
-  platform-dev-webapi:
-    image: phamdat2002/platform-dev-webapi:latest
-    container_name: platform-dev-webapi
+  platform_webapi_development:
+    image: phamdat2002/platform_webapi_dev:latest
+    container_name: platform_webapi_dev
     ports:
       - "5004:80"
     environment:
