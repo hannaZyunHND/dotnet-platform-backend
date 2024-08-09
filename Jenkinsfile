@@ -9,7 +9,7 @@ pipeline {
                 sh 'docker --version'
             }
         }
-        
+
         stage('Clone Repository') {
             steps {
                 git branch: 'platform_webapi_dev', url: 'https://github.com/hannaZyunHND/dotnet-platform-backend.git',
@@ -23,18 +23,19 @@ pipeline {
                 sh 'sudo usermod -aG docker jenkins'
             }
         }
+        
         stage('Build Docker Image') {
             steps {
                 withDockerRegistry(credentialsId: 'docker-hub', url: 'https://index.docker.io/v1/') {
-                    sh 'docker build --build-arg ENVIRONMENT=development -f Web/Platform/WEBAPI/PlatformWEBAPI/Dockerfile --force-rm -t pplatform_webapi_dev .'
+                    sh 'docker build --build-arg ENVIRONMENT=development -f Web/Platform/WEBAPI/PlatformWEBAPI/Dockerfile --force-rm -t platform_webapi_dev .'
                 }
             }
         }
         stage('Push Docker Image') {
             steps {
                 withDockerRegistry(credentialsId: 'docker-hub', url: 'https://index.docker.io/v1/') {
-                    sh 'docker tag pplatform_webapi_dev phamdat2002/pplatform_webapi_dev:latest'
-                    sh 'docker push phamdat2002/pplatform_webapi_dev:latest'
+                    sh 'docker tag platform_webapi_dev phamdat2002/platform_webapi_dev:latest'
+                    sh 'docker push phamdat2002/platform_webapi_dev:latest'
                 }
             }
         }
