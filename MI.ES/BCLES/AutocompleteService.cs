@@ -507,14 +507,28 @@ namespace MI.ES.BCLES
 
             if (!string.IsNullOrEmpty(keyword))
             {
-                
+                //Type = TextQueryType.BestFields,
+                //Fuzziness = Fuzziness.Zero,
+                //Analyzer = "standard"
+
                 // Sử dụng multi_match query với trọng số cho các trường quan trọng
+                //mustQuery.Add(new MultiMatchQuery
+                //{
+                //    Fields = new[] { "itemSearchKeyword", "itemSearchKeyword.keyword", "itemSearchKeywordNorm", "itemSearchKeywordNorm.keyword" },
+                //    Query = $"*{keyword}*",
+                //    Fuzziness = Fuzziness.Auto,
+                //    Analyzer = "standard" // Sử dụng analyzer tiêu chuẩn
+                //});
+
                 mustQuery.Add(new MultiMatchQuery
                 {
-                    Fields = new[] { "itemSearchKeyword", "itemSearchKeyword.keyword", "itemSearchKeywordNorm", "itemSearchKeywordNorm.keyword" },
+                    Fields = new[] { "itemSearchKeyword", "itemSearchKeyword.keyword", "itemSearchKeywordNorm", "itemSearchKeywordNorm.keyword", "itemSearchTag", "itemSearchTag.keyword", "itemSearchTagNorm", "itemSearchTagNorm.keyword" },
                     Query = $"*{keyword}*",
-                    Fuzziness = Fuzziness.Auto,
-                    Analyzer = "standard" // Sử dụng analyzer tiêu chuẩn
+                    Type = TextQueryType.BestFields,
+                    Fuzziness = Fuzziness.EditDistance(0),
+                    Slop = 2,
+                    Operator = Operator.And,
+                    Analyzer = "standard"
                 });
             }
             if (!string.IsNullOrEmpty(type))
