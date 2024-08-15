@@ -1,6 +1,6 @@
 webpackJsonp([69],{
 
-/***/ 1201:
+/***/ 1225:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -10,13 +10,13 @@ Object.defineProperty(exports, "__esModule", {
     value: true
 });
 
-var _extends2 = __webpack_require__(8);
+var _extends2 = __webpack_require__(7);
 
 var _extends3 = _interopRequireDefault(_extends2);
 
-__webpack_require__(793);
+__webpack_require__(796);
 
-var _constant = __webpack_require__(794);
+var _constant = __webpack_require__(797);
 
 var _constant2 = _interopRequireDefault(_constant);
 
@@ -28,10 +28,10 @@ var _vueLoadingOverlay2 = _interopRequireDefault(_vueLoadingOverlay);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-var fields = [{ key: "Id", label: "Mã" }, { key: "Name", label: "Tên", sortable: true }, { key: "Type", label: "Loại", sortable: true }, { key: "Position", label: "Vị trí" }, { key: "Url", label: "URL" }, { key: "SortOrder", label: "Sắp xếp", sortable: true }, { key: "Thumb", label: "Thumb" }, { key: "IsEnable", label: "Kích Hoạt" }, { key: "Is", label: "Thao tác" }];
+var fields = [{ key: "LanguageCode", label: "Mã ngôn ngữ" }, { key: "Name", label: "Tên ngôn ngữ", sortable: true }, { key: "SetDefault", label: "Ngôn ngữ mặc định", sortable: true }, { key: "Is", label: "Thao tác" }];
 
 exports.default = {
-    name: "ads",
+    name: "language",
     components: {
         Loading: _vueLoadingOverlay2.default
     },
@@ -39,20 +39,13 @@ exports.default = {
         return {
             isLoading: false,
             fields: fields,
-            keyword: '',
-            _ads: {
-                Id: 0,
+            _language: {
+                LanguageCode: "",
                 Name: "",
-                Content: "",
-                Type: 0,
-                Position: 0,
-                Url: "",
-                SortOrder: 0,
-                IsEnable: 0,
-                Thumb: ""
+                SetDefault: true
             },
             messeger: "",
-            currentSort: "Id",
+            currentSort: "LanguageCode",
             currentSortDir: "asc",
 
             currentPage: 1,
@@ -74,14 +67,12 @@ exports.default = {
         };
     },
 
-    methods: (0, _extends3.default)({}, (0, _vuex.mapActions)(["getAdss", "removeAds"]), {
-
-        onKeyUp: function onKeyUp() {},
+    methods: (0, _extends3.default)({}, (0, _vuex.mapActions)(["getLanguages", "deleteLanguage"]), {
         onChangePaging: function onChangePaging() {
             this.isLoading = true;
             var initial = this.$route.query.initial;
             initial = typeof initial != "undefined" ? initial.toLowerCase() : "";
-            this.getAdss({
+            this.getLanguages({
                 initial: initial,
                 keyword: this.keyword,
                 pageIndex: this.currentPage,
@@ -104,7 +95,7 @@ exports.default = {
 
             var initial = this.$route.query.initial;
             initial = typeof initial != "undefined" ? initial.toLowerCase() : "";
-            this.removeAds(item).then(function (response) {
+            this.deleteLanguage(item).then(function (response) {
                 if (response.Success == true) {
                     _this.$toast.success(response.Message, {});
                     _this.isLoading = false;
@@ -118,7 +109,7 @@ exports.default = {
             });
         }
     }),
-    computed: (0, _extends3.default)({}, (0, _vuex.mapGetters)(["adss"])),
+    computed: (0, _extends3.default)({}, (0, _vuex.mapGetters)(["languages"])),
     mounted: function mounted() {
         this.onChangePaging();
     },
@@ -133,7 +124,7 @@ exports.default = {
 
 /***/ }),
 
-/***/ 1526:
+/***/ 1519:
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
@@ -143,7 +134,20 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       "header-tag": "header",
       "footer-tag": "footer"
     }
-  }, [_c('div', [_c('b-col', {
+  }, [_c('loading', {
+    attrs: {
+      "active": _vm.isLoading,
+      "height": 35,
+      "width": 35,
+      "color": _vm.color,
+      "is-full-page": _vm.fullPage
+    },
+    on: {
+      "update:active": function($event) {
+        _vm.isLoading = $event
+      }
+    }
+  }), _vm._v(" "), _c('div', [_c('b-col', {
     attrs: {
       "md": "12"
     }
@@ -225,7 +229,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     attrs: {
       "id": "collapse1_inner"
     }
-  }, [_c('b-card', [_vm._v("Hello!")])], 1)], 1)], 1)], 1)]), _vm._v(" "), _c('div', {
+  }, [_c('b-card', [_vm._v("Hello!")])], 1)], 1)], 1)], 1)], 1), _vm._v(" "), _c('div', {
     staticClass: "card card-data"
   }, [_c('div', {
     staticClass: "card-body"
@@ -261,9 +265,9 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "mx-1 btn-group mi-paging"
   }, [_c('b-pagination', {
     attrs: {
-      "total-rows": _vm.adss.Total,
+      "total-rows": _vm.languages.Total,
       "per-page": _vm.pageSize,
-      "aria-controls": "_ads"
+      "aria-controls": "_language"
     },
     model: {
       value: (_vm.currentPage),
@@ -291,57 +295,19 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         }
       }
     }, [_vm._v(_vm._s(field.label))])
-  }), 0)]), _vm._v(" "), _c('tbody', _vm._l((_vm.adss.ListData), function(item) {
+  }), 0)]), _vm._v(" "), _c('tbody', _vm._l((_vm.languages.ListData), function(item) {
     return _c('tr', [_c('td', {
       staticClass: "text-center",
       attrs: {
         "scope": "row"
       }
-    }, [_vm._v(_vm._s(item.Id))]), _vm._v(" "), _c('td', {
+    }, [_vm._v(_vm._s(item.LanguageCode))]), _vm._v(" "), _c('td', {
       staticClass: "text-center"
     }, [_vm._v(_vm._s(item.Name))]), _vm._v(" "), _c('td', {
       staticClass: "text-center"
-    }, [_vm._v(_vm._s(item.Type))]), _vm._v(" "), _c('td', {
+    }, [_vm._v(_vm._s(item.SetDefault))]), _vm._v(" "), _c('td', {
       staticClass: "text-center"
-    }, [_vm._v(_vm._s(item.Position))]), _vm._v(" "), _c('td', {
-      staticClass: "text-center",
-      staticStyle: {
-        "max-width": "150px"
-      }
-    }, [_c('a', {
-      attrs: {
-        "href": item.Url,
-        "title": item.Url
-      }
-    }, [_vm._v("Link")])]), _vm._v(" "), _c('td', {
-      staticClass: "text-center"
-    }, [_vm._v(_vm._s(item.SortOrder))]), _vm._v(" "), _c('td', {
-      staticClass: "text-center",
-      staticStyle: {
-        "max-width": "150px"
-      }
-    }, [_c('img', {
-      staticClass: "thumbnail",
-      staticStyle: {
-        "width": "80px"
-      },
-      attrs: {
-        "src": item.Thumb
-      }
-    })]), _vm._v(" "), _c('td', {
-      staticClass: "text-center"
-    }, [_vm._v(_vm._s(item.IsEnable))]), _vm._v(" "), _c('td', {
-      staticClass: "text-center"
-    }, [_c('router-link', {
-      staticClass: "btn btn-warning",
-      attrs: {
-        "to": {
-          path: 'edit/' + item.Id
-        }
-      }
-    }, [_c('i', {
-      staticClass: "fa fa-edit"
-    })]), _vm._v(" "), _c('button', {
+    }, [_c('button', {
       staticClass: "btn btn-xs btn-danger",
       on: {
         "click": function($event) {
@@ -350,7 +316,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       }
     }, [_c('i', {
       staticClass: "fa fa-minus-circle"
-    })])], 1)])
+    })])])])
   }), 0)])])])], 1)
 },staticRenderFns: [function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
   return _c('button', {
@@ -366,26 +332,26 @@ module.exports.render._withStripped = true
 if (true) {
   module.hot.accept()
   if (module.hot.data) {
-     __webpack_require__(178).rerender("data-v-20299148", module.exports)
+     __webpack_require__(178).rerender("data-v-1029cb4c", module.exports)
   }
 }
 
 /***/ }),
 
-/***/ 731:
+/***/ 753:
 /***/ (function(module, exports, __webpack_require__) {
 
 var Component = __webpack_require__(374)(
   /* script */
-  __webpack_require__(1201),
+  __webpack_require__(1225),
   /* template */
-  __webpack_require__(1526),
+  __webpack_require__(1519),
   /* scopeId */
   null,
   /* cssModules */
   null
 )
-Component.options.__file = "D:\\Code\\WORKING\\dotnet-platform-backend\\Web\\Platform\\CMS\\PlatformCMS\\ClientApp\\pages\\ads\\list.vue"
+Component.options.__file = "D:\\Code\\WORKING\\dotnet-platform-backend\\Web\\Platform\\CMS\\PlatformCMS\\ClientApp\\pages\\language\\list.vue"
 if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
 if (Component.options.functional) {console.error("[vue-loader] list.vue: functional components are not supported with templates, they should use render functions.")}
 
@@ -396,9 +362,9 @@ if (true) {(function () {
   if (!hotAPI.compatible) return
   module.hot.accept()
   if (!module.hot.data) {
-    hotAPI.createRecord("data-v-20299148", Component.options)
+    hotAPI.createRecord("data-v-1029cb4c", Component.options)
   } else {
-    hotAPI.reload("data-v-20299148", Component.options)
+    hotAPI.reload("data-v-1029cb4c", Component.options)
   }
 })()}
 
@@ -407,7 +373,7 @@ module.exports = Component.exports
 
 /***/ }),
 
-/***/ 792:
+/***/ 795:
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(53)();
@@ -422,13 +388,13 @@ exports.push([module.i, ".vld-overlay {\n  bottom: 0;\n  left: 0;\n  position: a
 
 /***/ }),
 
-/***/ 793:
+/***/ 796:
 /***/ (function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
-var content = __webpack_require__(792);
+var content = __webpack_require__(795);
 if(typeof content === 'string') content = [[module.i, content, '']];
 // add the styles to the DOM
 var update = __webpack_require__(179)(content, {});
@@ -437,8 +403,8 @@ if(content.locals) module.exports = content.locals;
 if(true) {
 	// When the styles change, update the <style> tags
 	if(!content.locals) {
-		module.hot.accept(792, function() {
-			var newContent = __webpack_require__(792);
+		module.hot.accept(795, function() {
+			var newContent = __webpack_require__(795);
 			if(typeof newContent === 'string') newContent = [[module.i, newContent, '']];
 			update(newContent);
 		});
@@ -449,7 +415,7 @@ if(true) {
 
 /***/ }),
 
-/***/ 794:
+/***/ 797:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";

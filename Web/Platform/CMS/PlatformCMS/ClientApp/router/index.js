@@ -22,6 +22,7 @@ const PromotionEdit = () => import('./../pages/promotion/edit');
 const Propertys = () => import('./../pages/property/list');
 const PropertyEdit = () => import('./../pages/property/edit');
 
+const Feedback = () => import('./../pages/Feedback');
 
 const Forms = () => import('./../pages/Forms');
 const Page404 = () => import('./../pages/Page404');
@@ -132,6 +133,12 @@ export let router = new Router({
                     name: 'Tổng quan',
                     component: Dashboard,
                     meta: { authorize: [] }
+                },
+                {
+                    path: '/admin/feedback',
+                    name: 'Đánh giá',
+                    component: Feedback,
+                    meta: { authorize: []}
                 },
                 {
                     path: '/admin/banner/setting',

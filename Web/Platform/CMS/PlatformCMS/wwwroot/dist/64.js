@@ -1,6 +1,6 @@
 webpackJsonp([64],{
 
-/***/ 1256:
+/***/ 1267:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -10,13 +10,13 @@ Object.defineProperty(exports, "__esModule", {
     value: true
 });
 
-var _extends2 = __webpack_require__(8);
+var _extends2 = __webpack_require__(7);
 
 var _extends3 = _interopRequireDefault(_extends2);
 
-__webpack_require__(793);
+__webpack_require__(796);
 
-var _constant = __webpack_require__(794);
+var _constant = __webpack_require__(797);
 
 var _constant2 = _interopRequireDefault(_constant);
 
@@ -29,359 +29,305 @@ var _vueLoadingOverlay2 = _interopRequireDefault(_vueLoadingOverlay);
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 exports.default = {
-    name: "property",
-    components: {
-        Loading: _vueLoadingOverlay2.default
-    },
+    name: "TagEdit",
     data: function data() {
         return {
+
             isLoading: false,
-            _product: {},
-            messeger: "",
-            currentSort: "Id",
-            currentSortDir: "asc",
-
-            SearchKeyword: "",
-            SearchLanguageCode: "vi-VN",
-            Language: [],
-
-            currentPage: 1,
-            pageSize: 10,
-            loading: true,
-            bootstrapPaginationClasses: {
-                ul: "pagination",
-                li: "page-item",
-                liActive: "active",
-                liDisable: "disabled",
-                button: "page-link"
+            fullPage: false,
+            color: "#007bff",
+            tagObj: {
+                Id: 0,
+                ParentId: 0,
+                Name: "",
+                Description: "",
+                Invisibled: false,
+                IsHotTag: false,
+                Type: 0
             },
-            customLabels: {
-                first: "First",
-                prev: "Previous",
-                next: "Next",
-                last: "Last"
-            }
+            Types: [{ value: 0, text: "Chọn loại" }, { value: 1, text: "Loại thiết bị" }, { value: 2, text: "Loại sàn gỗ" }]
         };
     },
 
-    methods: (0, _extends3.default)({}, (0, _vuex.mapActions)(["getPropertys", "deleteProperty", "getAllLanguages"]), {
-        onChangePaging: function onChangePaging() {
+    created: {},
+    components: {
+        Loading: _vueLoadingOverlay2.default
+    },
+
+    mounted: function mounted() {
+        var _this = this;
+
+        if (this.$route.params.id > 0) {
             this.isLoading = true;
             var initial = this.$route.query.initial;
             initial = typeof initial != "undefined" ? initial.toLowerCase() : "";
-            this.getPropertys({
-                keyword: this.SearchKeyword,
-                languageCode: this.SearchLanguageCode || "vi-VN",
-                pageIndex: this.currentPage,
-                pageSize: this.pageSize,
-                sortBy: this.currentSort,
-                sortDir: this.currentSortDir
+            this.getTag(this.$route.params.id).then(function (respose) {
+                _this.tagObj = respose.Data;
             });
             this.isLoading = false;
-        },
-
-        sortor: function sortor(s) {
-            if (s === this.currentSort) {
-                this.currentSortDir = this.currentSortDir === "asc" ? "desc" : "asc";
-            }
-            this.currentSort = s;
-            this.onChangePaging();
-        },
-        remove: function remove(item) {
-            var _this = this;
-
-            var initial = this.$route.query.initial;
-            initial = typeof initial != "undefined" ? initial.toLowerCase() : "";
-            this.deleteProperty(item).then(function (response) {
-                if (response.success == true) {
-                    _this.$toast.success(response.message, {});
-                    _this.onChangePaging();
-                    _this.isLoading = false;
-                } else {
-                    _this.$toast.error(response.message, {});
-                    _this.isLoading = false;
-                }
-            }).catch(function (e) {
-                _this.$toast.error(_constant2.default.error + ". Error:" + e, {});
-            });
         }
-    }),
-    computed: (0, _extends3.default)({}, (0, _vuex.mapGetters)(["propertys"])),
-    mounted: function mounted() {
-        this.onChangePaging();
     },
 
-    watch: {
-        currentPage: function currentPage(newVal) {
-            this.currentPage = newVal;
-            this.onChangePaging();
-        }, SearchLanguageCode: function SearchLanguageCode() {
-            this.currentPage = 1;
-            this.onChangePaging();
+
+    computed: {},
+
+    methods: (0, _extends3.default)({}, (0, _vuex.mapActions)(["addTag", "getTag", "editTag"]), {
+        DoAddEdit: function DoAddEdit() {
+            var _this2 = this;
+
+            this.isLoading = true;
+            var fromData = new FormData();
+
+            if (this.tagObj.Id > 0) {
+                this.editTag(this.tagObj).then(function (response) {
+                    if (response.Success == true) {
+                        _this2.$toast.success(response.Message, {});
+                        _this2.isLoading = false;
+                    } else {
+                        _this2.$toast.error(response.Message, {});
+                        _this2.isLoading = false;
+                    }
+                }).catch(function (e) {
+                    _this2.$toast.error(_constant2.default.error + ". Error:" + e, {});
+                    _this2.isLoading = false;
+                });
+            } else {
+                console.log("Goi vao api");
+                console.log(this.tagObj);
+
+                this.addTag(this.tagObj).then(function (response) {
+                    if (response.Success == true) {
+                        _this2.$toast.success(response.Message, {});
+                        _this2.isLoading = false;
+                    } else {
+                        _this2.$toast.error(response.Message, {});
+                        _this2.isLoading = false;
+                    }
+                }).catch(function (e) {
+                    _this2.$toast.error(_constant2.default.error + ". Error:" + e, {});
+                    _this2.isLoading = false;
+                });
+            }
+        },
+        openUpload: function openUpload() {
+            document.getElementById('file-field').click();
+        },
+        updatePreview: function updatePreview(e) {
+            var _this3 = this;
+
+            console.log('e', e);
+            var reader,
+                files = e.target.files;
+            if (files.length === 0) {
+                console.log('Empty');
+            }
+            this.selectedFile = files[0];
+            reader = new FileReader();
+            reader.onload = function (e) {
+                _this3.preview = e.target.result;
+
+                console.log(_this3.selectedFile);
+            };
+            reader.readAsDataURL(files[0]);
         }
-    }
+    })
 };
 
 /***/ }),
 
-/***/ 1563:
+/***/ 1553:
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
   return _c('div', {
-    staticClass: "list-data"
+    staticStyle: {
+      "display": "flex",
+      "width": "100%"
+    }
+  }, [_c('loading', {
+    attrs: {
+      "active": _vm.isLoading,
+      "height": 35,
+      "width": 35
+    },
+    on: {
+      "update:active": function($event) {
+        _vm.isLoading = $event
+      }
+    }
+  }), _vm._v(" "), _c('div', {
+    staticClass: "col-md-8"
   }, [_c('b-card', {
-    staticClass: "card-filter",
+    staticClass: "mt-3",
     attrs: {
-      "header-tag": "header",
-      "footer-tag": "footer"
+      "header": "Thêm / Sửa Tag"
     }
-  }, [_c('div', [_c('b-col', {
+  }, [_c('b-form', {
+    staticClass: "form-horizontal"
+  }, [_c('b-form-group', {
     attrs: {
-      "md": "12"
+      "label": "Tên Tag:",
+      "label-for": "input-1"
     }
-  }, [_c('b-row', {
-    staticClass: "form-group"
-  }, [_c('b-col', {
+  }, [_c('b-form-input', {
     attrs: {
-      "md": "4"
+      "id": "input-1",
+      "type": "text",
+      "required": "",
+      "placeholder": "Tên Tag"
+    },
+    model: {
+      value: (_vm.tagObj.Name),
+      callback: function($$v) {
+        _vm.$set(_vm.tagObj, "Name", $$v)
+      },
+      expression: "tagObj.Name"
+    }
+  })], 1), _vm._v(" "), _c('b-form-group', {
+    attrs: {
+      "label": "Url"
     }
   }, [_c('b-form-input', {
     attrs: {
       "type": "text",
-      "placeholder": "Tìm kiếm theo tên"
+      "required": "",
+      "placeholder": "Url"
+    },
+    model: {
+      value: (_vm.tagObj.Url),
+      callback: function($$v) {
+        _vm.$set(_vm.tagObj, "Url", $$v)
+      },
+      expression: "tagObj.Url"
+    }
+  })], 1), _vm._v(" "), _c('b-form-group', {
+    attrs: {
+      "label": "Loại"
+    }
+  }, [_c('b-form-select', {
+    attrs: {
+      "options": _vm.Types,
+      "required": ""
+    },
+    model: {
+      value: (_vm.tagObj.Type),
+      callback: function($$v) {
+        _vm.$set(_vm.tagObj, "Type", $$v)
+      },
+      expression: "tagObj.Type"
+    }
+  })], 1), _vm._v(" "), _c('b-form-group', {
+    attrs: {
+      "label": "Mô tả"
+    }
+  }, [_c('b-form-textarea', {
+    attrs: {
+      "type": "text",
+      "required": "",
+      "placeholder": "Mô tả"
+    },
+    model: {
+      value: (_vm.tagObj.Description),
+      callback: function($$v) {
+        _vm.$set(_vm.tagObj, "Description", $$v)
+      },
+      expression: "tagObj.Description"
+    }
+  })], 1)], 1)], 1)], 1), _vm._v(" "), _c('div', {
+    staticClass: "col-md-4"
+  }, [_c('div', {
+    staticClass: "mt-3",
+    staticStyle: {
+      "position": "fixed",
+      "width": "25%"
+    }
+  }, [_c('b-card', {
+    attrs: {
+      "header": "Đăng bài"
+    }
+  }, [_c('div', {
+    staticClass: "row"
+  }, [_c('div', {
+    staticClass: "col-md-6"
+  }, [_c('button', {
+    staticClass: "btn btn-info btn-submit-form col-md-12 btncus",
+    attrs: {
+      "type": "submit"
     },
     on: {
-      "keyup": function($event) {
-        if (!$event.type.indexOf('key') && $event.keyCode !== 13) { return null; }
-        return _vm.onChangePaging()
-      }
-    },
-    model: {
-      value: (_vm.SearchKeyword),
-      callback: function($$v) {
-        _vm.SearchKeyword = $$v
-      },
-      expression: "SearchKeyword"
-    }
-  })], 1), _vm._v(" "), _c('b-col', {
-    attrs: {
-      "md": "1"
-    }
-  }, [_c('b-btn', {
-    staticClass: "col-lg-12",
-    attrs: {
-      "variant": "info"
-    }
-  }, [_c('i', {
-    staticClass: "fa fa-search",
-    attrs: {
-      "aria-hidden": "true"
-    }
-  })])], 1), _vm._v(" "), _c('b-col', {
-    attrs: {
-      "md": "1"
-    }
-  }, [_c('b-btn', {
-    staticClass: "col-lg-12",
-    attrs: {
-      "variant": "primary"
-    }
-  }, [_c('i', {
-    staticClass: "fa fa-refresh",
-    attrs: {
-      "aria-hidden": "true"
-    }
-  })])], 1), _vm._v(" "), _c('b-col', {
-    attrs: {
-      "md": "2"
-    }
-  }, [_c('b-btn', {
-    directives: [{
-      name: "b-toggle",
-      rawName: "v-b-toggle.collapse1",
-      modifiers: {
-        "collapse1": true
-      }
-    }],
-    attrs: {
-      "variant": "primary"
-    }
-  }, [_c('i', {
-    staticClass: "fa fa-angle-double-down",
-    attrs: {
-      "aria-hidden": "true"
-    }
-  })])], 1)], 1)], 1), _vm._v(" "), _c('b-collapse', {
-    staticClass: "mt-2",
-    attrs: {
-      "id": "collapse1"
-    }
-  }, [_c('b-card', [_c('p', {
-    staticClass: "card-text"
-  }, [_vm._v("Collapse contents Here")]), _vm._v(" "), _c('b-btn', {
-    directives: [{
-      name: "b-toggle",
-      rawName: "v-b-toggle.collapse1_inner",
-      modifiers: {
-        "collapse1_inner": true
-      }
-    }],
-    attrs: {
-      "size": "sm"
-    }
-  }, [_vm._v("Toggle Inner Collapse")]), _vm._v(" "), _c('b-collapse', {
-    staticClass: "mt-2",
-    attrs: {
-      "id": "collapse1_inner"
-    }
-  }, [_c('b-card', [_vm._v("Hello!")])], 1)], 1)], 1)], 1)]), _vm._v(" "), _c('div', {
-    staticClass: "card card-data"
-  }, [_c('div', {
-    staticClass: "card-body"
-  }, [_c('div', {
-    staticClass: " mb-2",
-    attrs: {
-      "role": "toolbar",
-      "aria-label": "Toolbar with button groups and dropdown menu"
-    }
-  }, [_c('div', {
-    staticClass: "mx-1 btn-group",
-    attrs: {
-      "role": "group"
-    }
-  }, [_c('router-link', {
-    staticClass: "btn btn-success",
-    attrs: {
-      "to": {
-        path: 'add'
+      "click": function($event) {
+        return _vm.DoAddEdit()
       }
     }
   }, [_c('i', {
-    staticClass: "fa fa-plus"
-  }), _vm._v(" Thêm mới")]), _vm._v(" "), _vm._m(0)], 1), _vm._v(" "), _c('b-dropdown', {
-    staticClass: "mx-1",
-    attrs: {
-      "variant": "info",
-      "right": "",
-      "text": "Hành động",
-      "icon": ""
-    }
-  }, [_c('b-dropdown-item', [_vm._v("Kích hoạt")]), _vm._v(" "), _c('b-dropdown-item', [_vm._v("Không kích hoạt")])], 1), _vm._v(" "), _c('div', {
-    staticClass: "mx-1 btn-group mi-paging"
-  }, [_c('b-pagination', {
-    attrs: {
-      "total-rows": _vm.propertys.total,
-      "per-page": _vm.pageSize,
-      "aria-controls": "_product"
-    },
-    model: {
-      value: (_vm.currentPage),
-      callback: function($$v) {
-        _vm.currentPage = $$v
-      },
-      expression: "currentPage"
-    }
-  })], 1)], 1), _vm._v(" "), _c('div', {
-    staticClass: "table-responsive"
-  }, [_c('div', {
-    staticClass: "dataTables_wrapper dt-bootstrap4 no-footer"
-  }, [_c('div', {
-    staticClass: "clear"
-  }), _vm._v(" "), _c('table', {
-    staticClass: "table data-thumb-view dataTable no-footer",
-    attrs: {
-      "role": "grid"
-    }
-  }, [_vm._m(1), _vm._v(" "), _c('tbody', _vm._l((_vm.propertys.listData), function(item, index) {
-    return _c('tr', {
-      staticClass: "odd",
-      attrs: {
-        "role": "row"
-      }
-    }, [_vm._m(2, true), _vm._v(" "), _c('td', {
-      staticClass: "dt-checkboxes-cell"
-    }, [_vm._v(_vm._s(index + 1))]), _vm._v(" "), _c('td', {
-      staticClass: "product-thumb"
-    }, [_vm._v("\n                                    " + _vm._s(item.name) + "\n                                ")]), _vm._v(" "), _c('td', {
-      staticClass: "product-groupId"
-    }, [_vm._v("\n                                    " + _vm._s(item.groupNane) + "\n                                ")]), _vm._v(" "), _c('td', [_c('p', [_vm._v("Ngôn ngữ: " + _vm._s(item.langCount))])]), _vm._v(" "), _c('td', {
-      staticClass: "product-action"
-    }, [_c('router-link', {
-      attrs: {
-        "to": {
-          path: 'edit/' + item.id
-        }
-      }
-    }, [_c('span', {
-      staticClass: "action-edit"
-    }, [_c('i', {
-      staticClass: "fa fa-edit"
-    })])]), _vm._v(" "), _c('span', {
-      staticClass: "action-delete"
-    }, [_c('a', {
-      on: {
-        "click": function($event) {
-          return _vm.remove(item)
-        }
-      }
-    }, [_c('i', {
-      staticClass: "fa fa-trash"
-    })])])], 1)])
-  }), 0)])])])])])], 1)
-},staticRenderFns: [function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _c('button', {
-    staticClass: "btn btn-danger",
+    staticClass: "fa fa-save"
+  }), _vm._v(" Cập nhật\n                        ")])]), _vm._v(" "), _c('div', {
+    staticClass: "col-md-6"
+  }, [_c('button', {
+    staticClass: "btn btn-success col-md-12 btncus",
     attrs: {
       "type": "button"
+    },
+    on: {
+      "click": function($event) {
+        return _vm.DoRefesh()
+      }
     }
   }, [_c('i', {
-    staticClass: "fa fa-trash-o"
-  }), _vm._v(" Xóa")])
-},function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _c('thead', {
-    staticClass: "thead-dark table table-centered table-nowrap"
-  }, [_c('tr', {
-    attrs: {
-      "role": "row"
+    staticClass: "fa fa-refresh"
+  }), _vm._v(" Làm mới\n                        ")])])]), _vm._v(" "), _c('div', {
+    staticClass: "row",
+    staticStyle: {
+      "margin-top": "20px"
     }
-  }, [_c('th'), _vm._v(" "), _c('th', [_vm._v("STT")]), _vm._v(" "), _c('th', [_vm._v("Tên thuộc tính")]), _vm._v(" "), _c('th', [_vm._v("Nhóm thuộc tính")]), _vm._v(" "), _c('th', [_vm._v("Ngôn ngữ")]), _vm._v(" "), _c('th', [_vm._v("Thao tác")])])])
-},function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _c('td', {
-    staticClass: "dt-checkboxes-cell"
-  }, [_c('input', {
-    staticClass: "dt-checkboxes",
-    attrs: {
-      "type": "checkbox"
+  }, [_c('div', {
+    staticClass: "col-md-6 col-xs-12"
+  }, [_c('b-form-checkbox', {
+    model: {
+      value: (_vm.tagObj.Invisibled),
+      callback: function($$v) {
+        _vm.$set(_vm.tagObj, "Invisibled", $$v)
+      },
+      expression: "tagObj.Invisibled"
     }
-  })])
-}]}
+  }, [_vm._v("\n                            Hiển thị\n                        ")])], 1), _vm._v(" "), _c('div', {
+    staticClass: "col-md-6 col-xs-12"
+  }, [_c('b-form-checkbox', {
+    model: {
+      value: (_vm.tagObj.IsHotTag),
+      callback: function($$v) {
+        _vm.$set(_vm.tagObj, "IsHotTag", $$v)
+      },
+      expression: "tagObj.IsHotTag"
+    }
+  }, [_vm._v("\n                            Tag Hot\n                        ")])], 1)])])], 1)])], 1)
+},staticRenderFns: []}
 module.exports.render._withStripped = true
 if (true) {
   module.hot.accept()
   if (module.hot.data) {
-     __webpack_require__(178).rerender("data-v-80416706", module.exports)
+     __webpack_require__(178).rerender("data-v-4e1a98a5", module.exports)
   }
 }
 
 /***/ }),
 
-/***/ 778:
+/***/ 787:
 /***/ (function(module, exports, __webpack_require__) {
 
 var Component = __webpack_require__(374)(
   /* script */
-  __webpack_require__(1256),
+  __webpack_require__(1267),
   /* template */
-  __webpack_require__(1563),
+  __webpack_require__(1553),
   /* scopeId */
   null,
   /* cssModules */
   null
 )
-Component.options.__file = "D:\\Code\\WORKING\\dotnet-platform-backend\\Web\\Platform\\CMS\\PlatformCMS\\ClientApp\\pages\\property\\list.vue"
+Component.options.__file = "D:\\Code\\WORKING\\dotnet-platform-backend\\Web\\Platform\\CMS\\PlatformCMS\\ClientApp\\pages\\tags\\edit.vue"
 if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
-if (Component.options.functional) {console.error("[vue-loader] list.vue: functional components are not supported with templates, they should use render functions.")}
+if (Component.options.functional) {console.error("[vue-loader] edit.vue: functional components are not supported with templates, they should use render functions.")}
 
 /* hot reload */
 if (true) {(function () {
@@ -390,9 +336,9 @@ if (true) {(function () {
   if (!hotAPI.compatible) return
   module.hot.accept()
   if (!module.hot.data) {
-    hotAPI.createRecord("data-v-80416706", Component.options)
+    hotAPI.createRecord("data-v-4e1a98a5", Component.options)
   } else {
-    hotAPI.reload("data-v-80416706", Component.options)
+    hotAPI.reload("data-v-4e1a98a5", Component.options)
   }
 })()}
 
@@ -401,7 +347,7 @@ module.exports = Component.exports
 
 /***/ }),
 
-/***/ 792:
+/***/ 795:
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(53)();
@@ -416,13 +362,13 @@ exports.push([module.i, ".vld-overlay {\n  bottom: 0;\n  left: 0;\n  position: a
 
 /***/ }),
 
-/***/ 793:
+/***/ 796:
 /***/ (function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
-var content = __webpack_require__(792);
+var content = __webpack_require__(795);
 if(typeof content === 'string') content = [[module.i, content, '']];
 // add the styles to the DOM
 var update = __webpack_require__(179)(content, {});
@@ -431,8 +377,8 @@ if(content.locals) module.exports = content.locals;
 if(true) {
 	// When the styles change, update the <style> tags
 	if(!content.locals) {
-		module.hot.accept(792, function() {
-			var newContent = __webpack_require__(792);
+		module.hot.accept(795, function() {
+			var newContent = __webpack_require__(795);
 			if(typeof newContent === 'string') newContent = [[module.i, newContent, '']];
 			update(newContent);
 		});
@@ -443,7 +389,7 @@ if(true) {
 
 /***/ }),
 
-/***/ 794:
+/***/ 797:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
