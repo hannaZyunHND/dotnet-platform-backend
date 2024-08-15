@@ -286,9 +286,8 @@ namespace PlatformWEBAPI.Services.Order.Repository
                         response.email = customer.Email;
                         response.country = customer.Country;
                         response.phoneNumber= customer.PhoneNumber;
-                        response.firstName = customer.Fullname.Split(" ").FirstOrDefault();
-                        response.lastName = customer.Fullname.Split(" ").LastOrDefault();
-                        //Lay not cac thong tin ve day;
+                        //response.firstName = customer.Fullname.Split(" ").FirstOrDefault();
+                        //response.lastName = customer.Fullname.Split(" ").LastOrDefault();
                         return response;
                     }  
                 }
