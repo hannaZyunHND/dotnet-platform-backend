@@ -70,6 +70,7 @@ namespace PlatformWEBAPI.Services.Extra.ViewModel
         public string Content { get; set; }
         public int Type { get; set; }
         public string Source { get; set; }
+        public string CultureCode { get; set; }
         public DateTime BookingTime { get; set; } = DateTime.Now;
     }
 

@@ -40,7 +40,7 @@ namespace PlatformCMS.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    [Authorize]
+    //[Authorize]
     public class OrdersController : ControllerBase
     {
         OrdersBCL ordersBCL;
@@ -301,7 +301,7 @@ namespace PlatformCMS.Controllers
             using (IDbContext context = new IDbContext())
             {
                 var user = await context.AspNetUsers.FindAsync(currentUserId);
-                if(user != null)
+                if (user != null)
                 {
                     if (roles.Contains("Supplier"))
                     {
@@ -334,14 +334,14 @@ namespace PlatformCMS.Controllers
                     parameters.Add("@total", dbType: DbType.Int32, direction: ParameterDirection.Output);
                     orders = connection.Query<ResponseGetListOrderV2>("usp_CMS_GetOrderDetailFullInfomations", parameters, commandType: CommandType.StoredProcedure).ToList();
                     total = parameters.Get<int>("@total");
-                    
+
 
                 }
 
                 catch (Exception e)
                 {
                 }
-                
+
             }
             using (var connection = new SqlConnection(_connectionString))
             {
@@ -578,7 +578,7 @@ namespace PlatformCMS.Controllers
                 worksheet.Cells[1, 11].Value = "Số trẻ em";
                 worksheet.Cells[1, 12].Value = "Giá bán";
                 worksheet.Cells[1, 13].Value = "Trạng thái";
-                
+
 
                 // Add data
                 for (int i = 0; i < orders.Count; i++)
@@ -698,9 +698,9 @@ namespace PlatformCMS.Controllers
         [AllowAnonymous]
         public async Task<IActionResult> SendETicket(RequestSendETicket request)
         {
-            if(request != null)
+            if (request != null)
             {
-                if(request.orderDetailId > 0)
+                if (request.orderDetailId > 0)
                 {
                     await SendEmailToCustomerWithStatus(request.orderDetailId);
 
@@ -711,7 +711,56 @@ namespace PlatformCMS.Controllers
 
         }
 
-        
+        [HttpGet]
+        [Route("GetListOrderFeedback")]
+        public async Task<IActionResult> GetListOrderFeedback()
+        {
+            try
+            {
+                using (var connection = new SqlConnection(_connectionString))
+                {
+                    if (connection.State == ConnectionState.Closed)
+                    {
+                        connection.Open();
+                    }
+
+                    var orders = connection.Query<OrderFeedbackDetail>("usp_CMS_ReviewFeedback", commandType: CommandType.StoredProcedure).ToList();
+
+                    return Ok(orders);
+                }
+            }
+            catch (Exception e)
+            {
+                return BadRequest(e.Message);
+            }
+        }
+
+        [HttpPost]
+        [Route("UpdateReviewFeedback")]
+        public async Task<IActionResult> UpdateReviewFeedback (UpdateFeedbackDetail request)
+        {
+            try
+            {
+                using (var connection = new SqlConnection(_connectionString))
+                {
+                    if(connection.State == ConnectionState.Closed)
+                    {
+                        connection.Close();
+                    }
+
+                    var parameters = new DynamicParameters();
+                    parameters.Add("@orderDetailFeedbackId", request.OrderDetailFeedbackId);
+                    parameters.Add("@IsConfirm", request.IsConfirm);
+                    
+                    var orders = connection.Query<OrderFeedbackDetail>("usp_CMS_UpdateReviewFeedback", parameters, commandType: CommandType.StoredProcedure).ToList();
+                    return Ok(orders);
+                }
+            }
+            catch(Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
 
         private async Task SendEmailToCustomerWithStatus(int orderDetailId)
         {
@@ -733,7 +782,7 @@ namespace PlatformCMS.Controllers
                     parameters.Add("@orderDetailId", orderDetailId);
 
                     orderResponse = connection.QueryFirst<ResponseGetListOrderV2>("usp_CMS_GetOrderDetailFullInfomationsById", parameters, commandType: CommandType.StoredProcedure);
-                    
+
 
 
                 }
@@ -742,7 +791,7 @@ namespace PlatformCMS.Controllers
                     Console.WriteLine(e.Message);
                 }
             }
-            if(orderResponse.OrderDetailId > 0)
+            if (orderResponse.OrderDetailId > 0)
             {
                 var detail = orderResponse;
                 languageBanner = orderResponse.DefaultLanguage;
@@ -757,7 +806,7 @@ namespace PlatformCMS.Controllers
                     templateEmailName = "mail-e-ticket.html";
                     var bannerCulture = GetBannerAdsByCode(languageBanner, bannerCode);
 
-                    if(bannerCulture != null)
+                    if (bannerCulture != null)
                     {
                         var wwwroot = _enviroment.WebRootPath;
                         var templateFullPath = Path.Combine(wwwroot, "mail-templates", templateEmailName);
@@ -799,7 +848,7 @@ namespace PlatformCMS.Controllers
                             var outputHtml = ReplacePlaceholders(templateString, mailHooks);
                             if (!string.IsNullOrEmpty(outputHtml))
                             {
-                                
+
                                 var title = mailHooks.GetValueOrDefault("[MAIL_TITLE]");
                                 var subject = "";
                                 if (!string.IsNullOrEmpty(title))
@@ -816,7 +865,7 @@ namespace PlatformCMS.Controllers
                                 message.Subject = subject;
 
                                 var bodyBuilder = new BodyBuilder { HtmlBody = body };
-                                
+
 
                                 // Đính kèm file
 
@@ -839,7 +888,7 @@ namespace PlatformCMS.Controllers
                                 foreach (var filePath in attachmentFilePath)
                                 {
                                     bodyBuilder.Attachments.Add(filePath);
-                                    
+
                                 }
                                 message.Body = bodyBuilder.ToMessageBody();
                                 using (var client = new MailKit.Net.Smtp.SmtpClient())
@@ -855,7 +904,7 @@ namespace PlatformCMS.Controllers
                                     {
                                         // Handle exception (e.g., log the error)
                                         Console.WriteLine($"ERROR: {ex.Message}");
-                                        
+
                                     }
                                 }
                             }
@@ -1099,13 +1148,37 @@ namespace PlatformCMS.Controllers
                 catch (Exception e)
                 {
                     Console.WriteLine(e.Message);
-                    
+
                 }
             }
             return null;
         }
     }
 
+    public class UpdateFeedbackDetail
+    {
+        public int OrderDetailFeedbackId { get; set; }
+        public bool IsConfirm { get; set; }
+    }
+
+    public class OrderFeedbackDetail
+    {
+        public int Id { get; set; }
+        public string TitleComment { get; set; }
+        public string ContentComment { get; set; }
+        public int Rating { get; set; }
+        public DateTime CreatedDate { get; set; }
+        public bool IsConfirm { get; set; }
+        public string FileUpload { get; set; }
+
+        public string Customer { get; set; }
+        public string Phone { get; set; }
+        public string Email { get; set; }
+
+        public string Title { get; set; }
+        public string Preview { get; set; }
+        public string Image_Preview { get; set; }
+    }
     public class RequesetGetListOrderV2
     {
         public string keyword { get; set; }

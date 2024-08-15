@@ -1,58 +1,132 @@
 webpackJsonp([4],{
 
 /***/ 1000:
-/***/ (function(module, exports) {
+/***/ (function(module, exports, __webpack_require__) {
 
-module.exports = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAg0lEQVQ4ja3QwQ3AIAgF0J6dwyVcwxUI4hZ1C6dwDZdwDs/tqYlRTKEpCRcjD/3HsakQwjX27t62xqFXYN4m7V+B9OGL53zQFds7JzYF0DigKoDKAUUBlAVAxCwFEDGzqSpekBaAiKIUIKLIAV4BeA5wCsAtAABYKQAAlgvRKEI0z9wNbkpkPnEUO00AAAAASUVORK5CYII="
+var META = __webpack_require__(109)('meta');
+var isObject = __webpack_require__(45);
+var has = __webpack_require__(73);
+var setDesc = __webpack_require__(55).f;
+var id = 0;
+var isExtensible = Object.isExtensible || function () {
+  return true;
+};
+var FREEZE = !__webpack_require__(46)(function () {
+  return isExtensible(Object.preventExtensions({}));
+});
+var setMeta = function (it) {
+  setDesc(it, META, { value: {
+    i: 'O' + ++id, // object ID
+    w: {}          // weak collections IDs
+  } });
+};
+var fastKey = function (it, create) {
+  // return primitive with prefix
+  if (!isObject(it)) return typeof it == 'symbol' ? it : (typeof it == 'string' ? 'S' : 'P') + it;
+  if (!has(it, META)) {
+    // can't set metadata to uncaught frozen object
+    if (!isExtensible(it)) return 'F';
+    // not necessary to add metadata
+    if (!create) return 'E';
+    // add missing metadata
+    setMeta(it);
+  // return object ID
+  } return it[META].i;
+};
+var getWeak = function (it, create) {
+  if (!has(it, META)) {
+    // can't set metadata to uncaught frozen object
+    if (!isExtensible(it)) return true;
+    // not necessary to add metadata
+    if (!create) return false;
+    // add missing metadata
+    setMeta(it);
+  // return hash weak collections IDs
+  } return it[META].w;
+};
+// add metadata on freeze-family methods calling
+var onFreeze = function (it) {
+  if (FREEZE && meta.NEED && isExtensible(it) && !has(it, META)) setMeta(it);
+  return it;
+};
+var meta = module.exports = {
+  KEY: META,
+  NEED: false,
+  fastKey: fastKey,
+  getWeak: getWeak,
+  onFreeze: onFreeze
+};
+
 
 /***/ }),
 
 /***/ 1001:
 /***/ (function(module, exports) {
 
-module.exports = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAyJpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuMy1jMDExIDY2LjE0NTY2MSwgMjAxMi8wMi8wNi0xNDo1NjoyNyAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvIiB4bWxuczp4bXBNTT0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL21tLyIgeG1sbnM6c3RSZWY9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9zVHlwZS9SZXNvdXJjZVJlZiMiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIENTNiAoV2luZG93cykiIHhtcE1NOkluc3RhbmNlSUQ9InhtcC5paWQ6QUFFNEVGRTcyNzI5MTFFN0E4MTJDODUxMTY5OTBDRTMiIHhtcE1NOkRvY3VtZW50SUQ9InhtcC5kaWQ6QUFFNEVGRTgyNzI5MTFFN0E4MTJDODUxMTY5OTBDRTMiPiA8eG1wTU06RGVyaXZlZEZyb20gc3RSZWY6aW5zdGFuY2VJRD0ieG1wLmlpZDpBQUU0RUZFNTI3MjkxMUU3QTgxMkM4NTExNjk5MENFMyIgc3RSZWY6ZG9jdW1lbnRJRD0ieG1wLmRpZDpBQUU0RUZFNjI3MjkxMUU3QTgxMkM4NTExNjk5MENFMyIvPiA8L3JkZjpEZXNjcmlwdGlvbj4gPC9yZGY6UkRGPiA8L3g6eG1wbWV0YT4gPD94cGFja2V0IGVuZD0iciI/PoebdJQAAAEfSURBVHjalNI9SwMxGMDxXHutaEXwHZdCEaSLQ71Fuujoojg4Cv0K4ioUStd+BpcOfgGh6Obo0uLsoJNQsC6+0evL9R94DkLotXcP/LiEJM8lT+J4nqckznGFY5UgUkY7jQ2VMFwUsYQ9ZHEwZ80Qb/gOEzRQwiJW8CgTHWthIN9lXOA+TFBBBme4xmnEn8MELeTMI/Skrb//eJ1zhJ+oIrpWP07hZy7YT3qNOsZYQA3PaGJbCro+rbiuleAPR6hK/xJlfGATJ+jPShDIPX/JbnRsYUf6JSn0ICrBGt7lSgNrTG+9i1XksQvfTPCLAp70QETNMrKbOm7QNhPohYdTdmXHHW7xoGtmTtZv+yXGzfny2Doq5sOx4xOjsDMRYADeTjM37KwM6gAAAABJRU5ErkJggg=="
+module.exports = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAJUlEQVQ4jWNgoBSkpaX9pwRTxwBsriJabHAYMBoGo2FAcRhQCgAhhv41B1NcjwAAAABJRU5ErkJggg=="
 
 /***/ }),
 
 /***/ 1002:
 /***/ (function(module, exports) {
 
-module.exports = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAlElEQVQ4jWNgGHCQlpb2Hw3fz8jIUKDEANIMwWEAXkwTAx4T7WdsXkhNTV2dnp6uT4ZrLjCkpaX9T09PL0pPT59AqgGpqan5MBfYp6WlvSLRgF+JiYmiDGlpad/T09PDybB9AywMjqampm4g1YD09HR/mAGL0tLSfpFowKu0tDRWmAGHybB9AnI0viHDAH2y0w06AACLVFch1Ej7rgAAAABJRU5ErkJggg=="
+module.exports = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAHElEQVQ4jWNgGPogLS3tPyV41AWjLhguLqAUAABjQNJhHOFYqgAAAABJRU5ErkJggg=="
 
 /***/ }),
 
 /***/ 1003:
 /***/ (function(module, exports) {
 
-module.exports = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAA6UlEQVQ4ja2TUU7DQAxE/UO5SwPH2SP4TX5yFKIgisRZijhFyyXyGfHXVuVnUzmrBNGCpZFWlme0s541Kwp4lNQBn8BXxl5S5+5VOX+ppmnuJb0CJ+C8gBOwSSmtJuSU0krSxw/EEu8TEeDtCvKIjZmZ1XX9EK9tZubuFdCH4X70H3pHd68MeI7K42AQ6YtevEVrwL5oTggzgnF2Z8Aw46+PK1sgn4HhXwT+ZiGn7qZHdPencY3HW9YoaW1mZjnCVwVJUjeJsrtvf0t29+3sfwBeop0ZHHLw7hZ/paQ10AK7vOIhn9uL51DfTreZQOo3Kt0AAAAASUVORK5CYII="
+module.exports = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAg0lEQVQ4ja3QwQ3AIAgF0J6dwyVcwxUI4hZ1C6dwDZdwDs/tqYlRTKEpCRcjD/3HsakQwjX27t62xqFXYN4m7V+B9OGL53zQFds7JzYF0DigKoDKAUUBlAVAxCwFEDGzqSpekBaAiKIUIKLIAV4BeA5wCsAtAABYKQAAlgvRKEI0z9wNbkpkPnEUO00AAAAASUVORK5CYII="
 
 /***/ }),
 
 /***/ 1004:
 /***/ (function(module, exports) {
 
-module.exports = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAATUlEQVQ4jWNgoBXIyMhQSE1N3Z+RkaFAlua0tLT7aWlp/9PS0u6TZAia5v8kGYJDM2mGwACyZqI1jRpAJsARZURhsgxAtnhgXED1wAUASBXMx2KfmeMAAAAASUVORK5CYII="
+module.exports = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAyJpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuMy1jMDExIDY2LjE0NTY2MSwgMjAxMi8wMi8wNi0xNDo1NjoyNyAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvIiB4bWxuczp4bXBNTT0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL21tLyIgeG1sbnM6c3RSZWY9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9zVHlwZS9SZXNvdXJjZVJlZiMiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIENTNiAoV2luZG93cykiIHhtcE1NOkluc3RhbmNlSUQ9InhtcC5paWQ6QUFFNEVGRTcyNzI5MTFFN0E4MTJDODUxMTY5OTBDRTMiIHhtcE1NOkRvY3VtZW50SUQ9InhtcC5kaWQ6QUFFNEVGRTgyNzI5MTFFN0E4MTJDODUxMTY5OTBDRTMiPiA8eG1wTU06RGVyaXZlZEZyb20gc3RSZWY6aW5zdGFuY2VJRD0ieG1wLmlpZDpBQUU0RUZFNTI3MjkxMUU3QTgxMkM4NTExNjk5MENFMyIgc3RSZWY6ZG9jdW1lbnRJRD0ieG1wLmRpZDpBQUU0RUZFNjI3MjkxMUU3QTgxMkM4NTExNjk5MENFMyIvPiA8L3JkZjpEZXNjcmlwdGlvbj4gPC9yZGY6UkRGPiA8L3g6eG1wbWV0YT4gPD94cGFja2V0IGVuZD0iciI/PoebdJQAAAEfSURBVHjalNI9SwMxGMDxXHutaEXwHZdCEaSLQ71Fuujoojg4Cv0K4ioUStd+BpcOfgGh6Obo0uLsoJNQsC6+0evL9R94DkLotXcP/LiEJM8lT+J4nqckznGFY5UgUkY7jQ2VMFwUsYQ9ZHEwZ80Qb/gOEzRQwiJW8CgTHWthIN9lXOA+TFBBBme4xmnEn8MELeTMI/Skrb//eJ1zhJ+oIrpWP07hZy7YT3qNOsZYQA3PaGJbCro+rbiuleAPR6hK/xJlfGATJ+jPShDIPX/JbnRsYUf6JSn0ICrBGt7lSgNrTG+9i1XksQvfTPCLAp70QETNMrKbOm7QNhPohYdTdmXHHW7xoGtmTtZv+yXGzfny2Doq5sOx4xOjsDMRYADeTjM37KwM6gAAAABJRU5ErkJggg=="
 
 /***/ }),
 
 /***/ 1005:
+/***/ (function(module, exports) {
+
+module.exports = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAlElEQVQ4jWNgGHCQlpb2Hw3fz8jIUKDEANIMwWEAXkwTAx4T7WdsXkhNTV2dnp6uT4ZrLjCkpaX9T09PL0pPT59AqgGpqan5MBfYp6WlvSLRgF+JiYmiDGlpad/T09PDybB9AywMjqampm4g1YD09HR/mAGL0tLSfpFowKu0tDRWmAGHybB9AnI0viHDAH2y0w06AACLVFch1Ej7rgAAAABJRU5ErkJggg=="
+
+/***/ }),
+
+/***/ 1006:
+/***/ (function(module, exports) {
+
+module.exports = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAA6UlEQVQ4ja2TUU7DQAxE/UO5SwPH2SP4TX5yFKIgisRZijhFyyXyGfHXVuVnUzmrBNGCpZFWlme0s541Kwp4lNQBn8BXxl5S5+5VOX+ppmnuJb0CJ+C8gBOwSSmtJuSU0krSxw/EEu8TEeDtCvKIjZmZ1XX9EK9tZubuFdCH4X70H3pHd68MeI7K42AQ6YtevEVrwL5oTggzgnF2Z8Aw46+PK1sgn4HhXwT+ZiGn7qZHdPencY3HW9YoaW1mZjnCVwVJUjeJsrtvf0t29+3sfwBeop0ZHHLw7hZ/paQ10AK7vOIhn9uL51DfTreZQOo3Kt0AAAAASUVORK5CYII="
+
+/***/ }),
+
+/***/ 1007:
+/***/ (function(module, exports) {
+
+module.exports = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAATUlEQVQ4jWNgoBXIyMhQSE1N3Z+RkaFAlua0tLT7aWlp/9PS0u6TZAia5v8kGYJDM2mGwACyZqI1jRpAJsARZURhsgxAtnhgXED1wAUASBXMx2KfmeMAAAAASUVORK5CYII="
+
+/***/ }),
+
+/***/ 1008:
 /***/ (function(module, exports, __webpack_require__) {
 
 
 /* styles */
-__webpack_require__(1015)
+__webpack_require__(1018)
 
 var Component = __webpack_require__(374)(
   /* script */
-  __webpack_require__(1011),
-  /* template */
   __webpack_require__(1014),
+  /* template */
+  __webpack_require__(1017),
   /* scopeId */
   "data-v-497df3b6",
   /* cssModules */
   null
 )
-Component.options.__file = "C:\\WORKING\\Joytime\\dotnet-platform-backend\\Web\\Platform\\CMS\\PlatformCMS\\ClientApp\\components\\fileManager\\list.vue"
+Component.options.__file = "D:\\Code\\WORKING\\dotnet-platform-backend\\Web\\Platform\\CMS\\PlatformCMS\\ClientApp\\components\\fileManager\\list.vue"
 if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
 if (Component.options.functional) {console.error("[vue-loader] list.vue: functional components are not supported with templates, they should use render functions.")}
 
@@ -74,12 +148,12 @@ module.exports = Component.exports
 
 /***/ }),
 
-/***/ 1006:
+/***/ 1009:
 /***/ (function(module, exports, __webpack_require__) {
 
 // fallback for IE11 buggy Object.getOwnPropertyNames with iframe and window
 var toIObject = __webpack_require__(57);
-var gOPN = __webpack_require__(952).f;
+var gOPN = __webpack_require__(955).f;
 var toString = {}.toString;
 
 var windowNames = typeof window == 'object' && window && Object.getOwnPropertyNames
@@ -100,13 +174,13 @@ module.exports.f = function getOwnPropertyNames(it) {
 
 /***/ }),
 
-/***/ 1007:
+/***/ 1010:
 /***/ (function(module, exports, __webpack_require__) {
 
 // all enumerable object keys, includes symbols
 var getKeys = __webpack_require__(183);
-var gOPS = __webpack_require__(965);
-var pIE = __webpack_require__(806);
+var gOPS = __webpack_require__(968);
+var pIE = __webpack_require__(810);
 module.exports = function (it) {
   var result = getKeys(it);
   var getSymbols = gOPS.f;
@@ -122,7 +196,7 @@ module.exports = function (it) {
 
 /***/ }),
 
-/***/ 1008:
+/***/ 1011:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -133,15 +207,15 @@ var has = __webpack_require__(73);
 var DESCRIPTORS = __webpack_require__(59);
 var $export = __webpack_require__(12);
 var redefine = __webpack_require__(61);
-var META = __webpack_require__(997).KEY;
+var META = __webpack_require__(1000).KEY;
 var $fails = __webpack_require__(46);
 var shared = __webpack_require__(113);
 var setToStringTag = __webpack_require__(112);
 var uid = __webpack_require__(109);
 var wks = __webpack_require__(17);
-var wksExt = __webpack_require__(993);
-var wksDefine = __webpack_require__(808);
-var enumKeys = __webpack_require__(1007);
+var wksExt = __webpack_require__(996);
+var wksDefine = __webpack_require__(811);
+var enumKeys = __webpack_require__(1010);
 var isArray = __webpack_require__(187);
 var anObject = __webpack_require__(36);
 var isObject = __webpack_require__(45);
@@ -150,9 +224,9 @@ var toIObject = __webpack_require__(57);
 var toPrimitive = __webpack_require__(380);
 var createDesc = __webpack_require__(108);
 var _create = __webpack_require__(388);
-var gOPNExt = __webpack_require__(1006);
-var $GOPD = __webpack_require__(994);
-var $GOPS = __webpack_require__(965);
+var gOPNExt = __webpack_require__(1009);
+var $GOPD = __webpack_require__(997);
+var $GOPS = __webpack_require__(968);
 var $DP = __webpack_require__(55);
 var $keys = __webpack_require__(183);
 var gOPD = $GOPD.f;
@@ -277,8 +351,8 @@ if (!USE_NATIVE) {
 
   $GOPD.f = $getOwnPropertyDescriptor;
   $DP.f = $defineProperty;
-  __webpack_require__(952).f = gOPNExt.f = $getOwnPropertyNames;
-  __webpack_require__(806).f = $propertyIsEnumerable;
+  __webpack_require__(955).f = gOPNExt.f = $getOwnPropertyNames;
+  __webpack_require__(810).f = $propertyIsEnumerable;
   $GOPS.f = $getOwnPropertySymbols;
 
   if (DESCRIPTORS && !__webpack_require__(107)) {
@@ -376,23 +450,23 @@ setToStringTag(global.JSON, 'JSON', true);
 
 /***/ }),
 
-/***/ 1009:
+/***/ 1012:
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(808)('asyncIterator');
+__webpack_require__(811)('asyncIterator');
 
 
 /***/ }),
 
-/***/ 1010:
+/***/ 1013:
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(808)('observable');
+__webpack_require__(811)('observable');
 
 
 /***/ }),
 
-/***/ 1011:
+/***/ 1014:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -402,21 +476,21 @@ Object.defineProperty(exports, "__esModule", {
     value: true
 });
 
-var _from = __webpack_require__(951);
+var _from = __webpack_require__(954);
 
 var _from2 = _interopRequireDefault(_from);
 
-var _extends2 = __webpack_require__(8);
+var _extends2 = __webpack_require__(7);
 
 var _extends3 = _interopRequireDefault(_extends2);
 
-var _defineProperty2 = __webpack_require__(953);
+var _defineProperty2 = __webpack_require__(956);
 
 var _defineProperty3 = _interopRequireDefault(_defineProperty2);
 
-__webpack_require__(793);
+__webpack_require__(796);
 
-var _constant = __webpack_require__(794);
+var _constant = __webpack_require__(797);
 
 var _constant2 = _interopRequireDefault(_constant);
 
@@ -426,13 +500,13 @@ var _vueLoadingOverlay = __webpack_require__(376);
 
 var _vueLoadingOverlay2 = _interopRequireDefault(_vueLoadingOverlay);
 
-var _eventBus = __webpack_require__(954);
+var _eventBus = __webpack_require__(957);
 
 var _eventBus2 = _interopRequireDefault(_eventBus);
 
-var _symbol = __webpack_require__(1012);
+var _symbol = __webpack_require__(1015);
 
-var _jquery = __webpack_require__(1013);
+var _jquery = __webpack_require__(1016);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -460,7 +534,7 @@ exports.default = {
         }, (0, _defineProperty3.default)(_ref, "isLoading", false), (0, _defineProperty3.default)(_ref, "MaxFileSize", 3000), (0, _defineProperty3.default)(_ref, "selectedFile", []), (0, _defineProperty3.default)(_ref, "extensions", []), (0, _defineProperty3.default)(_ref, "extImage", []), (0, _defineProperty3.default)(_ref, "isActive", false), (0, _defineProperty3.default)(_ref, "selectType", ''), (0, _defineProperty3.default)(_ref, "keyword", ''), _ref;
     },
     created: function created() {
-        var config = __webpack_require__(996);
+        var config = __webpack_require__(999);
         this.extImage = config.AppSettings.ImageAllowUpload;
         this.extensions = config.AppSettings.ImageAllowUpload.concat(config.AppSettings.DocumentAllowUpload);
 
@@ -656,19 +730,19 @@ exports.default = {
 
 /***/ }),
 
-/***/ 1012:
+/***/ 1015:
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(1008);
+__webpack_require__(1011);
 __webpack_require__(392);
-__webpack_require__(1009);
-__webpack_require__(1010);
+__webpack_require__(1012);
+__webpack_require__(1013);
 module.exports = __webpack_require__(37).Symbol;
 
 
 /***/ }),
 
-/***/ 1013:
+/***/ 1016:
 /***/ (function(module, exports, __webpack_require__) {
 
 var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
@@ -11557,7 +11631,7 @@ return jQuery;
 
 /***/ }),
 
-/***/ 1014:
+/***/ 1017:
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
@@ -11839,23 +11913,23 @@ if (true) {
 
 /***/ }),
 
-/***/ 1015:
+/***/ 1018:
 /***/ (function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
-var content = __webpack_require__(946);
+var content = __webpack_require__(949);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
-var update = __webpack_require__(798)("7006b314", content, false);
+var update = __webpack_require__(801)("7006b314", content, false);
 // Hot Module Replacement
 if(true) {
  // When the styles change, update the <style> tags
  if(!content.locals) {
-   module.hot.accept(946, function() {
-     var newContent = __webpack_require__(946);
+   module.hot.accept(949, function() {
+     var newContent = __webpack_require__(949);
      if(typeof newContent === 'string') newContent = [[module.i, newContent, '']];
      update(newContent);
    });
@@ -11866,7 +11940,7 @@ if(true) {
 
 /***/ }),
 
-/***/ 1017:
+/***/ 1020:
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(53)();
@@ -11881,7 +11955,7 @@ exports.push([module.i, ".v-select{position:relative;font-family:inherit}.v-sele
 
 /***/ }),
 
-/***/ 1018:
+/***/ 1021:
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(53)();
@@ -11889,20 +11963,20 @@ exports = module.exports = __webpack_require__(53)();
 
 
 // module
-exports.push([module.i, "\n.file-manager[data-v-8004295c], .fm-content-selected[data-v-8004295c] {\n    padding: 0;\n}\n.file-manager___BV_modal_body_[data-v-8004295c] {\n    padding: 0;\n}\n.fm-content-selected ul li[data-v-8004295c] {\n    list-style-type: none\n}\n.fm-container-dialog[data-v-8004295c] {\n    padding: 0;\n    overflow: hidden !important;\n}\n.fm-container[data-v-8004295c] {\n    font-size: 12px;\n    font-family: sans-serif;\n    padding: 0\n}\n.fm-toolbar ul[data-v-8004295c] {\n    float: left;\n    margin: 3.5px 0 3px 10px;\n    padding: 1px 2px;\n    border-radius: 0\n}\n.fm-toolbar ul li[data-v-8004295c] {\n        border: 1px solid .fff;\n        cursor: pointer;\n        float: left;\n        line-height: 26px;\n        list-style-type: none;\n        padding: 0 8px;\n        text-align: center;\n}\n.fm-toolbar ul li[data-v-8004295c]:hover {\n            background: #eaeaea;\n}\n.fm-toolbar ul li.active[data-v-8004295c] {\n            background: #eaeaea;\n}\n.fm-container[data-v-8004295c] {\n}\n.fm-toolbar[data-v-8004295c] {\n}\n.fm-footer[data-v-8004295c] {\n    border-top: 1px solid #eaeaea;\n    padding-top: 10px\n}\n.fm-toolbar .tool-items[data-v-8004295c] {\n    clear: both;\n    padding-right: 6px;\n}\n.fm-toolbar .tools[data-v-8004295c] {\n    float: left;\n}\n.fm-main[data-v-8004295c] {\n    margin-top: 8px;\n    border-top: 1px solid #eaeaea;\n}\n.fm-sidebar .fm-header[data-v-8004295c] {\n    height: 35px;\n    line-height: 35px;\n    background-color: #39c;\n    overflow: hidden;\n    font-size: 17px;\n    color: #ecf3f9;\n    text-align: center;\n}\n.fm-sidebar[data-v-8004295c] {\n    border-right: 1px solid #eaeaea\n}\n.fm-content[data-v-8004295c] {\n    background-color: white;\n    cursor: default; /*z-index: 0; box-shadow: 0 2px 4px rgba(0,0,0,0.04), 0 1px 4px rgba(0,0,0,0.12);*/\n    height: 100%;\n}\n.fm-data-wrapper[data-v-8004295c] {\n    overflow: hidden;\n}\n.fm-file-view[data-v-8004295c] {\n    border-left: 1px solid #eaeaea;\n    float: right;\n    height: 100%;\n    width: 250px;\n    padding: 9px;\n    background: .fff;\n}\n.fm-file-view .file-thumb[data-v-8004295c] {\n        text-align: center;\n        max-height: 250px;\n        max-width: 230px;\n        overflow: hidden;\n}\n.fm-file-view .header[data-v-8004295c] {\n        font-weight: bold;\n        margin-bottom: 12px;\n        padding: 2px 0;\n        text-align: center;\n        text-transform: uppercase;\n}\n.fm-file-view .details[data-v-8004295c] {\n        padding-top: 16px;\n}\n.fm-file-view .details div[data-v-8004295c] {\n            line-height: 21px;\n}\n.fm-file-view .details .uploaded[data-v-8004295c],\n        .fm-file-view .details .file-size[data-v-8004295c],\n        .fm-file-view .details .dimensions[data-v-8004295c] {\n            line-height: 21px;\n}\n.fm-file-view .file-thumb img[data-v-8004295c] {\n        border: 1px solid #eaeaea;\n        padding: 4px; /*max-height: 220px; max-width: 228px;*/\n}\n.attachment-info .filename[data-v-8004295c] {\n    font-weight: 600;\n    color: #444;\n    word-wrap: break-word;\n}\n.btn-attack[data-v-8004295c] {\n    background: .fff none repeat scroll 0 0;\n    padding: 3px 3px 3px 0;\n    width: 230px;\n    float: right;\n    clear: both;\n}\n.btn-attack button#btn-attack[data-v-8004295c] {\n        color: .fff;\n        background: #0085ba;\n        border: 0;\n        padding: 4px 6px;\n}\n.btn-attack button#dl-close[data-v-8004295c] {\n        background: #eaeaea;\n        border: 0;\n        padding: 4px 6px;\n        float: right;\n        clear: both;\n}\n.fm-content table._list[data-v-8004295c] {\n    width: 100%;\n}\n.fm-content table._list tr[data-v-8004295c] {\n}\n.fm-content table._list tr th[data-v-8004295c] {\n            text-align: center;\n            font-weight: bold;\n}\n.fm-content table._list tr td[data-v-8004295c] {\n            padding: 5px 4px;\n}\n.fm-content table._list tr._active[data-v-8004295c] {\n            background: #48adff;\n}\n.fm-toolbar ul li i[data-v-8004295c] {\n    background-repeat: no-repeat;\n    display: inline-block;\n    height: 16px;\n    vertical-align: middle;\n    width: 16px;\n}\n.fm-toolbar ul li i[data-v-8004295c] {\n}\nli i.create-folder[data-v-8004295c] {\n    background-image: url(" + __webpack_require__(1002) + ");\n}\nli i.upload[data-v-8004295c] {\n    background-image: url(" + __webpack_require__(1004) + ");\n}\nli i.list[data-v-8004295c] {\n    background-image: url(" + __webpack_require__(999) + ");\n}\nli i.grid[data-v-8004295c] {\n    background-image: url(" + __webpack_require__(998) + ");\n}\nli i.iclose[data-v-8004295c] {\n    background-image: url(" + __webpack_require__(1003) + ");\n}\nli i.crop[data-v-8004295c] {\n    background-image: url(" + __webpack_require__(1001) + ");\n}\nli i.remove[data-v-8004295c] {\n    background-image: url(" + __webpack_require__(1000) + ");\n}\nli i.close[data-v-8004295c]:hover {\n}\n.fm-footer[data-v-8004295c] {\n    min-height: 32px;\n}\n.fm-data-wrapper[data-v-8004295c] {\n    height: 100%;\n}\n.clear[data-v-8004295c] {\n    clear: both;\n}\n._list ._active[data-v-8004295c] {\n    background: #48adff;\n}\n.fm-content[data-v-8004295c] {\n}\n.fm-content table._list table thead tr th[data-v-8004295c] {\n        text-align: center;\n}\n.fm-content table._list tr[data-v-8004295c] {\n        font-size: 11px;\n}\n.fm-content table._list tr[data-v-8004295c]:hover {\n            background: #c1edff;\n            cursor: pointer;\n}\n.fm-content table._list tr td[data-v-8004295c] {\n}\n.fm-content table._list tbody tr td.name[data-v-8004295c] {\n        display: inline-flex;\n}\n.fm-content table._list tbody tr td.name .list-icon[data-v-8004295c] {\n            display: inline-block;\n            float: left;\n            padding-right: 20px;\n}\n.fm-grid[data-v-8004295c], .fm-folder ul[data-v-8004295c], .fm-grid li .info p[data-v-8004295c] {\n    padding: 0;\n    margin: 0;\n}\n.fm-grid li[data-v-8004295c] {\n        position: relative;\n        vertical-align: middle;\n        display: table-cell;\n        border: 1px solid #eaeaea;\n        cursor: pointer;\n        float: left;\n        height: 100px;\n        min-width: 114px;\n        list-style-type: none;\n        margin: 4px;\n        padding: 2px;\n        width: 14.99%;\n        position: relative;\n        overflow: hidden;\n        text-align: center;\n}\n.fm-grid li .info[data-v-8004295c] {\n            font-size: 10px;\n            background: rgba(109, 105, 105, 0.87);\n            color: .fff;\n            position: absolute;\n            bottom: 0;\n            width: 100%;\n            height: 0\n}\n.fm-grid li:hover .info[data-v-8004295c] {\n            height: auto\n}\n.fm-list li img[data-v-8004295c] {\n    width: 100%\n}\n.fm-list li.not_img img[data-v-8004295c] {\n    width: 50%;\n    padding-top: 10px\n}\n.fm-grid li img.thumb[data-v-8004295c] {\n    width: 60%;\n    margin: 0 auto;\n}\n.fm-grid li i[data-v-8004295c] {\n    position: absolute;\n    z-index: 999;\n    right: 4px;\n    background: .fff;\n    border-radius: 11px;\n    color: #0085ba;\n    padding: 1px;\n    top: 3px;\n    display: none;\n}\n.fm-grid li._active i[data-v-8004295c] {\n    display: block;\n}\n.fm-grid li._active[data-v-8004295c] {\n    border: 1px solid #0085ba;\n}\n.fm-folder ul li[data-v-8004295c] {\n    list-style-type: none;\n    padding: 8px 0;\n    cursor: pointer\n}\n.fm-folder ul li i[data-v-8004295c] {\n        background-repeat: no-repeat;\n        display: inline-block;\n        height: 16px;\n        vertical-align: middle;\n        width: 16px;\n}\n.plupload_filelist_header[data-v-8004295c] {\n    height: 20px;\n}\n.plupload_filelist_footer[data-v-8004295c] {\n    padding: 6px 20px;\n    height: 33px;\n}\n.plupload_scroll .plupload_filelist[data-v-8004295c] {\n    height: 172px !important;\n}\n.plupload_filelist_footer[data-v-8004295c] {\n    padding: 6px 20px;\n}\n.plupload_filelist[data-v-8004295c]:empty,\n.plupload_filelist li.plupload_droptext[data-v-8004295c] {\n    height: 140px;\n}\n.plupload_filelist[data-v-8004295c]:empty::before,\n    .plupload_filelist li.plupload_droptext[data-v-8004295c]::before {\n        font-size: 52px;\n        height: 75px;\n        left: 49%;\n        margin-left: -40px;\n        padding-top: 43px;\n}\n.items-action[data-v-8004295c] {\n    padding-top: 20px;\n    display: inline-block;\n    width: 100%;\n}\n.items-action .file-action[data-v-8004295c] {\n        border: 0 none;\n        color: .fff;\n        padding: 4px 10px;\n}\n.items-action .file-action[data-v-8004295c] {\n        background: rosybrown;\n        float: left;\n        clear: both;\n}\n/*.items-action .file-action:last-child { background: #0085ba;float: right;}*/\n.fm-toolbar .Mi.ipagination a[data-v-8004295c]:first-child {\n    border: 0;\n    border-radius: 0;\n}\n.fm-toolbar .Mi.ipagination input[data-v-8004295c] {\n    border: medium none;\n    float: left;\n    font-family: arial;\n    font-size: 11px;\n    height: 30px;\n    margin: 0;\n    outline: medium none;\n    padding: 0;\n    text-align: center;\n    vertical-align: middle;\n    width: 84px;\n}\n.fm-toolbar .Mi.ipagination a[data-v-8004295c] {\n    border: 0;\n    border-radius: 0;\n    background: .fff;\n}\n.fm-toolbar .ipagination.iweb[data-v-8004295c] {\n    margin-top: 3.45px;\n}\n.frowInTotals[data-v-8004295c] {\n    display: inline-block;\n    float: left;\n    line-height: 39px;\n    padding-right: 3px;\n    vertical-align: baseline;\n}\nlabel#progressall[data-v-8004295c] {\n    display: none;\n    padding: 7px 7px;\n}\n.Cdiv[data-v-8004295c] {\n    padding-left: 12px;\n    height: 17px;\n    overflow: hidden;\n    text-overflow: ellipsis;\n    white-space: nowrap;\n    width: 100%;\n    display: inline-block;\n    font-weight: normal;\n}\n.btn-fm-upload label[data-v-8004295c] {\n    margin-bottom: 0 !important;\n}\n/* Extra small devices (phones, 600px and down) */\n@media only screen and (max-width: 600px) {\n.fm-grid li[data-v-8004295c] {\n        width: 47.65%;\n}\n}\n\n/* Small devices (portrait tablets and large phones, 600px and up) */\n@media only screen and (min-width: 600px) {\n}\n\n/* Medium devices (landscape tablets, 768px and up) */\n@media only screen and (min-width: 768px) {\n}\n\n/* Large devices (laptops/desktops, 992px and up) */\n@media only screen and (min-width: 992px) {\n}\n\n/* Extra large devices (large laptops and desktops, 1200px and up) */\n@media only screen and (min-width: 1200px) {\n}\n", "", {"version":3,"sources":["C:/WORKING/Joytime/dotnet-platform-backend/Web/Platform/CMS/PlatformCMS/ClientApp/components/editor/MIEditor.vue?4de04434"],"names":[],"mappings":";AAuoBA;IACA,WAAA;CACA;AAEA;IACA,WAAA;CACA;AAEA;IACA,qBAAA;CACA;AAEA;IACA,WAAA;IACA,4BAAA;CACA;AAEA;IACA,gBAAA;IACA,wBAAA;IACA,UAAA;CACA;AAEA;IACA,YAAA;IACA,yBAAA;IACA,iBAAA;IACA,gBAAA;CACA;AAEA;QACA,uBAAA;QACA,gBAAA;QACA,YAAA;QACA,kBAAA;QACA,sBAAA;QACA,eAAA;QACA,mBAAA;CACA;AAEA;YACA,oBAAA;CACA;AAEA;YACA,oBAAA;CACA;AAEA;CACA;AAEA;CACA;AAEA;IACA,8BAAA;IACA,iBAAA;CACA;AAEA;IACA,YAAA;IACA,mBAAA;CACA;AAEA;IACA,YAAA;CACA;AAEA;IACA,gBAAA;IACA,8BAAA;CACA;AAEA;IACA,aAAA;IACA,kBAAA;IACA,uBAAA;IACA,iBAAA;IACA,gBAAA;IACA,eAAA;IACA,mBAAA;CACA;AAEA;IACA,+BAAA;CACA;AAEA;IACA,wBAAA;IACA,gBAAA,CAAA,mFAAA;IACA,aAAA;CACA;AAEA;IACA,iBAAA;CACA;AAEA;IACA,+BAAA;IACA,aAAA;IACA,aAAA;IACA,aAAA;IACA,aAAA;IACA,iBAAA;CACA;AAEA;QACA,mBAAA;QACA,kBAAA;QACA,iBAAA;QACA,iBAAA;CACA;AAEA;QACA,kBAAA;QACA,oBAAA;QACA,eAAA;QACA,mBAAA;QACA,0BAAA;CACA;AAEA;QACA,kBAAA;CACA;AAEA;YACA,kBAAA;CACA;AAEA;;;YAGA,kBAAA;CACA;AAEA;QACA,0BAAA;QACA,aAAA,CAAA,wCAAA;CACA;AAEA;IACA,iBAAA;IACA,YAAA;IACA,sBAAA;CACA;AAEA;IACA,wCAAA;IACA,uBAAA;IACA,aAAA;IACA,aAAA;IACA,YAAA;CACA;AAEA;QACA,YAAA;QACA,oBAAA;QACA,UAAA;QACA,iBAAA;CACA;AAEA;QACA,oBAAA;QACA,UAAA;QACA,iBAAA;QACA,aAAA;QACA,YAAA;CACA;AAEA;IACA,YAAA;CACA;AAEA;CACA;AAEA;YACA,mBAAA;YACA,kBAAA;CACA;AAEA;YACA,iBAAA;CACA;AAEA;YACA,oBAAA;CACA;AAEA;IACA,6BAAA;IACA,sBAAA;IACA,aAAA;IACA,uBAAA;IACA,YAAA;CACA;AAEA;CACA;AAEA;IACA,gDAAA;CACA;AAEA;IACA,gDAAA;CACA;AAEA;IACA,gDAAA;CACA;AAEA;IACA,gDAAA;CACA;AAEA;IACA,gDAAA;CACA;AAEA;IACA,gDAAA;CACA;AAEA;IACA,gDAAA;CACA;AAEA;CACA;AAEA;IACA,iBAAA;CACA;AAEA;IACA,aAAA;CACA;AAEA;IACA,YAAA;CACA;AAEA;IACA,oBAAA;CACA;AAEA;CACA;AAEA;QACA,mBAAA;CACA;AAEA;QACA,gBAAA;CACA;AAEA;YACA,oBAAA;YACA,gBAAA;CACA;AAEA;CACA;AAEA;QACA,qBAAA;CACA;AAEA;YACA,sBAAA;YACA,YAAA;YACA,oBAAA;CACA;AAEA;IACA,WAAA;IACA,UAAA;CACA;AAEA;QACA,mBAAA;QACA,uBAAA;QACA,oBAAA;QACA,0BAAA;QACA,gBAAA;QACA,YAAA;QACA,cAAA;QACA,iBAAA;QACA,sBAAA;QACA,YAAA;QACA,aAAA;QACA,cAAA;QACA,mBAAA;QACA,iBAAA;QACA,mBAAA;CACA;AAEA;YACA,gBAAA;YACA,sCAAA;YACA,YAAA;YACA,mBAAA;YACA,UAAA;YACA,YAAA;YACA,SAAA;CACA;AAEA;YACA,YAAA;CACA;AAEA;IACA,WAAA;CACA;AAEA;IACA,WAAA;IACA,iBAAA;CACA;AAEA;IACA,WAAA;IACA,eAAA;CACA;AAEA;IACA,mBAAA;IACA,aAAA;IACA,WAAA;IACA,iBAAA;IACA,oBAAA;IACA,eAAA;IACA,aAAA;IACA,SAAA;IACA,cAAA;CACA;AAEA;IACA,eAAA;CACA;AAEA;IACA,0BAAA;CACA;AAEA;IACA,sBAAA;IACA,eAAA;IACA,eAAA;CACA;AAEA;QACA,6BAAA;QACA,sBAAA;QACA,aAAA;QACA,uBAAA;QACA,YAAA;CACA;AAEA;IACA,aAAA;CACA;AAEA;IACA,kBAAA;IACA,aAAA;CACA;AAEA;IACA,yBAAA;CACA;AAEA;IACA,kBAAA;CACA;AAEA;;IAEA,cAAA;CACA;AAEA;;QAEA,gBAAA;QACA,aAAA;QACA,UAAA;QACA,mBAAA;QACA,kBAAA;CACA;AAEA;IACA,kBAAA;IACA,sBAAA;IACA,YAAA;CACA;AAEA;QACA,eAAA;QACA,YAAA;QACA,kBAAA;CACA;AAEA;QACA,sBAAA;QACA,YAAA;QACA,YAAA;CACA;AACA,8EAAA;AACA;IACA,UAAA;IACA,iBAAA;CACA;AAEA;IACA,oBAAA;IACA,YAAA;IACA,mBAAA;IACA,gBAAA;IACA,aAAA;IACA,UAAA;IACA,qBAAA;IACA,WAAA;IACA,mBAAA;IACA,uBAAA;IACA,YAAA;CACA;AAEA;IACA,UAAA;IACA,iBAAA;IACA,iBAAA;CACA;AAEA;IACA,mBAAA;CACA;AAEA;IACA,sBAAA;IACA,YAAA;IACA,kBAAA;IACA,mBAAA;IACA,yBAAA;CACA;AAEA;IACA,cAAA;IACA,iBAAA;CACA;AAEA;IACA,mBAAA;IACA,aAAA;IACA,iBAAA;IACA,wBAAA;IACA,oBAAA;IACA,YAAA;IACA,sBAAA;IACA,oBAAA;CACA;AAEA;IACA,4BAAA;CACA;AACA,kDAAA;AAEA;AACA;QACA,cAAA;CACA;CACA;;AAEA,qEAAA;AAEA;CACA;;AAEA,sDAAA;AAEA;CACA;;AAEA,oDAAA;AAEA;CACA;;AAEA,qEAAA;AAEA;CACA","file":"MIEditor.vue","sourcesContent":["<template>\r\n    <div>\r\n        <loading :active.sync=\"isLoading\"\r\n                 :height=\"35\"\r\n                 :width=\"35\"></loading>\r\n        <ckeditor v-model=\"content\"\r\n                  @input=\"onEditorInput\"\r\n                  @destroy=\"onEditorDestroy\" :config=\"config\" :index=\"index_p\"></ckeditor>\r\n        <FileManager />\r\n        <!--modal product shortcode-->\r\n        <b-modal ref=\"product-manager-modal\" id=\"product-manager-modal\" v-model=\"modalShowProduct\" class=\"file-manager\" fbody=\"xxx\" hide-footer hide-header size=\"xl\">\r\n            <div id=\"fm-container\" class=\"container-fluid fm-container\">\r\n                <b-row id=\"fm-toolbar\">\r\n                    <b-col lg=\"2\" md=\"2\" sm=\"12\">\r\n                        <b>Sản phẩm</b>\r\n                    </b-col>\r\n                    <b-col>\r\n                        <b-row align-h=\"between\">\r\n                            <b-col cols=\"4\">\r\n                                <treeselect v-model=\"SearchZoneId\"\r\n                                            :options=\"ZoneOptions\"\r\n                                            placeholder=\"Danh mục\"\r\n                                            :default-expanded-level=\"Infinity\">\r\n                                </treeselect>\r\n                            </b-col>\r\n                            <b-col cols=\"4\" class=\"bd-0\">\r\n                                <b-pagination v-model=\"currentPageProductManager\" align=\"right\" size=\"sm\" :limit=\"4\"\r\n                                              :total-rows=\"products.total\"\r\n                                              :per-page=\"pageSize\"></b-pagination>\r\n                            </b-col>\r\n\r\n                        </b-row>\r\n\r\n                    </b-col>\r\n\r\n                </b-row>\r\n                <b-row id=\"fm-main\" class=\"fm-main\">\r\n                    <b-col id=\"fm-content\" class=\"fm-content\" lg=\"9\" dm=\"12\" sm=\"12\">\r\n                        <div id=\"fm-data-wrapper\" class=\"fm-data-wrapper\">\r\n                            <div class=\"fm-list-wrapper\">\r\n                                <div class=\"fm-list\">\r\n                                    <ul id=\"fm-grid\" class=\"fm-grid\" v-if=\"products.listData\">\r\n                                        <li v-for=\"item in products.listData\" :key=\"item.id\" class=\"item\" :class=\"{ _active: isActive}\" @click=\"SelectProduct($event,{name:item.name,id:item.id,avatar:item.avatar,code:item.code})\">\r\n                                            <img :src=\"pathImgs(item.avatar)\" alt=\"\">\r\n                                            <i class=\"fa fa-check\"></i>\r\n                                            <div class=\"info\">\r\n                                                <p class=\"name\">{{item.name}}</p>\r\n                                                <p class=\"dimensions\">{{item.code}}</p>\r\n                                            </div>\r\n                                        </li>\r\n                                    </ul>\r\n                                    <p v-else class=\"text-center\">Không tìm thấy !</p>\r\n                                </div>\r\n                            </div>\r\n                        </div>\r\n\r\n                    </b-col>\r\n                    <b-col id=\"fm-content-selected\" lg=\"3\" dm=\"2\" sm=\"12\">\r\n                        <p class=\"text-center\"><b>Danh sách đã chọn</b></p>\r\n                        <ul style=\"padding:0\" v-if=\"selectedProduct\">\r\n                            <li v-for=\"pro in selectedProduct\" :key=\"pro.id\" style=\"border-bottom:1px solid #ddd;padding:4px 0;display:inline-block;min-height:50px\">\r\n                                <img style=\"width:45px;float:left;padding-right:4px;clear:both\" :src=\"pathImgs(pro.avatar)\" alt=\"\">{{pro.name}}-{{pro.code}}\r\n                            </li>\r\n                        </ul>\r\n                        <p v-else class=\"text-center\">trống !</p>\r\n                    </b-col>\r\n                </b-row>\r\n                <b-row align-h=\"end\" id=\"fm-footer\" class=\"fm-footer\">\r\n                    <b-col cols=\"4\">\r\n                        <div class=\"btn-attack\">\r\n                            <button type=\"button\" id=\"btn-attack\" @click=\"attackProduct\">Đính kèm</button>\r\n                            <!--<button type=\"button\" id=\"btn-attack\" @click=\"attackFileSelected\">Đính kèm2</button>-->\r\n                            <button type=\"button\" id=\"dl-close\" @click=\"hideProductModal\" class=\"iclose\">Đóng</button>\r\n                        </div>\r\n                    </b-col>\r\n                </b-row>\r\n            </div>\r\n        </b-modal>\r\n        <!--modal product shortcode end-->\r\n        <!--modal file manager-->\r\n        <b-modal ref=\"file-manager-modal\" class=\"file-manager\" id=\"file-manager-modal\" v-model=\"modalShowFile\"  fbody=\"xxx\" hide-footer hide-header size=\"xl\">\r\n            <div class=\"container-fluid fm-container\">\r\n                <b-row class=\"fm-toolbar\">\r\n                    <b-col lg=\"2\" md=\"2\" sm=\"12\">\r\n                        <b>Thư viện</b>\r\n                    </b-col>\r\n                    <b-col>\r\n                        <b-row align-h=\"between\">\r\n                            <b-col cols=\"4\">\r\n                                <div class=\"tool-items\">\r\n                                    <ul class=\"tools\">\r\n                                        <li title=\"Create folder\">\r\n                                            <i class=\"create-folder\"></i>\r\n                                        </li>\r\n                                    </ul>\r\n                                    <ul class=\"tools\">\r\n                                        <li title=\"Remove\">\r\n                                            <i class=\"remove\"></i>\r\n                                        </li>\r\n                                    </ul>\r\n                                    <div class=\"tools\">\r\n                                        <input v-model=\"keyword\" v-on:keyup.enter=\"LoadFile()\" class=\"form-control\" placeholder=\"Gõ tên ảnh ấn enter\" />\r\n                                    </div>\r\n                                </div>\r\n                            </b-col>\r\n                            <b-col cols=\"4\" class=\"bd-0\">\r\n                                <b-pagination v-model=\"currentPageFileManager\" align=\"right\" size=\"sm\" :limit=\"4\"\r\n                                              :total-rows=\"files.totals\"\r\n                                              :per-page=\"pageSize\"></b-pagination>\r\n                            </b-col>\r\n                            <b-col cols=\"4\">\r\n                                <div class=\"tool-items float-right\">\r\n\r\n                                    <ul class=\"tools\">\r\n                                        <li title=\"Create folder\">\r\n                                            <i class=\"create-folder\"></i>\r\n                                        </li>\r\n                                        <li title=\"Upload\" id=\"btn-fm-upload\">\r\n                                            <label for=\"fileSingleupload\">\r\n                                                <i class=\"upload\"></i>\r\n                                            </label>\r\n                                            <input accept=\"image/*,.doc,.docx,.pdf,.xls,.xlsx,.zip,.rar\" @change=\"DoUploadFile\" id=\"fileSingleupload\"\r\n                                                   multiple\r\n                                                   type=\"file\"\r\n                                                   name=\"files[]\"\r\n                                                   style=\"display: none\" />\r\n                                        </li>\r\n                                    </ul>\r\n                                    <ul class=\"tools\">\r\n                                        <li title=\"List view\">\r\n                                            <i class=\"list\"></i>\r\n                                        </li>\r\n                                        <li title=\"Grid View\">\r\n                                            <i class=\"grid\"></i>\r\n                                        </li>\r\n                                    </ul>\r\n                                </div>\r\n                            </b-col>\r\n                        </b-row>\r\n\r\n                    </b-col>\r\n\r\n                </b-row>\r\n                <b-row class=\"fm-main\">\r\n                    <b-col class=\"fm-sidebar\" lg=\"2\" md=\"2\" sm=\"12\">\r\n                        <div class=\"fm-folder\">\r\n                            <ul>\r\n                                <li><i class=\"create-folder\"></i> Document</li>\r\n                                <li><i class=\"create-folder\"></i> Image</li>\r\n                                <li><i class=\"create-folder\"></i> Icon</li>\r\n                            </ul>\r\n                        </div>\r\n                    </b-col>\r\n                    <b-col class=\"fm-content\" lg=\"10\" dm=\"2\" sm=\"12\">\r\n                        <div class=\"fm-data-wrapper\">\r\n                            <div class=\"fm-list-wrapper\">\r\n                                <div class=\"fm-list\">\r\n                                    <ul class=\"fm-grid\">\r\n                                        <li v-for=\"file in files.files\" :key=\"file.id\" class=\"item\" :class=\"{ _active: isActive, not_img:checkImage(file.fileExt)}\" @click=\"SelectFile($event,{path:file.filePath,id:file.id})\">\r\n                                            <img :src=\"mapImageUrl(file.filePath,file.fileExt)\" alt=\"\">\r\n                                            <i class=\"fa fa-check\"></i>\r\n                                            <div class=\"info\">\r\n                                                <p class=\"name\">{{file.name}}</p>\r\n                                                <p class=\"dimensions\">{{file.dimensions}}</p>\r\n                                                <p class=\"size\">{{file.fileSize}}kb</p>\r\n                                            </div>\r\n                                        </li>\r\n                                    </ul>\r\n                                </div>\r\n                            </div>\r\n                        </div>\r\n\r\n                    </b-col>\r\n                </b-row>\r\n                <b-row align-h=\"end\" class=\"fm-footer\">\r\n                    <b-col cols=\"4\">\r\n                        <div class=\"btn-attack\">\r\n                            <button type=\"button\" id=\"btn-attack\" @click=\"attackFile\">Đính kèm</button>\r\n                            <!--<button type=\"button\" id=\"btn-attack\" @click=\"attackFileSelected\">Đính kèm2</button>-->\r\n                            <button type=\"button\" id=\"dl-close\" @click=\"hideFileManagerModal\" class=\"iclose\">Đóng</button>\r\n                        </div>\r\n                    </b-col>\r\n                </b-row>\r\n            </div>\r\n        </b-modal>\r\n    </div>\r\n</template>\r\n\r\n<script>\r\n\r\n    import FileManager from './../fileManager/list'\r\n    let _config = require('./../../../appsettings.json');\r\n\r\n    import \"vue-loading-overlay/dist/vue-loading.css\";\r\n    import { mapActions, mapGetters } from \"vuex\";\r\n    import Loading from \"vue-loading-overlay\";\r\n    // import the component\r\n    import Treeselect from '@riophae/vue-treeselect'\r\n    // import the styles\r\n    import '@riophae/vue-treeselect/dist/vue-treeselect.css'\r\n    import { unflatten, slug, pathImg } from \"../../plugins/helper\";\r\n    import CKEditor from 'ckeditor4-vue';\r\n\r\n\r\n    export default {\r\n        name: \"App2\",\r\n        props: {\r\n            contentEditor: {\r\n                type: String\r\n            },\r\n            index: { type: Number },\r\n            mathElements: { type: Array }\r\n        },\r\n        data() {\r\n            return {\r\n                modalShowProduct: false,\r\n                modalShowFile:false,\r\n                imageAttacks: '',\r\n                content: this.contentEditor,\r\n                config: {\r\n                    //removePlugins: 'image,pwimage',\r\n                    extraPlugins: \"niw_btn,product_shortcode_btn\",\r\n                    allowedContent: true,\r\n                    format_tags : 'p;h1;h2;h3;h4;h5;h6;pre;address;div',\r\n                    //smiley_path = 'http://www.example.com/images/smileys/',\r\n                    //font_defaultLabel: \"Arial\",\r\n                    //fontSize_defaultLabel: 16,\r\n                    //contentsCss: [\"body {font-size: 18px; font-family: 'Arial'}\"]\r\n                    //extraAllowedContent: this.mathElements.join( ' ' ) + '(*)[*]{*};img[data-mathml,data-custom-editor,role](Wirisformula)'\r\n                },\r\n                // product shortcode\r\n                SearchZoneId: 0,\r\n                fullPage: false,\r\n                color: \"#007bff\",\r\n                isLoadLang: false,\r\n                currentPageProductManager: 1,\r\n                currentPageFileManager: 1,\r\n                pageSize: 24,\r\n                isLoading: false,\r\n                selectedProduct: [],\r\n                isActive: false,\r\n                selectType: '',\r\n                ZoneOptions: [],\r\n                curentEditor: '',\r\n                //// product shortcode end\r\n                //file\r\n                MaxFileSize: 3000,//Kb\r\n                selectedFile: [],\r\n                extensions: [],\r\n                extImage: [],\r\n                keyword: '',\r\n                index_p: this.index,\r\n            };\r\n        },\r\n        components: {\r\n\r\n            FileManager,\r\n            Treeselect,\r\n            Loading\r\n        },\r\n        created() {\r\n            let _config = require('./../../../appsettings.json');\r\n            this.extImage = _config.AppSettings.ImageAllowUpload;\r\n            this.extensions = _config.AppSettings.ImageAllowUpload.concat(_config.AppSettings.DocumentAllowUpload);\r\n            \r\n        },\r\n        computed: {\r\n            files() {\r\n                return this.$store.getters.files\r\n            },\r\n            ...mapGetters([\"products\"])\r\n        },\r\n        mounted() {\r\n            this.CKAddCustomPlugin();\r\n        },\r\n        methods: {\r\n\r\n            CKAddCustomPlugin() {\r\n                let $this = this;\r\n                //console.log(this.config)\r\n                \r\n                let e = this.config.extraPlugins;\r\n                let extraConfigs = e.split(',')\r\n                \r\n                this.config.extraPlugins = extraConfigs.join(',')\r\n\r\n                if (!CKEDITOR.plugins.get(\"niw_btn\")) {\r\n                    CKEDITOR.plugins.add(\"niw_btn\", {\r\n                        init: function (editor) {\r\n                            editor.ui.addButton && editor.ui.addButton(\"uploadImg\", {\r\n                                label: \"Tải hình ảnh\",\r\n                                command: \"filemanager\",\r\n                                icon: \"https://hoc24.vn/media/cke24/plugins/imgur/images/icon.png?t=14\",\r\n                                toolbar: \"insert\"\r\n                            });\r\n                            editor.addCommand(\"filemanager\", {\r\n                                exec: function (editor) {\r\n                                    $this.FileManagers('multi', editor);\r\n                                    $this.curentEditor = editor;\r\n\r\n                                }\r\n                            });\r\n\r\n                        }\r\n                    });\r\n                }\r\n                if (!CKEDITOR.plugins.get(\"product_shortcode_btn\")) {\r\n                    CKEDITOR.plugins.add(\"product_shortcode_btn\", {\r\n                        init: function (editor) {\r\n\r\n                            editor.ui.addButton && editor.ui.addButton(\"InsertProduct\", {\r\n                                label: \"Chèn sản phẩm\",\r\n                                command: \"InsertProduct\",\r\n                                icon: \"https://cdn-icons-png.flaticon.com/512/81/81960.png\",\r\n                                toolbar: \"insert\"\r\n                            });\r\n                            editor.addCommand(\"InsertProduct\", {\r\n                                exec: function (editor) {\r\n                                    $this.ProductManages('multi', editor);\r\n                                    $this.curentEditor = editor;\r\n                                }\r\n                            });\r\n\r\n                        }\r\n                    });\r\n                }\r\n                \r\n                \r\n                \r\n            },\r\n\r\n            toggleEditorDisabled() {\r\n                this.editorDisabled = !this.editorDisabled;\r\n            },\r\n            destroyApp() {\r\n                //app.$destroy();\r\n            },\r\n\r\n            onEditorInput(data, event, editor) {\r\n                //console.log(\"Editor data input.\", { event, editor, data });\r\n                if (this.index_p >= 0) {\r\n                    var dt = {\r\n                        content: this.content,\r\n                        index: this.index_p\r\n\r\n                    }\r\n                    //console.log(dt);\r\n                    this.$emit(\"handleEditorInput\", JSON.stringify(dt));\r\n                }\r\n                else {\r\n                    this.$emit(\"handleEditorInput\", this.content);\r\n                }\r\n                //\r\n            },\r\n\r\n\r\n            onEditorDestroy(editor) {\r\n                console.log(\"Editor destroyed.\", { editor });\r\n            },\r\n\r\n\r\n\r\n            ...mapActions([\"getProducts\", \"getZones\"]),\r\n            pathImgs(path) {\r\n                return pathImg(path);\r\n            },\r\n            SelectProduct(event, file) {\r\n                if (this.selectType == 'multi') {\r\n                    if (event.currentTarget.classList.contains('_active')) {\r\n                        event.currentTarget.classList.remove('_active');\r\n                        this.selectedProduct = this.selectedProduct.filter(obj => obj.id != file.id)\r\n                    }\r\n                    else {\r\n                        event.currentTarget.classList.add(\"_active\");\r\n                        this.selectedProduct.push(file)\r\n                    }\r\n                } else {\r\n                    this.selectedFile = [];\r\n                    if (event.currentTarget.classList.contains('_active')) {\r\n                        event.currentTarget.classList.remove('_active');\r\n\r\n                    }\r\n                    else {\r\n                        let items = document.querySelectorAll('.item');\r\n                        items.forEach(function (item) {\r\n                            item.classList.remove('_active');\r\n                        });\r\n                        event.currentTarget.classList.add(\"_active\");\r\n                        this.selectedProduct.push(file)\r\n                    }\r\n                }\r\n            },\r\n\r\n            ProductManages(param) {\r\n                this.modalShowProduct = true;\r\n                this.selectType = param;\r\n              //  this.$modal.show('hello-world');\r\n                //this.$refs[\"product-manager-modal\"].show();\r\n              //  $('#file-manager-modal').modal('show')\r\n               // this.$bvModal.show('product-manager-modal')\t\r\n                this.getZones(1).then(respose => {\r\n                    var data = respose.listData;\r\n                    data.push({ id: 0, label: \"Danh mục\", parentId: 0 });\r\n                    this.ZoneOptions = unflatten(data);\r\n                }).then(res => {\r\n\r\n                });\r\n                this.getProducts({\r\n                    pageIndex: this.currentPageProductManager,\r\n                    pageSize: this.pageSize,\r\n                    idZone: this.SearchZoneId\r\n                }).then(subRes => {\r\n                    //   this.isLoading = false;\r\n                });\r\n\r\n            },\r\n            LoadFile() {\r\n                this.fmFileGetAll({\r\n                    keyword: this.keyword,\r\n                          pageIndex: this.currentPageFileManager,\r\n                    pageSize: this.pageSize\r\n                });\r\n            },\r\n            hideProductModal() {\r\n                //this.$refs[\"product-manager-modal\"].hide();\r\n                this.modalShowProduct = false;\r\n            },\r\n            attackProduct() {\r\n                let ids = [];\r\n                let pros = this.selectedProduct;\r\n                for (let x in pros) {\r\n                    ids.push(pros[x].id);\r\n                }\r\n                this.curentEditor.insertHtml(\r\n                    '<p><product data-id-list=\"' + ids.join(',').toString() + '\">[shortcode]:[' + ids.join(',').toString() + ']</product></p>'\r\n                );\r\n                //  this.$refs[\"product-manager-modal\"].hide();\r\n                this.modalShowProduct = false;\r\n                this.selectedProduct = [];\r\n            },\r\n            toggleProductModal() {\r\n                this.$refs[\"product-manager-modal\"].toggle(\"#toggle-btn\");\r\n            },\r\n            // attack file\r\n            ...mapActions([\"fmFileUpload\", \"fmFileGetAll\"]),\r\n            mapImageUrl(img, ext) {\r\n                if (this.extImage.indexOf(ext) !== -1) {\r\n                    return '/uploads/thumb' + img;\r\n                }\r\n                return './../../ClientApp/assets/fileicons/' + ext.replace('.', '') + '.png';\r\n            },\r\n            checkImage(ext) {\r\n                if (this.extImage.indexOf(ext) == -1) {\r\n                    return true\r\n                }\r\n                return false\r\n            },\r\n            DoUploadFile(e) {\r\n                let files = e.srcElement.files;\r\n\r\n                if (files) {\r\n                    let filesTemp = Array.from(files);\r\n\r\n                    let msgFileAllow = '';\r\n                    let msgLimitedSize = '';\r\n                    for (var i = 0; i < filesTemp.length; i++) {\r\n\r\n                        let name = filesTemp[i].name;\r\n                        let type = name.split('.').pop();\r\n                        if (this.extensions.indexOf(type) == -1) {\r\n                            filesTemp.splice(i, 1); // xóa khỏi array\r\n                            if (msgFileAllow.length == 0) {\r\n                                msgFileAllow = name;\r\n                            } else {\r\n                                msgFileAllow += ', ' + name;\r\n                            }\r\n                        }\r\n                        if (msgFileAllow.length > 0) {\r\n                            this.$toast.error(msgFileAllow + ' không hợp lệ !', {});\r\n                        }\r\n                    }\r\n                    for (var i = 0; i < filesTemp.length; i++) {\r\n\r\n\r\n                        let size = filesTemp[i].size;\r\n                        let name = filesTemp[i].name;\r\n\r\n\r\n                        if (this.MaxFileSize < (size / 1024)) {\r\n                            filesTemp.splice(i, 1);\r\n                            if (msgLimitedSize.length == 0) {\r\n                                msgLimitedSize = name;\r\n                            } else {\r\n                                msgLimitedSize += ', ' + name;\r\n                            }\r\n\r\n                        }\r\n                        if (msgLimitedSize.length > 0) {\r\n                            this.$toast.error(msgFileAllow + ' dung lượng quá lớn !', {});\r\n                        }\r\n\r\n\r\n                    }\r\n                    if (filesTemp.length) {\r\n                        let fd = new FormData();\r\n\r\n                        filesTemp.forEach(function (item) {\r\n                            fd.append('files', item);\r\n                        });\r\n                        this.UploadFileAction(fd);\r\n                    }\r\n\r\n                }\r\n\r\n            },\r\n            UploadFileAction(files) {\r\n                this.fmFileUpload(files)\r\n                    .then(response => {\r\n                        if (response.success) {\r\n                            this.LoadFile();\r\n                            this.$toast.success(response.Message, {});\r\n                            this.isLoading = false;\r\n                        }\r\n                        else {\r\n                            this.$toast.error(response.Message, {});\r\n                            this.isLoading = false;\r\n                        }\r\n                    })\r\n                    .catch(e => {\r\n                        this.$toast.error(msgNotify.error + \". Error:\" + e, {});\r\n                        this.isLoading = false;\r\n                    });\r\n\r\n\r\n            },\r\n            SelectFile(event, file) {\r\n                if (this.selectType == 'multi') {\r\n                    if (event.currentTarget.classList.contains('_active')) {\r\n                        event.currentTarget.classList.remove('_active');\r\n\r\n                        // let objIsExist = this.selectedFile.some(obj => obj.id = file.id);\r\n                        // if (objIsExist) {\r\n                        this.selectedFile = this.selectedFile.filter(obj => obj.id != file.id)\r\n                        // }\r\n                    }\r\n                    else {\r\n                        event.currentTarget.classList.add(\"_active\");\r\n                        this.selectedFile.push(file)\r\n                    }\r\n                } else {\r\n\r\n                    this.selectedFile = [];\r\n                    if (event.currentTarget.classList.contains('_active')) {\r\n                        event.currentTarget.classList.remove('_active');\r\n\r\n                    }\r\n                    else {\r\n                        let items = document.querySelectorAll('.item');\r\n                        items.forEach(function (item) {\r\n                            item.classList.remove('_active');\r\n                        });\r\n                        event.currentTarget.classList.add(\"_active\");\r\n                        this.selectedFile.push(file)\r\n                    }\r\n                }\r\n            },\r\n\r\n            FileManagers(param) {\r\n               \r\n                this.selectType = param;\r\n              \r\n                this.modalShowFile = true;\r\n               // this.$refs[\"file-manager-modal\"].show();\r\n                // this.$bvModal.show('file-manager-modal')\t\r\n                this.LoadFile();\r\n            },\r\n\r\n            hideFileManagerModal() {\r\n                //this.$refs[\"file-manager-modal\"].hide();\r\n                this.modalShowFile = false;\r\n            },\r\n            attackFile() {\r\n                let domain = config.BASE_URLCms;\r\n                let images = this.selectedFile;\r\n                for (let x in images) {\r\n                    this.curentEditor.insertHtml(\r\n                        '<img style=\"max-width:90%\" src=\"' + domain + 'uploads' + images[x].path + '\"/>'\r\n                    );\r\n                }\r\n               // this.$refs[\"file-manager-modal\"].hide();\r\n                this.modalShowFile = false;\r\n                this.selectedFile = [];\r\n            },\r\n\r\n            toggleFileModal() {\r\n                // We pass the ID of the button that we want to return focus to\r\n                // when the modal has hidden\r\n                this.$refs[\"file-manager-modal\"].toggle(\"#toggle-btn\");\r\n            }\r\n        },\r\n\r\n        watch: {\r\n            contentEditor() {\r\n                this.content = this.contentEditor;\r\n            },\r\n            index() {\r\n                this.index_p = this.index;\r\n                \r\n            },\r\n            currentPageFileManager() {\r\n                this.isLoading = true;\r\n\r\n                this.LoadFile();\r\n\r\n                this.isLoading = false;\r\n                //this.fmFileGetAll({\r\n                //    pageIndex: this.currentPageFileManager,\r\n                //    pageSize: this.pageSize\r\n                //}).then(subRes => {\r\n                //    this.isLoading = false;\r\n                //});\r\n            },\r\n            currentPageProductManager() {\r\n                this.isLoading = true;\r\n                this.getProducts({\r\n                    pageIndex: this.currentPageProductManager,\r\n                    pageSize: this.pageSize,\r\n                    idZone: this.SearchZoneId\r\n                }).then(subRes => {\r\n                    this.isLoading = false;\r\n                });\r\n            },\r\n            SearchZoneId() {\r\n                this.isLoading = true;\r\n                this.getProducts({\r\n                    pageIndex: 1,\r\n                    pageSize: this.pageSize,\r\n                    idZone: this.SearchZoneId\r\n                }).then(subRes => {\r\n                    this.isLoading = false;\r\n                });\r\n            }\r\n        }\r\n    };\r\n</script>\r\n\r\n<style scoped>\r\n    .file-manager, .fm-content-selected {\r\n        padding: 0;\r\n    }\r\n\r\n    .file-manager___BV_modal_body_ {\r\n        padding: 0;\r\n    }\r\n\r\n    .fm-content-selected ul li {\r\n        list-style-type: none\r\n    }\r\n\r\n    .fm-container-dialog {\r\n        padding: 0;\r\n        overflow: hidden !important;\r\n    }\r\n\r\n    .fm-container {\r\n        font-size: 12px;\r\n        font-family: sans-serif;\r\n        padding: 0\r\n    }\r\n\r\n    .fm-toolbar ul {\r\n        float: left;\r\n        margin: 3.5px 0 3px 10px;\r\n        padding: 1px 2px;\r\n        border-radius: 0\r\n    }\r\n\r\n        .fm-toolbar ul li {\r\n            border: 1px solid .fff;\r\n            cursor: pointer;\r\n            float: left;\r\n            line-height: 26px;\r\n            list-style-type: none;\r\n            padding: 0 8px;\r\n            text-align: center;\r\n        }\r\n\r\n            .fm-toolbar ul li:hover {\r\n                background: #eaeaea;\r\n            }\r\n\r\n            .fm-toolbar ul li.active {\r\n                background: #eaeaea;\r\n            }\r\n\r\n    .fm-container {\r\n    }\r\n\r\n    .fm-toolbar {\r\n    }\r\n\r\n    .fm-footer {\r\n        border-top: 1px solid #eaeaea;\r\n        padding-top: 10px\r\n    }\r\n\r\n    .fm-toolbar .tool-items {\r\n        clear: both;\r\n        padding-right: 6px;\r\n    }\r\n\r\n    .fm-toolbar .tools {\r\n        float: left;\r\n    }\r\n\r\n    .fm-main {\r\n        margin-top: 8px;\r\n        border-top: 1px solid #eaeaea;\r\n    }\r\n\r\n    .fm-sidebar .fm-header {\r\n        height: 35px;\r\n        line-height: 35px;\r\n        background-color: #39c;\r\n        overflow: hidden;\r\n        font-size: 17px;\r\n        color: #ecf3f9;\r\n        text-align: center;\r\n    }\r\n\r\n    .fm-sidebar {\r\n        border-right: 1px solid #eaeaea\r\n    }\r\n\r\n    .fm-content {\r\n        background-color: white;\r\n        cursor: default; /*z-index: 0; box-shadow: 0 2px 4px rgba(0,0,0,0.04), 0 1px 4px rgba(0,0,0,0.12);*/\r\n        height: 100%;\r\n    }\r\n\r\n    .fm-data-wrapper {\r\n        overflow: hidden;\r\n    }\r\n\r\n    .fm-file-view {\r\n        border-left: 1px solid #eaeaea;\r\n        float: right;\r\n        height: 100%;\r\n        width: 250px;\r\n        padding: 9px;\r\n        background: .fff;\r\n    }\r\n\r\n        .fm-file-view .file-thumb {\r\n            text-align: center;\r\n            max-height: 250px;\r\n            max-width: 230px;\r\n            overflow: hidden;\r\n        }\r\n\r\n        .fm-file-view .header {\r\n            font-weight: bold;\r\n            margin-bottom: 12px;\r\n            padding: 2px 0;\r\n            text-align: center;\r\n            text-transform: uppercase;\r\n        }\r\n\r\n        .fm-file-view .details {\r\n            padding-top: 16px;\r\n        }\r\n\r\n            .fm-file-view .details div {\r\n                line-height: 21px;\r\n            }\r\n\r\n            .fm-file-view .details .uploaded,\r\n            .fm-file-view .details .file-size,\r\n            .fm-file-view .details .dimensions {\r\n                line-height: 21px;\r\n            }\r\n\r\n        .fm-file-view .file-thumb img {\r\n            border: 1px solid #eaeaea;\r\n            padding: 4px; /*max-height: 220px; max-width: 228px;*/\r\n        }\r\n\r\n    .attachment-info .filename {\r\n        font-weight: 600;\r\n        color: #444;\r\n        word-wrap: break-word;\r\n    }\r\n\r\n    .btn-attack {\r\n        background: .fff none repeat scroll 0 0;\r\n        padding: 3px 3px 3px 0;\r\n        width: 230px;\r\n        float: right;\r\n        clear: both;\r\n    }\r\n\r\n        .btn-attack button#btn-attack {\r\n            color: .fff;\r\n            background: #0085ba;\r\n            border: 0;\r\n            padding: 4px 6px;\r\n        }\r\n\r\n        .btn-attack button#dl-close {\r\n            background: #eaeaea;\r\n            border: 0;\r\n            padding: 4px 6px;\r\n            float: right;\r\n            clear: both;\r\n        }\r\n\r\n    .fm-content table._list {\r\n        width: 100%;\r\n    }\r\n\r\n        .fm-content table._list tr {\r\n        }\r\n\r\n            .fm-content table._list tr th {\r\n                text-align: center;\r\n                font-weight: bold;\r\n            }\r\n\r\n            .fm-content table._list tr td {\r\n                padding: 5px 4px;\r\n            }\r\n\r\n            .fm-content table._list tr._active {\r\n                background: #48adff;\r\n            }\r\n\r\n    .fm-toolbar ul li i {\r\n        background-repeat: no-repeat;\r\n        display: inline-block;\r\n        height: 16px;\r\n        vertical-align: middle;\r\n        width: 16px;\r\n    }\r\n\r\n    .fm-toolbar ul li i {\r\n    }\r\n\r\n    li i.create-folder {\r\n        background-image: url(./../../assets/img/icon/folder_add.png);\r\n    }\r\n\r\n    li i.upload {\r\n        background-image: url(\"./../../assets/img/icon/upload.png\");\r\n    }\r\n\r\n    li i.list {\r\n        background-image: url(\"./../../assets/img/icon/application_view_list.png\");\r\n    }\r\n\r\n    li i.grid {\r\n        background-image: url(\"./../../assets/img/icon/application_view_icons.png\");\r\n    }\r\n\r\n    li i.iclose {\r\n        background-image: url(\"./../../assets/img/icon/reset.png\");\r\n    }\r\n\r\n    li i.crop {\r\n        background-image: url(\"./../../assets/img/icon/crop.png\");\r\n    }\r\n\r\n    li i.remove {\r\n        background-image: url(\"./../../assets/img/icon/bin_closed.png\");\r\n    }\r\n\r\n    li i.close:hover {\r\n    }\r\n\r\n    .fm-footer {\r\n        min-height: 32px;\r\n    }\r\n\r\n    .fm-data-wrapper {\r\n        height: 100%;\r\n    }\r\n\r\n    .clear {\r\n        clear: both;\r\n    }\r\n\r\n    ._list ._active {\r\n        background: #48adff;\r\n    }\r\n\r\n    .fm-content {\r\n    }\r\n\r\n        .fm-content table._list table thead tr th {\r\n            text-align: center;\r\n        }\r\n\r\n        .fm-content table._list tr {\r\n            font-size: 11px;\r\n        }\r\n\r\n            .fm-content table._list tr:hover {\r\n                background: #c1edff;\r\n                cursor: pointer;\r\n            }\r\n\r\n            .fm-content table._list tr td {\r\n            }\r\n\r\n        .fm-content table._list tbody tr td.name {\r\n            display: inline-flex;\r\n        }\r\n\r\n            .fm-content table._list tbody tr td.name .list-icon {\r\n                display: inline-block;\r\n                float: left;\r\n                padding-right: 20px;\r\n            }\r\n\r\n    .fm-grid, .fm-folder ul, .fm-grid li .info p {\r\n        padding: 0;\r\n        margin: 0;\r\n    }\r\n\r\n        .fm-grid li {\r\n            position: relative;\r\n            vertical-align: middle;\r\n            display: table-cell;\r\n            border: 1px solid #eaeaea;\r\n            cursor: pointer;\r\n            float: left;\r\n            height: 100px;\r\n            min-width: 114px;\r\n            list-style-type: none;\r\n            margin: 4px;\r\n            padding: 2px;\r\n            width: 14.99%;\r\n            position: relative;\r\n            overflow: hidden;\r\n            text-align: center;\r\n        }\r\n\r\n            .fm-grid li .info {\r\n                font-size: 10px;\r\n                background: rgba(109, 105, 105, 0.87);\r\n                color: .fff;\r\n                position: absolute;\r\n                bottom: 0;\r\n                width: 100%;\r\n                height: 0\r\n            }\r\n\r\n            .fm-grid li:hover .info {\r\n                height: auto\r\n            }\r\n\r\n    .fm-list li img {\r\n        width: 100%\r\n    }\r\n\r\n    .fm-list li.not_img img {\r\n        width: 50%;\r\n        padding-top: 10px\r\n    }\r\n\r\n    .fm-grid li img.thumb {\r\n        width: 60%;\r\n        margin: 0 auto;\r\n    }\r\n\r\n    .fm-grid li i {\r\n        position: absolute;\r\n        z-index: 999;\r\n        right: 4px;\r\n        background: .fff;\r\n        border-radius: 11px;\r\n        color: #0085ba;\r\n        padding: 1px;\r\n        top: 3px;\r\n        display: none;\r\n    }\r\n\r\n    .fm-grid li._active i {\r\n        display: block;\r\n    }\r\n\r\n    .fm-grid li._active {\r\n        border: 1px solid #0085ba;\r\n    }\r\n\r\n    .fm-folder ul li {\r\n        list-style-type: none;\r\n        padding: 8px 0;\r\n        cursor: pointer\r\n    }\r\n\r\n        .fm-folder ul li i {\r\n            background-repeat: no-repeat;\r\n            display: inline-block;\r\n            height: 16px;\r\n            vertical-align: middle;\r\n            width: 16px;\r\n        }\r\n\r\n    .plupload_filelist_header {\r\n        height: 20px;\r\n    }\r\n\r\n    .plupload_filelist_footer {\r\n        padding: 6px 20px;\r\n        height: 33px;\r\n    }\r\n\r\n    .plupload_scroll .plupload_filelist {\r\n        height: 172px !important;\r\n    }\r\n\r\n    .plupload_filelist_footer {\r\n        padding: 6px 20px;\r\n    }\r\n\r\n    .plupload_filelist:empty,\r\n    .plupload_filelist li.plupload_droptext {\r\n        height: 140px;\r\n    }\r\n\r\n        .plupload_filelist:empty::before,\r\n        .plupload_filelist li.plupload_droptext::before {\r\n            font-size: 52px;\r\n            height: 75px;\r\n            left: 49%;\r\n            margin-left: -40px;\r\n            padding-top: 43px;\r\n        }\r\n\r\n    .items-action {\r\n        padding-top: 20px;\r\n        display: inline-block;\r\n        width: 100%;\r\n    }\r\n\r\n        .items-action .file-action {\r\n            border: 0 none;\r\n            color: .fff;\r\n            padding: 4px 10px;\r\n        }\r\n\r\n        .items-action .file-action {\r\n            background: rosybrown;\r\n            float: left;\r\n            clear: both;\r\n        }\r\n    /*.items-action .file-action:last-child { background: #0085ba;float: right;}*/\r\n    .fm-toolbar .Mi.ipagination a:first-child {\r\n        border: 0;\r\n        border-radius: 0;\r\n    }\r\n\r\n    .fm-toolbar .Mi.ipagination input {\r\n        border: medium none;\r\n        float: left;\r\n        font-family: arial;\r\n        font-size: 11px;\r\n        height: 30px;\r\n        margin: 0;\r\n        outline: medium none;\r\n        padding: 0;\r\n        text-align: center;\r\n        vertical-align: middle;\r\n        width: 84px;\r\n    }\r\n\r\n    .fm-toolbar .Mi.ipagination a {\r\n        border: 0;\r\n        border-radius: 0;\r\n        background: .fff;\r\n    }\r\n\r\n    .fm-toolbar .ipagination.iweb {\r\n        margin-top: 3.45px;\r\n    }\r\n\r\n    .frowInTotals {\r\n        display: inline-block;\r\n        float: left;\r\n        line-height: 39px;\r\n        padding-right: 3px;\r\n        vertical-align: baseline;\r\n    }\r\n\r\n    label#progressall {\r\n        display: none;\r\n        padding: 7px 7px;\r\n    }\r\n\r\n    .Cdiv {\r\n        padding-left: 12px;\r\n        height: 17px;\r\n        overflow: hidden;\r\n        text-overflow: ellipsis;\r\n        white-space: nowrap;\r\n        width: 100%;\r\n        display: inline-block;\r\n        font-weight: normal;\r\n    }\r\n\r\n    .btn-fm-upload label {\r\n        margin-bottom: 0 !important;\r\n    }\r\n    /* Extra small devices (phones, 600px and down) */\r\n\r\n    @media only screen and (max-width: 600px) {\r\n        .fm-grid li {\r\n            width: 47.65%;\r\n        }\r\n    }\r\n\r\n    /* Small devices (portrait tablets and large phones, 600px and up) */\r\n\r\n    @media only screen and (min-width: 600px) {\r\n    }\r\n\r\n    /* Medium devices (landscape tablets, 768px and up) */\r\n\r\n    @media only screen and (min-width: 768px) {\r\n    }\r\n\r\n    /* Large devices (laptops/desktops, 992px and up) */\r\n\r\n    @media only screen and (min-width: 992px) {\r\n    }\r\n\r\n    /* Extra large devices (large laptops and desktops, 1200px and up) */\r\n\r\n    @media only screen and (min-width: 1200px) {\r\n    }\r\n</style>\r\n"],"sourceRoot":""}]);
+exports.push([module.i, "\n.file-manager[data-v-8004295c], .fm-content-selected[data-v-8004295c] {\n    padding: 0;\n}\n.file-manager___BV_modal_body_[data-v-8004295c] {\n    padding: 0;\n}\n.fm-content-selected ul li[data-v-8004295c] {\n    list-style-type: none\n}\n.fm-container-dialog[data-v-8004295c] {\n    padding: 0;\n    overflow: hidden !important;\n}\n.fm-container[data-v-8004295c] {\n    font-size: 12px;\n    font-family: sans-serif;\n    padding: 0\n}\n.fm-toolbar ul[data-v-8004295c] {\n    float: left;\n    margin: 3.5px 0 3px 10px;\n    padding: 1px 2px;\n    border-radius: 0\n}\n.fm-toolbar ul li[data-v-8004295c] {\n        border: 1px solid .fff;\n        cursor: pointer;\n        float: left;\n        line-height: 26px;\n        list-style-type: none;\n        padding: 0 8px;\n        text-align: center;\n}\n.fm-toolbar ul li[data-v-8004295c]:hover {\n            background: #eaeaea;\n}\n.fm-toolbar ul li.active[data-v-8004295c] {\n            background: #eaeaea;\n}\n.fm-container[data-v-8004295c] {\n}\n.fm-toolbar[data-v-8004295c] {\n}\n.fm-footer[data-v-8004295c] {\n    border-top: 1px solid #eaeaea;\n    padding-top: 10px\n}\n.fm-toolbar .tool-items[data-v-8004295c] {\n    clear: both;\n    padding-right: 6px;\n}\n.fm-toolbar .tools[data-v-8004295c] {\n    float: left;\n}\n.fm-main[data-v-8004295c] {\n    margin-top: 8px;\n    border-top: 1px solid #eaeaea;\n}\n.fm-sidebar .fm-header[data-v-8004295c] {\n    height: 35px;\n    line-height: 35px;\n    background-color: #39c;\n    overflow: hidden;\n    font-size: 17px;\n    color: #ecf3f9;\n    text-align: center;\n}\n.fm-sidebar[data-v-8004295c] {\n    border-right: 1px solid #eaeaea\n}\n.fm-content[data-v-8004295c] {\n    background-color: white;\n    cursor: default; /*z-index: 0; box-shadow: 0 2px 4px rgba(0,0,0,0.04), 0 1px 4px rgba(0,0,0,0.12);*/\n    height: 100%;\n}\n.fm-data-wrapper[data-v-8004295c] {\n    overflow: hidden;\n}\n.fm-file-view[data-v-8004295c] {\n    border-left: 1px solid #eaeaea;\n    float: right;\n    height: 100%;\n    width: 250px;\n    padding: 9px;\n    background: .fff;\n}\n.fm-file-view .file-thumb[data-v-8004295c] {\n        text-align: center;\n        max-height: 250px;\n        max-width: 230px;\n        overflow: hidden;\n}\n.fm-file-view .header[data-v-8004295c] {\n        font-weight: bold;\n        margin-bottom: 12px;\n        padding: 2px 0;\n        text-align: center;\n        text-transform: uppercase;\n}\n.fm-file-view .details[data-v-8004295c] {\n        padding-top: 16px;\n}\n.fm-file-view .details div[data-v-8004295c] {\n            line-height: 21px;\n}\n.fm-file-view .details .uploaded[data-v-8004295c],\n        .fm-file-view .details .file-size[data-v-8004295c],\n        .fm-file-view .details .dimensions[data-v-8004295c] {\n            line-height: 21px;\n}\n.fm-file-view .file-thumb img[data-v-8004295c] {\n        border: 1px solid #eaeaea;\n        padding: 4px; /*max-height: 220px; max-width: 228px;*/\n}\n.attachment-info .filename[data-v-8004295c] {\n    font-weight: 600;\n    color: #444;\n    word-wrap: break-word;\n}\n.btn-attack[data-v-8004295c] {\n    background: .fff none repeat scroll 0 0;\n    padding: 3px 3px 3px 0;\n    width: 230px;\n    float: right;\n    clear: both;\n}\n.btn-attack button#btn-attack[data-v-8004295c] {\n        color: .fff;\n        background: #0085ba;\n        border: 0;\n        padding: 4px 6px;\n}\n.btn-attack button#dl-close[data-v-8004295c] {\n        background: #eaeaea;\n        border: 0;\n        padding: 4px 6px;\n        float: right;\n        clear: both;\n}\n.fm-content table._list[data-v-8004295c] {\n    width: 100%;\n}\n.fm-content table._list tr[data-v-8004295c] {\n}\n.fm-content table._list tr th[data-v-8004295c] {\n            text-align: center;\n            font-weight: bold;\n}\n.fm-content table._list tr td[data-v-8004295c] {\n            padding: 5px 4px;\n}\n.fm-content table._list tr._active[data-v-8004295c] {\n            background: #48adff;\n}\n.fm-toolbar ul li i[data-v-8004295c] {\n    background-repeat: no-repeat;\n    display: inline-block;\n    height: 16px;\n    vertical-align: middle;\n    width: 16px;\n}\n.fm-toolbar ul li i[data-v-8004295c] {\n}\nli i.create-folder[data-v-8004295c] {\n    background-image: url(" + __webpack_require__(1005) + ");\n}\nli i.upload[data-v-8004295c] {\n    background-image: url(" + __webpack_require__(1007) + ");\n}\nli i.list[data-v-8004295c] {\n    background-image: url(" + __webpack_require__(1002) + ");\n}\nli i.grid[data-v-8004295c] {\n    background-image: url(" + __webpack_require__(1001) + ");\n}\nli i.iclose[data-v-8004295c] {\n    background-image: url(" + __webpack_require__(1006) + ");\n}\nli i.crop[data-v-8004295c] {\n    background-image: url(" + __webpack_require__(1004) + ");\n}\nli i.remove[data-v-8004295c] {\n    background-image: url(" + __webpack_require__(1003) + ");\n}\nli i.close[data-v-8004295c]:hover {\n}\n.fm-footer[data-v-8004295c] {\n    min-height: 32px;\n}\n.fm-data-wrapper[data-v-8004295c] {\n    height: 100%;\n}\n.clear[data-v-8004295c] {\n    clear: both;\n}\n._list ._active[data-v-8004295c] {\n    background: #48adff;\n}\n.fm-content[data-v-8004295c] {\n}\n.fm-content table._list table thead tr th[data-v-8004295c] {\n        text-align: center;\n}\n.fm-content table._list tr[data-v-8004295c] {\n        font-size: 11px;\n}\n.fm-content table._list tr[data-v-8004295c]:hover {\n            background: #c1edff;\n            cursor: pointer;\n}\n.fm-content table._list tr td[data-v-8004295c] {\n}\n.fm-content table._list tbody tr td.name[data-v-8004295c] {\n        display: inline-flex;\n}\n.fm-content table._list tbody tr td.name .list-icon[data-v-8004295c] {\n            display: inline-block;\n            float: left;\n            padding-right: 20px;\n}\n.fm-grid[data-v-8004295c], .fm-folder ul[data-v-8004295c], .fm-grid li .info p[data-v-8004295c] {\n    padding: 0;\n    margin: 0;\n}\n.fm-grid li[data-v-8004295c] {\n        position: relative;\n        vertical-align: middle;\n        display: table-cell;\n        border: 1px solid #eaeaea;\n        cursor: pointer;\n        float: left;\n        height: 100px;\n        min-width: 114px;\n        list-style-type: none;\n        margin: 4px;\n        padding: 2px;\n        width: 14.99%;\n        position: relative;\n        overflow: hidden;\n        text-align: center;\n}\n.fm-grid li .info[data-v-8004295c] {\n            font-size: 10px;\n            background: rgba(109, 105, 105, 0.87);\n            color: .fff;\n            position: absolute;\n            bottom: 0;\n            width: 100%;\n            height: 0\n}\n.fm-grid li:hover .info[data-v-8004295c] {\n            height: auto\n}\n.fm-list li img[data-v-8004295c] {\n    width: 100%\n}\n.fm-list li.not_img img[data-v-8004295c] {\n    width: 50%;\n    padding-top: 10px\n}\n.fm-grid li img.thumb[data-v-8004295c] {\n    width: 60%;\n    margin: 0 auto;\n}\n.fm-grid li i[data-v-8004295c] {\n    position: absolute;\n    z-index: 999;\n    right: 4px;\n    background: .fff;\n    border-radius: 11px;\n    color: #0085ba;\n    padding: 1px;\n    top: 3px;\n    display: none;\n}\n.fm-grid li._active i[data-v-8004295c] {\n    display: block;\n}\n.fm-grid li._active[data-v-8004295c] {\n    border: 1px solid #0085ba;\n}\n.fm-folder ul li[data-v-8004295c] {\n    list-style-type: none;\n    padding: 8px 0;\n    cursor: pointer\n}\n.fm-folder ul li i[data-v-8004295c] {\n        background-repeat: no-repeat;\n        display: inline-block;\n        height: 16px;\n        vertical-align: middle;\n        width: 16px;\n}\n.plupload_filelist_header[data-v-8004295c] {\n    height: 20px;\n}\n.plupload_filelist_footer[data-v-8004295c] {\n    padding: 6px 20px;\n    height: 33px;\n}\n.plupload_scroll .plupload_filelist[data-v-8004295c] {\n    height: 172px !important;\n}\n.plupload_filelist_footer[data-v-8004295c] {\n    padding: 6px 20px;\n}\n.plupload_filelist[data-v-8004295c]:empty,\n.plupload_filelist li.plupload_droptext[data-v-8004295c] {\n    height: 140px;\n}\n.plupload_filelist[data-v-8004295c]:empty::before,\n    .plupload_filelist li.plupload_droptext[data-v-8004295c]::before {\n        font-size: 52px;\n        height: 75px;\n        left: 49%;\n        margin-left: -40px;\n        padding-top: 43px;\n}\n.items-action[data-v-8004295c] {\n    padding-top: 20px;\n    display: inline-block;\n    width: 100%;\n}\n.items-action .file-action[data-v-8004295c] {\n        border: 0 none;\n        color: .fff;\n        padding: 4px 10px;\n}\n.items-action .file-action[data-v-8004295c] {\n        background: rosybrown;\n        float: left;\n        clear: both;\n}\n/*.items-action .file-action:last-child { background: #0085ba;float: right;}*/\n.fm-toolbar .Mi.ipagination a[data-v-8004295c]:first-child {\n    border: 0;\n    border-radius: 0;\n}\n.fm-toolbar .Mi.ipagination input[data-v-8004295c] {\n    border: medium none;\n    float: left;\n    font-family: arial;\n    font-size: 11px;\n    height: 30px;\n    margin: 0;\n    outline: medium none;\n    padding: 0;\n    text-align: center;\n    vertical-align: middle;\n    width: 84px;\n}\n.fm-toolbar .Mi.ipagination a[data-v-8004295c] {\n    border: 0;\n    border-radius: 0;\n    background: .fff;\n}\n.fm-toolbar .ipagination.iweb[data-v-8004295c] {\n    margin-top: 3.45px;\n}\n.frowInTotals[data-v-8004295c] {\n    display: inline-block;\n    float: left;\n    line-height: 39px;\n    padding-right: 3px;\n    vertical-align: baseline;\n}\nlabel#progressall[data-v-8004295c] {\n    display: none;\n    padding: 7px 7px;\n}\n.Cdiv[data-v-8004295c] {\n    padding-left: 12px;\n    height: 17px;\n    overflow: hidden;\n    text-overflow: ellipsis;\n    white-space: nowrap;\n    width: 100%;\n    display: inline-block;\n    font-weight: normal;\n}\n.btn-fm-upload label[data-v-8004295c] {\n    margin-bottom: 0 !important;\n}\n/* Extra small devices (phones, 600px and down) */\n@media only screen and (max-width: 600px) {\n.fm-grid li[data-v-8004295c] {\n        width: 47.65%;\n}\n}\n\n/* Small devices (portrait tablets and large phones, 600px and up) */\n@media only screen and (min-width: 600px) {\n}\n\n/* Medium devices (landscape tablets, 768px and up) */\n@media only screen and (min-width: 768px) {\n}\n\n/* Large devices (laptops/desktops, 992px and up) */\n@media only screen and (min-width: 992px) {\n}\n\n/* Extra large devices (large laptops and desktops, 1200px and up) */\n@media only screen and (min-width: 1200px) {\n}\n", "", {"version":3,"sources":["D:/Code/WORKING/dotnet-platform-backend/Web/Platform/CMS/PlatformCMS/ClientApp/components/editor/MIEditor.vue?4de04434"],"names":[],"mappings":";AAuoBA;IACA,WAAA;CACA;AAEA;IACA,WAAA;CACA;AAEA;IACA,qBAAA;CACA;AAEA;IACA,WAAA;IACA,4BAAA;CACA;AAEA;IACA,gBAAA;IACA,wBAAA;IACA,UAAA;CACA;AAEA;IACA,YAAA;IACA,yBAAA;IACA,iBAAA;IACA,gBAAA;CACA;AAEA;QACA,uBAAA;QACA,gBAAA;QACA,YAAA;QACA,kBAAA;QACA,sBAAA;QACA,eAAA;QACA,mBAAA;CACA;AAEA;YACA,oBAAA;CACA;AAEA;YACA,oBAAA;CACA;AAEA;CACA;AAEA;CACA;AAEA;IACA,8BAAA;IACA,iBAAA;CACA;AAEA;IACA,YAAA;IACA,mBAAA;CACA;AAEA;IACA,YAAA;CACA;AAEA;IACA,gBAAA;IACA,8BAAA;CACA;AAEA;IACA,aAAA;IACA,kBAAA;IACA,uBAAA;IACA,iBAAA;IACA,gBAAA;IACA,eAAA;IACA,mBAAA;CACA;AAEA;IACA,+BAAA;CACA;AAEA;IACA,wBAAA;IACA,gBAAA,CAAA,mFAAA;IACA,aAAA;CACA;AAEA;IACA,iBAAA;CACA;AAEA;IACA,+BAAA;IACA,aAAA;IACA,aAAA;IACA,aAAA;IACA,aAAA;IACA,iBAAA;CACA;AAEA;QACA,mBAAA;QACA,kBAAA;QACA,iBAAA;QACA,iBAAA;CACA;AAEA;QACA,kBAAA;QACA,oBAAA;QACA,eAAA;QACA,mBAAA;QACA,0BAAA;CACA;AAEA;QACA,kBAAA;CACA;AAEA;YACA,kBAAA;CACA;AAEA;;;YAGA,kBAAA;CACA;AAEA;QACA,0BAAA;QACA,aAAA,CAAA,wCAAA;CACA;AAEA;IACA,iBAAA;IACA,YAAA;IACA,sBAAA;CACA;AAEA;IACA,wCAAA;IACA,uBAAA;IACA,aAAA;IACA,aAAA;IACA,YAAA;CACA;AAEA;QACA,YAAA;QACA,oBAAA;QACA,UAAA;QACA,iBAAA;CACA;AAEA;QACA,oBAAA;QACA,UAAA;QACA,iBAAA;QACA,aAAA;QACA,YAAA;CACA;AAEA;IACA,YAAA;CACA;AAEA;CACA;AAEA;YACA,mBAAA;YACA,kBAAA;CACA;AAEA;YACA,iBAAA;CACA;AAEA;YACA,oBAAA;CACA;AAEA;IACA,6BAAA;IACA,sBAAA;IACA,aAAA;IACA,uBAAA;IACA,YAAA;CACA;AAEA;CACA;AAEA;IACA,gDAAA;CACA;AAEA;IACA,gDAAA;CACA;AAEA;IACA,gDAAA;CACA;AAEA;IACA,gDAAA;CACA;AAEA;IACA,gDAAA;CACA;AAEA;IACA,gDAAA;CACA;AAEA;IACA,gDAAA;CACA;AAEA;CACA;AAEA;IACA,iBAAA;CACA;AAEA;IACA,aAAA;CACA;AAEA;IACA,YAAA;CACA;AAEA;IACA,oBAAA;CACA;AAEA;CACA;AAEA;QACA,mBAAA;CACA;AAEA;QACA,gBAAA;CACA;AAEA;YACA,oBAAA;YACA,gBAAA;CACA;AAEA;CACA;AAEA;QACA,qBAAA;CACA;AAEA;YACA,sBAAA;YACA,YAAA;YACA,oBAAA;CACA;AAEA;IACA,WAAA;IACA,UAAA;CACA;AAEA;QACA,mBAAA;QACA,uBAAA;QACA,oBAAA;QACA,0BAAA;QACA,gBAAA;QACA,YAAA;QACA,cAAA;QACA,iBAAA;QACA,sBAAA;QACA,YAAA;QACA,aAAA;QACA,cAAA;QACA,mBAAA;QACA,iBAAA;QACA,mBAAA;CACA;AAEA;YACA,gBAAA;YACA,sCAAA;YACA,YAAA;YACA,mBAAA;YACA,UAAA;YACA,YAAA;YACA,SAAA;CACA;AAEA;YACA,YAAA;CACA;AAEA;IACA,WAAA;CACA;AAEA;IACA,WAAA;IACA,iBAAA;CACA;AAEA;IACA,WAAA;IACA,eAAA;CACA;AAEA;IACA,mBAAA;IACA,aAAA;IACA,WAAA;IACA,iBAAA;IACA,oBAAA;IACA,eAAA;IACA,aAAA;IACA,SAAA;IACA,cAAA;CACA;AAEA;IACA,eAAA;CACA;AAEA;IACA,0BAAA;CACA;AAEA;IACA,sBAAA;IACA,eAAA;IACA,eAAA;CACA;AAEA;QACA,6BAAA;QACA,sBAAA;QACA,aAAA;QACA,uBAAA;QACA,YAAA;CACA;AAEA;IACA,aAAA;CACA;AAEA;IACA,kBAAA;IACA,aAAA;CACA;AAEA;IACA,yBAAA;CACA;AAEA;IACA,kBAAA;CACA;AAEA;;IAEA,cAAA;CACA;AAEA;;QAEA,gBAAA;QACA,aAAA;QACA,UAAA;QACA,mBAAA;QACA,kBAAA;CACA;AAEA;IACA,kBAAA;IACA,sBAAA;IACA,YAAA;CACA;AAEA;QACA,eAAA;QACA,YAAA;QACA,kBAAA;CACA;AAEA;QACA,sBAAA;QACA,YAAA;QACA,YAAA;CACA;AACA,8EAAA;AACA;IACA,UAAA;IACA,iBAAA;CACA;AAEA;IACA,oBAAA;IACA,YAAA;IACA,mBAAA;IACA,gBAAA;IACA,aAAA;IACA,UAAA;IACA,qBAAA;IACA,WAAA;IACA,mBAAA;IACA,uBAAA;IACA,YAAA;CACA;AAEA;IACA,UAAA;IACA,iBAAA;IACA,iBAAA;CACA;AAEA;IACA,mBAAA;CACA;AAEA;IACA,sBAAA;IACA,YAAA;IACA,kBAAA;IACA,mBAAA;IACA,yBAAA;CACA;AAEA;IACA,cAAA;IACA,iBAAA;CACA;AAEA;IACA,mBAAA;IACA,aAAA;IACA,iBAAA;IACA,wBAAA;IACA,oBAAA;IACA,YAAA;IACA,sBAAA;IACA,oBAAA;CACA;AAEA;IACA,4BAAA;CACA;AACA,kDAAA;AAEA;AACA;QACA,cAAA;CACA;CACA;;AAEA,qEAAA;AAEA;CACA;;AAEA,sDAAA;AAEA;CACA;;AAEA,oDAAA;AAEA;CACA;;AAEA,qEAAA;AAEA;CACA","file":"MIEditor.vue","sourcesContent":["<template>\r\n    <div>\r\n        <loading :active.sync=\"isLoading\"\r\n                 :height=\"35\"\r\n                 :width=\"35\"></loading>\r\n        <ckeditor v-model=\"content\"\r\n                  @input=\"onEditorInput\"\r\n                  @destroy=\"onEditorDestroy\" :config=\"config\" :index=\"index_p\"></ckeditor>\r\n        <FileManager />\r\n        <!--modal product shortcode-->\r\n        <b-modal ref=\"product-manager-modal\" id=\"product-manager-modal\" v-model=\"modalShowProduct\" class=\"file-manager\" fbody=\"xxx\" hide-footer hide-header size=\"xl\">\r\n            <div id=\"fm-container\" class=\"container-fluid fm-container\">\r\n                <b-row id=\"fm-toolbar\">\r\n                    <b-col lg=\"2\" md=\"2\" sm=\"12\">\r\n                        <b>Sản phẩm</b>\r\n                    </b-col>\r\n                    <b-col>\r\n                        <b-row align-h=\"between\">\r\n                            <b-col cols=\"4\">\r\n                                <treeselect v-model=\"SearchZoneId\"\r\n                                            :options=\"ZoneOptions\"\r\n                                            placeholder=\"Danh mục\"\r\n                                            :default-expanded-level=\"Infinity\">\r\n                                </treeselect>\r\n                            </b-col>\r\n                            <b-col cols=\"4\" class=\"bd-0\">\r\n                                <b-pagination v-model=\"currentPageProductManager\" align=\"right\" size=\"sm\" :limit=\"4\"\r\n                                              :total-rows=\"products.total\"\r\n                                              :per-page=\"pageSize\"></b-pagination>\r\n                            </b-col>\r\n\r\n                        </b-row>\r\n\r\n                    </b-col>\r\n\r\n                </b-row>\r\n                <b-row id=\"fm-main\" class=\"fm-main\">\r\n                    <b-col id=\"fm-content\" class=\"fm-content\" lg=\"9\" dm=\"12\" sm=\"12\">\r\n                        <div id=\"fm-data-wrapper\" class=\"fm-data-wrapper\">\r\n                            <div class=\"fm-list-wrapper\">\r\n                                <div class=\"fm-list\">\r\n                                    <ul id=\"fm-grid\" class=\"fm-grid\" v-if=\"products.listData\">\r\n                                        <li v-for=\"item in products.listData\" :key=\"item.id\" class=\"item\" :class=\"{ _active: isActive}\" @click=\"SelectProduct($event,{name:item.name,id:item.id,avatar:item.avatar,code:item.code})\">\r\n                                            <img :src=\"pathImgs(item.avatar)\" alt=\"\">\r\n                                            <i class=\"fa fa-check\"></i>\r\n                                            <div class=\"info\">\r\n                                                <p class=\"name\">{{item.name}}</p>\r\n                                                <p class=\"dimensions\">{{item.code}}</p>\r\n                                            </div>\r\n                                        </li>\r\n                                    </ul>\r\n                                    <p v-else class=\"text-center\">Không tìm thấy !</p>\r\n                                </div>\r\n                            </div>\r\n                        </div>\r\n\r\n                    </b-col>\r\n                    <b-col id=\"fm-content-selected\" lg=\"3\" dm=\"2\" sm=\"12\">\r\n                        <p class=\"text-center\"><b>Danh sách đã chọn</b></p>\r\n                        <ul style=\"padding:0\" v-if=\"selectedProduct\">\r\n                            <li v-for=\"pro in selectedProduct\" :key=\"pro.id\" style=\"border-bottom:1px solid #ddd;padding:4px 0;display:inline-block;min-height:50px\">\r\n                                <img style=\"width:45px;float:left;padding-right:4px;clear:both\" :src=\"pathImgs(pro.avatar)\" alt=\"\">{{pro.name}}-{{pro.code}}\r\n                            </li>\r\n                        </ul>\r\n                        <p v-else class=\"text-center\">trống !</p>\r\n                    </b-col>\r\n                </b-row>\r\n                <b-row align-h=\"end\" id=\"fm-footer\" class=\"fm-footer\">\r\n                    <b-col cols=\"4\">\r\n                        <div class=\"btn-attack\">\r\n                            <button type=\"button\" id=\"btn-attack\" @click=\"attackProduct\">Đính kèm</button>\r\n                            <!--<button type=\"button\" id=\"btn-attack\" @click=\"attackFileSelected\">Đính kèm2</button>-->\r\n                            <button type=\"button\" id=\"dl-close\" @click=\"hideProductModal\" class=\"iclose\">Đóng</button>\r\n                        </div>\r\n                    </b-col>\r\n                </b-row>\r\n            </div>\r\n        </b-modal>\r\n        <!--modal product shortcode end-->\r\n        <!--modal file manager-->\r\n        <b-modal ref=\"file-manager-modal\" class=\"file-manager\" id=\"file-manager-modal\" v-model=\"modalShowFile\"  fbody=\"xxx\" hide-footer hide-header size=\"xl\">\r\n            <div class=\"container-fluid fm-container\">\r\n                <b-row class=\"fm-toolbar\">\r\n                    <b-col lg=\"2\" md=\"2\" sm=\"12\">\r\n                        <b>Thư viện</b>\r\n                    </b-col>\r\n                    <b-col>\r\n                        <b-row align-h=\"between\">\r\n                            <b-col cols=\"4\">\r\n                                <div class=\"tool-items\">\r\n                                    <ul class=\"tools\">\r\n                                        <li title=\"Create folder\">\r\n                                            <i class=\"create-folder\"></i>\r\n                                        </li>\r\n                                    </ul>\r\n                                    <ul class=\"tools\">\r\n                                        <li title=\"Remove\">\r\n                                            <i class=\"remove\"></i>\r\n                                        </li>\r\n                                    </ul>\r\n                                    <div class=\"tools\">\r\n                                        <input v-model=\"keyword\" v-on:keyup.enter=\"LoadFile()\" class=\"form-control\" placeholder=\"Gõ tên ảnh ấn enter\" />\r\n                                    </div>\r\n                                </div>\r\n                            </b-col>\r\n                            <b-col cols=\"4\" class=\"bd-0\">\r\n                                <b-pagination v-model=\"currentPageFileManager\" align=\"right\" size=\"sm\" :limit=\"4\"\r\n                                              :total-rows=\"files.totals\"\r\n                                              :per-page=\"pageSize\"></b-pagination>\r\n                            </b-col>\r\n                            <b-col cols=\"4\">\r\n                                <div class=\"tool-items float-right\">\r\n\r\n                                    <ul class=\"tools\">\r\n                                        <li title=\"Create folder\">\r\n                                            <i class=\"create-folder\"></i>\r\n                                        </li>\r\n                                        <li title=\"Upload\" id=\"btn-fm-upload\">\r\n                                            <label for=\"fileSingleupload\">\r\n                                                <i class=\"upload\"></i>\r\n                                            </label>\r\n                                            <input accept=\"image/*,.doc,.docx,.pdf,.xls,.xlsx,.zip,.rar\" @change=\"DoUploadFile\" id=\"fileSingleupload\"\r\n                                                   multiple\r\n                                                   type=\"file\"\r\n                                                   name=\"files[]\"\r\n                                                   style=\"display: none\" />\r\n                                        </li>\r\n                                    </ul>\r\n                                    <ul class=\"tools\">\r\n                                        <li title=\"List view\">\r\n                                            <i class=\"list\"></i>\r\n                                        </li>\r\n                                        <li title=\"Grid View\">\r\n                                            <i class=\"grid\"></i>\r\n                                        </li>\r\n                                    </ul>\r\n                                </div>\r\n                            </b-col>\r\n                        </b-row>\r\n\r\n                    </b-col>\r\n\r\n                </b-row>\r\n                <b-row class=\"fm-main\">\r\n                    <b-col class=\"fm-sidebar\" lg=\"2\" md=\"2\" sm=\"12\">\r\n                        <div class=\"fm-folder\">\r\n                            <ul>\r\n                                <li><i class=\"create-folder\"></i> Document</li>\r\n                                <li><i class=\"create-folder\"></i> Image</li>\r\n                                <li><i class=\"create-folder\"></i> Icon</li>\r\n                            </ul>\r\n                        </div>\r\n                    </b-col>\r\n                    <b-col class=\"fm-content\" lg=\"10\" dm=\"2\" sm=\"12\">\r\n                        <div class=\"fm-data-wrapper\">\r\n                            <div class=\"fm-list-wrapper\">\r\n                                <div class=\"fm-list\">\r\n                                    <ul class=\"fm-grid\">\r\n                                        <li v-for=\"file in files.files\" :key=\"file.id\" class=\"item\" :class=\"{ _active: isActive, not_img:checkImage(file.fileExt)}\" @click=\"SelectFile($event,{path:file.filePath,id:file.id})\">\r\n                                            <img :src=\"mapImageUrl(file.filePath,file.fileExt)\" alt=\"\">\r\n                                            <i class=\"fa fa-check\"></i>\r\n                                            <div class=\"info\">\r\n                                                <p class=\"name\">{{file.name}}</p>\r\n                                                <p class=\"dimensions\">{{file.dimensions}}</p>\r\n                                                <p class=\"size\">{{file.fileSize}}kb</p>\r\n                                            </div>\r\n                                        </li>\r\n                                    </ul>\r\n                                </div>\r\n                            </div>\r\n                        </div>\r\n\r\n                    </b-col>\r\n                </b-row>\r\n                <b-row align-h=\"end\" class=\"fm-footer\">\r\n                    <b-col cols=\"4\">\r\n                        <div class=\"btn-attack\">\r\n                            <button type=\"button\" id=\"btn-attack\" @click=\"attackFile\">Đính kèm</button>\r\n                            <!--<button type=\"button\" id=\"btn-attack\" @click=\"attackFileSelected\">Đính kèm2</button>-->\r\n                            <button type=\"button\" id=\"dl-close\" @click=\"hideFileManagerModal\" class=\"iclose\">Đóng</button>\r\n                        </div>\r\n                    </b-col>\r\n                </b-row>\r\n            </div>\r\n        </b-modal>\r\n    </div>\r\n</template>\r\n\r\n<script>\r\n\r\n    import FileManager from './../fileManager/list'\r\n    let _config = require('./../../../appsettings.json');\r\n\r\n    import \"vue-loading-overlay/dist/vue-loading.css\";\r\n    import { mapActions, mapGetters } from \"vuex\";\r\n    import Loading from \"vue-loading-overlay\";\r\n    // import the component\r\n    import Treeselect from '@riophae/vue-treeselect'\r\n    // import the styles\r\n    import '@riophae/vue-treeselect/dist/vue-treeselect.css'\r\n    import { unflatten, slug, pathImg } from \"../../plugins/helper\";\r\n    import CKEditor from 'ckeditor4-vue';\r\n\r\n\r\n    export default {\r\n        name: \"App2\",\r\n        props: {\r\n            contentEditor: {\r\n                type: String\r\n            },\r\n            index: { type: Number },\r\n            mathElements: { type: Array }\r\n        },\r\n        data() {\r\n            return {\r\n                modalShowProduct: false,\r\n                modalShowFile:false,\r\n                imageAttacks: '',\r\n                content: this.contentEditor,\r\n                config: {\r\n                    //removePlugins: 'image,pwimage',\r\n                    extraPlugins: \"niw_btn,product_shortcode_btn\",\r\n                    allowedContent: true,\r\n                    format_tags : 'p;h1;h2;h3;h4;h5;h6;pre;address;div',\r\n                    //smiley_path = 'http://www.example.com/images/smileys/',\r\n                    //font_defaultLabel: \"Arial\",\r\n                    //fontSize_defaultLabel: 16,\r\n                    //contentsCss: [\"body {font-size: 18px; font-family: 'Arial'}\"]\r\n                    //extraAllowedContent: this.mathElements.join( ' ' ) + '(*)[*]{*};img[data-mathml,data-custom-editor,role](Wirisformula)'\r\n                },\r\n                // product shortcode\r\n                SearchZoneId: 0,\r\n                fullPage: false,\r\n                color: \"#007bff\",\r\n                isLoadLang: false,\r\n                currentPageProductManager: 1,\r\n                currentPageFileManager: 1,\r\n                pageSize: 24,\r\n                isLoading: false,\r\n                selectedProduct: [],\r\n                isActive: false,\r\n                selectType: '',\r\n                ZoneOptions: [],\r\n                curentEditor: '',\r\n                //// product shortcode end\r\n                //file\r\n                MaxFileSize: 3000,//Kb\r\n                selectedFile: [],\r\n                extensions: [],\r\n                extImage: [],\r\n                keyword: '',\r\n                index_p: this.index,\r\n            };\r\n        },\r\n        components: {\r\n\r\n            FileManager,\r\n            Treeselect,\r\n            Loading\r\n        },\r\n        created() {\r\n            let _config = require('./../../../appsettings.json');\r\n            this.extImage = _config.AppSettings.ImageAllowUpload;\r\n            this.extensions = _config.AppSettings.ImageAllowUpload.concat(_config.AppSettings.DocumentAllowUpload);\r\n            \r\n        },\r\n        computed: {\r\n            files() {\r\n                return this.$store.getters.files\r\n            },\r\n            ...mapGetters([\"products\"])\r\n        },\r\n        mounted() {\r\n            this.CKAddCustomPlugin();\r\n        },\r\n        methods: {\r\n\r\n            CKAddCustomPlugin() {\r\n                let $this = this;\r\n                //console.log(this.config)\r\n                \r\n                let e = this.config.extraPlugins;\r\n                let extraConfigs = e.split(',')\r\n                \r\n                this.config.extraPlugins = extraConfigs.join(',')\r\n\r\n                if (!CKEDITOR.plugins.get(\"niw_btn\")) {\r\n                    CKEDITOR.plugins.add(\"niw_btn\", {\r\n                        init: function (editor) {\r\n                            editor.ui.addButton && editor.ui.addButton(\"uploadImg\", {\r\n                                label: \"Tải hình ảnh\",\r\n                                command: \"filemanager\",\r\n                                icon: \"https://hoc24.vn/media/cke24/plugins/imgur/images/icon.png?t=14\",\r\n                                toolbar: \"insert\"\r\n                            });\r\n                            editor.addCommand(\"filemanager\", {\r\n                                exec: function (editor) {\r\n                                    $this.FileManagers('multi', editor);\r\n                                    $this.curentEditor = editor;\r\n\r\n                                }\r\n                            });\r\n\r\n                        }\r\n                    });\r\n                }\r\n                if (!CKEDITOR.plugins.get(\"product_shortcode_btn\")) {\r\n                    CKEDITOR.plugins.add(\"product_shortcode_btn\", {\r\n                        init: function (editor) {\r\n\r\n                            editor.ui.addButton && editor.ui.addButton(\"InsertProduct\", {\r\n                                label: \"Chèn sản phẩm\",\r\n                                command: \"InsertProduct\",\r\n                                icon: \"https://cdn-icons-png.flaticon.com/512/81/81960.png\",\r\n                                toolbar: \"insert\"\r\n                            });\r\n                            editor.addCommand(\"InsertProduct\", {\r\n                                exec: function (editor) {\r\n                                    $this.ProductManages('multi', editor);\r\n                                    $this.curentEditor = editor;\r\n                                }\r\n                            });\r\n\r\n                        }\r\n                    });\r\n                }\r\n                \r\n                \r\n                \r\n            },\r\n\r\n            toggleEditorDisabled() {\r\n                this.editorDisabled = !this.editorDisabled;\r\n            },\r\n            destroyApp() {\r\n                //app.$destroy();\r\n            },\r\n\r\n            onEditorInput(data, event, editor) {\r\n                //console.log(\"Editor data input.\", { event, editor, data });\r\n                if (this.index_p >= 0) {\r\n                    var dt = {\r\n                        content: this.content,\r\n                        index: this.index_p\r\n\r\n                    }\r\n                    //console.log(dt);\r\n                    this.$emit(\"handleEditorInput\", JSON.stringify(dt));\r\n                }\r\n                else {\r\n                    this.$emit(\"handleEditorInput\", this.content);\r\n                }\r\n                //\r\n            },\r\n\r\n\r\n            onEditorDestroy(editor) {\r\n                console.log(\"Editor destroyed.\", { editor });\r\n            },\r\n\r\n\r\n\r\n            ...mapActions([\"getProducts\", \"getZones\"]),\r\n            pathImgs(path) {\r\n                return pathImg(path);\r\n            },\r\n            SelectProduct(event, file) {\r\n                if (this.selectType == 'multi') {\r\n                    if (event.currentTarget.classList.contains('_active')) {\r\n                        event.currentTarget.classList.remove('_active');\r\n                        this.selectedProduct = this.selectedProduct.filter(obj => obj.id != file.id)\r\n                    }\r\n                    else {\r\n                        event.currentTarget.classList.add(\"_active\");\r\n                        this.selectedProduct.push(file)\r\n                    }\r\n                } else {\r\n                    this.selectedFile = [];\r\n                    if (event.currentTarget.classList.contains('_active')) {\r\n                        event.currentTarget.classList.remove('_active');\r\n\r\n                    }\r\n                    else {\r\n                        let items = document.querySelectorAll('.item');\r\n                        items.forEach(function (item) {\r\n                            item.classList.remove('_active');\r\n                        });\r\n                        event.currentTarget.classList.add(\"_active\");\r\n                        this.selectedProduct.push(file)\r\n                    }\r\n                }\r\n            },\r\n\r\n            ProductManages(param) {\r\n                this.modalShowProduct = true;\r\n                this.selectType = param;\r\n              //  this.$modal.show('hello-world');\r\n                //this.$refs[\"product-manager-modal\"].show();\r\n              //  $('#file-manager-modal').modal('show')\r\n               // this.$bvModal.show('product-manager-modal')\t\r\n                this.getZones(1).then(respose => {\r\n                    var data = respose.listData;\r\n                    data.push({ id: 0, label: \"Danh mục\", parentId: 0 });\r\n                    this.ZoneOptions = unflatten(data);\r\n                }).then(res => {\r\n\r\n                });\r\n                this.getProducts({\r\n                    pageIndex: this.currentPageProductManager,\r\n                    pageSize: this.pageSize,\r\n                    idZone: this.SearchZoneId\r\n                }).then(subRes => {\r\n                    //   this.isLoading = false;\r\n                });\r\n\r\n            },\r\n            LoadFile() {\r\n                this.fmFileGetAll({\r\n                    keyword: this.keyword,\r\n                          pageIndex: this.currentPageFileManager,\r\n                    pageSize: this.pageSize\r\n                });\r\n            },\r\n            hideProductModal() {\r\n                //this.$refs[\"product-manager-modal\"].hide();\r\n                this.modalShowProduct = false;\r\n            },\r\n            attackProduct() {\r\n                let ids = [];\r\n                let pros = this.selectedProduct;\r\n                for (let x in pros) {\r\n                    ids.push(pros[x].id);\r\n                }\r\n                this.curentEditor.insertHtml(\r\n                    '<p><product data-id-list=\"' + ids.join(',').toString() + '\">[shortcode]:[' + ids.join(',').toString() + ']</product></p>'\r\n                );\r\n                //  this.$refs[\"product-manager-modal\"].hide();\r\n                this.modalShowProduct = false;\r\n                this.selectedProduct = [];\r\n            },\r\n            toggleProductModal() {\r\n                this.$refs[\"product-manager-modal\"].toggle(\"#toggle-btn\");\r\n            },\r\n            // attack file\r\n            ...mapActions([\"fmFileUpload\", \"fmFileGetAll\"]),\r\n            mapImageUrl(img, ext) {\r\n                if (this.extImage.indexOf(ext) !== -1) {\r\n                    return '/uploads/thumb' + img;\r\n                }\r\n                return './../../ClientApp/assets/fileicons/' + ext.replace('.', '') + '.png';\r\n            },\r\n            checkImage(ext) {\r\n                if (this.extImage.indexOf(ext) == -1) {\r\n                    return true\r\n                }\r\n                return false\r\n            },\r\n            DoUploadFile(e) {\r\n                let files = e.srcElement.files;\r\n\r\n                if (files) {\r\n                    let filesTemp = Array.from(files);\r\n\r\n                    let msgFileAllow = '';\r\n                    let msgLimitedSize = '';\r\n                    for (var i = 0; i < filesTemp.length; i++) {\r\n\r\n                        let name = filesTemp[i].name;\r\n                        let type = name.split('.').pop();\r\n                        if (this.extensions.indexOf(type) == -1) {\r\n                            filesTemp.splice(i, 1); // xóa khỏi array\r\n                            if (msgFileAllow.length == 0) {\r\n                                msgFileAllow = name;\r\n                            } else {\r\n                                msgFileAllow += ', ' + name;\r\n                            }\r\n                        }\r\n                        if (msgFileAllow.length > 0) {\r\n                            this.$toast.error(msgFileAllow + ' không hợp lệ !', {});\r\n                        }\r\n                    }\r\n                    for (var i = 0; i < filesTemp.length; i++) {\r\n\r\n\r\n                        let size = filesTemp[i].size;\r\n                        let name = filesTemp[i].name;\r\n\r\n\r\n                        if (this.MaxFileSize < (size / 1024)) {\r\n                            filesTemp.splice(i, 1);\r\n                            if (msgLimitedSize.length == 0) {\r\n                                msgLimitedSize = name;\r\n                            } else {\r\n                                msgLimitedSize += ', ' + name;\r\n                            }\r\n\r\n                        }\r\n                        if (msgLimitedSize.length > 0) {\r\n                            this.$toast.error(msgFileAllow + ' dung lượng quá lớn !', {});\r\n                        }\r\n\r\n\r\n                    }\r\n                    if (filesTemp.length) {\r\n                        let fd = new FormData();\r\n\r\n                        filesTemp.forEach(function (item) {\r\n                            fd.append('files', item);\r\n                        });\r\n                        this.UploadFileAction(fd);\r\n                    }\r\n\r\n                }\r\n\r\n            },\r\n            UploadFileAction(files) {\r\n                this.fmFileUpload(files)\r\n                    .then(response => {\r\n                        if (response.success) {\r\n                            this.LoadFile();\r\n                            this.$toast.success(response.Message, {});\r\n                            this.isLoading = false;\r\n                        }\r\n                        else {\r\n                            this.$toast.error(response.Message, {});\r\n                            this.isLoading = false;\r\n                        }\r\n                    })\r\n                    .catch(e => {\r\n                        this.$toast.error(msgNotify.error + \". Error:\" + e, {});\r\n                        this.isLoading = false;\r\n                    });\r\n\r\n\r\n            },\r\n            SelectFile(event, file) {\r\n                if (this.selectType == 'multi') {\r\n                    if (event.currentTarget.classList.contains('_active')) {\r\n                        event.currentTarget.classList.remove('_active');\r\n\r\n                        // let objIsExist = this.selectedFile.some(obj => obj.id = file.id);\r\n                        // if (objIsExist) {\r\n                        this.selectedFile = this.selectedFile.filter(obj => obj.id != file.id)\r\n                        // }\r\n                    }\r\n                    else {\r\n                        event.currentTarget.classList.add(\"_active\");\r\n                        this.selectedFile.push(file)\r\n                    }\r\n                } else {\r\n\r\n                    this.selectedFile = [];\r\n                    if (event.currentTarget.classList.contains('_active')) {\r\n                        event.currentTarget.classList.remove('_active');\r\n\r\n                    }\r\n                    else {\r\n                        let items = document.querySelectorAll('.item');\r\n                        items.forEach(function (item) {\r\n                            item.classList.remove('_active');\r\n                        });\r\n                        event.currentTarget.classList.add(\"_active\");\r\n                        this.selectedFile.push(file)\r\n                    }\r\n                }\r\n            },\r\n\r\n            FileManagers(param) {\r\n               \r\n                this.selectType = param;\r\n              \r\n                this.modalShowFile = true;\r\n               // this.$refs[\"file-manager-modal\"].show();\r\n                // this.$bvModal.show('file-manager-modal')\t\r\n                this.LoadFile();\r\n            },\r\n\r\n            hideFileManagerModal() {\r\n                //this.$refs[\"file-manager-modal\"].hide();\r\n                this.modalShowFile = false;\r\n            },\r\n            attackFile() {\r\n                let domain = config.BASE_URLCms;\r\n                let images = this.selectedFile;\r\n                for (let x in images) {\r\n                    this.curentEditor.insertHtml(\r\n                        '<img style=\"max-width:90%\" src=\"' + domain + 'uploads' + images[x].path + '\"/>'\r\n                    );\r\n                }\r\n               // this.$refs[\"file-manager-modal\"].hide();\r\n                this.modalShowFile = false;\r\n                this.selectedFile = [];\r\n            },\r\n\r\n            toggleFileModal() {\r\n                // We pass the ID of the button that we want to return focus to\r\n                // when the modal has hidden\r\n                this.$refs[\"file-manager-modal\"].toggle(\"#toggle-btn\");\r\n            }\r\n        },\r\n\r\n        watch: {\r\n            contentEditor() {\r\n                this.content = this.contentEditor;\r\n            },\r\n            index() {\r\n                this.index_p = this.index;\r\n                \r\n            },\r\n            currentPageFileManager() {\r\n                this.isLoading = true;\r\n\r\n                this.LoadFile();\r\n\r\n                this.isLoading = false;\r\n                //this.fmFileGetAll({\r\n                //    pageIndex: this.currentPageFileManager,\r\n                //    pageSize: this.pageSize\r\n                //}).then(subRes => {\r\n                //    this.isLoading = false;\r\n                //});\r\n            },\r\n            currentPageProductManager() {\r\n                this.isLoading = true;\r\n                this.getProducts({\r\n                    pageIndex: this.currentPageProductManager,\r\n                    pageSize: this.pageSize,\r\n                    idZone: this.SearchZoneId\r\n                }).then(subRes => {\r\n                    this.isLoading = false;\r\n                });\r\n            },\r\n            SearchZoneId() {\r\n                this.isLoading = true;\r\n                this.getProducts({\r\n                    pageIndex: 1,\r\n                    pageSize: this.pageSize,\r\n                    idZone: this.SearchZoneId\r\n                }).then(subRes => {\r\n                    this.isLoading = false;\r\n                });\r\n            }\r\n        }\r\n    };\r\n</script>\r\n\r\n<style scoped>\r\n    .file-manager, .fm-content-selected {\r\n        padding: 0;\r\n    }\r\n\r\n    .file-manager___BV_modal_body_ {\r\n        padding: 0;\r\n    }\r\n\r\n    .fm-content-selected ul li {\r\n        list-style-type: none\r\n    }\r\n\r\n    .fm-container-dialog {\r\n        padding: 0;\r\n        overflow: hidden !important;\r\n    }\r\n\r\n    .fm-container {\r\n        font-size: 12px;\r\n        font-family: sans-serif;\r\n        padding: 0\r\n    }\r\n\r\n    .fm-toolbar ul {\r\n        float: left;\r\n        margin: 3.5px 0 3px 10px;\r\n        padding: 1px 2px;\r\n        border-radius: 0\r\n    }\r\n\r\n        .fm-toolbar ul li {\r\n            border: 1px solid .fff;\r\n            cursor: pointer;\r\n            float: left;\r\n            line-height: 26px;\r\n            list-style-type: none;\r\n            padding: 0 8px;\r\n            text-align: center;\r\n        }\r\n\r\n            .fm-toolbar ul li:hover {\r\n                background: #eaeaea;\r\n            }\r\n\r\n            .fm-toolbar ul li.active {\r\n                background: #eaeaea;\r\n            }\r\n\r\n    .fm-container {\r\n    }\r\n\r\n    .fm-toolbar {\r\n    }\r\n\r\n    .fm-footer {\r\n        border-top: 1px solid #eaeaea;\r\n        padding-top: 10px\r\n    }\r\n\r\n    .fm-toolbar .tool-items {\r\n        clear: both;\r\n        padding-right: 6px;\r\n    }\r\n\r\n    .fm-toolbar .tools {\r\n        float: left;\r\n    }\r\n\r\n    .fm-main {\r\n        margin-top: 8px;\r\n        border-top: 1px solid #eaeaea;\r\n    }\r\n\r\n    .fm-sidebar .fm-header {\r\n        height: 35px;\r\n        line-height: 35px;\r\n        background-color: #39c;\r\n        overflow: hidden;\r\n        font-size: 17px;\r\n        color: #ecf3f9;\r\n        text-align: center;\r\n    }\r\n\r\n    .fm-sidebar {\r\n        border-right: 1px solid #eaeaea\r\n    }\r\n\r\n    .fm-content {\r\n        background-color: white;\r\n        cursor: default; /*z-index: 0; box-shadow: 0 2px 4px rgba(0,0,0,0.04), 0 1px 4px rgba(0,0,0,0.12);*/\r\n        height: 100%;\r\n    }\r\n\r\n    .fm-data-wrapper {\r\n        overflow: hidden;\r\n    }\r\n\r\n    .fm-file-view {\r\n        border-left: 1px solid #eaeaea;\r\n        float: right;\r\n        height: 100%;\r\n        width: 250px;\r\n        padding: 9px;\r\n        background: .fff;\r\n    }\r\n\r\n        .fm-file-view .file-thumb {\r\n            text-align: center;\r\n            max-height: 250px;\r\n            max-width: 230px;\r\n            overflow: hidden;\r\n        }\r\n\r\n        .fm-file-view .header {\r\n            font-weight: bold;\r\n            margin-bottom: 12px;\r\n            padding: 2px 0;\r\n            text-align: center;\r\n            text-transform: uppercase;\r\n        }\r\n\r\n        .fm-file-view .details {\r\n            padding-top: 16px;\r\n        }\r\n\r\n            .fm-file-view .details div {\r\n                line-height: 21px;\r\n            }\r\n\r\n            .fm-file-view .details .uploaded,\r\n            .fm-file-view .details .file-size,\r\n            .fm-file-view .details .dimensions {\r\n                line-height: 21px;\r\n            }\r\n\r\n        .fm-file-view .file-thumb img {\r\n            border: 1px solid #eaeaea;\r\n            padding: 4px; /*max-height: 220px; max-width: 228px;*/\r\n        }\r\n\r\n    .attachment-info .filename {\r\n        font-weight: 600;\r\n        color: #444;\r\n        word-wrap: break-word;\r\n    }\r\n\r\n    .btn-attack {\r\n        background: .fff none repeat scroll 0 0;\r\n        padding: 3px 3px 3px 0;\r\n        width: 230px;\r\n        float: right;\r\n        clear: both;\r\n    }\r\n\r\n        .btn-attack button#btn-attack {\r\n            color: .fff;\r\n            background: #0085ba;\r\n            border: 0;\r\n            padding: 4px 6px;\r\n        }\r\n\r\n        .btn-attack button#dl-close {\r\n            background: #eaeaea;\r\n            border: 0;\r\n            padding: 4px 6px;\r\n            float: right;\r\n            clear: both;\r\n        }\r\n\r\n    .fm-content table._list {\r\n        width: 100%;\r\n    }\r\n\r\n        .fm-content table._list tr {\r\n        }\r\n\r\n            .fm-content table._list tr th {\r\n                text-align: center;\r\n                font-weight: bold;\r\n            }\r\n\r\n            .fm-content table._list tr td {\r\n                padding: 5px 4px;\r\n            }\r\n\r\n            .fm-content table._list tr._active {\r\n                background: #48adff;\r\n            }\r\n\r\n    .fm-toolbar ul li i {\r\n        background-repeat: no-repeat;\r\n        display: inline-block;\r\n        height: 16px;\r\n        vertical-align: middle;\r\n        width: 16px;\r\n    }\r\n\r\n    .fm-toolbar ul li i {\r\n    }\r\n\r\n    li i.create-folder {\r\n        background-image: url(./../../assets/img/icon/folder_add.png);\r\n    }\r\n\r\n    li i.upload {\r\n        background-image: url(\"./../../assets/img/icon/upload.png\");\r\n    }\r\n\r\n    li i.list {\r\n        background-image: url(\"./../../assets/img/icon/application_view_list.png\");\r\n    }\r\n\r\n    li i.grid {\r\n        background-image: url(\"./../../assets/img/icon/application_view_icons.png\");\r\n    }\r\n\r\n    li i.iclose {\r\n        background-image: url(\"./../../assets/img/icon/reset.png\");\r\n    }\r\n\r\n    li i.crop {\r\n        background-image: url(\"./../../assets/img/icon/crop.png\");\r\n    }\r\n\r\n    li i.remove {\r\n        background-image: url(\"./../../assets/img/icon/bin_closed.png\");\r\n    }\r\n\r\n    li i.close:hover {\r\n    }\r\n\r\n    .fm-footer {\r\n        min-height: 32px;\r\n    }\r\n\r\n    .fm-data-wrapper {\r\n        height: 100%;\r\n    }\r\n\r\n    .clear {\r\n        clear: both;\r\n    }\r\n\r\n    ._list ._active {\r\n        background: #48adff;\r\n    }\r\n\r\n    .fm-content {\r\n    }\r\n\r\n        .fm-content table._list table thead tr th {\r\n            text-align: center;\r\n        }\r\n\r\n        .fm-content table._list tr {\r\n            font-size: 11px;\r\n        }\r\n\r\n            .fm-content table._list tr:hover {\r\n                background: #c1edff;\r\n                cursor: pointer;\r\n            }\r\n\r\n            .fm-content table._list tr td {\r\n            }\r\n\r\n        .fm-content table._list tbody tr td.name {\r\n            display: inline-flex;\r\n        }\r\n\r\n            .fm-content table._list tbody tr td.name .list-icon {\r\n                display: inline-block;\r\n                float: left;\r\n                padding-right: 20px;\r\n            }\r\n\r\n    .fm-grid, .fm-folder ul, .fm-grid li .info p {\r\n        padding: 0;\r\n        margin: 0;\r\n    }\r\n\r\n        .fm-grid li {\r\n            position: relative;\r\n            vertical-align: middle;\r\n            display: table-cell;\r\n            border: 1px solid #eaeaea;\r\n            cursor: pointer;\r\n            float: left;\r\n            height: 100px;\r\n            min-width: 114px;\r\n            list-style-type: none;\r\n            margin: 4px;\r\n            padding: 2px;\r\n            width: 14.99%;\r\n            position: relative;\r\n            overflow: hidden;\r\n            text-align: center;\r\n        }\r\n\r\n            .fm-grid li .info {\r\n                font-size: 10px;\r\n                background: rgba(109, 105, 105, 0.87);\r\n                color: .fff;\r\n                position: absolute;\r\n                bottom: 0;\r\n                width: 100%;\r\n                height: 0\r\n            }\r\n\r\n            .fm-grid li:hover .info {\r\n                height: auto\r\n            }\r\n\r\n    .fm-list li img {\r\n        width: 100%\r\n    }\r\n\r\n    .fm-list li.not_img img {\r\n        width: 50%;\r\n        padding-top: 10px\r\n    }\r\n\r\n    .fm-grid li img.thumb {\r\n        width: 60%;\r\n        margin: 0 auto;\r\n    }\r\n\r\n    .fm-grid li i {\r\n        position: absolute;\r\n        z-index: 999;\r\n        right: 4px;\r\n        background: .fff;\r\n        border-radius: 11px;\r\n        color: #0085ba;\r\n        padding: 1px;\r\n        top: 3px;\r\n        display: none;\r\n    }\r\n\r\n    .fm-grid li._active i {\r\n        display: block;\r\n    }\r\n\r\n    .fm-grid li._active {\r\n        border: 1px solid #0085ba;\r\n    }\r\n\r\n    .fm-folder ul li {\r\n        list-style-type: none;\r\n        padding: 8px 0;\r\n        cursor: pointer\r\n    }\r\n\r\n        .fm-folder ul li i {\r\n            background-repeat: no-repeat;\r\n            display: inline-block;\r\n            height: 16px;\r\n            vertical-align: middle;\r\n            width: 16px;\r\n        }\r\n\r\n    .plupload_filelist_header {\r\n        height: 20px;\r\n    }\r\n\r\n    .plupload_filelist_footer {\r\n        padding: 6px 20px;\r\n        height: 33px;\r\n    }\r\n\r\n    .plupload_scroll .plupload_filelist {\r\n        height: 172px !important;\r\n    }\r\n\r\n    .plupload_filelist_footer {\r\n        padding: 6px 20px;\r\n    }\r\n\r\n    .plupload_filelist:empty,\r\n    .plupload_filelist li.plupload_droptext {\r\n        height: 140px;\r\n    }\r\n\r\n        .plupload_filelist:empty::before,\r\n        .plupload_filelist li.plupload_droptext::before {\r\n            font-size: 52px;\r\n            height: 75px;\r\n            left: 49%;\r\n            margin-left: -40px;\r\n            padding-top: 43px;\r\n        }\r\n\r\n    .items-action {\r\n        padding-top: 20px;\r\n        display: inline-block;\r\n        width: 100%;\r\n    }\r\n\r\n        .items-action .file-action {\r\n            border: 0 none;\r\n            color: .fff;\r\n            padding: 4px 10px;\r\n        }\r\n\r\n        .items-action .file-action {\r\n            background: rosybrown;\r\n            float: left;\r\n            clear: both;\r\n        }\r\n    /*.items-action .file-action:last-child { background: #0085ba;float: right;}*/\r\n    .fm-toolbar .Mi.ipagination a:first-child {\r\n        border: 0;\r\n        border-radius: 0;\r\n    }\r\n\r\n    .fm-toolbar .Mi.ipagination input {\r\n        border: medium none;\r\n        float: left;\r\n        font-family: arial;\r\n        font-size: 11px;\r\n        height: 30px;\r\n        margin: 0;\r\n        outline: medium none;\r\n        padding: 0;\r\n        text-align: center;\r\n        vertical-align: middle;\r\n        width: 84px;\r\n    }\r\n\r\n    .fm-toolbar .Mi.ipagination a {\r\n        border: 0;\r\n        border-radius: 0;\r\n        background: .fff;\r\n    }\r\n\r\n    .fm-toolbar .ipagination.iweb {\r\n        margin-top: 3.45px;\r\n    }\r\n\r\n    .frowInTotals {\r\n        display: inline-block;\r\n        float: left;\r\n        line-height: 39px;\r\n        padding-right: 3px;\r\n        vertical-align: baseline;\r\n    }\r\n\r\n    label#progressall {\r\n        display: none;\r\n        padding: 7px 7px;\r\n    }\r\n\r\n    .Cdiv {\r\n        padding-left: 12px;\r\n        height: 17px;\r\n        overflow: hidden;\r\n        text-overflow: ellipsis;\r\n        white-space: nowrap;\r\n        width: 100%;\r\n        display: inline-block;\r\n        font-weight: normal;\r\n    }\r\n\r\n    .btn-fm-upload label {\r\n        margin-bottom: 0 !important;\r\n    }\r\n    /* Extra small devices (phones, 600px and down) */\r\n\r\n    @media only screen and (max-width: 600px) {\r\n        .fm-grid li {\r\n            width: 47.65%;\r\n        }\r\n    }\r\n\r\n    /* Small devices (portrait tablets and large phones, 600px and up) */\r\n\r\n    @media only screen and (min-width: 600px) {\r\n    }\r\n\r\n    /* Medium devices (landscape tablets, 768px and up) */\r\n\r\n    @media only screen and (min-width: 768px) {\r\n    }\r\n\r\n    /* Large devices (laptops/desktops, 992px and up) */\r\n\r\n    @media only screen and (min-width: 992px) {\r\n    }\r\n\r\n    /* Extra large devices (large laptops and desktops, 1200px and up) */\r\n\r\n    @media only screen and (min-width: 1200px) {\r\n    }\r\n</style>\r\n"],"sourceRoot":""}]);
 
 // exports
 
 
 /***/ }),
 
-/***/ 1022:
+/***/ 1025:
 /***/ (function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
-var content = __webpack_require__(1017);
+var content = __webpack_require__(1020);
 if(typeof content === 'string') content = [[module.i, content, '']];
 // add the styles to the DOM
 var update = __webpack_require__(179)(content, {});
@@ -11911,8 +11985,8 @@ if(content.locals) module.exports = content.locals;
 if(true) {
 	// When the styles change, update the <style> tags
 	if(!content.locals) {
-		module.hot.accept(1017, function() {
-			var newContent = __webpack_require__(1017);
+		module.hot.accept(1020, function() {
+			var newContent = __webpack_require__(1020);
 			if(typeof newContent === 'string') newContent = [[module.i, newContent, '']];
 			update(newContent);
 		});
@@ -11923,7 +11997,7 @@ if(true) {
 
 /***/ }),
 
-/***/ 1024:
+/***/ 1027:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -11933,7 +12007,7 @@ Object.defineProperty(exports, "__esModule", {
     value: true
 });
 
-var _from = __webpack_require__(951);
+var _from = __webpack_require__(954);
 
 var _from2 = _interopRequireDefault(_from);
 
@@ -11941,15 +12015,15 @@ var _stringify = __webpack_require__(393);
 
 var _stringify2 = _interopRequireDefault(_stringify);
 
-var _extends2 = __webpack_require__(8);
+var _extends2 = __webpack_require__(7);
 
 var _extends3 = _interopRequireDefault(_extends2);
 
-var _list = __webpack_require__(1005);
+var _list = __webpack_require__(1008);
 
 var _list2 = _interopRequireDefault(_list);
 
-__webpack_require__(793);
+__webpack_require__(796);
 
 var _vuex = __webpack_require__(180);
 
@@ -11957,13 +12031,13 @@ var _vueLoadingOverlay = __webpack_require__(376);
 
 var _vueLoadingOverlay2 = _interopRequireDefault(_vueLoadingOverlay);
 
-var _vueTreeselect = __webpack_require__(948);
+var _vueTreeselect = __webpack_require__(951);
 
 var _vueTreeselect2 = _interopRequireDefault(_vueTreeselect);
 
-__webpack_require__(950);
+__webpack_require__(953);
 
-var _helper = __webpack_require__(947);
+var _helper = __webpack_require__(950);
 
 var _ckeditor4Vue = __webpack_require__(396);
 
@@ -11971,7 +12045,7 @@ var _ckeditor4Vue2 = _interopRequireDefault(_ckeditor4Vue);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-var _config = __webpack_require__(996);
+var _config = __webpack_require__(999);
 
 exports.default = {
     name: "App2",
@@ -12024,7 +12098,7 @@ exports.default = {
         Loading: _vueLoadingOverlay2.default
     },
     created: function created() {
-        var _config = __webpack_require__(996);
+        var _config = __webpack_require__(999);
         this.extImage = _config.AppSettings.ImageAllowUpload;
         this.extensions = _config.AppSettings.ImageAllowUpload.concat(_config.AppSettings.DocumentAllowUpload);
     },
@@ -12353,24 +12427,24 @@ exports.default = {
 
 /***/ }),
 
-/***/ 1025:
+/***/ 1028:
 /***/ (function(module, exports, __webpack_require__) {
 
 
 /* styles */
-__webpack_require__(1027)
+__webpack_require__(1030)
 
 var Component = __webpack_require__(374)(
   /* script */
-  __webpack_require__(1024),
+  __webpack_require__(1027),
   /* template */
-  __webpack_require__(1026),
+  __webpack_require__(1029),
   /* scopeId */
   "data-v-8004295c",
   /* cssModules */
   null
 )
-Component.options.__file = "C:\\WORKING\\Joytime\\dotnet-platform-backend\\Web\\Platform\\CMS\\PlatformCMS\\ClientApp\\components\\editor\\MIEditor.vue"
+Component.options.__file = "D:\\Code\\WORKING\\dotnet-platform-backend\\Web\\Platform\\CMS\\PlatformCMS\\ClientApp\\components\\editor\\MIEditor.vue"
 if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
 if (Component.options.functional) {console.error("[vue-loader] MIEditor.vue: functional components are not supported with templates, they should use render functions.")}
 
@@ -12392,7 +12466,7 @@ module.exports = Component.exports
 
 /***/ }),
 
-/***/ 1026:
+/***/ 1029:
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
@@ -12876,23 +12950,23 @@ if (true) {
 
 /***/ }),
 
-/***/ 1027:
+/***/ 1030:
 /***/ (function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
-var content = __webpack_require__(1018);
+var content = __webpack_require__(1021);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
-var update = __webpack_require__(798)("157d5a26", content, false);
+var update = __webpack_require__(801)("157d5a26", content, false);
 // Hot Module Replacement
 if(true) {
  // When the styles change, update the <style> tags
  if(!content.locals) {
-   module.hot.accept(1018, function() {
-     var newContent = __webpack_require__(1018);
+   module.hot.accept(1021, function() {
+     var newContent = __webpack_require__(1021);
      if(typeof newContent === 'string') newContent = [[module.i, newContent, '']];
      update(newContent);
    });
@@ -12903,23 +12977,23 @@ if(true) {
 
 /***/ }),
 
-/***/ 1059:
+/***/ 1062:
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = { "default": __webpack_require__(1061), __esModule: true };
+module.exports = { "default": __webpack_require__(1064), __esModule: true };
 
 /***/ }),
 
-/***/ 1061:
+/***/ 1064:
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(1063);
+__webpack_require__(1066);
 module.exports = __webpack_require__(20).Object.values;
 
 
 /***/ }),
 
-/***/ 1062:
+/***/ 1065:
 /***/ (function(module, exports, __webpack_require__) {
 
 var DESCRIPTORS = __webpack_require__(44);
@@ -12947,12 +13021,12 @@ module.exports = function (isEntries) {
 
 /***/ }),
 
-/***/ 1063:
+/***/ 1066:
 /***/ (function(module, exports, __webpack_require__) {
 
 // https://github.com/tc39/proposal-object-values-entries
 var $export = __webpack_require__(32);
-var $values = __webpack_require__(1062)(false);
+var $values = __webpack_require__(1065)(false);
 
 $export($export.S, 'Object', {
   values: function values(it) {
@@ -12963,7 +13037,7 @@ $export($export.S, 'Object', {
 
 /***/ }),
 
-/***/ 1098:
+/***/ 1101:
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(53)();
@@ -12971,14 +13045,14 @@ exports = module.exports = __webpack_require__(53)();
 
 
 // module
-exports.push([module.i, "\n.tags-input {\n    max-width: 100% !important;\n    position: relative;\n    background-color: #fff;\n    margin-left: -15px;\n}\n#toc_container {\n    background: #f9f9f9;\n    border: 1px solid #aaa;\n    padding: 10px;\n    margin-bottom: 1em;\n    width: auto;\n    display: table;\n    font-size: 95%;\n}\n#toc_container p.toc_title {\n        text-align: center;\n        font-weight: 700;\n        margin: 0;\n        padding: 0;\n}\n#toc_container.no_bullets li, #toc_container.no_bullets ul, #toc_container.no_bullets ul li, .toc_widget_list.no_bullets, .toc_widget_list.no_bullets li {\n        background: 0 0;\n        list-style-type: none;\n        list-style: none;\n}\n.container-fluid .btn {\n    border-radius: 0;\n}\n#toc_container.no_bullets li, #toc_container.no_bullets ul, #toc_container.no_bullets ul li, .toc_widget_list.no_bullets, .toc_widget_list.no_bullets li {\n    background: 0 0;\n    list-style-type: none;\n    list-style: none;\n}\n", "", {"version":3,"sources":["C:/WORKING/Joytime/dotnet-platform-backend/Web/Platform/CMS/PlatformCMS/ClientApp/pages/Article/edit.vue?43918809"],"names":[],"mappings":";AAy7BA;IACA,2BAAA;IACA,mBAAA;IACA,uBAAA;IACA,mBAAA;CACA;AAGA;IACA,oBAAA;IACA,uBAAA;IACA,cAAA;IACA,mBAAA;IACA,YAAA;IACA,eAAA;IACA,eAAA;CACA;AAEA;QACA,mBAAA;QACA,iBAAA;QACA,UAAA;QACA,WAAA;CACA;AAEA;QACA,gBAAA;QACA,sBAAA;QACA,iBAAA;CACA;AAEA;IACA,iBAAA;CACA;AAEA;IACA,gBAAA;IACA,sBAAA;IACA,iBAAA;CACA","file":"edit.vue","sourcesContent":["<template>\r\n\r\n    <div style=\"display:flex;width:100%\">\r\n        <loading :active.sync=\"isLoading\"\r\n                 :height=\"35\"\r\n                 :width=\"35\"\r\n                 :color=\"color\"\r\n                 :is-full-page=\"fullPage\"></loading>\r\n\r\n        <b-tabs class=\"col-md-12\" pills v-model=\"tabIndex\">\r\n            <b-tab href=\"#1\" title=\"1. Nhập thông tin bài viết\" active>\r\n                <div class=\"row productedit\">\r\n                    <div class=\"col-md-12\">\r\n                        <b-card class=\"mt-3 \" header=\"Thêm / Sửa bài viết\">\r\n                            <b-form class=\"form-horizontal\">\r\n                                <div class=\"row\">\r\n                                    <div class=\"col-md-12\">\r\n                                        <b-form-group label=\"Tên bài viết\" label-for=\"input-1\">\r\n                                            <b-form-input id=\"input-1\"\r\n                                                          v-model=\"objRequest.name\"\r\n                                                          type=\"text\"\r\n                                                          required\r\n                                                          v-on:keyup.13=\"slugM\"\r\n                                                          placeholder=\"Tên bài viết\"></b-form-input>\r\n                                        </b-form-group>\r\n                                    </div>\r\n\r\n                                    <div class=\"col-md-6\">\r\n                                        <b-form-group label=\"Trạng thái\">\r\n                                            <treeselect :options=\"StatusOptions\"\r\n                                                        :disable-branch-nodes=\"true\"\r\n                                                        v-model=\"objRequest.status\"\r\n                                                        :default-expanded-level=\"Infinity\"\r\n                                                        placeholder=\"Xin mời bạn lựa chọn trạng thái\" />\r\n                                        </b-form-group>\r\n                                    </div>\r\n                                    <div class=\"col-md-6\">\r\n                                        <b-form-group label=\"Kiểu\">\r\n                                            <treeselect :options=\"TypeOptions\"\r\n                                                        :disable-branch-nodes=\"true\"\r\n                                                        v-model=\"objRequest.type\"\r\n                                                        :default-expanded-level=\"Infinity\"\r\n                                                        placeholder=\"Xin mời bạn lựa chọn loại bài viết\" />\r\n                                        </b-form-group>\r\n                                    </div>\r\n                                    <div class=\"col-md-12\">\r\n                                        <b-form-group label=\"Chọn danh mục\">\r\n                                            <treeselect :multiple=\"true\"\r\n                                                        :flat=\"true\"\r\n                                                        :options=\"ZoneOptions\"\r\n                                                        placeholder=\"Xin mời bạn lựa chọn danh mục\"\r\n                                                        @select=\"getSelectedUser\"\r\n                                                        v-model=\"ZoneValues\"\r\n                                                        :default-expanded-level=\"Infinity\" />\r\n                                        </b-form-group>\r\n                                    </div>\r\n                                    <div class=\"col-md-12\">\r\n                                        <b-form-group>\r\n                                            <b-form-checkbox v-model=\"objRequest.isShowHome\">\r\n                                                Cho phép hiển thị trang chủ\r\n                                            </b-form-checkbox>\r\n                                        </b-form-group>\r\n                                    </div>\r\n                                    <div class=\"col-md-4\">\r\n                                        <b-form-group label=\"Hình đại diện\">\r\n                                            <a @click=\"openImg('avatar')\">\r\n                                                <div style=\"width:200px;height:200px;display:flex\"\r\n                                                     class=\"gallery-upload-file ui-sortable\">\r\n                                                    <div style=\"width:100%;height:auto;margin:0\"\r\n                                                         class=\" r-queue-item ui-sortable-handle\">\r\n                                                        <div style=\"width:100%\"\r\n                                                             v-if=\"objRequest.avatar != null && objRequest.avatar != undefined &&  objRequest.avatar.length > 0\">\r\n                                                            <img alt=\"Ảnh lỗi\" style=\"height:200px;width:200px\"\r\n                                                                 :src=\"pathImgs(objRequest.avatar)\">\r\n                                                        </div>\r\n                                                        <div v-else>\r\n                                                            <i class=\"fa fa-picture-o\"></i>\r\n                                                            <p>[Chọn ảnh]</p>\r\n                                                        </div>\r\n                                                    </div>\r\n\r\n                                                </div>\r\n                                            </a>\r\n                                        </b-form-group>\r\n                                    </div>\r\n                                    <div class=\"col-md-12\">\r\n                                        <b-form-group label=\"Danh sách ảnh\">\r\n                                            <div class=\"notice-upload-image\">\r\n                                                <p>\r\n                                                    <b style=\"font-size: 14px;\">Đăng nhiều ảnh để công cụ tìm kiếm dễ thấy bạn hơn!</b><br><i style=\"font-size: 11px; padding-top: 5px; color: #666;\">\r\n                                                        Kéo ảnh lên vị trí đầu tiên để chọn làm\r\n                                                        Thumbnail.\r\n                                                    </i>\r\n                                                </p>\r\n                                            </div>\r\n                                            <div class=\"row gallery-upload-file ui-sortable\">\r\n                                                <div style=\"padding:0\" class=\"col-md-2 col-xs-4 r-queue-item added ui-sortable-handle\" v-for=\"(itemimg,index) in ListImg\">\r\n                                                    <div class=\"item\"><img style=\"width:100%;height:100px\" alt=\"Ảnh lỗi\" :src=\"pathImgs(itemimg)\"></div><i @click=\"removeImg(index)\" class=\"fa fa-times\"></i>\r\n                                                </div>\r\n\r\n                                                <div class=\"col-md-2 col-xs-4 _library ui-sortable-handle\">\r\n                                                    <i class=\"fa fa-folder-open\" @click=\"openImg('ListImg')\"></i>\r\n                                                    <p>[Thư viện ảnh]</p>\r\n                                                </div>\r\n                                            </div>\r\n                                        </b-form-group>\r\n                                    </div>\r\n                                </div>\r\n                            </b-form>\r\n                        </b-card>\r\n                    </div>\r\n                </div>\r\n            </b-tab>\r\n            <b-tab href=\"#2\" title=\"2. Nhập thông tin ngôn ngữ\">\r\n                <div class=\"row productedit\">\r\n                    <div class=\"col-md-8\">\r\n                        <b-card class=\"mt-3 \" header=\"Thêm / Sửa bài viết\">\r\n                            <loading :active.sync=\"isLoading\"\r\n                                     :height=\"35\"\r\n                                     :width=\"35\"\r\n                                     :color=\"color\"\r\n                                     :is-full-page=\"fullPage\"></loading>\r\n                            <div class=\"row\">\r\n                                <div class=\"col-md-4 col-xs-10\">\r\n                                    <b-form-group label=\"Chọn ngôn ngữ\">\r\n                                        <treeselect :options=\"LanguageCodes\"\r\n                                                    :disable-branch-nodes=\"true\"\r\n                                                    @select=\"getSelectedLanguge\"\r\n                                                    v-model=\"LanguageValues\"\r\n                                                    :default-expanded-level=\"Infinity\"\r\n                                                    :disabled=\"disabled\"\r\n                                                    placeholder=\"Xin mời bạn lựa chọn ngôn ngữ\" />\r\n\r\n                                    </b-form-group>\r\n                                </div>\r\n\r\n                            </div>\r\n                            <b-form-group label=\"Tiêu đề\" label-for=\"input-1\">\r\n                                <b-form-input id=\"input-1\"\r\n                                              v-model=\"objRequest.title\"\r\n                                              type=\"text\"\r\n                                              required\r\n                                              v-on:keyup.13=\"slugM\"\r\n                                              placeholder=\"Tiêu đề\"></b-form-input>\r\n                            </b-form-group>\r\n                            <b-form class=\"form-horizontal\">\r\n                                <b-form-group label=\"Đường dẫn\">\r\n                                    <b-form-input v-model=\"objRequest.url\" placeholder=\"Url\" required></b-form-input>\r\n                                </b-form-group>\r\n                                <b-form-group label=\"Đường dẫn cũ\">\r\n                                    <b-form-input v-model=\"objRequest.urlOld\" placeholder=\"Url\" required></b-form-input>\r\n                                </b-form-group>\r\n                                <b-form-group label=\"Tác giả\">\r\n                                    <b-form-input v-model=\"objRequest.author\" placeholder=\"Tác giả\"\r\n                                                  required></b-form-input>\r\n                                </b-form-group>\r\n                                <b-form-group label=\"Nguồn\">\r\n                                    <b-form-input v-model=\"objRequest.source\" placeholder=\"Nguồn\"\r\n                                                  required></b-form-input>\r\n                                </b-form-group>\r\n\r\n                                <b-form-group label=\"Mô tả\">\r\n                                    <ckeditor tag-name=\"textarea\"\r\n                                              v-model=\"objRequest.description\" :config=\"editorConfig\">\r\n                                    </ckeditor>\r\n                                </b-form-group>\r\n                                <b-form-group label=\"Nội dung\">\r\n                                    <button type=\"button\" @click=\"autoGenIndex()\" class=\"btn btn-success\">\r\n                                        Tạo chỉ mục\r\n                                    </button>\r\n                                    <button type=\"button\" @click=\"removeIndex()\" class=\"btn btn-danger\">\r\n                                        Xóa chỉ mục\r\n                                    </button>\r\n                                    <div class=\"row\">\r\n                                        <div class=\"col-md-12\" v-html=\"objRequest.indexing\"></div>\r\n                                    </div>\r\n                                    <MIEditor :contentEditor=\"objRequest.body\" v-on:handleEditorInput=\"getOrSetData\"></MIEditor>\r\n                                </b-form-group>\r\n                                <div class=\"col-md-12\">\r\n                                    <b-form-group>\r\n                                        <label class=\"typo__label\" style=\"margin-left: -16px;\">Thêm tag</label>\r\n                                        <vue-tags-input v-model=\"tag\"\r\n                                                        :tags=\"tags\"\r\n                                                        :autocomplete-items=\"filteredItems\"\r\n                                                        @tags-changed=\"newTags => tags = newTags\"\r\n                                                        :allow-edit-tags=true placeholder=\"Thêm tag\"\r\n                                                        class=\"tags-input\" />\r\n                                    </b-form-group>\r\n                                </div>\r\n                                <b-form-group>\r\n                                    <b-form-checkbox v-model=\"IsChoseFileDowload\" style=\"padding-bottom:7px\">\r\n                                        File Dowload DLC\r\n                                    </b-form-checkbox>\r\n                                    <b-form-input v-if=\"!IsChoseFileDowload\" v-model=\"objRequest.fileAttachment\" placeholder=\"File dowload DLC\" required></b-form-input>\r\n                                    <template v-if=\"IsChoseFileDowload\">\r\n                                        <button @click=\"openImg('filedowload')\" type=\"button\" class=\"btn btn-success\">Chọn file</button>\r\n                                        <a v-if=\"objRequest.fileAttachment != null && objRequest.fileAttachment.length > 0\" target=\"_blank\" href=\"objRequest.fileAttachment\"><i class=\"fa fa-file-o\"></i> {{objRequest.fileAttachment}}</a>\r\n                                    </template>\r\n                                </b-form-group>\r\n                                <b-form-group>\r\n                                    <b-form-checkbox v-model=\"IsChoseFileDowload\" style=\"padding-bottom:7px\">\r\n                                        File Dowload DLT\r\n                                    </b-form-checkbox>\r\n                                    <b-form-input v-if=\"!IsChoseFileDowload\" v-model=\"objRequest.fileAttachmentMinify\" placeholder=\"File dowload DLT\" required></b-form-input>\r\n                                    <template v-if=\"IsChoseFileDowload\">\r\n                                        <button @click=\"openImg('filedowload')\" type=\"button\" class=\"btn btn-success\">Chọn file</button>\r\n                                        <a v-if=\"objRequest.fileAttachmentMinify != null && objRequest.fileAttachmentMinify.length > 0\" target=\"_blank\" href=\"objRequest.fileAttachmentMinify\"><i class=\"fa fa-file-o\"></i> {{objRequest.fileAttachmentMinify}}</a>\r\n                                    </template>\r\n                                </b-form-group>\r\n                            </b-form>\r\n                        </b-card>\r\n                        <b-card class=\"mt-3 \" header=\"SEO Analysis\">\r\n                            <b-form class=\"form-horizontal\">\r\n                                <b-form-group label=\"Tiêu đề SEO\">\r\n                                    <b-form-input v-model=\"objRequest.metaTitle\" placeholder=\"Tiêu đề Seo\"\r\n                                                  required></b-form-input>\r\n                                </b-form-group>\r\n                                <b-form-group label=\"Mô tả SEO\">\r\n                                    <b-form-textarea rows=\"3\" max-rows=\"6\" v-model=\"objRequest.metaDescription\"\r\n                                                     placeholder=\"Mô tả SEO\"\r\n                                                     required></b-form-textarea>\r\n                                </b-form-group>\r\n                                <b-form-group label=\"Từ khóa SEO\">\r\n                                    <b-form-input v-model=\"objRequest.metaKeyword\" placeholder=\"Từ khóa SEO\"\r\n                                                  required></b-form-input>\r\n                                </b-form-group>\r\n                                <b-form-group>\r\n                                    <div class=\"row\">\r\n                                        <div class=\"col-md-6\">\r\n                                            <b-form-checkbox placeholder=\"Canonical\" v-model=\"statusCanonical\" required>Chặn trùng lặp nội dung (Canonical)</b-form-checkbox>\r\n                                        </div>\r\n                                        <div class=\"col-md-6\">\r\n                                            <b-form-checkbox placeholder=\"NoIndex\" v-model=\"statusNoindex\" required>Chặn lập chỉ mục (NoIndex)</b-form-checkbox>\r\n                                        </div>\r\n                                    </div>\r\n                                </b-form-group>\r\n                                <b-form-group>\r\n\r\n                                    <b-form-group label=\"Giá trị (Canonical)\">\r\n                                        <b-form-input placeholder=\"Canonical\" v-model=\"valueCanonical\" required></b-form-input>\r\n                                    </b-form-group>\r\n                                </b-form-group>\r\n                            </b-form>\r\n                        </b-card>\r\n                        <b-card class=\"mt-3 \" header=\" Social Share\">\r\n                            <b-form-group label=\"Tiêu để  Facebook\">\r\n                                <b-form-input v-model=\"objRequest.socialTitle\" placeholder=\"Tiêu để mạng xã hội\"\r\n                                              required></b-form-input>\r\n                            </b-form-group>\r\n                            <b-form-group label=\"Mô tả Facebook\">\r\n                                <b-form-textarea rows=\"3\" max-rows=\"6\" v-model=\"objRequest.socialDescription\"\r\n                                                 placeholder=\"Mô tả xã hội\"\r\n                                                 required></b-form-textarea>\r\n                            </b-form-group>\r\n                            <b-form-group label=\"Script WebPage\">\r\n                                <b-form-textarea rows=\"3\" max-rows=\"6\" v-model=\"objRequest.metaWebPage\" placeholder=\"WebPage\" required></b-form-textarea>\r\n                            </b-form-group>\r\n                            <div class=\"row\">\r\n                                <div class=\"col-md-4 col-xs-12\">\r\n                                    <b-form-group label=\"Ảnh Facebook\">\r\n                                        <a @click=\"openImg('facebook')\">\r\n                                            <div style=\"width:200px;height:200px;display:flex\"\r\n                                                 class=\"gallery-upload-file ui-sortable\">\r\n                                                <div style=\"width:100%;height:auto;margin:0\"\r\n                                                     class=\" r-queue-item ui-sortable-handle\">\r\n                                                    <div style=\"width:100%\"\r\n                                                         v-if=\"objRequest.socialImage != null && objRequest.socialImage != undefined &&  objRequest.socialImage.length > 0\">\r\n                                                        <img alt=\"Ảnh lỗi\" style=\"height:200px;width:200px\"\r\n                                                             :src=\"pathImgs(objRequest.socialImage)\">\r\n                                                    </div>\r\n                                                    <div v-else>\r\n                                                        <i class=\"fa fa-picture-o\"></i>\r\n                                                        <p>[Chọn ảnh]</p>\r\n                                                    </div>\r\n                                                </div>\r\n                                            </div>\r\n                                        </a>\r\n                                    </b-form-group>\r\n                                </div>\r\n                            </div>\r\n                        </b-card>\r\n                    </div>\r\n                    <div class=\"col-md-4\">\r\n                        <div class=\"mt-3\">\r\n                            <b-card header=\"Đăng bài\">\r\n                                <div class=\"row\">\r\n                                    <div class=\"col-md-6\">\r\n                                        <button class=\"btn btn-info btn-submit-form col-md-12 btncus\" type=\"submit\"\r\n                                                @click=\"DoAddEdit()\">\r\n                                            <i class=\"fa fa-save\"></i> Cập nhật\r\n                                        </button>\r\n                                    </div>\r\n                                    <div class=\"col-md-6\">\r\n                                        <button class=\"btn btn-success col-md-12 btncus\" type=\"button\"\r\n                                                @click=\"DoRefesh()\">\r\n                                            <i class=\"fa fa-refresh\"></i> Làm mới\r\n                                        </button>\r\n                                    </div>\r\n                                </div>\r\n                            </b-card>\r\n                        </div>\r\n                        <div class=\"mt-3\">\r\n                            <b-card header=\"Thông tin dự án\">\r\n                                <b-form-group label=\"Khách hàng\">\r\n                                    <b-form-input v-model=\"objRequest.ttkh \" placeholder=\"Khách hàng\"\r\n                                                  required></b-form-input>\r\n                                </b-form-group>\r\n                                <b-form-group label=\"Khu vực\">\r\n                                    <b-form-input v-model=\"objRequest.ttdc\" placeholder=\"Khu vực\"\r\n                                                  required></b-form-input>\r\n                                </b-form-group>\r\n                                <b-form-group label=\"Lĩnh vực\">\r\n                                    <b-form-input v-model=\"objRequest.ttlv\" placeholder=\"Lĩnh vực\"\r\n                                                  required></b-form-input>\r\n                                </b-form-group>\r\n                                <b-form-group label=\"Dịch vụ\">\r\n                                    <b-form-input v-model=\"objRequest.ttdv\" placeholder=\"Dịch vụ\"\r\n                                                  required></b-form-input>\r\n                                </b-form-group>\r\n                               \r\n                            </b-card>\r\n                        </div>\r\n                        <div class=\"mt-3\">\r\n                            <b-card header=\"Thông tin bài viết tuyển dụng\">\r\n                                <b-form-group label=\"Vị trí\">\r\n                                    <b-form-input v-model=\"objRequest.position \" placeholder=\"Vị trí\"\r\n                                                  required></b-form-input>\r\n                                </b-form-group>\r\n                                <b-form-group label=\"Địa chỉ\">\r\n                                    <b-form-input v-model=\"objRequest.address\" placeholder=\"Địa chỉ\"\r\n                                                  required></b-form-input>\r\n                                </b-form-group>\r\n                                <b-form-group label=\"Số lượng\">\r\n                                    <b-form-input type=\"number\" v-model=\"objRequest.count\" placeholder=\"Số lượng\"\r\n                                                  required></b-form-input>\r\n                                </b-form-group>\r\n                                <b-form-group label=\"Mức lương\">\r\n                                    <b-form-input v-model=\"objRequest.salary\" placeholder=\"Mức lương\"\r\n                                                  required></b-form-input>\r\n                                </b-form-group>\r\n                                <b-form-group label=\"Ngày bắt đầu\">\r\n\r\n                                    <b-form-input v-model=\"objRequest.startDate\" type=\"date\" placeholder=\"Ngày bắt đầu\"\r\n                                                  required></b-form-input>\r\n                                    <!--<date-time-picker v-model=\"startDate\"></date-time-picker>-->\r\n                                </b-form-group>\r\n                                <b-form-group label=\"Ngày kết thúc\">\r\n\r\n                                    <b-form-input v-model=\"objRequest.endDate\" type=\"date\" placeholder=\"Ngày kết thúc\"\r\n                                                  required></b-form-input>\r\n                                    <!--<date-time-picker v-model=\"endDate\"></date-time-picker>-->\r\n                                </b-form-group>\r\n                            </b-card>\r\n                        </div>\r\n                        <div class=\"mt-3\">\r\n                            <b-card header=\"Thông tin thêm\">\r\n                                <b-form-group label=\"Lượt thích\">\r\n                                    <b-form-input type=\"number\" v-model=\"objRequest.likeCount\"\r\n                                                  placeholder=\"Lượt thích\"\r\n                                                  required></b-form-input>\r\n                                </b-form-group>\r\n                                <!--<b-form-group label=\"Lượt xem\">\r\n                                    <b-form-input type=\"number\" v-model=\"objRequest.viewCount\"\r\n                                                  placeholder=\"Lượt thích\"\r\n                                                  required></b-form-input>\r\n                                </b-form-group>-->\r\n                                <b-form-group label=\"Số lượng vote\">\r\n                                    <b-form-input type=\"number\" v-model=\"objRequest.voteCount\"\r\n                                                  placeholder=\"Số lượng vote\"\r\n                                                  required></b-form-input>\r\n                                </b-form-group>\r\n                                <b-form-checkbox v-model=\"objRequest.isAllowComment\">\r\n                                    Cho phép comment\r\n                                </b-form-checkbox>\r\n                            </b-card>\r\n                        </div>\r\n                    </div>\r\n                </div>\r\n            </b-tab>\r\n        </b-tabs>\r\n        <FileManager v-on:handleAttackFile=\"DoAttackFile\" :miKey=\"mikey1\" />\r\n    </div>\r\n</template>\r\n\r\n\r\n<script>\r\n    import \"vue-loading-overlay/dist/vue-loading.css\";\r\n    import msgNotify from \"./../../common/constant\";\r\n    import { mapGetters, mapActions } from \"vuex\";\r\n    import Loading from \"vue-loading-overlay\";\r\n    // import the component\r\n    import Treeselect from '@riophae/vue-treeselect'\r\n    // import the styles\r\n    import '@riophae/vue-treeselect/dist/vue-treeselect.css'\r\n\r\n    import 'vue-select/dist/vue-select.css';\r\n\r\n    import FileManager from './../../components/fileManager/list'\r\n    import { slug, pathImg, unflatten, urlBase } from \"../../plugins/helper\";\r\n    // Import component\r\n    // Import component\r\n\r\n    import EventBus from \"./../../common/eventBus\";\r\n    import VueTagsInput from '@johmun/vue-tags-input';\r\n    import { router } from \"../../router\";\r\n    import moment from 'moment';\r\n    import MIEditor from '../../components/editor/MIEditor';\r\n    export default {\r\n        name: \"articleaddedit\",\r\n        data() {\r\n            return {\r\n                //editor: ClassicEditor,\r\n                editorData: '<p>Content of the editor.</p>',\r\n                editorConfig: {\r\n                    allowedContent: true,\r\n                    extraPlugins: \"\",\r\n                },\r\n\r\n                mikey1: 'mikey1',\r\n\r\n                IsChoseFileDowload: false,\r\n                disabled: false,\r\n                selectedFile: null,\r\n                preview: '/assets/img/unnamed.jpg',\r\n                previewImageFacebook: '/assets/img/unnamed.jpg',\r\n                isLoading: false,\r\n                fullPage: false,\r\n                color: \"#007bff\",\r\n                statusNoindex: false,\r\n                statusCanonical: false,\r\n                valueCanonical: \"\",\r\n                objRequest: {\r\n                    id: 0,\r\n                    title: \"\",\r\n                    url: \"\",\r\n                    avatar: \"\",\r\n                    socialImage: \"\",\r\n                    type: 0,\r\n                    fileAttachment: \"\",\r\n                    fileAttachmentMinify: \"\",\r\n                    startDate: moment(String(new Date())).format('YYYY-MM-DD'),\r\n                    endDate: moment(String(new Date())).format('YYYY-MM-DD'),\r\n                    indexing: \"\",\r\n                    urlOld: \"\"\r\n                },\r\n                isProduct: false,\r\n                LanguageCodes: [],\r\n                LanguageValues: null,\r\n                Manufacturers: [],\r\n                ZoneValues: [],\r\n                ZoneOptions: [],\r\n                ProductOptionsSource: [],\r\n                ProductOptionsDestination: [],\r\n                ProductSelectedStateOption: [],\r\n                ProductIdSelected: \"\",\r\n                ZoneArticleIdSelected: \"\",\r\n                ListArticleInLanguage: [],\r\n                StatusOptions: [],\r\n                TypeOptions: [],\r\n                tag: '',\r\n                tags: [],\r\n                tabIndex: 0,\r\n                tabs: ['#1', '#2'],\r\n                autocompleteItems: [],\r\n                //startDate: new Date().toLocaleString(),\r\n                //endDate: new Date().toLocaleString(),\r\n                fileSample: null,\r\n\r\n            };\r\n        },\r\n        async created() {\r\n            let vm = this;\r\n\r\n            await this.getZoneArticles();\r\n            await this.getAllStatusOptions();\r\n            await this.getAllTypeOptions();\r\n            await this.getProductAtArticles();\r\n            await this.getAllLanguageOptions();\r\n            await this.getArticleByIds();\r\n            await this.getAllTags();\r\n        },\r\n        components: {\r\n            Loading,\r\n            Treeselect,\r\n\r\n            'FileManager': FileManager,\r\n            VueTagsInput,\r\n\r\n            MIEditor\r\n        },\r\n        destroyed() {\r\n            EventBus.$off('FileSelected');\r\n        },\r\n        mounted() {\r\n            this.tabIndex = this.tabs.findIndex(tab => tab === this.$route.hash)\r\n        },\r\n\r\n        computed: {\r\n            ...mapGetters([\"article\", \"isOR\", \"fileName\"]),\r\n\r\n            filteredItems() {\r\n                // for (var i = 0; i < this.autocompleteItems.length; i++){\r\n                //     if (i.text.toLowerCase().indexOf(this.tag.toLowerCase())){\r\n                //\r\n                //     }\r\n                // }\r\n                this.autocompleteItems = Array.from(this.autocompleteItems);\r\n                return this.autocompleteItems.filter(i => {\r\n                    if (i.text != null) {\r\n                        return i.text.toLowerCase().indexOf(this.tag.toLowerCase()) !== -1;\r\n                    }\r\n                });\r\n            }\r\n        },\r\n        watch: {\r\n            article: function (val) {\r\n                this.objRequest = this.article\r\n            }\r\n        },\r\n        methods: {\r\n            ...mapActions([\"updateArticle\", \"getAllTag\", \"addArticle\", \"getArticle\", \"uploadFile\", \"getAllStatusOption\", \"getZoneArticle\", \"getAllTypeOption\", \"getProductAtArticle\", \"getAllLanguageOption\", \"getArticleById\", \"autoGenIndexing\"]),\r\n            openImg(img) {\r\n                this.choseImg = img;\r\n                EventBus.$emit(this.mikey1, ''); // '': select one, 'multi': select multi file\r\n            },\r\n            DoAttackFile(value) {\r\n                let vm = this;\r\n                if (this.choseImg == \"ListImg\") {\r\n                    vm.ListImg = value.map(x => {\r\n                        return x.path\r\n                    });\r\n                } else if (this.choseImg == \"avatar\") {\r\n                    vm.objRequest.avatar = value[0].path;\r\n                }\r\n                else if (this.choseImg == \"facebook\") {\r\n                    vm.objRequest.socialImage = value[0].path;\r\n                }\r\n                else if (this.choseImg == \"filedowload\") {\r\n                    vm.objRequest.fileAttachment = value[0].path;\r\n                }\r\n            },\r\n            getOrSetData(value) {\r\n                this.objRequest.body = value;\r\n            },\r\n            slugM: function () {\r\n\r\n                if (this.objRequest != null && this.objRequest != undefined) {\r\n                    this.objRequest.url = slug(this.objRequest.title);\r\n                }\r\n            },\r\n\r\n            autoGenIndex() {\r\n                var obj = {};\r\n                debugger\r\n                obj.indexing = \"\";\r\n                obj.html = this.objRequest.body;\r\n                obj.language = this.objRequest.languageCode;\r\n                this.autoGenIndexing(obj).then(response => {\r\n                    debugger\r\n                    this.objRequest.indexing = response.indexing;\r\n                    this.objRequest.body = response.html;\r\n                }).catch(e => {\r\n                    this.$toast.error(msgNotify.error + \". Error:\" + e, {});\r\n\r\n                });\r\n            },\r\n            removeIndex() {\r\n                this.objRequest.indexing = \"\";\r\n            },\r\n            urlBases(path) {\r\n                return urlBase(path);\r\n            },\r\n\r\n            pathImgs(path) {\r\n                return pathImg(path);\r\n            },\r\n            getTextFileAttach() {\r\n                return this.objRequest.fileAttachment;\r\n            },\r\n            tabClicked(selectedTab) {\r\n                console.log('Current tab re-clicked:' + selectedTab.tab.name);\r\n            },\r\n            tabChanged(selectedTab) {\r\n                console.log('Tab changed to:' + selectedTab.tab.name);\r\n            },\r\n\r\n            DoAddEdit() {\r\n                if (this.ZoneValues != null) {\r\n                    this.objRequest.ZoneIds = this.ZoneValues.toString();\r\n                    console.log(this.ZoneValues.toString());\r\n                }\r\n                var result = Array.prototype.map.call(this.ProductOptionsDestination, function (item) {\r\n                    return item.id;\r\n                }).join(\",\");\r\n                console.log(result);\r\n                var tagName = '';\r\n                this.tags.forEach(function (entry) {\r\n                    tagName += entry.text;\r\n                    tagName += ','\r\n                });\r\n\r\n                if (tagName != null) {\r\n                    this.objRequest.TagNames = tagName.slice(0, -1)\r\n                }\r\n                //this.objRequest.avatarArray = this.ListImg.join();\r\n                this.objRequest.avatarArray = \"\";\r\n                this.objRequest.ProductIds = result;\r\n                this.isLoading = true;\r\n                //\r\n                let objMetaNoIndex = {\r\n                    Value: \"\",\r\n                    Status: this.statusNoindex\r\n                }\r\n                let objMetaCanonical = {\r\n                    Value: this.valueCanonical,\r\n                    Status: this.statusCanonical\r\n                }\r\n                this.objRequest.metaNoIndex = JSON.stringify(objMetaNoIndex);\r\n                this.objRequest.metaCanonical = JSON.stringify(objMetaCanonical);\r\n                //\r\n                if (this.objRequest.Id > 0) {\r\n                    //this.objRequest.startDate = this.startDate;\r\n                    //this.objRequest.endDate = this.endDate;\r\n                    this.updateArticle(this.objRequest)\r\n                        .then(response => {\r\n                            console.log(response);\r\n                            if (response.success == true) {\r\n                                this.$toast.success(\"cập nhật thành công\", {});\r\n                                this.isLoading = false;\r\n                                this.$router.go(-1)\r\n                            } else {\r\n                                this.$router.go(-1);\r\n                                this.$toast.error(\"cập nhật thất bại\", {});\r\n                                this.isLoading = false;\r\n                            }\r\n                        })\r\n                        .catch(e => {\r\n                            this.$toast.error(msgNotify.error + \". Error:\" + e, {});\r\n                            this.isLoading = false;\r\n                        });\r\n                } else {\r\n                    //this.objRequest.startDate = this.startDate;\r\n                    //this.objRequest.endDate = this.endDate;\r\n                    this.addArticle(this.objRequest)\r\n                        .then(response => {\r\n                            if (response.success == true) {\r\n                                this.$toast.success(\"đăng bài thành công\", {});\r\n                                let id = response.id;\r\n                                this.isLoading = false;\r\n                                router.push({ path: `/admin/article/edit/${id}#2` });\r\n                                // router.go(0);\r\n                                // this.isLoading = false;\r\n                                // this.$router.go(-1)\r\n                            } else {\r\n                                this.$router.go(-1);\r\n                                this.$toast.error(\"cập nhật thất bại\", {});\r\n                                this.isLoading = false;\r\n                            }\r\n                        })\r\n                        .catch(e => {\r\n                            this.$toast.error(msgNotify.error + \". Error:\" + e, {});\r\n                            this.isLoading = false;\r\n                        });\r\n                }\r\n            },\r\n            removeImg(index) {\r\n                this.ListImg.splice(index, 1);\r\n            },\r\n            DoRefesh() {\r\n                this.objRequest.Title = \"\"\r\n            },\r\n            openUpload() {\r\n                document.getElementById('file-field').click()\r\n            },\r\n            updatePreview(e) {\r\n                var reader, files = e.target.files;\r\n                if (files.length === 0) {\r\n                    console.log('Empty')\r\n                }\r\n                this.selectedFile = files[0];\r\n                reader = new FileReader();\r\n                var data = new FormData();\r\n                for (var x = 0; x < files.length; x++) {\r\n                    data.append(\"file\" + x, files[x]);\r\n                }\r\n                this.uploadFile(data).then(response => {\r\n                    if (response.success == true) {\r\n                        reader.onload = (e) => {\r\n                            this.preview = e.target.result;\r\n\r\n                            this.objRequest.avatar = response.linkImage;\r\n                        };\r\n                        reader.readAsDataURL(files[0])\r\n                    } else {\r\n                        this.$toast.error(msgNotify.error + \". Error:\" + e, {});\r\n                        this.isLoading = false;\r\n                    }\r\n                }).catch(e => {\r\n                    this.$toast.error(msgNotify.error + \". Error:\" + e, {});\r\n                    this.isLoading = false;\r\n                });\r\n            },\r\n            getSelectedUser(node, id) {\r\n                this.objRequest.ZoneId = node.id;\r\n            },\r\n            getSelectedLanguge(node, id) {\r\n                this.LanguageValues = node.id;\r\n                this.objRequest.languageCode = node.id;\r\n                console.log(this.ListArticleInLanguage)\r\n                if (this.ListArticleInLanguage != null) {\r\n                    for (var i = 0; i < this.ListArticleInLanguage.length; i++) {\r\n\r\n                        if (node.id == this.ListArticleInLanguage[i].languageCode) {\r\n                            console.log(this.ListArticleInLanguage[i])\r\n                            this.objRequest.url = this.ListArticleInLanguage[i].url;\r\n                            this.objRequest.urlOld = this.ListArticleInLanguage[i].urlOld;\r\n                            this.objRequest.author = this.ListArticleInLanguage[i].author;\r\n                            this.objRequest.source = this.ListArticleInLanguage[i].source;\r\n                            this.objRequest.title = this.ListArticleInLanguage[i].title;\r\n                            this.objRequest.description = this.ListArticleInLanguage[i].description || \"\";\r\n                            this.objRequest.body = this.ListArticleInLanguage[i].body || \"\";\r\n                            this.objRequest.metaTitle = this.ListArticleInLanguage[i].metaTitle || \"\";\r\n                            this.objRequest.metaDescription = this.ListArticleInLanguage[i].metaDescription || \"\";\r\n                            this.objRequest.metaKeyword = this.ListArticleInLanguage[i].metaKeyword || \"\";\r\n                            //\r\n                            if (this.ListArticleInLanguage[i].metaNoIndex != null) {\r\n                                let objNoIndex = JSON.parse(this.ListArticleInLanguage[i].metaNoIndex);\r\n                                this.statusNoindex = objNoIndex.Status || \"\";\r\n                            }\r\n                            if (this.ListArticleInLanguage[i].metaCanonical != null) {\r\n                                let objCanonical = JSON.parse(this.ListArticleInLanguage[i].metaCanonical);\r\n                                this.statusCanonical = objCanonical.Status;\r\n                                this.valueCanonical = objCanonical.Value || \"\";\r\n                            }\r\n                            //\r\n                            this.objRequest.socialTitle = this.ListArticleInLanguage[i].socialTitle;\r\n                            this.objRequest.socialDescription = this.ListArticleInLanguage[i].socialDescription;\r\n                            this.objRequest.socialImage = this.ListArticleInLanguage[i].socialImage;\r\n                            this.objRequest.wordCount = this.ListArticleInLanguage[i].wordCount || 0;\r\n                            this.objRequest.likeCount = this.ListArticleInLanguage[i].likeCount || 0;\r\n                            this.objRequest.viewCount = this.ListArticleInLanguage[i].viewCount || 0;\r\n                            this.objRequest.voteCount = this.ListArticleInLanguage[i].voteCount || 0;\r\n                            this.objRequest.position = this.ListArticleInLanguage[i].position || \"\";\r\n                            this.objRequest.metaWebPage = this.ListArticleInLanguage[i].metaWebPage || \"\";\r\n\r\n                            this.objRequest.address = this.ListArticleInLanguage[i].address || \"\";\r\n                            this.objRequest.count = this.ListArticleInLanguage[i].count || \"0\";\r\n                            this.objRequest.ttkh = this.ListArticleInLanguage[i].ttkh || \"\";\r\n                            this.objRequest.ttdc = this.ListArticleInLanguage[i].ttdc || \"\";\r\n                            this.objRequest.ttlv = this.ListArticleInLanguage[i].ttlv || \"\";\r\n                            this.objRequest.ttdv = this.ListArticleInLanguage[i].ttdv || \"\";\r\n                            this.objRequest.salary = this.ListArticleInLanguage[i].salary || \"\";\r\n                            \r\n                            this.objRequest.indexing = this.ListArticleInLanguage[i].indexing;\r\n                            this.objRequest.startDate = moment(String(this.ListArticleInLanguage[i].startDate)).format('YYYY-MM-DD');\r\n                            this.objRequest.endDate = moment(String(this.ListArticleInLanguage[i].endDate)).format('YYYY-MM-DD');\r\n                            this.tags = this.ListArticleInLanguage[i].tagsViewModels;\r\n\r\n                            this.objRequest.fileAttachmentUrl = this.ListArticleInLanguage[i].fileAttachmentUrl;\r\n                            this.objRequest.fileAttachmen = this.ListArticleInLanguage[i].fileAttachment;\r\n                            this.objRequest.fileAttachmentMinify = this.ListArticleInLanguage[i].fileAttachmentMinify;\r\n                            this.objRequest.languageCode = this.ListArticleInLanguage[i].languageCode;\r\n                            break;\r\n                        } else {\r\n                            this.objRequest.url = \"\";\r\n                            this.objRequest.urlOld = \"\";\r\n                            this.objRequest.author = \"\";\r\n                            this.objRequest.source = \"\";\r\n                            this.objRequest.title = \"\";\r\n                            this.objRequest.description = \"\";\r\n                            this.objRequest.body = \"\";\r\n                            this.objRequest.metaTitle = \"\";\r\n                            this.objRequest.metaDescription = \"\";\r\n                            this.objRequest.metaKeyword = \"\";\r\n                            this.objRequest.socialTitle = \"\";\r\n                            this.objRequest.socialDescription = \"\";\r\n                            this.objRequest.socialImage = \"\";\r\n                            this.objRequest.wordCount = \"\";\r\n                            this.objRequest.likeCount = \"\";\r\n                            this.objRequest.viewCount = \"\";\r\n                            this.objRequest.voteCount = \"\";\r\n                            this.objRequest.indexing = \"\";\r\n                            this.objRequest.metaWebPage = \"\";\r\n                            this.statusNoindex = false;\r\n                            this.statusCanonical = false;\r\n                            this.valueCanonical = \"\";\r\n                            this.tags = [];\r\n                            this.objRequest.startDate = moment(String(new Date())).format('YYYY-MM-DD'),\r\n                                this.objRequest.endDate = moment(String(new Date())).format('YYYY-MM-DD'),\r\n                                this.objRequest.languageCode = node.id;\r\n                        }\r\n                    }\r\n                }\r\n            },\r\n            openImg(img) {\r\n                this.choseImg = img;\r\n                if (img == \"ListImg\") {\r\n                    //EventBus.$emit(\"FileSelected\", );\r\n                    EventBus.$emit(this.mikey1, 'multi'); // '': select one, 'multi': select multi file\r\n                } else {\r\n                    //EventBus.$emit(\"FileSelected\", this.Img);\r\n                    EventBus.$emit(this.mikey1, ''); // '': select one, 'multi': select multi file\r\n                }\r\n            },\r\n\r\n            onChangeList: function ({ source, destination }) {\r\n                this.ProductOptionsSource = source;\r\n                this.ProductOptionsDestination = destination;\r\n            },\r\n            async getAllTags() {\r\n                this.autocompleteItems = await this.getAllTag();\r\n            },\r\n            async getAllStatusOptions() {\r\n                this.StatusOptions = await this.getAllStatusOption();\r\n            },\r\n            async getZoneArticles() {\r\n                this.ZoneOptions = await this.getZoneArticle();\r\n            },\r\n            async getAllTypeOptions() {\r\n                this.TypeOptions = await this.getAllTypeOption();\r\n            },\r\n            async getProductAtArticles() {\r\n                this.ProductOptionsSource = await this.getProductAtArticle();\r\n            },\r\n            async getAllLanguageOptions() {\r\n                this.LanguageCodes = await this.getAllLanguageOption();\r\n            },\r\n            async getArticleByIds() {\r\n                if (this.$route.params.id > 0) {\r\n                    //debugger\r\n                    var id = this.$route.params.id;\r\n                    this.isLoading = true;\r\n                    let initial = this.$route.query.initial;\r\n                    initial = typeof initial != \"undefined\" ? initial.toLowerCase() : \"\";\r\n                    var result = await this.getArticleById(id);\r\n                    console.log(result.data.articles.avatar);\r\n                    console.log(result.data.articleInLanguageViewModels);\r\n                    this.objRequest.avatar = result.data.articles.avatar;\r\n                    this.objRequest.status = result.data.articles.status;\r\n                    this.objRequest.type = result.data.articles.type;\r\n                    this.objRequest.name = result.data.articles.name;\r\n                    this.objRequest.isShowHome = result.data.articles.isShowHome;\r\n                    this.objRequest.isAllowComment = result.data.articles.isAllowComment;\r\n                    this.ProductOptionsDestination = result.data.productAtArticles;\r\n                    this.ZoneValues = Object.values(result.data.listZoneIds);\r\n                    this.objRequest.Id = result.data.articles.id;\r\n                    //\r\n                    \r\n                    //\r\n\r\n\r\n                    if (result.data.articles.avatar != null && result.data.articles.avatar != \"\") {\r\n                        this.preview = result.data.articles.avatar;\r\n                    }\r\n                    var listArticleInLanguage = result.data.articleInLanguageViewModels;\r\n                    console.log(listArticleInLanguage)\r\n                    this.ListArticleInLanguage = listArticleInLanguage;\r\n                    for (var i = 0; i < listArticleInLanguage.length; i++) {\r\n                        this.LanguageValues = listArticleInLanguage[0].languageCode;\r\n                        this.objRequest.indexing = listArticleInLanguage[0].indexing;\r\n                        this.objRequest.url = listArticleInLanguage[0].url;\r\n                        this.objRequest.urlOld = listArticleInLanguage[0].urlOld;\r\n                        this.objRequest.author = listArticleInLanguage[0].author;\r\n                        this.objRequest.source = listArticleInLanguage[0].source;\r\n                        this.objRequest.title = listArticleInLanguage[0].title;\r\n                        this.objRequest.description = listArticleInLanguage[0].description || \"\";\r\n                        this.objRequest.body = listArticleInLanguage[0].body || \"\";\r\n                        this.objRequest.metaTitle = listArticleInLanguage[0].metaTitle;\r\n                        this.objRequest.metaDescription = listArticleInLanguage[0].metaDescription;\r\n                        this.objRequest.metaKeyword = listArticleInLanguage[0].metaKeyword;\r\n                        //\r\n                        if (listArticleInLanguage[0].metaNoIndex != null) {\r\n                            let objNoIndex = JSON.parse(listArticleInLanguage[0].metaNoIndex);\r\n                            this.statusNoindex = objNoIndex.Status;\r\n                        }\r\n                        if (listArticleInLanguage[0].metaCanonical != null) {\r\n                            let objCanonical = JSON.parse(listArticleInLanguage[0].metaCanonical);\r\n                            this.statusCanonical = objCanonical.Status;\r\n                            this.valueCanonical = objCanonical.Value;\r\n                        }\r\n                        //\r\n                        this.objRequest.socialTitle = listArticleInLanguage[0].socialTitle;\r\n                        this.objRequest.socialDescription = listArticleInLanguage[0].socialDescription;\r\n                        this.objRequest.socialImage = listArticleInLanguage[0].socialImage;\r\n                        this.tags = listArticleInLanguage[0].tagsViewModels;\r\n                        this.previewImageFacebook = listArticleInLanguage[0].socialImage;\r\n                        this.objRequest.wordCount = listArticleInLanguage[0].wordCount || 0;\r\n                        this.objRequest.likeCount = listArticleInLanguage[0].likeCount || 0;\r\n                        this.objRequest.viewCount = listArticleInLanguage[0].viewCount || 0;\r\n                        this.objRequest.voteCount = listArticleInLanguage[0].voteCount || 0;\r\n                        this.objRequest.position = listArticleInLanguage[0].position || \"\";\r\n                        this.objRequest.address = listArticleInLanguage[0].address || \"\";\r\n                        this.objRequest.count = listArticleInLanguage[0].count || \"0\";\r\n\r\n                        var mt = JSON.parse(listArticleInLanguage[0].metaData);\r\n\r\n                        this.objRequest.ttkh = mt.ttkh || \"\";\r\n                        this.objRequest.ttdc = mt.ttdc || \"\";\r\n                        this.objRequest.ttlv = mt.ttlv || \"\";\r\n                        this.objRequest.ttdv = mt.ttdv || \"\";\r\n                        \r\n                        if(mt.AvatarArray === undefined){\r\n                            console.log(1);\r\n                            this.ListImg = [];\r\n                        }                            \r\n                        else\r\n                            this.ListImg = mt.AvatarArray.split(\",\") || [];\r\n                        this.objRequest.salary = listArticleInLanguage[0].salary || \"\";\r\n                        this.objRequest.startDate = moment(String(listArticleInLanguage[0].startDate)).format('YYYY-MM-DD');\r\n                        this.objRequest.endDate = moment(String(listArticleInLanguage[0].endDate)).format('YYYY-MM-DD');\r\n                        this.objRequest.languageCode = listArticleInLanguage[0].languageCode;\r\n                        this.objRequest.fileAttachment = listArticleInLanguage[0].fileAttachment;\r\n                        this.objRequest.fileAttachmentMinify = listArticleInLanguage[0].fileAttachmentMinify;\r\n                        this.objRequest.fileAttachmentUrl = listArticleInLanguage[0].fileAttachmentUrl;\r\n                        this.objRequest.metaWebPage = listArticleInLanguage[0].metaWebPage || \"\";\r\n\r\n                    }\r\n                    this.isLoading = false;\r\n                }\r\n            },\r\n            updateSocial(e) {\r\n                var reader, files = e.target.files;\r\n                if (files.length === 0) {\r\n                    console.log('Empty')\r\n                }\r\n                this.selectedFile = files[0];\r\n                reader = new FileReader();\r\n                var data = new FormData();\r\n                for (var x = 0; x < files.length; x++) {\r\n                    data.append(\"file\" + x, files[x]);\r\n                }\r\n                this.uploadFile(data).then(response => {\r\n                    if (response.success == true) {\r\n                        reader.onload = (e) => {\r\n                            this.preview = e.target.result;\r\n                            console.log(this.selectedFile);\r\n                            this.objRequest.socialImage = response.linkImage;\r\n                        };\r\n                        reader.readAsDataURL(files[0])\r\n                    } else {\r\n                        this.$toast.error(msgNotify.error + \". Error:\" + e, {});\r\n                        this.isLoading = false;\r\n                    }\r\n                }).catch(e => {\r\n                    this.$toast.error(msgNotify.error + \". Error:\" + e, {});\r\n                    this.isLoading = false;\r\n                });\r\n            },\r\n        }\r\n    };\r\n</script>\r\n<style>\r\n\r\n    .tags-input {\r\n        max-width: 100% !important;\r\n        position: relative;\r\n        background-color: #fff;\r\n        margin-left: -15px;\r\n    }\r\n\r\n\r\n    #toc_container {\r\n        background: #f9f9f9;\r\n        border: 1px solid #aaa;\r\n        padding: 10px;\r\n        margin-bottom: 1em;\r\n        width: auto;\r\n        display: table;\r\n        font-size: 95%;\r\n    }\r\n\r\n        #toc_container p.toc_title {\r\n            text-align: center;\r\n            font-weight: 700;\r\n            margin: 0;\r\n            padding: 0;\r\n        }\r\n\r\n        #toc_container.no_bullets li, #toc_container.no_bullets ul, #toc_container.no_bullets ul li, .toc_widget_list.no_bullets, .toc_widget_list.no_bullets li {\r\n            background: 0 0;\r\n            list-style-type: none;\r\n            list-style: none;\r\n        }\r\n\r\n    .container-fluid .btn {\r\n        border-radius: 0;\r\n    }\r\n\r\n    #toc_container.no_bullets li, #toc_container.no_bullets ul, #toc_container.no_bullets ul li, .toc_widget_list.no_bullets, .toc_widget_list.no_bullets li {\r\n        background: 0 0;\r\n        list-style-type: none;\r\n        list-style: none;\r\n    }\r\n</style>\r\n"],"sourceRoot":""}]);
+exports.push([module.i, "\n.tags-input {\n    max-width: 100% !important;\n    position: relative;\n    background-color: #fff;\n    margin-left: -15px;\n}\n#toc_container {\n    background: #f9f9f9;\n    border: 1px solid #aaa;\n    padding: 10px;\n    margin-bottom: 1em;\n    width: auto;\n    display: table;\n    font-size: 95%;\n}\n#toc_container p.toc_title {\n        text-align: center;\n        font-weight: 700;\n        margin: 0;\n        padding: 0;\n}\n#toc_container.no_bullets li, #toc_container.no_bullets ul, #toc_container.no_bullets ul li, .toc_widget_list.no_bullets, .toc_widget_list.no_bullets li {\n        background: 0 0;\n        list-style-type: none;\n        list-style: none;\n}\n.container-fluid .btn {\n    border-radius: 0;\n}\n#toc_container.no_bullets li, #toc_container.no_bullets ul, #toc_container.no_bullets ul li, .toc_widget_list.no_bullets, .toc_widget_list.no_bullets li {\n    background: 0 0;\n    list-style-type: none;\n    list-style: none;\n}\n", "", {"version":3,"sources":["D:/Code/WORKING/dotnet-platform-backend/Web/Platform/CMS/PlatformCMS/ClientApp/pages/Article/edit.vue?43918809"],"names":[],"mappings":";AAy7BA;IACA,2BAAA;IACA,mBAAA;IACA,uBAAA;IACA,mBAAA;CACA;AAGA;IACA,oBAAA;IACA,uBAAA;IACA,cAAA;IACA,mBAAA;IACA,YAAA;IACA,eAAA;IACA,eAAA;CACA;AAEA;QACA,mBAAA;QACA,iBAAA;QACA,UAAA;QACA,WAAA;CACA;AAEA;QACA,gBAAA;QACA,sBAAA;QACA,iBAAA;CACA;AAEA;IACA,iBAAA;CACA;AAEA;IACA,gBAAA;IACA,sBAAA;IACA,iBAAA;CACA","file":"edit.vue","sourcesContent":["<template>\r\n\r\n    <div style=\"display:flex;width:100%\">\r\n        <loading :active.sync=\"isLoading\"\r\n                 :height=\"35\"\r\n                 :width=\"35\"\r\n                 :color=\"color\"\r\n                 :is-full-page=\"fullPage\"></loading>\r\n\r\n        <b-tabs class=\"col-md-12\" pills v-model=\"tabIndex\">\r\n            <b-tab href=\"#1\" title=\"1. Nhập thông tin bài viết\" active>\r\n                <div class=\"row productedit\">\r\n                    <div class=\"col-md-12\">\r\n                        <b-card class=\"mt-3 \" header=\"Thêm / Sửa bài viết\">\r\n                            <b-form class=\"form-horizontal\">\r\n                                <div class=\"row\">\r\n                                    <div class=\"col-md-12\">\r\n                                        <b-form-group label=\"Tên bài viết\" label-for=\"input-1\">\r\n                                            <b-form-input id=\"input-1\"\r\n                                                          v-model=\"objRequest.name\"\r\n                                                          type=\"text\"\r\n                                                          required\r\n                                                          v-on:keyup.13=\"slugM\"\r\n                                                          placeholder=\"Tên bài viết\"></b-form-input>\r\n                                        </b-form-group>\r\n                                    </div>\r\n\r\n                                    <div class=\"col-md-6\">\r\n                                        <b-form-group label=\"Trạng thái\">\r\n                                            <treeselect :options=\"StatusOptions\"\r\n                                                        :disable-branch-nodes=\"true\"\r\n                                                        v-model=\"objRequest.status\"\r\n                                                        :default-expanded-level=\"Infinity\"\r\n                                                        placeholder=\"Xin mời bạn lựa chọn trạng thái\" />\r\n                                        </b-form-group>\r\n                                    </div>\r\n                                    <div class=\"col-md-6\">\r\n                                        <b-form-group label=\"Kiểu\">\r\n                                            <treeselect :options=\"TypeOptions\"\r\n                                                        :disable-branch-nodes=\"true\"\r\n                                                        v-model=\"objRequest.type\"\r\n                                                        :default-expanded-level=\"Infinity\"\r\n                                                        placeholder=\"Xin mời bạn lựa chọn loại bài viết\" />\r\n                                        </b-form-group>\r\n                                    </div>\r\n                                    <div class=\"col-md-12\">\r\n                                        <b-form-group label=\"Chọn danh mục\">\r\n                                            <treeselect :multiple=\"true\"\r\n                                                        :flat=\"true\"\r\n                                                        :options=\"ZoneOptions\"\r\n                                                        placeholder=\"Xin mời bạn lựa chọn danh mục\"\r\n                                                        @select=\"getSelectedUser\"\r\n                                                        v-model=\"ZoneValues\"\r\n                                                        :default-expanded-level=\"Infinity\" />\r\n                                        </b-form-group>\r\n                                    </div>\r\n                                    <div class=\"col-md-12\">\r\n                                        <b-form-group>\r\n                                            <b-form-checkbox v-model=\"objRequest.isShowHome\">\r\n                                                Cho phép hiển thị trang chủ\r\n                                            </b-form-checkbox>\r\n                                        </b-form-group>\r\n                                    </div>\r\n                                    <div class=\"col-md-4\">\r\n                                        <b-form-group label=\"Hình đại diện\">\r\n                                            <a @click=\"openImg('avatar')\">\r\n                                                <div style=\"width:200px;height:200px;display:flex\"\r\n                                                     class=\"gallery-upload-file ui-sortable\">\r\n                                                    <div style=\"width:100%;height:auto;margin:0\"\r\n                                                         class=\" r-queue-item ui-sortable-handle\">\r\n                                                        <div style=\"width:100%\"\r\n                                                             v-if=\"objRequest.avatar != null && objRequest.avatar != undefined &&  objRequest.avatar.length > 0\">\r\n                                                            <img alt=\"Ảnh lỗi\" style=\"height:200px;width:200px\"\r\n                                                                 :src=\"pathImgs(objRequest.avatar)\">\r\n                                                        </div>\r\n                                                        <div v-else>\r\n                                                            <i class=\"fa fa-picture-o\"></i>\r\n                                                            <p>[Chọn ảnh]</p>\r\n                                                        </div>\r\n                                                    </div>\r\n\r\n                                                </div>\r\n                                            </a>\r\n                                        </b-form-group>\r\n                                    </div>\r\n                                    <div class=\"col-md-12\">\r\n                                        <b-form-group label=\"Danh sách ảnh\">\r\n                                            <div class=\"notice-upload-image\">\r\n                                                <p>\r\n                                                    <b style=\"font-size: 14px;\">Đăng nhiều ảnh để công cụ tìm kiếm dễ thấy bạn hơn!</b><br><i style=\"font-size: 11px; padding-top: 5px; color: #666;\">\r\n                                                        Kéo ảnh lên vị trí đầu tiên để chọn làm\r\n                                                        Thumbnail.\r\n                                                    </i>\r\n                                                </p>\r\n                                            </div>\r\n                                            <div class=\"row gallery-upload-file ui-sortable\">\r\n                                                <div style=\"padding:0\" class=\"col-md-2 col-xs-4 r-queue-item added ui-sortable-handle\" v-for=\"(itemimg,index) in ListImg\">\r\n                                                    <div class=\"item\"><img style=\"width:100%;height:100px\" alt=\"Ảnh lỗi\" :src=\"pathImgs(itemimg)\"></div><i @click=\"removeImg(index)\" class=\"fa fa-times\"></i>\r\n                                                </div>\r\n\r\n                                                <div class=\"col-md-2 col-xs-4 _library ui-sortable-handle\">\r\n                                                    <i class=\"fa fa-folder-open\" @click=\"openImg('ListImg')\"></i>\r\n                                                    <p>[Thư viện ảnh]</p>\r\n                                                </div>\r\n                                            </div>\r\n                                        </b-form-group>\r\n                                    </div>\r\n                                </div>\r\n                            </b-form>\r\n                        </b-card>\r\n                    </div>\r\n                </div>\r\n            </b-tab>\r\n            <b-tab href=\"#2\" title=\"2. Nhập thông tin ngôn ngữ\">\r\n                <div class=\"row productedit\">\r\n                    <div class=\"col-md-8\">\r\n                        <b-card class=\"mt-3 \" header=\"Thêm / Sửa bài viết\">\r\n                            <loading :active.sync=\"isLoading\"\r\n                                     :height=\"35\"\r\n                                     :width=\"35\"\r\n                                     :color=\"color\"\r\n                                     :is-full-page=\"fullPage\"></loading>\r\n                            <div class=\"row\">\r\n                                <div class=\"col-md-4 col-xs-10\">\r\n                                    <b-form-group label=\"Chọn ngôn ngữ\">\r\n                                        <treeselect :options=\"LanguageCodes\"\r\n                                                    :disable-branch-nodes=\"true\"\r\n                                                    @select=\"getSelectedLanguge\"\r\n                                                    v-model=\"LanguageValues\"\r\n                                                    :default-expanded-level=\"Infinity\"\r\n                                                    :disabled=\"disabled\"\r\n                                                    placeholder=\"Xin mời bạn lựa chọn ngôn ngữ\" />\r\n\r\n                                    </b-form-group>\r\n                                </div>\r\n\r\n                            </div>\r\n                            <b-form-group label=\"Tiêu đề\" label-for=\"input-1\">\r\n                                <b-form-input id=\"input-1\"\r\n                                              v-model=\"objRequest.title\"\r\n                                              type=\"text\"\r\n                                              required\r\n                                              v-on:keyup.13=\"slugM\"\r\n                                              placeholder=\"Tiêu đề\"></b-form-input>\r\n                            </b-form-group>\r\n                            <b-form class=\"form-horizontal\">\r\n                                <b-form-group label=\"Đường dẫn\">\r\n                                    <b-form-input v-model=\"objRequest.url\" placeholder=\"Url\" required></b-form-input>\r\n                                </b-form-group>\r\n                                <b-form-group label=\"Đường dẫn cũ\">\r\n                                    <b-form-input v-model=\"objRequest.urlOld\" placeholder=\"Url\" required></b-form-input>\r\n                                </b-form-group>\r\n                                <b-form-group label=\"Tác giả\">\r\n                                    <b-form-input v-model=\"objRequest.author\" placeholder=\"Tác giả\"\r\n                                                  required></b-form-input>\r\n                                </b-form-group>\r\n                                <b-form-group label=\"Nguồn\">\r\n                                    <b-form-input v-model=\"objRequest.source\" placeholder=\"Nguồn\"\r\n                                                  required></b-form-input>\r\n                                </b-form-group>\r\n\r\n                                <b-form-group label=\"Mô tả\">\r\n                                    <ckeditor tag-name=\"textarea\"\r\n                                              v-model=\"objRequest.description\" :config=\"editorConfig\">\r\n                                    </ckeditor>\r\n                                </b-form-group>\r\n                                <b-form-group label=\"Nội dung\">\r\n                                    <button type=\"button\" @click=\"autoGenIndex()\" class=\"btn btn-success\">\r\n                                        Tạo chỉ mục\r\n                                    </button>\r\n                                    <button type=\"button\" @click=\"removeIndex()\" class=\"btn btn-danger\">\r\n                                        Xóa chỉ mục\r\n                                    </button>\r\n                                    <div class=\"row\">\r\n                                        <div class=\"col-md-12\" v-html=\"objRequest.indexing\"></div>\r\n                                    </div>\r\n                                    <MIEditor :contentEditor=\"objRequest.body\" v-on:handleEditorInput=\"getOrSetData\"></MIEditor>\r\n                                </b-form-group>\r\n                                <div class=\"col-md-12\">\r\n                                    <b-form-group>\r\n                                        <label class=\"typo__label\" style=\"margin-left: -16px;\">Thêm tag</label>\r\n                                        <vue-tags-input v-model=\"tag\"\r\n                                                        :tags=\"tags\"\r\n                                                        :autocomplete-items=\"filteredItems\"\r\n                                                        @tags-changed=\"newTags => tags = newTags\"\r\n                                                        :allow-edit-tags=true placeholder=\"Thêm tag\"\r\n                                                        class=\"tags-input\" />\r\n                                    </b-form-group>\r\n                                </div>\r\n                                <b-form-group>\r\n                                    <b-form-checkbox v-model=\"IsChoseFileDowload\" style=\"padding-bottom:7px\">\r\n                                        File Dowload DLC\r\n                                    </b-form-checkbox>\r\n                                    <b-form-input v-if=\"!IsChoseFileDowload\" v-model=\"objRequest.fileAttachment\" placeholder=\"File dowload DLC\" required></b-form-input>\r\n                                    <template v-if=\"IsChoseFileDowload\">\r\n                                        <button @click=\"openImg('filedowload')\" type=\"button\" class=\"btn btn-success\">Chọn file</button>\r\n                                        <a v-if=\"objRequest.fileAttachment != null && objRequest.fileAttachment.length > 0\" target=\"_blank\" href=\"objRequest.fileAttachment\"><i class=\"fa fa-file-o\"></i> {{objRequest.fileAttachment}}</a>\r\n                                    </template>\r\n                                </b-form-group>\r\n                                <b-form-group>\r\n                                    <b-form-checkbox v-model=\"IsChoseFileDowload\" style=\"padding-bottom:7px\">\r\n                                        File Dowload DLT\r\n                                    </b-form-checkbox>\r\n                                    <b-form-input v-if=\"!IsChoseFileDowload\" v-model=\"objRequest.fileAttachmentMinify\" placeholder=\"File dowload DLT\" required></b-form-input>\r\n                                    <template v-if=\"IsChoseFileDowload\">\r\n                                        <button @click=\"openImg('filedowload')\" type=\"button\" class=\"btn btn-success\">Chọn file</button>\r\n                                        <a v-if=\"objRequest.fileAttachmentMinify != null && objRequest.fileAttachmentMinify.length > 0\" target=\"_blank\" href=\"objRequest.fileAttachmentMinify\"><i class=\"fa fa-file-o\"></i> {{objRequest.fileAttachmentMinify}}</a>\r\n                                    </template>\r\n                                </b-form-group>\r\n                            </b-form>\r\n                        </b-card>\r\n                        <b-card class=\"mt-3 \" header=\"SEO Analysis\">\r\n                            <b-form class=\"form-horizontal\">\r\n                                <b-form-group label=\"Tiêu đề SEO\">\r\n                                    <b-form-input v-model=\"objRequest.metaTitle\" placeholder=\"Tiêu đề Seo\"\r\n                                                  required></b-form-input>\r\n                                </b-form-group>\r\n                                <b-form-group label=\"Mô tả SEO\">\r\n                                    <b-form-textarea rows=\"3\" max-rows=\"6\" v-model=\"objRequest.metaDescription\"\r\n                                                     placeholder=\"Mô tả SEO\"\r\n                                                     required></b-form-textarea>\r\n                                </b-form-group>\r\n                                <b-form-group label=\"Từ khóa SEO\">\r\n                                    <b-form-input v-model=\"objRequest.metaKeyword\" placeholder=\"Từ khóa SEO\"\r\n                                                  required></b-form-input>\r\n                                </b-form-group>\r\n                                <b-form-group>\r\n                                    <div class=\"row\">\r\n                                        <div class=\"col-md-6\">\r\n                                            <b-form-checkbox placeholder=\"Canonical\" v-model=\"statusCanonical\" required>Chặn trùng lặp nội dung (Canonical)</b-form-checkbox>\r\n                                        </div>\r\n                                        <div class=\"col-md-6\">\r\n                                            <b-form-checkbox placeholder=\"NoIndex\" v-model=\"statusNoindex\" required>Chặn lập chỉ mục (NoIndex)</b-form-checkbox>\r\n                                        </div>\r\n                                    </div>\r\n                                </b-form-group>\r\n                                <b-form-group>\r\n\r\n                                    <b-form-group label=\"Giá trị (Canonical)\">\r\n                                        <b-form-input placeholder=\"Canonical\" v-model=\"valueCanonical\" required></b-form-input>\r\n                                    </b-form-group>\r\n                                </b-form-group>\r\n                            </b-form>\r\n                        </b-card>\r\n                        <b-card class=\"mt-3 \" header=\" Social Share\">\r\n                            <b-form-group label=\"Tiêu để  Facebook\">\r\n                                <b-form-input v-model=\"objRequest.socialTitle\" placeholder=\"Tiêu để mạng xã hội\"\r\n                                              required></b-form-input>\r\n                            </b-form-group>\r\n                            <b-form-group label=\"Mô tả Facebook\">\r\n                                <b-form-textarea rows=\"3\" max-rows=\"6\" v-model=\"objRequest.socialDescription\"\r\n                                                 placeholder=\"Mô tả xã hội\"\r\n                                                 required></b-form-textarea>\r\n                            </b-form-group>\r\n                            <b-form-group label=\"Script WebPage\">\r\n                                <b-form-textarea rows=\"3\" max-rows=\"6\" v-model=\"objRequest.metaWebPage\" placeholder=\"WebPage\" required></b-form-textarea>\r\n                            </b-form-group>\r\n                            <div class=\"row\">\r\n                                <div class=\"col-md-4 col-xs-12\">\r\n                                    <b-form-group label=\"Ảnh Facebook\">\r\n                                        <a @click=\"openImg('facebook')\">\r\n                                            <div style=\"width:200px;height:200px;display:flex\"\r\n                                                 class=\"gallery-upload-file ui-sortable\">\r\n                                                <div style=\"width:100%;height:auto;margin:0\"\r\n                                                     class=\" r-queue-item ui-sortable-handle\">\r\n                                                    <div style=\"width:100%\"\r\n                                                         v-if=\"objRequest.socialImage != null && objRequest.socialImage != undefined &&  objRequest.socialImage.length > 0\">\r\n                                                        <img alt=\"Ảnh lỗi\" style=\"height:200px;width:200px\"\r\n                                                             :src=\"pathImgs(objRequest.socialImage)\">\r\n                                                    </div>\r\n                                                    <div v-else>\r\n                                                        <i class=\"fa fa-picture-o\"></i>\r\n                                                        <p>[Chọn ảnh]</p>\r\n                                                    </div>\r\n                                                </div>\r\n                                            </div>\r\n                                        </a>\r\n                                    </b-form-group>\r\n                                </div>\r\n                            </div>\r\n                        </b-card>\r\n                    </div>\r\n                    <div class=\"col-md-4\">\r\n                        <div class=\"mt-3\">\r\n                            <b-card header=\"Đăng bài\">\r\n                                <div class=\"row\">\r\n                                    <div class=\"col-md-6\">\r\n                                        <button class=\"btn btn-info btn-submit-form col-md-12 btncus\" type=\"submit\"\r\n                                                @click=\"DoAddEdit()\">\r\n                                            <i class=\"fa fa-save\"></i> Cập nhật\r\n                                        </button>\r\n                                    </div>\r\n                                    <div class=\"col-md-6\">\r\n                                        <button class=\"btn btn-success col-md-12 btncus\" type=\"button\"\r\n                                                @click=\"DoRefesh()\">\r\n                                            <i class=\"fa fa-refresh\"></i> Làm mới\r\n                                        </button>\r\n                                    </div>\r\n                                </div>\r\n                            </b-card>\r\n                        </div>\r\n                        <div class=\"mt-3\">\r\n                            <b-card header=\"Thông tin dự án\">\r\n                                <b-form-group label=\"Khách hàng\">\r\n                                    <b-form-input v-model=\"objRequest.ttkh \" placeholder=\"Khách hàng\"\r\n                                                  required></b-form-input>\r\n                                </b-form-group>\r\n                                <b-form-group label=\"Khu vực\">\r\n                                    <b-form-input v-model=\"objRequest.ttdc\" placeholder=\"Khu vực\"\r\n                                                  required></b-form-input>\r\n                                </b-form-group>\r\n                                <b-form-group label=\"Lĩnh vực\">\r\n                                    <b-form-input v-model=\"objRequest.ttlv\" placeholder=\"Lĩnh vực\"\r\n                                                  required></b-form-input>\r\n                                </b-form-group>\r\n                                <b-form-group label=\"Dịch vụ\">\r\n                                    <b-form-input v-model=\"objRequest.ttdv\" placeholder=\"Dịch vụ\"\r\n                                                  required></b-form-input>\r\n                                </b-form-group>\r\n                               \r\n                            </b-card>\r\n                        </div>\r\n                        <div class=\"mt-3\">\r\n                            <b-card header=\"Thông tin bài viết tuyển dụng\">\r\n                                <b-form-group label=\"Vị trí\">\r\n                                    <b-form-input v-model=\"objRequest.position \" placeholder=\"Vị trí\"\r\n                                                  required></b-form-input>\r\n                                </b-form-group>\r\n                                <b-form-group label=\"Địa chỉ\">\r\n                                    <b-form-input v-model=\"objRequest.address\" placeholder=\"Địa chỉ\"\r\n                                                  required></b-form-input>\r\n                                </b-form-group>\r\n                                <b-form-group label=\"Số lượng\">\r\n                                    <b-form-input type=\"number\" v-model=\"objRequest.count\" placeholder=\"Số lượng\"\r\n                                                  required></b-form-input>\r\n                                </b-form-group>\r\n                                <b-form-group label=\"Mức lương\">\r\n                                    <b-form-input v-model=\"objRequest.salary\" placeholder=\"Mức lương\"\r\n                                                  required></b-form-input>\r\n                                </b-form-group>\r\n                                <b-form-group label=\"Ngày bắt đầu\">\r\n\r\n                                    <b-form-input v-model=\"objRequest.startDate\" type=\"date\" placeholder=\"Ngày bắt đầu\"\r\n                                                  required></b-form-input>\r\n                                    <!--<date-time-picker v-model=\"startDate\"></date-time-picker>-->\r\n                                </b-form-group>\r\n                                <b-form-group label=\"Ngày kết thúc\">\r\n\r\n                                    <b-form-input v-model=\"objRequest.endDate\" type=\"date\" placeholder=\"Ngày kết thúc\"\r\n                                                  required></b-form-input>\r\n                                    <!--<date-time-picker v-model=\"endDate\"></date-time-picker>-->\r\n                                </b-form-group>\r\n                            </b-card>\r\n                        </div>\r\n                        <div class=\"mt-3\">\r\n                            <b-card header=\"Thông tin thêm\">\r\n                                <b-form-group label=\"Lượt thích\">\r\n                                    <b-form-input type=\"number\" v-model=\"objRequest.likeCount\"\r\n                                                  placeholder=\"Lượt thích\"\r\n                                                  required></b-form-input>\r\n                                </b-form-group>\r\n                                <!--<b-form-group label=\"Lượt xem\">\r\n                                    <b-form-input type=\"number\" v-model=\"objRequest.viewCount\"\r\n                                                  placeholder=\"Lượt thích\"\r\n                                                  required></b-form-input>\r\n                                </b-form-group>-->\r\n                                <b-form-group label=\"Số lượng vote\">\r\n                                    <b-form-input type=\"number\" v-model=\"objRequest.voteCount\"\r\n                                                  placeholder=\"Số lượng vote\"\r\n                                                  required></b-form-input>\r\n                                </b-form-group>\r\n                                <b-form-checkbox v-model=\"objRequest.isAllowComment\">\r\n                                    Cho phép comment\r\n                                </b-form-checkbox>\r\n                            </b-card>\r\n                        </div>\r\n                    </div>\r\n                </div>\r\n            </b-tab>\r\n        </b-tabs>\r\n        <FileManager v-on:handleAttackFile=\"DoAttackFile\" :miKey=\"mikey1\" />\r\n    </div>\r\n</template>\r\n\r\n\r\n<script>\r\n    import \"vue-loading-overlay/dist/vue-loading.css\";\r\n    import msgNotify from \"./../../common/constant\";\r\n    import { mapGetters, mapActions } from \"vuex\";\r\n    import Loading from \"vue-loading-overlay\";\r\n    // import the component\r\n    import Treeselect from '@riophae/vue-treeselect'\r\n    // import the styles\r\n    import '@riophae/vue-treeselect/dist/vue-treeselect.css'\r\n\r\n    import 'vue-select/dist/vue-select.css';\r\n\r\n    import FileManager from './../../components/fileManager/list'\r\n    import { slug, pathImg, unflatten, urlBase } from \"../../plugins/helper\";\r\n    // Import component\r\n    // Import component\r\n\r\n    import EventBus from \"./../../common/eventBus\";\r\n    import VueTagsInput from '@johmun/vue-tags-input';\r\n    import { router } from \"../../router\";\r\n    import moment from 'moment';\r\n    import MIEditor from '../../components/editor/MIEditor';\r\n    export default {\r\n        name: \"articleaddedit\",\r\n        data() {\r\n            return {\r\n                //editor: ClassicEditor,\r\n                editorData: '<p>Content of the editor.</p>',\r\n                editorConfig: {\r\n                    allowedContent: true,\r\n                    extraPlugins: \"\",\r\n                },\r\n\r\n                mikey1: 'mikey1',\r\n\r\n                IsChoseFileDowload: false,\r\n                disabled: false,\r\n                selectedFile: null,\r\n                preview: '/assets/img/unnamed.jpg',\r\n                previewImageFacebook: '/assets/img/unnamed.jpg',\r\n                isLoading: false,\r\n                fullPage: false,\r\n                color: \"#007bff\",\r\n                statusNoindex: false,\r\n                statusCanonical: false,\r\n                valueCanonical: \"\",\r\n                objRequest: {\r\n                    id: 0,\r\n                    title: \"\",\r\n                    url: \"\",\r\n                    avatar: \"\",\r\n                    socialImage: \"\",\r\n                    type: 0,\r\n                    fileAttachment: \"\",\r\n                    fileAttachmentMinify: \"\",\r\n                    startDate: moment(String(new Date())).format('YYYY-MM-DD'),\r\n                    endDate: moment(String(new Date())).format('YYYY-MM-DD'),\r\n                    indexing: \"\",\r\n                    urlOld: \"\"\r\n                },\r\n                isProduct: false,\r\n                LanguageCodes: [],\r\n                LanguageValues: null,\r\n                Manufacturers: [],\r\n                ZoneValues: [],\r\n                ZoneOptions: [],\r\n                ProductOptionsSource: [],\r\n                ProductOptionsDestination: [],\r\n                ProductSelectedStateOption: [],\r\n                ProductIdSelected: \"\",\r\n                ZoneArticleIdSelected: \"\",\r\n                ListArticleInLanguage: [],\r\n                StatusOptions: [],\r\n                TypeOptions: [],\r\n                tag: '',\r\n                tags: [],\r\n                tabIndex: 0,\r\n                tabs: ['#1', '#2'],\r\n                autocompleteItems: [],\r\n                //startDate: new Date().toLocaleString(),\r\n                //endDate: new Date().toLocaleString(),\r\n                fileSample: null,\r\n\r\n            };\r\n        },\r\n        async created() {\r\n            let vm = this;\r\n\r\n            await this.getZoneArticles();\r\n            await this.getAllStatusOptions();\r\n            await this.getAllTypeOptions();\r\n            await this.getProductAtArticles();\r\n            await this.getAllLanguageOptions();\r\n            await this.getArticleByIds();\r\n            await this.getAllTags();\r\n        },\r\n        components: {\r\n            Loading,\r\n            Treeselect,\r\n\r\n            'FileManager': FileManager,\r\n            VueTagsInput,\r\n\r\n            MIEditor\r\n        },\r\n        destroyed() {\r\n            EventBus.$off('FileSelected');\r\n        },\r\n        mounted() {\r\n            this.tabIndex = this.tabs.findIndex(tab => tab === this.$route.hash)\r\n        },\r\n\r\n        computed: {\r\n            ...mapGetters([\"article\", \"isOR\", \"fileName\"]),\r\n\r\n            filteredItems() {\r\n                // for (var i = 0; i < this.autocompleteItems.length; i++){\r\n                //     if (i.text.toLowerCase().indexOf(this.tag.toLowerCase())){\r\n                //\r\n                //     }\r\n                // }\r\n                this.autocompleteItems = Array.from(this.autocompleteItems);\r\n                return this.autocompleteItems.filter(i => {\r\n                    if (i.text != null) {\r\n                        return i.text.toLowerCase().indexOf(this.tag.toLowerCase()) !== -1;\r\n                    }\r\n                });\r\n            }\r\n        },\r\n        watch: {\r\n            article: function (val) {\r\n                this.objRequest = this.article\r\n            }\r\n        },\r\n        methods: {\r\n            ...mapActions([\"updateArticle\", \"getAllTag\", \"addArticle\", \"getArticle\", \"uploadFile\", \"getAllStatusOption\", \"getZoneArticle\", \"getAllTypeOption\", \"getProductAtArticle\", \"getAllLanguageOption\", \"getArticleById\", \"autoGenIndexing\"]),\r\n            openImg(img) {\r\n                this.choseImg = img;\r\n                EventBus.$emit(this.mikey1, ''); // '': select one, 'multi': select multi file\r\n            },\r\n            DoAttackFile(value) {\r\n                let vm = this;\r\n                if (this.choseImg == \"ListImg\") {\r\n                    vm.ListImg = value.map(x => {\r\n                        return x.path\r\n                    });\r\n                } else if (this.choseImg == \"avatar\") {\r\n                    vm.objRequest.avatar = value[0].path;\r\n                }\r\n                else if (this.choseImg == \"facebook\") {\r\n                    vm.objRequest.socialImage = value[0].path;\r\n                }\r\n                else if (this.choseImg == \"filedowload\") {\r\n                    vm.objRequest.fileAttachment = value[0].path;\r\n                }\r\n            },\r\n            getOrSetData(value) {\r\n                this.objRequest.body = value;\r\n            },\r\n            slugM: function () {\r\n\r\n                if (this.objRequest != null && this.objRequest != undefined) {\r\n                    this.objRequest.url = slug(this.objRequest.title);\r\n                }\r\n            },\r\n\r\n            autoGenIndex() {\r\n                var obj = {};\r\n                debugger\r\n                obj.indexing = \"\";\r\n                obj.html = this.objRequest.body;\r\n                obj.language = this.objRequest.languageCode;\r\n                this.autoGenIndexing(obj).then(response => {\r\n                    debugger\r\n                    this.objRequest.indexing = response.indexing;\r\n                    this.objRequest.body = response.html;\r\n                }).catch(e => {\r\n                    this.$toast.error(msgNotify.error + \". Error:\" + e, {});\r\n\r\n                });\r\n            },\r\n            removeIndex() {\r\n                this.objRequest.indexing = \"\";\r\n            },\r\n            urlBases(path) {\r\n                return urlBase(path);\r\n            },\r\n\r\n            pathImgs(path) {\r\n                return pathImg(path);\r\n            },\r\n            getTextFileAttach() {\r\n                return this.objRequest.fileAttachment;\r\n            },\r\n            tabClicked(selectedTab) {\r\n                console.log('Current tab re-clicked:' + selectedTab.tab.name);\r\n            },\r\n            tabChanged(selectedTab) {\r\n                console.log('Tab changed to:' + selectedTab.tab.name);\r\n            },\r\n\r\n            DoAddEdit() {\r\n                if (this.ZoneValues != null) {\r\n                    this.objRequest.ZoneIds = this.ZoneValues.toString();\r\n                    console.log(this.ZoneValues.toString());\r\n                }\r\n                var result = Array.prototype.map.call(this.ProductOptionsDestination, function (item) {\r\n                    return item.id;\r\n                }).join(\",\");\r\n                console.log(result);\r\n                var tagName = '';\r\n                this.tags.forEach(function (entry) {\r\n                    tagName += entry.text;\r\n                    tagName += ','\r\n                });\r\n\r\n                if (tagName != null) {\r\n                    this.objRequest.TagNames = tagName.slice(0, -1)\r\n                }\r\n                //this.objRequest.avatarArray = this.ListImg.join();\r\n                this.objRequest.avatarArray = \"\";\r\n                this.objRequest.ProductIds = result;\r\n                this.isLoading = true;\r\n                //\r\n                let objMetaNoIndex = {\r\n                    Value: \"\",\r\n                    Status: this.statusNoindex\r\n                }\r\n                let objMetaCanonical = {\r\n                    Value: this.valueCanonical,\r\n                    Status: this.statusCanonical\r\n                }\r\n                this.objRequest.metaNoIndex = JSON.stringify(objMetaNoIndex);\r\n                this.objRequest.metaCanonical = JSON.stringify(objMetaCanonical);\r\n                //\r\n                if (this.objRequest.Id > 0) {\r\n                    //this.objRequest.startDate = this.startDate;\r\n                    //this.objRequest.endDate = this.endDate;\r\n                    this.updateArticle(this.objRequest)\r\n                        .then(response => {\r\n                            console.log(response);\r\n                            if (response.success == true) {\r\n                                this.$toast.success(\"cập nhật thành công\", {});\r\n                                this.isLoading = false;\r\n                                this.$router.go(-1)\r\n                            } else {\r\n                                this.$router.go(-1);\r\n                                this.$toast.error(\"cập nhật thất bại\", {});\r\n                                this.isLoading = false;\r\n                            }\r\n                        })\r\n                        .catch(e => {\r\n                            this.$toast.error(msgNotify.error + \". Error:\" + e, {});\r\n                            this.isLoading = false;\r\n                        });\r\n                } else {\r\n                    //this.objRequest.startDate = this.startDate;\r\n                    //this.objRequest.endDate = this.endDate;\r\n                    this.addArticle(this.objRequest)\r\n                        .then(response => {\r\n                            if (response.success == true) {\r\n                                this.$toast.success(\"đăng bài thành công\", {});\r\n                                let id = response.id;\r\n                                this.isLoading = false;\r\n                                router.push({ path: `/admin/article/edit/${id}#2` });\r\n                                // router.go(0);\r\n                                // this.isLoading = false;\r\n                                // this.$router.go(-1)\r\n                            } else {\r\n                                this.$router.go(-1);\r\n                                this.$toast.error(\"cập nhật thất bại\", {});\r\n                                this.isLoading = false;\r\n                            }\r\n                        })\r\n                        .catch(e => {\r\n                            this.$toast.error(msgNotify.error + \". Error:\" + e, {});\r\n                            this.isLoading = false;\r\n                        });\r\n                }\r\n            },\r\n            removeImg(index) {\r\n                this.ListImg.splice(index, 1);\r\n            },\r\n            DoRefesh() {\r\n                this.objRequest.Title = \"\"\r\n            },\r\n            openUpload() {\r\n                document.getElementById('file-field').click()\r\n            },\r\n            updatePreview(e) {\r\n                var reader, files = e.target.files;\r\n                if (files.length === 0) {\r\n                    console.log('Empty')\r\n                }\r\n                this.selectedFile = files[0];\r\n                reader = new FileReader();\r\n                var data = new FormData();\r\n                for (var x = 0; x < files.length; x++) {\r\n                    data.append(\"file\" + x, files[x]);\r\n                }\r\n                this.uploadFile(data).then(response => {\r\n                    if (response.success == true) {\r\n                        reader.onload = (e) => {\r\n                            this.preview = e.target.result;\r\n\r\n                            this.objRequest.avatar = response.linkImage;\r\n                        };\r\n                        reader.readAsDataURL(files[0])\r\n                    } else {\r\n                        this.$toast.error(msgNotify.error + \". Error:\" + e, {});\r\n                        this.isLoading = false;\r\n                    }\r\n                }).catch(e => {\r\n                    this.$toast.error(msgNotify.error + \". Error:\" + e, {});\r\n                    this.isLoading = false;\r\n                });\r\n            },\r\n            getSelectedUser(node, id) {\r\n                this.objRequest.ZoneId = node.id;\r\n            },\r\n            getSelectedLanguge(node, id) {\r\n                this.LanguageValues = node.id;\r\n                this.objRequest.languageCode = node.id;\r\n                console.log(this.ListArticleInLanguage)\r\n                if (this.ListArticleInLanguage != null) {\r\n                    for (var i = 0; i < this.ListArticleInLanguage.length; i++) {\r\n\r\n                        if (node.id == this.ListArticleInLanguage[i].languageCode) {\r\n                            console.log(this.ListArticleInLanguage[i])\r\n                            this.objRequest.url = this.ListArticleInLanguage[i].url;\r\n                            this.objRequest.urlOld = this.ListArticleInLanguage[i].urlOld;\r\n                            this.objRequest.author = this.ListArticleInLanguage[i].author;\r\n                            this.objRequest.source = this.ListArticleInLanguage[i].source;\r\n                            this.objRequest.title = this.ListArticleInLanguage[i].title;\r\n                            this.objRequest.description = this.ListArticleInLanguage[i].description || \"\";\r\n                            this.objRequest.body = this.ListArticleInLanguage[i].body || \"\";\r\n                            this.objRequest.metaTitle = this.ListArticleInLanguage[i].metaTitle || \"\";\r\n                            this.objRequest.metaDescription = this.ListArticleInLanguage[i].metaDescription || \"\";\r\n                            this.objRequest.metaKeyword = this.ListArticleInLanguage[i].metaKeyword || \"\";\r\n                            //\r\n                            if (this.ListArticleInLanguage[i].metaNoIndex != null) {\r\n                                let objNoIndex = JSON.parse(this.ListArticleInLanguage[i].metaNoIndex);\r\n                                this.statusNoindex = objNoIndex.Status || \"\";\r\n                            }\r\n                            if (this.ListArticleInLanguage[i].metaCanonical != null) {\r\n                                let objCanonical = JSON.parse(this.ListArticleInLanguage[i].metaCanonical);\r\n                                this.statusCanonical = objCanonical.Status;\r\n                                this.valueCanonical = objCanonical.Value || \"\";\r\n                            }\r\n                            //\r\n                            this.objRequest.socialTitle = this.ListArticleInLanguage[i].socialTitle;\r\n                            this.objRequest.socialDescription = this.ListArticleInLanguage[i].socialDescription;\r\n                            this.objRequest.socialImage = this.ListArticleInLanguage[i].socialImage;\r\n                            this.objRequest.wordCount = this.ListArticleInLanguage[i].wordCount || 0;\r\n                            this.objRequest.likeCount = this.ListArticleInLanguage[i].likeCount || 0;\r\n                            this.objRequest.viewCount = this.ListArticleInLanguage[i].viewCount || 0;\r\n                            this.objRequest.voteCount = this.ListArticleInLanguage[i].voteCount || 0;\r\n                            this.objRequest.position = this.ListArticleInLanguage[i].position || \"\";\r\n                            this.objRequest.metaWebPage = this.ListArticleInLanguage[i].metaWebPage || \"\";\r\n\r\n                            this.objRequest.address = this.ListArticleInLanguage[i].address || \"\";\r\n                            this.objRequest.count = this.ListArticleInLanguage[i].count || \"0\";\r\n                            this.objRequest.ttkh = this.ListArticleInLanguage[i].ttkh || \"\";\r\n                            this.objRequest.ttdc = this.ListArticleInLanguage[i].ttdc || \"\";\r\n                            this.objRequest.ttlv = this.ListArticleInLanguage[i].ttlv || \"\";\r\n                            this.objRequest.ttdv = this.ListArticleInLanguage[i].ttdv || \"\";\r\n                            this.objRequest.salary = this.ListArticleInLanguage[i].salary || \"\";\r\n                            \r\n                            this.objRequest.indexing = this.ListArticleInLanguage[i].indexing;\r\n                            this.objRequest.startDate = moment(String(this.ListArticleInLanguage[i].startDate)).format('YYYY-MM-DD');\r\n                            this.objRequest.endDate = moment(String(this.ListArticleInLanguage[i].endDate)).format('YYYY-MM-DD');\r\n                            this.tags = this.ListArticleInLanguage[i].tagsViewModels;\r\n\r\n                            this.objRequest.fileAttachmentUrl = this.ListArticleInLanguage[i].fileAttachmentUrl;\r\n                            this.objRequest.fileAttachmen = this.ListArticleInLanguage[i].fileAttachment;\r\n                            this.objRequest.fileAttachmentMinify = this.ListArticleInLanguage[i].fileAttachmentMinify;\r\n                            this.objRequest.languageCode = this.ListArticleInLanguage[i].languageCode;\r\n                            break;\r\n                        } else {\r\n                            this.objRequest.url = \"\";\r\n                            this.objRequest.urlOld = \"\";\r\n                            this.objRequest.author = \"\";\r\n                            this.objRequest.source = \"\";\r\n                            this.objRequest.title = \"\";\r\n                            this.objRequest.description = \"\";\r\n                            this.objRequest.body = \"\";\r\n                            this.objRequest.metaTitle = \"\";\r\n                            this.objRequest.metaDescription = \"\";\r\n                            this.objRequest.metaKeyword = \"\";\r\n                            this.objRequest.socialTitle = \"\";\r\n                            this.objRequest.socialDescription = \"\";\r\n                            this.objRequest.socialImage = \"\";\r\n                            this.objRequest.wordCount = \"\";\r\n                            this.objRequest.likeCount = \"\";\r\n                            this.objRequest.viewCount = \"\";\r\n                            this.objRequest.voteCount = \"\";\r\n                            this.objRequest.indexing = \"\";\r\n                            this.objRequest.metaWebPage = \"\";\r\n                            this.statusNoindex = false;\r\n                            this.statusCanonical = false;\r\n                            this.valueCanonical = \"\";\r\n                            this.tags = [];\r\n                            this.objRequest.startDate = moment(String(new Date())).format('YYYY-MM-DD'),\r\n                                this.objRequest.endDate = moment(String(new Date())).format('YYYY-MM-DD'),\r\n                                this.objRequest.languageCode = node.id;\r\n                        }\r\n                    }\r\n                }\r\n            },\r\n            openImg(img) {\r\n                this.choseImg = img;\r\n                if (img == \"ListImg\") {\r\n                    //EventBus.$emit(\"FileSelected\", );\r\n                    EventBus.$emit(this.mikey1, 'multi'); // '': select one, 'multi': select multi file\r\n                } else {\r\n                    //EventBus.$emit(\"FileSelected\", this.Img);\r\n                    EventBus.$emit(this.mikey1, ''); // '': select one, 'multi': select multi file\r\n                }\r\n            },\r\n\r\n            onChangeList: function ({ source, destination }) {\r\n                this.ProductOptionsSource = source;\r\n                this.ProductOptionsDestination = destination;\r\n            },\r\n            async getAllTags() {\r\n                this.autocompleteItems = await this.getAllTag();\r\n            },\r\n            async getAllStatusOptions() {\r\n                this.StatusOptions = await this.getAllStatusOption();\r\n            },\r\n            async getZoneArticles() {\r\n                this.ZoneOptions = await this.getZoneArticle();\r\n            },\r\n            async getAllTypeOptions() {\r\n                this.TypeOptions = await this.getAllTypeOption();\r\n            },\r\n            async getProductAtArticles() {\r\n                this.ProductOptionsSource = await this.getProductAtArticle();\r\n            },\r\n            async getAllLanguageOptions() {\r\n                this.LanguageCodes = await this.getAllLanguageOption();\r\n            },\r\n            async getArticleByIds() {\r\n                if (this.$route.params.id > 0) {\r\n                    //debugger\r\n                    var id = this.$route.params.id;\r\n                    this.isLoading = true;\r\n                    let initial = this.$route.query.initial;\r\n                    initial = typeof initial != \"undefined\" ? initial.toLowerCase() : \"\";\r\n                    var result = await this.getArticleById(id);\r\n                    console.log(result.data.articles.avatar);\r\n                    console.log(result.data.articleInLanguageViewModels);\r\n                    this.objRequest.avatar = result.data.articles.avatar;\r\n                    this.objRequest.status = result.data.articles.status;\r\n                    this.objRequest.type = result.data.articles.type;\r\n                    this.objRequest.name = result.data.articles.name;\r\n                    this.objRequest.isShowHome = result.data.articles.isShowHome;\r\n                    this.objRequest.isAllowComment = result.data.articles.isAllowComment;\r\n                    this.ProductOptionsDestination = result.data.productAtArticles;\r\n                    this.ZoneValues = Object.values(result.data.listZoneIds);\r\n                    this.objRequest.Id = result.data.articles.id;\r\n                    //\r\n                    \r\n                    //\r\n\r\n\r\n                    if (result.data.articles.avatar != null && result.data.articles.avatar != \"\") {\r\n                        this.preview = result.data.articles.avatar;\r\n                    }\r\n                    var listArticleInLanguage = result.data.articleInLanguageViewModels;\r\n                    console.log(listArticleInLanguage)\r\n                    this.ListArticleInLanguage = listArticleInLanguage;\r\n                    for (var i = 0; i < listArticleInLanguage.length; i++) {\r\n                        this.LanguageValues = listArticleInLanguage[0].languageCode;\r\n                        this.objRequest.indexing = listArticleInLanguage[0].indexing;\r\n                        this.objRequest.url = listArticleInLanguage[0].url;\r\n                        this.objRequest.urlOld = listArticleInLanguage[0].urlOld;\r\n                        this.objRequest.author = listArticleInLanguage[0].author;\r\n                        this.objRequest.source = listArticleInLanguage[0].source;\r\n                        this.objRequest.title = listArticleInLanguage[0].title;\r\n                        this.objRequest.description = listArticleInLanguage[0].description || \"\";\r\n                        this.objRequest.body = listArticleInLanguage[0].body || \"\";\r\n                        this.objRequest.metaTitle = listArticleInLanguage[0].metaTitle;\r\n                        this.objRequest.metaDescription = listArticleInLanguage[0].metaDescription;\r\n                        this.objRequest.metaKeyword = listArticleInLanguage[0].metaKeyword;\r\n                        //\r\n                        if (listArticleInLanguage[0].metaNoIndex != null) {\r\n                            let objNoIndex = JSON.parse(listArticleInLanguage[0].metaNoIndex);\r\n                            this.statusNoindex = objNoIndex.Status;\r\n                        }\r\n                        if (listArticleInLanguage[0].metaCanonical != null) {\r\n                            let objCanonical = JSON.parse(listArticleInLanguage[0].metaCanonical);\r\n                            this.statusCanonical = objCanonical.Status;\r\n                            this.valueCanonical = objCanonical.Value;\r\n                        }\r\n                        //\r\n                        this.objRequest.socialTitle = listArticleInLanguage[0].socialTitle;\r\n                        this.objRequest.socialDescription = listArticleInLanguage[0].socialDescription;\r\n                        this.objRequest.socialImage = listArticleInLanguage[0].socialImage;\r\n                        this.tags = listArticleInLanguage[0].tagsViewModels;\r\n                        this.previewImageFacebook = listArticleInLanguage[0].socialImage;\r\n                        this.objRequest.wordCount = listArticleInLanguage[0].wordCount || 0;\r\n                        this.objRequest.likeCount = listArticleInLanguage[0].likeCount || 0;\r\n                        this.objRequest.viewCount = listArticleInLanguage[0].viewCount || 0;\r\n                        this.objRequest.voteCount = listArticleInLanguage[0].voteCount || 0;\r\n                        this.objRequest.position = listArticleInLanguage[0].position || \"\";\r\n                        this.objRequest.address = listArticleInLanguage[0].address || \"\";\r\n                        this.objRequest.count = listArticleInLanguage[0].count || \"0\";\r\n\r\n                        var mt = JSON.parse(listArticleInLanguage[0].metaData);\r\n\r\n                        this.objRequest.ttkh = mt.ttkh || \"\";\r\n                        this.objRequest.ttdc = mt.ttdc || \"\";\r\n                        this.objRequest.ttlv = mt.ttlv || \"\";\r\n                        this.objRequest.ttdv = mt.ttdv || \"\";\r\n                        \r\n                        if(mt.AvatarArray === undefined){\r\n                            console.log(1);\r\n                            this.ListImg = [];\r\n                        }                            \r\n                        else\r\n                            this.ListImg = mt.AvatarArray.split(\",\") || [];\r\n                        this.objRequest.salary = listArticleInLanguage[0].salary || \"\";\r\n                        this.objRequest.startDate = moment(String(listArticleInLanguage[0].startDate)).format('YYYY-MM-DD');\r\n                        this.objRequest.endDate = moment(String(listArticleInLanguage[0].endDate)).format('YYYY-MM-DD');\r\n                        this.objRequest.languageCode = listArticleInLanguage[0].languageCode;\r\n                        this.objRequest.fileAttachment = listArticleInLanguage[0].fileAttachment;\r\n                        this.objRequest.fileAttachmentMinify = listArticleInLanguage[0].fileAttachmentMinify;\r\n                        this.objRequest.fileAttachmentUrl = listArticleInLanguage[0].fileAttachmentUrl;\r\n                        this.objRequest.metaWebPage = listArticleInLanguage[0].metaWebPage || \"\";\r\n\r\n                    }\r\n                    this.isLoading = false;\r\n                }\r\n            },\r\n            updateSocial(e) {\r\n                var reader, files = e.target.files;\r\n                if (files.length === 0) {\r\n                    console.log('Empty')\r\n                }\r\n                this.selectedFile = files[0];\r\n                reader = new FileReader();\r\n                var data = new FormData();\r\n                for (var x = 0; x < files.length; x++) {\r\n                    data.append(\"file\" + x, files[x]);\r\n                }\r\n                this.uploadFile(data).then(response => {\r\n                    if (response.success == true) {\r\n                        reader.onload = (e) => {\r\n                            this.preview = e.target.result;\r\n                            console.log(this.selectedFile);\r\n                            this.objRequest.socialImage = response.linkImage;\r\n                        };\r\n                        reader.readAsDataURL(files[0])\r\n                    } else {\r\n                        this.$toast.error(msgNotify.error + \". Error:\" + e, {});\r\n                        this.isLoading = false;\r\n                    }\r\n                }).catch(e => {\r\n                    this.$toast.error(msgNotify.error + \". Error:\" + e, {});\r\n                    this.isLoading = false;\r\n                });\r\n            },\r\n        }\r\n    };\r\n</script>\r\n<style>\r\n\r\n    .tags-input {\r\n        max-width: 100% !important;\r\n        position: relative;\r\n        background-color: #fff;\r\n        margin-left: -15px;\r\n    }\r\n\r\n\r\n    #toc_container {\r\n        background: #f9f9f9;\r\n        border: 1px solid #aaa;\r\n        padding: 10px;\r\n        margin-bottom: 1em;\r\n        width: auto;\r\n        display: table;\r\n        font-size: 95%;\r\n    }\r\n\r\n        #toc_container p.toc_title {\r\n            text-align: center;\r\n            font-weight: 700;\r\n            margin: 0;\r\n            padding: 0;\r\n        }\r\n\r\n        #toc_container.no_bullets li, #toc_container.no_bullets ul, #toc_container.no_bullets ul li, .toc_widget_list.no_bullets, .toc_widget_list.no_bullets li {\r\n            background: 0 0;\r\n            list-style-type: none;\r\n            list-style: none;\r\n        }\r\n\r\n    .container-fluid .btn {\r\n        border-radius: 0;\r\n    }\r\n\r\n    #toc_container.no_bullets li, #toc_container.no_bullets ul, #toc_container.no_bullets ul li, .toc_widget_list.no_bullets, .toc_widget_list.no_bullets li {\r\n        background: 0 0;\r\n        list-style-type: none;\r\n        list-style: none;\r\n    }\r\n</style>\r\n"],"sourceRoot":""}]);
 
 // exports
 
 
 /***/ }),
 
-/***/ 1158:
+/***/ 1162:
 /***/ (function(module, exports, __webpack_require__) {
 
 !function(A,t){ true?module.exports=t():"function"==typeof define&&define.amd?define([],t):"object"==typeof exports?exports.vueTagsInput=t():A.vueTagsInput=t()}(window,function(){return function(A){var t={};function e(n){if(t[n])return t[n].exports;var i=t[n]={i:n,l:!1,exports:{}};return A[n].call(i.exports,i,i.exports,e),i.l=!0,i.exports}return e.m=A,e.c=t,e.d=function(A,t,n){e.o(A,t)||Object.defineProperty(A,t,{enumerable:!0,get:n})},e.r=function(A){"undefined"!=typeof Symbol&&Symbol.toStringTag&&Object.defineProperty(A,Symbol.toStringTag,{value:"Module"}),Object.defineProperty(A,"__esModule",{value:!0})},e.t=function(A,t){if(1&t&&(A=e(A)),8&t)return A;if(4&t&&"object"==typeof A&&A&&A.__esModule)return A;var n=Object.create(null);if(e.r(n),Object.defineProperty(n,"default",{enumerable:!0,value:A}),2&t&&"string"!=typeof A)for(var i in A)e.d(n,i,function(t){return A[t]}.bind(null,i));return n},e.n=function(A){var t=A&&A.__esModule?function(){return A.default}:function(){return A};return e.d(t,"a",t),t},e.o=function(A,t){return Object.prototype.hasOwnProperty.call(A,t)},e.p="/dist/",e(e.s=6)}([function(A,t,e){var n=e(8);"string"==typeof n&&(n=[[A.i,n,""]]),n.locals&&(A.exports=n.locals);(0,e(4).default)("7ec05f6c",n,!1,{})},function(A,t,e){var n=e(10);"string"==typeof n&&(n=[[A.i,n,""]]),n.locals&&(A.exports=n.locals);(0,e(4).default)("3453d19d",n,!1,{})},function(A,t,e){"use strict";A.exports=function(A){var t=[];return t.toString=function(){return this.map(function(t){var e=function(A,t){var e=A[1]||"",n=A[3];if(!n)return e;if(t&&"function"==typeof btoa){var i=(r=n,"/*# sourceMappingURL=data:application/json;charset=utf-8;base64,"+btoa(unescape(encodeURIComponent(JSON.stringify(r))))+" */"),a=n.sources.map(function(A){return"/*# sourceURL="+n.sourceRoot+A+" */"});return[e].concat(a).concat([i]).join("\n")}var r;return[e].join("\n")}(t,A);return t[2]?"@media "+t[2]+"{"+e+"}":e}).join("")},t.i=function(A,e){"string"==typeof A&&(A=[[null,A,""]]);for(var n={},i=0;i<this.length;i++){var a=this[i][0];null!=a&&(n[a]=!0)}for(i=0;i<A.length;i++){var r=A[i];null!=r[0]&&n[r[0]]||(e&&!r[2]?r[2]=e:e&&(r[2]="("+r[2]+") and ("+e+")"),t.push(r))}},t}},function(A,t){A.exports="data:application/vnd.ms-fontobject;base64,aAUAAMQEAAABAAIAAAAAAAAAAAAAAAAAAAABAJABAAAAAExQAAAAAAAAAAAAAAAAAAAAAAEAAAAAAAAAUdPJHwAAAAAAAAAAAAAAAAAAAAAAAA4AaQBjAG8AbQBvAG8AbgAAAA4AUgBlAGcAdQBsAGEAcgAAABYAVgBlAHIAcwBpAG8AbgAgADEALgAwAAAADgBpAGMAbwBtAG8AbwBuAAAAAAAAAQAAAAsAgAADADBPUy8yDxIFrAAAALwAAABgY21hcBdW0okAAAEcAAAAVGdhc3AAAAAQAAABcAAAAAhnbHlmpZ+jMAAAAXgAAAD8aGVhZA/FmAgAAAJ0AAAANmhoZWEHgAPIAAACrAAAACRobXR4EgABvgAAAtAAAAAcbG9jYQCSAOIAAALsAAAAEG1heHAACQAfAAAC/AAAACBuYW1lmUoJ+wAAAxwAAAGGcG9zdAADAAAAAASkAAAAIAADA4ABkAAFAAACmQLMAAAAjwKZAswAAAHrADMBCQAAAAAAAAAAAAAAAAAAAAEQAAAAAAAAAAAAAAAAAAAAAEAAAOkCA8D/wABAA8AAQAAAAAEAAAAAAAAAAAAAACAAAAAAAAMAAAADAAAAHAABAAMAAAAcAAMAAQAAABwABAA4AAAACgAIAAIAAgABACDpAv/9//8AAAAAACDpAP/9//8AAf/jFwQAAwABAAAAAAAAAAAAAAABAAH//wAPAAEAAAAAAAAAAAACAAA3OQEAAAAAAQAAAAAAAAAAAAIAADc5AQAAAAABAAAAAAAAAAAAAgAANzkBAAAAAAEAVgEBA74CgQAcAAABMhceARcWFwcmJy4BJyYjIgYHFyERFzY3PgE3NgIWSkNDbykpF2QQIB9VMzQ5P3AtnP6AmB0iIkspKAJVFxhSODlCIDMrKz4REislmgGAmhkVFBwICAABANYAgQMqAtUACwAAAQcXBycHJzcnNxc3Ayru7jzu7jzu7jzu7gKZ7u487u487u487u4AAQCSAIEDgAK9AAUAACUBFwEnNwGAAcQ8/gDuPPkBxDz+AO48AAAAAAEAAAAAAAAfydNRXw889QALBAAAAAAA1nUqGwAAAADWdSobAAAAAAO+AtUAAAAIAAIAAAAAAAAAAQAAA8D/wAAABAAAAAAAA74AAQAAAAAAAAAAAAAAAAAAAAcEAAAAAAAAAAAAAAACAAAABAAAVgQAANYEAACSAAAAAAAKABQAHgBQAGoAfgABAAAABwAdAAEAAAAAAAIAAAAAAAAAAAAAAAAAAAAAAAAADgCuAAEAAAAAAAEABwAAAAEAAAAAAAIABwBgAAEAAAAAAAMABwA2AAEAAAAAAAQABwB1AAEAAAAAAAUACwAVAAEAAAAAAAYABwBLAAEAAAAAAAoAGgCKAAMAAQQJAAEADgAHAAMAAQQJAAIADgBnAAMAAQQJAAMADgA9AAMAAQQJAAQADgB8AAMAAQQJAAUAFgAgAAMAAQQJAAYADgBSAAMAAQQJAAoANACkaWNvbW9vbgBpAGMAbwBtAG8AbwBuVmVyc2lvbiAxLjAAVgBlAHIAcwBpAG8AbgAgADEALgAwaWNvbW9vbgBpAGMAbwBtAG8AbwBuaWNvbW9vbgBpAGMAbwBtAG8AbwBuUmVndWxhcgBSAGUAZwB1AGwAYQByaWNvbW9vbgBpAGMAbwBtAG8AbwBuRm9udCBnZW5lcmF0ZWQgYnkgSWNvTW9vbi4ARgBvAG4AdAAgAGcAZQBuAGUAcgBhAHQAZQBkACAAYgB5ACAASQBjAG8ATQBvAG8AbgAuAAAAAwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=="},function(A,t,e){"use strict";function n(A,t){for(var e=[],n={},i=0;i<t.length;i++){var a=t[i],r=a[0],o={id:A+":"+i,css:a[1],media:a[2],sourceMap:a[3]};n[r]?n[r].parts.push(o):e.push(n[r]={id:r,parts:[o]})}return e}e.r(t),e.d(t,"default",function(){return g});var i="undefined"!=typeof document;if("undefined"!=typeof DEBUG&&DEBUG&&!i)throw new Error("vue-style-loader cannot be used in a non-browser environment. Use { target: 'node' } in your Webpack config to indicate a server-rendering environment.");var a={},r=i&&(document.head||document.getElementsByTagName("head")[0]),o=null,s=0,u=!1,c=function(){},d=null,l="data-vue-ssr-id",p="undefined"!=typeof navigator&&/msie [6-9]\b/.test(navigator.userAgent.toLowerCase());function g(A,t,e,i){u=e,d=i||{};var r=n(A,t);return f(r),function(t){for(var e=[],i=0;i<r.length;i++){var o=r[i];(s=a[o.id]).refs--,e.push(s)}t?f(r=n(A,t)):r=[];for(i=0;i<e.length;i++){var s;if(0===(s=e[i]).refs){for(var u=0;u<s.parts.length;u++)s.parts[u]();delete a[s.id]}}}}function f(A){for(var t=0;t<A.length;t++){var e=A[t],n=a[e.id];if(n){n.refs++;for(var i=0;i<n.parts.length;i++)n.parts[i](e.parts[i]);for(;i<e.parts.length;i++)n.parts.push(v(e.parts[i]));n.parts.length>e.parts.length&&(n.parts.length=e.parts.length)}else{var r=[];for(i=0;i<e.parts.length;i++)r.push(v(e.parts[i]));a[e.id]={id:e.id,refs:1,parts:r}}}}function B(){var A=document.createElement("style");return A.type="text/css",r.appendChild(A),A}function v(A){var t,e,n=document.querySelector("style["+l+'~="'+A.id+'"]');if(n){if(u)return c;n.parentNode.removeChild(n)}if(p){var i=s++;n=o||(o=B()),t=C.bind(null,n,i,!1),e=C.bind(null,n,i,!0)}else n=B(),t=function(A,t){var e=t.css,n=t.media,i=t.sourceMap;n&&A.setAttribute("media",n);d.ssrId&&A.setAttribute(l,t.id);i&&(e+="\n/*# sourceURL="+i.sources[0]+" */",e+="\n/*# sourceMappingURL=data:application/json;base64,"+btoa(unescape(encodeURIComponent(JSON.stringify(i))))+" */");if(A.styleSheet)A.styleSheet.cssText=e;else{for(;A.firstChild;)A.removeChild(A.firstChild);A.appendChild(document.createTextNode(e))}}.bind(null,n),e=function(){n.parentNode.removeChild(n)};return t(A),function(n){if(n){if(n.css===A.css&&n.media===A.media&&n.sourceMap===A.sourceMap)return;t(A=n)}else e()}}var m,h=(m=[],function(A,t){return m[A]=t,m.filter(Boolean).join("\n")});function C(A,t,e,n){var i=e?"":n.css;if(A.styleSheet)A.styleSheet.cssText=h(t,i);else{var a=document.createTextNode(i),r=A.childNodes;r[t]&&A.removeChild(r[t]),r.length?A.insertBefore(a,r[t]):A.appendChild(a)}}},function(A,t,e){"use strict";var n=Array.isArray,i=Object.keys,a=Object.prototype.hasOwnProperty;A.exports=function A(t,e){if(t===e)return!0;if(t&&e&&"object"==typeof t&&"object"==typeof e){var r,o,s,u=n(t),c=n(e);if(u&&c){if((o=t.length)!=e.length)return!1;for(r=o;0!=r--;)if(!A(t[r],e[r]))return!1;return!0}if(u!=c)return!1;var d=t instanceof Date,l=e instanceof Date;if(d!=l)return!1;if(d&&l)return t.getTime()==e.getTime();var p=t instanceof RegExp,g=e instanceof RegExp;if(p!=g)return!1;if(p&&g)return t.toString()==e.toString();var f=i(t);if((o=f.length)!==i(e).length)return!1;for(r=o;0!=r--;)if(!a.call(e,f[r]))return!1;for(r=o;0!=r--;)if(!A(t[s=f[r]],e[s]))return!1;return!0}return t!=t&&e!=e}},function(A,t,e){A.exports=e(14)},function(A,t,e){"use strict";var n=e(0);e.n(n).a},function(A,t,e){(A.exports=e(2)(!0)).push([A.i,".ti-tag-input[data-v-108f4f13] {\n  background-color: transparent;\n  color: inherit;\n  border: none;\n  padding: 0px;\n  margin: 0px;\n  display: flex;\n  top: 0px;\n  position: absolute;\n  width: 100%;\n  line-height: inherit;\n}\n.ti-tag-input[data-v-108f4f13]::-ms-clear {\n  display: none;\n}\ninput[data-v-108f4f13]:focus {\n  outline: none;\n}\ninput[disabled][data-v-108f4f13] {\n  background-color: transparent;\n}\n","",{version:3,sources:["C:/Users/johan/dev/vue-tags-input/vue-tags-input/C:/Users/johan/dev/vue-tags-input/vue-tags-input/tag-input.vue"],names:[],mappings:"AAAA;EACE,8BAA8B;EAC9B,eAAe;EACf,aAAa;EACb,aAAa;EACb,YAAY;EACZ,cAAc;EACd,SAAS;EACT,mBAAmB;EACnB,YAAY;EACZ,qBAAqB;CAAE;AAEzB;EACE,cAAc;CAAE;AAElB;EACE,cAAc;CAAE;AAElB;EACE,8BAA8B;CAAE",file:"tag-input.vue?vue&type=style&index=0&id=108f4f13&lang=css&scoped=true&",sourcesContent:[".ti-tag-input {\n  background-color: transparent;\n  color: inherit;\n  border: none;\n  padding: 0px;\n  margin: 0px;\n  display: flex;\n  top: 0px;\n  position: absolute;\n  width: 100%;\n  line-height: inherit; }\n\n.ti-tag-input::-ms-clear {\n  display: none; }\n\ninput:focus {\n  outline: none; }\n\ninput[disabled] {\n  background-color: transparent; }\n"],sourceRoot:""}])},function(A,t,e){"use strict";var n=e(1);e.n(n).a},function(A,t,e){t=A.exports=e(2)(!0);var n=e(11),i=n(e(3)),a=n(e(3)+"#iefix"),r=n(e(12)),o=n(e(13));t.push([A.i,"@font-face {\n  font-family: 'icomoon';\n  src: url("+i+");\n  src: url("+a+') format("embedded-opentype"), url('+r+') format("truetype"), url('+o+') format("woff");\n  font-weight: normal;\n  font-style: normal;\n}\n[class^="ti-icon-"][data-v-61d92e31], [class*=" ti-icon-"][data-v-61d92e31] {\n  font-family: \'icomoon\' !important;\n  speak: none;\n  font-style: normal;\n  font-weight: normal;\n  font-variant: normal;\n  text-transform: none;\n  line-height: 1;\n  -webkit-font-smoothing: antialiased;\n  -moz-osx-font-smoothing: grayscale;\n}\n.ti-icon-check[data-v-61d92e31]:before {\n  content: "\\e902";\n}\n.ti-icon-close[data-v-61d92e31]:before {\n  content: "\\e901";\n}\n.ti-icon-undo[data-v-61d92e31]:before {\n  content: "\\e900";\n}\nul[data-v-61d92e31] {\n  margin: 0px;\n  padding: 0px;\n  list-style-type: none;\n}\n*[data-v-61d92e31], *[data-v-61d92e31]:before, *[data-v-61d92e31]:after {\n  box-sizing: border-box;\n}\ninput[data-v-61d92e31]:focus {\n  outline: none;\n}\ninput[disabled][data-v-61d92e31] {\n  background-color: transparent;\n}\n.vue-tags-input[data-v-61d92e31] {\n  max-width: 450px;\n  position: relative;\n  background-color: #fff;\n}\ndiv.vue-tags-input.disabled[data-v-61d92e31] {\n  opacity: 0.5;\n}\ndiv.vue-tags-input.disabled *[data-v-61d92e31] {\n    cursor: default;\n}\n.ti-input[data-v-61d92e31] {\n  border: 1px solid #ccc;\n  display: flex;\n  padding: 4px;\n  flex-wrap: wrap;\n}\n.ti-tags[data-v-61d92e31] {\n  display: flex;\n  flex-wrap: wrap;\n  width: 100%;\n  line-height: 1em;\n}\n.ti-tag[data-v-61d92e31] {\n  background-color: #5C6BC0;\n  color: #fff;\n  border-radius: 2px;\n  display: flex;\n  padding: 3px 5px;\n  margin: 2px;\n  font-size: .85em;\n}\n.ti-tag[data-v-61d92e31]:focus {\n    outline: none;\n}\n.ti-tag .ti-content[data-v-61d92e31] {\n    display: flex;\n    align-items: center;\n}\n.ti-tag .ti-tag-center[data-v-61d92e31] {\n    position: relative;\n}\n.ti-tag span[data-v-61d92e31] {\n    line-height: .85em;\n}\n.ti-tag span.ti-hidden[data-v-61d92e31] {\n    padding-left: 14px;\n    visibility: hidden;\n    height: 0px;\n    white-space: pre;\n}\n.ti-tag .ti-actions[data-v-61d92e31] {\n    margin-left: 2px;\n    display: flex;\n    align-items: center;\n    font-size: 1.15em;\n}\n.ti-tag .ti-actions i[data-v-61d92e31] {\n      cursor: pointer;\n}\n.ti-tag[data-v-61d92e31]:last-child {\n    margin-right: 4px;\n}\n.ti-tag.ti-invalid[data-v-61d92e31], .ti-tag.ti-tag.ti-deletion-mark[data-v-61d92e31] {\n    background-color: #e54d42;\n}\n.ti-new-tag-input-wrapper[data-v-61d92e31] {\n  display: flex;\n  flex: 1 0 auto;\n  padding: 3px 5px;\n  margin: 2px;\n  font-size: .85em;\n}\n.ti-new-tag-input-wrapper input[data-v-61d92e31] {\n    flex: 1 0 auto;\n    min-width: 100px;\n    border: none;\n    padding: 0px;\n    margin: 0px;\n}\n.ti-new-tag-input[data-v-61d92e31] {\n  line-height: initial;\n}\n.ti-autocomplete[data-v-61d92e31] {\n  border: 1px solid #ccc;\n  border-top: none;\n  position: absolute;\n  width: 100%;\n  background-color: #fff;\n  z-index: 20;\n}\n.ti-item > div[data-v-61d92e31] {\n  cursor: pointer;\n  padding: 3px 6px;\n  width: 100%;\n}\n.ti-selected-item[data-v-61d92e31] {\n  background-color: #5C6BC0;\n  color: #fff;\n}\n',"",{version:3,sources:["C:/Users/johan/dev/vue-tags-input/vue-tags-input/C:/Users/johan/dev/vue-tags-input/vue-tags-input/vue-tags-input.scss"],names:[],mappings:"AAAA;EACE,uBAAuB;EACvB,mCAA8C;EAC9C,+JAAuM;EACvM,oBAAoB;EACpB,mBAAmB;CAAE;AAEvB;EACE,kCAAkC;EAClC,YAAY;EACZ,mBAAmB;EACnB,oBAAoB;EACpB,qBAAqB;EACrB,qBAAqB;EACrB,eAAe;EACf,oCAAoC;EACpC,mCAAmC;CAAE;AAEvC;EACE,iBAAiB;CAAE;AAErB;EACE,iBAAiB;CAAE;AAErB;EACE,iBAAiB;CAAE;AAErB;EACE,YAAY;EACZ,aAAa;EACb,sBAAsB;CAAE;AAE1B;EACE,uBAAuB;CAAE;AAE3B;EACE,cAAc;CAAE;AAElB;EACE,8BAA8B;CAAE;AAElC;EACE,iBAAiB;EACjB,mBAAmB;EACnB,uBAAuB;CAAE;AAE3B;EACE,aAAa;CAAE;AACf;IACE,gBAAgB;CAAE;AAEtB;EACE,uBAAuB;EACvB,cAAc;EACd,aAAa;EACb,gBAAgB;CAAE;AAEpB;EACE,cAAc;EACd,gBAAgB;EAChB,YAAY;EACZ,iBAAiB;CAAE;AAErB;EACE,0BAA0B;EAC1B,YAAY;EACZ,mBAAmB;EACnB,cAAc;EACd,iBAAiB;EACjB,YAAY;EACZ,iBAAiB;CAAE;AACnB;IACE,cAAc;CAAE;AAClB;IACE,cAAc;IACd,oBAAoB;CAAE;AACxB;IACE,mBAAmB;CAAE;AACvB;IACE,mBAAmB;CAAE;AACvB;IACE,mBAAmB;IACnB,mBAAmB;IACnB,YAAY;IACZ,iBAAiB;CAAE;AACrB;IACE,iBAAiB;IACjB,cAAc;IACd,oBAAoB;IACpB,kBAAkB;CAAE;AACpB;MACE,gBAAgB;CAAE;AACtB;IACE,kBAAkB;CAAE;AACtB;IACE,0BAA0B;CAAE;AAEhC;EACE,cAAc;EACd,eAAe;EACf,iBAAiB;EACjB,YAAY;EACZ,iBAAiB;CAAE;AACnB;IACE,eAAe;IACf,iBAAiB;IACjB,aAAa;IACb,aAAa;IACb,YAAY;CAAE;AAElB;EACE,qBAAqB;CAAE;AAEzB;EACE,uBAAuB;EACvB,iBAAiB;EACjB,mBAAmB;EACnB,YAAY;EACZ,uBAAuB;EACvB,YAAY;CAAE;AAEhB;EACE,gBAAgB;EAChB,iBAAiB;EACjB,YAAY;CAAE;AAEhB;EACE,0BAA0B;EAC1B,YAAY;CAAE",file:"vue-tags-input.scss?vue&type=style&index=0&id=61d92e31&lang=scss&scoped=true&",sourcesContent:['@font-face {\n  font-family: \'icomoon\';\n  src: url("./assets/fonts/icomoon.eot?7grlse");\n  src: url("./assets/fonts/icomoon.eot?7grlse#iefix") format("embedded-opentype"), url("./assets/fonts/icomoon.ttf?7grlse") format("truetype"), url("./assets/fonts/icomoon.woff?7grlse") format("woff");\n  font-weight: normal;\n  font-style: normal; }\n\n[class^="ti-icon-"], [class*=" ti-icon-"] {\n  font-family: \'icomoon\' !important;\n  speak: none;\n  font-style: normal;\n  font-weight: normal;\n  font-variant: normal;\n  text-transform: none;\n  line-height: 1;\n  -webkit-font-smoothing: antialiased;\n  -moz-osx-font-smoothing: grayscale; }\n\n.ti-icon-check:before {\n  content: "\\e902"; }\n\n.ti-icon-close:before {\n  content: "\\e901"; }\n\n.ti-icon-undo:before {\n  content: "\\e900"; }\n\nul {\n  margin: 0px;\n  padding: 0px;\n  list-style-type: none; }\n\n*, *:before, *:after {\n  box-sizing: border-box; }\n\ninput:focus {\n  outline: none; }\n\ninput[disabled] {\n  background-color: transparent; }\n\n.vue-tags-input {\n  max-width: 450px;\n  position: relative;\n  background-color: #fff; }\n\ndiv.vue-tags-input.disabled {\n  opacity: 0.5; }\n  div.vue-tags-input.disabled * {\n    cursor: default; }\n\n.ti-input {\n  border: 1px solid #ccc;\n  display: flex;\n  padding: 4px;\n  flex-wrap: wrap; }\n\n.ti-tags {\n  display: flex;\n  flex-wrap: wrap;\n  width: 100%;\n  line-height: 1em; }\n\n.ti-tag {\n  background-color: #5C6BC0;\n  color: #fff;\n  border-radius: 2px;\n  display: flex;\n  padding: 3px 5px;\n  margin: 2px;\n  font-size: .85em; }\n  .ti-tag:focus {\n    outline: none; }\n  .ti-tag .ti-content {\n    display: flex;\n    align-items: center; }\n  .ti-tag .ti-tag-center {\n    position: relative; }\n  .ti-tag span {\n    line-height: .85em; }\n  .ti-tag span.ti-hidden {\n    padding-left: 14px;\n    visibility: hidden;\n    height: 0px;\n    white-space: pre; }\n  .ti-tag .ti-actions {\n    margin-left: 2px;\n    display: flex;\n    align-items: center;\n    font-size: 1.15em; }\n    .ti-tag .ti-actions i {\n      cursor: pointer; }\n  .ti-tag:last-child {\n    margin-right: 4px; }\n  .ti-tag.ti-invalid, .ti-tag.ti-tag.ti-deletion-mark {\n    background-color: #e54d42; }\n\n.ti-new-tag-input-wrapper {\n  display: flex;\n  flex: 1 0 auto;\n  padding: 3px 5px;\n  margin: 2px;\n  font-size: .85em; }\n  .ti-new-tag-input-wrapper input {\n    flex: 1 0 auto;\n    min-width: 100px;\n    border: none;\n    padding: 0px;\n    margin: 0px; }\n\n.ti-new-tag-input {\n  line-height: initial; }\n\n.ti-autocomplete {\n  border: 1px solid #ccc;\n  border-top: none;\n  position: absolute;\n  width: 100%;\n  background-color: #fff;\n  z-index: 20; }\n\n.ti-item > div {\n  cursor: pointer;\n  padding: 3px 6px;\n  width: 100%; }\n\n.ti-selected-item {\n  background-color: #5C6BC0;\n  color: #fff; }\n'],sourceRoot:""}])},function(A,t,e){"use strict";A.exports=function(A){return"string"!=typeof A?A:(/^['"].*['"]$/.test(A)&&(A=A.slice(1,-1)),/["'() \t\n]/.test(A)?'"'+A.replace(/"/g,'\\"').replace(/\n/g,"\\n")+'"':A)}},function(A,t){A.exports="data:font/ttf;base64,AAEAAAALAIAAAwAwT1MvMg8SBawAAAC8AAAAYGNtYXAXVtKJAAABHAAAAFRnYXNwAAAAEAAAAXAAAAAIZ2x5ZqWfozAAAAF4AAAA/GhlYWQPxZgIAAACdAAAADZoaGVhB4ADyAAAAqwAAAAkaG10eBIAAb4AAALQAAAAHGxvY2EAkgDiAAAC7AAAABBtYXhwAAkAHwAAAvwAAAAgbmFtZZlKCfsAAAMcAAABhnBvc3QAAwAAAAAEpAAAACAAAwOAAZAABQAAApkCzAAAAI8CmQLMAAAB6wAzAQkAAAAAAAAAAAAAAAAAAAABEAAAAAAAAAAAAAAAAAAAAABAAADpAgPA/8AAQAPAAEAAAAABAAAAAAAAAAAAAAAgAAAAAAADAAAAAwAAABwAAQADAAAAHAADAAEAAAAcAAQAOAAAAAoACAACAAIAAQAg6QL//f//AAAAAAAg6QD//f//AAH/4xcEAAMAAQAAAAAAAAAAAAAAAQAB//8ADwABAAAAAAAAAAAAAgAANzkBAAAAAAEAAAAAAAAAAAACAAA3OQEAAAAAAQAAAAAAAAAAAAIAADc5AQAAAAABAFYBAQO+AoEAHAAAATIXHgEXFhcHJicuAScmIyIGBxchERc2Nz4BNzYCFkpDQ28pKRdkECAfVTM0OT9wLZz+gJgdIiJLKSgCVRcYUjg5QiAzKys+ERIrJZoBgJoZFRQcCAgAAQDWAIEDKgLVAAsAAAEHFwcnByc3JzcXNwMq7u487u487u487u4Cme7uPO7uPO7uPO7uAAEAkgCBA4ACvQAFAAAlARcBJzcBgAHEPP4A7jz5AcQ8/gDuPAAAAAABAAAAAAAAH8nTUV8PPPUACwQAAAAAANZ1KhsAAAAA1nUqGwAAAAADvgLVAAAACAACAAAAAAAAAAEAAAPA/8AAAAQAAAAAAAO+AAEAAAAAAAAAAAAAAAAAAAAHBAAAAAAAAAAAAAAAAgAAAAQAAFYEAADWBAAAkgAAAAAACgAUAB4AUABqAH4AAQAAAAcAHQABAAAAAAACAAAAAAAAAAAAAAAAAAAAAAAAAA4ArgABAAAAAAABAAcAAAABAAAAAAACAAcAYAABAAAAAAADAAcANgABAAAAAAAEAAcAdQABAAAAAAAFAAsAFQABAAAAAAAGAAcASwABAAAAAAAKABoAigADAAEECQABAA4ABwADAAEECQACAA4AZwADAAEECQADAA4APQADAAEECQAEAA4AfAADAAEECQAFABYAIAADAAEECQAGAA4AUgADAAEECQAKADQApGljb21vb24AaQBjAG8AbQBvAG8AblZlcnNpb24gMS4wAFYAZQByAHMAaQBvAG4AIAAxAC4AMGljb21vb24AaQBjAG8AbQBvAG8Abmljb21vb24AaQBjAG8AbQBvAG8AblJlZ3VsYXIAUgBlAGcAdQBsAGEAcmljb21vb24AaQBjAG8AbQBvAG8AbkZvbnQgZ2VuZXJhdGVkIGJ5IEljb01vb24uAEYAbwBuAHQAIABnAGUAbgBlAHIAYQB0AGUAZAAgAGIAeQAgAEkAYwBvAE0AbwBvAG4ALgAAAAMAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA="},function(A,t){A.exports="data:font/woff;base64,d09GRgABAAAAAAUQAAsAAAAABMQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABPUy8yAAABCAAAAGAAAABgDxIFrGNtYXAAAAFoAAAAVAAAAFQXVtKJZ2FzcAAAAbwAAAAIAAAACAAAABBnbHlmAAABxAAAAPwAAAD8pZ+jMGhlYWQAAALAAAAANgAAADYPxZgIaGhlYQAAAvgAAAAkAAAAJAeAA8hobXR4AAADHAAAABwAAAAcEgABvmxvY2EAAAM4AAAAEAAAABAAkgDibWF4cAAAA0gAAAAgAAAAIAAJAB9uYW1lAAADaAAAAYYAAAGGmUoJ+3Bvc3QAAATwAAAAIAAAACAAAwAAAAMDgAGQAAUAAAKZAswAAACPApkCzAAAAesAMwEJAAAAAAAAAAAAAAAAAAAAARAAAAAAAAAAAAAAAAAAAAAAQAAA6QIDwP/AAEADwABAAAAAAQAAAAAAAAAAAAAAIAAAAAAAAwAAAAMAAAAcAAEAAwAAABwAAwABAAAAHAAEADgAAAAKAAgAAgACAAEAIOkC//3//wAAAAAAIOkA//3//wAB/+MXBAADAAEAAAAAAAAAAAAAAAEAAf//AA8AAQAAAAAAAAAAAAIAADc5AQAAAAABAAAAAAAAAAAAAgAANzkBAAAAAAEAAAAAAAAAAAACAAA3OQEAAAAAAQBWAQEDvgKBABwAAAEyFx4BFxYXByYnLgEnJiMiBgcXIREXNjc+ATc2AhZKQ0NvKSkXZBAgH1UzNDk/cC2c/oCYHSIiSykoAlUXGFI4OUIgMysrPhESKyWaAYCaGRUUHAgIAAEA1gCBAyoC1QALAAABBxcHJwcnNyc3FzcDKu7uPO7uPO7uPO7uApnu7jzu7jzu7jzu7gABAJIAgQOAAr0ABQAAJQEXASc3AYABxDz+AO48+QHEPP4A7jwAAAAAAQAAAAAAAB/J01FfDzz1AAsEAAAAAADWdSobAAAAANZ1KhsAAAAAA74C1QAAAAgAAgAAAAAAAAABAAADwP/AAAAEAAAAAAADvgABAAAAAAAAAAAAAAAAAAAABwQAAAAAAAAAAAAAAAIAAAAEAABWBAAA1gQAAJIAAAAAAAoAFAAeAFAAagB+AAEAAAAHAB0AAQAAAAAAAgAAAAAAAAAAAAAAAAAAAAAAAAAOAK4AAQAAAAAAAQAHAAAAAQAAAAAAAgAHAGAAAQAAAAAAAwAHADYAAQAAAAAABAAHAHUAAQAAAAAABQALABUAAQAAAAAABgAHAEsAAQAAAAAACgAaAIoAAwABBAkAAQAOAAcAAwABBAkAAgAOAGcAAwABBAkAAwAOAD0AAwABBAkABAAOAHwAAwABBAkABQAWACAAAwABBAkABgAOAFIAAwABBAkACgA0AKRpY29tb29uAGkAYwBvAG0AbwBvAG5WZXJzaW9uIDEuMABWAGUAcgBzAGkAbwBuACAAMQAuADBpY29tb29uAGkAYwBvAG0AbwBvAG5pY29tb29uAGkAYwBvAG0AbwBvAG5SZWd1bGFyAFIAZQBnAHUAbABhAHJpY29tb29uAGkAYwBvAG0AbwBvAG5Gb250IGdlbmVyYXRlZCBieSBJY29Nb29uLgBGAG8AbgB0ACAAZwBlAG4AZQByAGEAdABlAGQAIABiAHkAIABJAGMAbwBNAG8AbwBuAC4AAAADAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"},function(A,t,e){"use strict";e.r(t);var n=function(){var A=this,t=A.$createElement,e=A._self._c||t;return e("div",{staticClass:"vue-tags-input",class:[{"ti-disabled":A.disabled},{"ti-focus":A.focused}]},[e("div",{staticClass:"ti-input"},[A.tagsCopy?e("ul",{staticClass:"ti-tags"},[A._l(A.tagsCopy,function(t,n){return e("li",{key:n,staticClass:"ti-tag",class:[{"ti-editing":A.tagsEditStatus[n]},t.tiClasses,t.classes,{"ti-deletion-mark":A.isMarked(n)}],style:t.style,attrs:{tabindex:"0"},on:{click:function(e){return A.$emit("tag-clicked",{tag:t,index:n})}}},[e("div",{staticClass:"ti-content"},[A.$scopedSlots["tag-left"]?e("div",{staticClass:"ti-tag-left"},[A._t("tag-left",null,{tag:t,index:n,edit:A.tagsEditStatus[n],performSaveEdit:A.performSaveTag,performDelete:A.performDeleteTag,performCancelEdit:A.cancelEdit,performOpenEdit:A.performEditTag,deletionMark:A.isMarked(n)})],2):A._e(),A._v(" "),e("div",{ref:"tagCenter",refInFor:!0,staticClass:"ti-tag-center"},[A.$scopedSlots["tag-center"]?A._e():e("span",{class:{"ti-hidden":A.tagsEditStatus[n]},on:{click:function(t){return A.performEditTag(n)}}},[A._v(A._s(t.text))]),A._v(" "),A.$scopedSlots["tag-center"]?A._e():e("tag-input",{attrs:{scope:{edit:A.tagsEditStatus[n],maxlength:A.maxlength,tag:t,index:n,validateTag:A.createChangedTag,performCancelEdit:A.cancelEdit,performSaveEdit:A.performSaveTag}}}),A._v(" "),A._t("tag-center",null,{tag:t,index:n,maxlength:A.maxlength,edit:A.tagsEditStatus[n],performSaveEdit:A.performSaveTag,performDelete:A.performDeleteTag,performCancelEdit:A.cancelEdit,validateTag:A.createChangedTag,performOpenEdit:A.performEditTag,deletionMark:A.isMarked(n)})],2),A._v(" "),A.$scopedSlots["tag-right"]?e("div",{staticClass:"ti-tag-right"},[A._t("tag-right",null,{tag:t,index:n,edit:A.tagsEditStatus[n],performSaveEdit:A.performSaveTag,performDelete:A.performDeleteTag,performCancelEdit:A.cancelEdit,performOpenEdit:A.performEditTag,deletionMark:A.isMarked(n)})],2):A._e()]),A._v(" "),e("div",{staticClass:"ti-actions"},[A.$scopedSlots["tag-actions"]?A._e():e("i",{directives:[{name:"show",rawName:"v-show",value:A.tagsEditStatus[n],expression:"tagsEditStatus[index]"}],staticClass:"ti-icon-undo",on:{click:function(t){return A.cancelEdit(n)}}}),A._v(" "),A.$scopedSlots["tag-actions"]?A._e():e("i",{directives:[{name:"show",rawName:"v-show",value:!A.tagsEditStatus[n],expression:"!tagsEditStatus[index]"}],staticClass:"ti-icon-close",on:{click:function(t){return A.performDeleteTag(n)}}}),A._v(" "),A.$scopedSlots["tag-actions"]?A._t("tag-actions",null,{tag:t,index:n,edit:A.tagsEditStatus[n],performSaveEdit:A.performSaveTag,performDelete:A.performDeleteTag,performCancelEdit:A.cancelEdit,performOpenEdit:A.performEditTag,deletionMark:A.isMarked(n)}):A._e()],2)])}),A._v(" "),e("li",{staticClass:"ti-new-tag-input-wrapper"},[e("input",A._b({ref:"newTagInput",staticClass:"ti-new-tag-input",class:[A.createClasses(A.newTag,A.tags,A.validation,A.isDuplicate)],attrs:{placeholder:A.placeholder,maxlength:A.maxlength,disabled:A.disabled,type:"text",size:"1"},domProps:{value:A.newTag},on:{keydown:[function(t){return A.performAddTags(A.filteredAutocompleteItems[A.selectedItem]||A.newTag,t)},function(t){return t.type.indexOf("key")||8===t.keyCode?A.invokeDelete(t):null},function(t){return t.type.indexOf("key")||9===t.keyCode?A.performBlur(t):null},function(t){return t.type.indexOf("key")||38===t.keyCode?A.selectItem(t,"before"):null},function(t){return t.type.indexOf("key")||40===t.keyCode?A.selectItem(t,"after"):null}],paste:A.addTagsFromPaste,input:A.updateNewTag,blur:function(t){return A.$emit("blur",t)},focus:function(t){A.focused=!0,A.$emit("focus",t)},click:function(t){!A.addOnlyFromAutocomplete&&(A.selectedItem=null)}}},"input",A.$attrs,!1))])],2):A._e()]),A._v(" "),A._t("between-elements"),A._v(" "),A.autocompleteOpen?e("div",{staticClass:"ti-autocomplete",on:{mouseout:function(t){A.selectedItem=null}}},[A._t("autocomplete-header"),A._v(" "),e("ul",A._l(A.filteredAutocompleteItems,function(t,n){return e("li",{key:n,staticClass:"ti-item",class:[t.tiClasses,t.classes,{"ti-selected-item":A.isSelected(n)}],style:t.style,on:{mouseover:function(t){!A.disabled&&(A.selectedItem=n)}}},[A.$scopedSlots["autocomplete-item"]?A._t("autocomplete-item",null,{item:t,index:n,performAdd:function(t){return A.performAddTags(t,void 0,"autocomplete")},selected:A.isSelected(n)}):e("div",{on:{click:function(e){return A.performAddTags(t,void 0,"autocomplete")}}},[A._v("\n          "+A._s(t.text)+"\n        ")])],2)}),0),A._v(" "),A._t("autocomplete-footer")],2):A._e()],2)};n._withStripped=!0;var i=e(5),a=e.n(i),r=function(A){return JSON.parse(JSON.stringify(A))},o=function(A,t){var e=arguments.length>2&&void 0!==arguments[2]?arguments[2]:[],n=arguments.length>3?arguments[3]:void 0;void 0===A.text&&(A={text:A});var i=function(A,t){return t.filter(function(t){var e=A.text;return"string"==typeof t.rule?!new RegExp(t.rule).test(e):t.rule instanceof RegExp?!t.rule.test(e):"[object Function]"==={}.toString.call(t.rule)?t.rule(A):void 0}).map(function(A){return A.classes})}(A,e),a=function(A,t){for(var e=0;e<A.length;){if(t(A[e],e,A))return e;e++}return-1}(t,function(t){return t===A}),o=r(t),s=-1!==a?o.splice(a,1)[0]:r(A);return(n?n(o,s):-1!==o.map(function(A){return A.text}).indexOf(s.text))&&i.push("ti-duplicate"),0===i.length?i.push("ti-valid"):i.push("ti-invalid"),i},s=function(A){void 0===A.text&&(A={text:A});for(var t=r(A),e=arguments.length,n=new Array(e>1?e-1:0),i=1;i<e;i++)n[i-1]=arguments[i];return t.tiClasses=o.apply(void 0,[A].concat(n)),t},u=function(A){for(var t=arguments.length,e=new Array(t>1?t-1:0),n=1;n<t;n++)e[n-1]=arguments[n];return A.map(function(t){return s.apply(void 0,[t,A].concat(e))})},c=function(){var A=this,t=A.$createElement,e=A._self._c||t;return A.scope.edit?e("input",{directives:[{name:"model",rawName:"v-model",value:A.scope.tag.text,expression:"scope.tag.text"}],staticClass:"ti-tag-input",attrs:{maxlength:A.scope.maxlength,type:"text",size:"1"},domProps:{value:A.scope.tag.text},on:{input:[function(t){t.target.composing||A.$set(A.scope.tag,"text",t.target.value)},function(t){return A.scope.validateTag(A.scope.index,t)}],blur:function(t){return A.scope.performCancelEdit(A.scope.index)},keydown:function(t){return A.scope.performSaveEdit(A.scope.index,t)}}}):A._e()};c._withStripped=!0;var d={name:"TagInput",props:{scope:{type:Object}}};e(7);function l(A,t,e,n,i,a,r,o){var s,u="function"==typeof A?A.options:A;if(t&&(u.render=t,u.staticRenderFns=e,u._compiled=!0),n&&(u.functional=!0),a&&(u._scopeId="data-v-"+a),r?(s=function(A){(A=A||this.$vnode&&this.$vnode.ssrContext||this.parent&&this.parent.$vnode&&this.parent.$vnode.ssrContext)||"undefined"==typeof __VUE_SSR_CONTEXT__||(A=__VUE_SSR_CONTEXT__),i&&i.call(this,A),A&&A._registeredComponents&&A._registeredComponents.add(r)},u._ssrRegister=s):i&&(s=o?function(){i.call(this,this.$root.$options.shadowRoot)}:i),s)if(u.functional){u._injectStyles=s;var c=u.render;u.render=function(A,t){return s.call(t),c(A,t)}}else{var d=u.beforeCreate;u.beforeCreate=d?[].concat(d,s):[s]}return{exports:A,options:u}}var p=l(d,c,[],!1,null,"108f4f13",null);p.options.__file="vue-tags-input/tag-input.vue";var g=p.exports,f=function(A){return!A.some(function(A){var t=!A.text;t&&console.warn('Missing property "text"',A);var e=!1;return A.classes&&(e="string"!=typeof A.classes),e&&console.warn('Property "classes" must be type of string',A),t||e})},B=function(A){return!A.some(function(A){if("number"==typeof A){var t=isFinite(A)&&Math.floor(A)===A;return t||console.warn("Only numerics are allowed for this prop. Found:",A),!t}if("string"==typeof A){var e=/\W|[a-z]|!\d/i.test(A);return e||console.warn("Only alpha strings are allowed for this prop. Found:",A),!e}return console.warn("Only numeric and string values are allowed. Found:",A),!1})},v={value:{type:String,default:"",required:!0},tags:{type:Array,default:function(){return[]},validator:f},autocompleteItems:{type:Array,default:function(){return[]},validator:f},allowEditTags:{type:Boolean,default:!1},autocompleteFilterDuplicates:{default:!0,type:Boolean},addOnlyFromAutocomplete:{type:Boolean,default:!1},autocompleteMinLength:{type:Number,default:1},autocompleteAlwaysOpen:{type:Boolean,default:!1},disabled:{type:Boolean,default:!1},placeholder:{type:String,default:"Add Tag"},addOnKey:{type:Array,default:function(){return[13]},validator:B},saveOnKey:{type:Array,default:function(){return[13]},validator:B},maxTags:{type:Number},maxlength:{type:Number},validation:{type:Array,default:function(){return[]},validator:function(A){return!A.some(function(A){var t=!A.rule;t&&console.warn('Property "rule" is missing',A);var e=A.rule&&("string"==typeof A.rule||A.rule instanceof RegExp||"[object Function]"==={}.toString.call(A.rule));e||console.warn("A rule must be type of string, RegExp or function. Found:",JSON.stringify(A.rule));var n=!A.classes;n&&console.warn('Property "classes" is missing',A);var i=A.type&&"string"!=typeof A.type;return i&&console.warn('Property "type" must be type of string. Found:',A),!e||t||n||i})}},separators:{type:Array,default:function(){return[";"]},validator:function(A){return!A.some(function(A){var t="string"!=typeof A;return t&&console.warn("Separators must be type of string. Found:",A),t})}},avoidAddingDuplicates:{type:Boolean,default:!0},addOnBlur:{type:Boolean,default:!0},isDuplicate:{type:Function,default:null},addFromPaste:{type:Boolean,default:!0},deleteOnBackspace:{default:!0,type:Boolean}};function m(A){return(m="function"==typeof Symbol&&"symbol"==typeof Symbol.iterator?function(A){return typeof A}:function(A){return A&&"function"==typeof Symbol&&A.constructor===Symbol&&A!==Symbol.prototype?"symbol":typeof A})(A)}var h={name:"VueTagsInput",components:{TagInput:g},props:v,data:function(){return{newTag:null,tagsCopy:null,tagsEditStatus:null,deletionMark:null,deletionMarkTime:null,selectedItem:null,focused:null}},computed:{autocompleteOpen:function(){return!!this.autocompleteAlwaysOpen||null!==this.newTag&&this.newTag.length>=this.autocompleteMinLength&&this.filteredAutocompleteItems.length>0&&this.focused},filteredAutocompleteItems:function(){var A=this,t=this.autocompleteItems.map(function(t){return s(t,A.tags,A.validation,A.isDuplicate)});return this.autocompleteFilterDuplicates?t.filter(this.duplicateFilter):t}},methods:{createClasses:o,getSelectedIndex:function(A){var t=this.filteredAutocompleteItems,e=this.selectedItem,n=t.length-1;if(0!==t.length)return null===e?0:"before"===A&&0===e?n:"after"===A&&e===n?0:"after"===A?e+1:e-1},selectDefaultItem:function(){this.addOnlyFromAutocomplete&&this.filteredAutocompleteItems.length>0?this.selectedItem=0:this.selectedItem=null},selectItem:function(A,t){A.preventDefault(),this.selectedItem=this.getSelectedIndex(t)},isSelected:function(A){return this.selectedItem===A},isMarked:function(A){return this.deletionMark===A},invokeDelete:function(){var A=this;if(this.deleteOnBackspace&&!(this.newTag.length>0)){var t=this.tagsCopy.length-1;null===this.deletionMark?(this.deletionMarkTime=setTimeout(function(){return A.deletionMark=null},1e3),this.deletionMark=t):this.performDeleteTag(t)}},addTagsFromPaste:function(){var A=this;this.addFromPaste&&setTimeout(function(){return A.performAddTags(A.newTag)},10)},performEditTag:function(A){var t=this;this.allowEditTags&&(this._events["before-editing-tag"]||this.editTag(A),this.$emit("before-editing-tag",{index:A,tag:this.tagsCopy[A],editTag:function(){return t.editTag(A)}}))},editTag:function(A){this.allowEditTags&&(this.toggleEditMode(A),this.focus(A))},toggleEditMode:function(A){this.allowEditTags&&!this.disabled&&this.$set(this.tagsEditStatus,A,!this.tagsEditStatus[A])},createChangedTag:function(A,t){var e=this.tagsCopy[A];e.text=t?t.target.value:this.tagsCopy[A].text,this.$set(this.tagsCopy,A,s(e,this.tagsCopy,this.validation,this.isDuplicate))},focus:function(A){var t=this;this.$nextTick(function(){var e=t.$refs.tagCenter[A].querySelector("input.ti-tag-input");e&&e.focus()})},quote:function(A){return A.replace(/([()[{*+.$^\\|?])/g,"\\$1")},cancelEdit:function(A){this.tags[A]&&(this.tagsCopy[A]=r(s(this.tags[A],this.tags,this.validation,this.isDuplicate)),this.$set(this.tagsEditStatus,A,!1))},hasForbiddingAddRule:function(A){var t=this;return A.some(function(A){var e=t.validation.find(function(t){return A===t.classes});return!!e&&e.disableAdd})},createTagTexts:function(A){var t=this,e=new RegExp(this.separators.map(function(A){return t.quote(A)}).join("|"));return A.split(e).map(function(A){return{text:A}})},performDeleteTag:function(A){var t=this;this._events["before-deleting-tag"]||this.deleteTag(A),this.$emit("before-deleting-tag",{index:A,tag:this.tagsCopy[A],deleteTag:function(){return t.deleteTag(A)}})},deleteTag:function(A){this.disabled||(this.deletionMark=null,clearTimeout(this.deletionMarkTime),this.tagsCopy.splice(A,1),this._events["update:tags"]&&this.$emit("update:tags",this.tagsCopy),this.$emit("tags-changed",this.tagsCopy))},noTriggerKey:function(A,t){var e=-1!==this[t].indexOf(A.keyCode)||-1!==this[t].indexOf(A.key);return e&&A.preventDefault(),!e},performAddTags:function(A,t,e){var n=this;if(!(this.disabled||t&&this.noTriggerKey(t,"addOnKey"))){var i=[];"object"===m(A)&&(i=[A]),"string"==typeof A&&(i=this.createTagTexts(A)),(i=i.filter(function(A){return A.text.trim().length>0})).forEach(function(A){A=s(A,n.tags,n.validation,n.isDuplicate),n._events["before-adding-tag"]||n.addTag(A,e),n.$emit("before-adding-tag",{tag:A,addTag:function(){return n.addTag(A,e)}})})}},duplicateFilter:function(A){return this.isDuplicate?!this.isDuplicate(this.tagsCopy,A):!this.tagsCopy.find(function(t){return t.text===A.text})},addTag:function(A){var t=this,e=arguments.length>1&&void 0!==arguments[1]?arguments[1]:"new-tag-input",n=this.filteredAutocompleteItems.map(function(A){return A.text});this.addOnlyFromAutocomplete&&-1===n.indexOf(A.text)||this.$nextTick(function(){return t.maxTags&&t.maxTags<=t.tagsCopy.length?t.$emit("max-tags-reached",A):t.avoidAddingDuplicates&&!t.duplicateFilter(A)?t.$emit("adding-duplicate",A):void(t.hasForbiddingAddRule(A.tiClasses)||(t.$emit("input",""),t.tagsCopy.push(A),t._events["update:tags"]&&t.$emit("update:tags",t.tagsCopy),"autocomplete"===e&&t.$refs.newTagInput.focus(),t.$emit("tags-changed",t.tagsCopy)))})},performSaveTag:function(A,t){var e=this,n=this.tagsCopy[A];this.disabled||t&&this.noTriggerKey(t,"addOnKey")||0!==n.text.trim().length&&(this._events["before-saving-tag"]||this.saveTag(A,n),this.$emit("before-saving-tag",{index:A,tag:n,saveTag:function(){return e.saveTag(A,n)}}))},saveTag:function(A,t){if(this.avoidAddingDuplicates){var e=r(this.tagsCopy),n=e.splice(A,1)[0];if(this.isDuplicate?this.isDuplicate(e,n):-1!==e.map(function(A){return A.text}).indexOf(n.text))return this.$emit("saving-duplicate",t)}this.hasForbiddingAddRule(t.tiClasses)||(this.$set(this.tagsCopy,A,t),this.toggleEditMode(A),this._events["update:tags"]&&this.$emit("update:tags",this.tagsCopy),this.$emit("tags-changed",this.tagsCopy))},tagsEqual:function(){var A=this;return!this.tagsCopy.some(function(t,e){return!a()(t,A.tags[e])})},updateNewTag:function(A){var t=A.target.value;this.newTag=t,this.$emit("input",t)},initTags:function(){this.tagsCopy=u(this.tags,this.validation,this.isDuplicate),this.tagsEditStatus=r(this.tags).map(function(){return!1}),this._events["update:tags"]&&!this.tagsEqual()&&this.$emit("update:tags",this.tagsCopy)},blurredOnClick:function(A){this.$el.contains(A.target)||this.$el.contains(document.activeElement)||this.performBlur(A)},performBlur:function(){this.addOnBlur&&this.focused&&this.performAddTags(this.newTag),this.focused=!1}},watch:{value:function(A){this.addOnlyFromAutocomplete||(this.selectedItem=null),this.newTag=A},tags:{handler:function(){this.initTags()},deep:!0},autocompleteOpen:"selectDefaultItem"},created:function(){this.newTag=this.value,this.initTags()},mounted:function(){this.selectDefaultItem(),document.addEventListener("click",this.blurredOnClick)},destroyed:function(){document.removeEventListener("click",this.blurredOnClick)}},C=(e(9),l(h,n,[],!1,null,"61d92e31",null));C.options.__file="vue-tags-input/vue-tags-input.vue";var E=C.exports;e.d(t,"VueTagsInput",function(){return E}),e.d(t,"createClasses",function(){return o}),e.d(t,"createTag",function(){return s}),e.d(t,"createTags",function(){return u}),e.d(t,"TagInput",function(){return g}),E.install=function(A){return A.component(E.name,E)},"undefined"!=typeof window&&window.Vue&&window.Vue.use(E);t.default=E}])});
@@ -12986,7 +13060,7 @@ exports.push([module.i, "\n.tags-input {\n    max-width: 100% !important;\n    p
 
 /***/ }),
 
-/***/ 1190:
+/***/ 1194:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -12996,11 +13070,11 @@ Object.defineProperty(exports, "__esModule", {
     value: true
 });
 
-var _defineProperty2 = __webpack_require__(953);
+var _defineProperty2 = __webpack_require__(956);
 
 var _defineProperty3 = _interopRequireDefault(_defineProperty2);
 
-var _values = __webpack_require__(1059);
+var _values = __webpack_require__(1062);
 
 var _values2 = _interopRequireDefault(_values);
 
@@ -13008,11 +13082,11 @@ var _stringify = __webpack_require__(393);
 
 var _stringify2 = _interopRequireDefault(_stringify);
 
-var _from = __webpack_require__(951);
+var _from = __webpack_require__(954);
 
 var _from2 = _interopRequireDefault(_from);
 
-var _extends3 = __webpack_require__(8);
+var _extends3 = __webpack_require__(7);
 
 var _extends4 = _interopRequireDefault(_extends3);
 
@@ -13026,9 +13100,9 @@ var _asyncToGenerator3 = _interopRequireDefault(_asyncToGenerator2);
 
 var _extends2;
 
-__webpack_require__(793);
+__webpack_require__(796);
 
-var _constant = __webpack_require__(794);
+var _constant = __webpack_require__(797);
 
 var _constant2 = _interopRequireDefault(_constant);
 
@@ -13038,35 +13112,35 @@ var _vueLoadingOverlay = __webpack_require__(376);
 
 var _vueLoadingOverlay2 = _interopRequireDefault(_vueLoadingOverlay);
 
-var _vueTreeselect = __webpack_require__(948);
+var _vueTreeselect = __webpack_require__(951);
 
 var _vueTreeselect2 = _interopRequireDefault(_vueTreeselect);
 
-__webpack_require__(950);
+__webpack_require__(953);
 
-__webpack_require__(1022);
+__webpack_require__(1025);
 
-var _list = __webpack_require__(1005);
+var _list = __webpack_require__(1008);
 
 var _list2 = _interopRequireDefault(_list);
 
-var _helper = __webpack_require__(947);
+var _helper = __webpack_require__(950);
 
-var _eventBus = __webpack_require__(954);
+var _eventBus = __webpack_require__(957);
 
 var _eventBus2 = _interopRequireDefault(_eventBus);
 
-var _vueTagsInput = __webpack_require__(1158);
+var _vueTagsInput = __webpack_require__(1162);
 
 var _vueTagsInput2 = _interopRequireDefault(_vueTagsInput);
 
 var _router = __webpack_require__(189);
 
-var _moment = __webpack_require__(791);
+var _moment = __webpack_require__(794);
 
 var _moment2 = _interopRequireDefault(_moment);
 
-var _MIEditor = __webpack_require__(1025);
+var _MIEditor = __webpack_require__(1028);
 
 var _MIEditor2 = _interopRequireDefault(_MIEditor);
 
@@ -13770,7 +13844,7 @@ exports.default = {
 
 /***/ }),
 
-/***/ 1538:
+/***/ 1543:
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
@@ -14805,23 +14879,23 @@ if (true) {
 
 /***/ }),
 
-/***/ 1607:
+/***/ 1613:
 /***/ (function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
-var content = __webpack_require__(1098);
+var content = __webpack_require__(1101);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
-var update = __webpack_require__(798)("4691b8b8", content, false);
+var update = __webpack_require__(801)("4691b8b8", content, false);
 // Hot Module Replacement
 if(true) {
  // When the styles change, update the <style> tags
  if(!content.locals) {
-   module.hot.accept(1098, function() {
-     var newContent = __webpack_require__(1098);
+   module.hot.accept(1101, function() {
+     var newContent = __webpack_require__(1101);
      if(typeof newContent === 'string') newContent = [[module.i, newContent, '']];
      update(newContent);
    });
@@ -14832,24 +14906,24 @@ if(true) {
 
 /***/ }),
 
-/***/ 720:
+/***/ 722:
 /***/ (function(module, exports, __webpack_require__) {
 
 
 /* styles */
-__webpack_require__(1607)
+__webpack_require__(1613)
 
 var Component = __webpack_require__(374)(
   /* script */
-  __webpack_require__(1190),
+  __webpack_require__(1194),
   /* template */
-  __webpack_require__(1538),
+  __webpack_require__(1543),
   /* scopeId */
   null,
   /* cssModules */
   null
 )
-Component.options.__file = "C:\\WORKING\\Joytime\\dotnet-platform-backend\\Web\\Platform\\CMS\\PlatformCMS\\ClientApp\\pages\\Article\\edit.vue"
+Component.options.__file = "D:\\Code\\WORKING\\dotnet-platform-backend\\Web\\Platform\\CMS\\PlatformCMS\\ClientApp\\pages\\Article\\edit.vue"
 if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
 if (Component.options.functional) {console.error("[vue-loader] edit.vue: functional components are not supported with templates, they should use render functions.")}
 
@@ -14871,7 +14945,7 @@ module.exports = Component.exports
 
 /***/ }),
 
-/***/ 791:
+/***/ 794:
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(module) {var require;//! moment.js
@@ -16975,7 +17049,7 @@ module.exports = Component.exports
             try {
                 oldLocale = globalLocale._abbr;
                 aliasedRequire = require;
-                __webpack_require__(995)("./" + name);
+                __webpack_require__(998)("./" + name);
                 getSetGlobalLocale(oldLocale);
             } catch (e) {
                 // mark as not found to avoid repeating expensive file require call causing high CPU
@@ -20564,7 +20638,7 @@ module.exports = Component.exports
 
 /***/ }),
 
-/***/ 792:
+/***/ 795:
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(53)();
@@ -20579,13 +20653,13 @@ exports.push([module.i, ".vld-overlay {\n  bottom: 0;\n  left: 0;\n  position: a
 
 /***/ }),
 
-/***/ 793:
+/***/ 796:
 /***/ (function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
-var content = __webpack_require__(792);
+var content = __webpack_require__(795);
 if(typeof content === 'string') content = [[module.i, content, '']];
 // add the styles to the DOM
 var update = __webpack_require__(179)(content, {});
@@ -20594,8 +20668,8 @@ if(content.locals) module.exports = content.locals;
 if(true) {
 	// When the styles change, update the <style> tags
 	if(!content.locals) {
-		module.hot.accept(792, function() {
-			var newContent = __webpack_require__(792);
+		module.hot.accept(795, function() {
+			var newContent = __webpack_require__(795);
 			if(typeof newContent === 'string') newContent = [[module.i, newContent, '']];
 			update(newContent);
 		});
@@ -20606,7 +20680,7 @@ if(true) {
 
 /***/ }),
 
-/***/ 794:
+/***/ 797:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -20620,13 +20694,13 @@ exports.default = msgNotify;
 
 /***/ }),
 
-/***/ 795:
+/***/ 798:
 /***/ (function(module, exports, __webpack_require__) {
 
 var global = __webpack_require__(21);
 var core = __webpack_require__(20);
 var LIBRARY = __webpack_require__(105);
-var wksExt = __webpack_require__(796);
+var wksExt = __webpack_require__(799);
 var defineProperty = __webpack_require__(54).f;
 module.exports = function (name) {
   var $Symbol = core.Symbol || (core.Symbol = LIBRARY ? {} : global.Symbol || {});
@@ -20636,7 +20710,7 @@ module.exports = function (name) {
 
 /***/ }),
 
-/***/ 796:
+/***/ 799:
 /***/ (function(module, exports, __webpack_require__) {
 
 exports.f = __webpack_require__(23);
@@ -20644,7 +20718,7 @@ exports.f = __webpack_require__(23);
 
 /***/ }),
 
-/***/ 797:
+/***/ 800:
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(53)();
@@ -20659,7 +20733,7 @@ exports.push([module.i, "/*!\n * vue-treeselect v0.4.0 | (c) 2017-2019 Riophae L
 
 /***/ }),
 
-/***/ 798:
+/***/ 801:
 /***/ (function(module, exports, __webpack_require__) {
 
 /*
@@ -20678,7 +20752,7 @@ if (typeof DEBUG !== 'undefined' && DEBUG) {
   ) }
 }
 
-var listToStyles = __webpack_require__(807)
+var listToStyles = __webpack_require__(809)
 
 /*
 type StyleObject = {
@@ -20881,28 +20955,28 @@ function applyToTag (styleElement, obj) {
 
 /***/ }),
 
-/***/ 799:
-/***/ (function(module, exports, __webpack_require__) {
-
-module.exports = { "default": __webpack_require__(944), __esModule: true };
-
-/***/ }),
-
-/***/ 800:
-/***/ (function(module, exports, __webpack_require__) {
-
-module.exports = { "default": __webpack_require__(957), __esModule: true };
-
-/***/ }),
-
-/***/ 801:
-/***/ (function(module, exports, __webpack_require__) {
-
-module.exports = { "default": __webpack_require__(958), __esModule: true };
-
-/***/ }),
-
 /***/ 802:
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports = { "default": __webpack_require__(947), __esModule: true };
+
+/***/ }),
+
+/***/ 803:
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports = { "default": __webpack_require__(960), __esModule: true };
+
+/***/ }),
+
+/***/ 804:
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports = { "default": __webpack_require__(961), __esModule: true };
+
+/***/ }),
+
+/***/ 805:
 /***/ (function(module, exports, __webpack_require__) {
 
 // 19.1.2.7 / 15.2.3.4 Object.getOwnPropertyNames(O)
@@ -20916,7 +20990,7 @@ exports.f = Object.getOwnPropertyNames || function getOwnPropertyNames(O) {
 
 /***/ }),
 
-/***/ 803:
+/***/ 806:
 /***/ (function(module, exports) {
 
 function _arrayLikeToArray(arr, len) {
@@ -20933,10 +21007,10 @@ module.exports = _arrayLikeToArray;
 
 /***/ }),
 
-/***/ 804:
+/***/ 807:
 /***/ (function(module, exports, __webpack_require__) {
 
-var arrayLikeToArray = __webpack_require__(803);
+var arrayLikeToArray = __webpack_require__(806);
 
 function _unsupportedIterableToArray(o, minLen) {
   if (!o) return;
@@ -20951,12 +21025,12 @@ module.exports = _unsupportedIterableToArray;
 
 /***/ }),
 
-/***/ 805:
+/***/ 808:
 /***/ (function(module, exports, __webpack_require__) {
 
-var baseTrim = __webpack_require__(979),
+var baseTrim = __webpack_require__(982),
     isObject = __webpack_require__(58),
-    isSymbol = __webpack_require__(985);
+    isSymbol = __webpack_require__(988);
 
 /** Used as references for various `Number` constants. */
 var NAN = 0 / 0;
@@ -21022,15 +21096,7 @@ module.exports = toNumber;
 
 /***/ }),
 
-/***/ 806:
-/***/ (function(module, exports) {
-
-exports.f = {}.propertyIsEnumerable;
-
-
-/***/ }),
-
-/***/ 807:
+/***/ 809:
 /***/ (function(module, exports) {
 
 /**
@@ -21064,13 +21130,21 @@ module.exports = function listToStyles (parentId, list) {
 
 /***/ }),
 
-/***/ 808:
+/***/ 810:
+/***/ (function(module, exports) {
+
+exports.f = {}.propertyIsEnumerable;
+
+
+/***/ }),
+
+/***/ 811:
 /***/ (function(module, exports, __webpack_require__) {
 
 var global = __webpack_require__(22);
 var core = __webpack_require__(37);
 var LIBRARY = __webpack_require__(107);
-var wksExt = __webpack_require__(993);
+var wksExt = __webpack_require__(996);
 var defineProperty = __webpack_require__(55).f;
 module.exports = function (name) {
   var $Symbol = core.Symbol || (core.Symbol = LIBRARY ? {} : global.Symbol || {});
@@ -21080,7 +21154,7 @@ module.exports = function (name) {
 
 /***/ }),
 
-/***/ 809:
+/***/ 812:
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -21088,7 +21162,7 @@ module.exports = function (name) {
 //! author : Werner Mollentze : https://github.com/wernerm
 
 ;(function (global, factory) {
-    true ? factory(__webpack_require__(791)) :
+    true ? factory(__webpack_require__(794)) :
    typeof define === 'function' && define.amd ? define(['../moment'], factory) :
    factory(global.moment)
 }(this, (function (moment) { 'use strict';
@@ -21168,7 +21242,7 @@ module.exports = function (name) {
 
 /***/ }),
 
-/***/ 810:
+/***/ 813:
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -21180,7 +21254,7 @@ module.exports = function (name) {
 //! author : Noureddine LOUAHEDJ : https://github.com/noureddinem
 
 ;(function (global, factory) {
-    true ? factory(__webpack_require__(791)) :
+    true ? factory(__webpack_require__(794)) :
    typeof define === 'function' && define.amd ? define(['../moment'], factory) :
    factory(global.moment)
 }(this, (function (moment) { 'use strict';
@@ -21341,7 +21415,7 @@ module.exports = function (name) {
 
 /***/ }),
 
-/***/ 811:
+/***/ 814:
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -21349,7 +21423,7 @@ module.exports = function (name) {
 //! author : Nusret Parlak: https://github.com/nusretparlak
 
 ;(function (global, factory) {
-    true ? factory(__webpack_require__(791)) :
+    true ? factory(__webpack_require__(794)) :
    typeof define === 'function' && define.amd ? define(['../moment'], factory) :
    factory(global.moment)
 }(this, (function (moment) { 'use strict';
@@ -21413,7 +21487,7 @@ module.exports = function (name) {
 
 /***/ }),
 
-/***/ 812:
+/***/ 815:
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -21421,7 +21495,7 @@ module.exports = function (name) {
 //! author : Ali Hmer: https://github.com/kikoanis
 
 ;(function (global, factory) {
-    true ? factory(__webpack_require__(791)) :
+    true ? factory(__webpack_require__(794)) :
    typeof define === 'function' && define.amd ? define(['../moment'], factory) :
    factory(global.moment)
 }(this, (function (moment) { 'use strict';
@@ -21601,7 +21675,7 @@ module.exports = function (name) {
 
 /***/ }),
 
-/***/ 813:
+/***/ 816:
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -21610,7 +21684,7 @@ module.exports = function (name) {
 //! author : Abdel Said : https://github.com/abdelsaid
 
 ;(function (global, factory) {
-    true ? factory(__webpack_require__(791)) :
+    true ? factory(__webpack_require__(794)) :
    typeof define === 'function' && define.amd ? define(['../moment'], factory) :
    factory(global.moment)
 }(this, (function (moment) { 'use strict';
@@ -21674,7 +21748,7 @@ module.exports = function (name) {
 
 /***/ }),
 
-/***/ 814:
+/***/ 817:
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -21682,7 +21756,7 @@ module.exports = function (name) {
 //! author : Suhail Alkowaileet : https://github.com/xsoh
 
 ;(function (global, factory) {
-    true ? factory(__webpack_require__(791)) :
+    true ? factory(__webpack_require__(794)) :
    typeof define === 'function' && define.amd ? define(['../moment'], factory) :
    factory(global.moment)
 }(this, (function (moment) { 'use strict';
@@ -21796,7 +21870,7 @@ module.exports = function (name) {
 
 /***/ }),
 
-/***/ 815:
+/***/ 818:
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -21804,7 +21878,7 @@ module.exports = function (name) {
 //! author : Nader Toukabri : https://github.com/naderio
 
 ;(function (global, factory) {
-    true ? factory(__webpack_require__(791)) :
+    true ? factory(__webpack_require__(794)) :
    typeof define === 'function' && define.amd ? define(['../moment'], factory) :
    factory(global.moment)
 }(this, (function (moment) { 'use strict';
@@ -21868,7 +21942,7 @@ module.exports = function (name) {
 
 /***/ }),
 
-/***/ 816:
+/***/ 819:
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -21878,7 +21952,7 @@ module.exports = function (name) {
 //! author : forabi https://github.com/forabi
 
 ;(function (global, factory) {
-    true ? factory(__webpack_require__(791)) :
+    true ? factory(__webpack_require__(794)) :
    typeof define === 'function' && define.amd ? define(['../moment'], factory) :
    factory(global.moment)
 }(this, (function (moment) { 'use strict';
@@ -22074,7 +22148,7 @@ module.exports = function (name) {
 
 /***/ }),
 
-/***/ 817:
+/***/ 820:
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -22082,7 +22156,7 @@ module.exports = function (name) {
 //! author : topchiyev : https://github.com/topchiyev
 
 ;(function (global, factory) {
-    true ? factory(__webpack_require__(791)) :
+    true ? factory(__webpack_require__(794)) :
    typeof define === 'function' && define.amd ? define(['../moment'], factory) :
    factory(global.moment)
 }(this, (function (moment) { 'use strict';
@@ -22193,7 +22267,7 @@ module.exports = function (name) {
 
 /***/ }),
 
-/***/ 818:
+/***/ 821:
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -22203,7 +22277,7 @@ module.exports = function (name) {
 //! Author : Menelion Elensúle : https://github.com/Oire
 
 ;(function (global, factory) {
-    true ? factory(__webpack_require__(791)) :
+    true ? factory(__webpack_require__(794)) :
    typeof define === 'function' && define.amd ? define(['../moment'], factory) :
    factory(global.moment)
 }(this, (function (moment) { 'use strict';
@@ -22352,7 +22426,7 @@ module.exports = function (name) {
 
 /***/ }),
 
-/***/ 819:
+/***/ 822:
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -22360,7 +22434,7 @@ module.exports = function (name) {
 //! author : Krasen Borisov : https://github.com/kraz
 
 ;(function (global, factory) {
-    true ? factory(__webpack_require__(791)) :
+    true ? factory(__webpack_require__(794)) :
    typeof define === 'function' && define.amd ? define(['../moment'], factory) :
    factory(global.moment)
 }(this, (function (moment) { 'use strict';
@@ -22456,7 +22530,7 @@ module.exports = function (name) {
 
 /***/ }),
 
-/***/ 820:
+/***/ 823:
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -22464,7 +22538,7 @@ module.exports = function (name) {
 //! author : Estelle Comment : https://github.com/estellecomment
 
 ;(function (global, factory) {
-    true ? factory(__webpack_require__(791)) :
+    true ? factory(__webpack_require__(794)) :
    typeof define === 'function' && define.amd ? define(['../moment'], factory) :
    factory(global.moment)
 }(this, (function (moment) { 'use strict';
@@ -22524,7 +22598,7 @@ module.exports = function (name) {
 
 /***/ }),
 
-/***/ 821:
+/***/ 824:
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -22532,7 +22606,7 @@ module.exports = function (name) {
 //! author : Asraf Hossain Patoary : https://github.com/ashwoolford
 
 ;(function (global, factory) {
-    true ? factory(__webpack_require__(791)) :
+    true ? factory(__webpack_require__(794)) :
    typeof define === 'function' && define.amd ? define(['../moment'], factory) :
    factory(global.moment)
 }(this, (function (moment) { 'use strict';
@@ -22670,7 +22744,7 @@ module.exports = function (name) {
 
 /***/ }),
 
-/***/ 822:
+/***/ 825:
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -22678,7 +22752,7 @@ module.exports = function (name) {
 //! author : Kaushik Gandhi : https://github.com/kaushikgandhi
 
 ;(function (global, factory) {
-    true ? factory(__webpack_require__(791)) :
+    true ? factory(__webpack_require__(794)) :
    typeof define === 'function' && define.amd ? define(['../moment'], factory) :
    factory(global.moment)
 }(this, (function (moment) { 'use strict';
@@ -22806,7 +22880,7 @@ module.exports = function (name) {
 
 /***/ }),
 
-/***/ 823:
+/***/ 826:
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -22814,7 +22888,7 @@ module.exports = function (name) {
 //! author : Thupten N. Chakrishar : https://github.com/vajradog
 
 ;(function (global, factory) {
-    true ? factory(__webpack_require__(791)) :
+    true ? factory(__webpack_require__(794)) :
    typeof define === 'function' && define.amd ? define(['../moment'], factory) :
    factory(global.moment)
 }(this, (function (moment) { 'use strict';
@@ -22947,7 +23021,7 @@ module.exports = function (name) {
 
 /***/ }),
 
-/***/ 824:
+/***/ 827:
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -22955,7 +23029,7 @@ module.exports = function (name) {
 //! author : Jean-Baptiste Le Duigou : https://github.com/jbleduigou
 
 ;(function (global, factory) {
-    true ? factory(__webpack_require__(791)) :
+    true ? factory(__webpack_require__(794)) :
    typeof define === 'function' && define.amd ? define(['../moment'], factory) :
    factory(global.moment)
 }(this, (function (moment) { 'use strict';
@@ -23132,7 +23206,7 @@ module.exports = function (name) {
 
 /***/ }),
 
-/***/ 825:
+/***/ 828:
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -23141,7 +23215,7 @@ module.exports = function (name) {
 //! based on (hr) translation by Bojan Marković
 
 ;(function (global, factory) {
-    true ? factory(__webpack_require__(791)) :
+    true ? factory(__webpack_require__(794)) :
    typeof define === 'function' && define.amd ? define(['../moment'], factory) :
    factory(global.moment)
 }(this, (function (moment) { 'use strict';
@@ -23299,7 +23373,7 @@ module.exports = function (name) {
 
 /***/ }),
 
-/***/ 826:
+/***/ 829:
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -23307,7 +23381,7 @@ module.exports = function (name) {
 //! author : Juan G. Hurtado : https://github.com/juanghurtado
 
 ;(function (global, factory) {
-    true ? factory(__webpack_require__(791)) :
+    true ? factory(__webpack_require__(794)) :
    typeof define === 'function' && define.amd ? define(['../moment'], factory) :
    factory(global.moment)
 }(this, (function (moment) { 'use strict';
@@ -23416,7 +23490,7 @@ module.exports = function (name) {
 
 /***/ }),
 
-/***/ 827:
+/***/ 830:
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -23424,7 +23498,7 @@ module.exports = function (name) {
 //! author : petrbela : https://github.com/petrbela
 
 ;(function (global, factory) {
-    true ? factory(__webpack_require__(791)) :
+    true ? factory(__webpack_require__(794)) :
    typeof define === 'function' && define.amd ? define(['../moment'], factory) :
    factory(global.moment)
 }(this, (function (moment) { 'use strict';
@@ -23613,7 +23687,7 @@ module.exports = function (name) {
 
 /***/ }),
 
-/***/ 828:
+/***/ 831:
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -23621,7 +23695,7 @@ module.exports = function (name) {
 //! author : Anatoly Mironov : https://github.com/mirontoli
 
 ;(function (global, factory) {
-    true ? factory(__webpack_require__(791)) :
+    true ? factory(__webpack_require__(794)) :
    typeof define === 'function' && define.amd ? define(['../moment'], factory) :
    factory(global.moment)
 }(this, (function (moment) { 'use strict';
@@ -23693,7 +23767,7 @@ module.exports = function (name) {
 
 /***/ }),
 
-/***/ 829:
+/***/ 832:
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -23702,7 +23776,7 @@ module.exports = function (name) {
 //! author : https://github.com/ryangreaves
 
 ;(function (global, factory) {
-    true ? factory(__webpack_require__(791)) :
+    true ? factory(__webpack_require__(794)) :
    typeof define === 'function' && define.amd ? define(['../moment'], factory) :
    factory(global.moment)
 }(this, (function (moment) { 'use strict';
@@ -23808,7 +23882,7 @@ module.exports = function (name) {
 
 /***/ }),
 
-/***/ 830:
+/***/ 833:
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -23816,7 +23890,7 @@ module.exports = function (name) {
 //! author : Ulrik Nielsen : https://github.com/mrbase
 
 ;(function (global, factory) {
-    true ? factory(__webpack_require__(791)) :
+    true ? factory(__webpack_require__(794)) :
    typeof define === 'function' && define.amd ? define(['../moment'], factory) :
    factory(global.moment)
 }(this, (function (moment) { 'use strict';
@@ -23878,7 +23952,7 @@ module.exports = function (name) {
 
 /***/ }),
 
-/***/ 831:
+/***/ 834:
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -23889,7 +23963,7 @@ module.exports = function (name) {
 //! author : Mikolaj Dadela : https://github.com/mik01aj
 
 ;(function (global, factory) {
-    true ? factory(__webpack_require__(791)) :
+    true ? factory(__webpack_require__(794)) :
    typeof define === 'function' && define.amd ? define(['../moment'], factory) :
    factory(global.moment)
 }(this, (function (moment) { 'use strict';
@@ -23974,7 +24048,7 @@ module.exports = function (name) {
 
 /***/ }),
 
-/***/ 832:
+/***/ 835:
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -23982,7 +24056,7 @@ module.exports = function (name) {
 //! author : sschueller : https://github.com/sschueller
 
 ;(function (global, factory) {
-    true ? factory(__webpack_require__(791)) :
+    true ? factory(__webpack_require__(794)) :
    typeof define === 'function' && define.amd ? define(['../moment'], factory) :
    factory(global.moment)
 }(this, (function (moment) { 'use strict';
@@ -24067,7 +24141,7 @@ module.exports = function (name) {
 
 /***/ }),
 
-/***/ 833:
+/***/ 836:
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -24077,7 +24151,7 @@ module.exports = function (name) {
 //! author : Mikolaj Dadela : https://github.com/mik01aj
 
 ;(function (global, factory) {
-    true ? factory(__webpack_require__(791)) :
+    true ? factory(__webpack_require__(794)) :
    typeof define === 'function' && define.amd ? define(['../moment'], factory) :
    factory(global.moment)
 }(this, (function (moment) { 'use strict';
@@ -24162,7 +24236,7 @@ module.exports = function (name) {
 
 /***/ }),
 
-/***/ 834:
+/***/ 837:
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -24170,7 +24244,7 @@ module.exports = function (name) {
 //! author : Jawish Hameed : https://github.com/jawish
 
 ;(function (global, factory) {
-    true ? factory(__webpack_require__(791)) :
+    true ? factory(__webpack_require__(794)) :
    typeof define === 'function' && define.amd ? define(['../moment'], factory) :
    factory(global.moment)
 }(this, (function (moment) { 'use strict';
@@ -24269,7 +24343,7 @@ module.exports = function (name) {
 
 /***/ }),
 
-/***/ 835:
+/***/ 838:
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -24277,7 +24351,7 @@ module.exports = function (name) {
 //! author : Aggelos Karalias : https://github.com/mehiel
 
 ;(function (global, factory) {
-    true ? factory(__webpack_require__(791)) :
+    true ? factory(__webpack_require__(794)) :
    typeof define === 'function' && define.amd ? define(['../moment'], factory) :
    factory(global.moment)
 }(this, (function (moment) { 'use strict';
@@ -24392,7 +24466,7 @@ module.exports = function (name) {
 
 /***/ }),
 
-/***/ 836:
+/***/ 839:
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -24400,7 +24474,7 @@ module.exports = function (name) {
 //! author : Jared Morse : https://github.com/jarcoal
 
 ;(function (global, factory) {
-    true ? factory(__webpack_require__(791)) :
+    true ? factory(__webpack_require__(794)) :
    typeof define === 'function' && define.amd ? define(['../moment'], factory) :
    factory(global.moment)
 }(this, (function (moment) { 'use strict';
@@ -24477,7 +24551,7 @@ module.exports = function (name) {
 
 /***/ }),
 
-/***/ 837:
+/***/ 840:
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -24485,7 +24559,7 @@ module.exports = function (name) {
 //! author : Jonathan Abourbih : https://github.com/jonbca
 
 ;(function (global, factory) {
-    true ? factory(__webpack_require__(791)) :
+    true ? factory(__webpack_require__(794)) :
    typeof define === 'function' && define.amd ? define(['../moment'], factory) :
    factory(global.moment)
 }(this, (function (moment) { 'use strict';
@@ -24558,7 +24632,7 @@ module.exports = function (name) {
 
 /***/ }),
 
-/***/ 838:
+/***/ 841:
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -24566,7 +24640,7 @@ module.exports = function (name) {
 //! author : Chris Gedrim : https://github.com/chrisgedrim
 
 ;(function (global, factory) {
-    true ? factory(__webpack_require__(791)) :
+    true ? factory(__webpack_require__(794)) :
    typeof define === 'function' && define.amd ? define(['../moment'], factory) :
    factory(global.moment)
 }(this, (function (moment) { 'use strict';
@@ -24643,7 +24717,7 @@ module.exports = function (name) {
 
 /***/ }),
 
-/***/ 839:
+/***/ 842:
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -24651,7 +24725,7 @@ module.exports = function (name) {
 //! author : Chris Cartlidge : https://github.com/chriscartlidge
 
 ;(function (global, factory) {
-    true ? factory(__webpack_require__(791)) :
+    true ? factory(__webpack_require__(794)) :
    typeof define === 'function' && define.amd ? define(['../moment'], factory) :
    factory(global.moment)
 }(this, (function (moment) { 'use strict';
@@ -24728,7 +24802,7 @@ module.exports = function (name) {
 
 /***/ }),
 
-/***/ 840:
+/***/ 843:
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -24736,7 +24810,7 @@ module.exports = function (name) {
 //! author : Chris Gedrim : https://github.com/chrisgedrim
 
 ;(function (global, factory) {
-    true ? factory(__webpack_require__(791)) :
+    true ? factory(__webpack_require__(794)) :
    typeof define === 'function' && define.amd ? define(['../moment'], factory) :
    factory(global.moment)
 }(this, (function (moment) { 'use strict';
@@ -24809,7 +24883,7 @@ module.exports = function (name) {
 
 /***/ }),
 
-/***/ 841:
+/***/ 844:
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -24817,7 +24891,7 @@ module.exports = function (name) {
 //! author : Jatin Agrawal : https://github.com/jatinag22
 
 ;(function (global, factory) {
-    true ? factory(__webpack_require__(791)) :
+    true ? factory(__webpack_require__(794)) :
    typeof define === 'function' && define.amd ? define(['../moment'], factory) :
    factory(global.moment)
 }(this, (function (moment) { 'use strict';
@@ -24894,7 +24968,7 @@ module.exports = function (name) {
 
 /***/ }),
 
-/***/ 842:
+/***/ 845:
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -24902,7 +24976,7 @@ module.exports = function (name) {
 //! author : Luke McGregor : https://github.com/lukemcgregor
 
 ;(function (global, factory) {
-    true ? factory(__webpack_require__(791)) :
+    true ? factory(__webpack_require__(794)) :
    typeof define === 'function' && define.amd ? define(['../moment'], factory) :
    factory(global.moment)
 }(this, (function (moment) { 'use strict';
@@ -24979,7 +25053,7 @@ module.exports = function (name) {
 
 /***/ }),
 
-/***/ 843:
+/***/ 846:
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -24987,7 +25061,7 @@ module.exports = function (name) {
 //! author : Matthew Castrillon-Madrigal : https://github.com/techdimension
 
 ;(function (global, factory) {
-    true ? factory(__webpack_require__(791)) :
+    true ? factory(__webpack_require__(794)) :
    typeof define === 'function' && define.amd ? define(['../moment'], factory) :
    factory(global.moment)
 }(this, (function (moment) { 'use strict';
@@ -25064,7 +25138,7 @@ module.exports = function (name) {
 
 /***/ }),
 
-/***/ 844:
+/***/ 847:
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -25075,7 +25149,7 @@ module.exports = function (name) {
 //! comment : Vivakvo corrected the translation by colindean and miestasmia
 
 ;(function (global, factory) {
-    true ? factory(__webpack_require__(791)) :
+    true ? factory(__webpack_require__(794)) :
    typeof define === 'function' && define.amd ? define(['../moment'], factory) :
    factory(global.moment)
 }(this, (function (moment) { 'use strict';
@@ -25149,14 +25223,14 @@ module.exports = function (name) {
 
 /***/ }),
 
-/***/ 845:
+/***/ 848:
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
 //! locale : Spanish (Dominican Republic) [es-do]
 
 ;(function (global, factory) {
-    true ? factory(__webpack_require__(791)) :
+    true ? factory(__webpack_require__(794)) :
    typeof define === 'function' && define.amd ? define(['../moment'], factory) :
    factory(global.moment)
 }(this, (function (moment) { 'use strict';
@@ -25274,7 +25348,7 @@ module.exports = function (name) {
 
 /***/ }),
 
-/***/ 846:
+/***/ 849:
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -25282,7 +25356,7 @@ module.exports = function (name) {
 //! author : JC Franco : https://github.com/jcfranco
 
 ;(function (global, factory) {
-    true ? factory(__webpack_require__(791)) :
+    true ? factory(__webpack_require__(794)) :
    typeof define === 'function' && define.amd ? define(['../moment'], factory) :
    factory(global.moment)
 }(this, (function (moment) { 'use strict';
@@ -25401,7 +25475,7 @@ module.exports = function (name) {
 
 /***/ }),
 
-/***/ 847:
+/***/ 850:
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -25410,7 +25484,7 @@ module.exports = function (name) {
 //! author : chrisrodz : https://github.com/chrisrodz
 
 ;(function (global, factory) {
-    true ? factory(__webpack_require__(791)) :
+    true ? factory(__webpack_require__(794)) :
    typeof define === 'function' && define.amd ? define(['../moment'], factory) :
    factory(global.moment)
 }(this, (function (moment) { 'use strict';
@@ -25528,7 +25602,7 @@ module.exports = function (name) {
 
 /***/ }),
 
-/***/ 848:
+/***/ 851:
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -25536,7 +25610,7 @@ module.exports = function (name) {
 //! author : Julio Napurí : https://github.com/julionc
 
 ;(function (global, factory) {
-    true ? factory(__webpack_require__(791)) :
+    true ? factory(__webpack_require__(794)) :
    typeof define === 'function' && define.amd ? define(['../moment'], factory) :
    factory(global.moment)
 }(this, (function (moment) { 'use strict';
@@ -25655,7 +25729,7 @@ module.exports = function (name) {
 
 /***/ }),
 
-/***/ 849:
+/***/ 852:
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -25664,7 +25738,7 @@ module.exports = function (name) {
 //! improvements : Illimar Tambek : https://github.com/ragulka
 
 ;(function (global, factory) {
-    true ? factory(__webpack_require__(791)) :
+    true ? factory(__webpack_require__(794)) :
    typeof define === 'function' && define.amd ? define(['../moment'], factory) :
    factory(global.moment)
 }(this, (function (moment) { 'use strict';
@@ -25750,7 +25824,7 @@ module.exports = function (name) {
 
 /***/ }),
 
-/***/ 850:
+/***/ 853:
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -25758,7 +25832,7 @@ module.exports = function (name) {
 //! author : Eneko Illarramendi : https://github.com/eillarra
 
 ;(function (global, factory) {
-    true ? factory(__webpack_require__(791)) :
+    true ? factory(__webpack_require__(794)) :
    typeof define === 'function' && define.amd ? define(['../moment'], factory) :
    factory(global.moment)
 }(this, (function (moment) { 'use strict';
@@ -25832,7 +25906,7 @@ module.exports = function (name) {
 
 /***/ }),
 
-/***/ 851:
+/***/ 854:
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -25840,7 +25914,7 @@ module.exports = function (name) {
 //! author : Ebrahim Byagowi : https://github.com/ebraminio
 
 ;(function (global, factory) {
-    true ? factory(__webpack_require__(791)) :
+    true ? factory(__webpack_require__(794)) :
    typeof define === 'function' && define.amd ? define(['../moment'], factory) :
    factory(global.moment)
 }(this, (function (moment) { 'use strict';
@@ -25962,7 +26036,7 @@ module.exports = function (name) {
 
 /***/ }),
 
-/***/ 852:
+/***/ 855:
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -25970,7 +26044,7 @@ module.exports = function (name) {
 //! author : Tarmo Aidantausta : https://github.com/bleadof
 
 ;(function (global, factory) {
-    true ? factory(__webpack_require__(791)) :
+    true ? factory(__webpack_require__(794)) :
    typeof define === 'function' && define.amd ? define(['../moment'], factory) :
    factory(global.moment)
 }(this, (function (moment) { 'use strict';
@@ -26103,7 +26177,7 @@ module.exports = function (name) {
 
 /***/ }),
 
-/***/ 853:
+/***/ 856:
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -26112,7 +26186,7 @@ module.exports = function (name) {
 //! author : Matthew Co : https://github.com/matthewdeeco
 
 ;(function (global, factory) {
-    true ? factory(__webpack_require__(791)) :
+    true ? factory(__webpack_require__(794)) :
    typeof define === 'function' && define.amd ? define(['../moment'], factory) :
    factory(global.moment)
 }(this, (function (moment) { 'use strict';
@@ -26178,7 +26252,7 @@ module.exports = function (name) {
 
 /***/ }),
 
-/***/ 854:
+/***/ 857:
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -26187,7 +26261,7 @@ module.exports = function (name) {
 //! author : Kristian Sakarisson : https://github.com/sakarisson
 
 ;(function (global, factory) {
-    true ? factory(__webpack_require__(791)) :
+    true ? factory(__webpack_require__(794)) :
    typeof define === 'function' && define.amd ? define(['../moment'], factory) :
    factory(global.moment)
 }(this, (function (moment) { 'use strict';
@@ -26252,7 +26326,7 @@ module.exports = function (name) {
 
 /***/ }),
 
-/***/ 855:
+/***/ 858:
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -26260,7 +26334,7 @@ module.exports = function (name) {
 //! author : Jonathan Abourbih : https://github.com/jonbca
 
 ;(function (global, factory) {
-    true ? factory(__webpack_require__(791)) :
+    true ? factory(__webpack_require__(794)) :
    typeof define === 'function' && define.amd ? define(['../moment'], factory) :
    factory(global.moment)
 }(this, (function (moment) { 'use strict';
@@ -26339,7 +26413,7 @@ module.exports = function (name) {
 
 /***/ }),
 
-/***/ 856:
+/***/ 859:
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -26347,7 +26421,7 @@ module.exports = function (name) {
 //! author : Gaspard Bucher : https://github.com/gaspard
 
 ;(function (global, factory) {
-    true ? factory(__webpack_require__(791)) :
+    true ? factory(__webpack_require__(794)) :
    typeof define === 'function' && define.amd ? define(['../moment'], factory) :
    factory(global.moment)
 }(this, (function (moment) { 'use strict';
@@ -26430,7 +26504,7 @@ module.exports = function (name) {
 
 /***/ }),
 
-/***/ 857:
+/***/ 860:
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -26438,7 +26512,7 @@ module.exports = function (name) {
 //! author : John Fischer : https://github.com/jfroffice
 
 ;(function (global, factory) {
-    true ? factory(__webpack_require__(791)) :
+    true ? factory(__webpack_require__(794)) :
    typeof define === 'function' && define.amd ? define(['../moment'], factory) :
    factory(global.moment)
 }(this, (function (moment) { 'use strict';
@@ -26555,7 +26629,7 @@ module.exports = function (name) {
 
 /***/ }),
 
-/***/ 858:
+/***/ 861:
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -26563,7 +26637,7 @@ module.exports = function (name) {
 //! author : Robin van der Vliet : https://github.com/robin0van0der0v
 
 ;(function (global, factory) {
-    true ? factory(__webpack_require__(791)) :
+    true ? factory(__webpack_require__(794)) :
    typeof define === 'function' && define.amd ? define(['../moment'], factory) :
    factory(global.moment)
 }(this, (function (moment) { 'use strict';
@@ -26647,7 +26721,7 @@ module.exports = function (name) {
 
 /***/ }),
 
-/***/ 859:
+/***/ 862:
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -26655,7 +26729,7 @@ module.exports = function (name) {
 //! author : André Silva : https://github.com/askpt
 
 ;(function (global, factory) {
-    true ? factory(__webpack_require__(791)) :
+    true ? factory(__webpack_require__(794)) :
    typeof define === 'function' && define.amd ? define(['../moment'], factory) :
    factory(global.moment)
 }(this, (function (moment) { 'use strict';
@@ -26759,7 +26833,7 @@ module.exports = function (name) {
 
 /***/ }),
 
-/***/ 860:
+/***/ 863:
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -26767,7 +26841,7 @@ module.exports = function (name) {
 //! author : Jon Ashdown : https://github.com/jonashdown
 
 ;(function (global, factory) {
-    true ? factory(__webpack_require__(791)) :
+    true ? factory(__webpack_require__(794)) :
    typeof define === 'function' && define.amd ? define(['../moment'], factory) :
    factory(global.moment)
 }(this, (function (moment) { 'use strict';
@@ -26871,7 +26945,7 @@ module.exports = function (name) {
 
 /***/ }),
 
-/***/ 861:
+/***/ 864:
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -26879,7 +26953,7 @@ module.exports = function (name) {
 //! author : Juan G. Hurtado : https://github.com/juanghurtado
 
 ;(function (global, factory) {
-    true ? factory(__webpack_require__(791)) :
+    true ? factory(__webpack_require__(794)) :
    typeof define === 'function' && define.amd ? define(['../moment'], factory) :
    factory(global.moment)
 }(this, (function (moment) { 'use strict';
@@ -26963,7 +27037,7 @@ module.exports = function (name) {
 
 /***/ }),
 
-/***/ 862:
+/***/ 865:
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -26971,7 +27045,7 @@ module.exports = function (name) {
 //! author : The Discoverer : https://github.com/WikiDiscoverer
 
 ;(function (global, factory) {
-    true ? factory(__webpack_require__(791)) :
+    true ? factory(__webpack_require__(794)) :
    typeof define === 'function' && define.amd ? define(['../moment'], factory) :
    factory(global.moment)
 }(this, (function (moment) { 'use strict';
@@ -27106,7 +27180,7 @@ module.exports = function (name) {
 
 /***/ }),
 
-/***/ 863:
+/***/ 866:
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -27114,7 +27188,7 @@ module.exports = function (name) {
 //! author : The Discoverer : https://github.com/WikiDiscoverer
 
 ;(function (global, factory) {
-    true ? factory(__webpack_require__(791)) :
+    true ? factory(__webpack_require__(794)) :
    typeof define === 'function' && define.amd ? define(['../moment'], factory) :
    factory(global.moment)
 }(this, (function (moment) { 'use strict';
@@ -27247,7 +27321,7 @@ module.exports = function (name) {
 
 /***/ }),
 
-/***/ 864:
+/***/ 867:
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -27255,7 +27329,7 @@ module.exports = function (name) {
 //! author : Kaushik Thanki : https://github.com/Kaushik1987
 
 ;(function (global, factory) {
-    true ? factory(__webpack_require__(791)) :
+    true ? factory(__webpack_require__(794)) :
    typeof define === 'function' && define.amd ? define(['../moment'], factory) :
    factory(global.moment)
 }(this, (function (moment) { 'use strict';
@@ -27386,7 +27460,7 @@ module.exports = function (name) {
 
 /***/ }),
 
-/***/ 865:
+/***/ 868:
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -27396,7 +27470,7 @@ module.exports = function (name) {
 //! author : Tal Ater : https://github.com/TalAter
 
 ;(function (global, factory) {
-    true ? factory(__webpack_require__(791)) :
+    true ? factory(__webpack_require__(794)) :
    typeof define === 'function' && define.amd ? define(['../moment'], factory) :
    factory(global.moment)
 }(this, (function (moment) { 'use strict';
@@ -27497,7 +27571,7 @@ module.exports = function (name) {
 
 /***/ }),
 
-/***/ 866:
+/***/ 869:
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -27505,7 +27579,7 @@ module.exports = function (name) {
 //! author : Mayank Singhal : https://github.com/mayanksinghal
 
 ;(function (global, factory) {
-    true ? factory(__webpack_require__(791)) :
+    true ? factory(__webpack_require__(794)) :
    typeof define === 'function' && define.amd ? define(['../moment'], factory) :
    factory(global.moment)
 }(this, (function (moment) { 'use strict';
@@ -27682,7 +27756,7 @@ module.exports = function (name) {
 
 /***/ }),
 
-/***/ 867:
+/***/ 870:
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -27690,7 +27764,7 @@ module.exports = function (name) {
 //! author : Bojan Marković : https://github.com/bmarkovic
 
 ;(function (global, factory) {
-    true ? factory(__webpack_require__(791)) :
+    true ? factory(__webpack_require__(794)) :
    typeof define === 'function' && define.amd ? define(['../moment'], factory) :
    factory(global.moment)
 }(this, (function (moment) { 'use strict';
@@ -27855,7 +27929,7 @@ module.exports = function (name) {
 
 /***/ }),
 
-/***/ 868:
+/***/ 871:
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -27864,7 +27938,7 @@ module.exports = function (name) {
 //! author : Peter Viszt  : https://github.com/passatgt
 
 ;(function (global, factory) {
-    true ? factory(__webpack_require__(791)) :
+    true ? factory(__webpack_require__(794)) :
    typeof define === 'function' && define.amd ? define(['../moment'], factory) :
    factory(global.moment)
 }(this, (function (moment) { 'use strict';
@@ -27990,7 +28064,7 @@ module.exports = function (name) {
 
 /***/ }),
 
-/***/ 869:
+/***/ 872:
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -27998,7 +28072,7 @@ module.exports = function (name) {
 //! author : Armendarabyan : https://github.com/armendarabyan
 
 ;(function (global, factory) {
-    true ? factory(__webpack_require__(791)) :
+    true ? factory(__webpack_require__(794)) :
    typeof define === 'function' && define.amd ? define(['../moment'], factory) :
    factory(global.moment)
 }(this, (function (moment) { 'use strict';
@@ -28101,7 +28175,7 @@ module.exports = function (name) {
 
 /***/ }),
 
-/***/ 870:
+/***/ 873:
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -28110,7 +28184,7 @@ module.exports = function (name) {
 //! reference: http://id.wikisource.org/wiki/Pedoman_Umum_Ejaan_Bahasa_Indonesia_yang_Disempurnakan
 
 ;(function (global, factory) {
-    true ? factory(__webpack_require__(791)) :
+    true ? factory(__webpack_require__(794)) :
    typeof define === 'function' && define.amd ? define(['../moment'], factory) :
    factory(global.moment)
 }(this, (function (moment) { 'use strict';
@@ -28194,7 +28268,7 @@ module.exports = function (name) {
 
 /***/ }),
 
-/***/ 871:
+/***/ 874:
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -28202,7 +28276,7 @@ module.exports = function (name) {
 //! author : Hinrik Örn Sigurðsson : https://github.com/hinrik
 
 ;(function (global, factory) {
-    true ? factory(__webpack_require__(791)) :
+    true ? factory(__webpack_require__(794)) :
    typeof define === 'function' && define.amd ? define(['../moment'], factory) :
    factory(global.moment)
 }(this, (function (moment) { 'use strict';
@@ -28351,7 +28425,7 @@ module.exports = function (name) {
 
 /***/ }),
 
-/***/ 872:
+/***/ 875:
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -28359,7 +28433,7 @@ module.exports = function (name) {
 //! author : xfh : https://github.com/xfh
 
 ;(function (global, factory) {
-    true ? factory(__webpack_require__(791)) :
+    true ? factory(__webpack_require__(794)) :
    typeof define === 'function' && define.amd ? define(['../moment'], factory) :
    factory(global.moment)
 }(this, (function (moment) { 'use strict';
@@ -28432,7 +28506,7 @@ module.exports = function (name) {
 
 /***/ }),
 
-/***/ 873:
+/***/ 876:
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -28442,7 +28516,7 @@ module.exports = function (name) {
 //! author: Marco : https://github.com/Manfre98
 
 ;(function (global, factory) {
-    true ? factory(__webpack_require__(791)) :
+    true ? factory(__webpack_require__(794)) :
    typeof define === 'function' && define.amd ? define(['../moment'], factory) :
    factory(global.moment)
 }(this, (function (moment) { 'use strict';
@@ -28555,7 +28629,7 @@ module.exports = function (name) {
 
 /***/ }),
 
-/***/ 874:
+/***/ 877:
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -28563,7 +28637,7 @@ module.exports = function (name) {
 //! author : LI Long : https://github.com/baryon
 
 ;(function (global, factory) {
-    true ? factory(__webpack_require__(791)) :
+    true ? factory(__webpack_require__(794)) :
    typeof define === 'function' && define.amd ? define(['../moment'], factory) :
    factory(global.moment)
 }(this, (function (moment) { 'use strict';
@@ -28720,7 +28794,7 @@ module.exports = function (name) {
 
 /***/ }),
 
-/***/ 875:
+/***/ 878:
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -28729,7 +28803,7 @@ module.exports = function (name) {
 //! reference: http://jv.wikipedia.org/wiki/Basa_Jawa
 
 ;(function (global, factory) {
-    true ? factory(__webpack_require__(791)) :
+    true ? factory(__webpack_require__(794)) :
    typeof define === 'function' && define.amd ? define(['../moment'], factory) :
    factory(global.moment)
 }(this, (function (moment) { 'use strict';
@@ -28813,7 +28887,7 @@ module.exports = function (name) {
 
 /***/ }),
 
-/***/ 876:
+/***/ 879:
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -28821,7 +28895,7 @@ module.exports = function (name) {
 //! author : Irakli Janiashvili : https://github.com/IrakliJani
 
 ;(function (global, factory) {
-    true ? factory(__webpack_require__(791)) :
+    true ? factory(__webpack_require__(794)) :
    typeof define === 'function' && define.amd ? define(['../moment'], factory) :
    factory(global.moment)
 }(this, (function (moment) { 'use strict';
@@ -28922,7 +28996,7 @@ module.exports = function (name) {
 
 /***/ }),
 
-/***/ 877:
+/***/ 880:
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -28930,7 +29004,7 @@ module.exports = function (name) {
 //! authors : Nurlan Rakhimzhanov : https://github.com/nurlan
 
 ;(function (global, factory) {
-    true ? factory(__webpack_require__(791)) :
+    true ? factory(__webpack_require__(794)) :
    typeof define === 'function' && define.amd ? define(['../moment'], factory) :
    factory(global.moment)
 }(this, (function (moment) { 'use strict';
@@ -29021,7 +29095,7 @@ module.exports = function (name) {
 
 /***/ }),
 
-/***/ 878:
+/***/ 881:
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -29029,7 +29103,7 @@ module.exports = function (name) {
 //! author : Kruy Vanna : https://github.com/kruyvanna
 
 ;(function (global, factory) {
-    true ? factory(__webpack_require__(791)) :
+    true ? factory(__webpack_require__(794)) :
    typeof define === 'function' && define.amd ? define(['../moment'], factory) :
    factory(global.moment)
 }(this, (function (moment) { 'use strict';
@@ -29141,7 +29215,7 @@ module.exports = function (name) {
 
 /***/ }),
 
-/***/ 879:
+/***/ 882:
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -29149,7 +29223,7 @@ module.exports = function (name) {
 //! author : Rajeev Naik : https://github.com/rajeevnaikte
 
 ;(function (global, factory) {
-    true ? factory(__webpack_require__(791)) :
+    true ? factory(__webpack_require__(794)) :
    typeof define === 'function' && define.amd ? define(['../moment'], factory) :
    factory(global.moment)
 }(this, (function (moment) { 'use strict';
@@ -29282,7 +29356,7 @@ module.exports = function (name) {
 
 /***/ }),
 
-/***/ 880:
+/***/ 883:
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -29291,7 +29365,7 @@ module.exports = function (name) {
 //! author : Jeeeyul Lee <jeeeyul@gmail.com>
 
 ;(function (global, factory) {
-    true ? factory(__webpack_require__(791)) :
+    true ? factory(__webpack_require__(794)) :
    typeof define === 'function' && define.amd ? define(['../moment'], factory) :
    factory(global.moment)
 }(this, (function (moment) { 'use strict';
@@ -29374,7 +29448,7 @@ module.exports = function (name) {
 
 /***/ }),
 
-/***/ 881:
+/***/ 884:
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -29382,7 +29456,7 @@ module.exports = function (name) {
 //! author : Shahram Mebashar : https://github.com/ShahramMebashar
 
 ;(function (global, factory) {
-    true ? factory(__webpack_require__(791)) :
+    true ? factory(__webpack_require__(794)) :
    typeof define === 'function' && define.amd ? define(['../moment'], factory) :
    factory(global.moment)
 }(this, (function (moment) { 'use strict';
@@ -29509,7 +29583,7 @@ module.exports = function (name) {
 
 /***/ }),
 
-/***/ 882:
+/***/ 885:
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -29517,7 +29591,7 @@ module.exports = function (name) {
 //! author : Chyngyz Arystan uulu : https://github.com/chyngyz
 
 ;(function (global, factory) {
-    true ? factory(__webpack_require__(791)) :
+    true ? factory(__webpack_require__(794)) :
    typeof define === 'function' && define.amd ? define(['../moment'], factory) :
    factory(global.moment)
 }(this, (function (moment) { 'use strict';
@@ -29610,7 +29684,7 @@ module.exports = function (name) {
 
 /***/ }),
 
-/***/ 883:
+/***/ 886:
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -29619,7 +29693,7 @@ module.exports = function (name) {
 //! author : David Raison : https://github.com/kwisatz
 
 ;(function (global, factory) {
-    true ? factory(__webpack_require__(791)) :
+    true ? factory(__webpack_require__(794)) :
    typeof define === 'function' && define.amd ? define(['../moment'], factory) :
    factory(global.moment)
 }(this, (function (moment) { 'use strict';
@@ -29764,7 +29838,7 @@ module.exports = function (name) {
 
 /***/ }),
 
-/***/ 884:
+/***/ 887:
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -29772,7 +29846,7 @@ module.exports = function (name) {
 //! author : Ryan Hart : https://github.com/ryanhart2
 
 ;(function (global, factory) {
-    true ? factory(__webpack_require__(791)) :
+    true ? factory(__webpack_require__(794)) :
    typeof define === 'function' && define.amd ? define(['../moment'], factory) :
    factory(global.moment)
 }(this, (function (moment) { 'use strict';
@@ -29847,7 +29921,7 @@ module.exports = function (name) {
 
 /***/ }),
 
-/***/ 885:
+/***/ 888:
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -29855,7 +29929,7 @@ module.exports = function (name) {
 //! author : Mindaugas Mozūras : https://github.com/mmozuras
 
 ;(function (global, factory) {
-    true ? factory(__webpack_require__(791)) :
+    true ? factory(__webpack_require__(794)) :
    typeof define === 'function' && define.amd ? define(['../moment'], factory) :
    factory(global.moment)
 }(this, (function (moment) { 'use strict';
@@ -29989,7 +30063,7 @@ module.exports = function (name) {
 
 /***/ }),
 
-/***/ 886:
+/***/ 889:
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -29998,7 +30072,7 @@ module.exports = function (name) {
 //! author : Jānis Elmeris : https://github.com/JanisE
 
 ;(function (global, factory) {
-    true ? factory(__webpack_require__(791)) :
+    true ? factory(__webpack_require__(794)) :
    typeof define === 'function' && define.amd ? define(['../moment'], factory) :
    factory(global.moment)
 }(this, (function (moment) { 'use strict';
@@ -30100,7 +30174,7 @@ module.exports = function (name) {
 
 /***/ }),
 
-/***/ 887:
+/***/ 890:
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -30108,7 +30182,7 @@ module.exports = function (name) {
 //! author : Miodrag Nikač <miodrag@restartit.me> : https://github.com/miodragnikac
 
 ;(function (global, factory) {
-    true ? factory(__webpack_require__(791)) :
+    true ? factory(__webpack_require__(794)) :
    typeof define === 'function' && define.amd ? define(['../moment'], factory) :
    factory(global.moment)
 }(this, (function (moment) { 'use strict';
@@ -30234,7 +30308,7 @@ module.exports = function (name) {
 
 /***/ }),
 
-/***/ 888:
+/***/ 891:
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -30242,7 +30316,7 @@ module.exports = function (name) {
 //! author : John Corrigan <robbiecloset@gmail.com> : https://github.com/johnideal
 
 ;(function (global, factory) {
-    true ? factory(__webpack_require__(791)) :
+    true ? factory(__webpack_require__(794)) :
    typeof define === 'function' && define.amd ? define(['../moment'], factory) :
    factory(global.moment)
 }(this, (function (moment) { 'use strict';
@@ -30311,7 +30385,7 @@ module.exports = function (name) {
 
 /***/ }),
 
-/***/ 889:
+/***/ 892:
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -30320,7 +30394,7 @@ module.exports = function (name) {
 //! author : Sashko Todorov : https://github.com/bkyceh
 
 ;(function (global, factory) {
-    true ? factory(__webpack_require__(791)) :
+    true ? factory(__webpack_require__(794)) :
    typeof define === 'function' && define.amd ? define(['../moment'], factory) :
    factory(global.moment)
 }(this, (function (moment) { 'use strict';
@@ -30414,7 +30488,7 @@ module.exports = function (name) {
 
 /***/ }),
 
-/***/ 890:
+/***/ 893:
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -30422,7 +30496,7 @@ module.exports = function (name) {
 //! author : Floyd Pink : https://github.com/floydpink
 
 ;(function (global, factory) {
-    true ? factory(__webpack_require__(791)) :
+    true ? factory(__webpack_require__(794)) :
    typeof define === 'function' && define.amd ? define(['../moment'], factory) :
    factory(global.moment)
 }(this, (function (moment) { 'use strict';
@@ -30513,7 +30587,7 @@ module.exports = function (name) {
 
 /***/ }),
 
-/***/ 891:
+/***/ 894:
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -30521,7 +30595,7 @@ module.exports = function (name) {
 //! author : Javkhlantugs Nyamdorj : https://github.com/javkhaanj7
 
 ;(function (global, factory) {
-    true ? factory(__webpack_require__(791)) :
+    true ? factory(__webpack_require__(794)) :
    typeof define === 'function' && define.amd ? define(['../moment'], factory) :
    factory(global.moment)
 }(this, (function (moment) { 'use strict';
@@ -30630,7 +30704,7 @@ module.exports = function (name) {
 
 /***/ }),
 
-/***/ 892:
+/***/ 895:
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -30639,7 +30713,7 @@ module.exports = function (name) {
 //! author : Vivek Athalye : https://github.com/vnathalye
 
 ;(function (global, factory) {
-    true ? factory(__webpack_require__(791)) :
+    true ? factory(__webpack_require__(794)) :
    typeof define === 'function' && define.amd ? define(['../moment'], factory) :
    factory(global.moment)
 }(this, (function (moment) { 'use strict';
@@ -30850,7 +30924,7 @@ module.exports = function (name) {
 
 /***/ }),
 
-/***/ 893:
+/***/ 896:
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -30859,7 +30933,7 @@ module.exports = function (name) {
 //! author : Weldan Jamili : https://github.com/weldan
 
 ;(function (global, factory) {
-    true ? factory(__webpack_require__(791)) :
+    true ? factory(__webpack_require__(794)) :
    typeof define === 'function' && define.amd ? define(['../moment'], factory) :
    factory(global.moment)
 }(this, (function (moment) { 'use strict';
@@ -30943,7 +31017,7 @@ module.exports = function (name) {
 
 /***/ }),
 
-/***/ 894:
+/***/ 897:
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -30951,7 +31025,7 @@ module.exports = function (name) {
 //! author : Weldan Jamili : https://github.com/weldan
 
 ;(function (global, factory) {
-    true ? factory(__webpack_require__(791)) :
+    true ? factory(__webpack_require__(794)) :
    typeof define === 'function' && define.amd ? define(['../moment'], factory) :
    factory(global.moment)
 }(this, (function (moment) { 'use strict';
@@ -31035,7 +31109,7 @@ module.exports = function (name) {
 
 /***/ }),
 
-/***/ 895:
+/***/ 898:
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -31043,7 +31117,7 @@ module.exports = function (name) {
 //! author : Alessandro Maruccia : https://github.com/alesma
 
 ;(function (global, factory) {
-    true ? factory(__webpack_require__(791)) :
+    true ? factory(__webpack_require__(794)) :
    typeof define === 'function' && define.amd ? define(['../moment'], factory) :
    factory(global.moment)
 }(this, (function (moment) { 'use strict';
@@ -31108,7 +31182,7 @@ module.exports = function (name) {
 
 /***/ }),
 
-/***/ 896:
+/***/ 899:
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -31118,7 +31192,7 @@ module.exports = function (name) {
 //! author : Tin Aung Lin : https://github.com/thanyawzinmin
 
 ;(function (global, factory) {
-    true ? factory(__webpack_require__(791)) :
+    true ? factory(__webpack_require__(794)) :
    typeof define === 'function' && define.amd ? define(['../moment'], factory) :
    factory(global.moment)
 }(this, (function (moment) { 'use strict';
@@ -31216,7 +31290,7 @@ module.exports = function (name) {
 
 /***/ }),
 
-/***/ 897:
+/***/ 900:
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -31226,7 +31300,7 @@ module.exports = function (name) {
 //!           Stephen Ramthun : https://github.com/stephenramthun
 
 ;(function (global, factory) {
-    true ? factory(__webpack_require__(791)) :
+    true ? factory(__webpack_require__(794)) :
    typeof define === 'function' && define.amd ? define(['../moment'], factory) :
    factory(global.moment)
 }(this, (function (moment) { 'use strict';
@@ -31293,7 +31367,7 @@ module.exports = function (name) {
 
 /***/ }),
 
-/***/ 898:
+/***/ 901:
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -31301,7 +31375,7 @@ module.exports = function (name) {
 //! author : suvash : https://github.com/suvash
 
 ;(function (global, factory) {
-    true ? factory(__webpack_require__(791)) :
+    true ? factory(__webpack_require__(794)) :
    typeof define === 'function' && define.amd ? define(['../moment'], factory) :
    factory(global.moment)
 }(this, (function (moment) { 'use strict';
@@ -31431,7 +31505,7 @@ module.exports = function (name) {
 
 /***/ }),
 
-/***/ 899:
+/***/ 902:
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -31440,7 +31514,7 @@ module.exports = function (name) {
 //! author : Jacob Middag : https://github.com/middagj
 
 ;(function (global, factory) {
-    true ? factory(__webpack_require__(791)) :
+    true ? factory(__webpack_require__(794)) :
    typeof define === 'function' && define.amd ? define(['../moment'], factory) :
    factory(global.moment)
 }(this, (function (moment) { 'use strict';
@@ -31550,7 +31624,7 @@ module.exports = function (name) {
 
 /***/ }),
 
-/***/ 900:
+/***/ 903:
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -31559,7 +31633,7 @@ module.exports = function (name) {
 //! author : Jacob Middag : https://github.com/middagj
 
 ;(function (global, factory) {
-    true ? factory(__webpack_require__(791)) :
+    true ? factory(__webpack_require__(794)) :
    typeof define === 'function' && define.amd ? define(['../moment'], factory) :
    factory(global.moment)
 }(this, (function (moment) { 'use strict';
@@ -31671,7 +31745,7 @@ module.exports = function (name) {
 
 /***/ }),
 
-/***/ 901:
+/***/ 904:
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -31680,7 +31754,7 @@ module.exports = function (name) {
 //!           Stephen Ramthun : https://github.com/stephenramthun
 
 ;(function (global, factory) {
-    true ? factory(__webpack_require__(791)) :
+    true ? factory(__webpack_require__(794)) :
    typeof define === 'function' && define.amd ? define(['../moment'], factory) :
    factory(global.moment)
 }(this, (function (moment) { 'use strict';
@@ -31747,7 +31821,7 @@ module.exports = function (name) {
 
 /***/ }),
 
-/***/ 902:
+/***/ 905:
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -31755,7 +31829,7 @@ module.exports = function (name) {
 //! author : Quentin PAGÈS : https://github.com/Quenty31
 
 ;(function (global, factory) {
-    true ? factory(__webpack_require__(791)) :
+    true ? factory(__webpack_require__(794)) :
    typeof define === 'function' && define.amd ? define(['../moment'], factory) :
    factory(global.moment)
 }(this, (function (moment) { 'use strict';
@@ -31849,7 +31923,7 @@ module.exports = function (name) {
 
 /***/ }),
 
-/***/ 903:
+/***/ 906:
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -31857,7 +31931,7 @@ module.exports = function (name) {
 //! author : Harpreet Singh : https://github.com/harpreetkhalsagtbit
 
 ;(function (global, factory) {
-    true ? factory(__webpack_require__(791)) :
+    true ? factory(__webpack_require__(794)) :
    typeof define === 'function' && define.amd ? define(['../moment'], factory) :
    factory(global.moment)
 }(this, (function (moment) { 'use strict';
@@ -31988,7 +32062,7 @@ module.exports = function (name) {
 
 /***/ }),
 
-/***/ 904:
+/***/ 907:
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -31996,7 +32070,7 @@ module.exports = function (name) {
 //! author : Rafal Hirsz : https://github.com/evoL
 
 ;(function (global, factory) {
-    true ? factory(__webpack_require__(791)) :
+    true ? factory(__webpack_require__(794)) :
    typeof define === 'function' && define.amd ? define(['../moment'], factory) :
    factory(global.moment)
 }(this, (function (moment) { 'use strict';
@@ -32145,7 +32219,7 @@ module.exports = function (name) {
 
 /***/ }),
 
-/***/ 905:
+/***/ 908:
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -32153,7 +32227,7 @@ module.exports = function (name) {
 //! author : Caio Ribeiro Pereira : https://github.com/caio-ribeiro-pereira
 
 ;(function (global, factory) {
-    true ? factory(__webpack_require__(791)) :
+    true ? factory(__webpack_require__(794)) :
    typeof define === 'function' && define.amd ? define(['../moment'], factory) :
    factory(global.moment)
 }(this, (function (moment) { 'use strict';
@@ -32220,7 +32294,7 @@ module.exports = function (name) {
 
 /***/ }),
 
-/***/ 906:
+/***/ 909:
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -32228,7 +32302,7 @@ module.exports = function (name) {
 //! author : Jefferson : https://github.com/jalex79
 
 ;(function (global, factory) {
-    true ? factory(__webpack_require__(791)) :
+    true ? factory(__webpack_require__(794)) :
    typeof define === 'function' && define.amd ? define(['../moment'], factory) :
    factory(global.moment)
 }(this, (function (moment) { 'use strict';
@@ -32300,7 +32374,7 @@ module.exports = function (name) {
 
 /***/ }),
 
-/***/ 907:
+/***/ 910:
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -32310,7 +32384,7 @@ module.exports = function (name) {
 //! author : Emanuel Cepoi : https://github.com/cepem
 
 ;(function (global, factory) {
-    true ? factory(__webpack_require__(791)) :
+    true ? factory(__webpack_require__(794)) :
    typeof define === 'function' && define.amd ? define(['../moment'], factory) :
    factory(global.moment)
 }(this, (function (moment) { 'use strict';
@@ -32393,7 +32467,7 @@ module.exports = function (name) {
 
 /***/ }),
 
-/***/ 908:
+/***/ 911:
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -32403,7 +32477,7 @@ module.exports = function (name) {
 //! author : Коренберг Марк : https://github.com/socketpair
 
 ;(function (global, factory) {
-    true ? factory(__webpack_require__(791)) :
+    true ? factory(__webpack_require__(794)) :
    typeof define === 'function' && define.amd ? define(['../moment'], factory) :
    factory(global.moment)
 }(this, (function (moment) { 'use strict';
@@ -32623,7 +32697,7 @@ module.exports = function (name) {
 
 /***/ }),
 
-/***/ 909:
+/***/ 912:
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -32631,7 +32705,7 @@ module.exports = function (name) {
 //! author : Narain Sagar : https://github.com/narainsagar
 
 ;(function (global, factory) {
-    true ? factory(__webpack_require__(791)) :
+    true ? factory(__webpack_require__(794)) :
    typeof define === 'function' && define.amd ? define(['../moment'], factory) :
    factory(global.moment)
 }(this, (function (moment) { 'use strict';
@@ -32721,7 +32795,7 @@ module.exports = function (name) {
 
 /***/ }),
 
-/***/ 910:
+/***/ 913:
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -32729,7 +32803,7 @@ module.exports = function (name) {
 //! authors : Bård Rolstad Henriksen : https://github.com/karamell
 
 ;(function (global, factory) {
-    true ? factory(__webpack_require__(791)) :
+    true ? factory(__webpack_require__(794)) :
    typeof define === 'function' && define.amd ? define(['../moment'], factory) :
    factory(global.moment)
 }(this, (function (moment) { 'use strict';
@@ -32795,7 +32869,7 @@ module.exports = function (name) {
 
 /***/ }),
 
-/***/ 911:
+/***/ 914:
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -32803,7 +32877,7 @@ module.exports = function (name) {
 //! author : Sampath Sitinamaluwa : https://github.com/sampathsris
 
 ;(function (global, factory) {
-    true ? factory(__webpack_require__(791)) :
+    true ? factory(__webpack_require__(794)) :
    typeof define === 'function' && define.amd ? define(['../moment'], factory) :
    factory(global.moment)
 }(this, (function (moment) { 'use strict';
@@ -32881,7 +32955,7 @@ module.exports = function (name) {
 
 /***/ }),
 
-/***/ 912:
+/***/ 915:
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -32890,7 +32964,7 @@ module.exports = function (name) {
 //! based on work of petrbela : https://github.com/petrbela
 
 ;(function (global, factory) {
-    true ? factory(__webpack_require__(791)) :
+    true ? factory(__webpack_require__(794)) :
    typeof define === 'function' && define.amd ? define(['../moment'], factory) :
    factory(global.moment)
 }(this, (function (moment) { 'use strict';
@@ -33043,7 +33117,7 @@ module.exports = function (name) {
 
 /***/ }),
 
-/***/ 913:
+/***/ 916:
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -33051,7 +33125,7 @@ module.exports = function (name) {
 //! author : Robert Sedovšek : https://github.com/sedovsek
 
 ;(function (global, factory) {
-    true ? factory(__webpack_require__(791)) :
+    true ? factory(__webpack_require__(794)) :
    typeof define === 'function' && define.amd ? define(['../moment'], factory) :
    factory(global.moment)
 }(this, (function (moment) { 'use strict';
@@ -33231,7 +33305,7 @@ module.exports = function (name) {
 
 /***/ }),
 
-/***/ 914:
+/***/ 917:
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -33241,7 +33315,7 @@ module.exports = function (name) {
 //! author : Oerd Cukalla : https://github.com/oerd
 
 ;(function (global, factory) {
-    true ? factory(__webpack_require__(791)) :
+    true ? factory(__webpack_require__(794)) :
    typeof define === 'function' && define.amd ? define(['../moment'], factory) :
    factory(global.moment)
 }(this, (function (moment) { 'use strict';
@@ -33313,7 +33387,7 @@ module.exports = function (name) {
 
 /***/ }),
 
-/***/ 915:
+/***/ 918:
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -33322,7 +33396,7 @@ module.exports = function (name) {
 //! author : Stefan Crnjaković <stefan@hotmail.rs> : https://github.com/crnjakovic
 
 ;(function (global, factory) {
-    true ? factory(__webpack_require__(791)) :
+    true ? factory(__webpack_require__(794)) :
    typeof define === 'function' && define.amd ? define(['../moment'], factory) :
    factory(global.moment)
 }(this, (function (moment) { 'use strict';
@@ -33457,7 +33531,7 @@ module.exports = function (name) {
 
 /***/ }),
 
-/***/ 916:
+/***/ 919:
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -33466,7 +33540,7 @@ module.exports = function (name) {
 //! author : Stefan Crnjaković <stefan@hotmail.rs> : https://github.com/crnjakovic
 
 ;(function (global, factory) {
-    true ? factory(__webpack_require__(791)) :
+    true ? factory(__webpack_require__(794)) :
    typeof define === 'function' && define.amd ? define(['../moment'], factory) :
    factory(global.moment)
 }(this, (function (moment) { 'use strict';
@@ -33603,7 +33677,7 @@ module.exports = function (name) {
 
 /***/ }),
 
-/***/ 917:
+/***/ 920:
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -33611,7 +33685,7 @@ module.exports = function (name) {
 //! author : Nicolai Davies<mail@nicolai.io> : https://github.com/nicolaidavies
 
 ;(function (global, factory) {
-    true ? factory(__webpack_require__(791)) :
+    true ? factory(__webpack_require__(794)) :
    typeof define === 'function' && define.amd ? define(['../moment'], factory) :
    factory(global.moment)
 }(this, (function (moment) { 'use strict';
@@ -33704,7 +33778,7 @@ module.exports = function (name) {
 
 /***/ }),
 
-/***/ 918:
+/***/ 921:
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -33712,7 +33786,7 @@ module.exports = function (name) {
 //! author : Jens Alm : https://github.com/ulmus
 
 ;(function (global, factory) {
-    true ? factory(__webpack_require__(791)) :
+    true ? factory(__webpack_require__(794)) :
    typeof define === 'function' && define.amd ? define(['../moment'], factory) :
    factory(global.moment)
 }(this, (function (moment) { 'use strict';
@@ -33789,7 +33863,7 @@ module.exports = function (name) {
 
 /***/ }),
 
-/***/ 919:
+/***/ 922:
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -33797,7 +33871,7 @@ module.exports = function (name) {
 //! author : Fahad Kassim : https://github.com/fadsel
 
 ;(function (global, factory) {
-    true ? factory(__webpack_require__(791)) :
+    true ? factory(__webpack_require__(794)) :
    typeof define === 'function' && define.amd ? define(['../moment'], factory) :
    factory(global.moment)
 }(this, (function (moment) { 'use strict';
@@ -33861,7 +33935,7 @@ module.exports = function (name) {
 
 /***/ }),
 
-/***/ 920:
+/***/ 923:
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -33869,7 +33943,7 @@ module.exports = function (name) {
 //! author : Arjunkumar Krishnamoorthy : https://github.com/tk120404
 
 ;(function (global, factory) {
-    true ? factory(__webpack_require__(791)) :
+    true ? factory(__webpack_require__(794)) :
    typeof define === 'function' && define.amd ? define(['../moment'], factory) :
    factory(global.moment)
 }(this, (function (moment) { 'use strict';
@@ -34009,7 +34083,7 @@ module.exports = function (name) {
 
 /***/ }),
 
-/***/ 921:
+/***/ 924:
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -34017,7 +34091,7 @@ module.exports = function (name) {
 //! author : Krishna Chaitanya Thota : https://github.com/kcthota
 
 ;(function (global, factory) {
-    true ? factory(__webpack_require__(791)) :
+    true ? factory(__webpack_require__(794)) :
    typeof define === 'function' && define.amd ? define(['../moment'], factory) :
    factory(global.moment)
 }(this, (function (moment) { 'use strict';
@@ -34114,7 +34188,7 @@ module.exports = function (name) {
 
 /***/ }),
 
-/***/ 922:
+/***/ 925:
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -34124,7 +34198,7 @@ module.exports = function (name) {
 //! author : Sonia Simoes : https://github.com/soniasimoes
 
 ;(function (global, factory) {
-    true ? factory(__webpack_require__(791)) :
+    true ? factory(__webpack_require__(794)) :
    typeof define === 'function' && define.amd ? define(['../moment'], factory) :
    factory(global.moment)
 }(this, (function (moment) { 'use strict';
@@ -34199,7 +34273,7 @@ module.exports = function (name) {
 
 /***/ }),
 
-/***/ 923:
+/***/ 926:
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -34207,7 +34281,7 @@ module.exports = function (name) {
 //! author : Orif N. Jr. : https://github.com/orif-jr
 
 ;(function (global, factory) {
-    true ? factory(__webpack_require__(791)) :
+    true ? factory(__webpack_require__(794)) :
    typeof define === 'function' && define.amd ? define(['../moment'], factory) :
    factory(global.moment)
 }(this, (function (moment) { 'use strict';
@@ -34333,7 +34407,7 @@ module.exports = function (name) {
 
 /***/ }),
 
-/***/ 924:
+/***/ 927:
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -34341,7 +34415,7 @@ module.exports = function (name) {
 //! author : Kridsada Thanabulpong : https://github.com/sirn
 
 ;(function (global, factory) {
-    true ? factory(__webpack_require__(791)) :
+    true ? factory(__webpack_require__(794)) :
    typeof define === 'function' && define.amd ? define(['../moment'], factory) :
    factory(global.moment)
 }(this, (function (moment) { 'use strict';
@@ -34415,7 +34489,7 @@ module.exports = function (name) {
 
 /***/ }),
 
-/***/ 925:
+/***/ 928:
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -34423,7 +34497,7 @@ module.exports = function (name) {
 //! author : Atamyrat Abdyrahmanov : https://github.com/atamyratabdy
 
 ;(function (global, factory) {
-    true ? factory(__webpack_require__(791)) :
+    true ? factory(__webpack_require__(794)) :
    typeof define === 'function' && define.amd ? define(['../moment'], factory) :
    factory(global.moment)
 }(this, (function (moment) { 'use strict';
@@ -34523,7 +34597,7 @@ module.exports = function (name) {
 
 /***/ }),
 
-/***/ 926:
+/***/ 929:
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -34531,7 +34605,7 @@ module.exports = function (name) {
 //! author : Dan Hagman : https://github.com/hagmandan
 
 ;(function (global, factory) {
-    true ? factory(__webpack_require__(791)) :
+    true ? factory(__webpack_require__(794)) :
    typeof define === 'function' && define.amd ? define(['../moment'], factory) :
    factory(global.moment)
 }(this, (function (moment) { 'use strict';
@@ -34597,7 +34671,7 @@ module.exports = function (name) {
 
 /***/ }),
 
-/***/ 927:
+/***/ 930:
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -34605,7 +34679,7 @@ module.exports = function (name) {
 //! author : Dominika Kruk : https://github.com/amaranthrose
 
 ;(function (global, factory) {
-    true ? factory(__webpack_require__(791)) :
+    true ? factory(__webpack_require__(794)) :
    typeof define === 'function' && define.amd ? define(['../moment'], factory) :
    factory(global.moment)
 }(this, (function (moment) { 'use strict';
@@ -34738,7 +34812,7 @@ module.exports = function (name) {
 
 /***/ }),
 
-/***/ 928:
+/***/ 931:
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -34747,7 +34821,7 @@ module.exports = function (name) {
 //!           Burak Yiğit Kaya: https://github.com/BYK
 
 ;(function (global, factory) {
-    true ? factory(__webpack_require__(791)) :
+    true ? factory(__webpack_require__(794)) :
    typeof define === 'function' && define.amd ? define(['../moment'], factory) :
    factory(global.moment)
 }(this, (function (moment) { 'use strict';
@@ -34861,7 +34935,7 @@ module.exports = function (name) {
 
 /***/ }),
 
-/***/ 929:
+/***/ 932:
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -34870,7 +34944,7 @@ module.exports = function (name) {
 //! author : Iustì Canun
 
 ;(function (global, factory) {
-    true ? factory(__webpack_require__(791)) :
+    true ? factory(__webpack_require__(794)) :
    typeof define === 'function' && define.amd ? define(['../moment'], factory) :
    factory(global.moment)
 }(this, (function (moment) { 'use strict';
@@ -34967,7 +35041,7 @@ module.exports = function (name) {
 
 /***/ }),
 
-/***/ 930:
+/***/ 933:
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -34975,7 +35049,7 @@ module.exports = function (name) {
 //! author : Abdel Said : https://github.com/abdelsaid
 
 ;(function (global, factory) {
-    true ? factory(__webpack_require__(791)) :
+    true ? factory(__webpack_require__(794)) :
    typeof define === 'function' && define.amd ? define(['../moment'], factory) :
    factory(global.moment)
 }(this, (function (moment) { 'use strict';
@@ -35038,7 +35112,7 @@ module.exports = function (name) {
 
 /***/ }),
 
-/***/ 931:
+/***/ 934:
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -35046,7 +35120,7 @@ module.exports = function (name) {
 //! author : Abdel Said : https://github.com/abdelsaid
 
 ;(function (global, factory) {
-    true ? factory(__webpack_require__(791)) :
+    true ? factory(__webpack_require__(794)) :
    typeof define === 'function' && define.amd ? define(['../moment'], factory) :
    factory(global.moment)
 }(this, (function (moment) { 'use strict';
@@ -35109,7 +35183,7 @@ module.exports = function (name) {
 
 /***/ }),
 
-/***/ 932:
+/***/ 935:
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -35117,7 +35191,7 @@ module.exports = function (name) {
 //! author: boyaq : https://github.com/boyaq
 
 ;(function (global, factory) {
-    true ? factory(__webpack_require__(791)) :
+    true ? factory(__webpack_require__(794)) :
    typeof define === 'function' && define.amd ? define(['../moment'], factory) :
    factory(global.moment)
 }(this, (function (moment) { 'use strict';
@@ -35237,7 +35311,7 @@ module.exports = function (name) {
 
 /***/ }),
 
-/***/ 933:
+/***/ 936:
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -35246,7 +35320,7 @@ module.exports = function (name) {
 //! Author : Menelion Elensúle : https://github.com/Oire
 
 ;(function (global, factory) {
-    true ? factory(__webpack_require__(791)) :
+    true ? factory(__webpack_require__(794)) :
    typeof define === 'function' && define.amd ? define(['../moment'], factory) :
    factory(global.moment)
 }(this, (function (moment) { 'use strict';
@@ -35421,7 +35495,7 @@ module.exports = function (name) {
 
 /***/ }),
 
-/***/ 934:
+/***/ 937:
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -35430,7 +35504,7 @@ module.exports = function (name) {
 //! author : Zack : https://github.com/ZackVision
 
 ;(function (global, factory) {
-    true ? factory(__webpack_require__(791)) :
+    true ? factory(__webpack_require__(794)) :
    typeof define === 'function' && define.amd ? define(['../moment'], factory) :
    factory(global.moment)
 }(this, (function (moment) { 'use strict';
@@ -35520,7 +35594,7 @@ module.exports = function (name) {
 
 /***/ }),
 
-/***/ 935:
+/***/ 938:
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -35528,7 +35602,7 @@ module.exports = function (name) {
 //! author : Rasulbek Mirzayev : github.com/Rasulbeeek
 
 ;(function (global, factory) {
-    true ? factory(__webpack_require__(791)) :
+    true ? factory(__webpack_require__(794)) :
    typeof define === 'function' && define.amd ? define(['../moment'], factory) :
    factory(global.moment)
 }(this, (function (moment) { 'use strict';
@@ -35591,7 +35665,7 @@ module.exports = function (name) {
 
 /***/ }),
 
-/***/ 936:
+/***/ 939:
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -35599,7 +35673,7 @@ module.exports = function (name) {
 //! author : Sardor Muminov : https://github.com/muminoff
 
 ;(function (global, factory) {
-    true ? factory(__webpack_require__(791)) :
+    true ? factory(__webpack_require__(794)) :
    typeof define === 'function' && define.amd ? define(['../moment'], factory) :
    factory(global.moment)
 }(this, (function (moment) { 'use strict';
@@ -35659,7 +35733,7 @@ module.exports = function (name) {
 
 /***/ }),
 
-/***/ 937:
+/***/ 940:
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -35668,7 +35742,7 @@ module.exports = function (name) {
 //! author : Chien Kira : https://github.com/chienkira
 
 ;(function (global, factory) {
-    true ? factory(__webpack_require__(791)) :
+    true ? factory(__webpack_require__(794)) :
    typeof define === 'function' && define.amd ? define(['../moment'], factory) :
    factory(global.moment)
 }(this, (function (moment) { 'use strict';
@@ -35756,7 +35830,7 @@ module.exports = function (name) {
 
 /***/ }),
 
-/***/ 938:
+/***/ 941:
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -35764,7 +35838,7 @@ module.exports = function (name) {
 //! author : Andrew Hood : https://github.com/andrewhood125
 
 ;(function (global, factory) {
-    true ? factory(__webpack_require__(791)) :
+    true ? factory(__webpack_require__(794)) :
    typeof define === 'function' && define.amd ? define(['../moment'], factory) :
    factory(global.moment)
 }(this, (function (moment) { 'use strict';
@@ -35846,7 +35920,7 @@ module.exports = function (name) {
 
 /***/ }),
 
-/***/ 939:
+/***/ 942:
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -35854,7 +35928,7 @@ module.exports = function (name) {
 //! author : Atolagbe Abisoye : https://github.com/andela-batolagbe
 
 ;(function (global, factory) {
-    true ? factory(__webpack_require__(791)) :
+    true ? factory(__webpack_require__(794)) :
    typeof define === 'function' && define.amd ? define(['../moment'], factory) :
    factory(global.moment)
 }(this, (function (moment) { 'use strict';
@@ -35916,7 +35990,7 @@ module.exports = function (name) {
 
 /***/ }),
 
-/***/ 940:
+/***/ 943:
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -35926,7 +36000,7 @@ module.exports = function (name) {
 //! author : uu109 : https://github.com/uu109
 
 ;(function (global, factory) {
-    true ? factory(__webpack_require__(791)) :
+    true ? factory(__webpack_require__(794)) :
    typeof define === 'function' && define.amd ? define(['../moment'], factory) :
    factory(global.moment)
 }(this, (function (moment) { 'use strict';
@@ -36053,7 +36127,7 @@ module.exports = function (name) {
 
 /***/ }),
 
-/***/ 941:
+/***/ 944:
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -36064,7 +36138,7 @@ module.exports = function (name) {
 //! author : Anthony : https://github.com/anthonylau
 
 ;(function (global, factory) {
-    true ? factory(__webpack_require__(791)) :
+    true ? factory(__webpack_require__(794)) :
    typeof define === 'function' && define.amd ? define(['../moment'], factory) :
    factory(global.moment)
 }(this, (function (moment) { 'use strict';
@@ -36171,7 +36245,7 @@ module.exports = function (name) {
 
 /***/ }),
 
-/***/ 942:
+/***/ 945:
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -36181,7 +36255,7 @@ module.exports = function (name) {
 //! author : Tan Yuanhong : https://github.com/le0tan
 
 ;(function (global, factory) {
-    true ? factory(__webpack_require__(791)) :
+    true ? factory(__webpack_require__(794)) :
    typeof define === 'function' && define.amd ? define(['../moment'], factory) :
    factory(global.moment)
 }(this, (function (moment) { 'use strict';
@@ -36288,7 +36362,7 @@ module.exports = function (name) {
 
 /***/ }),
 
-/***/ 943:
+/***/ 946:
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -36297,7 +36371,7 @@ module.exports = function (name) {
 //! author : Chris Lam : https://github.com/hehachris
 
 ;(function (global, factory) {
-    true ? factory(__webpack_require__(791)) :
+    true ? factory(__webpack_require__(794)) :
    typeof define === 'function' && define.amd ? define(['../moment'], factory) :
    factory(global.moment)
 }(this, (function (moment) { 'use strict';
@@ -36404,10 +36478,10 @@ module.exports = function (name) {
 
 /***/ }),
 
-/***/ 944:
+/***/ 947:
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(945);
+__webpack_require__(948);
 var $Object = __webpack_require__(20).Object;
 module.exports = function defineProperty(it, key, desc) {
   return $Object.defineProperty(it, key, desc);
@@ -36416,7 +36490,7 @@ module.exports = function defineProperty(it, key, desc) {
 
 /***/ }),
 
-/***/ 945:
+/***/ 948:
 /***/ (function(module, exports, __webpack_require__) {
 
 var $export = __webpack_require__(32);
@@ -36426,7 +36500,7 @@ $export($export.S + $export.F * !__webpack_require__(44), 'Object', { defineProp
 
 /***/ }),
 
-/***/ 946:
+/***/ 949:
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(53)();
@@ -36434,14 +36508,14 @@ exports = module.exports = __webpack_require__(53)();
 
 
 // module
-exports.push([module.i, "\n#file-manager[data-v-497df3b6] {\n    padding: 0;\n}\n#file-manager___BV_modal_body_[data-v-497df3b6] {\n    padding: 0;\n}\n#fm-container-dialog[data-v-497df3b6] {\n    padding: 0;\n    overflow: hidden !important;\n}\n#fm-container[data-v-497df3b6] {\n    font-size: 12px;\n    font-family: sans-serif;\n    padding: 0\n}\n#fm-toolbar ul[data-v-497df3b6] {\n    float: left;\n    margin: 3.5px 0 3px 10px;\n    padding: 1px 2px;\n    border-radius: 0\n}\n#fm-toolbar ul li[data-v-497df3b6] {\n        border: 1px solid #fff;\n        cursor: pointer;\n        float: left;\n        line-height: 26px;\n        list-style-type: none;\n        padding: 0 8px;\n        text-align: center;\n}\n#fm-toolbar ul li[data-v-497df3b6]:hover {\n            background: #eaeaea;\n}\n#fm-toolbar ul li.active[data-v-497df3b6] {\n            background: #eaeaea;\n}\n#fm-container[data-v-497df3b6] {\n}\n#fm-toolbar[data-v-497df3b6] {\n}\n#fm-footer[data-v-497df3b6] {\n    border-top: 1px solid #eaeaea;\n    padding-top: 10px\n}\n#fm-toolbar .tool-items[data-v-497df3b6] {\n    clear: both;\n    padding-right: 6px;\n}\n#fm-toolbar .tools[data-v-497df3b6] {\n    float: left;\n}\n#fm-main[data-v-497df3b6] {\n    margin-top: 8px;\n    border-top: 1px solid #eaeaea;\n}\n#fm-sidebar .fm-header[data-v-497df3b6] {\n    height: 35px;\n    line-height: 35px;\n    background-color: #39c;\n    overflow: hidden;\n    font-size: 17px;\n    color: #ecf3f9;\n    text-align: center;\n}\n#fm-sidebar[data-v-497df3b6] {\n    border-right: 1px solid #eaeaea\n}\n#fm-content[data-v-497df3b6] {\n    background-color: white;\n    cursor: default; /*z-index: 0; box-shadow: 0 2px 4px rgba(0,0,0,0.04), 0 1px 4px rgba(0,0,0,0.12);*/\n    height: 100%;\n}\n#fm-data-wrapper[data-v-497df3b6] {\n    overflow: hidden;\n}\n#fm-file-view[data-v-497df3b6] {\n    border-left: 1px solid #eaeaea;\n    float: right;\n    height: 100%;\n    width: 250px;\n    padding: 9px;\n    background: #fff;\n}\n#fm-file-view .file-thumb[data-v-497df3b6] {\n        text-align: center;\n        max-height: 250px;\n        max-width: 230px;\n        overflow: hidden;\n}\n#fm-file-view .header[data-v-497df3b6] {\n        font-weight: bold;\n        margin-bottom: 12px;\n        padding: 2px 0;\n        text-align: center;\n        text-transform: uppercase;\n}\n#fm-file-view .details[data-v-497df3b6] {\n        padding-top: 16px;\n}\n#fm-file-view .details div[data-v-497df3b6] {\n            line-height: 21px;\n}\n#fm-file-view .details .uploaded[data-v-497df3b6],\n        #fm-file-view .details .file-size[data-v-497df3b6],\n        #fm-file-view .details .dimensions[data-v-497df3b6] {\n            line-height: 21px;\n}\n#fm-file-view .file-thumb img[data-v-497df3b6] {\n        border: 1px solid #eaeaea;\n        padding: 4px; /*max-height: 220px; max-width: 228px;*/\n}\n.attachment-info .filename[data-v-497df3b6] {\n    font-weight: 600;\n    color: #444;\n    word-wrap: break-word;\n}\n.btn-attack[data-v-497df3b6] {\n    background: #fff none repeat scroll 0 0;\n    padding: 3px 3px 3px 0;\n    width: 230px;\n    float: right;\n    clear: both;\n}\n.btn-attack button#btn-attack[data-v-497df3b6] {\n        color: #fff;\n        background: #0085ba;\n        border: 0;\n        padding: 4px 6px;\n}\n.btn-attack button#dl-close[data-v-497df3b6] {\n        background: #eaeaea;\n        border: 0;\n        padding: 4px 6px;\n        float: right;\n        clear: both;\n}\n#fm-content table._list[data-v-497df3b6] {\n    width: 100%;\n}\n#fm-content table._list tr[data-v-497df3b6] {\n}\n#fm-content table._list tr th[data-v-497df3b6] {\n            text-align: center;\n            font-weight: bold;\n}\n#fm-content table._list tr td[data-v-497df3b6] {\n            padding: 5px 4px;\n}\n#fm-content table._list tr._active[data-v-497df3b6] {\n            background: #48adff;\n}\n#fm-toolbar ul li i[data-v-497df3b6] {\n    background-repeat: no-repeat;\n    display: inline-block;\n    height: 16px;\n    vertical-align: middle;\n    width: 16px;\n}\n#fm-toolbar ul li i[data-v-497df3b6] {\n}\nli i.create-folder[data-v-497df3b6] {\n    background-image: url(" + __webpack_require__(1002) + ");\n}\nli i.upload[data-v-497df3b6] {\n    background-image: url(" + __webpack_require__(1004) + ");\n}\nli i.list[data-v-497df3b6] {\n    background-image: url(" + __webpack_require__(999) + ");\n}\nli i.grid[data-v-497df3b6] {\n    background-image: url(" + __webpack_require__(998) + ");\n}\nli i.iclose[data-v-497df3b6] {\n    background-image: url(" + __webpack_require__(1003) + ");\n}\nli i.crop[data-v-497df3b6] {\n    background-image: url(" + __webpack_require__(1001) + ");\n}\nli i.remove[data-v-497df3b6] {\n    background-image: url(" + __webpack_require__(1000) + ");\n}\nli i.close[data-v-497df3b6]:hover {\n}\n#fm-footer[data-v-497df3b6] {\n    min-height: 32px;\n}\n#fm-data-wrapper[data-v-497df3b6] {\n    height: 100%;\n}\n.clear[data-v-497df3b6] {\n    clear: both;\n}\n#_list ._active[data-v-497df3b6] {\n    background: #48adff;\n}\n#fm-content[data-v-497df3b6] {\n}\n#fm-content table._list table thead tr th[data-v-497df3b6] {\n        text-align: center;\n}\n#fm-content table._list tr[data-v-497df3b6] {\n        font-size: 11px;\n}\n#fm-content table._list tr[data-v-497df3b6]:hover {\n            background: #c1edff;\n            cursor: pointer;\n}\n#fm-content table._list tr td[data-v-497df3b6] {\n}\n#fm-content table._list tbody tr td.name[data-v-497df3b6] {\n        display: inline-flex;\n}\n#fm-content table._list tbody tr td.name .list-icon[data-v-497df3b6] {\n            display: inline-block;\n            float: left;\n            padding-right: 20px;\n}\n/* #fm-content table._list tbody tr td.name .png, #fm-content table tbody tr td.name .jpg, #fm-content table tbody tr td.name .jpeg, #fm-content table tbody tr td.name .gif,\n#fm-content table._list tbody tr td.name .bmp { background: url(/CMS/Modules/FileManager/Libs/Images/filetree/picture.png) no-repeat; width: 16px; height: 16px; }\n#fm-content table._list tbody tr td.name .doc, #fm-content table tbody tr td.name .docx { background: url(/CMS/Modules/FileManager/Libs/Images/filetree/doc.png) no-repeat; width: 16px; height: 16px; }\n#fm-content table._list tbody tr td.name .xlsx, #fm-content table tbody tr td.name .xls { background: url(/CMS/Modules/FileManager/Libs/Images/filetree/xls.png) no-repeat; width: 16px; height: 16px; }\n#fm-content table._list tbody tr td.name .zip, #fm-content table tbody tr td.name .rar { background: url(/CMS/Modules/FileManager/Libs/Images/filetree/zip.png) no-repeat; width: 16px; height: 16px; }\n#fm-content table._list tbody tr td.name .txt { background: url(/CMS/Modules/FileManager/Libs/Images/filetree/txt.png) no-repeat; width: 16px; height: 16px; }\n#fm-content table._list tbody tr td.name .pdf { background: url(/CMS/Modules/FileManager/Libs/Images/filetree/pdf.png) no-repeat; width: 16px; height: 16px; }\n#fm-content table._list tbody tr td.name { width: 274px; display: inline-block; overflow: hidden; }\n#fm-content table._list tbody tr td.name .fname { display: inline-flex; }\n#fm-content table._list tbody tr td.type, #fm-content table tbody tr td.size, #fm-content table tbody tr td.dimensions, #fm-content table tbody tr td.date { overflow: hidden; width: 98px; }\n#fm-content table._list tbody tr td.size { width: 70px; }\n#fm-content table._list tbody tr td.dimensions { width: 80px; }\n#fm-content table._list tbody tr td.date { width: 115px; } */\n#fm-grid[data-v-497df3b6], #fm-folder ul[data-v-497df3b6], #fm-grid li .info p[data-v-497df3b6] {\n    padding: 0;\n    margin: 0;\n}\n#fm-grid li[data-v-497df3b6] {\n        position: relative;\n        vertical-align: middle;\n        display: table-cell;\n        border: 1px solid #eaeaea;\n        cursor: pointer;\n        float: left;\n        height: 100px;\n        min-width: 114px;\n        list-style-type: none;\n        margin: 4px;\n        padding: 2px;\n        width: 15.78%;\n        position: relative;\n        overflow: hidden;\n        text-align: center;\n}\n#fm-grid li .info[data-v-497df3b6] {\n            font-size: 10px;\n            background: rgba(109,105,105,0.45882);\n            position: absolute;\n            bottom: 0;\n            width: 100%;\n            height: 0\n}\n#fm-grid li:hover .info[data-v-497df3b6] {\n            height: auto\n}\n.fm-list li img[data-v-497df3b6] {\n    width: 100%\n}\n.fm-list li.not_img img[data-v-497df3b6] {\n    width: 50%;\n    padding-top: 10px\n}\n#fm-grid li img.thumb[data-v-497df3b6] {\n    width: 60%;\n    margin: 0 auto;\n}\n#fm-grid li i[data-v-497df3b6] {\n    position: absolute;\n    z-index: 999;\n    right: 4px;\n    background: #fff;\n    border-radius: 11px;\n    color: #0085ba;\n    padding: 1px;\n    top: 3px;\n    display: none;\n}\n#fm-grid li._active i[data-v-497df3b6] {\n    display: block;\n}\n#fm-grid li._active[data-v-497df3b6] {\n    border: 1px solid #0085ba;\n}\n#fm-folder ul li[data-v-497df3b6] {\n    list-style-type: none;\n    padding: 8px 0;\n    cursor: pointer\n}\n#fm-folder ul li i[data-v-497df3b6] {\n        background-repeat: no-repeat;\n        display: inline-block;\n        height: 16px;\n        vertical-align: middle;\n        width: 16px;\n}\n.plupload_filelist_header[data-v-497df3b6] {\n    height: 20px;\n}\n.plupload_filelist_footer[data-v-497df3b6] {\n    padding: 6px 20px;\n    height: 33px;\n}\n.plupload_scroll .plupload_filelist[data-v-497df3b6] {\n    height: 172px !important;\n}\n.plupload_filelist_footer[data-v-497df3b6] {\n    padding: 6px 20px;\n}\n.plupload_filelist[data-v-497df3b6]:empty,\n.plupload_filelist li.plupload_droptext[data-v-497df3b6] {\n    height: 140px;\n}\n.plupload_filelist[data-v-497df3b6]:empty::before,\n    .plupload_filelist li.plupload_droptext[data-v-497df3b6]::before {\n        font-size: 52px;\n        height: 75px;\n        left: 49%;\n        margin-left: -40px;\n        padding-top: 43px;\n}\n.items-action[data-v-497df3b6] {\n    padding-top: 20px;\n    display: inline-block;\n    width: 100%;\n}\n.items-action .file-action[data-v-497df3b6] {\n        border: 0 none;\n        color: #fff;\n        padding: 4px 10px;\n}\n.items-action .file-action[data-v-497df3b6] {\n        background: rosybrown;\n        float: left;\n        clear: both;\n}\n/*.items-action .file-action:last-child { background: #0085ba;float: right;}*/\n#fm-toolbar .Mi.ipagination a[data-v-497df3b6]:first-child {\n    border: 0;\n    border-radius: 0;\n}\n#fm-toolbar .Mi.ipagination input[data-v-497df3b6] {\n    border: medium none;\n    float: left;\n    font-family: arial;\n    font-size: 11px;\n    height: 30px;\n    margin: 0;\n    outline: medium none;\n    padding: 0;\n    text-align: center;\n    vertical-align: middle;\n    width: 84px;\n}\n#fm-toolbar .Mi.ipagination a[data-v-497df3b6] {\n    border: 0;\n    border-radius: 0;\n    background: #fff;\n}\n#fm-toolbar .ipagination.iweb[data-v-497df3b6] {\n    margin-top: 3.45px;\n}\n#frowInTotals[data-v-497df3b6] {\n    display: inline-block;\n    float: left;\n    line-height: 39px;\n    padding-right: 3px;\n    vertical-align: baseline;\n}\nlabel#progressall[data-v-497df3b6] {\n    display: none;\n    padding: 7px 7px;\n}\n.Cdiv[data-v-497df3b6] {\n    padding-left: 12px;\n    height: 17px;\n    overflow: hidden;\n    text-overflow: ellipsis;\n    white-space: nowrap;\n    width: 100%;\n    display: inline-block;\n    font-weight: normal;\n}\n#btn-fm-upload label[data-v-497df3b6] {\n    margin-bottom: 0 !important;\n}\n/* Extra small devices (phones, 600px and down) */\n@media only screen and (max-width: 600px) {\n#fm-grid li[data-v-497df3b6] {\n        width: 47.65%;\n}\n}\n\n/* Small devices (portrait tablets and large phones, 600px and up) */\n@media only screen and (min-width: 600px) {\n}\n\n/* Medium devices (landscape tablets, 768px and up) */\n@media only screen and (min-width: 768px) {\n}\n\n/* Large devices (laptops/desktops, 992px and up) */\n@media only screen and (min-width: 992px) {\n}\n\n/* Extra large devices (large laptops and desktops, 1200px and up) */\n@media only screen and (min-width: 1200px) {\n}\n", "", {"version":3,"sources":["C:/WORKING/Joytime/dotnet-platform-backend/Web/Platform/CMS/PlatformCMS/ClientApp/components/fileManager/list.vue?b8c85d56"],"names":[],"mappings":";AAgYA;IACA,WAAA;CACA;AAEA;IACA,WAAA;CACA;AAEA;IACA,WAAA;IACA,4BAAA;CACA;AAEA;IACA,gBAAA;IACA,wBAAA;IACA,UAAA;CACA;AAEA;IACA,YAAA;IACA,yBAAA;IACA,iBAAA;IACA,gBAAA;CACA;AAEA;QACA,uBAAA;QACA,gBAAA;QACA,YAAA;QACA,kBAAA;QACA,sBAAA;QACA,eAAA;QACA,mBAAA;CACA;AAEA;YACA,oBAAA;CACA;AAEA;YACA,oBAAA;CACA;AAEA;CACA;AAEA;CACA;AAEA;IACA,8BAAA;IACA,iBAAA;CACA;AAEA;IACA,YAAA;IACA,mBAAA;CACA;AAEA;IACA,YAAA;CACA;AAEA;IACA,gBAAA;IACA,8BAAA;CACA;AAEA;IACA,aAAA;IACA,kBAAA;IACA,uBAAA;IACA,iBAAA;IACA,gBAAA;IACA,eAAA;IACA,mBAAA;CACA;AAEA;IACA,+BAAA;CACA;AAEA;IACA,wBAAA;IACA,gBAAA,CAAA,mFAAA;IACA,aAAA;CACA;AAEA;IACA,iBAAA;CACA;AAEA;IACA,+BAAA;IACA,aAAA;IACA,aAAA;IACA,aAAA;IACA,aAAA;IACA,iBAAA;CACA;AAEA;QACA,mBAAA;QACA,kBAAA;QACA,iBAAA;QACA,iBAAA;CACA;AAEA;QACA,kBAAA;QACA,oBAAA;QACA,eAAA;QACA,mBAAA;QACA,0BAAA;CACA;AAEA;QACA,kBAAA;CACA;AAEA;YACA,kBAAA;CACA;AAEA;;;YAGA,kBAAA;CACA;AAEA;QACA,0BAAA;QACA,aAAA,CAAA,wCAAA;CACA;AAEA;IACA,iBAAA;IACA,YAAA;IACA,sBAAA;CACA;AAEA;IACA,wCAAA;IACA,uBAAA;IACA,aAAA;IACA,aAAA;IACA,YAAA;CACA;AAEA;QACA,YAAA;QACA,oBAAA;QACA,UAAA;QACA,iBAAA;CACA;AAEA;QACA,oBAAA;QACA,UAAA;QACA,iBAAA;QACA,aAAA;QACA,YAAA;CACA;AAEA;IACA,YAAA;CACA;AAEA;CACA;AAEA;YACA,mBAAA;YACA,kBAAA;CACA;AAEA;YACA,iBAAA;CACA;AAEA;YACA,oBAAA;CACA;AAEA;IACA,6BAAA;IACA,sBAAA;IACA,aAAA;IACA,uBAAA;IACA,YAAA;CACA;AAEA;CACA;AAEA;IACA,gDAAA;CACA;AAEA;IACA,gDAAA;CACA;AAEA;IACA,gDAAA;CACA;AAEA;IACA,gDAAA;CACA;AAEA;IACA,gDAAA;CACA;AAEA;IACA,gDAAA;CACA;AAEA;IACA,gDAAA;CACA;AAEA;CACA;AAEA;IACA,iBAAA;CACA;AAEA;IACA,aAAA;CACA;AAEA;IACA,YAAA;CACA;AAEA;IACA,oBAAA;CACA;AAEA;CACA;AAEA;QACA,mBAAA;CACA;AAEA;QACA,gBAAA;CACA;AAEA;YACA,oBAAA;YACA,gBAAA;CACA;AAEA;CACA;AAEA;QACA,qBAAA;CACA;AAEA;YACA,sBAAA;YACA,YAAA;YACA,oBAAA;CACA;AACA;;;;;;;;;;;;6DAYA;AAEA;IACA,WAAA;IACA,UAAA;CACA;AAEA;QACA,mBAAA;QACA,uBAAA;QACA,oBAAA;QACA,0BAAA;QACA,gBAAA;QACA,YAAA;QACA,cAAA;QACA,iBAAA;QACA,sBAAA;QACA,YAAA;QACA,aAAA;QACA,cAAA;QACA,mBAAA;QACA,iBAAA;QACA,mBAAA;CACA;AAEA;YACA,gBAAA;YACA,sCAAA;YACA,mBAAA;YACA,UAAA;YACA,YAAA;YACA,SAAA;CACA;AAEA;YACA,YAAA;CACA;AAEA;IACA,WAAA;CACA;AAEA;IACA,WAAA;IACA,iBAAA;CACA;AAEA;IACA,WAAA;IACA,eAAA;CACA;AAEA;IACA,mBAAA;IACA,aAAA;IACA,WAAA;IACA,iBAAA;IACA,oBAAA;IACA,eAAA;IACA,aAAA;IACA,SAAA;IACA,cAAA;CACA;AAEA;IACA,eAAA;CACA;AAEA;IACA,0BAAA;CACA;AAEA;IACA,sBAAA;IACA,eAAA;IACA,eAAA;CACA;AAEA;QACA,6BAAA;QACA,sBAAA;QACA,aAAA;QACA,uBAAA;QACA,YAAA;CACA;AAEA;IACA,aAAA;CACA;AAEA;IACA,kBAAA;IACA,aAAA;CACA;AAEA;IACA,yBAAA;CACA;AAEA;IACA,kBAAA;CACA;AAEA;;IAEA,cAAA;CACA;AAEA;;QAEA,gBAAA;QACA,aAAA;QACA,UAAA;QACA,mBAAA;QACA,kBAAA;CACA;AAEA;IACA,kBAAA;IACA,sBAAA;IACA,YAAA;CACA;AAEA;QACA,eAAA;QACA,YAAA;QACA,kBAAA;CACA;AAEA;QACA,sBAAA;QACA,YAAA;QACA,YAAA;CACA;AACA,8EAAA;AACA;IACA,UAAA;IACA,iBAAA;CACA;AAEA;IACA,oBAAA;IACA,YAAA;IACA,mBAAA;IACA,gBAAA;IACA,aAAA;IACA,UAAA;IACA,qBAAA;IACA,WAAA;IACA,mBAAA;IACA,uBAAA;IACA,YAAA;CACA;AAEA;IACA,UAAA;IACA,iBAAA;IACA,iBAAA;CACA;AAEA;IACA,mBAAA;CACA;AAEA;IACA,sBAAA;IACA,YAAA;IACA,kBAAA;IACA,mBAAA;IACA,yBAAA;CACA;AAEA;IACA,cAAA;IACA,iBAAA;CACA;AAEA;IACA,mBAAA;IACA,aAAA;IACA,iBAAA;IACA,wBAAA;IACA,oBAAA;IACA,YAAA;IACA,sBAAA;IACA,oBAAA;CACA;AAEA;IACA,4BAAA;CACA;AACA,kDAAA;AAEA;AACA;QACA,cAAA;CACA;CACA;;AAEA,qEAAA;AAEA;CACA;;AAEA,sDAAA;AAEA;CACA;;AAEA,oDAAA;AAEA;CACA;;AAEA,qEAAA;AAEA;CACA","file":"list.vue","sourcesContent":["<template>\r\n    <div class=\"file-manager\">\r\n        <loading :active.sync=\"isLoading\"\r\n                 :height=\"35\"\r\n                 :width=\"35\"\r\n                 :color=\"color\"\r\n                 :is-full-page=\"fullPage\"></loading>\r\n        <b-modal ref=\"file-manager-modal\" id=\"file-manager\" fbody=\"xxx\" hide-footer hide-header size=\"xl\">\r\n            <div id=\"fm-container\" class=\"container-fluid\">\r\n                <b-row id=\"fm-toolbar\">\r\n                    <b-col lg=\"2\" md=\"2\" sm=\"12\">\r\n                        <b>Thư viện</b>\r\n                    </b-col>\r\n                    <b-col>\r\n                        <b-row align-h=\"between\">\r\n                            <b-col cols=\"4\">\r\n                                <div class=\"tool-items\">\r\n                                    <ul class=\"tools\">\r\n                                        <li title=\"Create folder\">\r\n                                            <i class=\"create-folder\"></i>\r\n                                        </li>\r\n                                    </ul>\r\n                                    <ul class=\"tools\">\r\n                                        <li title=\"Remove\" @click=\"removeFile\">\r\n                                            <i class=\"remove\"></i>\r\n                                        </li>\r\n\r\n                                    </ul>\r\n                                    <div class=\"tools\">\r\n                                        <input v-model=\"keyword\" v-on:keyup.enter=\"LoadFile()\" class=\"form-control\" placeholder=\"Gõ tên ảnh ấn enter\" />\r\n                                    </div>\r\n                                </div>\r\n                            </b-col>\r\n                            <b-col cols=\"4\" class=\"bd-0\">\r\n                                <b-pagination v-model=\"currentPage\" align=\"right\" size=\"sm\" :limit=\"4\"\r\n                                              :total-rows=\"files.totals\"\r\n                                              :per-page=\"pageSize\"></b-pagination>\r\n                            </b-col>\r\n                            <b-col cols=\"4\">\r\n                                <div class=\"tool-items float-right\">\r\n\r\n                                    <ul class=\"tools\">\r\n                                        <li title=\"Create folder\">\r\n                                            <i class=\"create-folder\"></i>\r\n                                        </li>\r\n                                        <li title=\"Upload\" id=\"btn-fm-upload\">\r\n                                            <label for=\"fileSingleupload\">\r\n                                                <i class=\"upload\"></i>\r\n                                            </label>\r\n                                            <input accept=\"image/*,.doc,.docx,.pdf,.xls,.xlsx,.zip,.rar\" @change=\"DoUploadFile\" id=\"fileSingleupload\"\r\n                                                   multiple\r\n                                                   type=\"file\"\r\n                                                   name=\"files[]\"\r\n                                                   style=\"display: none\" />\r\n                                        </li>\r\n                                    </ul>\r\n                                    <ul class=\"tools\">\r\n                                        <li title=\"List view\">\r\n                                            <i class=\"list\"></i>\r\n                                        </li>\r\n                                        <li title=\"Grid View\">\r\n                                            <i class=\"grid\"></i>\r\n                                        </li>\r\n                                    </ul>\r\n                                </div>\r\n                            </b-col>\r\n                        </b-row>\r\n\r\n                    </b-col>\r\n\r\n                </b-row>\r\n                <b-row id=\"fm-main\">\r\n                    <b-col id=\"fm-sidebar\" lg=\"2\" md=\"2\" sm=\"12\">\r\n                        <div id=\"fm-folder\">\r\n                            <ul>\r\n                                <li><i class=\"create-folder\"></i> Document</li>\r\n                                <li><i class=\"create-folder\"></i> Image</li>\r\n                                <li><i class=\"create-folder\"></i> Icon</li>\r\n                            </ul>\r\n                        </div>\r\n                    </b-col>\r\n                    <b-col id=\"fm-content\" lg=\"10\" dm=\"2\" sm=\"12\">\r\n                        <div id=\"fm-data-wrapper\">\r\n                            <div class=\"fm-list-wrapper\">\r\n                                <div class=\"fm-list\">\r\n                                    <ul id=\"fm-grid\">\r\n                                        <li v-for=\"file in files.files\" :key=\"file.id\" class=\"item\" :class=\"{ _active: isActive, not_img:checkImage(file.fileExt)}\" @click=\"SelectFile($event,{path:file.filePath,id:file.id})\">\r\n                                            <img :src=\"mapImageUrl(file.filePath,file.fileExt)\" alt=\"\">\r\n                                            <i class=\"fa fa-check\"></i>\r\n                                            <div class=\"info\">\r\n                                                <p class=\"name\">{{file.name}}</p>\r\n                                                <p class=\"dimensions\">{{file.dimensions}}</p>\r\n                                                <p class=\"size\">{{file.fileSize}}kb</p>\r\n                                            </div>\r\n                                        </li>\r\n                                    </ul>\r\n                                </div>\r\n                            </div>\r\n                        </div>\r\n\r\n                    </b-col>\r\n                </b-row>\r\n                <b-row align-h=\"end\" id=\"fm-footer\">\r\n                    <b-col cols=\"4\">\r\n                        <div class=\"btn-attack\">\r\n                            <button type=\"button\" id=\"btn-attack\" @click=\"attackFile\">Đính kèm</button>\r\n                            <!--<button type=\"button\" id=\"btn-attack\" @click=\"attackFileSelected\">Đính kèm2</button>-->\r\n                            <button type=\"button\" id=\"dl-close\" @click=\"hideFileManagerModal\" class=\"iclose\">Đóng</button>\r\n                        </div>\r\n                    </b-col>\r\n                </b-row>\r\n            </div>\r\n        </b-modal>\r\n    </div>\r\n</template>\r\n\r\n<script>\r\n    import \"vue-loading-overlay/dist/vue-loading.css\";\r\n    import msgNotify from \"./../../common/constant\";\r\n    import { mapActions } from \"vuex\";\r\n    import Loading from \"vue-loading-overlay\";\r\n    import EventBus from \"./../../common/eventBus\";\r\n    import { search } from \"core-js/fn/symbol\";\r\n    import { data } from \"jquery\";\r\n\r\n\r\n    export default {\r\n        name: \"FileManager\",\r\n        props: {\r\n            miKey: {\r\n                type: String\r\n            }\r\n        },\r\n        components: {\r\n            Loading\r\n        },\r\n        data() {\r\n            return {\r\n                isLoading: false,\r\n                fullPage: false,\r\n                color: \"#007bff\",\r\n                isLoadLang: false,\r\n                //  perPage: 10,\r\n                currentPage: 1,\r\n                pageSize: 30,\r\n                isLoading: false,\r\n                MaxFileSize: 3000,//Kb\r\n                selectedFile: [],\r\n                extensions: [],\r\n                extImage: [],\r\n                isActive: false,\r\n                selectType: '',\r\n                keyword: '',\r\n\r\n            };\r\n        },\r\n        created() {\r\n            let config = require('./../../../appsettings.json');\r\n            this.extImage = config.AppSettings.ImageAllowUpload;\r\n            this.extensions = config.AppSettings.ImageAllowUpload.concat(config.AppSettings.DocumentAllowUpload);\r\n\r\n            EventBus.$on(this.miKey, this.FileManagerOpen);\r\n        },\r\n        destroyed() {\r\n\r\n        },\r\n        computed: {\r\n            files() {\r\n                return this.$store.getters.files\r\n            }\r\n        },\r\n        methods: {\r\n            ...mapActions([\"fmFileUpload\", \"fmFileGetAll\", \"fmRemove\"]),\r\n            mapImageUrl(img, ext) {\r\n                if (this.extImage.indexOf(ext.toLowerCase()) !== -1) {\r\n                    return '/uploads/thumb' + img;\r\n                }\r\n                return './../../ClientApp/assets/fileicons/' + ext.replace('.', '') + '.png';\r\n            },\r\n            checkImage(ext) {\r\n                //debugger\r\n                if (this.extImage.indexOf(ext) == -1) {\r\n                    return true\r\n                }\r\n                return false\r\n            },\r\n            DoUploadFile(e) {\r\n                debugger\r\n                let files = e.srcElement.files;\r\n\r\n                if (files) {\r\n                    let filesTemp = Array.from(files);\r\n\r\n                    let msgFileAllow = '';\r\n                    let msgLimitedSize = '';\r\n                    for (var i = 0; i < filesTemp.length; i++) {\r\n\r\n                        let name = filesTemp[i].name;\r\n                        let type = name.split('.').pop().toLowerCase();\r\n\r\n                        if (this.extensions.indexOf(type) == -1) {\r\n                            filesTemp.splice(i, 1); // xóa khỏi array\r\n                            if (msgFileAllow.length == 0) {\r\n                                msgFileAllow = name;\r\n                            } else {\r\n                                msgFileAllow += ', ' + name;\r\n                            }\r\n                        }\r\n                        if (msgFileAllow.length > 0) {\r\n                            this.$toast.error(msgFileAllow + ' không hợp lệ !', {});\r\n                        }\r\n                    }\r\n                    for (var i = 0; i < filesTemp.length; i++) {\r\n                        let size = filesTemp[i].size;\r\n                        let name = filesTemp[i].name;\r\n\r\n\r\n                        if (this.MaxFileSize < (size / 1024)) {\r\n                            filesTemp.splice(i, 1);\r\n                            if (msgLimitedSize.length == 0) {\r\n                                msgLimitedSize = name;\r\n                            } else {\r\n                                msgLimitedSize += ', ' + name;\r\n                            }\r\n                        }\r\n                        if (msgLimitedSize.length > 0) {\r\n                            this.$toast.error(msgFileAllow + ' dung lượng quá lớn !', {});\r\n                        }\r\n                    }\r\n                    if (filesTemp.length) {\r\n                        let fd = new FormData();\r\n\r\n                        filesTemp.forEach(function (item) {\r\n                            fd.append('files', item);\r\n                        });\r\n                        this.UploadFileAction(fd);\r\n                    }\r\n\r\n                }\r\n\r\n            },\r\n            UploadFileAction(files) {\r\n                \r\n                this.fmFileUpload(files)\r\n                    .then(response => {\r\n                        if (response.success) {\r\n                            debugger\r\n                            console.log(response.data);\r\n                            var objtoast = this.$toast;\r\n                            response.data.forEach(function (item) {\r\n                                if (item.code == 200) {\r\n                                    objtoast.success(item.messages, {});\r\n                                } else {\r\n                                    objtoast.error(item.messages, {});\r\n                                }\r\n                            })\r\n                            //response.data.forEach(function () {\r\n\r\n                            //    this.$toast.success(response.message, {});\r\n                            //});\r\n                            //this.$toast.success(response.message, {});\r\n                            this.LoadFile();\r\n\r\n                            this.isLoading = false;\r\n                        }\r\n                        else {\r\n                            \r\n                            this.$toast.error(response.message, {});\r\n                            this.isLoading = false;\r\n                        }\r\n                    })\r\n                    .catch(e => {\r\n                        debugger\r\n                        this.$toast.error(msgNotify.error + \". Error:\" + e, {});\r\n                        this.isLoading = false;\r\n                    });\r\n\r\n\r\n            },\r\n            SelectFile(event, file) {\r\n                if (this.selectType == 'multi') {\r\n                    if (event.currentTarget.classList.contains('_active')) {\r\n                        event.currentTarget.classList.remove('_active');\r\n\r\n                        // let objIsExist = this.selectedFile.some(obj => obj.id = file.id);\r\n                        // if (objIsExist) {\r\n                        this.selectedFile = this.selectedFile.filter(obj => obj.id != file.id)\r\n                        // }\r\n                    }\r\n                    else {\r\n                        event.currentTarget.classList.add(\"_active\");\r\n                        this.selectedFile.push(file)\r\n                    }\r\n                } else {\r\n\r\n                    this.selectedFile = [];\r\n                    if (event.currentTarget.classList.contains('_active')) {\r\n                        event.currentTarget.classList.remove('_active');\r\n\r\n                    }\r\n                    else {\r\n                        let items = document.querySelectorAll('.item');\r\n                        items.forEach(function (item) {\r\n                            item.classList.remove('_active');\r\n                        });\r\n                        event.currentTarget.classList.add(\"_active\");\r\n                        this.selectedFile.push(file)\r\n                    }\r\n                }\r\n            },\r\n            LoadFile() {\r\n                this.fmFileGetAll({\r\n                    keyword: this.keyword,\r\n                    pageIndex: this.currentPage,\r\n                    pageSize: this.pageSize\r\n                });\r\n            }\r\n\r\n            ,\r\n            FileManagerOpen(param) {\r\n                this.selectType = param;\r\n                this.$refs[\"file-manager-modal\"].show();\r\n                this.LoadFile();\r\n            },\r\n\r\n            hideFileManagerModal() {\r\n                this.$refs[\"file-manager-modal\"].hide();\r\n            },\r\n            attackFile() {\r\n                // EventBus.$emit(\"FileSelected\", this.selectedFile);\r\n                this.$emit(\"handleAttackFile\", this.selectedFile);\r\n                this.$refs[\"file-manager-modal\"].hide();\r\n                this.selectedFile = [];\r\n            },\r\n\r\n            toggleFileModal() {\r\n                // We pass the ID of the button that we want to return focus to\r\n                // when the modal has hidden\r\n                this.$refs[\"file-manager-modal\"].toggle(\"#toggle-btn\");\r\n            },\r\n            removeFile() {\r\n                var result = confirm(\"Xác nhận?\");\r\n                if (!result) {\r\n                    return false;\r\n                }\r\n\r\n                let $this = this;\r\n                this.selectedFile.forEach(function (item) {\r\n                    $this.fmRemove(item.id)\r\n                        .then(response => {\r\n                            if (response.success) {\r\n                                \r\n                                $this.LoadFile();\r\n                                $this.$toast.success(response.message, {});\r\n                                $this.isLoading = false;\r\n                            }\r\n                            else {\r\n                                \r\n                                $this.$toast.error(response.message, {});\r\n                                $this.isLoading = false;\r\n                            }\r\n                        })\r\n                        .catch(e => {\r\n                            \r\n                            $this.$toast.error(msgNotify.error + \". Error:\" + e, {});\r\n                            $this.isLoading = false;\r\n                        });\r\n                });\r\n\r\n\r\n\r\n            }\r\n        },\r\n        mounted() {\r\n            //   this.fmFileGetAll();\r\n        },\r\n        watch: {\r\n            currentPage() {\r\n                this.LoadFile();\r\n            }\r\n        }\r\n    };\r\n</script>\r\n<style scoped>\r\n    #file-manager {\r\n        padding: 0;\r\n    }\r\n\r\n    #file-manager___BV_modal_body_ {\r\n        padding: 0;\r\n    }\r\n\r\n    #fm-container-dialog {\r\n        padding: 0;\r\n        overflow: hidden !important;\r\n    }\r\n\r\n    #fm-container {\r\n        font-size: 12px;\r\n        font-family: sans-serif;\r\n        padding: 0\r\n    }\r\n\r\n    #fm-toolbar ul {\r\n        float: left;\r\n        margin: 3.5px 0 3px 10px;\r\n        padding: 1px 2px;\r\n        border-radius: 0\r\n    }\r\n\r\n        #fm-toolbar ul li {\r\n            border: 1px solid #fff;\r\n            cursor: pointer;\r\n            float: left;\r\n            line-height: 26px;\r\n            list-style-type: none;\r\n            padding: 0 8px;\r\n            text-align: center;\r\n        }\r\n\r\n            #fm-toolbar ul li:hover {\r\n                background: #eaeaea;\r\n            }\r\n\r\n            #fm-toolbar ul li.active {\r\n                background: #eaeaea;\r\n            }\r\n\r\n    #fm-container {\r\n    }\r\n\r\n    #fm-toolbar {\r\n    }\r\n\r\n    #fm-footer {\r\n        border-top: 1px solid #eaeaea;\r\n        padding-top: 10px\r\n    }\r\n\r\n    #fm-toolbar .tool-items {\r\n        clear: both;\r\n        padding-right: 6px;\r\n    }\r\n\r\n    #fm-toolbar .tools {\r\n        float: left;\r\n    }\r\n\r\n    #fm-main {\r\n        margin-top: 8px;\r\n        border-top: 1px solid #eaeaea;\r\n    }\r\n\r\n    #fm-sidebar .fm-header {\r\n        height: 35px;\r\n        line-height: 35px;\r\n        background-color: #39c;\r\n        overflow: hidden;\r\n        font-size: 17px;\r\n        color: #ecf3f9;\r\n        text-align: center;\r\n    }\r\n\r\n    #fm-sidebar {\r\n        border-right: 1px solid #eaeaea\r\n    }\r\n\r\n    #fm-content {\r\n        background-color: white;\r\n        cursor: default; /*z-index: 0; box-shadow: 0 2px 4px rgba(0,0,0,0.04), 0 1px 4px rgba(0,0,0,0.12);*/\r\n        height: 100%;\r\n    }\r\n\r\n    #fm-data-wrapper {\r\n        overflow: hidden;\r\n    }\r\n\r\n    #fm-file-view {\r\n        border-left: 1px solid #eaeaea;\r\n        float: right;\r\n        height: 100%;\r\n        width: 250px;\r\n        padding: 9px;\r\n        background: #fff;\r\n    }\r\n\r\n        #fm-file-view .file-thumb {\r\n            text-align: center;\r\n            max-height: 250px;\r\n            max-width: 230px;\r\n            overflow: hidden;\r\n        }\r\n\r\n        #fm-file-view .header {\r\n            font-weight: bold;\r\n            margin-bottom: 12px;\r\n            padding: 2px 0;\r\n            text-align: center;\r\n            text-transform: uppercase;\r\n        }\r\n\r\n        #fm-file-view .details {\r\n            padding-top: 16px;\r\n        }\r\n\r\n            #fm-file-view .details div {\r\n                line-height: 21px;\r\n            }\r\n\r\n            #fm-file-view .details .uploaded,\r\n            #fm-file-view .details .file-size,\r\n            #fm-file-view .details .dimensions {\r\n                line-height: 21px;\r\n            }\r\n\r\n        #fm-file-view .file-thumb img {\r\n            border: 1px solid #eaeaea;\r\n            padding: 4px; /*max-height: 220px; max-width: 228px;*/\r\n        }\r\n\r\n    .attachment-info .filename {\r\n        font-weight: 600;\r\n        color: #444;\r\n        word-wrap: break-word;\r\n    }\r\n\r\n    .btn-attack {\r\n        background: #fff none repeat scroll 0 0;\r\n        padding: 3px 3px 3px 0;\r\n        width: 230px;\r\n        float: right;\r\n        clear: both;\r\n    }\r\n\r\n        .btn-attack button#btn-attack {\r\n            color: #fff;\r\n            background: #0085ba;\r\n            border: 0;\r\n            padding: 4px 6px;\r\n        }\r\n\r\n        .btn-attack button#dl-close {\r\n            background: #eaeaea;\r\n            border: 0;\r\n            padding: 4px 6px;\r\n            float: right;\r\n            clear: both;\r\n        }\r\n\r\n    #fm-content table._list {\r\n        width: 100%;\r\n    }\r\n\r\n        #fm-content table._list tr {\r\n        }\r\n\r\n            #fm-content table._list tr th {\r\n                text-align: center;\r\n                font-weight: bold;\r\n            }\r\n\r\n            #fm-content table._list tr td {\r\n                padding: 5px 4px;\r\n            }\r\n\r\n            #fm-content table._list tr._active {\r\n                background: #48adff;\r\n            }\r\n\r\n    #fm-toolbar ul li i {\r\n        background-repeat: no-repeat;\r\n        display: inline-block;\r\n        height: 16px;\r\n        vertical-align: middle;\r\n        width: 16px;\r\n    }\r\n\r\n    #fm-toolbar ul li i {\r\n    }\r\n\r\n    li i.create-folder {\r\n        background-image: url(./../../assets/img/icon/folder_add.png);\r\n    }\r\n\r\n    li i.upload {\r\n        background-image: url(\"./../../assets/img/icon/upload.png\");\r\n    }\r\n\r\n    li i.list {\r\n        background-image: url(\"./../../assets/img/icon/application_view_list.png\");\r\n    }\r\n\r\n    li i.grid {\r\n        background-image: url(\"./../../assets/img/icon/application_view_icons.png\");\r\n    }\r\n\r\n    li i.iclose {\r\n        background-image: url(\"./../../assets/img/icon/reset.png\");\r\n    }\r\n\r\n    li i.crop {\r\n        background-image: url(\"./../../assets/img/icon/crop.png\");\r\n    }\r\n\r\n    li i.remove {\r\n        background-image: url(\"./../../assets/img/icon/bin_closed.png\");\r\n    }\r\n\r\n    li i.close:hover {\r\n    }\r\n\r\n    #fm-footer {\r\n        min-height: 32px;\r\n    }\r\n\r\n    #fm-data-wrapper {\r\n        height: 100%;\r\n    }\r\n\r\n    .clear {\r\n        clear: both;\r\n    }\r\n\r\n    #_list ._active {\r\n        background: #48adff;\r\n    }\r\n\r\n    #fm-content {\r\n    }\r\n\r\n        #fm-content table._list table thead tr th {\r\n            text-align: center;\r\n        }\r\n\r\n        #fm-content table._list tr {\r\n            font-size: 11px;\r\n        }\r\n\r\n            #fm-content table._list tr:hover {\r\n                background: #c1edff;\r\n                cursor: pointer;\r\n            }\r\n\r\n            #fm-content table._list tr td {\r\n            }\r\n\r\n        #fm-content table._list tbody tr td.name {\r\n            display: inline-flex;\r\n        }\r\n\r\n            #fm-content table._list tbody tr td.name .list-icon {\r\n                display: inline-block;\r\n                float: left;\r\n                padding-right: 20px;\r\n            }\r\n    /* #fm-content table._list tbody tr td.name .png, #fm-content table tbody tr td.name .jpg, #fm-content table tbody tr td.name .jpeg, #fm-content table tbody tr td.name .gif,\r\n    #fm-content table._list tbody tr td.name .bmp { background: url(/CMS/Modules/FileManager/Libs/Images/filetree/picture.png) no-repeat; width: 16px; height: 16px; }\r\n    #fm-content table._list tbody tr td.name .doc, #fm-content table tbody tr td.name .docx { background: url(/CMS/Modules/FileManager/Libs/Images/filetree/doc.png) no-repeat; width: 16px; height: 16px; }\r\n    #fm-content table._list tbody tr td.name .xlsx, #fm-content table tbody tr td.name .xls { background: url(/CMS/Modules/FileManager/Libs/Images/filetree/xls.png) no-repeat; width: 16px; height: 16px; }\r\n    #fm-content table._list tbody tr td.name .zip, #fm-content table tbody tr td.name .rar { background: url(/CMS/Modules/FileManager/Libs/Images/filetree/zip.png) no-repeat; width: 16px; height: 16px; }\r\n    #fm-content table._list tbody tr td.name .txt { background: url(/CMS/Modules/FileManager/Libs/Images/filetree/txt.png) no-repeat; width: 16px; height: 16px; }\r\n    #fm-content table._list tbody tr td.name .pdf { background: url(/CMS/Modules/FileManager/Libs/Images/filetree/pdf.png) no-repeat; width: 16px; height: 16px; }\r\n    #fm-content table._list tbody tr td.name { width: 274px; display: inline-block; overflow: hidden; }\r\n    #fm-content table._list tbody tr td.name .fname { display: inline-flex; }\r\n    #fm-content table._list tbody tr td.type, #fm-content table tbody tr td.size, #fm-content table tbody tr td.dimensions, #fm-content table tbody tr td.date { overflow: hidden; width: 98px; }\r\n    #fm-content table._list tbody tr td.size { width: 70px; }\r\n    #fm-content table._list tbody tr td.dimensions { width: 80px; }\r\n    #fm-content table._list tbody tr td.date { width: 115px; } */\r\n\r\n    #fm-grid, #fm-folder ul, #fm-grid li .info p {\r\n        padding: 0;\r\n        margin: 0;\r\n    }\r\n\r\n        #fm-grid li {\r\n            position: relative;\r\n            vertical-align: middle;\r\n            display: table-cell;\r\n            border: 1px solid #eaeaea;\r\n            cursor: pointer;\r\n            float: left;\r\n            height: 100px;\r\n            min-width: 114px;\r\n            list-style-type: none;\r\n            margin: 4px;\r\n            padding: 2px;\r\n            width: 15.78%;\r\n            position: relative;\r\n            overflow: hidden;\r\n            text-align: center;\r\n        }\r\n\r\n            #fm-grid li .info {\r\n                font-size: 10px;\r\n                background: rgba(109,105,105,0.45882);\r\n                position: absolute;\r\n                bottom: 0;\r\n                width: 100%;\r\n                height: 0\r\n            }\r\n\r\n            #fm-grid li:hover .info {\r\n                height: auto\r\n            }\r\n\r\n    .fm-list li img {\r\n        width: 100%\r\n    }\r\n\r\n    .fm-list li.not_img img {\r\n        width: 50%;\r\n        padding-top: 10px\r\n    }\r\n\r\n    #fm-grid li img.thumb {\r\n        width: 60%;\r\n        margin: 0 auto;\r\n    }\r\n\r\n    #fm-grid li i {\r\n        position: absolute;\r\n        z-index: 999;\r\n        right: 4px;\r\n        background: #fff;\r\n        border-radius: 11px;\r\n        color: #0085ba;\r\n        padding: 1px;\r\n        top: 3px;\r\n        display: none;\r\n    }\r\n\r\n    #fm-grid li._active i {\r\n        display: block;\r\n    }\r\n\r\n    #fm-grid li._active {\r\n        border: 1px solid #0085ba;\r\n    }\r\n\r\n    #fm-folder ul li {\r\n        list-style-type: none;\r\n        padding: 8px 0;\r\n        cursor: pointer\r\n    }\r\n\r\n        #fm-folder ul li i {\r\n            background-repeat: no-repeat;\r\n            display: inline-block;\r\n            height: 16px;\r\n            vertical-align: middle;\r\n            width: 16px;\r\n        }\r\n\r\n    .plupload_filelist_header {\r\n        height: 20px;\r\n    }\r\n\r\n    .plupload_filelist_footer {\r\n        padding: 6px 20px;\r\n        height: 33px;\r\n    }\r\n\r\n    .plupload_scroll .plupload_filelist {\r\n        height: 172px !important;\r\n    }\r\n\r\n    .plupload_filelist_footer {\r\n        padding: 6px 20px;\r\n    }\r\n\r\n    .plupload_filelist:empty,\r\n    .plupload_filelist li.plupload_droptext {\r\n        height: 140px;\r\n    }\r\n\r\n        .plupload_filelist:empty::before,\r\n        .plupload_filelist li.plupload_droptext::before {\r\n            font-size: 52px;\r\n            height: 75px;\r\n            left: 49%;\r\n            margin-left: -40px;\r\n            padding-top: 43px;\r\n        }\r\n\r\n    .items-action {\r\n        padding-top: 20px;\r\n        display: inline-block;\r\n        width: 100%;\r\n    }\r\n\r\n        .items-action .file-action {\r\n            border: 0 none;\r\n            color: #fff;\r\n            padding: 4px 10px;\r\n        }\r\n\r\n        .items-action .file-action {\r\n            background: rosybrown;\r\n            float: left;\r\n            clear: both;\r\n        }\r\n    /*.items-action .file-action:last-child { background: #0085ba;float: right;}*/\r\n    #fm-toolbar .Mi.ipagination a:first-child {\r\n        border: 0;\r\n        border-radius: 0;\r\n    }\r\n\r\n    #fm-toolbar .Mi.ipagination input {\r\n        border: medium none;\r\n        float: left;\r\n        font-family: arial;\r\n        font-size: 11px;\r\n        height: 30px;\r\n        margin: 0;\r\n        outline: medium none;\r\n        padding: 0;\r\n        text-align: center;\r\n        vertical-align: middle;\r\n        width: 84px;\r\n    }\r\n\r\n    #fm-toolbar .Mi.ipagination a {\r\n        border: 0;\r\n        border-radius: 0;\r\n        background: #fff;\r\n    }\r\n\r\n    #fm-toolbar .ipagination.iweb {\r\n        margin-top: 3.45px;\r\n    }\r\n\r\n    #frowInTotals {\r\n        display: inline-block;\r\n        float: left;\r\n        line-height: 39px;\r\n        padding-right: 3px;\r\n        vertical-align: baseline;\r\n    }\r\n\r\n    label#progressall {\r\n        display: none;\r\n        padding: 7px 7px;\r\n    }\r\n\r\n    .Cdiv {\r\n        padding-left: 12px;\r\n        height: 17px;\r\n        overflow: hidden;\r\n        text-overflow: ellipsis;\r\n        white-space: nowrap;\r\n        width: 100%;\r\n        display: inline-block;\r\n        font-weight: normal;\r\n    }\r\n\r\n    #btn-fm-upload label {\r\n        margin-bottom: 0 !important;\r\n    }\r\n    /* Extra small devices (phones, 600px and down) */\r\n\r\n    @media only screen and (max-width: 600px) {\r\n        #fm-grid li {\r\n            width: 47.65%;\r\n        }\r\n    }\r\n\r\n    /* Small devices (portrait tablets and large phones, 600px and up) */\r\n\r\n    @media only screen and (min-width: 600px) {\r\n    }\r\n\r\n    /* Medium devices (landscape tablets, 768px and up) */\r\n\r\n    @media only screen and (min-width: 768px) {\r\n    }\r\n\r\n    /* Large devices (laptops/desktops, 992px and up) */\r\n\r\n    @media only screen and (min-width: 992px) {\r\n    }\r\n\r\n    /* Extra large devices (large laptops and desktops, 1200px and up) */\r\n\r\n    @media only screen and (min-width: 1200px) {\r\n    }\r\n</style>\r\n"],"sourceRoot":""}]);
+exports.push([module.i, "\n#file-manager[data-v-497df3b6] {\n    padding: 0;\n}\n#file-manager___BV_modal_body_[data-v-497df3b6] {\n    padding: 0;\n}\n#fm-container-dialog[data-v-497df3b6] {\n    padding: 0;\n    overflow: hidden !important;\n}\n#fm-container[data-v-497df3b6] {\n    font-size: 12px;\n    font-family: sans-serif;\n    padding: 0\n}\n#fm-toolbar ul[data-v-497df3b6] {\n    float: left;\n    margin: 3.5px 0 3px 10px;\n    padding: 1px 2px;\n    border-radius: 0\n}\n#fm-toolbar ul li[data-v-497df3b6] {\n        border: 1px solid #fff;\n        cursor: pointer;\n        float: left;\n        line-height: 26px;\n        list-style-type: none;\n        padding: 0 8px;\n        text-align: center;\n}\n#fm-toolbar ul li[data-v-497df3b6]:hover {\n            background: #eaeaea;\n}\n#fm-toolbar ul li.active[data-v-497df3b6] {\n            background: #eaeaea;\n}\n#fm-container[data-v-497df3b6] {\n}\n#fm-toolbar[data-v-497df3b6] {\n}\n#fm-footer[data-v-497df3b6] {\n    border-top: 1px solid #eaeaea;\n    padding-top: 10px\n}\n#fm-toolbar .tool-items[data-v-497df3b6] {\n    clear: both;\n    padding-right: 6px;\n}\n#fm-toolbar .tools[data-v-497df3b6] {\n    float: left;\n}\n#fm-main[data-v-497df3b6] {\n    margin-top: 8px;\n    border-top: 1px solid #eaeaea;\n}\n#fm-sidebar .fm-header[data-v-497df3b6] {\n    height: 35px;\n    line-height: 35px;\n    background-color: #39c;\n    overflow: hidden;\n    font-size: 17px;\n    color: #ecf3f9;\n    text-align: center;\n}\n#fm-sidebar[data-v-497df3b6] {\n    border-right: 1px solid #eaeaea\n}\n#fm-content[data-v-497df3b6] {\n    background-color: white;\n    cursor: default; /*z-index: 0; box-shadow: 0 2px 4px rgba(0,0,0,0.04), 0 1px 4px rgba(0,0,0,0.12);*/\n    height: 100%;\n}\n#fm-data-wrapper[data-v-497df3b6] {\n    overflow: hidden;\n}\n#fm-file-view[data-v-497df3b6] {\n    border-left: 1px solid #eaeaea;\n    float: right;\n    height: 100%;\n    width: 250px;\n    padding: 9px;\n    background: #fff;\n}\n#fm-file-view .file-thumb[data-v-497df3b6] {\n        text-align: center;\n        max-height: 250px;\n        max-width: 230px;\n        overflow: hidden;\n}\n#fm-file-view .header[data-v-497df3b6] {\n        font-weight: bold;\n        margin-bottom: 12px;\n        padding: 2px 0;\n        text-align: center;\n        text-transform: uppercase;\n}\n#fm-file-view .details[data-v-497df3b6] {\n        padding-top: 16px;\n}\n#fm-file-view .details div[data-v-497df3b6] {\n            line-height: 21px;\n}\n#fm-file-view .details .uploaded[data-v-497df3b6],\n        #fm-file-view .details .file-size[data-v-497df3b6],\n        #fm-file-view .details .dimensions[data-v-497df3b6] {\n            line-height: 21px;\n}\n#fm-file-view .file-thumb img[data-v-497df3b6] {\n        border: 1px solid #eaeaea;\n        padding: 4px; /*max-height: 220px; max-width: 228px;*/\n}\n.attachment-info .filename[data-v-497df3b6] {\n    font-weight: 600;\n    color: #444;\n    word-wrap: break-word;\n}\n.btn-attack[data-v-497df3b6] {\n    background: #fff none repeat scroll 0 0;\n    padding: 3px 3px 3px 0;\n    width: 230px;\n    float: right;\n    clear: both;\n}\n.btn-attack button#btn-attack[data-v-497df3b6] {\n        color: #fff;\n        background: #0085ba;\n        border: 0;\n        padding: 4px 6px;\n}\n.btn-attack button#dl-close[data-v-497df3b6] {\n        background: #eaeaea;\n        border: 0;\n        padding: 4px 6px;\n        float: right;\n        clear: both;\n}\n#fm-content table._list[data-v-497df3b6] {\n    width: 100%;\n}\n#fm-content table._list tr[data-v-497df3b6] {\n}\n#fm-content table._list tr th[data-v-497df3b6] {\n            text-align: center;\n            font-weight: bold;\n}\n#fm-content table._list tr td[data-v-497df3b6] {\n            padding: 5px 4px;\n}\n#fm-content table._list tr._active[data-v-497df3b6] {\n            background: #48adff;\n}\n#fm-toolbar ul li i[data-v-497df3b6] {\n    background-repeat: no-repeat;\n    display: inline-block;\n    height: 16px;\n    vertical-align: middle;\n    width: 16px;\n}\n#fm-toolbar ul li i[data-v-497df3b6] {\n}\nli i.create-folder[data-v-497df3b6] {\n    background-image: url(" + __webpack_require__(1005) + ");\n}\nli i.upload[data-v-497df3b6] {\n    background-image: url(" + __webpack_require__(1007) + ");\n}\nli i.list[data-v-497df3b6] {\n    background-image: url(" + __webpack_require__(1002) + ");\n}\nli i.grid[data-v-497df3b6] {\n    background-image: url(" + __webpack_require__(1001) + ");\n}\nli i.iclose[data-v-497df3b6] {\n    background-image: url(" + __webpack_require__(1006) + ");\n}\nli i.crop[data-v-497df3b6] {\n    background-image: url(" + __webpack_require__(1004) + ");\n}\nli i.remove[data-v-497df3b6] {\n    background-image: url(" + __webpack_require__(1003) + ");\n}\nli i.close[data-v-497df3b6]:hover {\n}\n#fm-footer[data-v-497df3b6] {\n    min-height: 32px;\n}\n#fm-data-wrapper[data-v-497df3b6] {\n    height: 100%;\n}\n.clear[data-v-497df3b6] {\n    clear: both;\n}\n#_list ._active[data-v-497df3b6] {\n    background: #48adff;\n}\n#fm-content[data-v-497df3b6] {\n}\n#fm-content table._list table thead tr th[data-v-497df3b6] {\n        text-align: center;\n}\n#fm-content table._list tr[data-v-497df3b6] {\n        font-size: 11px;\n}\n#fm-content table._list tr[data-v-497df3b6]:hover {\n            background: #c1edff;\n            cursor: pointer;\n}\n#fm-content table._list tr td[data-v-497df3b6] {\n}\n#fm-content table._list tbody tr td.name[data-v-497df3b6] {\n        display: inline-flex;\n}\n#fm-content table._list tbody tr td.name .list-icon[data-v-497df3b6] {\n            display: inline-block;\n            float: left;\n            padding-right: 20px;\n}\n/* #fm-content table._list tbody tr td.name .png, #fm-content table tbody tr td.name .jpg, #fm-content table tbody tr td.name .jpeg, #fm-content table tbody tr td.name .gif,\n#fm-content table._list tbody tr td.name .bmp { background: url(/CMS/Modules/FileManager/Libs/Images/filetree/picture.png) no-repeat; width: 16px; height: 16px; }\n#fm-content table._list tbody tr td.name .doc, #fm-content table tbody tr td.name .docx { background: url(/CMS/Modules/FileManager/Libs/Images/filetree/doc.png) no-repeat; width: 16px; height: 16px; }\n#fm-content table._list tbody tr td.name .xlsx, #fm-content table tbody tr td.name .xls { background: url(/CMS/Modules/FileManager/Libs/Images/filetree/xls.png) no-repeat; width: 16px; height: 16px; }\n#fm-content table._list tbody tr td.name .zip, #fm-content table tbody tr td.name .rar { background: url(/CMS/Modules/FileManager/Libs/Images/filetree/zip.png) no-repeat; width: 16px; height: 16px; }\n#fm-content table._list tbody tr td.name .txt { background: url(/CMS/Modules/FileManager/Libs/Images/filetree/txt.png) no-repeat; width: 16px; height: 16px; }\n#fm-content table._list tbody tr td.name .pdf { background: url(/CMS/Modules/FileManager/Libs/Images/filetree/pdf.png) no-repeat; width: 16px; height: 16px; }\n#fm-content table._list tbody tr td.name { width: 274px; display: inline-block; overflow: hidden; }\n#fm-content table._list tbody tr td.name .fname { display: inline-flex; }\n#fm-content table._list tbody tr td.type, #fm-content table tbody tr td.size, #fm-content table tbody tr td.dimensions, #fm-content table tbody tr td.date { overflow: hidden; width: 98px; }\n#fm-content table._list tbody tr td.size { width: 70px; }\n#fm-content table._list tbody tr td.dimensions { width: 80px; }\n#fm-content table._list tbody tr td.date { width: 115px; } */\n#fm-grid[data-v-497df3b6], #fm-folder ul[data-v-497df3b6], #fm-grid li .info p[data-v-497df3b6] {\n    padding: 0;\n    margin: 0;\n}\n#fm-grid li[data-v-497df3b6] {\n        position: relative;\n        vertical-align: middle;\n        display: table-cell;\n        border: 1px solid #eaeaea;\n        cursor: pointer;\n        float: left;\n        height: 100px;\n        min-width: 114px;\n        list-style-type: none;\n        margin: 4px;\n        padding: 2px;\n        width: 15.78%;\n        position: relative;\n        overflow: hidden;\n        text-align: center;\n}\n#fm-grid li .info[data-v-497df3b6] {\n            font-size: 10px;\n            background: rgba(109,105,105,0.45882);\n            position: absolute;\n            bottom: 0;\n            width: 100%;\n            height: 0\n}\n#fm-grid li:hover .info[data-v-497df3b6] {\n            height: auto\n}\n.fm-list li img[data-v-497df3b6] {\n    width: 100%\n}\n.fm-list li.not_img img[data-v-497df3b6] {\n    width: 50%;\n    padding-top: 10px\n}\n#fm-grid li img.thumb[data-v-497df3b6] {\n    width: 60%;\n    margin: 0 auto;\n}\n#fm-grid li i[data-v-497df3b6] {\n    position: absolute;\n    z-index: 999;\n    right: 4px;\n    background: #fff;\n    border-radius: 11px;\n    color: #0085ba;\n    padding: 1px;\n    top: 3px;\n    display: none;\n}\n#fm-grid li._active i[data-v-497df3b6] {\n    display: block;\n}\n#fm-grid li._active[data-v-497df3b6] {\n    border: 1px solid #0085ba;\n}\n#fm-folder ul li[data-v-497df3b6] {\n    list-style-type: none;\n    padding: 8px 0;\n    cursor: pointer\n}\n#fm-folder ul li i[data-v-497df3b6] {\n        background-repeat: no-repeat;\n        display: inline-block;\n        height: 16px;\n        vertical-align: middle;\n        width: 16px;\n}\n.plupload_filelist_header[data-v-497df3b6] {\n    height: 20px;\n}\n.plupload_filelist_footer[data-v-497df3b6] {\n    padding: 6px 20px;\n    height: 33px;\n}\n.plupload_scroll .plupload_filelist[data-v-497df3b6] {\n    height: 172px !important;\n}\n.plupload_filelist_footer[data-v-497df3b6] {\n    padding: 6px 20px;\n}\n.plupload_filelist[data-v-497df3b6]:empty,\n.plupload_filelist li.plupload_droptext[data-v-497df3b6] {\n    height: 140px;\n}\n.plupload_filelist[data-v-497df3b6]:empty::before,\n    .plupload_filelist li.plupload_droptext[data-v-497df3b6]::before {\n        font-size: 52px;\n        height: 75px;\n        left: 49%;\n        margin-left: -40px;\n        padding-top: 43px;\n}\n.items-action[data-v-497df3b6] {\n    padding-top: 20px;\n    display: inline-block;\n    width: 100%;\n}\n.items-action .file-action[data-v-497df3b6] {\n        border: 0 none;\n        color: #fff;\n        padding: 4px 10px;\n}\n.items-action .file-action[data-v-497df3b6] {\n        background: rosybrown;\n        float: left;\n        clear: both;\n}\n/*.items-action .file-action:last-child { background: #0085ba;float: right;}*/\n#fm-toolbar .Mi.ipagination a[data-v-497df3b6]:first-child {\n    border: 0;\n    border-radius: 0;\n}\n#fm-toolbar .Mi.ipagination input[data-v-497df3b6] {\n    border: medium none;\n    float: left;\n    font-family: arial;\n    font-size: 11px;\n    height: 30px;\n    margin: 0;\n    outline: medium none;\n    padding: 0;\n    text-align: center;\n    vertical-align: middle;\n    width: 84px;\n}\n#fm-toolbar .Mi.ipagination a[data-v-497df3b6] {\n    border: 0;\n    border-radius: 0;\n    background: #fff;\n}\n#fm-toolbar .ipagination.iweb[data-v-497df3b6] {\n    margin-top: 3.45px;\n}\n#frowInTotals[data-v-497df3b6] {\n    display: inline-block;\n    float: left;\n    line-height: 39px;\n    padding-right: 3px;\n    vertical-align: baseline;\n}\nlabel#progressall[data-v-497df3b6] {\n    display: none;\n    padding: 7px 7px;\n}\n.Cdiv[data-v-497df3b6] {\n    padding-left: 12px;\n    height: 17px;\n    overflow: hidden;\n    text-overflow: ellipsis;\n    white-space: nowrap;\n    width: 100%;\n    display: inline-block;\n    font-weight: normal;\n}\n#btn-fm-upload label[data-v-497df3b6] {\n    margin-bottom: 0 !important;\n}\n/* Extra small devices (phones, 600px and down) */\n@media only screen and (max-width: 600px) {\n#fm-grid li[data-v-497df3b6] {\n        width: 47.65%;\n}\n}\n\n/* Small devices (portrait tablets and large phones, 600px and up) */\n@media only screen and (min-width: 600px) {\n}\n\n/* Medium devices (landscape tablets, 768px and up) */\n@media only screen and (min-width: 768px) {\n}\n\n/* Large devices (laptops/desktops, 992px and up) */\n@media only screen and (min-width: 992px) {\n}\n\n/* Extra large devices (large laptops and desktops, 1200px and up) */\n@media only screen and (min-width: 1200px) {\n}\n", "", {"version":3,"sources":["D:/Code/WORKING/dotnet-platform-backend/Web/Platform/CMS/PlatformCMS/ClientApp/components/fileManager/list.vue?b8c85d56"],"names":[],"mappings":";AAgYA;IACA,WAAA;CACA;AAEA;IACA,WAAA;CACA;AAEA;IACA,WAAA;IACA,4BAAA;CACA;AAEA;IACA,gBAAA;IACA,wBAAA;IACA,UAAA;CACA;AAEA;IACA,YAAA;IACA,yBAAA;IACA,iBAAA;IACA,gBAAA;CACA;AAEA;QACA,uBAAA;QACA,gBAAA;QACA,YAAA;QACA,kBAAA;QACA,sBAAA;QACA,eAAA;QACA,mBAAA;CACA;AAEA;YACA,oBAAA;CACA;AAEA;YACA,oBAAA;CACA;AAEA;CACA;AAEA;CACA;AAEA;IACA,8BAAA;IACA,iBAAA;CACA;AAEA;IACA,YAAA;IACA,mBAAA;CACA;AAEA;IACA,YAAA;CACA;AAEA;IACA,gBAAA;IACA,8BAAA;CACA;AAEA;IACA,aAAA;IACA,kBAAA;IACA,uBAAA;IACA,iBAAA;IACA,gBAAA;IACA,eAAA;IACA,mBAAA;CACA;AAEA;IACA,+BAAA;CACA;AAEA;IACA,wBAAA;IACA,gBAAA,CAAA,mFAAA;IACA,aAAA;CACA;AAEA;IACA,iBAAA;CACA;AAEA;IACA,+BAAA;IACA,aAAA;IACA,aAAA;IACA,aAAA;IACA,aAAA;IACA,iBAAA;CACA;AAEA;QACA,mBAAA;QACA,kBAAA;QACA,iBAAA;QACA,iBAAA;CACA;AAEA;QACA,kBAAA;QACA,oBAAA;QACA,eAAA;QACA,mBAAA;QACA,0BAAA;CACA;AAEA;QACA,kBAAA;CACA;AAEA;YACA,kBAAA;CACA;AAEA;;;YAGA,kBAAA;CACA;AAEA;QACA,0BAAA;QACA,aAAA,CAAA,wCAAA;CACA;AAEA;IACA,iBAAA;IACA,YAAA;IACA,sBAAA;CACA;AAEA;IACA,wCAAA;IACA,uBAAA;IACA,aAAA;IACA,aAAA;IACA,YAAA;CACA;AAEA;QACA,YAAA;QACA,oBAAA;QACA,UAAA;QACA,iBAAA;CACA;AAEA;QACA,oBAAA;QACA,UAAA;QACA,iBAAA;QACA,aAAA;QACA,YAAA;CACA;AAEA;IACA,YAAA;CACA;AAEA;CACA;AAEA;YACA,mBAAA;YACA,kBAAA;CACA;AAEA;YACA,iBAAA;CACA;AAEA;YACA,oBAAA;CACA;AAEA;IACA,6BAAA;IACA,sBAAA;IACA,aAAA;IACA,uBAAA;IACA,YAAA;CACA;AAEA;CACA;AAEA;IACA,gDAAA;CACA;AAEA;IACA,gDAAA;CACA;AAEA;IACA,gDAAA;CACA;AAEA;IACA,gDAAA;CACA;AAEA;IACA,gDAAA;CACA;AAEA;IACA,gDAAA;CACA;AAEA;IACA,gDAAA;CACA;AAEA;CACA;AAEA;IACA,iBAAA;CACA;AAEA;IACA,aAAA;CACA;AAEA;IACA,YAAA;CACA;AAEA;IACA,oBAAA;CACA;AAEA;CACA;AAEA;QACA,mBAAA;CACA;AAEA;QACA,gBAAA;CACA;AAEA;YACA,oBAAA;YACA,gBAAA;CACA;AAEA;CACA;AAEA;QACA,qBAAA;CACA;AAEA;YACA,sBAAA;YACA,YAAA;YACA,oBAAA;CACA;AACA;;;;;;;;;;;;6DAYA;AAEA;IACA,WAAA;IACA,UAAA;CACA;AAEA;QACA,mBAAA;QACA,uBAAA;QACA,oBAAA;QACA,0BAAA;QACA,gBAAA;QACA,YAAA;QACA,cAAA;QACA,iBAAA;QACA,sBAAA;QACA,YAAA;QACA,aAAA;QACA,cAAA;QACA,mBAAA;QACA,iBAAA;QACA,mBAAA;CACA;AAEA;YACA,gBAAA;YACA,sCAAA;YACA,mBAAA;YACA,UAAA;YACA,YAAA;YACA,SAAA;CACA;AAEA;YACA,YAAA;CACA;AAEA;IACA,WAAA;CACA;AAEA;IACA,WAAA;IACA,iBAAA;CACA;AAEA;IACA,WAAA;IACA,eAAA;CACA;AAEA;IACA,mBAAA;IACA,aAAA;IACA,WAAA;IACA,iBAAA;IACA,oBAAA;IACA,eAAA;IACA,aAAA;IACA,SAAA;IACA,cAAA;CACA;AAEA;IACA,eAAA;CACA;AAEA;IACA,0BAAA;CACA;AAEA;IACA,sBAAA;IACA,eAAA;IACA,eAAA;CACA;AAEA;QACA,6BAAA;QACA,sBAAA;QACA,aAAA;QACA,uBAAA;QACA,YAAA;CACA;AAEA;IACA,aAAA;CACA;AAEA;IACA,kBAAA;IACA,aAAA;CACA;AAEA;IACA,yBAAA;CACA;AAEA;IACA,kBAAA;CACA;AAEA;;IAEA,cAAA;CACA;AAEA;;QAEA,gBAAA;QACA,aAAA;QACA,UAAA;QACA,mBAAA;QACA,kBAAA;CACA;AAEA;IACA,kBAAA;IACA,sBAAA;IACA,YAAA;CACA;AAEA;QACA,eAAA;QACA,YAAA;QACA,kBAAA;CACA;AAEA;QACA,sBAAA;QACA,YAAA;QACA,YAAA;CACA;AACA,8EAAA;AACA;IACA,UAAA;IACA,iBAAA;CACA;AAEA;IACA,oBAAA;IACA,YAAA;IACA,mBAAA;IACA,gBAAA;IACA,aAAA;IACA,UAAA;IACA,qBAAA;IACA,WAAA;IACA,mBAAA;IACA,uBAAA;IACA,YAAA;CACA;AAEA;IACA,UAAA;IACA,iBAAA;IACA,iBAAA;CACA;AAEA;IACA,mBAAA;CACA;AAEA;IACA,sBAAA;IACA,YAAA;IACA,kBAAA;IACA,mBAAA;IACA,yBAAA;CACA;AAEA;IACA,cAAA;IACA,iBAAA;CACA;AAEA;IACA,mBAAA;IACA,aAAA;IACA,iBAAA;IACA,wBAAA;IACA,oBAAA;IACA,YAAA;IACA,sBAAA;IACA,oBAAA;CACA;AAEA;IACA,4BAAA;CACA;AACA,kDAAA;AAEA;AACA;QACA,cAAA;CACA;CACA;;AAEA,qEAAA;AAEA;CACA;;AAEA,sDAAA;AAEA;CACA;;AAEA,oDAAA;AAEA;CACA;;AAEA,qEAAA;AAEA;CACA","file":"list.vue","sourcesContent":["<template>\r\n    <div class=\"file-manager\">\r\n        <loading :active.sync=\"isLoading\"\r\n                 :height=\"35\"\r\n                 :width=\"35\"\r\n                 :color=\"color\"\r\n                 :is-full-page=\"fullPage\"></loading>\r\n        <b-modal ref=\"file-manager-modal\" id=\"file-manager\" fbody=\"xxx\" hide-footer hide-header size=\"xl\">\r\n            <div id=\"fm-container\" class=\"container-fluid\">\r\n                <b-row id=\"fm-toolbar\">\r\n                    <b-col lg=\"2\" md=\"2\" sm=\"12\">\r\n                        <b>Thư viện</b>\r\n                    </b-col>\r\n                    <b-col>\r\n                        <b-row align-h=\"between\">\r\n                            <b-col cols=\"4\">\r\n                                <div class=\"tool-items\">\r\n                                    <ul class=\"tools\">\r\n                                        <li title=\"Create folder\">\r\n                                            <i class=\"create-folder\"></i>\r\n                                        </li>\r\n                                    </ul>\r\n                                    <ul class=\"tools\">\r\n                                        <li title=\"Remove\" @click=\"removeFile\">\r\n                                            <i class=\"remove\"></i>\r\n                                        </li>\r\n\r\n                                    </ul>\r\n                                    <div class=\"tools\">\r\n                                        <input v-model=\"keyword\" v-on:keyup.enter=\"LoadFile()\" class=\"form-control\" placeholder=\"Gõ tên ảnh ấn enter\" />\r\n                                    </div>\r\n                                </div>\r\n                            </b-col>\r\n                            <b-col cols=\"4\" class=\"bd-0\">\r\n                                <b-pagination v-model=\"currentPage\" align=\"right\" size=\"sm\" :limit=\"4\"\r\n                                              :total-rows=\"files.totals\"\r\n                                              :per-page=\"pageSize\"></b-pagination>\r\n                            </b-col>\r\n                            <b-col cols=\"4\">\r\n                                <div class=\"tool-items float-right\">\r\n\r\n                                    <ul class=\"tools\">\r\n                                        <li title=\"Create folder\">\r\n                                            <i class=\"create-folder\"></i>\r\n                                        </li>\r\n                                        <li title=\"Upload\" id=\"btn-fm-upload\">\r\n                                            <label for=\"fileSingleupload\">\r\n                                                <i class=\"upload\"></i>\r\n                                            </label>\r\n                                            <input accept=\"image/*,.doc,.docx,.pdf,.xls,.xlsx,.zip,.rar\" @change=\"DoUploadFile\" id=\"fileSingleupload\"\r\n                                                   multiple\r\n                                                   type=\"file\"\r\n                                                   name=\"files[]\"\r\n                                                   style=\"display: none\" />\r\n                                        </li>\r\n                                    </ul>\r\n                                    <ul class=\"tools\">\r\n                                        <li title=\"List view\">\r\n                                            <i class=\"list\"></i>\r\n                                        </li>\r\n                                        <li title=\"Grid View\">\r\n                                            <i class=\"grid\"></i>\r\n                                        </li>\r\n                                    </ul>\r\n                                </div>\r\n                            </b-col>\r\n                        </b-row>\r\n\r\n                    </b-col>\r\n\r\n                </b-row>\r\n                <b-row id=\"fm-main\">\r\n                    <b-col id=\"fm-sidebar\" lg=\"2\" md=\"2\" sm=\"12\">\r\n                        <div id=\"fm-folder\">\r\n                            <ul>\r\n                                <li><i class=\"create-folder\"></i> Document</li>\r\n                                <li><i class=\"create-folder\"></i> Image</li>\r\n                                <li><i class=\"create-folder\"></i> Icon</li>\r\n                            </ul>\r\n                        </div>\r\n                    </b-col>\r\n                    <b-col id=\"fm-content\" lg=\"10\" dm=\"2\" sm=\"12\">\r\n                        <div id=\"fm-data-wrapper\">\r\n                            <div class=\"fm-list-wrapper\">\r\n                                <div class=\"fm-list\">\r\n                                    <ul id=\"fm-grid\">\r\n                                        <li v-for=\"file in files.files\" :key=\"file.id\" class=\"item\" :class=\"{ _active: isActive, not_img:checkImage(file.fileExt)}\" @click=\"SelectFile($event,{path:file.filePath,id:file.id})\">\r\n                                            <img :src=\"mapImageUrl(file.filePath,file.fileExt)\" alt=\"\">\r\n                                            <i class=\"fa fa-check\"></i>\r\n                                            <div class=\"info\">\r\n                                                <p class=\"name\">{{file.name}}</p>\r\n                                                <p class=\"dimensions\">{{file.dimensions}}</p>\r\n                                                <p class=\"size\">{{file.fileSize}}kb</p>\r\n                                            </div>\r\n                                        </li>\r\n                                    </ul>\r\n                                </div>\r\n                            </div>\r\n                        </div>\r\n\r\n                    </b-col>\r\n                </b-row>\r\n                <b-row align-h=\"end\" id=\"fm-footer\">\r\n                    <b-col cols=\"4\">\r\n                        <div class=\"btn-attack\">\r\n                            <button type=\"button\" id=\"btn-attack\" @click=\"attackFile\">Đính kèm</button>\r\n                            <!--<button type=\"button\" id=\"btn-attack\" @click=\"attackFileSelected\">Đính kèm2</button>-->\r\n                            <button type=\"button\" id=\"dl-close\" @click=\"hideFileManagerModal\" class=\"iclose\">Đóng</button>\r\n                        </div>\r\n                    </b-col>\r\n                </b-row>\r\n            </div>\r\n        </b-modal>\r\n    </div>\r\n</template>\r\n\r\n<script>\r\n    import \"vue-loading-overlay/dist/vue-loading.css\";\r\n    import msgNotify from \"./../../common/constant\";\r\n    import { mapActions } from \"vuex\";\r\n    import Loading from \"vue-loading-overlay\";\r\n    import EventBus from \"./../../common/eventBus\";\r\n    import { search } from \"core-js/fn/symbol\";\r\n    import { data } from \"jquery\";\r\n\r\n\r\n    export default {\r\n        name: \"FileManager\",\r\n        props: {\r\n            miKey: {\r\n                type: String\r\n            }\r\n        },\r\n        components: {\r\n            Loading\r\n        },\r\n        data() {\r\n            return {\r\n                isLoading: false,\r\n                fullPage: false,\r\n                color: \"#007bff\",\r\n                isLoadLang: false,\r\n                //  perPage: 10,\r\n                currentPage: 1,\r\n                pageSize: 30,\r\n                isLoading: false,\r\n                MaxFileSize: 3000,//Kb\r\n                selectedFile: [],\r\n                extensions: [],\r\n                extImage: [],\r\n                isActive: false,\r\n                selectType: '',\r\n                keyword: '',\r\n\r\n            };\r\n        },\r\n        created() {\r\n            let config = require('./../../../appsettings.json');\r\n            this.extImage = config.AppSettings.ImageAllowUpload;\r\n            this.extensions = config.AppSettings.ImageAllowUpload.concat(config.AppSettings.DocumentAllowUpload);\r\n\r\n            EventBus.$on(this.miKey, this.FileManagerOpen);\r\n        },\r\n        destroyed() {\r\n\r\n        },\r\n        computed: {\r\n            files() {\r\n                return this.$store.getters.files\r\n            }\r\n        },\r\n        methods: {\r\n            ...mapActions([\"fmFileUpload\", \"fmFileGetAll\", \"fmRemove\"]),\r\n            mapImageUrl(img, ext) {\r\n                if (this.extImage.indexOf(ext.toLowerCase()) !== -1) {\r\n                    return '/uploads/thumb' + img;\r\n                }\r\n                return './../../ClientApp/assets/fileicons/' + ext.replace('.', '') + '.png';\r\n            },\r\n            checkImage(ext) {\r\n                //debugger\r\n                if (this.extImage.indexOf(ext) == -1) {\r\n                    return true\r\n                }\r\n                return false\r\n            },\r\n            DoUploadFile(e) {\r\n                debugger\r\n                let files = e.srcElement.files;\r\n\r\n                if (files) {\r\n                    let filesTemp = Array.from(files);\r\n\r\n                    let msgFileAllow = '';\r\n                    let msgLimitedSize = '';\r\n                    for (var i = 0; i < filesTemp.length; i++) {\r\n\r\n                        let name = filesTemp[i].name;\r\n                        let type = name.split('.').pop().toLowerCase();\r\n\r\n                        if (this.extensions.indexOf(type) == -1) {\r\n                            filesTemp.splice(i, 1); // xóa khỏi array\r\n                            if (msgFileAllow.length == 0) {\r\n                                msgFileAllow = name;\r\n                            } else {\r\n                                msgFileAllow += ', ' + name;\r\n                            }\r\n                        }\r\n                        if (msgFileAllow.length > 0) {\r\n                            this.$toast.error(msgFileAllow + ' không hợp lệ !', {});\r\n                        }\r\n                    }\r\n                    for (var i = 0; i < filesTemp.length; i++) {\r\n                        let size = filesTemp[i].size;\r\n                        let name = filesTemp[i].name;\r\n\r\n\r\n                        if (this.MaxFileSize < (size / 1024)) {\r\n                            filesTemp.splice(i, 1);\r\n                            if (msgLimitedSize.length == 0) {\r\n                                msgLimitedSize = name;\r\n                            } else {\r\n                                msgLimitedSize += ', ' + name;\r\n                            }\r\n                        }\r\n                        if (msgLimitedSize.length > 0) {\r\n                            this.$toast.error(msgFileAllow + ' dung lượng quá lớn !', {});\r\n                        }\r\n                    }\r\n                    if (filesTemp.length) {\r\n                        let fd = new FormData();\r\n\r\n                        filesTemp.forEach(function (item) {\r\n                            fd.append('files', item);\r\n                        });\r\n                        this.UploadFileAction(fd);\r\n                    }\r\n\r\n                }\r\n\r\n            },\r\n            UploadFileAction(files) {\r\n                \r\n                this.fmFileUpload(files)\r\n                    .then(response => {\r\n                        if (response.success) {\r\n                            debugger\r\n                            console.log(response.data);\r\n                            var objtoast = this.$toast;\r\n                            response.data.forEach(function (item) {\r\n                                if (item.code == 200) {\r\n                                    objtoast.success(item.messages, {});\r\n                                } else {\r\n                                    objtoast.error(item.messages, {});\r\n                                }\r\n                            })\r\n                            //response.data.forEach(function () {\r\n\r\n                            //    this.$toast.success(response.message, {});\r\n                            //});\r\n                            //this.$toast.success(response.message, {});\r\n                            this.LoadFile();\r\n\r\n                            this.isLoading = false;\r\n                        }\r\n                        else {\r\n                            \r\n                            this.$toast.error(response.message, {});\r\n                            this.isLoading = false;\r\n                        }\r\n                    })\r\n                    .catch(e => {\r\n                        debugger\r\n                        this.$toast.error(msgNotify.error + \". Error:\" + e, {});\r\n                        this.isLoading = false;\r\n                    });\r\n\r\n\r\n            },\r\n            SelectFile(event, file) {\r\n                if (this.selectType == 'multi') {\r\n                    if (event.currentTarget.classList.contains('_active')) {\r\n                        event.currentTarget.classList.remove('_active');\r\n\r\n                        // let objIsExist = this.selectedFile.some(obj => obj.id = file.id);\r\n                        // if (objIsExist) {\r\n                        this.selectedFile = this.selectedFile.filter(obj => obj.id != file.id)\r\n                        // }\r\n                    }\r\n                    else {\r\n                        event.currentTarget.classList.add(\"_active\");\r\n                        this.selectedFile.push(file)\r\n                    }\r\n                } else {\r\n\r\n                    this.selectedFile = [];\r\n                    if (event.currentTarget.classList.contains('_active')) {\r\n                        event.currentTarget.classList.remove('_active');\r\n\r\n                    }\r\n                    else {\r\n                        let items = document.querySelectorAll('.item');\r\n                        items.forEach(function (item) {\r\n                            item.classList.remove('_active');\r\n                        });\r\n                        event.currentTarget.classList.add(\"_active\");\r\n                        this.selectedFile.push(file)\r\n                    }\r\n                }\r\n            },\r\n            LoadFile() {\r\n                this.fmFileGetAll({\r\n                    keyword: this.keyword,\r\n                    pageIndex: this.currentPage,\r\n                    pageSize: this.pageSize\r\n                });\r\n            }\r\n\r\n            ,\r\n            FileManagerOpen(param) {\r\n                this.selectType = param;\r\n                this.$refs[\"file-manager-modal\"].show();\r\n                this.LoadFile();\r\n            },\r\n\r\n            hideFileManagerModal() {\r\n                this.$refs[\"file-manager-modal\"].hide();\r\n            },\r\n            attackFile() {\r\n                // EventBus.$emit(\"FileSelected\", this.selectedFile);\r\n                this.$emit(\"handleAttackFile\", this.selectedFile);\r\n                this.$refs[\"file-manager-modal\"].hide();\r\n                this.selectedFile = [];\r\n            },\r\n\r\n            toggleFileModal() {\r\n                // We pass the ID of the button that we want to return focus to\r\n                // when the modal has hidden\r\n                this.$refs[\"file-manager-modal\"].toggle(\"#toggle-btn\");\r\n            },\r\n            removeFile() {\r\n                var result = confirm(\"Xác nhận?\");\r\n                if (!result) {\r\n                    return false;\r\n                }\r\n\r\n                let $this = this;\r\n                this.selectedFile.forEach(function (item) {\r\n                    $this.fmRemove(item.id)\r\n                        .then(response => {\r\n                            if (response.success) {\r\n                                \r\n                                $this.LoadFile();\r\n                                $this.$toast.success(response.message, {});\r\n                                $this.isLoading = false;\r\n                            }\r\n                            else {\r\n                                \r\n                                $this.$toast.error(response.message, {});\r\n                                $this.isLoading = false;\r\n                            }\r\n                        })\r\n                        .catch(e => {\r\n                            \r\n                            $this.$toast.error(msgNotify.error + \". Error:\" + e, {});\r\n                            $this.isLoading = false;\r\n                        });\r\n                });\r\n\r\n\r\n\r\n            }\r\n        },\r\n        mounted() {\r\n            //   this.fmFileGetAll();\r\n        },\r\n        watch: {\r\n            currentPage() {\r\n                this.LoadFile();\r\n            }\r\n        }\r\n    };\r\n</script>\r\n<style scoped>\r\n    #file-manager {\r\n        padding: 0;\r\n    }\r\n\r\n    #file-manager___BV_modal_body_ {\r\n        padding: 0;\r\n    }\r\n\r\n    #fm-container-dialog {\r\n        padding: 0;\r\n        overflow: hidden !important;\r\n    }\r\n\r\n    #fm-container {\r\n        font-size: 12px;\r\n        font-family: sans-serif;\r\n        padding: 0\r\n    }\r\n\r\n    #fm-toolbar ul {\r\n        float: left;\r\n        margin: 3.5px 0 3px 10px;\r\n        padding: 1px 2px;\r\n        border-radius: 0\r\n    }\r\n\r\n        #fm-toolbar ul li {\r\n            border: 1px solid #fff;\r\n            cursor: pointer;\r\n            float: left;\r\n            line-height: 26px;\r\n            list-style-type: none;\r\n            padding: 0 8px;\r\n            text-align: center;\r\n        }\r\n\r\n            #fm-toolbar ul li:hover {\r\n                background: #eaeaea;\r\n            }\r\n\r\n            #fm-toolbar ul li.active {\r\n                background: #eaeaea;\r\n            }\r\n\r\n    #fm-container {\r\n    }\r\n\r\n    #fm-toolbar {\r\n    }\r\n\r\n    #fm-footer {\r\n        border-top: 1px solid #eaeaea;\r\n        padding-top: 10px\r\n    }\r\n\r\n    #fm-toolbar .tool-items {\r\n        clear: both;\r\n        padding-right: 6px;\r\n    }\r\n\r\n    #fm-toolbar .tools {\r\n        float: left;\r\n    }\r\n\r\n    #fm-main {\r\n        margin-top: 8px;\r\n        border-top: 1px solid #eaeaea;\r\n    }\r\n\r\n    #fm-sidebar .fm-header {\r\n        height: 35px;\r\n        line-height: 35px;\r\n        background-color: #39c;\r\n        overflow: hidden;\r\n        font-size: 17px;\r\n        color: #ecf3f9;\r\n        text-align: center;\r\n    }\r\n\r\n    #fm-sidebar {\r\n        border-right: 1px solid #eaeaea\r\n    }\r\n\r\n    #fm-content {\r\n        background-color: white;\r\n        cursor: default; /*z-index: 0; box-shadow: 0 2px 4px rgba(0,0,0,0.04), 0 1px 4px rgba(0,0,0,0.12);*/\r\n        height: 100%;\r\n    }\r\n\r\n    #fm-data-wrapper {\r\n        overflow: hidden;\r\n    }\r\n\r\n    #fm-file-view {\r\n        border-left: 1px solid #eaeaea;\r\n        float: right;\r\n        height: 100%;\r\n        width: 250px;\r\n        padding: 9px;\r\n        background: #fff;\r\n    }\r\n\r\n        #fm-file-view .file-thumb {\r\n            text-align: center;\r\n            max-height: 250px;\r\n            max-width: 230px;\r\n            overflow: hidden;\r\n        }\r\n\r\n        #fm-file-view .header {\r\n            font-weight: bold;\r\n            margin-bottom: 12px;\r\n            padding: 2px 0;\r\n            text-align: center;\r\n            text-transform: uppercase;\r\n        }\r\n\r\n        #fm-file-view .details {\r\n            padding-top: 16px;\r\n        }\r\n\r\n            #fm-file-view .details div {\r\n                line-height: 21px;\r\n            }\r\n\r\n            #fm-file-view .details .uploaded,\r\n            #fm-file-view .details .file-size,\r\n            #fm-file-view .details .dimensions {\r\n                line-height: 21px;\r\n            }\r\n\r\n        #fm-file-view .file-thumb img {\r\n            border: 1px solid #eaeaea;\r\n            padding: 4px; /*max-height: 220px; max-width: 228px;*/\r\n        }\r\n\r\n    .attachment-info .filename {\r\n        font-weight: 600;\r\n        color: #444;\r\n        word-wrap: break-word;\r\n    }\r\n\r\n    .btn-attack {\r\n        background: #fff none repeat scroll 0 0;\r\n        padding: 3px 3px 3px 0;\r\n        width: 230px;\r\n        float: right;\r\n        clear: both;\r\n    }\r\n\r\n        .btn-attack button#btn-attack {\r\n            color: #fff;\r\n            background: #0085ba;\r\n            border: 0;\r\n            padding: 4px 6px;\r\n        }\r\n\r\n        .btn-attack button#dl-close {\r\n            background: #eaeaea;\r\n            border: 0;\r\n            padding: 4px 6px;\r\n            float: right;\r\n            clear: both;\r\n        }\r\n\r\n    #fm-content table._list {\r\n        width: 100%;\r\n    }\r\n\r\n        #fm-content table._list tr {\r\n        }\r\n\r\n            #fm-content table._list tr th {\r\n                text-align: center;\r\n                font-weight: bold;\r\n            }\r\n\r\n            #fm-content table._list tr td {\r\n                padding: 5px 4px;\r\n            }\r\n\r\n            #fm-content table._list tr._active {\r\n                background: #48adff;\r\n            }\r\n\r\n    #fm-toolbar ul li i {\r\n        background-repeat: no-repeat;\r\n        display: inline-block;\r\n        height: 16px;\r\n        vertical-align: middle;\r\n        width: 16px;\r\n    }\r\n\r\n    #fm-toolbar ul li i {\r\n    }\r\n\r\n    li i.create-folder {\r\n        background-image: url(./../../assets/img/icon/folder_add.png);\r\n    }\r\n\r\n    li i.upload {\r\n        background-image: url(\"./../../assets/img/icon/upload.png\");\r\n    }\r\n\r\n    li i.list {\r\n        background-image: url(\"./../../assets/img/icon/application_view_list.png\");\r\n    }\r\n\r\n    li i.grid {\r\n        background-image: url(\"./../../assets/img/icon/application_view_icons.png\");\r\n    }\r\n\r\n    li i.iclose {\r\n        background-image: url(\"./../../assets/img/icon/reset.png\");\r\n    }\r\n\r\n    li i.crop {\r\n        background-image: url(\"./../../assets/img/icon/crop.png\");\r\n    }\r\n\r\n    li i.remove {\r\n        background-image: url(\"./../../assets/img/icon/bin_closed.png\");\r\n    }\r\n\r\n    li i.close:hover {\r\n    }\r\n\r\n    #fm-footer {\r\n        min-height: 32px;\r\n    }\r\n\r\n    #fm-data-wrapper {\r\n        height: 100%;\r\n    }\r\n\r\n    .clear {\r\n        clear: both;\r\n    }\r\n\r\n    #_list ._active {\r\n        background: #48adff;\r\n    }\r\n\r\n    #fm-content {\r\n    }\r\n\r\n        #fm-content table._list table thead tr th {\r\n            text-align: center;\r\n        }\r\n\r\n        #fm-content table._list tr {\r\n            font-size: 11px;\r\n        }\r\n\r\n            #fm-content table._list tr:hover {\r\n                background: #c1edff;\r\n                cursor: pointer;\r\n            }\r\n\r\n            #fm-content table._list tr td {\r\n            }\r\n\r\n        #fm-content table._list tbody tr td.name {\r\n            display: inline-flex;\r\n        }\r\n\r\n            #fm-content table._list tbody tr td.name .list-icon {\r\n                display: inline-block;\r\n                float: left;\r\n                padding-right: 20px;\r\n            }\r\n    /* #fm-content table._list tbody tr td.name .png, #fm-content table tbody tr td.name .jpg, #fm-content table tbody tr td.name .jpeg, #fm-content table tbody tr td.name .gif,\r\n    #fm-content table._list tbody tr td.name .bmp { background: url(/CMS/Modules/FileManager/Libs/Images/filetree/picture.png) no-repeat; width: 16px; height: 16px; }\r\n    #fm-content table._list tbody tr td.name .doc, #fm-content table tbody tr td.name .docx { background: url(/CMS/Modules/FileManager/Libs/Images/filetree/doc.png) no-repeat; width: 16px; height: 16px; }\r\n    #fm-content table._list tbody tr td.name .xlsx, #fm-content table tbody tr td.name .xls { background: url(/CMS/Modules/FileManager/Libs/Images/filetree/xls.png) no-repeat; width: 16px; height: 16px; }\r\n    #fm-content table._list tbody tr td.name .zip, #fm-content table tbody tr td.name .rar { background: url(/CMS/Modules/FileManager/Libs/Images/filetree/zip.png) no-repeat; width: 16px; height: 16px; }\r\n    #fm-content table._list tbody tr td.name .txt { background: url(/CMS/Modules/FileManager/Libs/Images/filetree/txt.png) no-repeat; width: 16px; height: 16px; }\r\n    #fm-content table._list tbody tr td.name .pdf { background: url(/CMS/Modules/FileManager/Libs/Images/filetree/pdf.png) no-repeat; width: 16px; height: 16px; }\r\n    #fm-content table._list tbody tr td.name { width: 274px; display: inline-block; overflow: hidden; }\r\n    #fm-content table._list tbody tr td.name .fname { display: inline-flex; }\r\n    #fm-content table._list tbody tr td.type, #fm-content table tbody tr td.size, #fm-content table tbody tr td.dimensions, #fm-content table tbody tr td.date { overflow: hidden; width: 98px; }\r\n    #fm-content table._list tbody tr td.size { width: 70px; }\r\n    #fm-content table._list tbody tr td.dimensions { width: 80px; }\r\n    #fm-content table._list tbody tr td.date { width: 115px; } */\r\n\r\n    #fm-grid, #fm-folder ul, #fm-grid li .info p {\r\n        padding: 0;\r\n        margin: 0;\r\n    }\r\n\r\n        #fm-grid li {\r\n            position: relative;\r\n            vertical-align: middle;\r\n            display: table-cell;\r\n            border: 1px solid #eaeaea;\r\n            cursor: pointer;\r\n            float: left;\r\n            height: 100px;\r\n            min-width: 114px;\r\n            list-style-type: none;\r\n            margin: 4px;\r\n            padding: 2px;\r\n            width: 15.78%;\r\n            position: relative;\r\n            overflow: hidden;\r\n            text-align: center;\r\n        }\r\n\r\n            #fm-grid li .info {\r\n                font-size: 10px;\r\n                background: rgba(109,105,105,0.45882);\r\n                position: absolute;\r\n                bottom: 0;\r\n                width: 100%;\r\n                height: 0\r\n            }\r\n\r\n            #fm-grid li:hover .info {\r\n                height: auto\r\n            }\r\n\r\n    .fm-list li img {\r\n        width: 100%\r\n    }\r\n\r\n    .fm-list li.not_img img {\r\n        width: 50%;\r\n        padding-top: 10px\r\n    }\r\n\r\n    #fm-grid li img.thumb {\r\n        width: 60%;\r\n        margin: 0 auto;\r\n    }\r\n\r\n    #fm-grid li i {\r\n        position: absolute;\r\n        z-index: 999;\r\n        right: 4px;\r\n        background: #fff;\r\n        border-radius: 11px;\r\n        color: #0085ba;\r\n        padding: 1px;\r\n        top: 3px;\r\n        display: none;\r\n    }\r\n\r\n    #fm-grid li._active i {\r\n        display: block;\r\n    }\r\n\r\n    #fm-grid li._active {\r\n        border: 1px solid #0085ba;\r\n    }\r\n\r\n    #fm-folder ul li {\r\n        list-style-type: none;\r\n        padding: 8px 0;\r\n        cursor: pointer\r\n    }\r\n\r\n        #fm-folder ul li i {\r\n            background-repeat: no-repeat;\r\n            display: inline-block;\r\n            height: 16px;\r\n            vertical-align: middle;\r\n            width: 16px;\r\n        }\r\n\r\n    .plupload_filelist_header {\r\n        height: 20px;\r\n    }\r\n\r\n    .plupload_filelist_footer {\r\n        padding: 6px 20px;\r\n        height: 33px;\r\n    }\r\n\r\n    .plupload_scroll .plupload_filelist {\r\n        height: 172px !important;\r\n    }\r\n\r\n    .plupload_filelist_footer {\r\n        padding: 6px 20px;\r\n    }\r\n\r\n    .plupload_filelist:empty,\r\n    .plupload_filelist li.plupload_droptext {\r\n        height: 140px;\r\n    }\r\n\r\n        .plupload_filelist:empty::before,\r\n        .plupload_filelist li.plupload_droptext::before {\r\n            font-size: 52px;\r\n            height: 75px;\r\n            left: 49%;\r\n            margin-left: -40px;\r\n            padding-top: 43px;\r\n        }\r\n\r\n    .items-action {\r\n        padding-top: 20px;\r\n        display: inline-block;\r\n        width: 100%;\r\n    }\r\n\r\n        .items-action .file-action {\r\n            border: 0 none;\r\n            color: #fff;\r\n            padding: 4px 10px;\r\n        }\r\n\r\n        .items-action .file-action {\r\n            background: rosybrown;\r\n            float: left;\r\n            clear: both;\r\n        }\r\n    /*.items-action .file-action:last-child { background: #0085ba;float: right;}*/\r\n    #fm-toolbar .Mi.ipagination a:first-child {\r\n        border: 0;\r\n        border-radius: 0;\r\n    }\r\n\r\n    #fm-toolbar .Mi.ipagination input {\r\n        border: medium none;\r\n        float: left;\r\n        font-family: arial;\r\n        font-size: 11px;\r\n        height: 30px;\r\n        margin: 0;\r\n        outline: medium none;\r\n        padding: 0;\r\n        text-align: center;\r\n        vertical-align: middle;\r\n        width: 84px;\r\n    }\r\n\r\n    #fm-toolbar .Mi.ipagination a {\r\n        border: 0;\r\n        border-radius: 0;\r\n        background: #fff;\r\n    }\r\n\r\n    #fm-toolbar .ipagination.iweb {\r\n        margin-top: 3.45px;\r\n    }\r\n\r\n    #frowInTotals {\r\n        display: inline-block;\r\n        float: left;\r\n        line-height: 39px;\r\n        padding-right: 3px;\r\n        vertical-align: baseline;\r\n    }\r\n\r\n    label#progressall {\r\n        display: none;\r\n        padding: 7px 7px;\r\n    }\r\n\r\n    .Cdiv {\r\n        padding-left: 12px;\r\n        height: 17px;\r\n        overflow: hidden;\r\n        text-overflow: ellipsis;\r\n        white-space: nowrap;\r\n        width: 100%;\r\n        display: inline-block;\r\n        font-weight: normal;\r\n    }\r\n\r\n    #btn-fm-upload label {\r\n        margin-bottom: 0 !important;\r\n    }\r\n    /* Extra small devices (phones, 600px and down) */\r\n\r\n    @media only screen and (max-width: 600px) {\r\n        #fm-grid li {\r\n            width: 47.65%;\r\n        }\r\n    }\r\n\r\n    /* Small devices (portrait tablets and large phones, 600px and up) */\r\n\r\n    @media only screen and (min-width: 600px) {\r\n    }\r\n\r\n    /* Medium devices (landscape tablets, 768px and up) */\r\n\r\n    @media only screen and (min-width: 768px) {\r\n    }\r\n\r\n    /* Large devices (laptops/desktops, 992px and up) */\r\n\r\n    @media only screen and (min-width: 992px) {\r\n    }\r\n\r\n    /* Extra large devices (large laptops and desktops, 1200px and up) */\r\n\r\n    @media only screen and (min-width: 1200px) {\r\n    }\r\n</style>\r\n"],"sourceRoot":""}]);
 
 // exports
 
 
 /***/ }),
 
-/***/ 947:
+/***/ 950:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -36460,7 +36534,7 @@ var _vue = __webpack_require__(26);
 
 var _vue2 = _interopRequireDefault(_vue);
 
-var _jsTreeList = __webpack_require__(955);
+var _jsTreeList = __webpack_require__(958);
 
 var _jsTreeList2 = _interopRequireDefault(_jsTreeList);
 
@@ -36557,7 +36631,7 @@ function urlBase(title) {
 
 /***/ }),
 
-/***/ 948:
+/***/ 951:
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(process) {/*!
@@ -36656,85 +36730,85 @@ module.exports =
 /* 0 */
 /***/ (function(module, exports) {
 
-module.exports = __webpack_require__(973);
+module.exports = __webpack_require__(976);
 
 /***/ }),
 /* 1 */
 /***/ (function(module, exports) {
 
-module.exports = __webpack_require__(974);
+module.exports = __webpack_require__(977);
 
 /***/ }),
 /* 2 */
 /***/ (function(module, exports) {
 
-module.exports = __webpack_require__(968);
+module.exports = __webpack_require__(971);
 
 /***/ }),
 /* 3 */
 /***/ (function(module, exports) {
 
-module.exports = __webpack_require__(977);
+module.exports = __webpack_require__(980);
 
 /***/ }),
 /* 4 */
 /***/ (function(module, exports) {
 
-module.exports = __webpack_require__(987);
+module.exports = __webpack_require__(990);
 
 /***/ }),
 /* 5 */
 /***/ (function(module, exports) {
 
-module.exports = __webpack_require__(983);
+module.exports = __webpack_require__(986);
 
 /***/ }),
 /* 6 */
 /***/ (function(module, exports) {
 
-module.exports = __webpack_require__(992);
+module.exports = __webpack_require__(995);
 
 /***/ }),
 /* 7 */
 /***/ (function(module, exports) {
 
-module.exports = __webpack_require__(978);
+module.exports = __webpack_require__(981);
 
 /***/ }),
 /* 8 */
 /***/ (function(module, exports) {
 
-module.exports = __webpack_require__(989);
+module.exports = __webpack_require__(992);
 
 /***/ }),
 /* 9 */
 /***/ (function(module, exports) {
 
-module.exports = __webpack_require__(984);
+module.exports = __webpack_require__(987);
 
 /***/ }),
 /* 10 */
 /***/ (function(module, exports) {
 
-module.exports = __webpack_require__(982);
+module.exports = __webpack_require__(985);
 
 /***/ }),
 /* 11 */
 /***/ (function(module, exports) {
 
-module.exports = __webpack_require__(975);
+module.exports = __webpack_require__(978);
 
 /***/ }),
 /* 12 */
 /***/ (function(module, exports) {
 
-module.exports = __webpack_require__(986);
+module.exports = __webpack_require__(989);
 
 /***/ }),
 /* 13 */
 /***/ (function(module, exports) {
 
-module.exports = __webpack_require__(976);
+module.exports = __webpack_require__(979);
 
 /***/ }),
 /* 14 */
@@ -40468,7 +40542,7 @@ var VERSION = "0.4.0";
 
 /***/ }),
 
-/***/ 949:
+/***/ 952:
 /***/ (function(module, exports, __webpack_require__) {
 
 var META = __webpack_require__(182)('meta');
@@ -40528,13 +40602,13 @@ var meta = module.exports = {
 
 /***/ }),
 
-/***/ 950:
+/***/ 953:
 /***/ (function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
-var content = __webpack_require__(797);
+var content = __webpack_require__(800);
 if(typeof content === 'string') content = [[module.i, content, '']];
 // add the styles to the DOM
 var update = __webpack_require__(179)(content, {});
@@ -40543,8 +40617,8 @@ if(content.locals) module.exports = content.locals;
 if(true) {
 	// When the styles change, update the <style> tags
 	if(!content.locals) {
-		module.hot.accept(797, function() {
-			var newContent = __webpack_require__(797);
+		module.hot.accept(800, function() {
+			var newContent = __webpack_require__(800);
 			if(typeof newContent === 'string') newContent = [[module.i, newContent, '']];
 			update(newContent);
 		});
@@ -40555,14 +40629,14 @@ if(true) {
 
 /***/ }),
 
-/***/ 951:
+/***/ 954:
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports = { "default": __webpack_require__(389), __esModule: true };
 
 /***/ }),
 
-/***/ 952:
+/***/ 955:
 /***/ (function(module, exports, __webpack_require__) {
 
 // 19.1.2.7 / 15.2.3.4 Object.getOwnPropertyNames(O)
@@ -40576,7 +40650,7 @@ exports.f = Object.getOwnPropertyNames || function getOwnPropertyNames(O) {
 
 /***/ }),
 
-/***/ 953:
+/***/ 956:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -40584,7 +40658,7 @@ exports.f = Object.getOwnPropertyNames || function getOwnPropertyNames(O) {
 
 exports.__esModule = true;
 
-var _defineProperty = __webpack_require__(799);
+var _defineProperty = __webpack_require__(802);
 
 var _defineProperty2 = _interopRequireDefault(_defineProperty);
 
@@ -40607,7 +40681,7 @@ exports.default = function (obj, key, value) {
 
 /***/ }),
 
-/***/ 954:
+/***/ 957:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -40628,7 +40702,7 @@ exports.default = EventBus;
 
 /***/ }),
 
-/***/ 955:
+/***/ 958:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -40638,19 +40712,19 @@ var _assign = __webpack_require__(377);
 
 var _assign2 = _interopRequireDefault(_assign);
 
-var _defineProperty = __webpack_require__(799);
+var _defineProperty = __webpack_require__(802);
 
 var _defineProperty2 = _interopRequireDefault(_defineProperty);
 
-var _iterator = __webpack_require__(801);
+var _iterator = __webpack_require__(804);
 
 var _iterator2 = _interopRequireDefault(_iterator);
 
-var _symbol = __webpack_require__(800);
+var _symbol = __webpack_require__(803);
 
 var _symbol2 = _interopRequireDefault(_symbol);
 
-var _typeof3 = __webpack_require__(956);
+var _typeof3 = __webpack_require__(959);
 
 var _typeof4 = _interopRequireDefault(_typeof3);
 
@@ -41046,7 +41120,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 /***/ }),
 
-/***/ 956:
+/***/ 959:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -41054,11 +41128,11 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 exports.__esModule = true;
 
-var _iterator = __webpack_require__(801);
+var _iterator = __webpack_require__(804);
 
 var _iterator2 = _interopRequireDefault(_iterator);
 
-var _symbol = __webpack_require__(800);
+var _symbol = __webpack_require__(803);
 
 var _symbol2 = _interopRequireDefault(_symbol);
 
@@ -41074,29 +41148,29 @@ exports.default = typeof _symbol2.default === "function" && _typeof(_iterator2.d
 
 /***/ }),
 
-/***/ 957:
+/***/ 960:
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(962);
+__webpack_require__(965);
 __webpack_require__(387);
-__webpack_require__(963);
-__webpack_require__(964);
+__webpack_require__(966);
+__webpack_require__(967);
 module.exports = __webpack_require__(20).Symbol;
 
 
 /***/ }),
 
-/***/ 958:
+/***/ 961:
 /***/ (function(module, exports, __webpack_require__) {
 
 __webpack_require__(184);
 __webpack_require__(381);
-module.exports = __webpack_require__(796).f('iterator');
+module.exports = __webpack_require__(799).f('iterator');
 
 
 /***/ }),
 
-/***/ 959:
+/***/ 962:
 /***/ (function(module, exports, __webpack_require__) {
 
 // all enumerable object keys, includes symbols
@@ -41118,7 +41192,7 @@ module.exports = function (it) {
 
 /***/ }),
 
-/***/ 960:
+/***/ 963:
 /***/ (function(module, exports, __webpack_require__) {
 
 var pIE = __webpack_require__(375);
@@ -41141,12 +41215,12 @@ exports.f = __webpack_require__(44) ? gOPD : function getOwnPropertyDescriptor(O
 
 /***/ }),
 
-/***/ 961:
+/***/ 964:
 /***/ (function(module, exports, __webpack_require__) {
 
 // fallback for IE11 buggy Object.getOwnPropertyNames with iframe and window
 var toIObject = __webpack_require__(103);
-var gOPN = __webpack_require__(802).f;
+var gOPN = __webpack_require__(805).f;
 var toString = {}.toString;
 
 var windowNames = typeof window == 'object' && window && Object.getOwnPropertyNames
@@ -41167,7 +41241,7 @@ module.exports.f = function getOwnPropertyNames(it) {
 
 /***/ }),
 
-/***/ 962:
+/***/ 965:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -41178,15 +41252,15 @@ var has = __webpack_require__(72);
 var DESCRIPTORS = __webpack_require__(44);
 var $export = __webpack_require__(32);
 var redefine = __webpack_require__(386);
-var META = __webpack_require__(949).KEY;
+var META = __webpack_require__(952).KEY;
 var $fails = __webpack_require__(104);
 var shared = __webpack_require__(186);
 var setToStringTag = __webpack_require__(111);
 var uid = __webpack_require__(182);
 var wks = __webpack_require__(23);
-var wksExt = __webpack_require__(796);
-var wksDefine = __webpack_require__(795);
-var enumKeys = __webpack_require__(959);
+var wksExt = __webpack_require__(799);
+var wksDefine = __webpack_require__(798);
+var enumKeys = __webpack_require__(962);
 var isArray = __webpack_require__(383);
 var anObject = __webpack_require__(38);
 var isObject = __webpack_require__(56);
@@ -41195,8 +41269,8 @@ var toIObject = __webpack_require__(103);
 var toPrimitive = __webpack_require__(379);
 var createDesc = __webpack_require__(106);
 var _create = __webpack_require__(384);
-var gOPNExt = __webpack_require__(961);
-var $GOPD = __webpack_require__(960);
+var gOPNExt = __webpack_require__(964);
+var $GOPD = __webpack_require__(963);
 var $GOPS = __webpack_require__(378);
 var $DP = __webpack_require__(54);
 var $keys = __webpack_require__(181);
@@ -41322,7 +41396,7 @@ if (!USE_NATIVE) {
 
   $GOPD.f = $getOwnPropertyDescriptor;
   $DP.f = $defineProperty;
-  __webpack_require__(802).f = gOPNExt.f = $getOwnPropertyNames;
+  __webpack_require__(805).f = gOPNExt.f = $getOwnPropertyNames;
   __webpack_require__(375).f = $propertyIsEnumerable;
   $GOPS.f = $getOwnPropertySymbols;
 
@@ -41421,23 +41495,23 @@ setToStringTag(global.JSON, 'JSON', true);
 
 /***/ }),
 
-/***/ 963:
+/***/ 966:
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(795)('asyncIterator');
+__webpack_require__(798)('asyncIterator');
 
 
 /***/ }),
 
-/***/ 964:
+/***/ 967:
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(795)('observable');
+__webpack_require__(798)('observable');
 
 
 /***/ }),
 
-/***/ 965:
+/***/ 968:
 /***/ (function(module, exports) {
 
 exports.f = Object.getOwnPropertySymbols;
@@ -41445,7 +41519,7 @@ exports.f = Object.getOwnPropertySymbols;
 
 /***/ }),
 
-/***/ 966:
+/***/ 969:
 /***/ (function(module, exports) {
 
 function _arrayWithHoles(arr) {
@@ -41456,10 +41530,10 @@ module.exports = _arrayWithHoles;
 
 /***/ }),
 
-/***/ 967:
+/***/ 970:
 /***/ (function(module, exports, __webpack_require__) {
 
-var arrayLikeToArray = __webpack_require__(803);
+var arrayLikeToArray = __webpack_require__(806);
 
 function _arrayWithoutHoles(arr) {
   if (Array.isArray(arr)) return arrayLikeToArray(arr);
@@ -41469,7 +41543,7 @@ module.exports = _arrayWithoutHoles;
 
 /***/ }),
 
-/***/ 968:
+/***/ 971:
 /***/ (function(module, exports) {
 
 function _defineProperty(obj, key, value) {
@@ -41491,7 +41565,7 @@ module.exports = _defineProperty;
 
 /***/ }),
 
-/***/ 969:
+/***/ 972:
 /***/ (function(module, exports) {
 
 function _iterableToArray(iter) {
@@ -41502,7 +41576,7 @@ module.exports = _iterableToArray;
 
 /***/ }),
 
-/***/ 970:
+/***/ 973:
 /***/ (function(module, exports) {
 
 function _iterableToArrayLimit(arr, i) {
@@ -41536,7 +41610,7 @@ module.exports = _iterableToArrayLimit;
 
 /***/ }),
 
-/***/ 971:
+/***/ 974:
 /***/ (function(module, exports) {
 
 function _nonIterableRest() {
@@ -41547,7 +41621,7 @@ module.exports = _nonIterableRest;
 
 /***/ }),
 
-/***/ 972:
+/***/ 975:
 /***/ (function(module, exports) {
 
 function _nonIterableSpread() {
@@ -41558,16 +41632,16 @@ module.exports = _nonIterableSpread;
 
 /***/ }),
 
-/***/ 973:
+/***/ 976:
 /***/ (function(module, exports, __webpack_require__) {
 
-var arrayWithHoles = __webpack_require__(966);
+var arrayWithHoles = __webpack_require__(969);
 
-var iterableToArrayLimit = __webpack_require__(970);
+var iterableToArrayLimit = __webpack_require__(973);
 
-var unsupportedIterableToArray = __webpack_require__(804);
+var unsupportedIterableToArray = __webpack_require__(807);
 
-var nonIterableRest = __webpack_require__(971);
+var nonIterableRest = __webpack_require__(974);
 
 function _slicedToArray(arr, i) {
   return arrayWithHoles(arr) || iterableToArrayLimit(arr, i) || unsupportedIterableToArray(arr, i) || nonIterableRest();
@@ -41577,16 +41651,16 @@ module.exports = _slicedToArray;
 
 /***/ }),
 
-/***/ 974:
+/***/ 977:
 /***/ (function(module, exports, __webpack_require__) {
 
-var arrayWithoutHoles = __webpack_require__(967);
+var arrayWithoutHoles = __webpack_require__(970);
 
-var iterableToArray = __webpack_require__(969);
+var iterableToArray = __webpack_require__(972);
 
-var unsupportedIterableToArray = __webpack_require__(804);
+var unsupportedIterableToArray = __webpack_require__(807);
 
-var nonIterableSpread = __webpack_require__(972);
+var nonIterableSpread = __webpack_require__(975);
 
 function _toConsumableArray(arr) {
   return arrayWithoutHoles(arr) || iterableToArray(arr) || unsupportedIterableToArray(arr) || nonIterableSpread();
@@ -41596,7 +41670,7 @@ module.exports = _toConsumableArray;
 
 /***/ }),
 
-/***/ 975:
+/***/ 978:
 /***/ (function(module, exports) {
 
 function _typeof(obj) {
@@ -41619,7 +41693,7 @@ module.exports = _typeof;
 
 /***/ }),
 
-/***/ 976:
+/***/ 979:
 /***/ (function(module, exports) {
 
 var nestRE = /^(attrs|props|on|nativeOn|class|style|hook)$/
@@ -41676,7 +41750,7 @@ function mergeFn (a, b) {
 
 /***/ }),
 
-/***/ 977:
+/***/ 980:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -41708,7 +41782,7 @@ module.exports = fuzzysearch;
 
 /***/ }),
 
-/***/ 978:
+/***/ 981:
 /***/ (function(module, exports) {
 
 module.exports = isPromise;
@@ -41720,10 +41794,10 @@ function isPromise(obj) {
 
 /***/ }),
 
-/***/ 979:
+/***/ 982:
 /***/ (function(module, exports, __webpack_require__) {
 
-var trimmedEndIndex = __webpack_require__(980);
+var trimmedEndIndex = __webpack_require__(983);
 
 /** Used to match leading whitespace. */
 var reTrimStart = /^\s+/;
@@ -41746,7 +41820,7 @@ module.exports = baseTrim;
 
 /***/ }),
 
-/***/ 980:
+/***/ 983:
 /***/ (function(module, exports) {
 
 /** Used to match a single whitespace character. */
@@ -41772,10 +41846,10 @@ module.exports = trimmedEndIndex;
 
 /***/ }),
 
-/***/ 981:
+/***/ 984:
 /***/ (function(module, exports, __webpack_require__) {
 
-var toInteger = __webpack_require__(991);
+var toInteger = __webpack_require__(994);
 
 /** Error message constants. */
 var FUNC_ERROR_TEXT = 'Expected a function';
@@ -41819,7 +41893,7 @@ module.exports = before;
 
 /***/ }),
 
-/***/ 982:
+/***/ 985:
 /***/ (function(module, exports) {
 
 /**
@@ -41852,12 +41926,12 @@ module.exports = constant;
 
 /***/ }),
 
-/***/ 983:
+/***/ 986:
 /***/ (function(module, exports, __webpack_require__) {
 
 var isObject = __webpack_require__(58),
-    now = __webpack_require__(988),
-    toNumber = __webpack_require__(805);
+    now = __webpack_require__(991),
+    toNumber = __webpack_require__(808);
 
 /** Error message constants. */
 var FUNC_ERROR_TEXT = 'Expected a function';
@@ -42050,7 +42124,7 @@ module.exports = debounce;
 
 /***/ }),
 
-/***/ 984:
+/***/ 987:
 /***/ (function(module, exports) {
 
 /**
@@ -42078,7 +42152,7 @@ module.exports = identity;
 
 /***/ }),
 
-/***/ 985:
+/***/ 988:
 /***/ (function(module, exports, __webpack_require__) {
 
 var baseGetTag = __webpack_require__(76),
@@ -42114,7 +42188,7 @@ module.exports = isSymbol;
 
 /***/ }),
 
-/***/ 986:
+/***/ 989:
 /***/ (function(module, exports) {
 
 /**
@@ -42141,7 +42215,7 @@ module.exports = last;
 
 /***/ }),
 
-/***/ 987:
+/***/ 990:
 /***/ (function(module, exports) {
 
 /**
@@ -42165,7 +42239,7 @@ module.exports = noop;
 
 /***/ }),
 
-/***/ 988:
+/***/ 991:
 /***/ (function(module, exports, __webpack_require__) {
 
 var root = __webpack_require__(25);
@@ -42195,10 +42269,10 @@ module.exports = now;
 
 /***/ }),
 
-/***/ 989:
+/***/ 992:
 /***/ (function(module, exports, __webpack_require__) {
 
-var before = __webpack_require__(981);
+var before = __webpack_require__(984);
 
 /**
  * Creates a function that is restricted to invoking `func` once. Repeat calls
@@ -42227,10 +42301,10 @@ module.exports = once;
 
 /***/ }),
 
-/***/ 990:
+/***/ 993:
 /***/ (function(module, exports, __webpack_require__) {
 
-var toNumber = __webpack_require__(805);
+var toNumber = __webpack_require__(808);
 
 /** Used as references for various `Number` constants. */
 var INFINITY = 1 / 0,
@@ -42276,10 +42350,10 @@ module.exports = toFinite;
 
 /***/ }),
 
-/***/ 991:
+/***/ 994:
 /***/ (function(module, exports, __webpack_require__) {
 
-var toFinite = __webpack_require__(990);
+var toFinite = __webpack_require__(993);
 
 /**
  * Converts `value` to an integer.
@@ -42319,7 +42393,7 @@ module.exports = toInteger;
 
 /***/ }),
 
-/***/ 992:
+/***/ 995:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -42385,7 +42459,7 @@ var index = (function (element, listener) {
 
 /***/ }),
 
-/***/ 993:
+/***/ 996:
 /***/ (function(module, exports, __webpack_require__) {
 
 exports.f = __webpack_require__(17);
@@ -42393,10 +42467,10 @@ exports.f = __webpack_require__(17);
 
 /***/ }),
 
-/***/ 994:
+/***/ 997:
 /***/ (function(module, exports, __webpack_require__) {
 
-var pIE = __webpack_require__(806);
+var pIE = __webpack_require__(810);
 var createDesc = __webpack_require__(108);
 var toIObject = __webpack_require__(57);
 var toPrimitive = __webpack_require__(380);
@@ -42416,280 +42490,280 @@ exports.f = __webpack_require__(59) ? gOPD : function getOwnPropertyDescriptor(O
 
 /***/ }),
 
-/***/ 995:
+/***/ 998:
 /***/ (function(module, exports, __webpack_require__) {
 
 var map = {
-	"./af": 809,
-	"./af.js": 809,
-	"./ar": 816,
-	"./ar-dz": 810,
-	"./ar-dz.js": 810,
-	"./ar-kw": 811,
-	"./ar-kw.js": 811,
-	"./ar-ly": 812,
-	"./ar-ly.js": 812,
-	"./ar-ma": 813,
-	"./ar-ma.js": 813,
-	"./ar-sa": 814,
-	"./ar-sa.js": 814,
-	"./ar-tn": 815,
-	"./ar-tn.js": 815,
-	"./ar.js": 816,
-	"./az": 817,
-	"./az.js": 817,
-	"./be": 818,
-	"./be.js": 818,
-	"./bg": 819,
-	"./bg.js": 819,
-	"./bm": 820,
-	"./bm.js": 820,
-	"./bn": 822,
-	"./bn-bd": 821,
-	"./bn-bd.js": 821,
-	"./bn.js": 822,
-	"./bo": 823,
-	"./bo.js": 823,
-	"./br": 824,
-	"./br.js": 824,
-	"./bs": 825,
-	"./bs.js": 825,
-	"./ca": 826,
-	"./ca.js": 826,
-	"./cs": 827,
-	"./cs.js": 827,
-	"./cv": 828,
-	"./cv.js": 828,
-	"./cy": 829,
-	"./cy.js": 829,
-	"./da": 830,
-	"./da.js": 830,
-	"./de": 833,
-	"./de-at": 831,
-	"./de-at.js": 831,
-	"./de-ch": 832,
-	"./de-ch.js": 832,
-	"./de.js": 833,
-	"./dv": 834,
-	"./dv.js": 834,
-	"./el": 835,
-	"./el.js": 835,
-	"./en-au": 836,
-	"./en-au.js": 836,
-	"./en-ca": 837,
-	"./en-ca.js": 837,
-	"./en-gb": 838,
-	"./en-gb.js": 838,
-	"./en-ie": 839,
-	"./en-ie.js": 839,
-	"./en-il": 840,
-	"./en-il.js": 840,
-	"./en-in": 841,
-	"./en-in.js": 841,
-	"./en-nz": 842,
-	"./en-nz.js": 842,
-	"./en-sg": 843,
-	"./en-sg.js": 843,
-	"./eo": 844,
-	"./eo.js": 844,
-	"./es": 848,
-	"./es-do": 845,
-	"./es-do.js": 845,
-	"./es-mx": 846,
-	"./es-mx.js": 846,
-	"./es-us": 847,
-	"./es-us.js": 847,
-	"./es.js": 848,
-	"./et": 849,
-	"./et.js": 849,
-	"./eu": 850,
-	"./eu.js": 850,
-	"./fa": 851,
-	"./fa.js": 851,
-	"./fi": 852,
-	"./fi.js": 852,
-	"./fil": 853,
-	"./fil.js": 853,
-	"./fo": 854,
-	"./fo.js": 854,
-	"./fr": 857,
-	"./fr-ca": 855,
-	"./fr-ca.js": 855,
-	"./fr-ch": 856,
-	"./fr-ch.js": 856,
-	"./fr.js": 857,
-	"./fy": 858,
-	"./fy.js": 858,
-	"./ga": 859,
-	"./ga.js": 859,
-	"./gd": 860,
-	"./gd.js": 860,
-	"./gl": 861,
-	"./gl.js": 861,
-	"./gom-deva": 862,
-	"./gom-deva.js": 862,
-	"./gom-latn": 863,
-	"./gom-latn.js": 863,
-	"./gu": 864,
-	"./gu.js": 864,
-	"./he": 865,
-	"./he.js": 865,
-	"./hi": 866,
-	"./hi.js": 866,
-	"./hr": 867,
-	"./hr.js": 867,
-	"./hu": 868,
-	"./hu.js": 868,
-	"./hy-am": 869,
-	"./hy-am.js": 869,
-	"./id": 870,
-	"./id.js": 870,
-	"./is": 871,
-	"./is.js": 871,
-	"./it": 873,
-	"./it-ch": 872,
-	"./it-ch.js": 872,
-	"./it.js": 873,
-	"./ja": 874,
-	"./ja.js": 874,
-	"./jv": 875,
-	"./jv.js": 875,
-	"./ka": 876,
-	"./ka.js": 876,
-	"./kk": 877,
-	"./kk.js": 877,
-	"./km": 878,
-	"./km.js": 878,
-	"./kn": 879,
-	"./kn.js": 879,
-	"./ko": 880,
-	"./ko.js": 880,
-	"./ku": 881,
-	"./ku.js": 881,
-	"./ky": 882,
-	"./ky.js": 882,
-	"./lb": 883,
-	"./lb.js": 883,
-	"./lo": 884,
-	"./lo.js": 884,
-	"./lt": 885,
-	"./lt.js": 885,
-	"./lv": 886,
-	"./lv.js": 886,
-	"./me": 887,
-	"./me.js": 887,
-	"./mi": 888,
-	"./mi.js": 888,
-	"./mk": 889,
-	"./mk.js": 889,
-	"./ml": 890,
-	"./ml.js": 890,
-	"./mn": 891,
-	"./mn.js": 891,
-	"./mr": 892,
-	"./mr.js": 892,
-	"./ms": 894,
-	"./ms-my": 893,
-	"./ms-my.js": 893,
-	"./ms.js": 894,
-	"./mt": 895,
-	"./mt.js": 895,
-	"./my": 896,
-	"./my.js": 896,
-	"./nb": 897,
-	"./nb.js": 897,
-	"./ne": 898,
-	"./ne.js": 898,
-	"./nl": 900,
-	"./nl-be": 899,
-	"./nl-be.js": 899,
-	"./nl.js": 900,
-	"./nn": 901,
-	"./nn.js": 901,
-	"./oc-lnc": 902,
-	"./oc-lnc.js": 902,
-	"./pa-in": 903,
-	"./pa-in.js": 903,
-	"./pl": 904,
-	"./pl.js": 904,
-	"./pt": 906,
-	"./pt-br": 905,
-	"./pt-br.js": 905,
-	"./pt.js": 906,
-	"./ro": 907,
-	"./ro.js": 907,
-	"./ru": 908,
-	"./ru.js": 908,
-	"./sd": 909,
-	"./sd.js": 909,
-	"./se": 910,
-	"./se.js": 910,
-	"./si": 911,
-	"./si.js": 911,
-	"./sk": 912,
-	"./sk.js": 912,
-	"./sl": 913,
-	"./sl.js": 913,
-	"./sq": 914,
-	"./sq.js": 914,
-	"./sr": 916,
-	"./sr-cyrl": 915,
-	"./sr-cyrl.js": 915,
-	"./sr.js": 916,
-	"./ss": 917,
-	"./ss.js": 917,
-	"./sv": 918,
-	"./sv.js": 918,
-	"./sw": 919,
-	"./sw.js": 919,
-	"./ta": 920,
-	"./ta.js": 920,
-	"./te": 921,
-	"./te.js": 921,
-	"./tet": 922,
-	"./tet.js": 922,
-	"./tg": 923,
-	"./tg.js": 923,
-	"./th": 924,
-	"./th.js": 924,
-	"./tk": 925,
-	"./tk.js": 925,
-	"./tl-ph": 926,
-	"./tl-ph.js": 926,
-	"./tlh": 927,
-	"./tlh.js": 927,
-	"./tr": 928,
-	"./tr.js": 928,
-	"./tzl": 929,
-	"./tzl.js": 929,
-	"./tzm": 931,
-	"./tzm-latn": 930,
-	"./tzm-latn.js": 930,
-	"./tzm.js": 931,
-	"./ug-cn": 932,
-	"./ug-cn.js": 932,
-	"./uk": 933,
-	"./uk.js": 933,
-	"./ur": 934,
-	"./ur.js": 934,
-	"./uz": 936,
-	"./uz-latn": 935,
-	"./uz-latn.js": 935,
-	"./uz.js": 936,
-	"./vi": 937,
-	"./vi.js": 937,
-	"./x-pseudo": 938,
-	"./x-pseudo.js": 938,
-	"./yo": 939,
-	"./yo.js": 939,
-	"./zh-cn": 940,
-	"./zh-cn.js": 940,
-	"./zh-hk": 941,
-	"./zh-hk.js": 941,
-	"./zh-mo": 942,
-	"./zh-mo.js": 942,
-	"./zh-tw": 943,
-	"./zh-tw.js": 943
+	"./af": 812,
+	"./af.js": 812,
+	"./ar": 819,
+	"./ar-dz": 813,
+	"./ar-dz.js": 813,
+	"./ar-kw": 814,
+	"./ar-kw.js": 814,
+	"./ar-ly": 815,
+	"./ar-ly.js": 815,
+	"./ar-ma": 816,
+	"./ar-ma.js": 816,
+	"./ar-sa": 817,
+	"./ar-sa.js": 817,
+	"./ar-tn": 818,
+	"./ar-tn.js": 818,
+	"./ar.js": 819,
+	"./az": 820,
+	"./az.js": 820,
+	"./be": 821,
+	"./be.js": 821,
+	"./bg": 822,
+	"./bg.js": 822,
+	"./bm": 823,
+	"./bm.js": 823,
+	"./bn": 825,
+	"./bn-bd": 824,
+	"./bn-bd.js": 824,
+	"./bn.js": 825,
+	"./bo": 826,
+	"./bo.js": 826,
+	"./br": 827,
+	"./br.js": 827,
+	"./bs": 828,
+	"./bs.js": 828,
+	"./ca": 829,
+	"./ca.js": 829,
+	"./cs": 830,
+	"./cs.js": 830,
+	"./cv": 831,
+	"./cv.js": 831,
+	"./cy": 832,
+	"./cy.js": 832,
+	"./da": 833,
+	"./da.js": 833,
+	"./de": 836,
+	"./de-at": 834,
+	"./de-at.js": 834,
+	"./de-ch": 835,
+	"./de-ch.js": 835,
+	"./de.js": 836,
+	"./dv": 837,
+	"./dv.js": 837,
+	"./el": 838,
+	"./el.js": 838,
+	"./en-au": 839,
+	"./en-au.js": 839,
+	"./en-ca": 840,
+	"./en-ca.js": 840,
+	"./en-gb": 841,
+	"./en-gb.js": 841,
+	"./en-ie": 842,
+	"./en-ie.js": 842,
+	"./en-il": 843,
+	"./en-il.js": 843,
+	"./en-in": 844,
+	"./en-in.js": 844,
+	"./en-nz": 845,
+	"./en-nz.js": 845,
+	"./en-sg": 846,
+	"./en-sg.js": 846,
+	"./eo": 847,
+	"./eo.js": 847,
+	"./es": 851,
+	"./es-do": 848,
+	"./es-do.js": 848,
+	"./es-mx": 849,
+	"./es-mx.js": 849,
+	"./es-us": 850,
+	"./es-us.js": 850,
+	"./es.js": 851,
+	"./et": 852,
+	"./et.js": 852,
+	"./eu": 853,
+	"./eu.js": 853,
+	"./fa": 854,
+	"./fa.js": 854,
+	"./fi": 855,
+	"./fi.js": 855,
+	"./fil": 856,
+	"./fil.js": 856,
+	"./fo": 857,
+	"./fo.js": 857,
+	"./fr": 860,
+	"./fr-ca": 858,
+	"./fr-ca.js": 858,
+	"./fr-ch": 859,
+	"./fr-ch.js": 859,
+	"./fr.js": 860,
+	"./fy": 861,
+	"./fy.js": 861,
+	"./ga": 862,
+	"./ga.js": 862,
+	"./gd": 863,
+	"./gd.js": 863,
+	"./gl": 864,
+	"./gl.js": 864,
+	"./gom-deva": 865,
+	"./gom-deva.js": 865,
+	"./gom-latn": 866,
+	"./gom-latn.js": 866,
+	"./gu": 867,
+	"./gu.js": 867,
+	"./he": 868,
+	"./he.js": 868,
+	"./hi": 869,
+	"./hi.js": 869,
+	"./hr": 870,
+	"./hr.js": 870,
+	"./hu": 871,
+	"./hu.js": 871,
+	"./hy-am": 872,
+	"./hy-am.js": 872,
+	"./id": 873,
+	"./id.js": 873,
+	"./is": 874,
+	"./is.js": 874,
+	"./it": 876,
+	"./it-ch": 875,
+	"./it-ch.js": 875,
+	"./it.js": 876,
+	"./ja": 877,
+	"./ja.js": 877,
+	"./jv": 878,
+	"./jv.js": 878,
+	"./ka": 879,
+	"./ka.js": 879,
+	"./kk": 880,
+	"./kk.js": 880,
+	"./km": 881,
+	"./km.js": 881,
+	"./kn": 882,
+	"./kn.js": 882,
+	"./ko": 883,
+	"./ko.js": 883,
+	"./ku": 884,
+	"./ku.js": 884,
+	"./ky": 885,
+	"./ky.js": 885,
+	"./lb": 886,
+	"./lb.js": 886,
+	"./lo": 887,
+	"./lo.js": 887,
+	"./lt": 888,
+	"./lt.js": 888,
+	"./lv": 889,
+	"./lv.js": 889,
+	"./me": 890,
+	"./me.js": 890,
+	"./mi": 891,
+	"./mi.js": 891,
+	"./mk": 892,
+	"./mk.js": 892,
+	"./ml": 893,
+	"./ml.js": 893,
+	"./mn": 894,
+	"./mn.js": 894,
+	"./mr": 895,
+	"./mr.js": 895,
+	"./ms": 897,
+	"./ms-my": 896,
+	"./ms-my.js": 896,
+	"./ms.js": 897,
+	"./mt": 898,
+	"./mt.js": 898,
+	"./my": 899,
+	"./my.js": 899,
+	"./nb": 900,
+	"./nb.js": 900,
+	"./ne": 901,
+	"./ne.js": 901,
+	"./nl": 903,
+	"./nl-be": 902,
+	"./nl-be.js": 902,
+	"./nl.js": 903,
+	"./nn": 904,
+	"./nn.js": 904,
+	"./oc-lnc": 905,
+	"./oc-lnc.js": 905,
+	"./pa-in": 906,
+	"./pa-in.js": 906,
+	"./pl": 907,
+	"./pl.js": 907,
+	"./pt": 909,
+	"./pt-br": 908,
+	"./pt-br.js": 908,
+	"./pt.js": 909,
+	"./ro": 910,
+	"./ro.js": 910,
+	"./ru": 911,
+	"./ru.js": 911,
+	"./sd": 912,
+	"./sd.js": 912,
+	"./se": 913,
+	"./se.js": 913,
+	"./si": 914,
+	"./si.js": 914,
+	"./sk": 915,
+	"./sk.js": 915,
+	"./sl": 916,
+	"./sl.js": 916,
+	"./sq": 917,
+	"./sq.js": 917,
+	"./sr": 919,
+	"./sr-cyrl": 918,
+	"./sr-cyrl.js": 918,
+	"./sr.js": 919,
+	"./ss": 920,
+	"./ss.js": 920,
+	"./sv": 921,
+	"./sv.js": 921,
+	"./sw": 922,
+	"./sw.js": 922,
+	"./ta": 923,
+	"./ta.js": 923,
+	"./te": 924,
+	"./te.js": 924,
+	"./tet": 925,
+	"./tet.js": 925,
+	"./tg": 926,
+	"./tg.js": 926,
+	"./th": 927,
+	"./th.js": 927,
+	"./tk": 928,
+	"./tk.js": 928,
+	"./tl-ph": 929,
+	"./tl-ph.js": 929,
+	"./tlh": 930,
+	"./tlh.js": 930,
+	"./tr": 931,
+	"./tr.js": 931,
+	"./tzl": 932,
+	"./tzl.js": 932,
+	"./tzm": 934,
+	"./tzm-latn": 933,
+	"./tzm-latn.js": 933,
+	"./tzm.js": 934,
+	"./ug-cn": 935,
+	"./ug-cn.js": 935,
+	"./uk": 936,
+	"./uk.js": 936,
+	"./ur": 937,
+	"./ur.js": 937,
+	"./uz": 939,
+	"./uz-latn": 938,
+	"./uz-latn.js": 938,
+	"./uz.js": 939,
+	"./vi": 940,
+	"./vi.js": 940,
+	"./x-pseudo": 941,
+	"./x-pseudo.js": 941,
+	"./yo": 942,
+	"./yo.js": 942,
+	"./zh-cn": 943,
+	"./zh-cn.js": 943,
+	"./zh-hk": 944,
+	"./zh-hk.js": 944,
+	"./zh-mo": 945,
+	"./zh-mo.js": 945,
+	"./zh-tw": 946,
+	"./zh-tw.js": 946
 };
 function webpackContext(req) {
 	return __webpack_require__(webpackContextResolve(req));
@@ -42705,88 +42779,14 @@ webpackContext.keys = function webpackContextKeys() {
 };
 webpackContext.resolve = webpackContextResolve;
 module.exports = webpackContext;
-webpackContext.id = 995;
-
-/***/ }),
-
-/***/ 996:
-/***/ (function(module, exports) {
-
-module.exports = {"AppSettings":{"Debug":true,"Version":"1.0.0.0","Domain":"http://demo.way2go.vn","UploadFolder":"uploads","FileUploadMaxSize":5000,"FileUploadSubFix":false,"ImageScaleWidth":300,"ImageScaleHeight":0,"ImageAllowUpload":".jpg,.jpeg,.png,.gif,.bit,.webp,.svg","DocumentAllowUpload":".doc,.docx,.pdf,.xls,.xlsx,.zip,.rar","FoderImg":"https://platformcms.hndedu.com","BaseDomain":"https://demo.way2go.vn","CacheEnable":"0","ESEnable":true,"NodeES":"http://127.0.0.1:9200","IndexES":"product_suggest"},"Redis":{"ConnectionString":"127.0.0.1:6379","DefaultDatabase":1,"InstanceName":"PLM_","CachingExpireMinute":3},"ConnectionStrings":{"DefaultConnection":"Server=103.184.112.82;Database=JT_DEV_2;Trusted_Connection=False;User Id=sa;password=EcaOicT35K%EC1"},"Cors":{"WithOrigin":"http://localhost:60099/"},"Logging":{"IncludeScopes":false,"LogLevel":{"Default":"Debug","System":"Information","Microsoft":"Information"}},"Tokens":{"Key":"0123456789ABCDEF","Issuer":"https://janhome.vn/"},"EmailSender":{"Host":"mail247.vn","Port":465,"CustomerService":{"Email":"cs@joytime.vn","Password":"D2A9HnvGMJYW3BeKQw5f4F"},"SupplierService":{"Email":"partner@joytime.vn","Password":"SL9QgKGtjCNUcbr7uXdWPY"},"HelpDesk":{"Email":"helpdesk@joytime.vn","Password":"jaR548durV2tpFCkX6qENx"},"BookingService":{"Email":"booking@joytime.vn","Password":"zydcpPBfEHeM7u9DU6XLVT"}}}
-
-/***/ }),
-
-/***/ 997:
-/***/ (function(module, exports, __webpack_require__) {
-
-var META = __webpack_require__(109)('meta');
-var isObject = __webpack_require__(45);
-var has = __webpack_require__(73);
-var setDesc = __webpack_require__(55).f;
-var id = 0;
-var isExtensible = Object.isExtensible || function () {
-  return true;
-};
-var FREEZE = !__webpack_require__(46)(function () {
-  return isExtensible(Object.preventExtensions({}));
-});
-var setMeta = function (it) {
-  setDesc(it, META, { value: {
-    i: 'O' + ++id, // object ID
-    w: {}          // weak collections IDs
-  } });
-};
-var fastKey = function (it, create) {
-  // return primitive with prefix
-  if (!isObject(it)) return typeof it == 'symbol' ? it : (typeof it == 'string' ? 'S' : 'P') + it;
-  if (!has(it, META)) {
-    // can't set metadata to uncaught frozen object
-    if (!isExtensible(it)) return 'F';
-    // not necessary to add metadata
-    if (!create) return 'E';
-    // add missing metadata
-    setMeta(it);
-  // return object ID
-  } return it[META].i;
-};
-var getWeak = function (it, create) {
-  if (!has(it, META)) {
-    // can't set metadata to uncaught frozen object
-    if (!isExtensible(it)) return true;
-    // not necessary to add metadata
-    if (!create) return false;
-    // add missing metadata
-    setMeta(it);
-  // return hash weak collections IDs
-  } return it[META].w;
-};
-// add metadata on freeze-family methods calling
-var onFreeze = function (it) {
-  if (FREEZE && meta.NEED && isExtensible(it) && !has(it, META)) setMeta(it);
-  return it;
-};
-var meta = module.exports = {
-  KEY: META,
-  NEED: false,
-  fastKey: fastKey,
-  getWeak: getWeak,
-  onFreeze: onFreeze
-};
-
-
-/***/ }),
-
-/***/ 998:
-/***/ (function(module, exports) {
-
-module.exports = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAJUlEQVQ4jWNgoBSkpaX9pwRTxwBsriJabHAYMBoGo2FAcRhQCgAhhv41B1NcjwAAAABJRU5ErkJggg=="
+webpackContext.id = 998;
 
 /***/ }),
 
 /***/ 999:
 /***/ (function(module, exports) {
 
-module.exports = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAHElEQVQ4jWNgGPogLS3tPyV41AWjLhguLqAUAABjQNJhHOFYqgAAAABJRU5ErkJggg=="
+module.exports = {"AppSettings":{"Debug":true,"Version":"1.0.0.0","Domain":"http://demo.way2go.vn","UploadFolder":"uploads","FileUploadMaxSize":5000,"FileUploadSubFix":false,"ImageScaleWidth":300,"ImageScaleHeight":0,"ImageAllowUpload":".jpg,.jpeg,.png,.gif,.bit,.webp,.svg","DocumentAllowUpload":".doc,.docx,.pdf,.xls,.xlsx,.zip,.rar","FoderImg":"https://platformcms.hndedu.com","BaseDomain":"https://demo.way2go.vn","CacheEnable":"0","ESEnable":true,"NodeES":"http://127.0.0.1:9200","IndexES":"product_suggest"},"Redis":{"ConnectionString":"127.0.0.1:6379","DefaultDatabase":1,"InstanceName":"PLM_","CachingExpireMinute":3},"ConnectionStrings":{"DefaultConnection":"Server=103.184.112.82;Database=JT_DEV_2;Trusted_Connection=False;User Id=sa;password=EcaOicT35K%EC1"},"Cors":{"WithOrigin":"http://localhost:60099/"},"Logging":{"IncludeScopes":false,"LogLevel":{"Default":"Debug","System":"Information","Microsoft":"Information"}},"Tokens":{"Key":"0123456789ABCDEF","Issuer":"https://janhome.vn/"},"EmailSender":{"Host":"mail247.vn","Port":465,"CustomerService":{"Email":"cs@joytime.vn","Password":"D2A9HnvGMJYW3BeKQw5f4F"},"SupplierService":{"Email":"partner@joytime.vn","Password":"SL9QgKGtjCNUcbr7uXdWPY"},"HelpDesk":{"Email":"helpdesk@joytime.vn","Password":"jaR548durV2tpFCkX6qENx"},"BookingService":{"Email":"booking@joytime.vn","Password":"zydcpPBfEHeM7u9DU6XLVT"}}}
 
 /***/ })
 

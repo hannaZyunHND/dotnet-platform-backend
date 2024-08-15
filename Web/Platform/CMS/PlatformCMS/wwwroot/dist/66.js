@@ -1,6 +1,6 @@
 webpackJsonp([66],{
 
-/***/ 1252:
+/***/ 1259:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -10,21 +10,13 @@ Object.defineProperty(exports, "__esModule", {
     value: true
 });
 
-var _extends2 = __webpack_require__(8);
+var _extends2 = __webpack_require__(7);
 
 var _extends3 = _interopRequireDefault(_extends2);
 
-var _regenerator = __webpack_require__(75);
+__webpack_require__(796);
 
-var _regenerator2 = _interopRequireDefault(_regenerator);
-
-var _asyncToGenerator2 = __webpack_require__(74);
-
-var _asyncToGenerator3 = _interopRequireDefault(_asyncToGenerator2);
-
-__webpack_require__(793);
-
-var _constant = __webpack_require__(794);
+var _constant = __webpack_require__(797);
 
 var _constant2 = _interopRequireDefault(_constant);
 
@@ -34,417 +26,457 @@ var _vueLoadingOverlay = __webpack_require__(376);
 
 var _vueLoadingOverlay2 = _interopRequireDefault(_vueLoadingOverlay);
 
-var _authenticationRepository = __webpack_require__(114);
-
-var _router = __webpack_require__(189);
-
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 exports.default = {
-    name: "Profile",
-    data: function data() {
-        return {
-            editorData: '<p>Content of the editor.</p>',
-            editorConfig: {
-                allowedContent: true,
-                extraPlugins: ""
-            },
-            disabled: false,
-            selectedFile: null,
-            preview: '',
-            isLoading: false,
-            fullPage: false,
-            color: "#007bff",
-            objRequest: {},
-            LanguageCodes: [],
-            LanguageValues: null,
-            currentUser: null
-        };
-    },
-    created: function created() {
-        var _this = this;
-
-        return (0, _asyncToGenerator3.default)(_regenerator2.default.mark(function _callee() {
-            return _regenerator2.default.wrap(function _callee$(_context) {
-                while (1) {
-                    switch (_context.prev = _context.next) {
-                        case 0:
-                            _this.GetById();
-
-                        case 1:
-                        case "end":
-                            return _context.stop();
-                    }
-                }
-            }, _callee, _this);
-        }))();
-    },
-
+    name: "product",
     components: {
         Loading: _vueLoadingOverlay2.default
     },
+    data: function data() {
+        return {
+            isLoading: false,
+            _product: {},
+            messeger: "",
+            currentSort: "Id",
+            currentSortDir: "asc",
 
-    mounted: function mounted() {},
+            currentPage: 1,
+            pageSize: 10,
+            loading: true,
 
+            SearchKeyword: "",
+            SearchLanguageCode: "vi-VN     ",
+            Language: [],
+            searchStatus: 0,
+            ListStatus: [{
+                Id: 0,
+                Text: "Tất cả"
+            }, {
+                Id: 1,
+                Text: "Xuất bản"
+            }, {
+                Id: 2,
+                Text: "Ẩn"
+            }, {
+                Id: 3,
+                Text: "Đã xóa"
+            }],
 
-    computed: (0, _extends3.default)({}, (0, _vuex.mapGetters)(["fileName"])),
-    watch: {},
-    methods: (0, _extends3.default)({}, (0, _vuex.mapActions)(["uploadFile", "updateProfile"]), {
-        GetById: function GetById() {
-            var _this2 = this;
-
-            return (0, _asyncToGenerator3.default)(_regenerator2.default.mark(function _callee2() {
-                return _regenerator2.default.wrap(function _callee2$(_context2) {
-                    while (1) {
-                        switch (_context2.prev = _context2.next) {
-                            case 0:
-                                _context2.next = 2;
-                                return _authenticationRepository.authenticationRepository.getCurrentUser();
-
-                            case 2:
-                                _this2.objRequest = _context2.sent;
-
-                                if (_this2.objRequest.avatar) {
-                                    _this2.preview = "/uploads/" + _this2.objRequest.avatar;
-                                }
-                                _this2.isLoading = false;
-
-                            case 5:
-                            case "end":
-                                return _context2.stop();
-                        }
-                    }
-                }, _callee2, _this2);
-            }))();
-        },
-        DoAddEdit: function DoAddEdit() {
-            var _this3 = this;
-
-            return (0, _asyncToGenerator3.default)(_regenerator2.default.mark(function _callee3() {
-                var vm, result;
-                return _regenerator2.default.wrap(function _callee3$(_context3) {
-                    while (1) {
-                        switch (_context3.prev = _context3.next) {
-                            case 0:
-                                vm = _this3;
-
-                                _this3.isLoading = true;
-
-                                if (!_this3.objRequest.id) {
-                                    _context3.next = 7;
-                                    break;
-                                }
-
-                                _context3.next = 5;
-                                return _this3.updateProfile(_this3.objRequest);
-
-                            case 5:
-                                result = _context3.sent;
-
-                                if (result.success == true) {
-                                    _this3.$toast.success("tạo thành công", {});
-                                    _this3.isLoading = false;
-                                    _this3.$router.go(-1);
-                                } else {
-                                    _this3.$router.go(-1);
-                                    _this3.$toast.error("cập nhật thất bại", {});
-                                    _this3.isLoading = false;
-                                }
-
-                            case 7:
-                            case "end":
-                                return _context3.stop();
-                        }
-                    }
-                }, _callee3, _this3);
-            }))();
-        },
-        DoRefesh: function DoRefesh() {
-            this.objRequest.Title = "";
-        },
-        GetRouterChangePassword: function GetRouterChangePassword() {
-            _router.router.push('/admin/profile/change-password');
-        },
-        openUpload: function openUpload() {
-            document.getElementById('file-field').click();
-        },
-        updatePreview: function updatePreview(e) {
-            var _this4 = this;
-
-            debugger;
-            var reader,
-                files = e.target.files;
-            if (files.length === 0) {
-                console.log('Empty');
+            bootstrapPaginationClasses: {
+                ul: "pagination",
+                li: "page-item",
+                liActive: "active",
+                liDisable: "disabled",
+                button: "page-link"
+            },
+            customLabels: {
+                first: "First",
+                prev: "Previous",
+                next: "Next",
+                last: "Last"
             }
-            this.selectedFile = files[0];
-            reader = new FileReader();
-            var data = new FormData();
-            for (var x = 0; x < files.length; x++) {
-                data.append("file" + x, files[x]);
+        };
+    },
+
+    methods: (0, _extends3.default)({}, (0, _vuex.mapActions)(["getPromotions", "deletePromotion", "getAllLanguages"]), {
+        onChangePaging: function onChangePaging() {
+            this.isLoading = true;
+            var initial = this.$route.query.initial;
+            initial = typeof initial != "undefined" ? initial.toLowerCase() : "";
+            this.getPromotions({
+                keyword: this.SearchKeyword,
+                languageCode: this.SearchLanguageCode || "vi-VN",
+                pageIndex: this.currentPage,
+                pageSize: this.pageSize,
+                sortBy: this.currentSort,
+                sortDir: this.currentSortDir,
+                status: this.searchStatus
+            });
+            this.isLoading = false;
+        },
+
+        sortor: function sortor(s) {
+            if (s === this.currentSort) {
+                this.currentSortDir = this.currentSortDir === "asc" ? "desc" : "asc";
             }
-            this.uploadFile(data).then(function (response) {
-                if (response.success == true) {
-                    reader.onload = function (e) {
-                        if (response.data[0].path != '/') {
-                            _this4.objRequest.avatar = response.data[0].path;
-                            _this4.preview = e.target.result;
-                        } else _this4.$toast.error(response.data[0].messages, {});
-                    };
-                    reader.readAsDataURL(files[0]);
+            this.currentSort = s;
+            this.onChangePaging();
+        },
+        remove: function remove(item, status) {
+            var _this = this;
+
+            item.status = status;
+            var initial = this.$route.query.initial;
+            initial = typeof initial != "undefined" ? initial.toLowerCase() : "";
+            this.deletePromotion(item).then(function (response) {
+                if (response.key == true) {
+                    _this.$toast.success(response.value, {});
+                    _this.onChangePaging();
+                    _this.isLoading = false;
                 } else {
-                    _this4.$toast.error(_constant2.default.error + ". Error:" + e, {});
-                    _this4.isLoading = false;
+                    _this.$toast.error(response.value, {});
+                    _this.isLoading = false;
                 }
             }).catch(function (e) {
-                _this4.$toast.error(_constant2.default.error + ". Error:" + e, {});
-                _this4.isLoading = false;
+                _this.$toast.error(_constant2.default.error + ". Error:" + e, {});
             });
         }
-    })
+    }),
+    computed: (0, _extends3.default)({}, (0, _vuex.mapGetters)(["promotions"])),
+    mounted: function mounted() {
+        this.onChangePaging();
+    },
+
+    watch: {
+        currentPage: function currentPage(newVal) {
+            this.currentPage = newVal;
+            this.onChangePaging();
+        },
+        SearchLanguageCode: function SearchLanguageCode() {
+            this.currentPage = 1;
+            this.onChangePaging();
+        },
+        searchStatus: function searchStatus() {
+            this.currentPage = 1;
+            this.onChangePaging();
+        }
+    }
 };
 
 /***/ }),
 
-/***/ 1579:
+/***/ 1576:
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
   return _c('div', {
-    staticStyle: {
-      "display": "flex",
-      "width": "100%"
-    }
-  }, [_c('loading', {
-    attrs: {
-      "active": _vm.isLoading,
-      "height": 35,
-      "width": 35,
-      "color": _vm.color,
-      "is-full-page": _vm.fullPage
-    },
-    on: {
-      "update:active": function($event) {
-        _vm.isLoading = $event
-      }
-    }
-  }), _vm._v(" "), _c('b-tabs', {
-    staticClass: "col-md-12",
-    attrs: {
-      "pills": ""
-    }
-  }, [_c('b-tab', {
-    attrs: {
-      "title": "1. Nhập thông tin tài khoản",
-      "active": ""
-    }
-  }, [_c('div', {
-    staticClass: "row productedit"
-  }, [_c('div', {
-    staticClass: "col-md-12"
+    staticClass: "list-data"
   }, [_c('b-card', {
-    staticClass: "mt-3 ",
+    staticClass: "card-filter",
     attrs: {
-      "header": "Cập nhật tài khoản"
+      "header-tag": "header",
+      "footer-tag": "footer"
     }
-  }, [_c('b-form', {
-    staticClass: "form-horizontal"
-  }, [_c('div', {
-    staticClass: "row"
-  }, [_c('div', {
-    staticClass: "col-md-4"
-  }, [_c('b-form-group', [_c('label', [_vm._v("Ảnh đại diện")]), _vm._v(" "), _c('b-form-file', {
+  }, [_c('div', [_c('b-col', {
     attrs: {
-      "id": "file-field",
-      "size": "sm"
+      "md": "12"
+    }
+  }, [_c('b-row', {
+    staticClass: "form-group"
+  }, [_c('b-col', {
+    attrs: {
+      "md": "4"
+    }
+  }, [_c('b-form-input', {
+    attrs: {
+      "type": "text",
+      "placeholder": "Tìm kiếm theo tên"
     },
     on: {
-      "change": _vm.updatePreview
+      "keyup": function($event) {
+        if (!$event.type.indexOf('key') && $event.keyCode !== 13) { return null; }
+        return _vm.onChangePaging()
+      }
     },
     model: {
-      value: (_vm.objRequest.avatar),
+      value: (_vm.SearchKeyword),
       callback: function($$v) {
-        _vm.$set(_vm.objRequest, "avatar", $$v)
+        _vm.SearchKeyword = $$v
       },
-      expression: "objRequest.avatar"
+      expression: "SearchKeyword"
     }
-  }), _vm._v(" "), _c('img', {
-    staticClass: "preview-image img-thumbnail",
-    staticStyle: {
-      "margin-top": "10px"
-    },
+  })], 1), _vm._v(" "), _c('b-col', {
     attrs: {
-      "src": _vm.preview
-    },
+      "md": "2"
+    }
+  }, [_c('select', {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: (_vm.searchStatus),
+      expression: "searchStatus"
+    }],
+    staticClass: "form-control",
     on: {
-      "click": _vm.openUpload
+      "change": function($event) {
+        var $$selectedVal = Array.prototype.filter.call($event.target.options, function(o) {
+          return o.selected
+        }).map(function(o) {
+          var val = "_value" in o ? o._value : o.value;
+          return val
+        });
+        _vm.searchStatus = $event.target.multiple ? $$selectedVal : $$selectedVal[0]
+      }
     }
-  })], 1)], 1), _vm._v(" "), _c('div', {
-    staticClass: "col-md-8"
+  }, _vm._l((_vm.ListStatus), function(item) {
+    return _c('option', {
+      domProps: {
+        "value": item.Id
+      }
+    }, [_vm._v("\n                                " + _vm._s(item.Text) + "\n                            ")])
+  }), 0)]), _vm._v(" "), _c('b-col', {
+    attrs: {
+      "md": "1"
+    }
+  }, [_c('b-btn', {
+    staticClass: "col-lg-12",
+    attrs: {
+      "variant": "info"
+    }
+  }, [_c('i', {
+    staticClass: "fa fa-search",
+    attrs: {
+      "aria-hidden": "true"
+    }
+  })])], 1), _vm._v(" "), _c('b-col', {
+    attrs: {
+      "md": "1"
+    }
+  }, [_c('b-btn', {
+    staticClass: "col-lg-12",
+    attrs: {
+      "variant": "primary"
+    }
+  }, [_c('i', {
+    staticClass: "fa fa-refresh",
+    attrs: {
+      "aria-hidden": "true"
+    }
+  })])], 1), _vm._v(" "), _c('b-col', {
+    attrs: {
+      "md": "2"
+    }
+  }, [_c('b-btn', {
+    directives: [{
+      name: "b-toggle",
+      rawName: "v-b-toggle.collapse1",
+      modifiers: {
+        "collapse1": true
+      }
+    }],
+    attrs: {
+      "variant": "primary"
+    }
+  }, [_c('i', {
+    staticClass: "fa fa-angle-double-down",
+    attrs: {
+      "aria-hidden": "true"
+    }
+  })])], 1)], 1)], 1)], 1)]), _vm._v(" "), _c('div', {
+    staticClass: "card card-data"
   }, [_c('div', {
-    staticClass: "col-md-12"
-  }, [_c('b-form-group', {
-    attrs: {
-      "label": "Email"
-    }
-  }, [_c('b-form-input', {
-    attrs: {
-      "placeholder": "Email",
-      "readonly": ""
-    },
-    model: {
-      value: (_vm.objRequest.email),
-      callback: function($$v) {
-        _vm.$set(_vm.objRequest, "email", $$v)
-      },
-      expression: "objRequest.email"
-    }
-  })], 1)], 1), _vm._v(" "), _c('div', {
-    staticClass: "col-md-12"
-  }, [_c('b-form-group', {
-    attrs: {
-      "label": "Tên người dùng"
-    }
-  }, [_c('b-form-input', {
-    attrs: {
-      "placeholder": "Tên người dùng",
-      "readonly": ""
-    },
-    model: {
-      value: (_vm.objRequest.userName),
-      callback: function($$v) {
-        _vm.$set(_vm.objRequest, "userName", $$v)
-      },
-      expression: "objRequest.userName"
-    }
-  })], 1)], 1), _vm._v(" "), _c('div', {
-    staticClass: "col-md-12"
-  }, [_c('b-form-group', {
-    attrs: {
-      "label": "Tên đầy đủ"
-    }
-  }, [_c('b-form-input', {
-    attrs: {
-      "placeholder": "Tên đầy đủ"
-    },
-    model: {
-      value: (_vm.objRequest.fullName),
-      callback: function($$v) {
-        _vm.$set(_vm.objRequest, "fullName", $$v)
-      },
-      expression: "objRequest.fullName"
-    }
-  })], 1)], 1), _vm._v(" "), _c('div', {
-    staticClass: "col-md-12"
-  }, [_c('b-form-group', {
-    attrs: {
-      "label": "Nhóm người dùng"
-    }
-  }, [_c('b-form-input', {
-    attrs: {
-      "placeholder": "Nhóm người dùng",
-      "readonly": ""
-    },
-    model: {
-      value: (_vm.objRequest.roles),
-      callback: function($$v) {
-        _vm.$set(_vm.objRequest, "roles", $$v)
-      },
-      expression: "objRequest.roles"
-    }
-  })], 1)], 1), _vm._v(" "), _c('div', {
-    staticClass: "col-md-12"
-  }, [_c('b-form-group', {
-    attrs: {
-      "label": "Địa chỉ"
-    }
-  }, [_c('b-form-input', {
-    attrs: {
-      "placeholder": "Địa chỉ"
-    },
-    model: {
-      value: (_vm.objRequest.address),
-      callback: function($$v) {
-        _vm.$set(_vm.objRequest, "address", $$v)
-      },
-      expression: "objRequest.address"
-    }
-  })], 1)], 1), _vm._v(" "), _c('div', {
-    staticClass: "col-md-12"
+    staticClass: "card-body"
   }, [_c('div', {
-    staticClass: "mt-3"
-  }, [_c('div', {
-    staticClass: "row"
-  }, [_c('div', {
-    staticClass: "col-md-4"
-  }, [_c('button', {
-    staticClass: "btn btn-info btn-submit-form col-md-12 btncus",
+    staticClass: " mb-2",
     attrs: {
-      "type": "button"
-    },
-    on: {
-      "click": function($event) {
-        return _vm.DoAddEdit()
+      "role": "toolbar",
+      "aria-label": "Toolbar with button groups and dropdown menu"
+    }
+  }, [_c('div', {
+    staticClass: "mx-1 btn-group",
+    attrs: {
+      "role": "group"
+    }
+  }, [_c('router-link', {
+    staticClass: "btn btn-success",
+    attrs: {
+      "to": {
+        path: 'add'
       }
     }
   }, [_c('i', {
-    staticClass: "fa fa-save"
-  }), _vm._v(" Cập nhật\n                                                    ")])]), _vm._v(" "), _c('div', {
-    staticClass: "col-md-4"
-  }, [_c('button', {
-    staticClass: "btn btn-success col-md-12 btncus",
+    staticClass: "fa fa-plus"
+  }), _vm._v(" Thêm mới")]), _vm._v(" "), _vm._m(0)], 1), _vm._v(" "), _c('b-dropdown', {
+    staticClass: "mx-1",
+    attrs: {
+      "variant": "info",
+      "right": "",
+      "text": "Hành động",
+      "icon": ""
+    }
+  }, [_c('b-dropdown-item', [_vm._v("Kích hoạt")]), _vm._v(" "), _c('b-dropdown-item', [_vm._v("Không kích hoạt")])], 1), _vm._v(" "), _c('div', {
+    staticClass: "mx-1 btn-group mi-paging"
+  }, [_c('b-pagination', {
+    attrs: {
+      "total-rows": _vm.promotions.total,
+      "per-page": _vm.pageSize,
+      "aria-controls": "_product"
+    },
+    model: {
+      value: (_vm.currentPage),
+      callback: function($$v) {
+        _vm.currentPage = $$v
+      },
+      expression: "currentPage"
+    }
+  })], 1)], 1), _vm._v(" "), _c('div', {
+    staticClass: "table-responsive"
+  }, [_c('div', {
+    staticClass: "dataTables_wrapper dt-bootstrap4 no-footer"
+  }, [_c('div', {
+    staticClass: "clear"
+  }), _vm._v(" "), _c('table', {
+    staticClass: "table data-thumb-view dataTable no-footer",
+    attrs: {
+      "role": "grid"
+    }
+  }, [_vm._m(1), _vm._v(" "), _c('tbody', _vm._l((_vm.promotions.listData), function(item) {
+    return _c('tr', {
+      staticClass: "odd",
+      attrs: {
+        "role": "row"
+      }
+    }, [_vm._m(2, true), _vm._v(" "), _c('td', [_c('p', [_vm._v(_vm._s(item.name))])]), _vm._v(" "), _c('td', {
+      staticClass: "product-type sorting_1"
+    }, [_vm._v(_vm._s(item.typeName))]), _vm._v(" "), _c('td', {
+      staticClass: "product-isDiscountPrice"
+    }, [(item.isDiscountPrice == true) ? [_vm._v("\n                                        Trừ tiền mặt\n                                    ")] : _vm._e(), _vm._v(" "), (item.isDiscountPrice == false) ? [_vm._v("\n                                        Không trừ tiền mặt\n                                    ")] : _vm._e()], 2), _vm._v(" "), _c('td', {
+      staticClass: "product-value"
+    }, [_vm._v(_vm._s(item.value))]), _vm._v(" "), _c('td', [_c('p', [_vm._v("Ngôn ngữ: " + _vm._s(item.langCount))])]), _vm._v(" "), _c('td', [_c('p', [_vm._v("NBĐ: " + _vm._s(item.startDate))]), _vm._v(" "), _c('p', [_vm._v("NKT: " + _vm._s(item.endDate))])]), _vm._v(" "), _c('td', {
+      staticClass: "text-center"
+    }, [(item.status == 2) ? _c('span', {
+      staticClass: "badge bg-warning"
+    }, [_vm._v("Chưa xuất bản")]) : _vm._e(), _vm._v(" "), (item.status == 1) ? _c('span', {
+      staticClass: "badge bg-success"
+    }, [_vm._v("Xuất bản")]) : _vm._e(), _vm._v(" "), (item.status == 3) ? _c('span', {
+      staticClass: "badge bg-danger"
+    }, [_vm._v("Đã xóa")]) : _vm._e()]), _vm._v(" "), _c('td', {
+      staticClass: "product-action"
+    }, [_c('router-link', {
+      attrs: {
+        "to": {
+          path: 'edit/' + item.id
+        }
+      }
+    }, [_c('span', {
+      staticClass: "action-edit"
+    }, [_c('i', {
+      staticClass: "fa fa-edit"
+    })])]), _vm._v(" "), (item.status == 2) ? _c('span', {
+      staticClass: "action-show"
+    }, [_c('a', {
+      directives: [{
+        name: "b-tooltip",
+        rawName: "v-b-tooltip.hover",
+        modifiers: {
+          "hover": true
+        }
+      }],
+      attrs: {
+        "title": "Xuất bản"
+      },
+      on: {
+        "click": function($event) {
+          return _vm.remove(item, 1)
+        }
+      }
+    }, [_c('i', {
+      staticClass: "fa fa-check-circle",
+      staticStyle: {
+        "color": "green"
+      }
+    })])]) : _vm._e(), _vm._v(" "), (item.status == 1) ? _c('span', {
+      staticClass: "action-hidden"
+    }, [_c('a', {
+      directives: [{
+        name: "b-tooltip",
+        rawName: "v-b-tooltip.hover",
+        modifiers: {
+          "hover": true
+        }
+      }],
+      attrs: {
+        "title": "Ẩn"
+      },
+      on: {
+        "click": function($event) {
+          return _vm.remove(item, 2)
+        }
+      }
+    }, [_c('i', {
+      staticClass: "fa fa-circle-o",
+      staticStyle: {
+        "color": "gold"
+      }
+    })])]) : _vm._e(), _vm._v(" "), _c('span', {
+      staticClass: "action-delete"
+    }, [_c('a', {
+      directives: [{
+        name: "b-tooltip",
+        rawName: "v-b-tooltip.hover",
+        modifiers: {
+          "hover": true
+        }
+      }],
+      attrs: {
+        "title": "Xóa"
+      },
+      on: {
+        "click": function($event) {
+          return _vm.remove(item, 3)
+        }
+      }
+    }, [_c('i', {
+      staticClass: "fa fa-trash",
+      staticStyle: {
+        "color": "red"
+      }
+    })])])], 1)])
+  }), 0)])])])])])], 1)
+},staticRenderFns: [function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('button', {
+    staticClass: "btn btn-danger",
     attrs: {
       "type": "button"
-    },
-    on: {
-      "click": function($event) {
-        return _vm.DoRefesh()
-      }
     }
   }, [_c('i', {
-    staticClass: "fa fa-refresh"
-  }), _vm._v(" Làm mới\n                                                    ")])]), _vm._v(" "), _c('div', {
-    staticClass: "col-md-4"
-  }, [_c('button', {
-    staticClass: "btn btn-warning col-md-12 btncus",
+    staticClass: "fa fa-trash-o"
+  }), _vm._v(" Xóa")])
+},function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('thead', {
+    staticClass: "thead-dark table table-centered table-nowrap"
+  }, [_c('tr', {
     attrs: {
-      "type": "button"
-    },
-    on: {
-      "click": function($event) {
-        return _vm.GetRouterChangePassword()
-      }
+      "role": "row"
     }
-  }, [_c('i', {
-    staticClass: "fa fa-refresh"
-  }), _vm._v(" Thay đổi mật khẩu\n                                                    ")])])])])])])])])], 1)], 1)])])], 1)], 1)
-},staticRenderFns: []}
+  }, [_c('th'), _vm._v(" "), _c('th', [_vm._v("Tên khuyến mãi")]), _vm._v(" "), _c('th', [_vm._v("Loại khuyến mãi")]), _vm._v(" "), _c('th', [_vm._v("Trừ tiền")]), _vm._v(" "), _c('th', [_vm._v("Giá")]), _vm._v(" "), _c('th', [_vm._v("Ngôn ngữ")]), _vm._v(" "), _c('th', [_vm._v("Ngày tháng")]), _vm._v(" "), _c('th', [_vm._v("Trạng thái")]), _vm._v(" "), _c('th', [_vm._v("Thao tác")])])])
+},function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('td', {
+    staticClass: "dt-checkboxes-cell"
+  }, [_c('input', {
+    staticClass: "dt-checkboxes",
+    attrs: {
+      "type": "checkbox"
+    }
+  })])
+}]}
 module.exports.render._withStripped = true
 if (true) {
   module.hot.accept()
   if (module.hot.data) {
-     __webpack_require__(178).rerender("data-v-d423a34a", module.exports)
+     __webpack_require__(178).rerender("data-v-a9f55716", module.exports)
   }
 }
 
 /***/ }),
 
-/***/ 774:
+/***/ 779:
 /***/ (function(module, exports, __webpack_require__) {
 
 var Component = __webpack_require__(374)(
   /* script */
-  __webpack_require__(1252),
+  __webpack_require__(1259),
   /* template */
-  __webpack_require__(1579),
+  __webpack_require__(1576),
   /* scopeId */
   null,
   /* cssModules */
   null
 )
-Component.options.__file = "C:\\WORKING\\Joytime\\dotnet-platform-backend\\Web\\Platform\\CMS\\PlatformCMS\\ClientApp\\pages\\profile\\edit.vue"
+Component.options.__file = "D:\\Code\\WORKING\\dotnet-platform-backend\\Web\\Platform\\CMS\\PlatformCMS\\ClientApp\\pages\\promotion\\list.vue"
 if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
-if (Component.options.functional) {console.error("[vue-loader] edit.vue: functional components are not supported with templates, they should use render functions.")}
+if (Component.options.functional) {console.error("[vue-loader] list.vue: functional components are not supported with templates, they should use render functions.")}
 
 /* hot reload */
 if (true) {(function () {
@@ -453,9 +485,9 @@ if (true) {(function () {
   if (!hotAPI.compatible) return
   module.hot.accept()
   if (!module.hot.data) {
-    hotAPI.createRecord("data-v-d423a34a", Component.options)
+    hotAPI.createRecord("data-v-a9f55716", Component.options)
   } else {
-    hotAPI.reload("data-v-d423a34a", Component.options)
+    hotAPI.reload("data-v-a9f55716", Component.options)
   }
 })()}
 
@@ -464,7 +496,7 @@ module.exports = Component.exports
 
 /***/ }),
 
-/***/ 792:
+/***/ 795:
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(53)();
@@ -479,13 +511,13 @@ exports.push([module.i, ".vld-overlay {\n  bottom: 0;\n  left: 0;\n  position: a
 
 /***/ }),
 
-/***/ 793:
+/***/ 796:
 /***/ (function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
-var content = __webpack_require__(792);
+var content = __webpack_require__(795);
 if(typeof content === 'string') content = [[module.i, content, '']];
 // add the styles to the DOM
 var update = __webpack_require__(179)(content, {});
@@ -494,8 +526,8 @@ if(content.locals) module.exports = content.locals;
 if(true) {
 	// When the styles change, update the <style> tags
 	if(!content.locals) {
-		module.hot.accept(792, function() {
-			var newContent = __webpack_require__(792);
+		module.hot.accept(795, function() {
+			var newContent = __webpack_require__(795);
 			if(typeof newContent === 'string') newContent = [[module.i, newContent, '']];
 			update(newContent);
 		});
@@ -506,7 +538,7 @@ if(true) {
 
 /***/ }),
 
-/***/ 794:
+/***/ 797:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";

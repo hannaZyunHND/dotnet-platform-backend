@@ -1,58 +1,132 @@
 webpackJsonp([1],{
 
 /***/ 1000:
-/***/ (function(module, exports) {
+/***/ (function(module, exports, __webpack_require__) {
 
-module.exports = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAg0lEQVQ4ja3QwQ3AIAgF0J6dwyVcwxUI4hZ1C6dwDZdwDs/tqYlRTKEpCRcjD/3HsakQwjX27t62xqFXYN4m7V+B9OGL53zQFds7JzYF0DigKoDKAUUBlAVAxCwFEDGzqSpekBaAiKIUIKLIAV4BeA5wCsAtAABYKQAAlgvRKEI0z9wNbkpkPnEUO00AAAAASUVORK5CYII="
+var META = __webpack_require__(109)('meta');
+var isObject = __webpack_require__(45);
+var has = __webpack_require__(73);
+var setDesc = __webpack_require__(55).f;
+var id = 0;
+var isExtensible = Object.isExtensible || function () {
+  return true;
+};
+var FREEZE = !__webpack_require__(46)(function () {
+  return isExtensible(Object.preventExtensions({}));
+});
+var setMeta = function (it) {
+  setDesc(it, META, { value: {
+    i: 'O' + ++id, // object ID
+    w: {}          // weak collections IDs
+  } });
+};
+var fastKey = function (it, create) {
+  // return primitive with prefix
+  if (!isObject(it)) return typeof it == 'symbol' ? it : (typeof it == 'string' ? 'S' : 'P') + it;
+  if (!has(it, META)) {
+    // can't set metadata to uncaught frozen object
+    if (!isExtensible(it)) return 'F';
+    // not necessary to add metadata
+    if (!create) return 'E';
+    // add missing metadata
+    setMeta(it);
+  // return object ID
+  } return it[META].i;
+};
+var getWeak = function (it, create) {
+  if (!has(it, META)) {
+    // can't set metadata to uncaught frozen object
+    if (!isExtensible(it)) return true;
+    // not necessary to add metadata
+    if (!create) return false;
+    // add missing metadata
+    setMeta(it);
+  // return hash weak collections IDs
+  } return it[META].w;
+};
+// add metadata on freeze-family methods calling
+var onFreeze = function (it) {
+  if (FREEZE && meta.NEED && isExtensible(it) && !has(it, META)) setMeta(it);
+  return it;
+};
+var meta = module.exports = {
+  KEY: META,
+  NEED: false,
+  fastKey: fastKey,
+  getWeak: getWeak,
+  onFreeze: onFreeze
+};
+
 
 /***/ }),
 
 /***/ 1001:
 /***/ (function(module, exports) {
 
-module.exports = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAyJpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuMy1jMDExIDY2LjE0NTY2MSwgMjAxMi8wMi8wNi0xNDo1NjoyNyAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvIiB4bWxuczp4bXBNTT0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL21tLyIgeG1sbnM6c3RSZWY9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9zVHlwZS9SZXNvdXJjZVJlZiMiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIENTNiAoV2luZG93cykiIHhtcE1NOkluc3RhbmNlSUQ9InhtcC5paWQ6QUFFNEVGRTcyNzI5MTFFN0E4MTJDODUxMTY5OTBDRTMiIHhtcE1NOkRvY3VtZW50SUQ9InhtcC5kaWQ6QUFFNEVGRTgyNzI5MTFFN0E4MTJDODUxMTY5OTBDRTMiPiA8eG1wTU06RGVyaXZlZEZyb20gc3RSZWY6aW5zdGFuY2VJRD0ieG1wLmlpZDpBQUU0RUZFNTI3MjkxMUU3QTgxMkM4NTExNjk5MENFMyIgc3RSZWY6ZG9jdW1lbnRJRD0ieG1wLmRpZDpBQUU0RUZFNjI3MjkxMUU3QTgxMkM4NTExNjk5MENFMyIvPiA8L3JkZjpEZXNjcmlwdGlvbj4gPC9yZGY6UkRGPiA8L3g6eG1wbWV0YT4gPD94cGFja2V0IGVuZD0iciI/PoebdJQAAAEfSURBVHjalNI9SwMxGMDxXHutaEXwHZdCEaSLQ71Fuujoojg4Cv0K4ioUStd+BpcOfgGh6Obo0uLsoJNQsC6+0evL9R94DkLotXcP/LiEJM8lT+J4nqckznGFY5UgUkY7jQ2VMFwUsYQ9ZHEwZ80Qb/gOEzRQwiJW8CgTHWthIN9lXOA+TFBBBme4xmnEn8MELeTMI/Skrb//eJ1zhJ+oIrpWP07hZy7YT3qNOsZYQA3PaGJbCro+rbiuleAPR6hK/xJlfGATJ+jPShDIPX/JbnRsYUf6JSn0ICrBGt7lSgNrTG+9i1XksQvfTPCLAp70QETNMrKbOm7QNhPohYdTdmXHHW7xoGtmTtZv+yXGzfny2Doq5sOx4xOjsDMRYADeTjM37KwM6gAAAABJRU5ErkJggg=="
+module.exports = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAJUlEQVQ4jWNgoBSkpaX9pwRTxwBsriJabHAYMBoGo2FAcRhQCgAhhv41B1NcjwAAAABJRU5ErkJggg=="
 
 /***/ }),
 
 /***/ 1002:
 /***/ (function(module, exports) {
 
-module.exports = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAlElEQVQ4jWNgGHCQlpb2Hw3fz8jIUKDEANIMwWEAXkwTAx4T7WdsXkhNTV2dnp6uT4ZrLjCkpaX9T09PL0pPT59AqgGpqan5MBfYp6WlvSLRgF+JiYmiDGlpad/T09PDybB9AywMjqampm4g1YD09HR/mAGL0tLSfpFowKu0tDRWmAGHybB9AnI0viHDAH2y0w06AACLVFch1Ej7rgAAAABJRU5ErkJggg=="
+module.exports = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAHElEQVQ4jWNgGPogLS3tPyV41AWjLhguLqAUAABjQNJhHOFYqgAAAABJRU5ErkJggg=="
 
 /***/ }),
 
 /***/ 1003:
 /***/ (function(module, exports) {
 
-module.exports = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAA6UlEQVQ4ja2TUU7DQAxE/UO5SwPH2SP4TX5yFKIgisRZijhFyyXyGfHXVuVnUzmrBNGCpZFWlme0s541Kwp4lNQBn8BXxl5S5+5VOX+ppmnuJb0CJ+C8gBOwSSmtJuSU0krSxw/EEu8TEeDtCvKIjZmZ1XX9EK9tZubuFdCH4X70H3pHd68MeI7K42AQ6YtevEVrwL5oTggzgnF2Z8Aw46+PK1sgn4HhXwT+ZiGn7qZHdPencY3HW9YoaW1mZjnCVwVJUjeJsrtvf0t29+3sfwBeop0ZHHLw7hZ/paQ10AK7vOIhn9uL51DfTreZQOo3Kt0AAAAASUVORK5CYII="
+module.exports = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAg0lEQVQ4ja3QwQ3AIAgF0J6dwyVcwxUI4hZ1C6dwDZdwDs/tqYlRTKEpCRcjD/3HsakQwjX27t62xqFXYN4m7V+B9OGL53zQFds7JzYF0DigKoDKAUUBlAVAxCwFEDGzqSpekBaAiKIUIKLIAV4BeA5wCsAtAABYKQAAlgvRKEI0z9wNbkpkPnEUO00AAAAASUVORK5CYII="
 
 /***/ }),
 
 /***/ 1004:
 /***/ (function(module, exports) {
 
-module.exports = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAATUlEQVQ4jWNgoBXIyMhQSE1N3Z+RkaFAlua0tLT7aWlp/9PS0u6TZAia5v8kGYJDM2mGwACyZqI1jRpAJsARZURhsgxAtnhgXED1wAUASBXMx2KfmeMAAAAASUVORK5CYII="
+module.exports = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAyJpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuMy1jMDExIDY2LjE0NTY2MSwgMjAxMi8wMi8wNi0xNDo1NjoyNyAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvIiB4bWxuczp4bXBNTT0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL21tLyIgeG1sbnM6c3RSZWY9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9zVHlwZS9SZXNvdXJjZVJlZiMiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIENTNiAoV2luZG93cykiIHhtcE1NOkluc3RhbmNlSUQ9InhtcC5paWQ6QUFFNEVGRTcyNzI5MTFFN0E4MTJDODUxMTY5OTBDRTMiIHhtcE1NOkRvY3VtZW50SUQ9InhtcC5kaWQ6QUFFNEVGRTgyNzI5MTFFN0E4MTJDODUxMTY5OTBDRTMiPiA8eG1wTU06RGVyaXZlZEZyb20gc3RSZWY6aW5zdGFuY2VJRD0ieG1wLmlpZDpBQUU0RUZFNTI3MjkxMUU3QTgxMkM4NTExNjk5MENFMyIgc3RSZWY6ZG9jdW1lbnRJRD0ieG1wLmRpZDpBQUU0RUZFNjI3MjkxMUU3QTgxMkM4NTExNjk5MENFMyIvPiA8L3JkZjpEZXNjcmlwdGlvbj4gPC9yZGY6UkRGPiA8L3g6eG1wbWV0YT4gPD94cGFja2V0IGVuZD0iciI/PoebdJQAAAEfSURBVHjalNI9SwMxGMDxXHutaEXwHZdCEaSLQ71Fuujoojg4Cv0K4ioUStd+BpcOfgGh6Obo0uLsoJNQsC6+0evL9R94DkLotXcP/LiEJM8lT+J4nqckznGFY5UgUkY7jQ2VMFwUsYQ9ZHEwZ80Qb/gOEzRQwiJW8CgTHWthIN9lXOA+TFBBBme4xmnEn8MELeTMI/Skrb//eJ1zhJ+oIrpWP07hZy7YT3qNOsZYQA3PaGJbCro+rbiuleAPR6hK/xJlfGATJ+jPShDIPX/JbnRsYUf6JSn0ICrBGt7lSgNrTG+9i1XksQvfTPCLAp70QETNMrKbOm7QNhPohYdTdmXHHW7xoGtmTtZv+yXGzfny2Doq5sOx4xOjsDMRYADeTjM37KwM6gAAAABJRU5ErkJggg=="
 
 /***/ }),
 
 /***/ 1005:
+/***/ (function(module, exports) {
+
+module.exports = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAlElEQVQ4jWNgGHCQlpb2Hw3fz8jIUKDEANIMwWEAXkwTAx4T7WdsXkhNTV2dnp6uT4ZrLjCkpaX9T09PL0pPT59AqgGpqan5MBfYp6WlvSLRgF+JiYmiDGlpad/T09PDybB9AywMjqampm4g1YD09HR/mAGL0tLSfpFowKu0tDRWmAGHybB9AnI0viHDAH2y0w06AACLVFch1Ej7rgAAAABJRU5ErkJggg=="
+
+/***/ }),
+
+/***/ 1006:
+/***/ (function(module, exports) {
+
+module.exports = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAA6UlEQVQ4ja2TUU7DQAxE/UO5SwPH2SP4TX5yFKIgisRZijhFyyXyGfHXVuVnUzmrBNGCpZFWlme0s541Kwp4lNQBn8BXxl5S5+5VOX+ppmnuJb0CJ+C8gBOwSSmtJuSU0krSxw/EEu8TEeDtCvKIjZmZ1XX9EK9tZubuFdCH4X70H3pHd68MeI7K42AQ6YtevEVrwL5oTggzgnF2Z8Aw46+PK1sgn4HhXwT+ZiGn7qZHdPencY3HW9YoaW1mZjnCVwVJUjeJsrtvf0t29+3sfwBeop0ZHHLw7hZ/paQ10AK7vOIhn9uL51DfTreZQOo3Kt0AAAAASUVORK5CYII="
+
+/***/ }),
+
+/***/ 1007:
+/***/ (function(module, exports) {
+
+module.exports = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAATUlEQVQ4jWNgoBXIyMhQSE1N3Z+RkaFAlua0tLT7aWlp/9PS0u6TZAia5v8kGYJDM2mGwACyZqI1jRpAJsARZURhsgxAtnhgXED1wAUASBXMx2KfmeMAAAAASUVORK5CYII="
+
+/***/ }),
+
+/***/ 1008:
 /***/ (function(module, exports, __webpack_require__) {
 
 
 /* styles */
-__webpack_require__(1015)
+__webpack_require__(1018)
 
 var Component = __webpack_require__(374)(
   /* script */
-  __webpack_require__(1011),
-  /* template */
   __webpack_require__(1014),
+  /* template */
+  __webpack_require__(1017),
   /* scopeId */
   "data-v-497df3b6",
   /* cssModules */
   null
 )
-Component.options.__file = "C:\\WORKING\\Joytime\\dotnet-platform-backend\\Web\\Platform\\CMS\\PlatformCMS\\ClientApp\\components\\fileManager\\list.vue"
+Component.options.__file = "D:\\Code\\WORKING\\dotnet-platform-backend\\Web\\Platform\\CMS\\PlatformCMS\\ClientApp\\components\\fileManager\\list.vue"
 if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
 if (Component.options.functional) {console.error("[vue-loader] list.vue: functional components are not supported with templates, they should use render functions.")}
 
@@ -74,12 +148,12 @@ module.exports = Component.exports
 
 /***/ }),
 
-/***/ 1006:
+/***/ 1009:
 /***/ (function(module, exports, __webpack_require__) {
 
 // fallback for IE11 buggy Object.getOwnPropertyNames with iframe and window
 var toIObject = __webpack_require__(57);
-var gOPN = __webpack_require__(952).f;
+var gOPN = __webpack_require__(955).f;
 var toString = {}.toString;
 
 var windowNames = typeof window == 'object' && window && Object.getOwnPropertyNames
@@ -100,13 +174,13 @@ module.exports.f = function getOwnPropertyNames(it) {
 
 /***/ }),
 
-/***/ 1007:
+/***/ 1010:
 /***/ (function(module, exports, __webpack_require__) {
 
 // all enumerable object keys, includes symbols
 var getKeys = __webpack_require__(183);
-var gOPS = __webpack_require__(965);
-var pIE = __webpack_require__(806);
+var gOPS = __webpack_require__(968);
+var pIE = __webpack_require__(810);
 module.exports = function (it) {
   var result = getKeys(it);
   var getSymbols = gOPS.f;
@@ -122,7 +196,7 @@ module.exports = function (it) {
 
 /***/ }),
 
-/***/ 1008:
+/***/ 1011:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -133,15 +207,15 @@ var has = __webpack_require__(73);
 var DESCRIPTORS = __webpack_require__(59);
 var $export = __webpack_require__(12);
 var redefine = __webpack_require__(61);
-var META = __webpack_require__(997).KEY;
+var META = __webpack_require__(1000).KEY;
 var $fails = __webpack_require__(46);
 var shared = __webpack_require__(113);
 var setToStringTag = __webpack_require__(112);
 var uid = __webpack_require__(109);
 var wks = __webpack_require__(17);
-var wksExt = __webpack_require__(993);
-var wksDefine = __webpack_require__(808);
-var enumKeys = __webpack_require__(1007);
+var wksExt = __webpack_require__(996);
+var wksDefine = __webpack_require__(811);
+var enumKeys = __webpack_require__(1010);
 var isArray = __webpack_require__(187);
 var anObject = __webpack_require__(36);
 var isObject = __webpack_require__(45);
@@ -150,9 +224,9 @@ var toIObject = __webpack_require__(57);
 var toPrimitive = __webpack_require__(380);
 var createDesc = __webpack_require__(108);
 var _create = __webpack_require__(388);
-var gOPNExt = __webpack_require__(1006);
-var $GOPD = __webpack_require__(994);
-var $GOPS = __webpack_require__(965);
+var gOPNExt = __webpack_require__(1009);
+var $GOPD = __webpack_require__(997);
+var $GOPS = __webpack_require__(968);
 var $DP = __webpack_require__(55);
 var $keys = __webpack_require__(183);
 var gOPD = $GOPD.f;
@@ -277,8 +351,8 @@ if (!USE_NATIVE) {
 
   $GOPD.f = $getOwnPropertyDescriptor;
   $DP.f = $defineProperty;
-  __webpack_require__(952).f = gOPNExt.f = $getOwnPropertyNames;
-  __webpack_require__(806).f = $propertyIsEnumerable;
+  __webpack_require__(955).f = gOPNExt.f = $getOwnPropertyNames;
+  __webpack_require__(810).f = $propertyIsEnumerable;
   $GOPS.f = $getOwnPropertySymbols;
 
   if (DESCRIPTORS && !__webpack_require__(107)) {
@@ -376,23 +450,23 @@ setToStringTag(global.JSON, 'JSON', true);
 
 /***/ }),
 
-/***/ 1009:
+/***/ 1012:
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(808)('asyncIterator');
+__webpack_require__(811)('asyncIterator');
 
 
 /***/ }),
 
-/***/ 1010:
+/***/ 1013:
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(808)('observable');
+__webpack_require__(811)('observable');
 
 
 /***/ }),
 
-/***/ 1011:
+/***/ 1014:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -402,21 +476,21 @@ Object.defineProperty(exports, "__esModule", {
     value: true
 });
 
-var _from = __webpack_require__(951);
+var _from = __webpack_require__(954);
 
 var _from2 = _interopRequireDefault(_from);
 
-var _extends2 = __webpack_require__(8);
+var _extends2 = __webpack_require__(7);
 
 var _extends3 = _interopRequireDefault(_extends2);
 
-var _defineProperty2 = __webpack_require__(953);
+var _defineProperty2 = __webpack_require__(956);
 
 var _defineProperty3 = _interopRequireDefault(_defineProperty2);
 
-__webpack_require__(793);
+__webpack_require__(796);
 
-var _constant = __webpack_require__(794);
+var _constant = __webpack_require__(797);
 
 var _constant2 = _interopRequireDefault(_constant);
 
@@ -426,13 +500,13 @@ var _vueLoadingOverlay = __webpack_require__(376);
 
 var _vueLoadingOverlay2 = _interopRequireDefault(_vueLoadingOverlay);
 
-var _eventBus = __webpack_require__(954);
+var _eventBus = __webpack_require__(957);
 
 var _eventBus2 = _interopRequireDefault(_eventBus);
 
-var _symbol = __webpack_require__(1012);
+var _symbol = __webpack_require__(1015);
 
-var _jquery = __webpack_require__(1013);
+var _jquery = __webpack_require__(1016);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -460,7 +534,7 @@ exports.default = {
         }, (0, _defineProperty3.default)(_ref, "isLoading", false), (0, _defineProperty3.default)(_ref, "MaxFileSize", 3000), (0, _defineProperty3.default)(_ref, "selectedFile", []), (0, _defineProperty3.default)(_ref, "extensions", []), (0, _defineProperty3.default)(_ref, "extImage", []), (0, _defineProperty3.default)(_ref, "isActive", false), (0, _defineProperty3.default)(_ref, "selectType", ''), (0, _defineProperty3.default)(_ref, "keyword", ''), _ref;
     },
     created: function created() {
-        var config = __webpack_require__(996);
+        var config = __webpack_require__(999);
         this.extImage = config.AppSettings.ImageAllowUpload;
         this.extensions = config.AppSettings.ImageAllowUpload.concat(config.AppSettings.DocumentAllowUpload);
 
@@ -656,19 +730,19 @@ exports.default = {
 
 /***/ }),
 
-/***/ 1012:
+/***/ 1015:
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(1008);
+__webpack_require__(1011);
 __webpack_require__(392);
-__webpack_require__(1009);
-__webpack_require__(1010);
+__webpack_require__(1012);
+__webpack_require__(1013);
 module.exports = __webpack_require__(37).Symbol;
 
 
 /***/ }),
 
-/***/ 1013:
+/***/ 1016:
 /***/ (function(module, exports, __webpack_require__) {
 
 var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
@@ -11557,7 +11631,7 @@ return jQuery;
 
 /***/ }),
 
-/***/ 1014:
+/***/ 1017:
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
@@ -11839,23 +11913,23 @@ if (true) {
 
 /***/ }),
 
-/***/ 1015:
+/***/ 1018:
 /***/ (function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
-var content = __webpack_require__(946);
+var content = __webpack_require__(949);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
-var update = __webpack_require__(798)("7006b314", content, false);
+var update = __webpack_require__(801)("7006b314", content, false);
 // Hot Module Replacement
 if(true) {
  // When the styles change, update the <style> tags
  if(!content.locals) {
-   module.hot.accept(946, function() {
-     var newContent = __webpack_require__(946);
+   module.hot.accept(949, function() {
+     var newContent = __webpack_require__(949);
      if(typeof newContent === 'string') newContent = [[module.i, newContent, '']];
      update(newContent);
    });
@@ -11866,7 +11940,7 @@ if(true) {
 
 /***/ }),
 
-/***/ 1017:
+/***/ 1020:
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(53)();
@@ -11881,7 +11955,7 @@ exports.push([module.i, ".v-select{position:relative;font-family:inherit}.v-sele
 
 /***/ }),
 
-/***/ 1018:
+/***/ 1021:
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(53)();
@@ -11889,20 +11963,20 @@ exports = module.exports = __webpack_require__(53)();
 
 
 // module
-exports.push([module.i, "\n.file-manager[data-v-8004295c], .fm-content-selected[data-v-8004295c] {\n    padding: 0;\n}\n.file-manager___BV_modal_body_[data-v-8004295c] {\n    padding: 0;\n}\n.fm-content-selected ul li[data-v-8004295c] {\n    list-style-type: none\n}\n.fm-container-dialog[data-v-8004295c] {\n    padding: 0;\n    overflow: hidden !important;\n}\n.fm-container[data-v-8004295c] {\n    font-size: 12px;\n    font-family: sans-serif;\n    padding: 0\n}\n.fm-toolbar ul[data-v-8004295c] {\n    float: left;\n    margin: 3.5px 0 3px 10px;\n    padding: 1px 2px;\n    border-radius: 0\n}\n.fm-toolbar ul li[data-v-8004295c] {\n        border: 1px solid .fff;\n        cursor: pointer;\n        float: left;\n        line-height: 26px;\n        list-style-type: none;\n        padding: 0 8px;\n        text-align: center;\n}\n.fm-toolbar ul li[data-v-8004295c]:hover {\n            background: #eaeaea;\n}\n.fm-toolbar ul li.active[data-v-8004295c] {\n            background: #eaeaea;\n}\n.fm-container[data-v-8004295c] {\n}\n.fm-toolbar[data-v-8004295c] {\n}\n.fm-footer[data-v-8004295c] {\n    border-top: 1px solid #eaeaea;\n    padding-top: 10px\n}\n.fm-toolbar .tool-items[data-v-8004295c] {\n    clear: both;\n    padding-right: 6px;\n}\n.fm-toolbar .tools[data-v-8004295c] {\n    float: left;\n}\n.fm-main[data-v-8004295c] {\n    margin-top: 8px;\n    border-top: 1px solid #eaeaea;\n}\n.fm-sidebar .fm-header[data-v-8004295c] {\n    height: 35px;\n    line-height: 35px;\n    background-color: #39c;\n    overflow: hidden;\n    font-size: 17px;\n    color: #ecf3f9;\n    text-align: center;\n}\n.fm-sidebar[data-v-8004295c] {\n    border-right: 1px solid #eaeaea\n}\n.fm-content[data-v-8004295c] {\n    background-color: white;\n    cursor: default; /*z-index: 0; box-shadow: 0 2px 4px rgba(0,0,0,0.04), 0 1px 4px rgba(0,0,0,0.12);*/\n    height: 100%;\n}\n.fm-data-wrapper[data-v-8004295c] {\n    overflow: hidden;\n}\n.fm-file-view[data-v-8004295c] {\n    border-left: 1px solid #eaeaea;\n    float: right;\n    height: 100%;\n    width: 250px;\n    padding: 9px;\n    background: .fff;\n}\n.fm-file-view .file-thumb[data-v-8004295c] {\n        text-align: center;\n        max-height: 250px;\n        max-width: 230px;\n        overflow: hidden;\n}\n.fm-file-view .header[data-v-8004295c] {\n        font-weight: bold;\n        margin-bottom: 12px;\n        padding: 2px 0;\n        text-align: center;\n        text-transform: uppercase;\n}\n.fm-file-view .details[data-v-8004295c] {\n        padding-top: 16px;\n}\n.fm-file-view .details div[data-v-8004295c] {\n            line-height: 21px;\n}\n.fm-file-view .details .uploaded[data-v-8004295c],\n        .fm-file-view .details .file-size[data-v-8004295c],\n        .fm-file-view .details .dimensions[data-v-8004295c] {\n            line-height: 21px;\n}\n.fm-file-view .file-thumb img[data-v-8004295c] {\n        border: 1px solid #eaeaea;\n        padding: 4px; /*max-height: 220px; max-width: 228px;*/\n}\n.attachment-info .filename[data-v-8004295c] {\n    font-weight: 600;\n    color: #444;\n    word-wrap: break-word;\n}\n.btn-attack[data-v-8004295c] {\n    background: .fff none repeat scroll 0 0;\n    padding: 3px 3px 3px 0;\n    width: 230px;\n    float: right;\n    clear: both;\n}\n.btn-attack button#btn-attack[data-v-8004295c] {\n        color: .fff;\n        background: #0085ba;\n        border: 0;\n        padding: 4px 6px;\n}\n.btn-attack button#dl-close[data-v-8004295c] {\n        background: #eaeaea;\n        border: 0;\n        padding: 4px 6px;\n        float: right;\n        clear: both;\n}\n.fm-content table._list[data-v-8004295c] {\n    width: 100%;\n}\n.fm-content table._list tr[data-v-8004295c] {\n}\n.fm-content table._list tr th[data-v-8004295c] {\n            text-align: center;\n            font-weight: bold;\n}\n.fm-content table._list tr td[data-v-8004295c] {\n            padding: 5px 4px;\n}\n.fm-content table._list tr._active[data-v-8004295c] {\n            background: #48adff;\n}\n.fm-toolbar ul li i[data-v-8004295c] {\n    background-repeat: no-repeat;\n    display: inline-block;\n    height: 16px;\n    vertical-align: middle;\n    width: 16px;\n}\n.fm-toolbar ul li i[data-v-8004295c] {\n}\nli i.create-folder[data-v-8004295c] {\n    background-image: url(" + __webpack_require__(1002) + ");\n}\nli i.upload[data-v-8004295c] {\n    background-image: url(" + __webpack_require__(1004) + ");\n}\nli i.list[data-v-8004295c] {\n    background-image: url(" + __webpack_require__(999) + ");\n}\nli i.grid[data-v-8004295c] {\n    background-image: url(" + __webpack_require__(998) + ");\n}\nli i.iclose[data-v-8004295c] {\n    background-image: url(" + __webpack_require__(1003) + ");\n}\nli i.crop[data-v-8004295c] {\n    background-image: url(" + __webpack_require__(1001) + ");\n}\nli i.remove[data-v-8004295c] {\n    background-image: url(" + __webpack_require__(1000) + ");\n}\nli i.close[data-v-8004295c]:hover {\n}\n.fm-footer[data-v-8004295c] {\n    min-height: 32px;\n}\n.fm-data-wrapper[data-v-8004295c] {\n    height: 100%;\n}\n.clear[data-v-8004295c] {\n    clear: both;\n}\n._list ._active[data-v-8004295c] {\n    background: #48adff;\n}\n.fm-content[data-v-8004295c] {\n}\n.fm-content table._list table thead tr th[data-v-8004295c] {\n        text-align: center;\n}\n.fm-content table._list tr[data-v-8004295c] {\n        font-size: 11px;\n}\n.fm-content table._list tr[data-v-8004295c]:hover {\n            background: #c1edff;\n            cursor: pointer;\n}\n.fm-content table._list tr td[data-v-8004295c] {\n}\n.fm-content table._list tbody tr td.name[data-v-8004295c] {\n        display: inline-flex;\n}\n.fm-content table._list tbody tr td.name .list-icon[data-v-8004295c] {\n            display: inline-block;\n            float: left;\n            padding-right: 20px;\n}\n.fm-grid[data-v-8004295c], .fm-folder ul[data-v-8004295c], .fm-grid li .info p[data-v-8004295c] {\n    padding: 0;\n    margin: 0;\n}\n.fm-grid li[data-v-8004295c] {\n        position: relative;\n        vertical-align: middle;\n        display: table-cell;\n        border: 1px solid #eaeaea;\n        cursor: pointer;\n        float: left;\n        height: 100px;\n        min-width: 114px;\n        list-style-type: none;\n        margin: 4px;\n        padding: 2px;\n        width: 14.99%;\n        position: relative;\n        overflow: hidden;\n        text-align: center;\n}\n.fm-grid li .info[data-v-8004295c] {\n            font-size: 10px;\n            background: rgba(109, 105, 105, 0.87);\n            color: .fff;\n            position: absolute;\n            bottom: 0;\n            width: 100%;\n            height: 0\n}\n.fm-grid li:hover .info[data-v-8004295c] {\n            height: auto\n}\n.fm-list li img[data-v-8004295c] {\n    width: 100%\n}\n.fm-list li.not_img img[data-v-8004295c] {\n    width: 50%;\n    padding-top: 10px\n}\n.fm-grid li img.thumb[data-v-8004295c] {\n    width: 60%;\n    margin: 0 auto;\n}\n.fm-grid li i[data-v-8004295c] {\n    position: absolute;\n    z-index: 999;\n    right: 4px;\n    background: .fff;\n    border-radius: 11px;\n    color: #0085ba;\n    padding: 1px;\n    top: 3px;\n    display: none;\n}\n.fm-grid li._active i[data-v-8004295c] {\n    display: block;\n}\n.fm-grid li._active[data-v-8004295c] {\n    border: 1px solid #0085ba;\n}\n.fm-folder ul li[data-v-8004295c] {\n    list-style-type: none;\n    padding: 8px 0;\n    cursor: pointer\n}\n.fm-folder ul li i[data-v-8004295c] {\n        background-repeat: no-repeat;\n        display: inline-block;\n        height: 16px;\n        vertical-align: middle;\n        width: 16px;\n}\n.plupload_filelist_header[data-v-8004295c] {\n    height: 20px;\n}\n.plupload_filelist_footer[data-v-8004295c] {\n    padding: 6px 20px;\n    height: 33px;\n}\n.plupload_scroll .plupload_filelist[data-v-8004295c] {\n    height: 172px !important;\n}\n.plupload_filelist_footer[data-v-8004295c] {\n    padding: 6px 20px;\n}\n.plupload_filelist[data-v-8004295c]:empty,\n.plupload_filelist li.plupload_droptext[data-v-8004295c] {\n    height: 140px;\n}\n.plupload_filelist[data-v-8004295c]:empty::before,\n    .plupload_filelist li.plupload_droptext[data-v-8004295c]::before {\n        font-size: 52px;\n        height: 75px;\n        left: 49%;\n        margin-left: -40px;\n        padding-top: 43px;\n}\n.items-action[data-v-8004295c] {\n    padding-top: 20px;\n    display: inline-block;\n    width: 100%;\n}\n.items-action .file-action[data-v-8004295c] {\n        border: 0 none;\n        color: .fff;\n        padding: 4px 10px;\n}\n.items-action .file-action[data-v-8004295c] {\n        background: rosybrown;\n        float: left;\n        clear: both;\n}\n/*.items-action .file-action:last-child { background: #0085ba;float: right;}*/\n.fm-toolbar .Mi.ipagination a[data-v-8004295c]:first-child {\n    border: 0;\n    border-radius: 0;\n}\n.fm-toolbar .Mi.ipagination input[data-v-8004295c] {\n    border: medium none;\n    float: left;\n    font-family: arial;\n    font-size: 11px;\n    height: 30px;\n    margin: 0;\n    outline: medium none;\n    padding: 0;\n    text-align: center;\n    vertical-align: middle;\n    width: 84px;\n}\n.fm-toolbar .Mi.ipagination a[data-v-8004295c] {\n    border: 0;\n    border-radius: 0;\n    background: .fff;\n}\n.fm-toolbar .ipagination.iweb[data-v-8004295c] {\n    margin-top: 3.45px;\n}\n.frowInTotals[data-v-8004295c] {\n    display: inline-block;\n    float: left;\n    line-height: 39px;\n    padding-right: 3px;\n    vertical-align: baseline;\n}\nlabel#progressall[data-v-8004295c] {\n    display: none;\n    padding: 7px 7px;\n}\n.Cdiv[data-v-8004295c] {\n    padding-left: 12px;\n    height: 17px;\n    overflow: hidden;\n    text-overflow: ellipsis;\n    white-space: nowrap;\n    width: 100%;\n    display: inline-block;\n    font-weight: normal;\n}\n.btn-fm-upload label[data-v-8004295c] {\n    margin-bottom: 0 !important;\n}\n/* Extra small devices (phones, 600px and down) */\n@media only screen and (max-width: 600px) {\n.fm-grid li[data-v-8004295c] {\n        width: 47.65%;\n}\n}\n\n/* Small devices (portrait tablets and large phones, 600px and up) */\n@media only screen and (min-width: 600px) {\n}\n\n/* Medium devices (landscape tablets, 768px and up) */\n@media only screen and (min-width: 768px) {\n}\n\n/* Large devices (laptops/desktops, 992px and up) */\n@media only screen and (min-width: 992px) {\n}\n\n/* Extra large devices (large laptops and desktops, 1200px and up) */\n@media only screen and (min-width: 1200px) {\n}\n", "", {"version":3,"sources":["C:/WORKING/Joytime/dotnet-platform-backend/Web/Platform/CMS/PlatformCMS/ClientApp/components/editor/MIEditor.vue?4de04434"],"names":[],"mappings":";AAuoBA;IACA,WAAA;CACA;AAEA;IACA,WAAA;CACA;AAEA;IACA,qBAAA;CACA;AAEA;IACA,WAAA;IACA,4BAAA;CACA;AAEA;IACA,gBAAA;IACA,wBAAA;IACA,UAAA;CACA;AAEA;IACA,YAAA;IACA,yBAAA;IACA,iBAAA;IACA,gBAAA;CACA;AAEA;QACA,uBAAA;QACA,gBAAA;QACA,YAAA;QACA,kBAAA;QACA,sBAAA;QACA,eAAA;QACA,mBAAA;CACA;AAEA;YACA,oBAAA;CACA;AAEA;YACA,oBAAA;CACA;AAEA;CACA;AAEA;CACA;AAEA;IACA,8BAAA;IACA,iBAAA;CACA;AAEA;IACA,YAAA;IACA,mBAAA;CACA;AAEA;IACA,YAAA;CACA;AAEA;IACA,gBAAA;IACA,8BAAA;CACA;AAEA;IACA,aAAA;IACA,kBAAA;IACA,uBAAA;IACA,iBAAA;IACA,gBAAA;IACA,eAAA;IACA,mBAAA;CACA;AAEA;IACA,+BAAA;CACA;AAEA;IACA,wBAAA;IACA,gBAAA,CAAA,mFAAA;IACA,aAAA;CACA;AAEA;IACA,iBAAA;CACA;AAEA;IACA,+BAAA;IACA,aAAA;IACA,aAAA;IACA,aAAA;IACA,aAAA;IACA,iBAAA;CACA;AAEA;QACA,mBAAA;QACA,kBAAA;QACA,iBAAA;QACA,iBAAA;CACA;AAEA;QACA,kBAAA;QACA,oBAAA;QACA,eAAA;QACA,mBAAA;QACA,0BAAA;CACA;AAEA;QACA,kBAAA;CACA;AAEA;YACA,kBAAA;CACA;AAEA;;;YAGA,kBAAA;CACA;AAEA;QACA,0BAAA;QACA,aAAA,CAAA,wCAAA;CACA;AAEA;IACA,iBAAA;IACA,YAAA;IACA,sBAAA;CACA;AAEA;IACA,wCAAA;IACA,uBAAA;IACA,aAAA;IACA,aAAA;IACA,YAAA;CACA;AAEA;QACA,YAAA;QACA,oBAAA;QACA,UAAA;QACA,iBAAA;CACA;AAEA;QACA,oBAAA;QACA,UAAA;QACA,iBAAA;QACA,aAAA;QACA,YAAA;CACA;AAEA;IACA,YAAA;CACA;AAEA;CACA;AAEA;YACA,mBAAA;YACA,kBAAA;CACA;AAEA;YACA,iBAAA;CACA;AAEA;YACA,oBAAA;CACA;AAEA;IACA,6BAAA;IACA,sBAAA;IACA,aAAA;IACA,uBAAA;IACA,YAAA;CACA;AAEA;CACA;AAEA;IACA,gDAAA;CACA;AAEA;IACA,gDAAA;CACA;AAEA;IACA,gDAAA;CACA;AAEA;IACA,gDAAA;CACA;AAEA;IACA,gDAAA;CACA;AAEA;IACA,gDAAA;CACA;AAEA;IACA,gDAAA;CACA;AAEA;CACA;AAEA;IACA,iBAAA;CACA;AAEA;IACA,aAAA;CACA;AAEA;IACA,YAAA;CACA;AAEA;IACA,oBAAA;CACA;AAEA;CACA;AAEA;QACA,mBAAA;CACA;AAEA;QACA,gBAAA;CACA;AAEA;YACA,oBAAA;YACA,gBAAA;CACA;AAEA;CACA;AAEA;QACA,qBAAA;CACA;AAEA;YACA,sBAAA;YACA,YAAA;YACA,oBAAA;CACA;AAEA;IACA,WAAA;IACA,UAAA;CACA;AAEA;QACA,mBAAA;QACA,uBAAA;QACA,oBAAA;QACA,0BAAA;QACA,gBAAA;QACA,YAAA;QACA,cAAA;QACA,iBAAA;QACA,sBAAA;QACA,YAAA;QACA,aAAA;QACA,cAAA;QACA,mBAAA;QACA,iBAAA;QACA,mBAAA;CACA;AAEA;YACA,gBAAA;YACA,sCAAA;YACA,YAAA;YACA,mBAAA;YACA,UAAA;YACA,YAAA;YACA,SAAA;CACA;AAEA;YACA,YAAA;CACA;AAEA;IACA,WAAA;CACA;AAEA;IACA,WAAA;IACA,iBAAA;CACA;AAEA;IACA,WAAA;IACA,eAAA;CACA;AAEA;IACA,mBAAA;IACA,aAAA;IACA,WAAA;IACA,iBAAA;IACA,oBAAA;IACA,eAAA;IACA,aAAA;IACA,SAAA;IACA,cAAA;CACA;AAEA;IACA,eAAA;CACA;AAEA;IACA,0BAAA;CACA;AAEA;IACA,sBAAA;IACA,eAAA;IACA,eAAA;CACA;AAEA;QACA,6BAAA;QACA,sBAAA;QACA,aAAA;QACA,uBAAA;QACA,YAAA;CACA;AAEA;IACA,aAAA;CACA;AAEA;IACA,kBAAA;IACA,aAAA;CACA;AAEA;IACA,yBAAA;CACA;AAEA;IACA,kBAAA;CACA;AAEA;;IAEA,cAAA;CACA;AAEA;;QAEA,gBAAA;QACA,aAAA;QACA,UAAA;QACA,mBAAA;QACA,kBAAA;CACA;AAEA;IACA,kBAAA;IACA,sBAAA;IACA,YAAA;CACA;AAEA;QACA,eAAA;QACA,YAAA;QACA,kBAAA;CACA;AAEA;QACA,sBAAA;QACA,YAAA;QACA,YAAA;CACA;AACA,8EAAA;AACA;IACA,UAAA;IACA,iBAAA;CACA;AAEA;IACA,oBAAA;IACA,YAAA;IACA,mBAAA;IACA,gBAAA;IACA,aAAA;IACA,UAAA;IACA,qBAAA;IACA,WAAA;IACA,mBAAA;IACA,uBAAA;IACA,YAAA;CACA;AAEA;IACA,UAAA;IACA,iBAAA;IACA,iBAAA;CACA;AAEA;IACA,mBAAA;CACA;AAEA;IACA,sBAAA;IACA,YAAA;IACA,kBAAA;IACA,mBAAA;IACA,yBAAA;CACA;AAEA;IACA,cAAA;IACA,iBAAA;CACA;AAEA;IACA,mBAAA;IACA,aAAA;IACA,iBAAA;IACA,wBAAA;IACA,oBAAA;IACA,YAAA;IACA,sBAAA;IACA,oBAAA;CACA;AAEA;IACA,4BAAA;CACA;AACA,kDAAA;AAEA;AACA;QACA,cAAA;CACA;CACA;;AAEA,qEAAA;AAEA;CACA;;AAEA,sDAAA;AAEA;CACA;;AAEA,oDAAA;AAEA;CACA;;AAEA,qEAAA;AAEA;CACA","file":"MIEditor.vue","sourcesContent":["<template>\r\n    <div>\r\n        <loading :active.sync=\"isLoading\"\r\n                 :height=\"35\"\r\n                 :width=\"35\"></loading>\r\n        <ckeditor v-model=\"content\"\r\n                  @input=\"onEditorInput\"\r\n                  @destroy=\"onEditorDestroy\" :config=\"config\" :index=\"index_p\"></ckeditor>\r\n        <FileManager />\r\n        <!--modal product shortcode-->\r\n        <b-modal ref=\"product-manager-modal\" id=\"product-manager-modal\" v-model=\"modalShowProduct\" class=\"file-manager\" fbody=\"xxx\" hide-footer hide-header size=\"xl\">\r\n            <div id=\"fm-container\" class=\"container-fluid fm-container\">\r\n                <b-row id=\"fm-toolbar\">\r\n                    <b-col lg=\"2\" md=\"2\" sm=\"12\">\r\n                        <b>Sản phẩm</b>\r\n                    </b-col>\r\n                    <b-col>\r\n                        <b-row align-h=\"between\">\r\n                            <b-col cols=\"4\">\r\n                                <treeselect v-model=\"SearchZoneId\"\r\n                                            :options=\"ZoneOptions\"\r\n                                            placeholder=\"Danh mục\"\r\n                                            :default-expanded-level=\"Infinity\">\r\n                                </treeselect>\r\n                            </b-col>\r\n                            <b-col cols=\"4\" class=\"bd-0\">\r\n                                <b-pagination v-model=\"currentPageProductManager\" align=\"right\" size=\"sm\" :limit=\"4\"\r\n                                              :total-rows=\"products.total\"\r\n                                              :per-page=\"pageSize\"></b-pagination>\r\n                            </b-col>\r\n\r\n                        </b-row>\r\n\r\n                    </b-col>\r\n\r\n                </b-row>\r\n                <b-row id=\"fm-main\" class=\"fm-main\">\r\n                    <b-col id=\"fm-content\" class=\"fm-content\" lg=\"9\" dm=\"12\" sm=\"12\">\r\n                        <div id=\"fm-data-wrapper\" class=\"fm-data-wrapper\">\r\n                            <div class=\"fm-list-wrapper\">\r\n                                <div class=\"fm-list\">\r\n                                    <ul id=\"fm-grid\" class=\"fm-grid\" v-if=\"products.listData\">\r\n                                        <li v-for=\"item in products.listData\" :key=\"item.id\" class=\"item\" :class=\"{ _active: isActive}\" @click=\"SelectProduct($event,{name:item.name,id:item.id,avatar:item.avatar,code:item.code})\">\r\n                                            <img :src=\"pathImgs(item.avatar)\" alt=\"\">\r\n                                            <i class=\"fa fa-check\"></i>\r\n                                            <div class=\"info\">\r\n                                                <p class=\"name\">{{item.name}}</p>\r\n                                                <p class=\"dimensions\">{{item.code}}</p>\r\n                                            </div>\r\n                                        </li>\r\n                                    </ul>\r\n                                    <p v-else class=\"text-center\">Không tìm thấy !</p>\r\n                                </div>\r\n                            </div>\r\n                        </div>\r\n\r\n                    </b-col>\r\n                    <b-col id=\"fm-content-selected\" lg=\"3\" dm=\"2\" sm=\"12\">\r\n                        <p class=\"text-center\"><b>Danh sách đã chọn</b></p>\r\n                        <ul style=\"padding:0\" v-if=\"selectedProduct\">\r\n                            <li v-for=\"pro in selectedProduct\" :key=\"pro.id\" style=\"border-bottom:1px solid #ddd;padding:4px 0;display:inline-block;min-height:50px\">\r\n                                <img style=\"width:45px;float:left;padding-right:4px;clear:both\" :src=\"pathImgs(pro.avatar)\" alt=\"\">{{pro.name}}-{{pro.code}}\r\n                            </li>\r\n                        </ul>\r\n                        <p v-else class=\"text-center\">trống !</p>\r\n                    </b-col>\r\n                </b-row>\r\n                <b-row align-h=\"end\" id=\"fm-footer\" class=\"fm-footer\">\r\n                    <b-col cols=\"4\">\r\n                        <div class=\"btn-attack\">\r\n                            <button type=\"button\" id=\"btn-attack\" @click=\"attackProduct\">Đính kèm</button>\r\n                            <!--<button type=\"button\" id=\"btn-attack\" @click=\"attackFileSelected\">Đính kèm2</button>-->\r\n                            <button type=\"button\" id=\"dl-close\" @click=\"hideProductModal\" class=\"iclose\">Đóng</button>\r\n                        </div>\r\n                    </b-col>\r\n                </b-row>\r\n            </div>\r\n        </b-modal>\r\n        <!--modal product shortcode end-->\r\n        <!--modal file manager-->\r\n        <b-modal ref=\"file-manager-modal\" class=\"file-manager\" id=\"file-manager-modal\" v-model=\"modalShowFile\"  fbody=\"xxx\" hide-footer hide-header size=\"xl\">\r\n            <div class=\"container-fluid fm-container\">\r\n                <b-row class=\"fm-toolbar\">\r\n                    <b-col lg=\"2\" md=\"2\" sm=\"12\">\r\n                        <b>Thư viện</b>\r\n                    </b-col>\r\n                    <b-col>\r\n                        <b-row align-h=\"between\">\r\n                            <b-col cols=\"4\">\r\n                                <div class=\"tool-items\">\r\n                                    <ul class=\"tools\">\r\n                                        <li title=\"Create folder\">\r\n                                            <i class=\"create-folder\"></i>\r\n                                        </li>\r\n                                    </ul>\r\n                                    <ul class=\"tools\">\r\n                                        <li title=\"Remove\">\r\n                                            <i class=\"remove\"></i>\r\n                                        </li>\r\n                                    </ul>\r\n                                    <div class=\"tools\">\r\n                                        <input v-model=\"keyword\" v-on:keyup.enter=\"LoadFile()\" class=\"form-control\" placeholder=\"Gõ tên ảnh ấn enter\" />\r\n                                    </div>\r\n                                </div>\r\n                            </b-col>\r\n                            <b-col cols=\"4\" class=\"bd-0\">\r\n                                <b-pagination v-model=\"currentPageFileManager\" align=\"right\" size=\"sm\" :limit=\"4\"\r\n                                              :total-rows=\"files.totals\"\r\n                                              :per-page=\"pageSize\"></b-pagination>\r\n                            </b-col>\r\n                            <b-col cols=\"4\">\r\n                                <div class=\"tool-items float-right\">\r\n\r\n                                    <ul class=\"tools\">\r\n                                        <li title=\"Create folder\">\r\n                                            <i class=\"create-folder\"></i>\r\n                                        </li>\r\n                                        <li title=\"Upload\" id=\"btn-fm-upload\">\r\n                                            <label for=\"fileSingleupload\">\r\n                                                <i class=\"upload\"></i>\r\n                                            </label>\r\n                                            <input accept=\"image/*,.doc,.docx,.pdf,.xls,.xlsx,.zip,.rar\" @change=\"DoUploadFile\" id=\"fileSingleupload\"\r\n                                                   multiple\r\n                                                   type=\"file\"\r\n                                                   name=\"files[]\"\r\n                                                   style=\"display: none\" />\r\n                                        </li>\r\n                                    </ul>\r\n                                    <ul class=\"tools\">\r\n                                        <li title=\"List view\">\r\n                                            <i class=\"list\"></i>\r\n                                        </li>\r\n                                        <li title=\"Grid View\">\r\n                                            <i class=\"grid\"></i>\r\n                                        </li>\r\n                                    </ul>\r\n                                </div>\r\n                            </b-col>\r\n                        </b-row>\r\n\r\n                    </b-col>\r\n\r\n                </b-row>\r\n                <b-row class=\"fm-main\">\r\n                    <b-col class=\"fm-sidebar\" lg=\"2\" md=\"2\" sm=\"12\">\r\n                        <div class=\"fm-folder\">\r\n                            <ul>\r\n                                <li><i class=\"create-folder\"></i> Document</li>\r\n                                <li><i class=\"create-folder\"></i> Image</li>\r\n                                <li><i class=\"create-folder\"></i> Icon</li>\r\n                            </ul>\r\n                        </div>\r\n                    </b-col>\r\n                    <b-col class=\"fm-content\" lg=\"10\" dm=\"2\" sm=\"12\">\r\n                        <div class=\"fm-data-wrapper\">\r\n                            <div class=\"fm-list-wrapper\">\r\n                                <div class=\"fm-list\">\r\n                                    <ul class=\"fm-grid\">\r\n                                        <li v-for=\"file in files.files\" :key=\"file.id\" class=\"item\" :class=\"{ _active: isActive, not_img:checkImage(file.fileExt)}\" @click=\"SelectFile($event,{path:file.filePath,id:file.id})\">\r\n                                            <img :src=\"mapImageUrl(file.filePath,file.fileExt)\" alt=\"\">\r\n                                            <i class=\"fa fa-check\"></i>\r\n                                            <div class=\"info\">\r\n                                                <p class=\"name\">{{file.name}}</p>\r\n                                                <p class=\"dimensions\">{{file.dimensions}}</p>\r\n                                                <p class=\"size\">{{file.fileSize}}kb</p>\r\n                                            </div>\r\n                                        </li>\r\n                                    </ul>\r\n                                </div>\r\n                            </div>\r\n                        </div>\r\n\r\n                    </b-col>\r\n                </b-row>\r\n                <b-row align-h=\"end\" class=\"fm-footer\">\r\n                    <b-col cols=\"4\">\r\n                        <div class=\"btn-attack\">\r\n                            <button type=\"button\" id=\"btn-attack\" @click=\"attackFile\">Đính kèm</button>\r\n                            <!--<button type=\"button\" id=\"btn-attack\" @click=\"attackFileSelected\">Đính kèm2</button>-->\r\n                            <button type=\"button\" id=\"dl-close\" @click=\"hideFileManagerModal\" class=\"iclose\">Đóng</button>\r\n                        </div>\r\n                    </b-col>\r\n                </b-row>\r\n            </div>\r\n        </b-modal>\r\n    </div>\r\n</template>\r\n\r\n<script>\r\n\r\n    import FileManager from './../fileManager/list'\r\n    let _config = require('./../../../appsettings.json');\r\n\r\n    import \"vue-loading-overlay/dist/vue-loading.css\";\r\n    import { mapActions, mapGetters } from \"vuex\";\r\n    import Loading from \"vue-loading-overlay\";\r\n    // import the component\r\n    import Treeselect from '@riophae/vue-treeselect'\r\n    // import the styles\r\n    import '@riophae/vue-treeselect/dist/vue-treeselect.css'\r\n    import { unflatten, slug, pathImg } from \"../../plugins/helper\";\r\n    import CKEditor from 'ckeditor4-vue';\r\n\r\n\r\n    export default {\r\n        name: \"App2\",\r\n        props: {\r\n            contentEditor: {\r\n                type: String\r\n            },\r\n            index: { type: Number },\r\n            mathElements: { type: Array }\r\n        },\r\n        data() {\r\n            return {\r\n                modalShowProduct: false,\r\n                modalShowFile:false,\r\n                imageAttacks: '',\r\n                content: this.contentEditor,\r\n                config: {\r\n                    //removePlugins: 'image,pwimage',\r\n                    extraPlugins: \"niw_btn,product_shortcode_btn\",\r\n                    allowedContent: true,\r\n                    format_tags : 'p;h1;h2;h3;h4;h5;h6;pre;address;div',\r\n                    //smiley_path = 'http://www.example.com/images/smileys/',\r\n                    //font_defaultLabel: \"Arial\",\r\n                    //fontSize_defaultLabel: 16,\r\n                    //contentsCss: [\"body {font-size: 18px; font-family: 'Arial'}\"]\r\n                    //extraAllowedContent: this.mathElements.join( ' ' ) + '(*)[*]{*};img[data-mathml,data-custom-editor,role](Wirisformula)'\r\n                },\r\n                // product shortcode\r\n                SearchZoneId: 0,\r\n                fullPage: false,\r\n                color: \"#007bff\",\r\n                isLoadLang: false,\r\n                currentPageProductManager: 1,\r\n                currentPageFileManager: 1,\r\n                pageSize: 24,\r\n                isLoading: false,\r\n                selectedProduct: [],\r\n                isActive: false,\r\n                selectType: '',\r\n                ZoneOptions: [],\r\n                curentEditor: '',\r\n                //// product shortcode end\r\n                //file\r\n                MaxFileSize: 3000,//Kb\r\n                selectedFile: [],\r\n                extensions: [],\r\n                extImage: [],\r\n                keyword: '',\r\n                index_p: this.index,\r\n            };\r\n        },\r\n        components: {\r\n\r\n            FileManager,\r\n            Treeselect,\r\n            Loading\r\n        },\r\n        created() {\r\n            let _config = require('./../../../appsettings.json');\r\n            this.extImage = _config.AppSettings.ImageAllowUpload;\r\n            this.extensions = _config.AppSettings.ImageAllowUpload.concat(_config.AppSettings.DocumentAllowUpload);\r\n            \r\n        },\r\n        computed: {\r\n            files() {\r\n                return this.$store.getters.files\r\n            },\r\n            ...mapGetters([\"products\"])\r\n        },\r\n        mounted() {\r\n            this.CKAddCustomPlugin();\r\n        },\r\n        methods: {\r\n\r\n            CKAddCustomPlugin() {\r\n                let $this = this;\r\n                //console.log(this.config)\r\n                \r\n                let e = this.config.extraPlugins;\r\n                let extraConfigs = e.split(',')\r\n                \r\n                this.config.extraPlugins = extraConfigs.join(',')\r\n\r\n                if (!CKEDITOR.plugins.get(\"niw_btn\")) {\r\n                    CKEDITOR.plugins.add(\"niw_btn\", {\r\n                        init: function (editor) {\r\n                            editor.ui.addButton && editor.ui.addButton(\"uploadImg\", {\r\n                                label: \"Tải hình ảnh\",\r\n                                command: \"filemanager\",\r\n                                icon: \"https://hoc24.vn/media/cke24/plugins/imgur/images/icon.png?t=14\",\r\n                                toolbar: \"insert\"\r\n                            });\r\n                            editor.addCommand(\"filemanager\", {\r\n                                exec: function (editor) {\r\n                                    $this.FileManagers('multi', editor);\r\n                                    $this.curentEditor = editor;\r\n\r\n                                }\r\n                            });\r\n\r\n                        }\r\n                    });\r\n                }\r\n                if (!CKEDITOR.plugins.get(\"product_shortcode_btn\")) {\r\n                    CKEDITOR.plugins.add(\"product_shortcode_btn\", {\r\n                        init: function (editor) {\r\n\r\n                            editor.ui.addButton && editor.ui.addButton(\"InsertProduct\", {\r\n                                label: \"Chèn sản phẩm\",\r\n                                command: \"InsertProduct\",\r\n                                icon: \"https://cdn-icons-png.flaticon.com/512/81/81960.png\",\r\n                                toolbar: \"insert\"\r\n                            });\r\n                            editor.addCommand(\"InsertProduct\", {\r\n                                exec: function (editor) {\r\n                                    $this.ProductManages('multi', editor);\r\n                                    $this.curentEditor = editor;\r\n                                }\r\n                            });\r\n\r\n                        }\r\n                    });\r\n                }\r\n                \r\n                \r\n                \r\n            },\r\n\r\n            toggleEditorDisabled() {\r\n                this.editorDisabled = !this.editorDisabled;\r\n            },\r\n            destroyApp() {\r\n                //app.$destroy();\r\n            },\r\n\r\n            onEditorInput(data, event, editor) {\r\n                //console.log(\"Editor data input.\", { event, editor, data });\r\n                if (this.index_p >= 0) {\r\n                    var dt = {\r\n                        content: this.content,\r\n                        index: this.index_p\r\n\r\n                    }\r\n                    //console.log(dt);\r\n                    this.$emit(\"handleEditorInput\", JSON.stringify(dt));\r\n                }\r\n                else {\r\n                    this.$emit(\"handleEditorInput\", this.content);\r\n                }\r\n                //\r\n            },\r\n\r\n\r\n            onEditorDestroy(editor) {\r\n                console.log(\"Editor destroyed.\", { editor });\r\n            },\r\n\r\n\r\n\r\n            ...mapActions([\"getProducts\", \"getZones\"]),\r\n            pathImgs(path) {\r\n                return pathImg(path);\r\n            },\r\n            SelectProduct(event, file) {\r\n                if (this.selectType == 'multi') {\r\n                    if (event.currentTarget.classList.contains('_active')) {\r\n                        event.currentTarget.classList.remove('_active');\r\n                        this.selectedProduct = this.selectedProduct.filter(obj => obj.id != file.id)\r\n                    }\r\n                    else {\r\n                        event.currentTarget.classList.add(\"_active\");\r\n                        this.selectedProduct.push(file)\r\n                    }\r\n                } else {\r\n                    this.selectedFile = [];\r\n                    if (event.currentTarget.classList.contains('_active')) {\r\n                        event.currentTarget.classList.remove('_active');\r\n\r\n                    }\r\n                    else {\r\n                        let items = document.querySelectorAll('.item');\r\n                        items.forEach(function (item) {\r\n                            item.classList.remove('_active');\r\n                        });\r\n                        event.currentTarget.classList.add(\"_active\");\r\n                        this.selectedProduct.push(file)\r\n                    }\r\n                }\r\n            },\r\n\r\n            ProductManages(param) {\r\n                this.modalShowProduct = true;\r\n                this.selectType = param;\r\n              //  this.$modal.show('hello-world');\r\n                //this.$refs[\"product-manager-modal\"].show();\r\n              //  $('#file-manager-modal').modal('show')\r\n               // this.$bvModal.show('product-manager-modal')\t\r\n                this.getZones(1).then(respose => {\r\n                    var data = respose.listData;\r\n                    data.push({ id: 0, label: \"Danh mục\", parentId: 0 });\r\n                    this.ZoneOptions = unflatten(data);\r\n                }).then(res => {\r\n\r\n                });\r\n                this.getProducts({\r\n                    pageIndex: this.currentPageProductManager,\r\n                    pageSize: this.pageSize,\r\n                    idZone: this.SearchZoneId\r\n                }).then(subRes => {\r\n                    //   this.isLoading = false;\r\n                });\r\n\r\n            },\r\n            LoadFile() {\r\n                this.fmFileGetAll({\r\n                    keyword: this.keyword,\r\n                          pageIndex: this.currentPageFileManager,\r\n                    pageSize: this.pageSize\r\n                });\r\n            },\r\n            hideProductModal() {\r\n                //this.$refs[\"product-manager-modal\"].hide();\r\n                this.modalShowProduct = false;\r\n            },\r\n            attackProduct() {\r\n                let ids = [];\r\n                let pros = this.selectedProduct;\r\n                for (let x in pros) {\r\n                    ids.push(pros[x].id);\r\n                }\r\n                this.curentEditor.insertHtml(\r\n                    '<p><product data-id-list=\"' + ids.join(',').toString() + '\">[shortcode]:[' + ids.join(',').toString() + ']</product></p>'\r\n                );\r\n                //  this.$refs[\"product-manager-modal\"].hide();\r\n                this.modalShowProduct = false;\r\n                this.selectedProduct = [];\r\n            },\r\n            toggleProductModal() {\r\n                this.$refs[\"product-manager-modal\"].toggle(\"#toggle-btn\");\r\n            },\r\n            // attack file\r\n            ...mapActions([\"fmFileUpload\", \"fmFileGetAll\"]),\r\n            mapImageUrl(img, ext) {\r\n                if (this.extImage.indexOf(ext) !== -1) {\r\n                    return '/uploads/thumb' + img;\r\n                }\r\n                return './../../ClientApp/assets/fileicons/' + ext.replace('.', '') + '.png';\r\n            },\r\n            checkImage(ext) {\r\n                if (this.extImage.indexOf(ext) == -1) {\r\n                    return true\r\n                }\r\n                return false\r\n            },\r\n            DoUploadFile(e) {\r\n                let files = e.srcElement.files;\r\n\r\n                if (files) {\r\n                    let filesTemp = Array.from(files);\r\n\r\n                    let msgFileAllow = '';\r\n                    let msgLimitedSize = '';\r\n                    for (var i = 0; i < filesTemp.length; i++) {\r\n\r\n                        let name = filesTemp[i].name;\r\n                        let type = name.split('.').pop();\r\n                        if (this.extensions.indexOf(type) == -1) {\r\n                            filesTemp.splice(i, 1); // xóa khỏi array\r\n                            if (msgFileAllow.length == 0) {\r\n                                msgFileAllow = name;\r\n                            } else {\r\n                                msgFileAllow += ', ' + name;\r\n                            }\r\n                        }\r\n                        if (msgFileAllow.length > 0) {\r\n                            this.$toast.error(msgFileAllow + ' không hợp lệ !', {});\r\n                        }\r\n                    }\r\n                    for (var i = 0; i < filesTemp.length; i++) {\r\n\r\n\r\n                        let size = filesTemp[i].size;\r\n                        let name = filesTemp[i].name;\r\n\r\n\r\n                        if (this.MaxFileSize < (size / 1024)) {\r\n                            filesTemp.splice(i, 1);\r\n                            if (msgLimitedSize.length == 0) {\r\n                                msgLimitedSize = name;\r\n                            } else {\r\n                                msgLimitedSize += ', ' + name;\r\n                            }\r\n\r\n                        }\r\n                        if (msgLimitedSize.length > 0) {\r\n                            this.$toast.error(msgFileAllow + ' dung lượng quá lớn !', {});\r\n                        }\r\n\r\n\r\n                    }\r\n                    if (filesTemp.length) {\r\n                        let fd = new FormData();\r\n\r\n                        filesTemp.forEach(function (item) {\r\n                            fd.append('files', item);\r\n                        });\r\n                        this.UploadFileAction(fd);\r\n                    }\r\n\r\n                }\r\n\r\n            },\r\n            UploadFileAction(files) {\r\n                this.fmFileUpload(files)\r\n                    .then(response => {\r\n                        if (response.success) {\r\n                            this.LoadFile();\r\n                            this.$toast.success(response.Message, {});\r\n                            this.isLoading = false;\r\n                        }\r\n                        else {\r\n                            this.$toast.error(response.Message, {});\r\n                            this.isLoading = false;\r\n                        }\r\n                    })\r\n                    .catch(e => {\r\n                        this.$toast.error(msgNotify.error + \". Error:\" + e, {});\r\n                        this.isLoading = false;\r\n                    });\r\n\r\n\r\n            },\r\n            SelectFile(event, file) {\r\n                if (this.selectType == 'multi') {\r\n                    if (event.currentTarget.classList.contains('_active')) {\r\n                        event.currentTarget.classList.remove('_active');\r\n\r\n                        // let objIsExist = this.selectedFile.some(obj => obj.id = file.id);\r\n                        // if (objIsExist) {\r\n                        this.selectedFile = this.selectedFile.filter(obj => obj.id != file.id)\r\n                        // }\r\n                    }\r\n                    else {\r\n                        event.currentTarget.classList.add(\"_active\");\r\n                        this.selectedFile.push(file)\r\n                    }\r\n                } else {\r\n\r\n                    this.selectedFile = [];\r\n                    if (event.currentTarget.classList.contains('_active')) {\r\n                        event.currentTarget.classList.remove('_active');\r\n\r\n                    }\r\n                    else {\r\n                        let items = document.querySelectorAll('.item');\r\n                        items.forEach(function (item) {\r\n                            item.classList.remove('_active');\r\n                        });\r\n                        event.currentTarget.classList.add(\"_active\");\r\n                        this.selectedFile.push(file)\r\n                    }\r\n                }\r\n            },\r\n\r\n            FileManagers(param) {\r\n               \r\n                this.selectType = param;\r\n              \r\n                this.modalShowFile = true;\r\n               // this.$refs[\"file-manager-modal\"].show();\r\n                // this.$bvModal.show('file-manager-modal')\t\r\n                this.LoadFile();\r\n            },\r\n\r\n            hideFileManagerModal() {\r\n                //this.$refs[\"file-manager-modal\"].hide();\r\n                this.modalShowFile = false;\r\n            },\r\n            attackFile() {\r\n                let domain = config.BASE_URLCms;\r\n                let images = this.selectedFile;\r\n                for (let x in images) {\r\n                    this.curentEditor.insertHtml(\r\n                        '<img style=\"max-width:90%\" src=\"' + domain + 'uploads' + images[x].path + '\"/>'\r\n                    );\r\n                }\r\n               // this.$refs[\"file-manager-modal\"].hide();\r\n                this.modalShowFile = false;\r\n                this.selectedFile = [];\r\n            },\r\n\r\n            toggleFileModal() {\r\n                // We pass the ID of the button that we want to return focus to\r\n                // when the modal has hidden\r\n                this.$refs[\"file-manager-modal\"].toggle(\"#toggle-btn\");\r\n            }\r\n        },\r\n\r\n        watch: {\r\n            contentEditor() {\r\n                this.content = this.contentEditor;\r\n            },\r\n            index() {\r\n                this.index_p = this.index;\r\n                \r\n            },\r\n            currentPageFileManager() {\r\n                this.isLoading = true;\r\n\r\n                this.LoadFile();\r\n\r\n                this.isLoading = false;\r\n                //this.fmFileGetAll({\r\n                //    pageIndex: this.currentPageFileManager,\r\n                //    pageSize: this.pageSize\r\n                //}).then(subRes => {\r\n                //    this.isLoading = false;\r\n                //});\r\n            },\r\n            currentPageProductManager() {\r\n                this.isLoading = true;\r\n                this.getProducts({\r\n                    pageIndex: this.currentPageProductManager,\r\n                    pageSize: this.pageSize,\r\n                    idZone: this.SearchZoneId\r\n                }).then(subRes => {\r\n                    this.isLoading = false;\r\n                });\r\n            },\r\n            SearchZoneId() {\r\n                this.isLoading = true;\r\n                this.getProducts({\r\n                    pageIndex: 1,\r\n                    pageSize: this.pageSize,\r\n                    idZone: this.SearchZoneId\r\n                }).then(subRes => {\r\n                    this.isLoading = false;\r\n                });\r\n            }\r\n        }\r\n    };\r\n</script>\r\n\r\n<style scoped>\r\n    .file-manager, .fm-content-selected {\r\n        padding: 0;\r\n    }\r\n\r\n    .file-manager___BV_modal_body_ {\r\n        padding: 0;\r\n    }\r\n\r\n    .fm-content-selected ul li {\r\n        list-style-type: none\r\n    }\r\n\r\n    .fm-container-dialog {\r\n        padding: 0;\r\n        overflow: hidden !important;\r\n    }\r\n\r\n    .fm-container {\r\n        font-size: 12px;\r\n        font-family: sans-serif;\r\n        padding: 0\r\n    }\r\n\r\n    .fm-toolbar ul {\r\n        float: left;\r\n        margin: 3.5px 0 3px 10px;\r\n        padding: 1px 2px;\r\n        border-radius: 0\r\n    }\r\n\r\n        .fm-toolbar ul li {\r\n            border: 1px solid .fff;\r\n            cursor: pointer;\r\n            float: left;\r\n            line-height: 26px;\r\n            list-style-type: none;\r\n            padding: 0 8px;\r\n            text-align: center;\r\n        }\r\n\r\n            .fm-toolbar ul li:hover {\r\n                background: #eaeaea;\r\n            }\r\n\r\n            .fm-toolbar ul li.active {\r\n                background: #eaeaea;\r\n            }\r\n\r\n    .fm-container {\r\n    }\r\n\r\n    .fm-toolbar {\r\n    }\r\n\r\n    .fm-footer {\r\n        border-top: 1px solid #eaeaea;\r\n        padding-top: 10px\r\n    }\r\n\r\n    .fm-toolbar .tool-items {\r\n        clear: both;\r\n        padding-right: 6px;\r\n    }\r\n\r\n    .fm-toolbar .tools {\r\n        float: left;\r\n    }\r\n\r\n    .fm-main {\r\n        margin-top: 8px;\r\n        border-top: 1px solid #eaeaea;\r\n    }\r\n\r\n    .fm-sidebar .fm-header {\r\n        height: 35px;\r\n        line-height: 35px;\r\n        background-color: #39c;\r\n        overflow: hidden;\r\n        font-size: 17px;\r\n        color: #ecf3f9;\r\n        text-align: center;\r\n    }\r\n\r\n    .fm-sidebar {\r\n        border-right: 1px solid #eaeaea\r\n    }\r\n\r\n    .fm-content {\r\n        background-color: white;\r\n        cursor: default; /*z-index: 0; box-shadow: 0 2px 4px rgba(0,0,0,0.04), 0 1px 4px rgba(0,0,0,0.12);*/\r\n        height: 100%;\r\n    }\r\n\r\n    .fm-data-wrapper {\r\n        overflow: hidden;\r\n    }\r\n\r\n    .fm-file-view {\r\n        border-left: 1px solid #eaeaea;\r\n        float: right;\r\n        height: 100%;\r\n        width: 250px;\r\n        padding: 9px;\r\n        background: .fff;\r\n    }\r\n\r\n        .fm-file-view .file-thumb {\r\n            text-align: center;\r\n            max-height: 250px;\r\n            max-width: 230px;\r\n            overflow: hidden;\r\n        }\r\n\r\n        .fm-file-view .header {\r\n            font-weight: bold;\r\n            margin-bottom: 12px;\r\n            padding: 2px 0;\r\n            text-align: center;\r\n            text-transform: uppercase;\r\n        }\r\n\r\n        .fm-file-view .details {\r\n            padding-top: 16px;\r\n        }\r\n\r\n            .fm-file-view .details div {\r\n                line-height: 21px;\r\n            }\r\n\r\n            .fm-file-view .details .uploaded,\r\n            .fm-file-view .details .file-size,\r\n            .fm-file-view .details .dimensions {\r\n                line-height: 21px;\r\n            }\r\n\r\n        .fm-file-view .file-thumb img {\r\n            border: 1px solid #eaeaea;\r\n            padding: 4px; /*max-height: 220px; max-width: 228px;*/\r\n        }\r\n\r\n    .attachment-info .filename {\r\n        font-weight: 600;\r\n        color: #444;\r\n        word-wrap: break-word;\r\n    }\r\n\r\n    .btn-attack {\r\n        background: .fff none repeat scroll 0 0;\r\n        padding: 3px 3px 3px 0;\r\n        width: 230px;\r\n        float: right;\r\n        clear: both;\r\n    }\r\n\r\n        .btn-attack button#btn-attack {\r\n            color: .fff;\r\n            background: #0085ba;\r\n            border: 0;\r\n            padding: 4px 6px;\r\n        }\r\n\r\n        .btn-attack button#dl-close {\r\n            background: #eaeaea;\r\n            border: 0;\r\n            padding: 4px 6px;\r\n            float: right;\r\n            clear: both;\r\n        }\r\n\r\n    .fm-content table._list {\r\n        width: 100%;\r\n    }\r\n\r\n        .fm-content table._list tr {\r\n        }\r\n\r\n            .fm-content table._list tr th {\r\n                text-align: center;\r\n                font-weight: bold;\r\n            }\r\n\r\n            .fm-content table._list tr td {\r\n                padding: 5px 4px;\r\n            }\r\n\r\n            .fm-content table._list tr._active {\r\n                background: #48adff;\r\n            }\r\n\r\n    .fm-toolbar ul li i {\r\n        background-repeat: no-repeat;\r\n        display: inline-block;\r\n        height: 16px;\r\n        vertical-align: middle;\r\n        width: 16px;\r\n    }\r\n\r\n    .fm-toolbar ul li i {\r\n    }\r\n\r\n    li i.create-folder {\r\n        background-image: url(./../../assets/img/icon/folder_add.png);\r\n    }\r\n\r\n    li i.upload {\r\n        background-image: url(\"./../../assets/img/icon/upload.png\");\r\n    }\r\n\r\n    li i.list {\r\n        background-image: url(\"./../../assets/img/icon/application_view_list.png\");\r\n    }\r\n\r\n    li i.grid {\r\n        background-image: url(\"./../../assets/img/icon/application_view_icons.png\");\r\n    }\r\n\r\n    li i.iclose {\r\n        background-image: url(\"./../../assets/img/icon/reset.png\");\r\n    }\r\n\r\n    li i.crop {\r\n        background-image: url(\"./../../assets/img/icon/crop.png\");\r\n    }\r\n\r\n    li i.remove {\r\n        background-image: url(\"./../../assets/img/icon/bin_closed.png\");\r\n    }\r\n\r\n    li i.close:hover {\r\n    }\r\n\r\n    .fm-footer {\r\n        min-height: 32px;\r\n    }\r\n\r\n    .fm-data-wrapper {\r\n        height: 100%;\r\n    }\r\n\r\n    .clear {\r\n        clear: both;\r\n    }\r\n\r\n    ._list ._active {\r\n        background: #48adff;\r\n    }\r\n\r\n    .fm-content {\r\n    }\r\n\r\n        .fm-content table._list table thead tr th {\r\n            text-align: center;\r\n        }\r\n\r\n        .fm-content table._list tr {\r\n            font-size: 11px;\r\n        }\r\n\r\n            .fm-content table._list tr:hover {\r\n                background: #c1edff;\r\n                cursor: pointer;\r\n            }\r\n\r\n            .fm-content table._list tr td {\r\n            }\r\n\r\n        .fm-content table._list tbody tr td.name {\r\n            display: inline-flex;\r\n        }\r\n\r\n            .fm-content table._list tbody tr td.name .list-icon {\r\n                display: inline-block;\r\n                float: left;\r\n                padding-right: 20px;\r\n            }\r\n\r\n    .fm-grid, .fm-folder ul, .fm-grid li .info p {\r\n        padding: 0;\r\n        margin: 0;\r\n    }\r\n\r\n        .fm-grid li {\r\n            position: relative;\r\n            vertical-align: middle;\r\n            display: table-cell;\r\n            border: 1px solid #eaeaea;\r\n            cursor: pointer;\r\n            float: left;\r\n            height: 100px;\r\n            min-width: 114px;\r\n            list-style-type: none;\r\n            margin: 4px;\r\n            padding: 2px;\r\n            width: 14.99%;\r\n            position: relative;\r\n            overflow: hidden;\r\n            text-align: center;\r\n        }\r\n\r\n            .fm-grid li .info {\r\n                font-size: 10px;\r\n                background: rgba(109, 105, 105, 0.87);\r\n                color: .fff;\r\n                position: absolute;\r\n                bottom: 0;\r\n                width: 100%;\r\n                height: 0\r\n            }\r\n\r\n            .fm-grid li:hover .info {\r\n                height: auto\r\n            }\r\n\r\n    .fm-list li img {\r\n        width: 100%\r\n    }\r\n\r\n    .fm-list li.not_img img {\r\n        width: 50%;\r\n        padding-top: 10px\r\n    }\r\n\r\n    .fm-grid li img.thumb {\r\n        width: 60%;\r\n        margin: 0 auto;\r\n    }\r\n\r\n    .fm-grid li i {\r\n        position: absolute;\r\n        z-index: 999;\r\n        right: 4px;\r\n        background: .fff;\r\n        border-radius: 11px;\r\n        color: #0085ba;\r\n        padding: 1px;\r\n        top: 3px;\r\n        display: none;\r\n    }\r\n\r\n    .fm-grid li._active i {\r\n        display: block;\r\n    }\r\n\r\n    .fm-grid li._active {\r\n        border: 1px solid #0085ba;\r\n    }\r\n\r\n    .fm-folder ul li {\r\n        list-style-type: none;\r\n        padding: 8px 0;\r\n        cursor: pointer\r\n    }\r\n\r\n        .fm-folder ul li i {\r\n            background-repeat: no-repeat;\r\n            display: inline-block;\r\n            height: 16px;\r\n            vertical-align: middle;\r\n            width: 16px;\r\n        }\r\n\r\n    .plupload_filelist_header {\r\n        height: 20px;\r\n    }\r\n\r\n    .plupload_filelist_footer {\r\n        padding: 6px 20px;\r\n        height: 33px;\r\n    }\r\n\r\n    .plupload_scroll .plupload_filelist {\r\n        height: 172px !important;\r\n    }\r\n\r\n    .plupload_filelist_footer {\r\n        padding: 6px 20px;\r\n    }\r\n\r\n    .plupload_filelist:empty,\r\n    .plupload_filelist li.plupload_droptext {\r\n        height: 140px;\r\n    }\r\n\r\n        .plupload_filelist:empty::before,\r\n        .plupload_filelist li.plupload_droptext::before {\r\n            font-size: 52px;\r\n            height: 75px;\r\n            left: 49%;\r\n            margin-left: -40px;\r\n            padding-top: 43px;\r\n        }\r\n\r\n    .items-action {\r\n        padding-top: 20px;\r\n        display: inline-block;\r\n        width: 100%;\r\n    }\r\n\r\n        .items-action .file-action {\r\n            border: 0 none;\r\n            color: .fff;\r\n            padding: 4px 10px;\r\n        }\r\n\r\n        .items-action .file-action {\r\n            background: rosybrown;\r\n            float: left;\r\n            clear: both;\r\n        }\r\n    /*.items-action .file-action:last-child { background: #0085ba;float: right;}*/\r\n    .fm-toolbar .Mi.ipagination a:first-child {\r\n        border: 0;\r\n        border-radius: 0;\r\n    }\r\n\r\n    .fm-toolbar .Mi.ipagination input {\r\n        border: medium none;\r\n        float: left;\r\n        font-family: arial;\r\n        font-size: 11px;\r\n        height: 30px;\r\n        margin: 0;\r\n        outline: medium none;\r\n        padding: 0;\r\n        text-align: center;\r\n        vertical-align: middle;\r\n        width: 84px;\r\n    }\r\n\r\n    .fm-toolbar .Mi.ipagination a {\r\n        border: 0;\r\n        border-radius: 0;\r\n        background: .fff;\r\n    }\r\n\r\n    .fm-toolbar .ipagination.iweb {\r\n        margin-top: 3.45px;\r\n    }\r\n\r\n    .frowInTotals {\r\n        display: inline-block;\r\n        float: left;\r\n        line-height: 39px;\r\n        padding-right: 3px;\r\n        vertical-align: baseline;\r\n    }\r\n\r\n    label#progressall {\r\n        display: none;\r\n        padding: 7px 7px;\r\n    }\r\n\r\n    .Cdiv {\r\n        padding-left: 12px;\r\n        height: 17px;\r\n        overflow: hidden;\r\n        text-overflow: ellipsis;\r\n        white-space: nowrap;\r\n        width: 100%;\r\n        display: inline-block;\r\n        font-weight: normal;\r\n    }\r\n\r\n    .btn-fm-upload label {\r\n        margin-bottom: 0 !important;\r\n    }\r\n    /* Extra small devices (phones, 600px and down) */\r\n\r\n    @media only screen and (max-width: 600px) {\r\n        .fm-grid li {\r\n            width: 47.65%;\r\n        }\r\n    }\r\n\r\n    /* Small devices (portrait tablets and large phones, 600px and up) */\r\n\r\n    @media only screen and (min-width: 600px) {\r\n    }\r\n\r\n    /* Medium devices (landscape tablets, 768px and up) */\r\n\r\n    @media only screen and (min-width: 768px) {\r\n    }\r\n\r\n    /* Large devices (laptops/desktops, 992px and up) */\r\n\r\n    @media only screen and (min-width: 992px) {\r\n    }\r\n\r\n    /* Extra large devices (large laptops and desktops, 1200px and up) */\r\n\r\n    @media only screen and (min-width: 1200px) {\r\n    }\r\n</style>\r\n"],"sourceRoot":""}]);
+exports.push([module.i, "\n.file-manager[data-v-8004295c], .fm-content-selected[data-v-8004295c] {\n    padding: 0;\n}\n.file-manager___BV_modal_body_[data-v-8004295c] {\n    padding: 0;\n}\n.fm-content-selected ul li[data-v-8004295c] {\n    list-style-type: none\n}\n.fm-container-dialog[data-v-8004295c] {\n    padding: 0;\n    overflow: hidden !important;\n}\n.fm-container[data-v-8004295c] {\n    font-size: 12px;\n    font-family: sans-serif;\n    padding: 0\n}\n.fm-toolbar ul[data-v-8004295c] {\n    float: left;\n    margin: 3.5px 0 3px 10px;\n    padding: 1px 2px;\n    border-radius: 0\n}\n.fm-toolbar ul li[data-v-8004295c] {\n        border: 1px solid .fff;\n        cursor: pointer;\n        float: left;\n        line-height: 26px;\n        list-style-type: none;\n        padding: 0 8px;\n        text-align: center;\n}\n.fm-toolbar ul li[data-v-8004295c]:hover {\n            background: #eaeaea;\n}\n.fm-toolbar ul li.active[data-v-8004295c] {\n            background: #eaeaea;\n}\n.fm-container[data-v-8004295c] {\n}\n.fm-toolbar[data-v-8004295c] {\n}\n.fm-footer[data-v-8004295c] {\n    border-top: 1px solid #eaeaea;\n    padding-top: 10px\n}\n.fm-toolbar .tool-items[data-v-8004295c] {\n    clear: both;\n    padding-right: 6px;\n}\n.fm-toolbar .tools[data-v-8004295c] {\n    float: left;\n}\n.fm-main[data-v-8004295c] {\n    margin-top: 8px;\n    border-top: 1px solid #eaeaea;\n}\n.fm-sidebar .fm-header[data-v-8004295c] {\n    height: 35px;\n    line-height: 35px;\n    background-color: #39c;\n    overflow: hidden;\n    font-size: 17px;\n    color: #ecf3f9;\n    text-align: center;\n}\n.fm-sidebar[data-v-8004295c] {\n    border-right: 1px solid #eaeaea\n}\n.fm-content[data-v-8004295c] {\n    background-color: white;\n    cursor: default; /*z-index: 0; box-shadow: 0 2px 4px rgba(0,0,0,0.04), 0 1px 4px rgba(0,0,0,0.12);*/\n    height: 100%;\n}\n.fm-data-wrapper[data-v-8004295c] {\n    overflow: hidden;\n}\n.fm-file-view[data-v-8004295c] {\n    border-left: 1px solid #eaeaea;\n    float: right;\n    height: 100%;\n    width: 250px;\n    padding: 9px;\n    background: .fff;\n}\n.fm-file-view .file-thumb[data-v-8004295c] {\n        text-align: center;\n        max-height: 250px;\n        max-width: 230px;\n        overflow: hidden;\n}\n.fm-file-view .header[data-v-8004295c] {\n        font-weight: bold;\n        margin-bottom: 12px;\n        padding: 2px 0;\n        text-align: center;\n        text-transform: uppercase;\n}\n.fm-file-view .details[data-v-8004295c] {\n        padding-top: 16px;\n}\n.fm-file-view .details div[data-v-8004295c] {\n            line-height: 21px;\n}\n.fm-file-view .details .uploaded[data-v-8004295c],\n        .fm-file-view .details .file-size[data-v-8004295c],\n        .fm-file-view .details .dimensions[data-v-8004295c] {\n            line-height: 21px;\n}\n.fm-file-view .file-thumb img[data-v-8004295c] {\n        border: 1px solid #eaeaea;\n        padding: 4px; /*max-height: 220px; max-width: 228px;*/\n}\n.attachment-info .filename[data-v-8004295c] {\n    font-weight: 600;\n    color: #444;\n    word-wrap: break-word;\n}\n.btn-attack[data-v-8004295c] {\n    background: .fff none repeat scroll 0 0;\n    padding: 3px 3px 3px 0;\n    width: 230px;\n    float: right;\n    clear: both;\n}\n.btn-attack button#btn-attack[data-v-8004295c] {\n        color: .fff;\n        background: #0085ba;\n        border: 0;\n        padding: 4px 6px;\n}\n.btn-attack button#dl-close[data-v-8004295c] {\n        background: #eaeaea;\n        border: 0;\n        padding: 4px 6px;\n        float: right;\n        clear: both;\n}\n.fm-content table._list[data-v-8004295c] {\n    width: 100%;\n}\n.fm-content table._list tr[data-v-8004295c] {\n}\n.fm-content table._list tr th[data-v-8004295c] {\n            text-align: center;\n            font-weight: bold;\n}\n.fm-content table._list tr td[data-v-8004295c] {\n            padding: 5px 4px;\n}\n.fm-content table._list tr._active[data-v-8004295c] {\n            background: #48adff;\n}\n.fm-toolbar ul li i[data-v-8004295c] {\n    background-repeat: no-repeat;\n    display: inline-block;\n    height: 16px;\n    vertical-align: middle;\n    width: 16px;\n}\n.fm-toolbar ul li i[data-v-8004295c] {\n}\nli i.create-folder[data-v-8004295c] {\n    background-image: url(" + __webpack_require__(1005) + ");\n}\nli i.upload[data-v-8004295c] {\n    background-image: url(" + __webpack_require__(1007) + ");\n}\nli i.list[data-v-8004295c] {\n    background-image: url(" + __webpack_require__(1002) + ");\n}\nli i.grid[data-v-8004295c] {\n    background-image: url(" + __webpack_require__(1001) + ");\n}\nli i.iclose[data-v-8004295c] {\n    background-image: url(" + __webpack_require__(1006) + ");\n}\nli i.crop[data-v-8004295c] {\n    background-image: url(" + __webpack_require__(1004) + ");\n}\nli i.remove[data-v-8004295c] {\n    background-image: url(" + __webpack_require__(1003) + ");\n}\nli i.close[data-v-8004295c]:hover {\n}\n.fm-footer[data-v-8004295c] {\n    min-height: 32px;\n}\n.fm-data-wrapper[data-v-8004295c] {\n    height: 100%;\n}\n.clear[data-v-8004295c] {\n    clear: both;\n}\n._list ._active[data-v-8004295c] {\n    background: #48adff;\n}\n.fm-content[data-v-8004295c] {\n}\n.fm-content table._list table thead tr th[data-v-8004295c] {\n        text-align: center;\n}\n.fm-content table._list tr[data-v-8004295c] {\n        font-size: 11px;\n}\n.fm-content table._list tr[data-v-8004295c]:hover {\n            background: #c1edff;\n            cursor: pointer;\n}\n.fm-content table._list tr td[data-v-8004295c] {\n}\n.fm-content table._list tbody tr td.name[data-v-8004295c] {\n        display: inline-flex;\n}\n.fm-content table._list tbody tr td.name .list-icon[data-v-8004295c] {\n            display: inline-block;\n            float: left;\n            padding-right: 20px;\n}\n.fm-grid[data-v-8004295c], .fm-folder ul[data-v-8004295c], .fm-grid li .info p[data-v-8004295c] {\n    padding: 0;\n    margin: 0;\n}\n.fm-grid li[data-v-8004295c] {\n        position: relative;\n        vertical-align: middle;\n        display: table-cell;\n        border: 1px solid #eaeaea;\n        cursor: pointer;\n        float: left;\n        height: 100px;\n        min-width: 114px;\n        list-style-type: none;\n        margin: 4px;\n        padding: 2px;\n        width: 14.99%;\n        position: relative;\n        overflow: hidden;\n        text-align: center;\n}\n.fm-grid li .info[data-v-8004295c] {\n            font-size: 10px;\n            background: rgba(109, 105, 105, 0.87);\n            color: .fff;\n            position: absolute;\n            bottom: 0;\n            width: 100%;\n            height: 0\n}\n.fm-grid li:hover .info[data-v-8004295c] {\n            height: auto\n}\n.fm-list li img[data-v-8004295c] {\n    width: 100%\n}\n.fm-list li.not_img img[data-v-8004295c] {\n    width: 50%;\n    padding-top: 10px\n}\n.fm-grid li img.thumb[data-v-8004295c] {\n    width: 60%;\n    margin: 0 auto;\n}\n.fm-grid li i[data-v-8004295c] {\n    position: absolute;\n    z-index: 999;\n    right: 4px;\n    background: .fff;\n    border-radius: 11px;\n    color: #0085ba;\n    padding: 1px;\n    top: 3px;\n    display: none;\n}\n.fm-grid li._active i[data-v-8004295c] {\n    display: block;\n}\n.fm-grid li._active[data-v-8004295c] {\n    border: 1px solid #0085ba;\n}\n.fm-folder ul li[data-v-8004295c] {\n    list-style-type: none;\n    padding: 8px 0;\n    cursor: pointer\n}\n.fm-folder ul li i[data-v-8004295c] {\n        background-repeat: no-repeat;\n        display: inline-block;\n        height: 16px;\n        vertical-align: middle;\n        width: 16px;\n}\n.plupload_filelist_header[data-v-8004295c] {\n    height: 20px;\n}\n.plupload_filelist_footer[data-v-8004295c] {\n    padding: 6px 20px;\n    height: 33px;\n}\n.plupload_scroll .plupload_filelist[data-v-8004295c] {\n    height: 172px !important;\n}\n.plupload_filelist_footer[data-v-8004295c] {\n    padding: 6px 20px;\n}\n.plupload_filelist[data-v-8004295c]:empty,\n.plupload_filelist li.plupload_droptext[data-v-8004295c] {\n    height: 140px;\n}\n.plupload_filelist[data-v-8004295c]:empty::before,\n    .plupload_filelist li.plupload_droptext[data-v-8004295c]::before {\n        font-size: 52px;\n        height: 75px;\n        left: 49%;\n        margin-left: -40px;\n        padding-top: 43px;\n}\n.items-action[data-v-8004295c] {\n    padding-top: 20px;\n    display: inline-block;\n    width: 100%;\n}\n.items-action .file-action[data-v-8004295c] {\n        border: 0 none;\n        color: .fff;\n        padding: 4px 10px;\n}\n.items-action .file-action[data-v-8004295c] {\n        background: rosybrown;\n        float: left;\n        clear: both;\n}\n/*.items-action .file-action:last-child { background: #0085ba;float: right;}*/\n.fm-toolbar .Mi.ipagination a[data-v-8004295c]:first-child {\n    border: 0;\n    border-radius: 0;\n}\n.fm-toolbar .Mi.ipagination input[data-v-8004295c] {\n    border: medium none;\n    float: left;\n    font-family: arial;\n    font-size: 11px;\n    height: 30px;\n    margin: 0;\n    outline: medium none;\n    padding: 0;\n    text-align: center;\n    vertical-align: middle;\n    width: 84px;\n}\n.fm-toolbar .Mi.ipagination a[data-v-8004295c] {\n    border: 0;\n    border-radius: 0;\n    background: .fff;\n}\n.fm-toolbar .ipagination.iweb[data-v-8004295c] {\n    margin-top: 3.45px;\n}\n.frowInTotals[data-v-8004295c] {\n    display: inline-block;\n    float: left;\n    line-height: 39px;\n    padding-right: 3px;\n    vertical-align: baseline;\n}\nlabel#progressall[data-v-8004295c] {\n    display: none;\n    padding: 7px 7px;\n}\n.Cdiv[data-v-8004295c] {\n    padding-left: 12px;\n    height: 17px;\n    overflow: hidden;\n    text-overflow: ellipsis;\n    white-space: nowrap;\n    width: 100%;\n    display: inline-block;\n    font-weight: normal;\n}\n.btn-fm-upload label[data-v-8004295c] {\n    margin-bottom: 0 !important;\n}\n/* Extra small devices (phones, 600px and down) */\n@media only screen and (max-width: 600px) {\n.fm-grid li[data-v-8004295c] {\n        width: 47.65%;\n}\n}\n\n/* Small devices (portrait tablets and large phones, 600px and up) */\n@media only screen and (min-width: 600px) {\n}\n\n/* Medium devices (landscape tablets, 768px and up) */\n@media only screen and (min-width: 768px) {\n}\n\n/* Large devices (laptops/desktops, 992px and up) */\n@media only screen and (min-width: 992px) {\n}\n\n/* Extra large devices (large laptops and desktops, 1200px and up) */\n@media only screen and (min-width: 1200px) {\n}\n", "", {"version":3,"sources":["D:/Code/WORKING/dotnet-platform-backend/Web/Platform/CMS/PlatformCMS/ClientApp/components/editor/MIEditor.vue?4de04434"],"names":[],"mappings":";AAuoBA;IACA,WAAA;CACA;AAEA;IACA,WAAA;CACA;AAEA;IACA,qBAAA;CACA;AAEA;IACA,WAAA;IACA,4BAAA;CACA;AAEA;IACA,gBAAA;IACA,wBAAA;IACA,UAAA;CACA;AAEA;IACA,YAAA;IACA,yBAAA;IACA,iBAAA;IACA,gBAAA;CACA;AAEA;QACA,uBAAA;QACA,gBAAA;QACA,YAAA;QACA,kBAAA;QACA,sBAAA;QACA,eAAA;QACA,mBAAA;CACA;AAEA;YACA,oBAAA;CACA;AAEA;YACA,oBAAA;CACA;AAEA;CACA;AAEA;CACA;AAEA;IACA,8BAAA;IACA,iBAAA;CACA;AAEA;IACA,YAAA;IACA,mBAAA;CACA;AAEA;IACA,YAAA;CACA;AAEA;IACA,gBAAA;IACA,8BAAA;CACA;AAEA;IACA,aAAA;IACA,kBAAA;IACA,uBAAA;IACA,iBAAA;IACA,gBAAA;IACA,eAAA;IACA,mBAAA;CACA;AAEA;IACA,+BAAA;CACA;AAEA;IACA,wBAAA;IACA,gBAAA,CAAA,mFAAA;IACA,aAAA;CACA;AAEA;IACA,iBAAA;CACA;AAEA;IACA,+BAAA;IACA,aAAA;IACA,aAAA;IACA,aAAA;IACA,aAAA;IACA,iBAAA;CACA;AAEA;QACA,mBAAA;QACA,kBAAA;QACA,iBAAA;QACA,iBAAA;CACA;AAEA;QACA,kBAAA;QACA,oBAAA;QACA,eAAA;QACA,mBAAA;QACA,0BAAA;CACA;AAEA;QACA,kBAAA;CACA;AAEA;YACA,kBAAA;CACA;AAEA;;;YAGA,kBAAA;CACA;AAEA;QACA,0BAAA;QACA,aAAA,CAAA,wCAAA;CACA;AAEA;IACA,iBAAA;IACA,YAAA;IACA,sBAAA;CACA;AAEA;IACA,wCAAA;IACA,uBAAA;IACA,aAAA;IACA,aAAA;IACA,YAAA;CACA;AAEA;QACA,YAAA;QACA,oBAAA;QACA,UAAA;QACA,iBAAA;CACA;AAEA;QACA,oBAAA;QACA,UAAA;QACA,iBAAA;QACA,aAAA;QACA,YAAA;CACA;AAEA;IACA,YAAA;CACA;AAEA;CACA;AAEA;YACA,mBAAA;YACA,kBAAA;CACA;AAEA;YACA,iBAAA;CACA;AAEA;YACA,oBAAA;CACA;AAEA;IACA,6BAAA;IACA,sBAAA;IACA,aAAA;IACA,uBAAA;IACA,YAAA;CACA;AAEA;CACA;AAEA;IACA,gDAAA;CACA;AAEA;IACA,gDAAA;CACA;AAEA;IACA,gDAAA;CACA;AAEA;IACA,gDAAA;CACA;AAEA;IACA,gDAAA;CACA;AAEA;IACA,gDAAA;CACA;AAEA;IACA,gDAAA;CACA;AAEA;CACA;AAEA;IACA,iBAAA;CACA;AAEA;IACA,aAAA;CACA;AAEA;IACA,YAAA;CACA;AAEA;IACA,oBAAA;CACA;AAEA;CACA;AAEA;QACA,mBAAA;CACA;AAEA;QACA,gBAAA;CACA;AAEA;YACA,oBAAA;YACA,gBAAA;CACA;AAEA;CACA;AAEA;QACA,qBAAA;CACA;AAEA;YACA,sBAAA;YACA,YAAA;YACA,oBAAA;CACA;AAEA;IACA,WAAA;IACA,UAAA;CACA;AAEA;QACA,mBAAA;QACA,uBAAA;QACA,oBAAA;QACA,0BAAA;QACA,gBAAA;QACA,YAAA;QACA,cAAA;QACA,iBAAA;QACA,sBAAA;QACA,YAAA;QACA,aAAA;QACA,cAAA;QACA,mBAAA;QACA,iBAAA;QACA,mBAAA;CACA;AAEA;YACA,gBAAA;YACA,sCAAA;YACA,YAAA;YACA,mBAAA;YACA,UAAA;YACA,YAAA;YACA,SAAA;CACA;AAEA;YACA,YAAA;CACA;AAEA;IACA,WAAA;CACA;AAEA;IACA,WAAA;IACA,iBAAA;CACA;AAEA;IACA,WAAA;IACA,eAAA;CACA;AAEA;IACA,mBAAA;IACA,aAAA;IACA,WAAA;IACA,iBAAA;IACA,oBAAA;IACA,eAAA;IACA,aAAA;IACA,SAAA;IACA,cAAA;CACA;AAEA;IACA,eAAA;CACA;AAEA;IACA,0BAAA;CACA;AAEA;IACA,sBAAA;IACA,eAAA;IACA,eAAA;CACA;AAEA;QACA,6BAAA;QACA,sBAAA;QACA,aAAA;QACA,uBAAA;QACA,YAAA;CACA;AAEA;IACA,aAAA;CACA;AAEA;IACA,kBAAA;IACA,aAAA;CACA;AAEA;IACA,yBAAA;CACA;AAEA;IACA,kBAAA;CACA;AAEA;;IAEA,cAAA;CACA;AAEA;;QAEA,gBAAA;QACA,aAAA;QACA,UAAA;QACA,mBAAA;QACA,kBAAA;CACA;AAEA;IACA,kBAAA;IACA,sBAAA;IACA,YAAA;CACA;AAEA;QACA,eAAA;QACA,YAAA;QACA,kBAAA;CACA;AAEA;QACA,sBAAA;QACA,YAAA;QACA,YAAA;CACA;AACA,8EAAA;AACA;IACA,UAAA;IACA,iBAAA;CACA;AAEA;IACA,oBAAA;IACA,YAAA;IACA,mBAAA;IACA,gBAAA;IACA,aAAA;IACA,UAAA;IACA,qBAAA;IACA,WAAA;IACA,mBAAA;IACA,uBAAA;IACA,YAAA;CACA;AAEA;IACA,UAAA;IACA,iBAAA;IACA,iBAAA;CACA;AAEA;IACA,mBAAA;CACA;AAEA;IACA,sBAAA;IACA,YAAA;IACA,kBAAA;IACA,mBAAA;IACA,yBAAA;CACA;AAEA;IACA,cAAA;IACA,iBAAA;CACA;AAEA;IACA,mBAAA;IACA,aAAA;IACA,iBAAA;IACA,wBAAA;IACA,oBAAA;IACA,YAAA;IACA,sBAAA;IACA,oBAAA;CACA;AAEA;IACA,4BAAA;CACA;AACA,kDAAA;AAEA;AACA;QACA,cAAA;CACA;CACA;;AAEA,qEAAA;AAEA;CACA;;AAEA,sDAAA;AAEA;CACA;;AAEA,oDAAA;AAEA;CACA;;AAEA,qEAAA;AAEA;CACA","file":"MIEditor.vue","sourcesContent":["<template>\r\n    <div>\r\n        <loading :active.sync=\"isLoading\"\r\n                 :height=\"35\"\r\n                 :width=\"35\"></loading>\r\n        <ckeditor v-model=\"content\"\r\n                  @input=\"onEditorInput\"\r\n                  @destroy=\"onEditorDestroy\" :config=\"config\" :index=\"index_p\"></ckeditor>\r\n        <FileManager />\r\n        <!--modal product shortcode-->\r\n        <b-modal ref=\"product-manager-modal\" id=\"product-manager-modal\" v-model=\"modalShowProduct\" class=\"file-manager\" fbody=\"xxx\" hide-footer hide-header size=\"xl\">\r\n            <div id=\"fm-container\" class=\"container-fluid fm-container\">\r\n                <b-row id=\"fm-toolbar\">\r\n                    <b-col lg=\"2\" md=\"2\" sm=\"12\">\r\n                        <b>Sản phẩm</b>\r\n                    </b-col>\r\n                    <b-col>\r\n                        <b-row align-h=\"between\">\r\n                            <b-col cols=\"4\">\r\n                                <treeselect v-model=\"SearchZoneId\"\r\n                                            :options=\"ZoneOptions\"\r\n                                            placeholder=\"Danh mục\"\r\n                                            :default-expanded-level=\"Infinity\">\r\n                                </treeselect>\r\n                            </b-col>\r\n                            <b-col cols=\"4\" class=\"bd-0\">\r\n                                <b-pagination v-model=\"currentPageProductManager\" align=\"right\" size=\"sm\" :limit=\"4\"\r\n                                              :total-rows=\"products.total\"\r\n                                              :per-page=\"pageSize\"></b-pagination>\r\n                            </b-col>\r\n\r\n                        </b-row>\r\n\r\n                    </b-col>\r\n\r\n                </b-row>\r\n                <b-row id=\"fm-main\" class=\"fm-main\">\r\n                    <b-col id=\"fm-content\" class=\"fm-content\" lg=\"9\" dm=\"12\" sm=\"12\">\r\n                        <div id=\"fm-data-wrapper\" class=\"fm-data-wrapper\">\r\n                            <div class=\"fm-list-wrapper\">\r\n                                <div class=\"fm-list\">\r\n                                    <ul id=\"fm-grid\" class=\"fm-grid\" v-if=\"products.listData\">\r\n                                        <li v-for=\"item in products.listData\" :key=\"item.id\" class=\"item\" :class=\"{ _active: isActive}\" @click=\"SelectProduct($event,{name:item.name,id:item.id,avatar:item.avatar,code:item.code})\">\r\n                                            <img :src=\"pathImgs(item.avatar)\" alt=\"\">\r\n                                            <i class=\"fa fa-check\"></i>\r\n                                            <div class=\"info\">\r\n                                                <p class=\"name\">{{item.name}}</p>\r\n                                                <p class=\"dimensions\">{{item.code}}</p>\r\n                                            </div>\r\n                                        </li>\r\n                                    </ul>\r\n                                    <p v-else class=\"text-center\">Không tìm thấy !</p>\r\n                                </div>\r\n                            </div>\r\n                        </div>\r\n\r\n                    </b-col>\r\n                    <b-col id=\"fm-content-selected\" lg=\"3\" dm=\"2\" sm=\"12\">\r\n                        <p class=\"text-center\"><b>Danh sách đã chọn</b></p>\r\n                        <ul style=\"padding:0\" v-if=\"selectedProduct\">\r\n                            <li v-for=\"pro in selectedProduct\" :key=\"pro.id\" style=\"border-bottom:1px solid #ddd;padding:4px 0;display:inline-block;min-height:50px\">\r\n                                <img style=\"width:45px;float:left;padding-right:4px;clear:both\" :src=\"pathImgs(pro.avatar)\" alt=\"\">{{pro.name}}-{{pro.code}}\r\n                            </li>\r\n                        </ul>\r\n                        <p v-else class=\"text-center\">trống !</p>\r\n                    </b-col>\r\n                </b-row>\r\n                <b-row align-h=\"end\" id=\"fm-footer\" class=\"fm-footer\">\r\n                    <b-col cols=\"4\">\r\n                        <div class=\"btn-attack\">\r\n                            <button type=\"button\" id=\"btn-attack\" @click=\"attackProduct\">Đính kèm</button>\r\n                            <!--<button type=\"button\" id=\"btn-attack\" @click=\"attackFileSelected\">Đính kèm2</button>-->\r\n                            <button type=\"button\" id=\"dl-close\" @click=\"hideProductModal\" class=\"iclose\">Đóng</button>\r\n                        </div>\r\n                    </b-col>\r\n                </b-row>\r\n            </div>\r\n        </b-modal>\r\n        <!--modal product shortcode end-->\r\n        <!--modal file manager-->\r\n        <b-modal ref=\"file-manager-modal\" class=\"file-manager\" id=\"file-manager-modal\" v-model=\"modalShowFile\"  fbody=\"xxx\" hide-footer hide-header size=\"xl\">\r\n            <div class=\"container-fluid fm-container\">\r\n                <b-row class=\"fm-toolbar\">\r\n                    <b-col lg=\"2\" md=\"2\" sm=\"12\">\r\n                        <b>Thư viện</b>\r\n                    </b-col>\r\n                    <b-col>\r\n                        <b-row align-h=\"between\">\r\n                            <b-col cols=\"4\">\r\n                                <div class=\"tool-items\">\r\n                                    <ul class=\"tools\">\r\n                                        <li title=\"Create folder\">\r\n                                            <i class=\"create-folder\"></i>\r\n                                        </li>\r\n                                    </ul>\r\n                                    <ul class=\"tools\">\r\n                                        <li title=\"Remove\">\r\n                                            <i class=\"remove\"></i>\r\n                                        </li>\r\n                                    </ul>\r\n                                    <div class=\"tools\">\r\n                                        <input v-model=\"keyword\" v-on:keyup.enter=\"LoadFile()\" class=\"form-control\" placeholder=\"Gõ tên ảnh ấn enter\" />\r\n                                    </div>\r\n                                </div>\r\n                            </b-col>\r\n                            <b-col cols=\"4\" class=\"bd-0\">\r\n                                <b-pagination v-model=\"currentPageFileManager\" align=\"right\" size=\"sm\" :limit=\"4\"\r\n                                              :total-rows=\"files.totals\"\r\n                                              :per-page=\"pageSize\"></b-pagination>\r\n                            </b-col>\r\n                            <b-col cols=\"4\">\r\n                                <div class=\"tool-items float-right\">\r\n\r\n                                    <ul class=\"tools\">\r\n                                        <li title=\"Create folder\">\r\n                                            <i class=\"create-folder\"></i>\r\n                                        </li>\r\n                                        <li title=\"Upload\" id=\"btn-fm-upload\">\r\n                                            <label for=\"fileSingleupload\">\r\n                                                <i class=\"upload\"></i>\r\n                                            </label>\r\n                                            <input accept=\"image/*,.doc,.docx,.pdf,.xls,.xlsx,.zip,.rar\" @change=\"DoUploadFile\" id=\"fileSingleupload\"\r\n                                                   multiple\r\n                                                   type=\"file\"\r\n                                                   name=\"files[]\"\r\n                                                   style=\"display: none\" />\r\n                                        </li>\r\n                                    </ul>\r\n                                    <ul class=\"tools\">\r\n                                        <li title=\"List view\">\r\n                                            <i class=\"list\"></i>\r\n                                        </li>\r\n                                        <li title=\"Grid View\">\r\n                                            <i class=\"grid\"></i>\r\n                                        </li>\r\n                                    </ul>\r\n                                </div>\r\n                            </b-col>\r\n                        </b-row>\r\n\r\n                    </b-col>\r\n\r\n                </b-row>\r\n                <b-row class=\"fm-main\">\r\n                    <b-col class=\"fm-sidebar\" lg=\"2\" md=\"2\" sm=\"12\">\r\n                        <div class=\"fm-folder\">\r\n                            <ul>\r\n                                <li><i class=\"create-folder\"></i> Document</li>\r\n                                <li><i class=\"create-folder\"></i> Image</li>\r\n                                <li><i class=\"create-folder\"></i> Icon</li>\r\n                            </ul>\r\n                        </div>\r\n                    </b-col>\r\n                    <b-col class=\"fm-content\" lg=\"10\" dm=\"2\" sm=\"12\">\r\n                        <div class=\"fm-data-wrapper\">\r\n                            <div class=\"fm-list-wrapper\">\r\n                                <div class=\"fm-list\">\r\n                                    <ul class=\"fm-grid\">\r\n                                        <li v-for=\"file in files.files\" :key=\"file.id\" class=\"item\" :class=\"{ _active: isActive, not_img:checkImage(file.fileExt)}\" @click=\"SelectFile($event,{path:file.filePath,id:file.id})\">\r\n                                            <img :src=\"mapImageUrl(file.filePath,file.fileExt)\" alt=\"\">\r\n                                            <i class=\"fa fa-check\"></i>\r\n                                            <div class=\"info\">\r\n                                                <p class=\"name\">{{file.name}}</p>\r\n                                                <p class=\"dimensions\">{{file.dimensions}}</p>\r\n                                                <p class=\"size\">{{file.fileSize}}kb</p>\r\n                                            </div>\r\n                                        </li>\r\n                                    </ul>\r\n                                </div>\r\n                            </div>\r\n                        </div>\r\n\r\n                    </b-col>\r\n                </b-row>\r\n                <b-row align-h=\"end\" class=\"fm-footer\">\r\n                    <b-col cols=\"4\">\r\n                        <div class=\"btn-attack\">\r\n                            <button type=\"button\" id=\"btn-attack\" @click=\"attackFile\">Đính kèm</button>\r\n                            <!--<button type=\"button\" id=\"btn-attack\" @click=\"attackFileSelected\">Đính kèm2</button>-->\r\n                            <button type=\"button\" id=\"dl-close\" @click=\"hideFileManagerModal\" class=\"iclose\">Đóng</button>\r\n                        </div>\r\n                    </b-col>\r\n                </b-row>\r\n            </div>\r\n        </b-modal>\r\n    </div>\r\n</template>\r\n\r\n<script>\r\n\r\n    import FileManager from './../fileManager/list'\r\n    let _config = require('./../../../appsettings.json');\r\n\r\n    import \"vue-loading-overlay/dist/vue-loading.css\";\r\n    import { mapActions, mapGetters } from \"vuex\";\r\n    import Loading from \"vue-loading-overlay\";\r\n    // import the component\r\n    import Treeselect from '@riophae/vue-treeselect'\r\n    // import the styles\r\n    import '@riophae/vue-treeselect/dist/vue-treeselect.css'\r\n    import { unflatten, slug, pathImg } from \"../../plugins/helper\";\r\n    import CKEditor from 'ckeditor4-vue';\r\n\r\n\r\n    export default {\r\n        name: \"App2\",\r\n        props: {\r\n            contentEditor: {\r\n                type: String\r\n            },\r\n            index: { type: Number },\r\n            mathElements: { type: Array }\r\n        },\r\n        data() {\r\n            return {\r\n                modalShowProduct: false,\r\n                modalShowFile:false,\r\n                imageAttacks: '',\r\n                content: this.contentEditor,\r\n                config: {\r\n                    //removePlugins: 'image,pwimage',\r\n                    extraPlugins: \"niw_btn,product_shortcode_btn\",\r\n                    allowedContent: true,\r\n                    format_tags : 'p;h1;h2;h3;h4;h5;h6;pre;address;div',\r\n                    //smiley_path = 'http://www.example.com/images/smileys/',\r\n                    //font_defaultLabel: \"Arial\",\r\n                    //fontSize_defaultLabel: 16,\r\n                    //contentsCss: [\"body {font-size: 18px; font-family: 'Arial'}\"]\r\n                    //extraAllowedContent: this.mathElements.join( ' ' ) + '(*)[*]{*};img[data-mathml,data-custom-editor,role](Wirisformula)'\r\n                },\r\n                // product shortcode\r\n                SearchZoneId: 0,\r\n                fullPage: false,\r\n                color: \"#007bff\",\r\n                isLoadLang: false,\r\n                currentPageProductManager: 1,\r\n                currentPageFileManager: 1,\r\n                pageSize: 24,\r\n                isLoading: false,\r\n                selectedProduct: [],\r\n                isActive: false,\r\n                selectType: '',\r\n                ZoneOptions: [],\r\n                curentEditor: '',\r\n                //// product shortcode end\r\n                //file\r\n                MaxFileSize: 3000,//Kb\r\n                selectedFile: [],\r\n                extensions: [],\r\n                extImage: [],\r\n                keyword: '',\r\n                index_p: this.index,\r\n            };\r\n        },\r\n        components: {\r\n\r\n            FileManager,\r\n            Treeselect,\r\n            Loading\r\n        },\r\n        created() {\r\n            let _config = require('./../../../appsettings.json');\r\n            this.extImage = _config.AppSettings.ImageAllowUpload;\r\n            this.extensions = _config.AppSettings.ImageAllowUpload.concat(_config.AppSettings.DocumentAllowUpload);\r\n            \r\n        },\r\n        computed: {\r\n            files() {\r\n                return this.$store.getters.files\r\n            },\r\n            ...mapGetters([\"products\"])\r\n        },\r\n        mounted() {\r\n            this.CKAddCustomPlugin();\r\n        },\r\n        methods: {\r\n\r\n            CKAddCustomPlugin() {\r\n                let $this = this;\r\n                //console.log(this.config)\r\n                \r\n                let e = this.config.extraPlugins;\r\n                let extraConfigs = e.split(',')\r\n                \r\n                this.config.extraPlugins = extraConfigs.join(',')\r\n\r\n                if (!CKEDITOR.plugins.get(\"niw_btn\")) {\r\n                    CKEDITOR.plugins.add(\"niw_btn\", {\r\n                        init: function (editor) {\r\n                            editor.ui.addButton && editor.ui.addButton(\"uploadImg\", {\r\n                                label: \"Tải hình ảnh\",\r\n                                command: \"filemanager\",\r\n                                icon: \"https://hoc24.vn/media/cke24/plugins/imgur/images/icon.png?t=14\",\r\n                                toolbar: \"insert\"\r\n                            });\r\n                            editor.addCommand(\"filemanager\", {\r\n                                exec: function (editor) {\r\n                                    $this.FileManagers('multi', editor);\r\n                                    $this.curentEditor = editor;\r\n\r\n                                }\r\n                            });\r\n\r\n                        }\r\n                    });\r\n                }\r\n                if (!CKEDITOR.plugins.get(\"product_shortcode_btn\")) {\r\n                    CKEDITOR.plugins.add(\"product_shortcode_btn\", {\r\n                        init: function (editor) {\r\n\r\n                            editor.ui.addButton && editor.ui.addButton(\"InsertProduct\", {\r\n                                label: \"Chèn sản phẩm\",\r\n                                command: \"InsertProduct\",\r\n                                icon: \"https://cdn-icons-png.flaticon.com/512/81/81960.png\",\r\n                                toolbar: \"insert\"\r\n                            });\r\n                            editor.addCommand(\"InsertProduct\", {\r\n                                exec: function (editor) {\r\n                                    $this.ProductManages('multi', editor);\r\n                                    $this.curentEditor = editor;\r\n                                }\r\n                            });\r\n\r\n                        }\r\n                    });\r\n                }\r\n                \r\n                \r\n                \r\n            },\r\n\r\n            toggleEditorDisabled() {\r\n                this.editorDisabled = !this.editorDisabled;\r\n            },\r\n            destroyApp() {\r\n                //app.$destroy();\r\n            },\r\n\r\n            onEditorInput(data, event, editor) {\r\n                //console.log(\"Editor data input.\", { event, editor, data });\r\n                if (this.index_p >= 0) {\r\n                    var dt = {\r\n                        content: this.content,\r\n                        index: this.index_p\r\n\r\n                    }\r\n                    //console.log(dt);\r\n                    this.$emit(\"handleEditorInput\", JSON.stringify(dt));\r\n                }\r\n                else {\r\n                    this.$emit(\"handleEditorInput\", this.content);\r\n                }\r\n                //\r\n            },\r\n\r\n\r\n            onEditorDestroy(editor) {\r\n                console.log(\"Editor destroyed.\", { editor });\r\n            },\r\n\r\n\r\n\r\n            ...mapActions([\"getProducts\", \"getZones\"]),\r\n            pathImgs(path) {\r\n                return pathImg(path);\r\n            },\r\n            SelectProduct(event, file) {\r\n                if (this.selectType == 'multi') {\r\n                    if (event.currentTarget.classList.contains('_active')) {\r\n                        event.currentTarget.classList.remove('_active');\r\n                        this.selectedProduct = this.selectedProduct.filter(obj => obj.id != file.id)\r\n                    }\r\n                    else {\r\n                        event.currentTarget.classList.add(\"_active\");\r\n                        this.selectedProduct.push(file)\r\n                    }\r\n                } else {\r\n                    this.selectedFile = [];\r\n                    if (event.currentTarget.classList.contains('_active')) {\r\n                        event.currentTarget.classList.remove('_active');\r\n\r\n                    }\r\n                    else {\r\n                        let items = document.querySelectorAll('.item');\r\n                        items.forEach(function (item) {\r\n                            item.classList.remove('_active');\r\n                        });\r\n                        event.currentTarget.classList.add(\"_active\");\r\n                        this.selectedProduct.push(file)\r\n                    }\r\n                }\r\n            },\r\n\r\n            ProductManages(param) {\r\n                this.modalShowProduct = true;\r\n                this.selectType = param;\r\n              //  this.$modal.show('hello-world');\r\n                //this.$refs[\"product-manager-modal\"].show();\r\n              //  $('#file-manager-modal').modal('show')\r\n               // this.$bvModal.show('product-manager-modal')\t\r\n                this.getZones(1).then(respose => {\r\n                    var data = respose.listData;\r\n                    data.push({ id: 0, label: \"Danh mục\", parentId: 0 });\r\n                    this.ZoneOptions = unflatten(data);\r\n                }).then(res => {\r\n\r\n                });\r\n                this.getProducts({\r\n                    pageIndex: this.currentPageProductManager,\r\n                    pageSize: this.pageSize,\r\n                    idZone: this.SearchZoneId\r\n                }).then(subRes => {\r\n                    //   this.isLoading = false;\r\n                });\r\n\r\n            },\r\n            LoadFile() {\r\n                this.fmFileGetAll({\r\n                    keyword: this.keyword,\r\n                          pageIndex: this.currentPageFileManager,\r\n                    pageSize: this.pageSize\r\n                });\r\n            },\r\n            hideProductModal() {\r\n                //this.$refs[\"product-manager-modal\"].hide();\r\n                this.modalShowProduct = false;\r\n            },\r\n            attackProduct() {\r\n                let ids = [];\r\n                let pros = this.selectedProduct;\r\n                for (let x in pros) {\r\n                    ids.push(pros[x].id);\r\n                }\r\n                this.curentEditor.insertHtml(\r\n                    '<p><product data-id-list=\"' + ids.join(',').toString() + '\">[shortcode]:[' + ids.join(',').toString() + ']</product></p>'\r\n                );\r\n                //  this.$refs[\"product-manager-modal\"].hide();\r\n                this.modalShowProduct = false;\r\n                this.selectedProduct = [];\r\n            },\r\n            toggleProductModal() {\r\n                this.$refs[\"product-manager-modal\"].toggle(\"#toggle-btn\");\r\n            },\r\n            // attack file\r\n            ...mapActions([\"fmFileUpload\", \"fmFileGetAll\"]),\r\n            mapImageUrl(img, ext) {\r\n                if (this.extImage.indexOf(ext) !== -1) {\r\n                    return '/uploads/thumb' + img;\r\n                }\r\n                return './../../ClientApp/assets/fileicons/' + ext.replace('.', '') + '.png';\r\n            },\r\n            checkImage(ext) {\r\n                if (this.extImage.indexOf(ext) == -1) {\r\n                    return true\r\n                }\r\n                return false\r\n            },\r\n            DoUploadFile(e) {\r\n                let files = e.srcElement.files;\r\n\r\n                if (files) {\r\n                    let filesTemp = Array.from(files);\r\n\r\n                    let msgFileAllow = '';\r\n                    let msgLimitedSize = '';\r\n                    for (var i = 0; i < filesTemp.length; i++) {\r\n\r\n                        let name = filesTemp[i].name;\r\n                        let type = name.split('.').pop();\r\n                        if (this.extensions.indexOf(type) == -1) {\r\n                            filesTemp.splice(i, 1); // xóa khỏi array\r\n                            if (msgFileAllow.length == 0) {\r\n                                msgFileAllow = name;\r\n                            } else {\r\n                                msgFileAllow += ', ' + name;\r\n                            }\r\n                        }\r\n                        if (msgFileAllow.length > 0) {\r\n                            this.$toast.error(msgFileAllow + ' không hợp lệ !', {});\r\n                        }\r\n                    }\r\n                    for (var i = 0; i < filesTemp.length; i++) {\r\n\r\n\r\n                        let size = filesTemp[i].size;\r\n                        let name = filesTemp[i].name;\r\n\r\n\r\n                        if (this.MaxFileSize < (size / 1024)) {\r\n                            filesTemp.splice(i, 1);\r\n                            if (msgLimitedSize.length == 0) {\r\n                                msgLimitedSize = name;\r\n                            } else {\r\n                                msgLimitedSize += ', ' + name;\r\n                            }\r\n\r\n                        }\r\n                        if (msgLimitedSize.length > 0) {\r\n                            this.$toast.error(msgFileAllow + ' dung lượng quá lớn !', {});\r\n                        }\r\n\r\n\r\n                    }\r\n                    if (filesTemp.length) {\r\n                        let fd = new FormData();\r\n\r\n                        filesTemp.forEach(function (item) {\r\n                            fd.append('files', item);\r\n                        });\r\n                        this.UploadFileAction(fd);\r\n                    }\r\n\r\n                }\r\n\r\n            },\r\n            UploadFileAction(files) {\r\n                this.fmFileUpload(files)\r\n                    .then(response => {\r\n                        if (response.success) {\r\n                            this.LoadFile();\r\n                            this.$toast.success(response.Message, {});\r\n                            this.isLoading = false;\r\n                        }\r\n                        else {\r\n                            this.$toast.error(response.Message, {});\r\n                            this.isLoading = false;\r\n                        }\r\n                    })\r\n                    .catch(e => {\r\n                        this.$toast.error(msgNotify.error + \". Error:\" + e, {});\r\n                        this.isLoading = false;\r\n                    });\r\n\r\n\r\n            },\r\n            SelectFile(event, file) {\r\n                if (this.selectType == 'multi') {\r\n                    if (event.currentTarget.classList.contains('_active')) {\r\n                        event.currentTarget.classList.remove('_active');\r\n\r\n                        // let objIsExist = this.selectedFile.some(obj => obj.id = file.id);\r\n                        // if (objIsExist) {\r\n                        this.selectedFile = this.selectedFile.filter(obj => obj.id != file.id)\r\n                        // }\r\n                    }\r\n                    else {\r\n                        event.currentTarget.classList.add(\"_active\");\r\n                        this.selectedFile.push(file)\r\n                    }\r\n                } else {\r\n\r\n                    this.selectedFile = [];\r\n                    if (event.currentTarget.classList.contains('_active')) {\r\n                        event.currentTarget.classList.remove('_active');\r\n\r\n                    }\r\n                    else {\r\n                        let items = document.querySelectorAll('.item');\r\n                        items.forEach(function (item) {\r\n                            item.classList.remove('_active');\r\n                        });\r\n                        event.currentTarget.classList.add(\"_active\");\r\n                        this.selectedFile.push(file)\r\n                    }\r\n                }\r\n            },\r\n\r\n            FileManagers(param) {\r\n               \r\n                this.selectType = param;\r\n              \r\n                this.modalShowFile = true;\r\n               // this.$refs[\"file-manager-modal\"].show();\r\n                // this.$bvModal.show('file-manager-modal')\t\r\n                this.LoadFile();\r\n            },\r\n\r\n            hideFileManagerModal() {\r\n                //this.$refs[\"file-manager-modal\"].hide();\r\n                this.modalShowFile = false;\r\n            },\r\n            attackFile() {\r\n                let domain = config.BASE_URLCms;\r\n                let images = this.selectedFile;\r\n                for (let x in images) {\r\n                    this.curentEditor.insertHtml(\r\n                        '<img style=\"max-width:90%\" src=\"' + domain + 'uploads' + images[x].path + '\"/>'\r\n                    );\r\n                }\r\n               // this.$refs[\"file-manager-modal\"].hide();\r\n                this.modalShowFile = false;\r\n                this.selectedFile = [];\r\n            },\r\n\r\n            toggleFileModal() {\r\n                // We pass the ID of the button that we want to return focus to\r\n                // when the modal has hidden\r\n                this.$refs[\"file-manager-modal\"].toggle(\"#toggle-btn\");\r\n            }\r\n        },\r\n\r\n        watch: {\r\n            contentEditor() {\r\n                this.content = this.contentEditor;\r\n            },\r\n            index() {\r\n                this.index_p = this.index;\r\n                \r\n            },\r\n            currentPageFileManager() {\r\n                this.isLoading = true;\r\n\r\n                this.LoadFile();\r\n\r\n                this.isLoading = false;\r\n                //this.fmFileGetAll({\r\n                //    pageIndex: this.currentPageFileManager,\r\n                //    pageSize: this.pageSize\r\n                //}).then(subRes => {\r\n                //    this.isLoading = false;\r\n                //});\r\n            },\r\n            currentPageProductManager() {\r\n                this.isLoading = true;\r\n                this.getProducts({\r\n                    pageIndex: this.currentPageProductManager,\r\n                    pageSize: this.pageSize,\r\n                    idZone: this.SearchZoneId\r\n                }).then(subRes => {\r\n                    this.isLoading = false;\r\n                });\r\n            },\r\n            SearchZoneId() {\r\n                this.isLoading = true;\r\n                this.getProducts({\r\n                    pageIndex: 1,\r\n                    pageSize: this.pageSize,\r\n                    idZone: this.SearchZoneId\r\n                }).then(subRes => {\r\n                    this.isLoading = false;\r\n                });\r\n            }\r\n        }\r\n    };\r\n</script>\r\n\r\n<style scoped>\r\n    .file-manager, .fm-content-selected {\r\n        padding: 0;\r\n    }\r\n\r\n    .file-manager___BV_modal_body_ {\r\n        padding: 0;\r\n    }\r\n\r\n    .fm-content-selected ul li {\r\n        list-style-type: none\r\n    }\r\n\r\n    .fm-container-dialog {\r\n        padding: 0;\r\n        overflow: hidden !important;\r\n    }\r\n\r\n    .fm-container {\r\n        font-size: 12px;\r\n        font-family: sans-serif;\r\n        padding: 0\r\n    }\r\n\r\n    .fm-toolbar ul {\r\n        float: left;\r\n        margin: 3.5px 0 3px 10px;\r\n        padding: 1px 2px;\r\n        border-radius: 0\r\n    }\r\n\r\n        .fm-toolbar ul li {\r\n            border: 1px solid .fff;\r\n            cursor: pointer;\r\n            float: left;\r\n            line-height: 26px;\r\n            list-style-type: none;\r\n            padding: 0 8px;\r\n            text-align: center;\r\n        }\r\n\r\n            .fm-toolbar ul li:hover {\r\n                background: #eaeaea;\r\n            }\r\n\r\n            .fm-toolbar ul li.active {\r\n                background: #eaeaea;\r\n            }\r\n\r\n    .fm-container {\r\n    }\r\n\r\n    .fm-toolbar {\r\n    }\r\n\r\n    .fm-footer {\r\n        border-top: 1px solid #eaeaea;\r\n        padding-top: 10px\r\n    }\r\n\r\n    .fm-toolbar .tool-items {\r\n        clear: both;\r\n        padding-right: 6px;\r\n    }\r\n\r\n    .fm-toolbar .tools {\r\n        float: left;\r\n    }\r\n\r\n    .fm-main {\r\n        margin-top: 8px;\r\n        border-top: 1px solid #eaeaea;\r\n    }\r\n\r\n    .fm-sidebar .fm-header {\r\n        height: 35px;\r\n        line-height: 35px;\r\n        background-color: #39c;\r\n        overflow: hidden;\r\n        font-size: 17px;\r\n        color: #ecf3f9;\r\n        text-align: center;\r\n    }\r\n\r\n    .fm-sidebar {\r\n        border-right: 1px solid #eaeaea\r\n    }\r\n\r\n    .fm-content {\r\n        background-color: white;\r\n        cursor: default; /*z-index: 0; box-shadow: 0 2px 4px rgba(0,0,0,0.04), 0 1px 4px rgba(0,0,0,0.12);*/\r\n        height: 100%;\r\n    }\r\n\r\n    .fm-data-wrapper {\r\n        overflow: hidden;\r\n    }\r\n\r\n    .fm-file-view {\r\n        border-left: 1px solid #eaeaea;\r\n        float: right;\r\n        height: 100%;\r\n        width: 250px;\r\n        padding: 9px;\r\n        background: .fff;\r\n    }\r\n\r\n        .fm-file-view .file-thumb {\r\n            text-align: center;\r\n            max-height: 250px;\r\n            max-width: 230px;\r\n            overflow: hidden;\r\n        }\r\n\r\n        .fm-file-view .header {\r\n            font-weight: bold;\r\n            margin-bottom: 12px;\r\n            padding: 2px 0;\r\n            text-align: center;\r\n            text-transform: uppercase;\r\n        }\r\n\r\n        .fm-file-view .details {\r\n            padding-top: 16px;\r\n        }\r\n\r\n            .fm-file-view .details div {\r\n                line-height: 21px;\r\n            }\r\n\r\n            .fm-file-view .details .uploaded,\r\n            .fm-file-view .details .file-size,\r\n            .fm-file-view .details .dimensions {\r\n                line-height: 21px;\r\n            }\r\n\r\n        .fm-file-view .file-thumb img {\r\n            border: 1px solid #eaeaea;\r\n            padding: 4px; /*max-height: 220px; max-width: 228px;*/\r\n        }\r\n\r\n    .attachment-info .filename {\r\n        font-weight: 600;\r\n        color: #444;\r\n        word-wrap: break-word;\r\n    }\r\n\r\n    .btn-attack {\r\n        background: .fff none repeat scroll 0 0;\r\n        padding: 3px 3px 3px 0;\r\n        width: 230px;\r\n        float: right;\r\n        clear: both;\r\n    }\r\n\r\n        .btn-attack button#btn-attack {\r\n            color: .fff;\r\n            background: #0085ba;\r\n            border: 0;\r\n            padding: 4px 6px;\r\n        }\r\n\r\n        .btn-attack button#dl-close {\r\n            background: #eaeaea;\r\n            border: 0;\r\n            padding: 4px 6px;\r\n            float: right;\r\n            clear: both;\r\n        }\r\n\r\n    .fm-content table._list {\r\n        width: 100%;\r\n    }\r\n\r\n        .fm-content table._list tr {\r\n        }\r\n\r\n            .fm-content table._list tr th {\r\n                text-align: center;\r\n                font-weight: bold;\r\n            }\r\n\r\n            .fm-content table._list tr td {\r\n                padding: 5px 4px;\r\n            }\r\n\r\n            .fm-content table._list tr._active {\r\n                background: #48adff;\r\n            }\r\n\r\n    .fm-toolbar ul li i {\r\n        background-repeat: no-repeat;\r\n        display: inline-block;\r\n        height: 16px;\r\n        vertical-align: middle;\r\n        width: 16px;\r\n    }\r\n\r\n    .fm-toolbar ul li i {\r\n    }\r\n\r\n    li i.create-folder {\r\n        background-image: url(./../../assets/img/icon/folder_add.png);\r\n    }\r\n\r\n    li i.upload {\r\n        background-image: url(\"./../../assets/img/icon/upload.png\");\r\n    }\r\n\r\n    li i.list {\r\n        background-image: url(\"./../../assets/img/icon/application_view_list.png\");\r\n    }\r\n\r\n    li i.grid {\r\n        background-image: url(\"./../../assets/img/icon/application_view_icons.png\");\r\n    }\r\n\r\n    li i.iclose {\r\n        background-image: url(\"./../../assets/img/icon/reset.png\");\r\n    }\r\n\r\n    li i.crop {\r\n        background-image: url(\"./../../assets/img/icon/crop.png\");\r\n    }\r\n\r\n    li i.remove {\r\n        background-image: url(\"./../../assets/img/icon/bin_closed.png\");\r\n    }\r\n\r\n    li i.close:hover {\r\n    }\r\n\r\n    .fm-footer {\r\n        min-height: 32px;\r\n    }\r\n\r\n    .fm-data-wrapper {\r\n        height: 100%;\r\n    }\r\n\r\n    .clear {\r\n        clear: both;\r\n    }\r\n\r\n    ._list ._active {\r\n        background: #48adff;\r\n    }\r\n\r\n    .fm-content {\r\n    }\r\n\r\n        .fm-content table._list table thead tr th {\r\n            text-align: center;\r\n        }\r\n\r\n        .fm-content table._list tr {\r\n            font-size: 11px;\r\n        }\r\n\r\n            .fm-content table._list tr:hover {\r\n                background: #c1edff;\r\n                cursor: pointer;\r\n            }\r\n\r\n            .fm-content table._list tr td {\r\n            }\r\n\r\n        .fm-content table._list tbody tr td.name {\r\n            display: inline-flex;\r\n        }\r\n\r\n            .fm-content table._list tbody tr td.name .list-icon {\r\n                display: inline-block;\r\n                float: left;\r\n                padding-right: 20px;\r\n            }\r\n\r\n    .fm-grid, .fm-folder ul, .fm-grid li .info p {\r\n        padding: 0;\r\n        margin: 0;\r\n    }\r\n\r\n        .fm-grid li {\r\n            position: relative;\r\n            vertical-align: middle;\r\n            display: table-cell;\r\n            border: 1px solid #eaeaea;\r\n            cursor: pointer;\r\n            float: left;\r\n            height: 100px;\r\n            min-width: 114px;\r\n            list-style-type: none;\r\n            margin: 4px;\r\n            padding: 2px;\r\n            width: 14.99%;\r\n            position: relative;\r\n            overflow: hidden;\r\n            text-align: center;\r\n        }\r\n\r\n            .fm-grid li .info {\r\n                font-size: 10px;\r\n                background: rgba(109, 105, 105, 0.87);\r\n                color: .fff;\r\n                position: absolute;\r\n                bottom: 0;\r\n                width: 100%;\r\n                height: 0\r\n            }\r\n\r\n            .fm-grid li:hover .info {\r\n                height: auto\r\n            }\r\n\r\n    .fm-list li img {\r\n        width: 100%\r\n    }\r\n\r\n    .fm-list li.not_img img {\r\n        width: 50%;\r\n        padding-top: 10px\r\n    }\r\n\r\n    .fm-grid li img.thumb {\r\n        width: 60%;\r\n        margin: 0 auto;\r\n    }\r\n\r\n    .fm-grid li i {\r\n        position: absolute;\r\n        z-index: 999;\r\n        right: 4px;\r\n        background: .fff;\r\n        border-radius: 11px;\r\n        color: #0085ba;\r\n        padding: 1px;\r\n        top: 3px;\r\n        display: none;\r\n    }\r\n\r\n    .fm-grid li._active i {\r\n        display: block;\r\n    }\r\n\r\n    .fm-grid li._active {\r\n        border: 1px solid #0085ba;\r\n    }\r\n\r\n    .fm-folder ul li {\r\n        list-style-type: none;\r\n        padding: 8px 0;\r\n        cursor: pointer\r\n    }\r\n\r\n        .fm-folder ul li i {\r\n            background-repeat: no-repeat;\r\n            display: inline-block;\r\n            height: 16px;\r\n            vertical-align: middle;\r\n            width: 16px;\r\n        }\r\n\r\n    .plupload_filelist_header {\r\n        height: 20px;\r\n    }\r\n\r\n    .plupload_filelist_footer {\r\n        padding: 6px 20px;\r\n        height: 33px;\r\n    }\r\n\r\n    .plupload_scroll .plupload_filelist {\r\n        height: 172px !important;\r\n    }\r\n\r\n    .plupload_filelist_footer {\r\n        padding: 6px 20px;\r\n    }\r\n\r\n    .plupload_filelist:empty,\r\n    .plupload_filelist li.plupload_droptext {\r\n        height: 140px;\r\n    }\r\n\r\n        .plupload_filelist:empty::before,\r\n        .plupload_filelist li.plupload_droptext::before {\r\n            font-size: 52px;\r\n            height: 75px;\r\n            left: 49%;\r\n            margin-left: -40px;\r\n            padding-top: 43px;\r\n        }\r\n\r\n    .items-action {\r\n        padding-top: 20px;\r\n        display: inline-block;\r\n        width: 100%;\r\n    }\r\n\r\n        .items-action .file-action {\r\n            border: 0 none;\r\n            color: .fff;\r\n            padding: 4px 10px;\r\n        }\r\n\r\n        .items-action .file-action {\r\n            background: rosybrown;\r\n            float: left;\r\n            clear: both;\r\n        }\r\n    /*.items-action .file-action:last-child { background: #0085ba;float: right;}*/\r\n    .fm-toolbar .Mi.ipagination a:first-child {\r\n        border: 0;\r\n        border-radius: 0;\r\n    }\r\n\r\n    .fm-toolbar .Mi.ipagination input {\r\n        border: medium none;\r\n        float: left;\r\n        font-family: arial;\r\n        font-size: 11px;\r\n        height: 30px;\r\n        margin: 0;\r\n        outline: medium none;\r\n        padding: 0;\r\n        text-align: center;\r\n        vertical-align: middle;\r\n        width: 84px;\r\n    }\r\n\r\n    .fm-toolbar .Mi.ipagination a {\r\n        border: 0;\r\n        border-radius: 0;\r\n        background: .fff;\r\n    }\r\n\r\n    .fm-toolbar .ipagination.iweb {\r\n        margin-top: 3.45px;\r\n    }\r\n\r\n    .frowInTotals {\r\n        display: inline-block;\r\n        float: left;\r\n        line-height: 39px;\r\n        padding-right: 3px;\r\n        vertical-align: baseline;\r\n    }\r\n\r\n    label#progressall {\r\n        display: none;\r\n        padding: 7px 7px;\r\n    }\r\n\r\n    .Cdiv {\r\n        padding-left: 12px;\r\n        height: 17px;\r\n        overflow: hidden;\r\n        text-overflow: ellipsis;\r\n        white-space: nowrap;\r\n        width: 100%;\r\n        display: inline-block;\r\n        font-weight: normal;\r\n    }\r\n\r\n    .btn-fm-upload label {\r\n        margin-bottom: 0 !important;\r\n    }\r\n    /* Extra small devices (phones, 600px and down) */\r\n\r\n    @media only screen and (max-width: 600px) {\r\n        .fm-grid li {\r\n            width: 47.65%;\r\n        }\r\n    }\r\n\r\n    /* Small devices (portrait tablets and large phones, 600px and up) */\r\n\r\n    @media only screen and (min-width: 600px) {\r\n    }\r\n\r\n    /* Medium devices (landscape tablets, 768px and up) */\r\n\r\n    @media only screen and (min-width: 768px) {\r\n    }\r\n\r\n    /* Large devices (laptops/desktops, 992px and up) */\r\n\r\n    @media only screen and (min-width: 992px) {\r\n    }\r\n\r\n    /* Extra large devices (large laptops and desktops, 1200px and up) */\r\n\r\n    @media only screen and (min-width: 1200px) {\r\n    }\r\n</style>\r\n"],"sourceRoot":""}]);
 
 // exports
 
 
 /***/ }),
 
-/***/ 1022:
+/***/ 1025:
 /***/ (function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
-var content = __webpack_require__(1017);
+var content = __webpack_require__(1020);
 if(typeof content === 'string') content = [[module.i, content, '']];
 // add the styles to the DOM
 var update = __webpack_require__(179)(content, {});
@@ -11911,8 +11985,8 @@ if(content.locals) module.exports = content.locals;
 if(true) {
 	// When the styles change, update the <style> tags
 	if(!content.locals) {
-		module.hot.accept(1017, function() {
-			var newContent = __webpack_require__(1017);
+		module.hot.accept(1020, function() {
+			var newContent = __webpack_require__(1020);
 			if(typeof newContent === 'string') newContent = [[module.i, newContent, '']];
 			update(newContent);
 		});
@@ -11923,7 +11997,7 @@ if(true) {
 
 /***/ }),
 
-/***/ 1024:
+/***/ 1027:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -11933,7 +12007,7 @@ Object.defineProperty(exports, "__esModule", {
     value: true
 });
 
-var _from = __webpack_require__(951);
+var _from = __webpack_require__(954);
 
 var _from2 = _interopRequireDefault(_from);
 
@@ -11941,15 +12015,15 @@ var _stringify = __webpack_require__(393);
 
 var _stringify2 = _interopRequireDefault(_stringify);
 
-var _extends2 = __webpack_require__(8);
+var _extends2 = __webpack_require__(7);
 
 var _extends3 = _interopRequireDefault(_extends2);
 
-var _list = __webpack_require__(1005);
+var _list = __webpack_require__(1008);
 
 var _list2 = _interopRequireDefault(_list);
 
-__webpack_require__(793);
+__webpack_require__(796);
 
 var _vuex = __webpack_require__(180);
 
@@ -11957,13 +12031,13 @@ var _vueLoadingOverlay = __webpack_require__(376);
 
 var _vueLoadingOverlay2 = _interopRequireDefault(_vueLoadingOverlay);
 
-var _vueTreeselect = __webpack_require__(948);
+var _vueTreeselect = __webpack_require__(951);
 
 var _vueTreeselect2 = _interopRequireDefault(_vueTreeselect);
 
-__webpack_require__(950);
+__webpack_require__(953);
 
-var _helper = __webpack_require__(947);
+var _helper = __webpack_require__(950);
 
 var _ckeditor4Vue = __webpack_require__(396);
 
@@ -11971,7 +12045,7 @@ var _ckeditor4Vue2 = _interopRequireDefault(_ckeditor4Vue);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-var _config = __webpack_require__(996);
+var _config = __webpack_require__(999);
 
 exports.default = {
     name: "App2",
@@ -12024,7 +12098,7 @@ exports.default = {
         Loading: _vueLoadingOverlay2.default
     },
     created: function created() {
-        var _config = __webpack_require__(996);
+        var _config = __webpack_require__(999);
         this.extImage = _config.AppSettings.ImageAllowUpload;
         this.extensions = _config.AppSettings.ImageAllowUpload.concat(_config.AppSettings.DocumentAllowUpload);
     },
@@ -12353,24 +12427,24 @@ exports.default = {
 
 /***/ }),
 
-/***/ 1025:
+/***/ 1028:
 /***/ (function(module, exports, __webpack_require__) {
 
 
 /* styles */
-__webpack_require__(1027)
+__webpack_require__(1030)
 
 var Component = __webpack_require__(374)(
   /* script */
-  __webpack_require__(1024),
+  __webpack_require__(1027),
   /* template */
-  __webpack_require__(1026),
+  __webpack_require__(1029),
   /* scopeId */
   "data-v-8004295c",
   /* cssModules */
   null
 )
-Component.options.__file = "C:\\WORKING\\Joytime\\dotnet-platform-backend\\Web\\Platform\\CMS\\PlatformCMS\\ClientApp\\components\\editor\\MIEditor.vue"
+Component.options.__file = "D:\\Code\\WORKING\\dotnet-platform-backend\\Web\\Platform\\CMS\\PlatformCMS\\ClientApp\\components\\editor\\MIEditor.vue"
 if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
 if (Component.options.functional) {console.error("[vue-loader] MIEditor.vue: functional components are not supported with templates, they should use render functions.")}
 
@@ -12392,7 +12466,7 @@ module.exports = Component.exports
 
 /***/ }),
 
-/***/ 1026:
+/***/ 1029:
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
@@ -12876,23 +12950,23 @@ if (true) {
 
 /***/ }),
 
-/***/ 1027:
+/***/ 1030:
 /***/ (function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
-var content = __webpack_require__(1018);
+var content = __webpack_require__(1021);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
-var update = __webpack_require__(798)("157d5a26", content, false);
+var update = __webpack_require__(801)("157d5a26", content, false);
 // Hot Module Replacement
 if(true) {
  // When the styles change, update the <style> tags
  if(!content.locals) {
-   module.hot.accept(1018, function() {
-     var newContent = __webpack_require__(1018);
+   module.hot.accept(1021, function() {
+     var newContent = __webpack_require__(1021);
      if(typeof newContent === 'string') newContent = [[module.i, newContent, '']];
      update(newContent);
    });
@@ -12903,24 +12977,24 @@ if(true) {
 
 /***/ }),
 
-/***/ 1031:
+/***/ 1034:
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = { "default": __webpack_require__(1033), __esModule: true };
+module.exports = { "default": __webpack_require__(1036), __esModule: true };
 
 /***/ }),
 
-/***/ 1033:
+/***/ 1036:
 /***/ (function(module, exports, __webpack_require__) {
 
 __webpack_require__(381);
 __webpack_require__(184);
-module.exports = __webpack_require__(1035);
+module.exports = __webpack_require__(1038);
 
 
 /***/ }),
 
-/***/ 1035:
+/***/ 1038:
 /***/ (function(module, exports, __webpack_require__) {
 
 var anObject = __webpack_require__(38);
@@ -12934,7 +13008,7 @@ module.exports = __webpack_require__(20).getIterator = function (it) {
 
 /***/ }),
 
-/***/ 1044:
+/***/ 1047:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -16645,7 +16719,7 @@ Sortable.mount(Remove, Revert);
 
 /***/ }),
 
-/***/ 1046:
+/***/ 1049:
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports =
@@ -17826,7 +17900,7 @@ module.exports = !__webpack_require__("79e5")(function () {
 /***/ "a352":
 /***/ (function(module, exports) {
 
-module.exports = __webpack_require__(1044);
+module.exports = __webpack_require__(1047);
 
 /***/ }),
 
@@ -19105,7 +19179,7 @@ if (typeof window !== "undefined" && "Vue" in window) {
 
 /***/ }),
 
-/***/ 1058:
+/***/ 1061:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -19119,7 +19193,7 @@ var _assign = __webpack_require__(377);
 
 var _assign2 = _interopRequireDefault(_assign);
 
-var _getIterator2 = __webpack_require__(1031);
+var _getIterator2 = __webpack_require__(1034);
 
 var _getIterator3 = _interopRequireDefault(_getIterator2);
 
@@ -19705,7 +19779,7 @@ exports.default = {
 
 /***/ }),
 
-/***/ 1096:
+/***/ 1099:
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(53)();
@@ -19713,27 +19787,27 @@ exports = module.exports = __webpack_require__(53)();
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\r\n/* The input */\n.tags-input {\r\n    display: flex;\r\n    flex-wrap: wrap;\r\n    align-items: center;\n}\n.tags-input input {\r\n    flex: 1;\r\n    background: transparent;\r\n    border: none;\n}\n.tags-input input:focus {\r\n    outline: none;\n}\n.tags-input input[type=\"text\"] {\r\n    color: #495057;\n}\n.tags-input-wrapper-default {\r\n    padding: .5em .25em;\r\n    background: #fff;\r\n    border: 1px solid transparent;\r\n    border-radius: .25em;\r\n    border-color: #dbdbdb;\n}\n.tags-input-wrapper-default.active {\r\n    border: 1px solid #8bbafe;\r\n    box-shadow: 0 0 0 0.2em rgba(13, 110, 253, 0.25);\r\n    outline: 0 none;\n}\r\n\r\n/* The tag badges & the remove icon */\n.tags-input span {\r\n    margin-right: 0.3em;\n}\n.tags-input-remove {\r\n    cursor: pointer;\r\n    position: absolute;\r\n    display: inline-block;\r\n    right: 0.3em;\r\n    top: 0.3em;\r\n    padding: 0.5em;\r\n    overflow: hidden;\n}\n.tags-input-remove:focus {\r\n    outline: none;\n}\n.tags-input-remove:before,\r\n.tags-input-remove:after {\r\n    content: '';\r\n    position: absolute;\r\n    width: 75%;\r\n    left: 0.15em;\r\n    background: #5dc282;\r\n    height: 2px;\r\n    margin-top: -1px;\n}\n.tags-input-remove:before {\r\n    transform: rotate(45deg);\n}\n.tags-input-remove:after {\r\n    transform: rotate(-45deg);\n}\r\n\r\n/* Tag badge styles */\n.tags-input-badge {\r\n    position: relative;\r\n    display: inline-block;\r\n    padding: 0.25em 0.4em;\r\n    font-size: 75%;\r\n    font-weight: 700;\r\n    line-height: 1;\r\n    text-align: center;\r\n    white-space: nowrap;\r\n    vertical-align: baseline;\r\n    border-radius: 0.25em;\r\n    overflow: hidden;\r\n    text-overflow: ellipsis;\n}\n.tags-input-badge-pill {\r\n    padding-right: 1.25em;\r\n    padding-left: 0.6em;\r\n    border-radius: 10em;\n}\n.tags-input-badge-selected-default {\r\n    color: #212529;\r\n    background-color: #f0f1f2;\n}\r\n\r\n/* Typeahead */\n.typeahead-hide-btn {\r\n    color: #999 !important;\r\n    font-style: italic;\n}\r\n\r\n/* Typeahead - badges */\n.typeahead-badges>span {\r\n    cursor: pointer;\r\n    margin-right: 0.3em;\n}\r\n\r\n/* Typeahead - dropdown */\n.typeahead-dropdown {\r\n    list-style-type: none;\r\n    padding: 0;\r\n    margin: 0;\r\n    position: absolute;\r\n    width: 100%;\r\n    z-index: 1000;\n}\n.typeahead-dropdown li {\r\n    padding: .25em 1em;\r\n    cursor: pointer;\n}\r\n\r\n/* Typeahead elements style/theme */\n.tags-input-typeahead-item-default {\r\n    color: #fff;\r\n    background-color: #343a40;\n}\n.tags-input-typeahead-item-highlighted-default {\r\n    color: #fff;\r\n    background-color: #007bff;\n}\n.modal-body {\r\n    max-height: 500px;\r\n    /* Set the desired height */\r\n    overflow-y: auto;\r\n    /* Enable vertical scrolling */\n}\r\n", "", {"version":3,"sources":["C:/WORKING/Joytime/dotnet-platform-backend/Web/Platform/CMS/PlatformCMS/ClientApp/pages/product/edit.vue?30525000"],"names":[],"mappings":";;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;AA6gFA,eAAA;AACA;IACA,cAAA;IACA,gBAAA;IACA,oBAAA;CACA;AAEA;IACA,QAAA;IACA,wBAAA;IACA,aAAA;CACA;AAEA;IACA,cAAA;CACA;AAEA;IACA,eAAA;CACA;AAEA;IACA,oBAAA;IACA,iBAAA;IACA,8BAAA;IACA,qBAAA;IACA,sBAAA;CACA;AAEA;IACA,0BAAA;IACA,iDAAA;IACA,gBAAA;CACA;;AAEA,sCAAA;AACA;IACA,oBAAA;CACA;AAEA;IACA,gBAAA;IACA,mBAAA;IACA,sBAAA;IACA,aAAA;IACA,WAAA;IACA,eAAA;IACA,iBAAA;CACA;AAEA;IACA,cAAA;CACA;AAEA;;IAEA,YAAA;IACA,mBAAA;IACA,WAAA;IACA,aAAA;IACA,oBAAA;IACA,YAAA;IACA,iBAAA;CACA;AAEA;IACA,yBAAA;CACA;AAEA;IACA,0BAAA;CACA;;AAEA,sBAAA;AACA;IACA,mBAAA;IACA,sBAAA;IACA,sBAAA;IACA,eAAA;IACA,iBAAA;IACA,eAAA;IACA,mBAAA;IACA,oBAAA;IACA,yBAAA;IACA,sBAAA;IACA,iBAAA;IACA,wBAAA;CACA;AAEA;IACA,sBAAA;IACA,oBAAA;IACA,oBAAA;CACA;AAEA;IACA,eAAA;IACA,0BAAA;CACA;;AAEA,eAAA;AACA;IACA,uBAAA;IACA,mBAAA;CACA;;AAEA,wBAAA;AACA;IACA,gBAAA;IACA,oBAAA;CACA;;AAEA,0BAAA;AACA;IACA,sBAAA;IACA,WAAA;IACA,UAAA;IACA,mBAAA;IACA,YAAA;IACA,cAAA;CACA;AAEA;IACA,mBAAA;IACA,gBAAA;CACA;;AAEA,oCAAA;AACA;IACA,YAAA;IACA,0BAAA;CACA;AAEA;IACA,YAAA;IACA,0BAAA;CACA;AAEA;IACA,kBAAA;IACA,4BAAA;IACA,iBAAA;IACA,+BAAA;CACA","file":"edit.vue","sourcesContent":["<template>\r\n    <div class=\"productadd\">\r\n        <loading :active.sync=\"isLoading\" :height=\"35\" :width=\"35\" :color=\"color\" :is-full-page=\"fullPage\"></loading>\r\n        <b-tabs class=\"col-md-12\" pills>\r\n            <b-tab title=\"1. Thông tin chung\" active>\r\n                <div class=\"row productedit\">\r\n                    <div class=\"col-md-12\">\r\n                        <div class=\"card\">\r\n                            <div class=\"card-header\">\r\n                                Đăng bài\r\n                            </div>\r\n                            <div class=\"card-body\">\r\n                                <div class=\"row\">\r\n                                    <div class=\"col-md-6\">\r\n                                        <button class=\"btn btn-info btn-submit-form col-md-12 btncus\" type=\"submit\"\r\n                                            @click=\"DoAddEdit()\">\r\n                                            <i class=\"fa fa-save\"></i> Cập nhật\r\n                                        </button>\r\n                                    </div>\r\n                                    <div class=\"col-md-6\">\r\n                                        <button class=\"btn btn-success col-md-12 btncus\" type=\"button\"\r\n                                            @click=\"DoRefesh()\">\r\n                                            <i class=\"fa fa-refresh\"></i> Làm mới\r\n                                        </button>\r\n                                    </div>\r\n                                </div>\r\n                            </div>\r\n                        </div>\r\n                    </div>\r\n                    <div class=\"col-sm-6 col-md-12\">\r\n\r\n                        <div class=\"card\" hidden>\r\n                            <div class=\"card-header\">\r\n                                Phân loại sản phẩm\r\n                            </div>\r\n                            <div class=\"card-body\">\r\n                                <b-form-group label=\"Mô tả thời gian\">\r\n                                    <!--<Datepicker v-model=\"demoDate\" />-->\r\n                                    <b-form-input v-model=\"objRequest.ngayDem\" type=\"text\"\r\n                                        placeholder=\"số ngày và số đêm\" required></b-form-input>\r\n                                </b-form-group>\r\n                                <b-form-group label=\"Ngày bắt đầu\">\r\n                                    <!--<Datepicker v-model=\"demoDate\" />-->\r\n                                    <b-form-input v-model=\"objRequest.ngayBatDau\" type=\"date\" placeholder=\"\"\r\n                                        required></b-form-input>\r\n                                </b-form-group>\r\n                                <b-form-group label=\"Ngày kết thúc\">\r\n                                    <!--<Datepicker v-model=\"demoDate\" />-->\r\n                                    <b-form-input v-model=\"objRequest.ngayKetThuc\" type=\"date\" placeholder=\"\"\r\n                                        required></b-form-input>\r\n                                </b-form-group>\r\n                                <b-form-group label=\"Phương tiện\">\r\n                                    <treeselect :multiple=\"true\" :flat=\"false\" :options=\"ListPhuongTien\"\r\n                                        placeholder=\"Chọn phương tiện\" v-model=\"requestPhuongTien\" />\r\n                                </b-form-group>\r\n                                <b-form-group label=\"Nhà cung cấp\">\r\n                                    <v-select v-model=\"objRequest.manufacturerId\" :options=\"ManufacturerIds\"\r\n                                        :reduce=\"x => x.id\" label=\"name\" placeholder=\"Chọn nhà cung cấp\"></v-select>\r\n                                </b-form-group>\r\n                                <b-form-group label=\"Đơn vị\">\r\n                                    <b-form-input v-model=\"objRequest.unit\" placeholder=\"Đơn vị\"\r\n                                        required></b-form-input>\r\n                                </b-form-group>\r\n                                <b-form-group label=\"Số lượng\">\r\n                                    <b-form-input v-model=\"objRequest.quantity\" placeholder=\"Số lượng\" required\r\n                                        type=\"number\"></b-form-input>\r\n                                </b-form-group>\r\n                                <b-form-group label=\"Mã Voucher\">\r\n                                    <b-form-input v-model=\"objRequest.voucher\" placeholder=\"Mã Voucher\"\r\n                                        required></b-form-input>\r\n                                </b-form-group>\r\n                                <b-form-group label=\"Ngày hết hạn khuyến mại\">\r\n                                    <b-form-input type=\"date\" v-model=\"objRequest.exprirePromotion\"\r\n                                        placeholder=\"Ngày hết hạn khuyến mại\"></b-form-input>\r\n                                </b-form-group>\r\n                                <b-form-group>\r\n                                    <b-form-checkbox v-model=\"objRequest.isInstallment\"> Trả góp</b-form-checkbox>\r\n                                </b-form-group>\r\n                                <b-form-group>\r\n                                    <b-form-checkbox v-model=\"objRequest.vat\"> Có VAT</b-form-checkbox>\r\n                                </b-form-group>\r\n                                <b-form-group>\r\n                                    <label class=\"typo__label\">Chọn thuộc tính</label>\r\n                                    <treeselect :multiple=\"true\" :flat=\"true\" :options=\"Properties\"\r\n                                        placeholder=\"Xin mời bạn lựa chọn thuộc tính\" v-model=\"ListProperty\" />\r\n                                </b-form-group>\r\n                                <b-form-group label=\"Chính sách bảo hành\">\r\n                                    <select v-model=\"objRequest.guarantee\" class=\"form-control\">\r\n                                        <option value=\"\">Chọn chính sách</option>\r\n                                        <option :value=\"item.key\" v-for=\"item in ListGuarantee\">\r\n                                            {{ item.value }}\r\n                                        </option>\r\n                                    </select>\r\n                                </b-form-group>\r\n                                <b-form-group label=\"Loại linh kiện\">\r\n                                    <select v-model=\"objRequest.productCpnId\" class=\"form-control\">\r\n                                        <option value=\"0\">Chọn</option>\r\n                                        <option :value=\"item.id\" v-for=\"item in ListProductComponent\">\r\n                                            {{ item.name }}\r\n                                        </option>\r\n                                    </select>\r\n                                </b-form-group>\r\n                            </div>\r\n\r\n\r\n                        </div>\r\n\r\n                    </div>\r\n                    <div class=\"col-sm-6 col-md-12\">\r\n                        <div class=\"card\">\r\n                            <div class=\"card-header\">\r\n                                Thông tin chính\r\n                            </div>\r\n                            <div class=\"card-body\">\r\n                                <b-form class=\"form-horizontal\">\r\n                                    <b-form-group label=\"Tiêu đề\">\r\n                                        <b-form-input v-model=\"objRequest.name\" placeholder=\"Tên sản phẩm\"\r\n                                            required></b-form-input>\r\n                                    </b-form-group>\r\n                                    <b-form-group label=\"Chọn danh mục\">\r\n                                        <treeselect :multiple=\"true\" :flat=\"true\" :options=\"ZoneOptions\"\r\n                                            placeholder=\"Xin mời bạn lựa chọn danh mục\" v-model=\"ZoneValues\"\r\n                                            :default-expanded-level=\"Infinity\" />\r\n                                    </b-form-group>\r\n                                    <b-form-group label=\"Chọn điểm đến\">\r\n                                        <treeselect :multiple=\"true\" :flat=\"true\" :options=\"DiemDenOptions\"\r\n                                            placeholder=\"Xin mời bạn lựa chọn điểm đến\" v-model=\"DiemDenValues\"\r\n                                            :default-expanded-level=\"Infinity\" />\r\n                                    </b-form-group>\r\n                                    <b-form-group label=\"Chọn Tag\">\r\n                                        <treeselect :multiple=\"true\" :flat=\"true\" :options=\"TagOptions\"\r\n                                            placeholder=\"Xin mời bạn lựa chọn tag\" v-model=\"TagValues\"\r\n                                            :default-expanded-level=\"Infinity\" />\r\n                                    </b-form-group>\r\n                                    <b-form-group label=\"Note khi đặt hàng\">\r\n                                        <treeselect :multiple=\"true\" :flat=\"true\" :options=\"BookingNotesOptions\"\r\n                                            placeholder=\"Xin mời bạn lựa chọn tag\" v-model=\"NoteValues\"\r\n                                            :default-expanded-level=\"Infinity\" />\r\n                                    </b-form-group>\r\n                                    <b-form-group label=\"Giảm giá sản phẩm\">\r\n                                        <treeselect :multiple=\"true\" :flat=\"true\" :options=\"CouponZoneOptions\"\r\n                                            placeholder=\"Xin mời bạn lựa chọn tag\" v-model=\"CouponZoneValues\"\r\n                                            :default-expanded-level=\"Infinity\" />\r\n                                    </b-form-group>\r\n                                    <b-form-group label=\"Chọn các option sản phẩm\" v-if=\"objRequest.id > 0\">\r\n                                        <treeselect :multiple=\"true\" :flat=\"true\" :options=\"OpOptions\"\r\n                                            placeholder=\"Xin mời bạn lựa chọn các option sản phẩm\"\r\n                                            v-model=\"optionValues\" :default-expanded-level=\"Infinity\"\r\n                                            @input=\"updateProductOptions()\" />\r\n                                    </b-form-group>\r\n                                    <b-form-group label=\"Tọa độ trên Google Map\">\r\n                                        <b-form-input v-model=\"objRequest.googleMapCrood\" placeholder=\"(lat - long)\"\r\n                                            required></b-form-input>\r\n                                    </b-form-group>\r\n                                    <b-form-group label=\"Thời gian confirm booking\">\r\n                                        <b-form-input v-model=\"objRequest.confirmOption\"\r\n                                            @input=\"onChangePackageConfirmOption()\"\r\n                                            placeholder=\"Điền thời gian confirm theo giờ.'AUTO' hoặc để trống sẽ là AUTO CONFIRM\"></b-form-input>\r\n                                    </b-form-group>\r\n\r\n                                    <b-form-group label=\"Danh sách ảnh\">\r\n                                        <div class=\"notice-upload-image\">\r\n                                            <p>\r\n                                                <b style=\"font-size: 14px;\">Đăng nhiều ảnh để công cụ tìm kiếm dễ thấy\r\n                                                    bạn hơn!</b><br><i\r\n                                                    style=\"font-size: 11px; padding-top: 5px; color: #666;\">\r\n                                                    Kéo ảnh lên vị trí đầu tiên để chọn làm\r\n                                                    Thumbnail.\r\n                                                </i>\r\n                                            </p>\r\n                                        </div>\r\n                                        <div class=\"row gallery-upload-file ui-sortable\">\r\n\r\n                                            <draggable v-model=\"ListImg\" class=\"row col-md-10\">\r\n                                                <div style=\"padding:0\"\r\n                                                    class=\"col-md-2 col-xs-4 r-queue-item added ui-sortable-handle\"\r\n                                                    v-for=\"(itemimg, index) in ListImg\" :key=\"index\">\r\n                                                    <div class=\"item\"><img style=\"width:100%;height:100px\" alt=\"Ảnh lỗi\"\r\n                                                            :src=\"pathImgs(itemimg)\"></div><i @click=\"removeImg(index)\"\r\n                                                        class=\"fa fa-times\"></i>\r\n                                                </div>\r\n                                            </draggable>\r\n\r\n\r\n\r\n\r\n                                            <div class=\"col-md-2 col-xs-4 _library ui-sortable-handle\">\r\n                                                <i class=\"fa fa-folder-open\" @click=\"openImg('ListImg')\"></i>\r\n                                                <p>[Thư viện ảnh]</p>\r\n                                            </div>\r\n                                        </div>\r\n\r\n                                    </b-form-group>\r\n                                    <b-form-group hidden>\r\n                                        <b-form-checkbox v-model=\"IsChoseFileDowload\" style=\"padding-bottom:7px\">\r\n                                            File Dowload\r\n                                        </b-form-checkbox>\r\n\r\n                                        <b-form-input v-if=\"!IsChoseFileDowload\" v-model=\"FileMeta.FileDowload\"\r\n                                            placeholder=\"File dowload\" required></b-form-input>\r\n                                        <template v-if=\"IsChoseFileDowload\">\r\n                                            <button @click=\"openImg('filedowload')\" type=\"button\"\r\n                                                class=\"btn btn-success\">Chọn file</button>\r\n                                            <a v-if=\"FileMeta.FileDowload != null && FileMeta.FileDowload.length > 0\"\r\n                                                target=\"_blank\" href=\"FileMeta.FileDowload\"><i class=\"fa fa-file-o\"></i>\r\n                                                {{ FileMeta.FileDowload }}</a>\r\n                                        </template>\r\n                                    </b-form-group>\r\n                                    <b-form-group hidden>\r\n                                        <b-form-checkbox v-model=\"IsChoseImg360\" style=\"padding-bottom:7px\">\r\n                                            Hình 360\r\n                                        </b-form-checkbox>\r\n                                        <b-form-input v-if=\"!IsChoseImg360\" v-model=\"FileMeta.File360\"\r\n                                            placeholder=\"Hình ảnh 360\" required></b-form-input>\r\n                                        <template v-if=\"IsChoseImg360\">\r\n                                            <button @click=\"openImg('file360')\" type=\"button\"\r\n                                                class=\"btn btn-success\">Chọn file</button>\r\n                                            <a v-if=\"FileMeta.File360 != null && FileMeta.File360.length > 0\"\r\n                                                target=\"_blank\" href=\"FileMeta.File360\"><i class=\"fa fa-file-o\"></i>\r\n                                                {{ FileMeta.File360 }}</a>\r\n                                        </template>\r\n                                    </b-form-group>\r\n                                    <b-form-group hidden>\r\n                                        <b-form-checkbox v-model=\"IsChoseVideo\" style=\"padding-bottom:7px\">\r\n                                            File Video\r\n                                        </b-form-checkbox>\r\n                                        <b-form-input v-if=\"!IsChoseVideo\" v-model=\"FileMeta.FileVideo\"\r\n                                            placeholder=\"File Video\" required></b-form-input>\r\n                                        <template v-if=\"IsChoseVideo\">\r\n                                            <button @click=\"openImg('fileVideo')\" type=\"button\"\r\n                                                class=\"btn btn-success\">Chọn file</button>\r\n                                            <a v-if=\"FileMeta.FileVideo != null && FileMeta.FileVideo.length > 0\"\r\n                                                target=\"_blank\" href=\"FileMeta.FileVideo\"><i class=\"fa fa-file-o\"></i>\r\n                                                {{ FileMeta.FileVideo }}</a>\r\n                                        </template>\r\n                                    </b-form-group>\r\n                                </b-form>\r\n                            </div>\r\n                        </div>\r\n                        <div class=\"card\">\r\n                            <div class=\"card-header\">\r\n                                <b-row>\r\n                                    <b-col md=\"10\">\r\n                                        Ảnh\r\n                                    </b-col>\r\n                                </b-row>\r\n                            </div>\r\n                            <div class=\"card-body\">\r\n                                <b-form-group label=\"Ảnh đại diện\">\r\n                                    <b-form-group>\r\n                                        <a @click=\"openImg('Img')\">\r\n                                            <div style=\"width:150px;display:flex\"\r\n                                                class=\" gallery-upload-file ui-sortable\">\r\n                                                <div style=\"padding:0\"\r\n                                                    class=\"col-md-12 col-xs-12  r-queue-item ui-sortable-handle\">\r\n                                                    <div\r\n                                                        v-if=\"objRequest.avatar != null && objRequest.avatar != undefined && objRequest.avatar.length > 0\">\r\n                                                        <img alt=\"Ảnh lỗi\" style=\"height:150px;width:150px\"\r\n                                                            :src=\"pathImgs(objRequest.avatar)\"\r\n                                                            class=\"preview-image img-thumbnail\">\r\n                                                    </div>\r\n                                                    <div v-else>\r\n                                                        <i class=\"fa fa-picture-o\"></i>\r\n                                                        <p>[Chọn ảnh]</p>\r\n                                                    </div>\r\n                                                </div>\r\n                                            </div>\r\n                                        </a>\r\n                                    </b-form-group>\r\n                                </b-form-group>\r\n                            </div>\r\n                        </div>\r\n\r\n                        <div class=\"card\">\r\n                            <div class=\"card-header\">\r\n                                More Info\r\n                            </div>\r\n                            <div class=\"card-body\">\r\n\r\n                                <b-form-group label=\"Sản Phẩm cha\">\r\n                                    <treeselect :multiple=\"false\" :flat=\"false\" :options=\"ListProductParent\"\r\n                                        placeholder=\"Xin mời bạn lựa chọn SP cha\" v-model=\"ProductParent\" />\r\n                                </b-form-group>\r\n                            </div>\r\n                        </div>\r\n                        <div class=\"card\">\r\n                            <div class=\"card-header\">\r\n                                Giá sản phẩm\r\n                            </div>\r\n                            <div class=\"card-body\">\r\n                                <b-row>\r\n                                    <b-form-group style=\"display:none\" label=\"Màu sắc\">\r\n                                        <treeselect :multiple=\"true\" :flat=\"true\" :options=\"Colors\"\r\n                                            placeholder=\"Xin mời bạn lựa chọn thuộc tính\" v-model=\"ListColors\" />\r\n                                    </b-form-group>\r\n                                </b-row>\r\n                                <b-row>\r\n                                    <b-col>\r\n                                        <b-form-group label=\"Giá sản phẩm\">\r\n                                            <b-form-input @change=\"sumTotal\" :min=\"0\" v-model=\"objRequest.price\"\r\n                                                type=\"number\" placeholder=\"Giá sản phẩm\" required></b-form-input>\r\n                                        </b-form-group>\r\n                                    </b-col>\r\n                                    <b-col>\r\n                                        <b-form-group label=\"Phần trăm\">\r\n                                            <b-form-input @change=\"sumTotal\" :min=\"0\" :max=\"100\"\r\n                                                v-model=\"objRequest.discountPercent\" type=\"number\"\r\n                                                placeholder=\"Phần trăm\" required></b-form-input>\r\n                                        </b-form-group>\r\n                                    </b-col>\r\n                                    <b-col>\r\n                                        <b-form-group label=\"Giảm giá\">\r\n                                            <b-form-input v-model=\"objRequest.discountPrice\" :min=\"0\" type=\"number\"\r\n                                                placeholder=\"Giảm giá\" required></b-form-input>\r\n                                        </b-form-group>\r\n                                    </b-col>\r\n\r\n                                </b-row>\r\n                                <b-row>\r\n                                    <b-col>\r\n                                        <b-form-group label=\"Giá người lớn\">\r\n                                            <b-form-input :min=\"0\" v-model=\"objRequest.giaNguoiLon\" type=\"number\"\r\n                                                placeholder=\"Giá người lớn\" required></b-form-input>\r\n                                        </b-form-group>\r\n                                    </b-col>\r\n                                    <b-col>\r\n                                        <b-form-group label=\"Giá trẻ em\">\r\n                                            <b-form-input :min=\"0\" v-model=\"objRequest.giaTreEm\" type=\"number\"\r\n                                                placeholder=\"Giá trẻ em\" required></b-form-input>\r\n                                        </b-form-group>\r\n                                    </b-col>\r\n                                    <b-col>\r\n                                        <b-form-group label=\"Giá em bé\">\r\n                                            <b-form-input v-model=\"objRequest.giaEmBe\" :min=\"0\" type=\"number\"\r\n                                                placeholder=\"Giá em bé\" required></b-form-input>\r\n                                        </b-form-group>\r\n                                    </b-col>\r\n\r\n                                </b-row>\r\n                                <b-form-group label=\"Bảo hành\" hidden>\r\n                                    <b-form-input v-model=\"objRequest.warranty\" placeholder=\"Bảo hành\"\r\n                                        required></b-form-input>\r\n                                </b-form-group>\r\n\r\n                                <b-form-group hidden>\r\n                                    <label class=\"typo__label\">Thêm bài viết liên quan</label>\r\n                                    <v-tags-input element-id=\"tags\" placeholder=\"Bài viết liên quan\"\r\n                                        :only-existing-tags=\"true\" v-model=\"ArticleValues\" :typeahead=\"true\"\r\n                                        :existingTags=\"ListArticle\"></v-tags-input>\r\n                                </b-form-group>\r\n                            </div>\r\n                        </div>\r\n                        <div class=\"card\" v-if=\"objRequest.id > 0\">\r\n                            <div class=\"card-header\">\r\n                                <b-row>\r\n                                    <b-col md=\"11\">\r\n                                        Chính sách hoàn hủy\r\n                                    </b-col>\r\n                                    <b-col md=\"1\">\r\n                                        <b-btn v-b-toggle.collapsecancelpolicy variant=\"primary\" class=\"pull-right\"><i\r\n                                                class=\"fa fa-angle-double-down\" aria-hidden=\"true\"></i></b-btn>\r\n                                    </b-col>\r\n                                </b-row>\r\n                            </div>\r\n                            <b-collapse id=\"collapsecancelpolicy\" class=\"mt-2 scrolling-wrapper\" fluid>\r\n                                <div class=\"card-body\">\r\n                                    <h4>Thêm chính sách hoàn hủy</h4><small style=\"color:red\">(Áp dụng với sản phẩm cha)</small>\r\n                                    <b-row>\r\n                                        <b-col>\r\n                                            <button class=\"btn btn-info btn-submit-form col-md-12 btncus\" type=\"submit\"\r\n                                                @click=\"AddNewCancelPolicy()\">\r\n                                                <i class=\"fa fa-plus\"></i> Thêm mới\r\n                                            </button>\r\n                                        </b-col>\r\n                                    </b-row>\r\n                                    <br />\r\n                                    <b-container fluid>\r\n                                        <b-card v-for=\"(cp, index) in objRequestCancelPolicy\">\r\n                                            <b-row>\r\n                                                <b-col md=\"4\">\r\n                                                    <b-form-group label=\"Số ngày hủy trước\">\r\n                                                        <b-form-input type=\"number\" min=\"0\" v-model=\"cp.beforeDate\"></b-form-input>\r\n                                                    </b-form-group>\r\n                                                </b-col>\r\n                                                <b-col md=\"4\">\r\n                                                    <b-form-group label=\"Giá trị hoàn trả\">\r\n                                                        <b-form-input type=\"number\" min=\"0\" v-model=\"cp.rollbackValue\"></b-form-input>\r\n                                                    </b-form-group>\r\n                                                </b-col>\r\n                                                <b-col md=\"2\">\r\n                                                    <button class=\"btn btn-danger\" @click=\"onRemoveCancelPolicy(index)\"><i class=\"fa fa-trash\" aria-hidden=\"true\"></i>\r\n                                                    </button>\r\n                                                </b-col>\r\n                                            </b-row>\r\n                                        </b-card>\r\n                                    </b-container>\r\n                                </div>\r\n                            </b-collapse>\r\n                        </div>\r\n                        <div class=\"card\" v-if=\"objRequest.id > 0\">\r\n                            <div class=\"card-header\">\r\n                                <b-row>\r\n                                    <b-col md=\"11\">\r\n                                        Option giá\r\n                                    </b-col>\r\n                                    <b-col md=\"1\">\r\n                                        <b-btn v-b-toggle.collapseolerenewal variant=\"primary\" class=\"pull-right\"><i\r\n                                                class=\"fa fa-angle-double-down\" aria-hidden=\"true\"></i></b-btn>\r\n                                    </b-col>\r\n                                </b-row>\r\n                            </div>\r\n                            <b-collapse id=\"collapseolerenewal\" class=\"mt-2 scrolling-wrapper\" fluid>\r\n                                <div class=\"card-body\">\r\n                                    <h4>Thêm Option giá</h4>\r\n                                    <b-row>\r\n                                        <b-col>\r\n                                            <button class=\"btn btn-info btn-submit-form col-md-12 btncus\" type=\"submit\"\r\n                                                @click=\"AddNewPhienBan()\">\r\n                                                <i class=\"fa fa-plus\"></i> Thêm mới\r\n                                            </button>\r\n                                        </b-col>\r\n                                    </b-row>\r\n                                    <br />\r\n                                    <b-container fluid>\r\n                                        <b-card v-for=\"(item, index) in objRequestPhienBans\" class=\"scrolling-wrapper\">\r\n                                            <b-row>\r\n                                                <b-col style=\"min-width: 100px;\" class=\"flex-item\"\r\n                                                    v-for=\"(option, indexOption) in selectedProductOptions\">\r\n                                                    <b-form-group :label=\"option.parent.label\">\r\n                                                        <treeselect :multiple=\"false\" :flat=\"false\"\r\n                                                            :options=\"option.childs\"\r\n                                                            placeholder=\"Xin mời bạn lựa chọn SP cha\"\r\n                                                            v-model=\"item.selectedOptions[indexOption]\" />\r\n                                                    </b-form-group>\r\n                                                </b-col>\r\n                                                <b-col>\r\n                                                    <b-form-group label=\"Action\">\r\n                                                        <b-button-group>\r\n                                                            <b-button\r\n                                                                class=\"btn btn-success btn-submit-form col-md-12 btncus\"\r\n                                                                type=\"submit\" @click=\"AddNewPhienBan()\">\r\n                                                                <i class=\"fa fa-plus\"></i>\r\n                                                            </b-button>\r\n                                                            <b-button\r\n                                                                class=\"btn btn-danger btn-submit-form col-md-12 btncus\"\r\n                                                                type=\"submit\" @click=\"DoDelPhienBan(index)\">\r\n                                                                <i class=\"fa fa-trash\"></i>\r\n                                                            </b-button>\r\n                                                            <b-button\r\n                                                                class=\"btn btn-danger btn-submit-form col-md-12 btncus\"\r\n                                                                type=\"submit\" @click=\"DoAddGiaPhienBanTheoNgay(item)\">\r\n                                                                <i class=\"fa fa-money\"></i>\r\n                                                            </b-button>\r\n                                                        </b-button-group>\r\n\r\n                                                    </b-form-group>\r\n\r\n\r\n                                                </b-col>\r\n                                            </b-row>\r\n                                            <b-row>\r\n                                                <b-col style=\"min-width: 100px;\" class=\"flex-item\">\r\n                                                    <b-form-group label=\"Ng.lớn (Giá mặc định)\">\r\n                                                        <b-form-input @change=\"\" :min=\"0\"\r\n                                                            v-model=\"item.priceEachNguoiLon\" type=\"number\"\r\n                                                            placeholder=\"Giá người lớn\" required></b-form-input>\r\n                                                    </b-form-group>\r\n                                                </b-col>\r\n                                                <b-col style=\"min-width: 100px;\" class=\"flex-item\">\r\n                                                    <b-form-group label=\"Trẻ em\">\r\n                                                        <b-form-input @change=\"\" :min=\"0\" v-model=\"item.priceEachTreEm\"\r\n                                                            type=\"number\" placeholder=\"Giá trẻ em\"></b-form-input>\r\n                                                    </b-form-group>\r\n                                                </b-col>\r\n                                                <b-col style=\"min-width: 100px;\" class=\"flex-item\">\r\n                                                    <b-form-group label=\"Ng.lớn (Giá NET)\">\r\n                                                        <b-form-input @change=\"\" :min=\"0\" v-model=\"item.netEachNguoiLon\"\r\n                                                            type=\"number\" placeholder=\"Giá người lớn (NET)\"\r\n                                                            required></b-form-input>\r\n                                                    </b-form-group>\r\n                                                </b-col>\r\n                                                <b-col style=\"min-width: 100px;\" class=\"flex-item\">\r\n                                                    <b-form-group label=\"Trẻ em (Giá NET)\">\r\n                                                        <b-form-input @change=\"\" :min=\"0\" v-model=\"item.netEachTreEm\"\r\n                                                            type=\"number\" placeholder=\"Giá trẻ em (NET)\"></b-form-input>\r\n                                                    </b-form-group>\r\n                                                </b-col>\r\n                                                <b-col style=\"min-width: 100px;\" class=\"flex-item\">\r\n                                                    <b-form-group label=\"Ng.già\">\r\n                                                        <b-form-input @change=\"\" :min=\"0\"\r\n                                                            v-model=\"item.priceEachNguoiGia\" type=\"number\"\r\n                                                            placeholder=\"Giá người già\" required></b-form-input>\r\n                                                    </b-form-group>\r\n                                                </b-col>\r\n                                                <b-col style=\"min-width: 100px;\" class=\"flex-item\">\r\n                                                    <b-form-group label=\"Ng.già (Giá NET)\">\r\n                                                        <b-form-input @change=\"\" :min=\"0\" v-model=\"item.netEachNguoiGia\"\r\n                                                            type=\"number\"\r\n                                                            placeholder=\"Giá người già (NET)\"></b-form-input>\r\n                                                    </b-form-group>\r\n                                                </b-col>\r\n                                            </b-row>\r\n                                            <b-row>\r\n                                                <b-col style=\"min-width: 100px;\" class=\"flex-item\">\r\n                                                    <b-form-group label=\"SL Ng.Lớn tối thiểu\">\r\n                                                        <b-form-input @change=\"\" :min=\"1\" v-model=\"item.minimumNguoiLon\"\r\n                                                            type=\"number\" placeholder=\"SL người lớn\"\r\n                                                            required></b-form-input>\r\n                                                    </b-form-group>\r\n                                                </b-col>\r\n                                                <b-col style=\"min-width: 100px;\" class=\"flex-item\">\r\n                                                    <b-form-group label=\"SL Tr.em tối thiểu\">\r\n                                                        <b-form-input @change=\"\" :min=\"0\" v-model=\"item.minimumTreEm\"\r\n                                                            type=\"number\" placeholder=\"SL trẻ em\"\r\n                                                            required></b-form-input>\r\n                                                    </b-form-group>\r\n                                                </b-col>\r\n                                                <b-col style=\"min-width: 100px;\" class=\"flex-item\">\r\n                                                    <b-form-group label=\"SL Ng.già tối thiểu\">\r\n                                                        <b-form-input @change=\"\" :min=\"0\" v-model=\"item.minimumNguoiGia\"\r\n                                                            type=\"number\" placeholder=\"SL người già\"\r\n                                                            required></b-form-input>\r\n                                                    </b-form-group>\r\n                                                </b-col>\r\n                                                <b-col style=\"min-width: 500px;\" class=\"flex-item\">\r\n                                                    <b-form-group label=\"Email thông báo đối tác\">\r\n                                                        <treeselect :multiple=\"false\" :flat=\"true\"\r\n                                                            :options=\"userSuppliers\"\r\n                                                            placeholder=\"Xin mời bạn lựa chọn tag\"\r\n                                                            v-model=\"item.emailSupplier\"\r\n                                                            :default-expanded-level=\"Infinity\" />\r\n                                                    </b-form-group>\r\n                                                </b-col>\r\n\r\n                                            </b-row>\r\n                                            <b-row>\r\n                                                <b-col md=6>\r\n                                                    <b-form-group label=\"Thời gian confirm\">\r\n                                                        <b-form-input v-model=\"item.confirmOption\"\r\n                                                            placeholder=\"Điền thời gian confirm theo giờ.'AUTO' hoặc để trống sẽ là AUTO CONFIRM\"></b-form-input>\r\n                                                    </b-form-group>\r\n                                                </b-col>\r\n                                            </b-row>\r\n                                            <b-row>\r\n                                                <b-col md=6>\r\n                                                    <b-form-group label=\"Thời gian đặt Last Minute\">\r\n                                                        <b-row>\r\n                                                            <b-col md=\"4\">\r\n                                                                <b-form-group label=\"Số ngày tối thiểu\">\r\n                                                                    <b-form-input type=\"number\" min=\"0\" v-model=\"item.lastMinuteSetupDay\"></b-form-input>\r\n                                                                </b-form-group>\r\n                                                            </b-col>\r\n                                                            <b-col md=\"4\">\r\n                                                                <b-form-group label=\"Thời gian Last Minute\">\r\n                                                                    <b-form-input v-model=\"item.lastMinuteSetupTime\" placeholder=\"hh:mm\"></b-form-input>\r\n                                                                </b-form-group>\r\n                                                            </b-col>\r\n                                                        </b-row>\r\n                                                    </b-form-group>\r\n                                                    \r\n                                                </b-col>\r\n                                            </b-row>\r\n                                        </b-card>\r\n                                    </b-container>\r\n\r\n                                </div>\r\n                            </b-collapse>\r\n                        </div>\r\n                        <div>\r\n                            <b-modal title=\"Cập nhật giá phiên bản\" ref=\"pByDateModal\" size=\"xl\"\r\n                                @ok=\"onUpdateGiaPhienBanTheoNgay()\">\r\n                                <b-card>\r\n                                    <b-row>\r\n                                        <b-col md=\"3\">\r\n                                            <b-form-group label=\"Từ ngày\">\r\n                                                <b-form-input type=\"date\"\r\n                                                    v-model=\"filterGiaPhienBanTheoNgay.from\"></b-form-input>\r\n                                            </b-form-group>\r\n\r\n                                        </b-col>\r\n                                        <b-col md=\"3\">\r\n                                            <b-form-group label=\"Đến ngày\">\r\n                                                <b-form-input type=\"date\"\r\n                                                    v-model=\"filterGiaPhienBanTheoNgay.to\"></b-form-input>\r\n                                            </b-form-group>\r\n\r\n                                        </b-col>\r\n                                        <b-col md=\"6\">\r\n                                            <b-form-group label=\"Thứ\">\r\n                                                <b-row>\r\n                                                    <b-col v-for=\"d in filterGiaPhienBanTheoNgay.dayOfWeek\">\r\n                                                        <b-form-checkbox v-model=\"d.checked\">\r\n                                                            {{ d.label }}\r\n                                                        </b-form-checkbox>\r\n                                                    </b-col>\r\n                                                </b-row>\r\n\r\n\r\n                                            </b-form-group>\r\n                                        </b-col>\r\n                                    </b-row>\r\n                                    <b-row></b-row>\r\n                                </b-card>\r\n                                <b-card>\r\n                                    <table class=\"table table-bordered table-responsive\">\r\n                                        <thead>\r\n                                            <tr>\r\n                                                <th>Ngày</th>\r\n                                                <th>Thứ</th>\r\n                                                <th>Giá người lớn</th>\r\n                                                <th>Giá trẻ em</th>\r\n                                                <th>Giá người già</th>\r\n                                                <th>Giá người lớn (NET)</th>\r\n                                                <th>Giá trẻ em (NET)</th>\r\n                                                <th>Giá người già (NET)</th>\r\n                                            </tr>\r\n                                            <tr>\r\n                                                <th colspan=\"2\">\r\n                                                    <button class=\"form-control btn btn-success\"\r\n                                                        @click=\"onUpdateAllCurrentGiaPhienBanTheoNgay()\">Cập nhật\r\n                                                        ALL</button>\r\n                                                </th>\r\n                                                <th>\r\n                                                    <b-form-input type=\"number\"\r\n                                                        v-model=\"updateAllGiaPhienBanTheoNgay.priceEachNguoiLon\"></b-form-input>\r\n                                                </th>\r\n                                                <th>\r\n                                                    <b-form-input type=\"number\"\r\n                                                        v-model=\"updateAllGiaPhienBanTheoNgay.priceEachTreEm\"></b-form-input>\r\n                                                </th>\r\n                                                <th>\r\n                                                    <b-form-input type=\"number\"\r\n                                                        v-model=\"updateAllGiaPhienBanTheoNgay.priceEachNguoiGia\"></b-form-input>\r\n                                                </th>\r\n                                                <th>\r\n                                                    <b-form-input type=\"number\"\r\n                                                        v-model=\"updateAllGiaPhienBanTheoNgay.netEachNguoiLon\"></b-form-input>\r\n                                                </th>\r\n                                                <th>\r\n                                                    <b-form-input type=\"number\"\r\n                                                        v-model=\"updateAllGiaPhienBanTheoNgay.netEachTreEm\"></b-form-input>\r\n                                                </th>\r\n                                                <th>\r\n                                                    <b-form-input type=\"number\"\r\n                                                        v-model=\"updateAllGiaPhienBanTheoNgay.netEachNguoiGia\"></b-form-input>\r\n                                                </th>\r\n                                            </tr>\r\n                                        </thead>\r\n                                        <tbody>\r\n                                            <tr v-for=\"c in currentGiaPhienBanTheoNgay\" v-if=\"c.filterd\">\r\n                                                <td>{{ onFormatDate(c.date) }}</td>\r\n                                                <td>{{ c.dayOfWeek }}</td>\r\n                                                <td>\r\n                                                    <b-form-input v-model=\"c.priceEachNguoiLon\"\r\n                                                        type=\"number\"></b-form-input>\r\n                                                </td>\r\n                                                <td>\r\n                                                    <b-form-input v-model=\"c.priceEachTreEm\"\r\n                                                        type=\"number\"></b-form-input>\r\n                                                </td>\r\n                                                <td>\r\n                                                    <b-form-input v-model=\"c.priceEachNguoiGia\"\r\n                                                        type=\"number\"></b-form-input>\r\n                                                </td>\r\n                                                <td>\r\n                                                    <b-form-input v-model=\"c.netEachNguoiLon\"\r\n                                                        type=\"number\"></b-form-input>\r\n                                                </td>\r\n                                                <td>\r\n                                                    <b-form-input v-model=\"c.netEachTreEm\" type=\"number\"></b-form-input>\r\n                                                </td>\r\n                                                <td>\r\n                                                    <b-form-input v-model=\"c.netEachNguoiGia\"\r\n                                                        type=\"number\"></b-form-input>\r\n                                                </td>\r\n\r\n                                            </tr>\r\n                                        </tbody>\r\n                                    </table>\r\n                                </b-card>\r\n                            </b-modal>\r\n                        </div>\r\n\r\n                        <div class=\"card\" hidden>\r\n                            <div class=\"card-header\">\r\n                                <b-row>\r\n                                    <b-col md=\"11\">\r\n                                        Avalible Top-Up\r\n                                    </b-col>\r\n                                    <b-col md=\"1\">\r\n                                        <b-btn v-b-toggle.collapseolerenewal variant=\"primary\" class=\"pull-right\"><i\r\n                                                class=\"fa fa-angle-double-down\" aria-hidden=\"true\"></i></b-btn>\r\n                                    </b-col>\r\n                                </b-row>\r\n                            </div>\r\n                            <b-collapse id=\"collapseolerenewal\" class=\"mt-2\">\r\n                                <div class=\"card-body\">\r\n                                    <h4>Thêm Topup</h4>\r\n                                    <b-row>\r\n                                        <b-col>\r\n                                            <button class=\"btn btn-info btn-submit-form col-md-12 btncus\" type=\"submit\"\r\n                                                @click=\"AddNewTopUp()\">\r\n                                                <i class=\"fa fa-plus\"></i> Thêm mới\r\n                                            </button>\r\n                                        </b-col>\r\n                                    </b-row>\r\n                                    <br />\r\n                                    <b-row v-for=\"(item, index) in objRequestTopUp\">\r\n                                        <b-col>\r\n                                            <b-row>\r\n                                                <b-col>\r\n                                                    <b-form-group label=\"Title\">\r\n                                                        <b-form-input v-model=\"item.title\" type=\"text\"\r\n                                                            placeholder=\"Tên Top up\" required></b-form-input>\r\n                                                    </b-form-group>\r\n                                                </b-col>\r\n                                                <b-col>\r\n                                                    <b-form-group label=\"Data\">\r\n                                                        <b-form-input v-model=\"item.dataLimit\" type=\"text\"\r\n                                                            placeholder=\"Data Limit\" required></b-form-input>\r\n                                                    </b-form-group>\r\n                                                </b-col>\r\n                                                <b-col>\r\n                                                    <b-form-group label=\"Validaty\">\r\n                                                        <b-form-input v-model=\"item.validaty\" type=\"text\"\r\n                                                            placeholder=\"Validaty\" required></b-form-input>\r\n                                                    </b-form-group>\r\n                                                </b-col>\r\n\r\n                                            </b-row>\r\n                                            <b-row>\r\n                                                <b-col>\r\n                                                    <b-form-group label=\"SMS Number\">\r\n                                                        <b-form-input v-model=\"item.smsNumber\" type=\"text\"\r\n                                                            placeholder=\"Sms\" required></b-form-input>\r\n                                                    </b-form-group>\r\n                                                </b-col>\r\n                                                <b-col>\r\n                                                    <b-form-group label=\"Phone Minute\">\r\n                                                        <b-form-input v-model=\"item.phoneMinute\" type=\"text\"\r\n                                                            placeholder=\"Phone\" required></b-form-input>\r\n                                                    </b-form-group>\r\n                                                </b-col>\r\n                                                <b-col>\r\n                                                    <b-form-group label=\"Price\">\r\n                                                        <b-form-input @change=\"\" :min=\"0\" v-model=\"item.price\"\r\n                                                            type=\"text\" placeholder=\"\"></b-form-input>\r\n                                                    </b-form-group>\r\n                                                </b-col>\r\n                                                <b-col>\r\n                                                    <b-form-group label=\"Action\">\r\n                                                        <button class=\"btn btn-danger btn-submit-form col-md-12 btncus\"\r\n                                                            type=\"submit\" @click=\"DoDelTopUp(index)\">\r\n                                                            <i class=\"fa fa-trash\"></i> Xóa\r\n                                                        </button>\r\n                                                    </b-form-group>\r\n\r\n                                                </b-col>\r\n                                            </b-row>\r\n                                            <hr />\r\n                                        </b-col>\r\n                                    </b-row>\r\n                                </div>\r\n                            </b-collapse>\r\n                        </div>\r\n                        <div class=\"card\" hidden>\r\n                            <div class=\"card-header\">\r\n                                <b-row>\r\n                                    <b-col md=\"11\">\r\n                                        SIM Serial\r\n                                    </b-col>\r\n                                    <b-col md=\"1\">\r\n                                        <b-btn v-b-toggle.collapSerial variant=\"primary\" class=\"pull-right\"><i\r\n                                                class=\"fa fa-angle-double-down\" aria-hidden=\"true\"></i></b-btn>\r\n                                    </b-col>\r\n                                </b-row>\r\n                            </div>\r\n                            <b-collapse id=\"collapSerial\" class=\"mt-2\">\r\n                                <div class=\"card-body\">\r\n                                    <h4>Serial Number: </h4>\r\n                                    <b-row>\r\n                                        <b-col>\r\n                                            <button class=\"btn btn-info btn-submit-form col-md-12 btncus\" type=\"submit\"\r\n                                                @click=\"onUploadSerialClick()\">\r\n                                                <i class=\"fa fa-plus\"></i> Upload Data\r\n                                            </button>\r\n                                            <input ref=\"fileInput\" type=\"file\" accept=\"xlsx\" style=\"display: none\"\r\n                                                @change=\"handleFileChange\" />\r\n                                        </b-col>\r\n                                    </b-row>\r\n                                    <br />\r\n                                    <table class=\"table table-bordered\">\r\n                                        <thead>\r\n                                            <tr>\r\n                                                <th>Serial</th>\r\n                                                <th>Phone number</th>\r\n                                                <th>Status</th>\r\n                                            </tr>\r\n                                        </thead>\r\n                                        <tbody>\r\n                                            <tr v-for=\"s in serialNumbers\" :key=\"s.id\">\r\n                                                <td>{{ s.serialNumber }}</td>\r\n                                                <td>{{ s.phoneNumber }}</td>\r\n                                                <td>{{ s.status }}</td>\r\n                                            </tr>\r\n                                        </tbody>\r\n                                    </table>\r\n                                </div>\r\n                            </b-collapse>\r\n                        </div>\r\n\r\n\r\n                    </div>\r\n\r\n                </div>\r\n            </b-tab>\r\n            <b-tab v-if=\"objRequest.id > 0\" @click=\"StartLoadLang()\" title=\"2. Thông tin ngôn ngữ\">\r\n                <div>\r\n                    <div class=\"row productedit\">\r\n                        <div class=\"col-sm-6 col-md-12\">\r\n                            <div class=\"card\">\r\n                                <div class=\"card-header\">\r\n                                    Thao tác\r\n                                </div>\r\n                                <div class=\"card-body\">\r\n                                    <div class=\"row\">\r\n                                        <div class=\"col-md-6\">\r\n                                            <button class=\"btn btn-info btn-submit-form col-md-12 btncus\" type=\"submit\"\r\n                                                @click=\"DoAddDetail()\">\r\n                                                <i class=\"fa fa-save\"></i> Cập nhật\r\n                                            </button>\r\n                                        </div>\r\n                                        <div class=\"col-md-6\">\r\n                                            <button class=\"btn btn-success col-md-12 btncus\" type=\"button\"\r\n                                                @click=\"DoRefesh()\">\r\n                                                <i class=\"fa fa-refresh\"></i> Làm mới\r\n                                            </button>\r\n                                        </div>\r\n                                    </div>\r\n                                </div>\r\n                            </div>\r\n                        </div>\r\n                        <div class=\"col-sm-6 col-md-12\">\r\n                            <div class=\"card\">\r\n                                <div class=\"card-header\">\r\n                                    Thông tin ngôn ngữ\r\n                                </div>\r\n                                <div class=\"card-body\">\r\n                                    <b-form class=\"form-horizontal\">\r\n                                        <b-row>\r\n                                            <b-col>\r\n                                                <b-form-group label=\"Ngôn ngữ\">\r\n                                                    <b-form-select v-model=\"langSelected\" @change=\"onChangeSelectd\"\r\n                                                        :options=\"Languages\"></b-form-select>\r\n                                                </b-form-group>\r\n                                            </b-col>\r\n                                            <!--<b-col title=\"Xem trên website\" style=\"margin-top:25px;font-size:30px\">\r\n                        <a target=\"_blank\" :href=\"urlBases(objRequestDetail.url)\"><i class=\"fa fa-eye\"></i></a>\r\n                    </b-col>-->\r\n                                            <b-col></b-col>\r\n                                        </b-row>\r\n                                        <b-form-group label=\"Tiêu đề theo ngôn ngữ\" label-for=\"input-1\">\r\n                                            <b-form-input id=\"input-1\" v-model=\"objRequestDetail.title\" type=\"text\"\r\n                                                required v-on:keyup.13=\"slugM()\" placeholder=\"Tiêu đề\"></b-form-input>\r\n                                        </b-form-group>\r\n\r\n                                        <b-form-group label=\"Đường dẫn\">\r\n                                            <b-form-input v-model=\"objRequestDetail.url\" placeholder=\"Đường dẫn\"\r\n                                                required></b-form-input>\r\n                                        </b-form-group>\r\n                                        <b-form-group label=\"Đường dẫn cũ\">\r\n                                            <b-form-input v-model=\"objRequestDetail.urlOld\" placeholder=\"Đường dẫn\"\r\n                                                required></b-form-input>\r\n                                        </b-form-group>\r\n                                        <b-form-group label=\"Location\">\r\n                                            <b-form-input v-model=\"objRequestDetail.location\" placeholder=\"Địa chỉ\"\r\n                                                required></b-form-input>\r\n                                        </b-form-group>\r\n                                        <b-form-group label=\"Location Iframe\">\r\n                                            <b-form-input v-model=\"objRequestDetail.locationIframe\"\r\n                                                placeholder=\"Mã embed bản đồ\" required></b-form-input>\r\n                                        </b-form-group>\r\n                                        <b-form-group label=\"Đơn vị sản phẩm\">\r\n                                            <b-form-input v-model=\"objRequestDetail.unit\" placeholder=\"Đơn vị sản phẩm\"\r\n                                                required></b-form-input>\r\n                                        </b-form-group>\r\n\r\n                                        <b-form-group label=\"Mô tả\">\r\n                                            <ckeditor tag-name=\"textarea\" v-model=\"objRequestDetail.description\"\r\n                                                :rows=\"3\" :config=\"editorConfig\">\r\n                                            </ckeditor>\r\n                                        </b-form-group>\r\n                                        <b-form-group label=\"Nội dung\">\r\n                                            <MIEditor :contentEditor=\"objRequestDetail.content\"\r\n                                                v-on:handleEditorInput=\"getOrSetData\" :index=\"-1\"></MIEditor>\r\n                                        </b-form-group>\r\n                                        <b-row>\r\n                                            <b-col>\r\n                                                <b-form-group>\r\n                                                    <label class=\"typo__label\">Thêm tag</label>\r\n                                                    <v-tags-input element-id=\"tags\" v-model=\"Tags\" :typeahead=\"true\"\r\n                                                        :existingTags=\"ListAllTags\"></v-tags-input>\r\n\r\n                                                </b-form-group>\r\n                                            </b-col>\r\n                                        </b-row>\r\n                                    </b-form>\r\n                                </div>\r\n                            </div>\r\n                            <div class=\"card\">\r\n                                <div class=\"card-header\">\r\n                                    <b-row>\r\n                                        <b-col md=\"11\">\r\n                                            Thông tin\r\n                                        </b-col>\r\n                                        <b-col md=\"1\">\r\n                                            <b-btn v-b-toggle.collapseSocial3 variant=\"primary\" class=\"pull-right\"><i\r\n                                                    class=\"fa fa-angle-double-down\" aria-hidden=\"true\"></i></b-btn>\r\n                                        </b-col>\r\n                                    </b-row>\r\n                                </div>\r\n                                <b-collapse id=\"collapseSocial3\" class=\"mt-2\">\r\n                                    <div class=\"card-body\">\r\n\r\n                                        <b-row v-for=\"(item, index) in LichTrinhTour\">\r\n                                            <b-col md=\"10\">\r\n                                                <b-form-group label=\"Tiêu đề\">\r\n                                                    <b-form-input v-model=\"item.tieuDe\" placeholder=\"Tiêu đề\"\r\n                                                        required></b-form-input>\r\n                                                </b-form-group>\r\n                                                <b-form-group label=\"Nội dung\">\r\n                                                    <MIEditor :contentEditor=\"item.noiDung\"\r\n                                                        v-on:handleEditorInput=\"tour_getOrSetData_lichTour\"\r\n                                                        :index=\"index\">\r\n                                                    </MIEditor>\r\n                                                </b-form-group>\r\n                                            </b-col>\r\n                                            <b-col md=\"2\">\r\n                                                <b-row>\r\n                                                    <b-col md=\"12\">\r\n                                                        <button class=\"btn btn-primary btn-submit-form col-md-12 btncus\"\r\n                                                            type=\"submit\" @click=\"tour_DoAddLichTour()\">\r\n                                                            <i class=\"fa fa-trash\"></i> Thêm\r\n                                                        </button>\r\n                                                    </b-col>\r\n                                                    <b-col md=\"12\">\r\n                                                        <button class=\"btn btn-danger btn-submit-form col-md-12 btncus\"\r\n                                                            type=\"submit\" @click=\"tour_DoDelLichTour(index)\">\r\n                                                            <i class=\"fa fa-trash\"></i> Xóa\r\n                                                        </button>\r\n                                                    </b-col>\r\n                                                </b-row>\r\n\r\n                                            </b-col>\r\n                                        </b-row>\r\n\r\n                                    </div>\r\n                                </b-collapse>\r\n                            </div>\r\n                            <div class=\"card\">\r\n                                <div class=\"card-header\">\r\n                                    <b-row>\r\n                                        <b-col md=\"11\">\r\n                                            Note\r\n                                        </b-col>\r\n                                        <b-col md=\"1\">\r\n                                            <b-btn v-b-toggle.collapseSocial4 variant=\"primary\" class=\"pull-right\"><i\r\n                                                    class=\"fa fa-angle-double-down\" aria-hidden=\"true\"></i></b-btn>\r\n                                        </b-col>\r\n                                    </b-row>\r\n                                </div>\r\n                                <b-collapse id=\"collapseSocial4\" class=\"mt-2\">\r\n                                    <div class=\"card-body\">\r\n\r\n                                        <b-row v-for=\"(item, index) in ThongTinTour\">\r\n                                            <b-col md=\"10\">\r\n                                                <b-form-group label=\"Tiêu đề\">\r\n                                                    <b-form-input v-model=\"item.tieuDe\" placeholder=\"Tiêu đề\"\r\n                                                        required></b-form-input>\r\n                                                </b-form-group>\r\n                                                <b-form-group label=\"Nội dung\">\r\n                                                    <MIEditor :contentEditor=\"item.noiDung\"\r\n                                                        v-on:handleEditorInput=\"tour_getOrSetData_thongTinTour\"\r\n                                                        :index=\"index\">\r\n                                                    </MIEditor>\r\n                                                </b-form-group>\r\n                                            </b-col>\r\n                                            <b-col md=\"2\">\r\n                                                <b-row>\r\n                                                    <b-col md=\"12\">\r\n                                                        <button class=\"btn btn-primary btn-submit-form col-md-12 btncus\"\r\n                                                            type=\"submit\" @click=\"tour_DoAddThongTinTour()\">\r\n                                                            <i class=\"fa fa-trash\"></i> Thêm\r\n                                                        </button>\r\n                                                    </b-col>\r\n                                                    <b-col md=\"12\">\r\n                                                        <button class=\"btn btn-danger btn-submit-form col-md-12 btncus\"\r\n                                                            type=\"submit\" @click=\"tour_DoDelThongTinTour(index)\">\r\n                                                            <i class=\"fa fa-trash\"></i> Xóa\r\n                                                        </button>\r\n                                                    </b-col>\r\n                                                </b-row>\r\n\r\n                                            </b-col>\r\n\r\n\r\n                                        </b-row>\r\n\r\n                                    </div>\r\n                                </b-collapse>\r\n                            </div>\r\n                            <div class=\"card\">\r\n                                <div class=\"card-header\">\r\n                                    <b-row>\r\n                                        <b-col md=\"11\">\r\n                                            Policy\r\n                                        </b-col>\r\n                                        <b-col md=\"1\">\r\n                                            <b-btn v-b-toggle.collapseSocial5 variant=\"primary\" class=\"pull-right\"><i\r\n                                                    class=\"fa fa-angle-double-down\" aria-hidden=\"true\"></i></b-btn>\r\n                                        </b-col>\r\n                                    </b-row>\r\n                                </div>\r\n                                <b-collapse id=\"collapseSocial5\" class=\"mt-2\">\r\n                                    <div class=\"card-body\">\r\n\r\n                                        <b-row v-for=\"(item, index) in ThuTucVisa\">\r\n                                            <b-col md=\"10\">\r\n                                                <b-form-group label=\"Tiêu đề\">\r\n                                                    <b-form-input v-model=\"item.tieuDe\" placeholder=\"Tiêu đề\"\r\n                                                        required></b-form-input>\r\n                                                </b-form-group>\r\n                                                <b-form-group label=\"Nội dung\">\r\n                                                    <MIEditor :contentEditor=\"item.noiDung\"\r\n                                                        v-on:handleEditorInput=\"tour_getOrSetData_thuTucVisa\"\r\n                                                        :index=\"index\">\r\n                                                    </MIEditor>\r\n                                                </b-form-group>\r\n                                            </b-col>\r\n                                            <b-col md=\"2\">\r\n                                                <b-row>\r\n                                                    <b-col md=\"12\">\r\n                                                        <button class=\"btn btn-primary btn-submit-form col-md-12 btncus\"\r\n                                                            type=\"submit\" @click=\"tour_DoAddThuTucVisa()\">\r\n                                                            <i class=\"fa fa-trash\"></i> Thêm\r\n                                                        </button>\r\n                                                    </b-col>\r\n                                                    <b-col md=\"12\">\r\n                                                        <button class=\"btn btn-danger btn-submit-form col-md-12 btncus\"\r\n                                                            type=\"submit\" @click=\"tour_DoDelThuTucVisa(index)\">\r\n                                                            <i class=\"fa fa-trash\"></i> Xóa\r\n                                                        </button>\r\n                                                    </b-col>\r\n                                                </b-row>\r\n                                            </b-col>\r\n                                        </b-row>\r\n\r\n                                    </div>\r\n                                </b-collapse>\r\n                            </div>\r\n                            <div class=\"card\">\r\n                                <div class=\"card-header\">\r\n                                    <b-row>\r\n                                        <b-col md=\"11\">\r\n                                            SEO Analysis\r\n                                        </b-col>\r\n                                        <b-col md=\"1\">\r\n                                            <b-btn v-b-toggle.collapseSEO2 variant=\"primary\" class=\"pull-right\"><i\r\n                                                    class=\"fa fa-angle-double-down\" aria-hidden=\"true\"></i></b-btn>\r\n                                        </b-col>\r\n                                    </b-row>\r\n                                </div>\r\n                                <b-collapse id=\"collapseSEO2\" class=\"mt-2\">\r\n                                    <div class=\"card-body\">\r\n                                        <b-form-group label=\"Tiêu đề SEO\">\r\n                                            <b-form-input v-model=\"objRequestDetail.metaTitle\" placeholder=\"Tiêu đề SEO\"\r\n                                                required></b-form-input>\r\n                                        </b-form-group>\r\n                                        <b-form-group label=\"Từ khóa SEO\">\r\n                                            <b-form-input v-model=\"objRequestDetail.metaKeyword\"\r\n                                                placeholder=\"Từ khóa SEO\" required></b-form-input>\r\n                                        </b-form-group>\r\n                                        <b-form-group label=\"Mô tả SEO\">\r\n                                            <b-form-textarea rows=\"3\" max-rows=\"6\"\r\n                                                v-model=\"objRequestDetail.metaDescription\" placeholder=\"Mô tả\"\r\n                                                required></b-form-textarea>\r\n                                        </b-form-group>\r\n                                        <b-form-group label=\"Script WebPage\">\r\n                                            <b-form-textarea rows=\"3\" max-rows=\"6\"\r\n                                                v-model=\"objRequestDetail.metaWebPage\" placeholder=\"WebPage\"\r\n                                                required></b-form-textarea>\r\n                                        </b-form-group>\r\n                                        <b-form-group label=\"\">\r\n                                            <div class=\"row\">\r\n                                                <div class=\"col-md-6\">\r\n                                                    <b-form-checkbox placeholder=\"Canonical\" v-model=\"statusCanonical\"\r\n                                                        required>Chặn\r\n                                                        trùng lặp nội dung (Canonical)</b-form-checkbox>\r\n                                                </div>\r\n                                                <div class=\"col-md-6\">\r\n                                                    <b-form-checkbox placeholder=\"NoIndex\" v-model=\"statusNoindex\"\r\n                                                        required>Chặn lập\r\n                                                        chỉ mục (NoIndex)</b-form-checkbox>\r\n                                                </div>\r\n                                            </div>\r\n                                        </b-form-group>\r\n                                        <b-form-group label=\"Giá trị (Canonical)\">\r\n                                            <b-form-input placeholder=\"Canonical\" v-model=\"valueCanonical\"\r\n                                                required></b-form-input>\r\n                                        </b-form-group>\r\n                                    </div>\r\n\r\n                                </b-collapse>\r\n                            </div>\r\n                            <div class=\"card\">\r\n                                <div class=\"card-header\">\r\n                                    <b-row>\r\n                                        <b-col md=\"11\">\r\n                                            Social Share\r\n                                        </b-col>\r\n                                        <b-col md=\"1\">\r\n                                            <b-btn v-b-toggle.collapseSocial2 variant=\"primary\" class=\"pull-right\"><i\r\n                                                    class=\"fa fa-angle-double-down\" aria-hidden=\"true\"></i></b-btn>\r\n                                        </b-col>\r\n                                    </b-row>\r\n                                </div>\r\n                                <b-collapse id=\"collapseSocial2\" class=\"mt-2\">\r\n                                    <div class=\"card-body\">\r\n                                        <b-form-group label=\"Ảnh mô tả\">\r\n                                            <a @click=\"openImg('ImgS')\">\r\n                                                <div class=\"row gallery-upload-file ui-sortable\">\r\n                                                    <div style=\"width:200px;height:200px\"\r\n                                                        class=\"r-queue-item ui-sortable-handle\">\r\n                                                        <div\r\n                                                            v-if=\"objRequestDetail.socialImage != null && objRequestDetail.socialImage != undefined && objRequestDetail.socialImage.length > 0\">\r\n                                                            <img alt=\"Ảnh lỗi\"\r\n                                                                :src=\"pathImgs(objRequestDetail.socialImage)\"\r\n                                                                style=\"height:200px;width:200px\" />\r\n                                                        </div>\r\n                                                        <div v-else>\r\n                                                            <i class=\"fa fa-picture-o\"></i>\r\n                                                            <p>[Chọn ảnh]</p>\r\n                                                        </div>\r\n                                                    </div>\r\n\r\n                                                </div>\r\n                                            </a>\r\n                                        </b-form-group>\r\n                                        <b-form-group label=\"Tiêu đề\">\r\n                                            <b-form-input v-model=\"objRequestDetail.socialTitle\" placeholder=\"Tiêu đề\"\r\n                                                required></b-form-input>\r\n                                        </b-form-group>\r\n                                        <b-form-group label=\"Mô tả\">\r\n                                            <b-form-input v-model=\"objRequestDetail.socialDescription\"\r\n                                                placeholder=\"Mô tả\" required></b-form-input>\r\n                                        </b-form-group>\r\n                                    </div>\r\n                                </b-collapse>\r\n                            </div>\r\n\r\n                        </div>\r\n\r\n                    </div>\r\n                </div>\r\n            </b-tab>\r\n        </b-tabs>\r\n        <FileManager v-on:handleAttackFile=\"DoAttackFile\" :miKey=\"mikey1\" />\r\n    </div>\r\n</template>\r\n\r\n<script>\r\nimport \"vue-loading-overlay/dist/vue-loading.css\";\r\n//import ClassicEditor from '@ckeditor/ckeditor5-build-classic';\r\nimport msgNotify from \"../../common/constant\";\r\nimport { mapGetters, mapActions } from \"vuex\";\r\nimport Loading from \"vue-loading-overlay\";\r\n\r\n// import the component\r\nimport Treeselect from '@riophae/vue-treeselect'\r\n// import the styles\r\nimport '@riophae/vue-treeselect/dist/vue-treeselect.css'\r\n\r\nimport 'vue-select/dist/vue-select.css';\r\nimport { unflatten, slug, pathImg, urlBase } from \"../../plugins/helper\";\r\n\r\nimport EventBus from \"./../../common/eventBus\";\r\nimport moment from 'moment';\r\nimport VoerroTagsInput from './VoerroTagsInput';\r\nimport FileManager from './../../components/fileManager/list'\r\nimport MIEditor from '../../components/editor/MIEditor';\r\n// Import component\r\nimport { ASYNC_SEARCH, LOAD_ROOT_OPTIONS } from '@riophae/vue-treeselect'\r\n//import 'vue-datepicker-ui/lib/vuedatepickerui.css';\r\n//import VueDatepickerUi from 'vue-datepicker-ui';\r\nimport draggable from 'vuedraggable'\r\n\r\nconst simulateAsyncOperation = fn => {\r\n    setTimeout(fn, 2000)\r\n}\r\nexport default {\r\n\r\n    name: \"productaddedit\",\r\n    data() {\r\n        return {\r\n            demoDate: new Date(),\r\n            IsChoseImg360: false,\r\n            IsChoseFileDowload: false,\r\n            IsChoseVideo: false,\r\n\r\n            mikey1: 'mikey1',\r\n\r\n            content: '',\r\n            contentContent: '',\r\n\r\n            choseImg: \"\",\r\n\r\n            isLoading: false,\r\n            fullPage: false,\r\n            color: \"#007bff\",\r\n            isLoadLang: false,\r\n\r\n\r\n            preview: '/assets/img/unnamed.jpg',\r\n            previews: '/assets/img/unnamed.jpg',\r\n\r\n            //editor: ClassicEditor,\r\n            //editor1: ClassicEditor,\r\n            editorData: '<p>Content of the editor.</p>',\r\n            currentSort: \"Id\",\r\n            currentSortDir: \"asc\",\r\n            productName: \"\",\r\n            currentPage: 1,\r\n            pageSize: 10,\r\n            loading: true,\r\n            langSelected: \"\",\r\n            bootstrapPaginationClasses: {\r\n                ul: \"pagination\",\r\n                li: \"page-item\",\r\n                liActive: \"active\",\r\n                liDisable: \"disabled\",\r\n                button: \"page-link\"\r\n            },\r\n            customLabels: {\r\n                first: \"First\",\r\n                prev: \"Previous\",\r\n                next: \"Next\",\r\n                last: \"Last\"\r\n            },\r\n            selected: [],\r\n            objLocations: {\r\n                locationId: 0,\r\n            },\r\n            objCombo: {\r\n                name: ''\r\n            },\r\n            Locations: [],\r\n            editorConfig: {\r\n                allowedContent: true,\r\n                extraPlugins: \"\",\r\n\r\n            },\r\n            statusNoindex: false,\r\n            statusCanonical: false,\r\n            valueCanonical: \"\",\r\n            objRequest: {\r\n                avatar: \"\",\r\n                status: 2,\r\n                materialType: 0,\r\n                guarantee: \"\",\r\n                price: 0,\r\n                discountPrice: 0,\r\n                discountPercent: 0,\r\n                vat: false,\r\n                exprirePromotion: moment(String(new Date())).format('YYYY-MM-DD'),\r\n                productCpnId: 0,\r\n                coverage: [],\r\n                id: 0\r\n            },\r\n            objRequestDetail: {\r\n                url: \"\",\r\n                title: \"\",\r\n                content: \"\",\r\n                description: \"\"\r\n            },\r\n\r\n            objRequestDetails: [],\r\n            objRequestPhienBans: [],\r\n            objRequestTopUp: [],\r\n            templatePhienBan: {\r\n                giaNguoiLon: 0,\r\n                giaTreEm: 0,\r\n                selectedOptions: [],\r\n            },\r\n\r\n            currentPhienBan: {},\r\n            selectedPhienBan: [],\r\n            objRequestOldRenewal: {\r\n                discountPercent: 0,\r\n                discountAmount: 0\r\n            },\r\n            Tag: \"\",\r\n            Tags: [],\r\n            ListImg: [],//Danh sách hình ảnh\r\n\r\n            Languages: [],//Danh sách ngôn ngữ\r\n            ManufacturerIds: [],//Danh sách nhà cung cấp\r\n            ZoneOptions: [],\r\n            DiemDenOptions: [],\r\n            TagOptions: [],\r\n            OpOptions: [],\r\n            BookingNotesOptions: [],\r\n            CouponZoneOptions: [],\r\n            ZoneValues: [],\r\n            DiemDenValues: [],\r\n            TagValues: [],\r\n            NoteValues: [],\r\n            CouponZoneValues: [],\r\n            ArticleValues: [],\r\n            ProductUnit: [],\r\n            Properties: [],\r\n            ListProperty: [],\r\n            Colors: [],\r\n            ListColors: [],\r\n            ProductParent: 0,\r\n            ListProductParent: [],\r\n            ListPhuongTien: [],\r\n            ListAllTags: [],\r\n            ListGuarantee: [],\r\n            ListTypeMaterial: [],\r\n            ListProductComponent: [],\r\n            objUser: {},\r\n            FileMeta: {\r\n                File360: \"\",\r\n                FileDowload: \"\",\r\n                FileVideo: \"\",\r\n            },\r\n            ListArticleValue: [],\r\n            ListArticle: [],\r\n            ListOldRenewal: [],\r\n            RdoOldRenewal: \"\",\r\n            LichTrinhTour: [],\r\n            ThongTinTour: [],\r\n            ThuTucVisa: [],\r\n            TourItemTemplate: {\r\n                tieuDe: \"\",\r\n                noiDung: \"\"\r\n            },\r\n            requestPhuongTien: [],\r\n            serialNumbers: [],\r\n            countryOptions: [],\r\n            optionValues: [],\r\n            selectedProductOptions: [],\r\n            isUpdatingSelectProductOption: false,  // Biến cờ để theo dõi trạng thái cập nhật,\r\n            convertedArr: [],\r\n            zoneTreeViewOptionById: [],\r\n            currentProductId: 0,\r\n            currentGiaPhienBanTheoNgay: [],\r\n            filterGiaPhienBanTheoNgay: {\r\n                form: null,\r\n                to: null,\r\n                dayOfWeek: [\r\n                    {\r\n                        label: 'Mon',\r\n                        checked: false\r\n                    },\r\n                    {\r\n                        label: 'Tue',\r\n                        checked: false\r\n                    },\r\n                    {\r\n                        label: 'Wed',\r\n                        checked: false\r\n                    },\r\n                    {\r\n                        label: 'Thu',\r\n                        checked: false\r\n                    },\r\n                    {\r\n                        label: 'Fri',\r\n                        checked: false\r\n                    },\r\n                    {\r\n                        label: 'Sat',\r\n                        checked: false\r\n                    },\r\n                    {\r\n                        label: 'Sun',\r\n                        checked: false\r\n                    }\r\n                ]\r\n            },\r\n            updateAllGiaPhienBanTheoNgay: {\r\n\r\n                priceEachNguoiLon: 0,\r\n                priceEachTreEm: 0,\r\n                priceEachNguoiGia: 0,\r\n                netEachNguoiLon: 0,\r\n                netEachTreEm: 0,\r\n                netEachNguoiGia: 0\r\n            },\r\n            currentSelectedOptionCombination: '',\r\n            userSuppliers: [],\r\n            objRequestCancelPolicy: [],\r\n\r\n        };\r\n    },\r\n    created: {},\r\n    components: {\r\n        MIEditor,\r\n        Loading,\r\n\r\n        Treeselect,\r\n\r\n        FileManager,\r\n        \"v-tags-input\": VoerroTagsInput,\r\n        draggable\r\n        /*Datepicker: VueDatepickerUi*/\r\n    },\r\n    //mounted() {\r\n\r\n    //},\r\n\r\n\r\n\r\n    computed: {\r\n        ...mapGetters([\"product\", \"fileName\"]),\r\n    },\r\n    created() {\r\n        if (this.$route.params.id > 0) {\r\n            this.currentProductId = this.$route.params.id;\r\n            var $this = this;\r\n            this.isLoading = true;\r\n            let initial = this.$route.query.initial;\r\n            initial = typeof initial != \"undefined\" ? initial.toLowerCase() : \"\";\r\n\r\n            this.getProduct(this.$route.params.id).then(respose => {\r\n                this.objRequest = respose.data;\r\n                ////console.log(this.objRequest)\r\n\r\n                $this.ListProperty = respose.listProp;\r\n                $this.ListColors = respose.listColor;\r\n                $this.ZoneValues = respose.listCat;\r\n                $this.DiemDenValues = respose.listDiemDen;\r\n                $this.TagValues = respose.listTagOption;\r\n                $this.NoteValues = respose.listNoteOption;\r\n                $this.CouponZoneValues = respose.listCouponZoneOptions;\r\n                $this.optionValues = respose.listProductOption;\r\n                console.log('optionValues when creatd', $this.optionValues);\r\n                this.onChangePaging();\r\n                //$this.optionValues.forEach((value, index) => {\r\n\r\n                //})\r\n\r\n\r\n                $this.ListArticle = respose.listArticle;\r\n                $this.ListImg = this.objRequest.avatarArray.split(\",\");\r\n                if (respose.data.parentId) {\r\n                    $this.ProductParent = respose.data.parentId;\r\n                }\r\n\r\n\r\n\r\n\r\n                $this.loadOptionArticleDefault(respose.data.articleId);\r\n\r\n\r\n            });\r\n            this.getPhienBanInProduct(this.$route.params.id).then(response => {\r\n\r\n                if (response.data) {\r\n                    this.objRequestPhienBans = response.data;\r\n                    // console.log('objRequestPhienBan', this.objRequestPhienBans);\r\n                }\r\n\r\n\r\n            });\r\n            this.getCancelPolicies(this.$route.params.id).then(response => {\r\n                if(response.data){\r\n                    this.objRequestCancelPolicy = response.data;\r\n                }\r\n            })\r\n            this.getTopUpInProduct(this.$route.params.id).then((response) => {\r\n                ////console.log(response.data)\r\n                response.data.map(element => {\r\n                    element.title = element.title.split(';')[0]\r\n                })\r\n                this.objRequestTopUp = response.data;\r\n            })\r\n            this.getSerialNumbersByProductId(this.$route.params.id).then((response) => {\r\n                //////console.log(response);\r\n                this.serialNumbers = response;\r\n            })\r\n\r\n\r\n\r\n            this.LoadListOld(this.$route.params.id)\r\n            this.isLoading = false;\r\n        }\r\n\r\n        let vm = this;\r\n        EventBus.$on('FileSelected', value => {\r\n\r\n        });\r\n\r\n        this.objUser = this.getUser();\r\n\r\n        this.getAllLanguages().then(respose => {\r\n            let lang = respose.listData;\r\n            this.Languages = lang.map(function (item) {\r\n                return {\r\n                    value: item.languageCode,\r\n                    text: item.name\r\n                }\r\n            });\r\n        });\r\n        this.getAllColors().then(respose => {\r\n            this.Colors = respose;\r\n        });\r\n        this.getListProductParent().then(respose => {\r\n            this.ListProductParent = respose.listData;\r\n        });\r\n        this.getAllManufacturers().then(response => {\r\n\r\n            this.ManufacturerIds = response.listData;\r\n        });\r\n\r\n        this.productUnitGet().then(response => {\r\n            this.ProductUnit = response.listData;\r\n        });\r\n        this.onGetSuppliers();\r\n        this.getPropertyProduct().then(response => {\r\n            this.Properties = response;\r\n        });\r\n        this.getTagAll().then(response => {\r\n            try {\r\n                this.ListAllTags = this.convertTags(response.listData);\r\n            }\r\n            catch (ex) {\r\n                ////console.log(ex);\r\n            }\r\n        });\r\n        this.getGuarantee().then(response => {\r\n            try {\r\n                this.ListGuarantee = response;\r\n            }\r\n            catch (ex) {\r\n                ////console.log(ex);\r\n            }\r\n        });\r\n        this.getAllTypeMaterial().then(response => {\r\n            try {\r\n                this.ListTypeMaterial = response.listData;\r\n            }\r\n            catch (ex) {\r\n                ////console.log(ex);\r\n            }\r\n        });\r\n        this.getAllCatProductComponent().then(response => {\r\n            try {\r\n                this.ListProductComponent = response.listData;\r\n            }\r\n            catch (ex) {\r\n                ////console.log(ex);\r\n            }\r\n        });\r\n\r\n\r\n\r\n        // this.onChangePaging();\r\n\r\n\r\n\r\n\r\n        this.tour_DoAddLichTour();\r\n        this.tour_DoAddThuTucVisa();\r\n        this.tour_DoAddThongTinTour();\r\n        this.ListPhuongTien.push({\r\n            id: 1,\r\n            label: 'Ô tô'\r\n        })\r\n        this.ListPhuongTien.push({\r\n            id: 2,\r\n            label: 'Xe máy'\r\n        })\r\n        this.ListPhuongTien.push({\r\n            id: 3,\r\n            label: 'Máy bay'\r\n        })\r\n\r\n    },\r\n    mounted() {\r\n        // this.onChangePaging();\r\n    },\r\n    destroyed() {\r\n        EventBus.$off('FileSelected');\r\n    },\r\n    methods: {\r\n        ...mapActions([\"updateProduct\",\r\n            \"addProduct\",\r\n            \"getProduct\",\r\n            \"getAllManufacturers\",\r\n            \"getAllLanguages\",\r\n            \"addProductInLanguage\",\r\n            \"getZones\",\r\n            \"getZonesTreeviewById\",\r\n            \"deleteProduct\",\r\n            \"productUnitGet\",\r\n            \"getPropertyProduct\",\r\n            \"getLanguageById\",\r\n            \"getTagAll\",\r\n            \"getGuarantee\",\r\n            \"getAllColors\",\r\n            \"getAllTypeMaterial\",\r\n            \"getListProductParent\",\r\n            \"deleteOldRenewal\",\r\n            \"insertOrUpdate\",\r\n            \"getProductOldRenewal\",\r\n            \"getPhienBanInProduct\",\r\n            \"getAllCatProductComponent\",\r\n            \"getTopUpInProduct\",\r\n            \"getSerialNumbersByProductId\",\r\n            \"fmFileUploadExcel_ImportSeiralNumber\",\r\n            \"getGiaPhienBanTheoNgay\",\r\n            \"updateGiaPhienBanTheoNgay\",\r\n            \"getAllUserSupplier\",\r\n            \"getCancelPolicies\"\r\n        ]),\r\n        AddNewCancelPolicy() {\r\n            this.objRequestCancelPolicy.push({\r\n                productId: 0,\r\n                beforeDate: 0,\r\n                rollbackValue: 0,\r\n                rollbackValueOption: 1\r\n            })\r\n        },\r\n        onRemoveCancelPolicy(index){\r\n            this.objRequestCancelPolicy.splice(index, 1)\r\n        },\r\n        onChangePackageConfirmOption() {\r\n            //HOOK\r\n            //objRequestPhienBans\r\n            // console.log(this.objRequestPhienBans)\r\n            if (this.objRequestPhienBans.length > 0) {\r\n                this.objRequestPhienBans.forEach(item => {\r\n                    item.confirmOption = this.objRequest.confirmOption\r\n                })\r\n            }\r\n        },\r\n        onUpdateGiaPhienBanTheoNgay() {\r\n            this.updateGiaPhienBanTheoNgay(this.currentGiaPhienBanTheoNgay).then(response => {\r\n                if (response) {\r\n                    this.$toast.success(\"Cập nhật thành công!\", {});\r\n                    //reset các tham số\r\n                    this.$refs.pByDateModal.hide();\r\n                    this.filterGiaPhienBanTheoNgay = {\r\n                        form: null,\r\n                        to: null,\r\n                        dayOfWeek: [\r\n                            {\r\n                                label: 'Mon',\r\n                                checked: false\r\n                            },\r\n                            {\r\n                                label: 'Tue',\r\n                                checked: false\r\n                            },\r\n                            {\r\n                                label: 'Wed',\r\n                                checked: false\r\n                            },\r\n                            {\r\n                                label: 'Thu',\r\n                                checked: false\r\n                            },\r\n                            {\r\n                                label: 'Fri',\r\n                                checked: false\r\n                            },\r\n                            {\r\n                                label: 'Sat',\r\n                                checked: false\r\n                            },\r\n                            {\r\n                                label: 'Sun',\r\n                                checked: false\r\n                            }\r\n                        ]\r\n                    }\r\n\r\n                } else {\r\n                    this.$toast.error(\"Cập nhật thất bại! Liên hệ quản trị viên\", {});\r\n                }\r\n            })\r\n\r\n        },\r\n        onUpdateAllCurrentGiaPhienBanTheoNgay() {\r\n            //Can phai clone ra de tranh reference object\r\n            let u = JSON.parse(JSON.stringify(this.updateAllGiaPhienBanTheoNgay));\r\n            this.currentGiaPhienBanTheoNgay.forEach(v => {\r\n                if (v.filterd) {\r\n                    if (u.priceEachNguoiLon >= 0) {\r\n                        v.priceEachNguoiLon = u.priceEachNguoiLon;\r\n                    }\r\n                    if (u.priceEachTreEm >= 0) {\r\n                        v.priceEachTreEm = u.priceEachTreEm;\r\n                    }\r\n                    if (u.priceEachNguoiGia >= 0) {\r\n                        v.priceEachNguoiGia = u.priceEachNguoiGia;\r\n                    }\r\n                    if (u.netEachNguoiLon >= 0) {\r\n                        v.netEachNguoiLon = u.netEachNguoiLon;\r\n                    }\r\n                    if (u.netEachTreEm >= 0) {\r\n                        v.netEachTreEm = u.netEachTreEm;\r\n                    }\r\n                    if (u.netEachNguoiGia >= 0) {\r\n                        v.netEachNguoiGia = u.netEachNguoiGia;\r\n                    }\r\n                }\r\n            })\r\n            // Tra lai gia tri mac dinh cho object mau\r\n            this.updateAllGiaPhienBanTheoNgay = {\r\n\r\n                priceEachNguoiLon: 0,\r\n                priceEachTreEm: 0,\r\n                priceEachNguoiGia: 0,\r\n                netEachNguoiLon: 0,\r\n                netEachTreEm: 0,\r\n                netEachNguoiGia: 0\r\n            }\r\n\r\n        },\r\n        on_filterGiaPhienBanTheoNgay() {\r\n            //console.log(this.filterGiaPhienBanTheoNgay);\r\n            this.currentGiaPhienBanTheoNgay.forEach(v => {\r\n                v.filterd = false;\r\n            })\r\n            let pickedDayOfWeek = [];\r\n            this.filterGiaPhienBanTheoNgay.dayOfWeek.forEach(v => {\r\n                if (v.checked) {\r\n                    pickedDayOfWeek.push(v.label)\r\n                }\r\n            })\r\n            let result = JSON.parse(JSON.stringify(this.currentGiaPhienBanTheoNgay));\r\n            if (this.filterGiaPhienBanTheoNgay.from) {\r\n                result = result.filter(r => moment(r.date) >= moment(this.filterGiaPhienBanTheoNgay.from));\r\n            }\r\n            if (this.filterGiaPhienBanTheoNgay.to) {\r\n                result = result.filter(r => moment(r.date) <= moment(this.filterGiaPhienBanTheoNgay.to));\r\n            }\r\n            if (pickedDayOfWeek.length > 0) {\r\n                result = result.filter(r => pickedDayOfWeek.indexOf(r.dayOfWeek) >= 0);\r\n            }\r\n            let dateFilterd = result.map(r => r.date);\r\n\r\n            this.currentGiaPhienBanTheoNgay.forEach(v => {\r\n                if (dateFilterd.indexOf(v.date) >= 0) {\r\n                    v.filterd = true;\r\n                }\r\n            })\r\n        },\r\n        onFormatDate(date) {\r\n            return moment(date).format('DD/MM/YYYY')\r\n        },\r\n        DoAddGiaPhienBanTheoNgay(item) {\r\n            this.currentSelectedOptionCombination = item.selectedOptions.toString()\r\n            this.$refs.pByDateModal.show();\r\n            let data = {\r\n                selectedOptions: item.selectedOptions.toString(),\r\n                productId: this.currentProductId\r\n            }\r\n            this.getGiaPhienBanTheoNgay(data).then(response => {\r\n                this.currentGiaPhienBanTheoNgay = response;\r\n                this.currentGiaPhienBanTheoNgay.forEach(v => {\r\n                    v.filterd = true;\r\n                })\r\n                // console.log(this.currentGiaPhienBanTheoNgay);\r\n            })\r\n        },\r\n        updateProductOptions() {\r\n            //console.log(this.zoneTreeViewOptionById)\r\n            console.log('optionValue when mouted', this.optionValues)\r\n            // Đặt cờ isUpdating để ngăn chặn các lời gọi hàm tiếp theo\r\n            if (this.zoneTreeViewOptionById) {\r\n                if (this.selectedProductOptions.length > 0) {\r\n                    this.selectedProductOptions = [];\r\n                }\r\n                //sort lại optionValue ở đây\r\n                this.optionValues.sort((a, b) => a - b)\r\n                this.convertdArr = [];\r\n                //debugger\r\n                this.optionValues.forEach((item, index) => {\r\n                    let _parent = this.zoneTreeViewOptionById.find(r => r.id == item);\r\n                    let _childs = this.zoneTreeViewOptionById.filter(r => r.parentId == item);\r\n                    ////console.log(_childs)\r\n                    let obj = {\r\n                        parent: _parent,\r\n                        childs: _childs\r\n                    }\r\n                    ////console.log(obj)\r\n                    let arrItem = []\r\n                    obj.childs.forEach((c, index_c) => {\r\n                        arrItem.push(c.id)\r\n                    })\r\n                    console.log(item)\r\n                    this.convertdArr.push(arrItem)\r\n                    this.selectedProductOptions.push(obj);\r\n                })\r\n                //Bat dau kiem tra o day\r\n                console.log(this.selectedProductOptions)\r\n                if (this.convertdArr.length > 0) {\r\n                    if (this.objRequestPhienBans) {\r\n                        this.objRequestPhienBans.forEach((pb, indexPb) => {\r\n                            let isAdd = \"\";\r\n                            if (pb.selectedOptions.length < this.convertdArr.length) {\r\n                                isAdd = \"add\"\r\n                            }\r\n                            else if (pb.selectedOptions.length > this.convertdArr.length) {\r\n                                isAdd = \"minus\"\r\n                            }\r\n                            else {\r\n\r\n                            }\r\n\r\n                            if (isAdd === \"add\") {\r\n                                for (var i = 0; i < this.convertdArr.length; i++) {\r\n                                    //Kiem tra xem arr convertedArr[i] co chua phan tu pb.selectedOptions[i] khong\r\n                                    //Neu khong co thi them vao mang pb.selectedOptions[i] gia tri -1\r\n                                    //neu do dai ma khong dai bang gia tri thu i thi push them vao\r\n                                    console.log(this.convertdArr[i], pb.selectedOptions[i])\r\n                                    if (!this.convertdArr[i].includes(pb.selectedOptions[i])) {\r\n                                        pb.selectedOptions.splice(i, 0, -1)\r\n                                    }\r\n                                    if (pb.selectedOptions.length < i + 1) {\r\n                                        pb.selectedOptions.push(-1)\r\n                                    }\r\n                                }\r\n                            }\r\n                            if (isAdd === \"minus\") {\r\n                                for (var i = 0; i < this.convertdArr.length; i++) {\r\n                                    //Kiem tra xem arr convertedArr[i] co chua phan tu pb.selectedOptions[i] khong\r\n                                    //Neu khong co thi them vao mang pb.selectedOptions[i] gia tri -1\r\n                                    //neu do dai ma khong dai bang gia tri thu i thi push them vao\r\n\r\n                                    if (!this.convertdArr[i].includes(pb.selectedOptions[i])) {\r\n                                        pb.selectedOptions.splice(i, 1)\r\n                                    }\r\n                                }\r\n                            }\r\n                        })\r\n                    }\r\n                }\r\n            }\r\n\r\n        },\r\n        onUploadSerialClick() {\r\n            // Mở input file khi click vào nút \"Upload Data\"\r\n            this.$refs.fileInput.click();\r\n        },\r\n        async handleFileChange(event) {\r\n            const selectedFile = event.target.files[0];\r\n\r\n            // Kiểm tra xem có file được chọn không\r\n            if (!selectedFile) {\r\n                //////console.log('Không có file nào được chọn.');\r\n                return;\r\n            }\r\n\r\n            // Lấy productId từ nơi bạn lấy dữ liệu, ví dụ như từ state hoặc props\r\n            const productId = this.$route.params.id; // Đảm bảo bạn đã khai báo và gán giá trị cho this.productId\r\n\r\n            try {\r\n                // Tạo formData để chứa file và các tham số khác\r\n                const formData = new FormData();\r\n                formData.append('file', selectedFile);\r\n                formData.append('productId', productId); // Thêm tham số productId vào formData\r\n\r\n                this.fmFileUploadExcel_ImportSeiralNumber(formData).then((response) => {\r\n                    ////console.log(response);\r\n                })\r\n\r\n                // Gửi formData lên server bằng fetch hoặc axios\r\n                const response = await fetch('/FileUploadV2/import_serial_sim', {\r\n                    method: 'POST',\r\n                    body: formData\r\n                });\r\n\r\n                if (!response.ok) {\r\n                    throw new Error('Lỗi khi gửi file lên server.');\r\n                }\r\n\r\n                ////console.log('File đã được gửi thành công lên server.');\r\n\r\n                // Đọc dữ liệu từ file Excel và in ra cột 1 và 2\r\n                const excelData = await response.json();\r\n                ////console.log('Dữ liệu từ file Excel:');\r\n                for (const row of excelData) {\r\n                    ////console.log('Cột 1:', row.column1, ', Cột 2:', row.column2);\r\n                }\r\n            } catch (error) {\r\n                console.error('Đã xảy ra lỗi:', error.message);\r\n            }\r\n        },\r\n\r\n        tour_DoDelThuTucVisa(index) {\r\n            if (this.ThuTucVisa.length > 0)\r\n                this.ThuTucVisa.splice(index, 1);\r\n        },\r\n        tour_DoAddThuTucVisa() {\r\n            let tourItem = {\r\n                tieuDe: \"\",\r\n                noiDung: \"\"\r\n            };\r\n            this.ThuTucVisa.push(tourItem);\r\n        },\r\n        tour_DoDelThongTinTour(index) {\r\n            if (this.ThongTinTour.length > 0)\r\n                this.ThongTinTour.splice(index, 1);\r\n        },\r\n        tour_DoAddThongTinTour() {\r\n            let tourItem = {\r\n                tieuDe: \"\",\r\n                noiDung: \"\"\r\n            };\r\n            this.ThongTinTour.push(tourItem);\r\n        },\r\n        tour_DoDelLichTour(index) {\r\n            if (this.LichTrinhTour.length > 0)\r\n                this.LichTrinhTour.splice(index, 1);\r\n        },\r\n        tour_DoAddLichTour() {\r\n            this.LichTrinhTour.push({\r\n                tieuDe: \"\",\r\n                noiDung: \"\"\r\n            });\r\n        },\r\n        tour_getOrSetData_lichTour(value) {\r\n            //////console.log(value)\r\n            var dt = JSON.parse(value);\r\n            ////console.log(dt)\r\n            this.LichTrinhTour[dt.index].noiDung = dt.content;\r\n        },\r\n        tour_getOrSetData_thongTinTour(value) {\r\n            //////console.log(value)\r\n            var dt = JSON.parse(value);\r\n            ////console.log(dt)\r\n            this.ThongTinTour[dt.index].noiDung = dt.content;\r\n\r\n        },\r\n        tour_getOrSetData_thuTucVisa(value) {\r\n            //////console.log(value)\r\n            var dt = JSON.parse(value);\r\n            ////console.log(dt)\r\n            this.ThuTucVisa[dt.index].noiDung = dt.content;\r\n        },\r\n        loadOptions({ action, searchQuery, callback }) {\r\n            if (action === ASYNC_SEARCH) {\r\n                var $this = this;\r\n                simulateAsyncOperation(() => {\r\n                    const options = $this.ListArticle.filter(function (item) {\r\n                        return (item.label.toLowerCase().indexOf(searchQuery.toLowerCase()) !== -1)\r\n                    }).slice(0, 30);\r\n                    callback(null, options)\r\n                })\r\n            }\r\n        },\r\n        loadOptionArticleDefault(ArticleId) {\r\n            if (ArticleId != null && ArticleId.length > 0) {\r\n                var split = ArticleId.split(\",\");\r\n                var $this = this;\r\n\r\n                this.ListArticle.forEach(function (item, index) {\r\n                    if (split.some(x => parseInt(x) == item.key)) {\r\n                        $this.ArticleValues.push(item);\r\n                        //$this.ArticleValues.push(item.id);\r\n                    }\r\n                });\r\n            }\r\n\r\n        },\r\n        getOrSetData(value) {\r\n            this.objRequestDetail.content = value;\r\n        },\r\n        sumTotal() {\r\n            this.objRequest.discountPrice = this.objRequest.price - (this.objRequest.discountPercent * (this.objRequest.price / 100))\r\n        },\r\n        pathImgs(path) {\r\n            return pathImg(path);\r\n        },\r\n        urlBases(path) {\r\n            return urlBase(path);\r\n        },\r\n        getUser() {\r\n            //debugger-\r\n            var data = JSON.parse(localStorage.getItem('currentUser'));\r\n            return JSON.parse(localStorage.getItem('currentUser'));\r\n        },\r\n        onGetSuppliers() {\r\n            this.getAllUserSupplier().then(response => {\r\n                // console.log(response);\r\n                this.userSuppliers = response.map(r => ({\r\n                    label: r.fullName,\r\n                    id: r.email\r\n                }))\r\n\r\n            })\r\n        },\r\n        onChangePaging() {\r\n            this.isLoading = true;\r\n            let initial = this.$route.query.initial;\r\n            initial = typeof initial != \"undefined\" ? initial.toLowerCase() : \"\";\r\n            this.getZones(1).then(respose => {\r\n\r\n                var data = respose.listData;\r\n                ////console.log(data)\r\n                this.ZoneOptions = unflatten(data);\r\n                ////console.log(this.ZoneOptions);\r\n                //var countries = respose.listData.filter(element => element.parentId == 3 || element.id == 3);\r\n                //////console.log(countries);\r\n                //this.countryOptions = unflatten(countries);\r\n            });\r\n            this.getZones(5).then(respose => {\r\n                var data = respose.listData;\r\n\r\n                this.DiemDenOptions = unflatten(data);\r\n            });\r\n            this.getZones(4).then(respose => {\r\n                var data = respose.listData;\r\n\r\n                this.TagOptions = unflatten(data);\r\n            });\r\n            this.getZones(6).then(response => {\r\n                var data = response.listData;\r\n                this.BookingNotesOptions = unflatten(data)\r\n            })\r\n            this.getZones(8).then(response => {\r\n                var data = response.listData;\r\n                this.CouponZoneOptions = unflatten(data)\r\n            })\r\n            this.getZones(3).then(response => { //Lay danh sach option san pham\r\n                var data = response.listData;\r\n                ////console.log(data)\r\n                this.OpOptions = unflatten(data);\r\n                ////console.log(this.OpOptions)\r\n            })\r\n            this.getZonesTreeviewById(0).then((r) => {\r\n                r.listData.forEach(v => {\r\n                    this.zoneTreeViewOptionById.push(v)\r\n                })\r\n                this.updateProductOptions();\r\n            })\r\n\r\n            this.isLoading = false;\r\n        },\r\n        slugM: function () {\r\n            //debugger-\r\n            if (this.objRequestDetail != null && this.objRequestDetail != undefined) {\r\n                //this.objRequestDetail.url = \"\";\r\n                this.objRequestDetail.url = slug(this.objRequestDetail.title);\r\n            }\r\n        },\r\n\r\n        defaultObj: function () {\r\n            this.objRequestDetail = Object.assign({}, this.objRequestDetail);\r\n            this.objRequestDetail.id = \"00000000-0000-0000-0000-000000000000\";\r\n            this.objRequestDetail.title = \"\";\r\n            this.objRequestDetail.url = \"\";\r\n            this.objRequestDetail.content = \"\";\r\n            this.objRequestDetail.description = \"\";\r\n            this.Tags = [];\r\n        },\r\n\r\n        onLoadLang() {\r\n            //debugger-\r\n            this.isLoading = true;\r\n            this.getLanguageById(this.objRequest.id).then(respose => {\r\n                if (respose.listData != null && respose.listData.length > 0) {\r\n                    //////console.log(respose);\r\n                    //debugger-\r\n                    this.objRequestDetails = respose.listData;\r\n                    if (this.objRequestDetails != null && this.objRequestDetails != undefined && this.objRequestDetails.length > 0) {\r\n                        let obj = this.objRequestDetails.filter(x => x.languageCode == 'vi-VN     ');\r\n                        if (obj != null && obj.length > 0) {\r\n                            console.log(this.objRequestDetails)\r\n                            this.objRequestDetail = obj[0];\r\n                            //\r\n                            if (obj[0].metaNoIndex != null) {\r\n                                let objNoIndex = JSON.parse(obj[0].metaNoIndex);\r\n                                this.statusNoindex = objNoIndex.Status;\r\n                            }\r\n                            if (obj[0].metaCanonical != null) {\r\n                                let objCanonical = JSON.parse(obj[0].metaCanonical);\r\n                                this.statusCanonical = objCanonical.Status;\r\n                                this.valueCanonical = objCanonical.Value;\r\n                            }\r\n                            ////console.log(obj[0])\r\n                            if (obj[0].lichTour != null)\r\n                                this.LichTrinhTour = JSON.parse(obj[0].lichTour);\r\n                            if (obj[0].thongTinTour != null)\r\n                                this.ThongTinTour = JSON.parse(obj[0].thongTinTour);\r\n                            if (obj[0].thuTucVisa != null)\r\n                                this.ThuTucVisa = JSON.parse(obj[0].thuTucVisa);\r\n                            //////console.log(this.LichTrinhTour, this.ThongTinTour, this.ThuTucVisa)\r\n                        } else {\r\n                            this.objRequestDetail = this.objRequestDetails[0];\r\n                            console.log(this.objRequestDetail)\r\n                            //\r\n                            if (this.objRequestDetails[0].metaNoIndex != null) {\r\n                                let objNoIndex = JSON.parse(this.objRequestDetails[0].metaNoIndex);\r\n                                this.statusNoindex = objNoIndex.Status;\r\n                            }\r\n                            if (this.objRequestDetails[0].metaCanonical != null) {\r\n                                let objCanonical = JSON.parse(this.objRequestDetails[0].metaCanonical);\r\n                                this.statusCanonical = objCanonical.Status;\r\n                                this.valueCanonical = objCanonical.Value;\r\n                            }\r\n                            ////console.log(this.objRequestDetails[0].lichTour)\r\n                            if (this.objRequestDetails[0].lichTour != null)\r\n                                this.LichTrinhTour = JSON.parse(this.objRequestDetails[0].lichTour);\r\n                            else\r\n                                this.tour_DoAddLichTour();\r\n                            if (this.objRequestDetails[0].thongTinTour != null)\r\n                                this.ThongTinTour = JSON.parse(this.objRequestDetails[0].thongTinTour);\r\n                            else\r\n                                this.tour_DoAddThongTinTour();\r\n                            if (this.objRequestDetails[0].thuTucVisa != null)\r\n                                this.ThuTucVisa = JSON.parse(this.objRequestDetails[0].thuTucVisa);\r\n                            else\r\n                                this.tour_DoAddThuTucVisa();\r\n                            //\r\n\r\n                        }\r\n\r\n                        this.Tags = this.convertTags(this.objRequestDetail.listTagName);\r\n                    } else {\r\n                        this.defaultObj();\r\n                        this.statusNoindex = false;\r\n                        this.statusCanonical = false;\r\n                        this.valueCanonical = \"\";\r\n                    }\r\n                }\r\n                this.langSelected = this.objRequestDetail.languageCode;\r\n            });\r\n            this.contentContent = this.objRequestDetail.content;\r\n\r\n            this.isLoading = false;\r\n        },\r\n        StartLoadLang() {\r\n            this.isLoadLang = true;\r\n        },\r\n        removeImg(index) {\r\n            this.ListImg.splice(index, 1);\r\n        },\r\n        DoAddEdit() {\r\n            this.isLoading = true;\r\n            //debugger\r\n            this.objRequest.metaFile = JSON.stringify(this.FileMeta);\r\n            this.objRequest.avatarArray = this.ListImg.join();\r\n            this.objRequest.propertyId = this.ListProperty.join();\r\n            this.objRequest.color = this.ListColors.join();\r\n            this.objRequest.modifyBy = this.objUser.userName;\r\n            this.objRequest.ParentId = this.ProductParent;\r\n            this.objRequest.articleId = this.ArticleValues.map(x => x.key).join();\r\n            this.objRequest.phuongTien = this.requestPhuongTien.join();\r\n\r\n            let lstzone = [];\r\n            var requestId = this.objRequest.id;\r\n            this.ZoneValues.forEach(function (item, index) {\r\n                var isPrimarykey = false;\r\n                if (index == 0) {\r\n                    isPrimarykey = true;\r\n                }\r\n                try {\r\n                    var obj = {};\r\n                    obj.ZoneId = item;\r\n                    obj.ProductId = requestId;\r\n                    obj.IsPrimary = isPrimarykey;\r\n                    /*obj.IsHot = 999;*/\r\n                    obj.BigThumb = \"\";\r\n                    lstzone.push(obj);\r\n                }\r\n                catch (ex) {\r\n                    ////console.log(ex);\r\n                }\r\n            });\r\n            this.DiemDenValues.forEach(function (item, index) {\r\n                var isPrimarykey = false;\r\n                if (index == 0) {\r\n                    isPrimarykey = true;\r\n                }\r\n                try {\r\n                    var obj = {};\r\n                    obj.ZoneId = item;\r\n                    obj.ProductId = requestId;\r\n                    obj.IsPrimary = isPrimarykey;\r\n                    //obj.IsHot = false;\r\n                    obj.BigThumb = \"\";\r\n                    lstzone.push(obj);\r\n                }\r\n                catch (ex) {\r\n                    ////console.log(ex);\r\n                }\r\n            });\r\n            this.TagValues.forEach(function (item, index) {\r\n                var isPrimarykey = false;\r\n                if (index == 0) {\r\n                    isPrimarykey = true;\r\n                }\r\n                try {\r\n                    var obj = {};\r\n                    obj.ZoneId = item;\r\n                    obj.ProductId = requestId;\r\n                    obj.IsPrimary = isPrimarykey;\r\n                    //obj.IsHot = false;\r\n                    obj.BigThumb = \"\";\r\n                    lstzone.push(obj);\r\n                }\r\n                catch (ex) {\r\n                    ////console.log(ex);\r\n                }\r\n            });\r\n            this.NoteValues.forEach(function (item, index) {\r\n                var isPrimarykey = false;\r\n                if (index == 0) {\r\n                    isPrimarykey = true;\r\n                }\r\n                try {\r\n                    var obj = {};\r\n                    obj.ZoneId = item;\r\n                    obj.ProductId = requestId;\r\n                    obj.IsPrimary = isPrimarykey;\r\n                    //obj.IsHot = false;\r\n                    obj.BigThumb = \"\";\r\n                    lstzone.push(obj);\r\n                }\r\n                catch (ex) {\r\n                    ////console.log(ex);\r\n                }\r\n            });\r\n            this.CouponZoneValues.forEach(function (item, index) {\r\n                var isPrimarykey = false;\r\n                if (index == 0) {\r\n                    isPrimarykey = true;\r\n                }\r\n                try {\r\n                    var obj = {};\r\n                    obj.ZoneId = item;\r\n                    obj.ProductId = requestId;\r\n                    obj.IsPrimary = isPrimarykey;\r\n                    //obj.IsHot = false;\r\n                    obj.BigThumb = \"\";\r\n                    lstzone.push(obj);\r\n                }\r\n                catch (ex) {\r\n                    ////console.log(ex);\r\n                }\r\n            });\r\n            this.optionValues.forEach(function (item, index) {\r\n                var isPrimarykey = false;\r\n                if (index == 0) {\r\n                    isPrimarykey = true;\r\n                }\r\n                try {\r\n                    var obj = {};\r\n                    obj.ZoneId = item;\r\n                    obj.ProductId = requestId;\r\n                    obj.IsPrimary = isPrimarykey;\r\n                    //obj.IsHot = false;\r\n                    obj.BigThumb = \"\";\r\n                    lstzone.push(obj);\r\n                }\r\n                catch (ex) {\r\n                    ////console.log(ex);\r\n                }\r\n            });\r\n            ////console.log(this.optionValues)\r\n            this.objRequest.ProductInZone = lstzone;\r\n            //this.objRequest.avatar = this.Img;\r\n            ////console.log(this.objRequestPhienBans);\r\n\r\n            var data = {\r\n                product: this.objRequest,\r\n                phienBans: JSON.parse(JSON.stringify(this.objRequestPhienBans)),\r\n                cancelPolicies: JSON.parse(JSON.stringify(this.objRequestCancelPolicy))\r\n            }\r\n            //console.log(data);\r\n            if (this.objRequest.id > 0) {\r\n                this.updateProduct(data)\r\n                    .then(response => {\r\n                        this.isLoading = false;\r\n                        if (response.success == true) {\r\n\r\n                            this.$toast.success(response.message, {});\r\n                            this.isLoading = false;\r\n                            // router.push({ path: `/admin/product/list` });\r\n                        }\r\n                        else {\r\n                            this.$toast.error(response.message, {});\r\n                            this.isLoading = false;\r\n\r\n                        }\r\n\r\n                    })\r\n                    .catch(e => {\r\n                        this.$toast.error(msgNotify.error + \". error:\" + e, {});\r\n                        this.isLoading = false;\r\n                    })\r\n            } else {\r\n                this.addProduct(data.product)\r\n                    .then(response => {\r\n                        //console.log(response)\r\n                        this.isLoading = false;\r\n                        if (response.success == true) {\r\n\r\n\r\n                            this.$toast.success(response.message, {});\r\n                            this.objRequest.id = response.id;\r\n                            this.objRequestDetail.productid = response.id;\r\n                            this.$router.push({\r\n                                path: \"/admin/product/edit/\" + response.id,\r\n                            });\r\n                            this.isLoading = false;\r\n                        }\r\n                        else {\r\n                            this.$toast.error(response.message, {});\r\n                            this.isLoading = false;\r\n                        }\r\n                    })\r\n                    .catch(e => {\r\n                        this.$toast.error(msgNotify.error + \". error:\" + e, {});\r\n                        this.isLoading = false;\r\n                    })\r\n            }\r\n        },\r\n        getSelectedUser(node, id) {\r\n            this.objRequest.ZoneId = node.id;\r\n        },\r\n        convertTags(value) {\r\n            if (value != null && value != undefined && value.length > 0) {\r\n                return value.map(x => {\r\n                    return { key: slug(x), value: x }\r\n                });\r\n            }\r\n            return value;\r\n        },\r\n        onChangeSelectd() {\r\n\r\n            if (this.objRequestDetails != null && this.objRequestDetails.length > 0) {\r\n\r\n                let lang = this.langSelected || \"vi-VN     \";\r\n                let lstObjLang = this.objRequestDetails.filter(function (item) {\r\n                    return item.languageCode.trim() === lang.trim()\r\n                });\r\n                if (lstObjLang != null && lstObjLang != undefined && lstObjLang.length > 0) {\r\n                    this.objRequestDetail = lstObjLang[0];\r\n                    //\r\n                    if (lstObjLang[0].metaNoIndex != null) {\r\n                        let objNoIndex = JSON.parse(lstObjLang[0].metaNoIndex);\r\n                        this.statusNoindex = objNoIndex.Status;\r\n                    }\r\n                    if (lstObjLang[0].metaCanonical != null) {\r\n                        let objCanonical = JSON.parse(lstObjLang[0].metaCanonical);\r\n                        this.statusCanonical = objCanonical.Status;\r\n                        this.valueCanonical = objCanonical.Value;\r\n                    }\r\n                    ////console.log(obj[0])\r\n                    if (lstObjLang[0].lichTour != null)\r\n                        this.LichTrinhTour = JSON.parse(lstObjLang[0].lichTour);\r\n                    if (lstObjLang[0].thongTinTour != null)\r\n                        this.ThongTinTour = JSON.parse(lstObjLang[0].thongTinTour);\r\n                    if (lstObjLang[0].thuTucVisa != null)\r\n                        this.ThuTucVisa = JSON.parse(lstObjLang[0].thuTucVisa);\r\n                    //\r\n                    this.Tags = this.convertTags(this.objRequestDetail.listTagName);\r\n                } else {\r\n                    this.defaultObj();\r\n                    this.statusNoindex = false;\r\n                    this.statusCanonical = false;\r\n                    this.valueCanonical = \"\";\r\n                }\r\n            }\r\n            this.objRequestDetail.languageCode = this.langSelected;\r\n\r\n        },\r\n\r\n        DoAddDetail() {\r\n            this.objRequestDetail.productId = this.objRequest.id;\r\n            //\r\n            let objMetaNoIndex = {\r\n                Value: \"\",\r\n                Status: this.statusNoindex\r\n            }\r\n            let objMetaCanonical = {\r\n                Value: this.valueCanonical,\r\n                Status: this.statusCanonical\r\n            }\r\n            this.objRequestDetail.metaNoIndex = JSON.stringify(objMetaNoIndex);\r\n            this.objRequestDetail.metaCanonical = JSON.stringify(objMetaCanonical)\r\n\r\n            this.objRequestDetail.lichTour = JSON.stringify(this.LichTrinhTour)\r\n            this.objRequestDetail.thongTinTour = JSON.stringify(this.ThongTinTour)\r\n            this.objRequestDetail.thuTucVisa = JSON.stringify(this.ThuTucVisa)\r\n            //\r\n\r\n            ////console.log(this.LichTrinhTour)\r\n            ////console.log(this.ThongTinTour)\r\n            ////console.log(this.ThuTucVisa)\r\n            this.objRequestDetail.listTagName = this.Tags.map(x => {\r\n                return x.value\r\n            });\r\n\r\n            this.addProductInLanguage(this.objRequestDetail)\r\n                .then(response => {\r\n                    if (response.success == true) {\r\n                        if (response.data != null && response.data != undefined) {\r\n                            this.objRequestDetail.id = response.data.Id;\r\n                            if (!this.objRequestDetails.some(x => x.languageCode == this.objRequestDetail.languageCode)) {\r\n                                this.objRequestDetails.push(this.objRequestDetail);\r\n                            }\r\n                        }\r\n                        this.$toast.success(response.message, {});\r\n                        this.$router.push({ path: `/admin/product/list` });\r\n                    }\r\n                    else {\r\n                        this.$toast.error(response.message, {});\r\n                    }\r\n                })\r\n                .catch(e => {\r\n                    this.$toast.error(msgNotify.error + \". Error:\" + e, {});\r\n                    this.isLoading = false;\r\n                });\r\n        },\r\n        DoAttackFile(value) {\r\n            let vm = this;\r\n            if (this.choseImg == \"ListImg\") {\r\n                value.map(x => {\r\n                    vm.ListImg.push(x.path)\r\n                });\r\n            } else if (this.choseImg == \"Img\") {\r\n                vm.objRequest.avatar = value[0].path;\r\n            }\r\n            else if (this.choseImg == \"ImgS\") {\r\n                vm.objRequestDetail.socialImage = value[0].path;\r\n            }\r\n            else if (this.choseImg == \"fileVideo\") {\r\n                vm.FileMeta.FileVideo = value[0].path;\r\n            }\r\n            else if (this.choseImg == \"file360\") {\r\n                vm.FileMeta.File360 = value[0].path;\r\n            }\r\n            else if (this.choseImg == \"filedowload\") {\r\n                vm.FileMeta.FileDowload = value[0].path;\r\n            }\r\n        },\r\n        openImg(img) {\r\n            this.choseImg = img;\r\n            if (img == \"ListImg\") {\r\n                //EventBus.$emit(\"FileSelected\", );\r\n                EventBus.$emit(this.mikey1, 'multi'); // '': select one, 'multi': select multi file\r\n            } else {\r\n                //EventBus.$emit(\"FileSelected\", this.Img);\r\n                EventBus.$emit(this.mikey1, ''); // '': select one, 'multi': select multi file\r\n            }\r\n        },\r\n        LoadListOld(productid) {\r\n            this.getProductOldRenewal(productid).then(respose => {\r\n\r\n                this.ListOldRenewal = respose.data;\r\n\r\n            });\r\n        },\r\n        DoAddRenewal() {\r\n\r\n            if (!this.objRequestOldRenewal.descriptionType || !this.objRequestOldRenewal.priceRefer)\r\n                return this.$toast.error(\"Không bỏ trống tình trạng hoặc giá\", {});\r\n            this.objRequestOldRenewal.teamid = this.ListOldRenewal.length + 1;\r\n            this.ListOldRenewal.push(this.objRequestOldRenewal);\r\n            this.objRequestOldRenewal = {};\r\n        },\r\n        AddNewPhienBan() {\r\n            //debugger\r\n            //if (!this.objRequestOldRenewal.descriptionType || !this.objRequestOldRenewal.priceRefer)\r\n            //    return this.$toast.error(\"Không bỏ trống tình trạng hoặc giá\", {});\r\n            //this.objRequestOldRenewal.teamid = this.ListOldRenewal.length + 1;\r\n            //this.ListOldRenewal.push(this.objRequestOldRenewal);\r\n            //this.objRequestOldRenewal = {};\r\n            this.objRequestPhienBans.push({\r\n                priceEachNguoiLon: 0,\r\n                priceEachTreEm: 0,\r\n                netEachNguoiLon: 0,\r\n                netEachTreEm: 0,\r\n                priceEachNguoiGia: 0,\r\n                netEachNguoiGia: 0,\r\n                selectedOptions: [],\r\n            });\r\n\r\n        },\r\n        AddNewTopUp() {\r\n            this.objRequestTopUp.push({\r\n                id: 0,\r\n                parentId: 0,\r\n                title: \"\",\r\n                validaty: \"\",\r\n                price: 0,\r\n                smsNumber: 0,\r\n                phoneMinute: 0,\r\n                simType: \"\",\r\n                gradientColor: \"\",\r\n                coverage: \"\",\r\n                dataLimit: \"\",\r\n\r\n            })\r\n        },\r\n\r\n        DoDelTopUp(i) {\r\n            this.objRequestTopUp.splice(i, 1);\r\n        },\r\n\r\n        DoDelPhienBan(i) {\r\n            this.objRequestPhienBans.splice(i, 1);\r\n        },\r\n\r\n\r\n        DoEditRenewal() {\r\n            this.objRequestOldRenewal = this.RdoOldRenewal;\r\n            if (this.RdoOldRenewal.id) {\r\n                this.ListOldRenewal = this.ListOldRenewal.filter(x => x.id != this.RdoOldRenewal.id)\r\n            }\r\n            else {\r\n                this.ListOldRenewal = this.ListOldRenewal.filter(x => x.teamid != this.RdoOldRenewal.teamid)\r\n            }\r\n        },\r\n        DoDelRenewal() {\r\n            let item = this.ListOldRenewal.filter(x => x.teamid == this.RdoOldRenewal.teamid)\r\n            if (item) {\r\n                if (this.RdoOldRenewal.id) {\r\n                    this.deleteOldRenewal(this.RdoOldRenewal.id)\r\n                        .then(response => {\r\n                            if (response.success) {\r\n                                this.$toast.success(response.message, {});\r\n                                this.ListOldRenewal = this.ListOldRenewal.filter(x => x.id != this.RdoOldRenewal.id)\r\n                            }\r\n                            else {\r\n                                this.$toast.error(response.message, {});\r\n                            }\r\n\r\n                        })\r\n                }\r\n                else {\r\n                    this.ListOldRenewal = this.ListOldRenewal.filter(x => x.teamid != this.RdoOldRenewal.teamid)\r\n                }\r\n            }\r\n        }\r\n    },\r\n    watch: {\r\n        isLoadLang: function (val) {\r\n            this.onLoadLang();\r\n        },\r\n        filterGiaPhienBanTheoNgay: {\r\n            handler(newVal, oldVal) {\r\n                this.filterGiaPhienBanTheoNgay = newVal;\r\n                this.on_filterGiaPhienBanTheoNgay();\r\n            },\r\n            deep: true\r\n        }\r\n        //ArticleValues: function (val) {\r\n        //    this.\r\n        //},\r\n\r\n    },\r\n};\r\n</script>\r\n<style>\r\n/* The input */\r\n.tags-input {\r\n    display: flex;\r\n    flex-wrap: wrap;\r\n    align-items: center;\r\n}\r\n\r\n.tags-input input {\r\n    flex: 1;\r\n    background: transparent;\r\n    border: none;\r\n}\r\n\r\n.tags-input input:focus {\r\n    outline: none;\r\n}\r\n\r\n.tags-input input[type=\"text\"] {\r\n    color: #495057;\r\n}\r\n\r\n.tags-input-wrapper-default {\r\n    padding: .5em .25em;\r\n    background: #fff;\r\n    border: 1px solid transparent;\r\n    border-radius: .25em;\r\n    border-color: #dbdbdb;\r\n}\r\n\r\n.tags-input-wrapper-default.active {\r\n    border: 1px solid #8bbafe;\r\n    box-shadow: 0 0 0 0.2em rgba(13, 110, 253, 0.25);\r\n    outline: 0 none;\r\n}\r\n\r\n/* The tag badges & the remove icon */\r\n.tags-input span {\r\n    margin-right: 0.3em;\r\n}\r\n\r\n.tags-input-remove {\r\n    cursor: pointer;\r\n    position: absolute;\r\n    display: inline-block;\r\n    right: 0.3em;\r\n    top: 0.3em;\r\n    padding: 0.5em;\r\n    overflow: hidden;\r\n}\r\n\r\n.tags-input-remove:focus {\r\n    outline: none;\r\n}\r\n\r\n.tags-input-remove:before,\r\n.tags-input-remove:after {\r\n    content: '';\r\n    position: absolute;\r\n    width: 75%;\r\n    left: 0.15em;\r\n    background: #5dc282;\r\n    height: 2px;\r\n    margin-top: -1px;\r\n}\r\n\r\n.tags-input-remove:before {\r\n    transform: rotate(45deg);\r\n}\r\n\r\n.tags-input-remove:after {\r\n    transform: rotate(-45deg);\r\n}\r\n\r\n/* Tag badge styles */\r\n.tags-input-badge {\r\n    position: relative;\r\n    display: inline-block;\r\n    padding: 0.25em 0.4em;\r\n    font-size: 75%;\r\n    font-weight: 700;\r\n    line-height: 1;\r\n    text-align: center;\r\n    white-space: nowrap;\r\n    vertical-align: baseline;\r\n    border-radius: 0.25em;\r\n    overflow: hidden;\r\n    text-overflow: ellipsis;\r\n}\r\n\r\n.tags-input-badge-pill {\r\n    padding-right: 1.25em;\r\n    padding-left: 0.6em;\r\n    border-radius: 10em;\r\n}\r\n\r\n.tags-input-badge-selected-default {\r\n    color: #212529;\r\n    background-color: #f0f1f2;\r\n}\r\n\r\n/* Typeahead */\r\n.typeahead-hide-btn {\r\n    color: #999 !important;\r\n    font-style: italic;\r\n}\r\n\r\n/* Typeahead - badges */\r\n.typeahead-badges>span {\r\n    cursor: pointer;\r\n    margin-right: 0.3em;\r\n}\r\n\r\n/* Typeahead - dropdown */\r\n.typeahead-dropdown {\r\n    list-style-type: none;\r\n    padding: 0;\r\n    margin: 0;\r\n    position: absolute;\r\n    width: 100%;\r\n    z-index: 1000;\r\n}\r\n\r\n.typeahead-dropdown li {\r\n    padding: .25em 1em;\r\n    cursor: pointer;\r\n}\r\n\r\n/* Typeahead elements style/theme */\r\n.tags-input-typeahead-item-default {\r\n    color: #fff;\r\n    background-color: #343a40;\r\n}\r\n\r\n.tags-input-typeahead-item-highlighted-default {\r\n    color: #fff;\r\n    background-color: #007bff;\r\n}\r\n\r\n.modal-body {\r\n    max-height: 500px;\r\n    /* Set the desired height */\r\n    overflow-y: auto;\r\n    /* Enable vertical scrolling */\r\n}\r\n</style>\r\n"],"sourceRoot":""}]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\r\n/* The input */\n.tags-input {\r\n    display: flex;\r\n    flex-wrap: wrap;\r\n    align-items: center;\n}\n.tags-input input {\r\n    flex: 1;\r\n    background: transparent;\r\n    border: none;\n}\n.tags-input input:focus {\r\n    outline: none;\n}\n.tags-input input[type=\"text\"] {\r\n    color: #495057;\n}\n.tags-input-wrapper-default {\r\n    padding: .5em .25em;\r\n    background: #fff;\r\n    border: 1px solid transparent;\r\n    border-radius: .25em;\r\n    border-color: #dbdbdb;\n}\n.tags-input-wrapper-default.active {\r\n    border: 1px solid #8bbafe;\r\n    box-shadow: 0 0 0 0.2em rgba(13, 110, 253, 0.25);\r\n    outline: 0 none;\n}\r\n\r\n/* The tag badges & the remove icon */\n.tags-input span {\r\n    margin-right: 0.3em;\n}\n.tags-input-remove {\r\n    cursor: pointer;\r\n    position: absolute;\r\n    display: inline-block;\r\n    right: 0.3em;\r\n    top: 0.3em;\r\n    padding: 0.5em;\r\n    overflow: hidden;\n}\n.tags-input-remove:focus {\r\n    outline: none;\n}\n.tags-input-remove:before,\r\n.tags-input-remove:after {\r\n    content: '';\r\n    position: absolute;\r\n    width: 75%;\r\n    left: 0.15em;\r\n    background: #5dc282;\r\n    height: 2px;\r\n    margin-top: -1px;\n}\n.tags-input-remove:before {\r\n    transform: rotate(45deg);\n}\n.tags-input-remove:after {\r\n    transform: rotate(-45deg);\n}\r\n\r\n/* Tag badge styles */\n.tags-input-badge {\r\n    position: relative;\r\n    display: inline-block;\r\n    padding: 0.25em 0.4em;\r\n    font-size: 75%;\r\n    font-weight: 700;\r\n    line-height: 1;\r\n    text-align: center;\r\n    white-space: nowrap;\r\n    vertical-align: baseline;\r\n    border-radius: 0.25em;\r\n    overflow: hidden;\r\n    text-overflow: ellipsis;\n}\n.tags-input-badge-pill {\r\n    padding-right: 1.25em;\r\n    padding-left: 0.6em;\r\n    border-radius: 10em;\n}\n.tags-input-badge-selected-default {\r\n    color: #212529;\r\n    background-color: #f0f1f2;\n}\r\n\r\n/* Typeahead */\n.typeahead-hide-btn {\r\n    color: #999 !important;\r\n    font-style: italic;\n}\r\n\r\n/* Typeahead - badges */\n.typeahead-badges>span {\r\n    cursor: pointer;\r\n    margin-right: 0.3em;\n}\r\n\r\n/* Typeahead - dropdown */\n.typeahead-dropdown {\r\n    list-style-type: none;\r\n    padding: 0;\r\n    margin: 0;\r\n    position: absolute;\r\n    width: 100%;\r\n    z-index: 1000;\n}\n.typeahead-dropdown li {\r\n    padding: .25em 1em;\r\n    cursor: pointer;\n}\r\n\r\n/* Typeahead elements style/theme */\n.tags-input-typeahead-item-default {\r\n    color: #fff;\r\n    background-color: #343a40;\n}\n.tags-input-typeahead-item-highlighted-default {\r\n    color: #fff;\r\n    background-color: #007bff;\n}\n.modal-body {\r\n    max-height: 500px;\r\n    /* Set the desired height */\r\n    overflow-y: auto;\r\n    /* Enable vertical scrolling */\n}\r\n", "", {"version":3,"sources":["D:/Code/WORKING/dotnet-platform-backend/Web/Platform/CMS/PlatformCMS/ClientApp/pages/product/edit.vue?30525000"],"names":[],"mappings":";;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;AA6gFA,eAAA;AACA;IACA,cAAA;IACA,gBAAA;IACA,oBAAA;CACA;AAEA;IACA,QAAA;IACA,wBAAA;IACA,aAAA;CACA;AAEA;IACA,cAAA;CACA;AAEA;IACA,eAAA;CACA;AAEA;IACA,oBAAA;IACA,iBAAA;IACA,8BAAA;IACA,qBAAA;IACA,sBAAA;CACA;AAEA;IACA,0BAAA;IACA,iDAAA;IACA,gBAAA;CACA;;AAEA,sCAAA;AACA;IACA,oBAAA;CACA;AAEA;IACA,gBAAA;IACA,mBAAA;IACA,sBAAA;IACA,aAAA;IACA,WAAA;IACA,eAAA;IACA,iBAAA;CACA;AAEA;IACA,cAAA;CACA;AAEA;;IAEA,YAAA;IACA,mBAAA;IACA,WAAA;IACA,aAAA;IACA,oBAAA;IACA,YAAA;IACA,iBAAA;CACA;AAEA;IACA,yBAAA;CACA;AAEA;IACA,0BAAA;CACA;;AAEA,sBAAA;AACA;IACA,mBAAA;IACA,sBAAA;IACA,sBAAA;IACA,eAAA;IACA,iBAAA;IACA,eAAA;IACA,mBAAA;IACA,oBAAA;IACA,yBAAA;IACA,sBAAA;IACA,iBAAA;IACA,wBAAA;CACA;AAEA;IACA,sBAAA;IACA,oBAAA;IACA,oBAAA;CACA;AAEA;IACA,eAAA;IACA,0BAAA;CACA;;AAEA,eAAA;AACA;IACA,uBAAA;IACA,mBAAA;CACA;;AAEA,wBAAA;AACA;IACA,gBAAA;IACA,oBAAA;CACA;;AAEA,0BAAA;AACA;IACA,sBAAA;IACA,WAAA;IACA,UAAA;IACA,mBAAA;IACA,YAAA;IACA,cAAA;CACA;AAEA;IACA,mBAAA;IACA,gBAAA;CACA;;AAEA,oCAAA;AACA;IACA,YAAA;IACA,0BAAA;CACA;AAEA;IACA,YAAA;IACA,0BAAA;CACA;AAEA;IACA,kBAAA;IACA,4BAAA;IACA,iBAAA;IACA,+BAAA;CACA","file":"edit.vue","sourcesContent":["<template>\r\n    <div class=\"productadd\">\r\n        <loading :active.sync=\"isLoading\" :height=\"35\" :width=\"35\" :color=\"color\" :is-full-page=\"fullPage\"></loading>\r\n        <b-tabs class=\"col-md-12\" pills>\r\n            <b-tab title=\"1. Thông tin chung\" active>\r\n                <div class=\"row productedit\">\r\n                    <div class=\"col-md-12\">\r\n                        <div class=\"card\">\r\n                            <div class=\"card-header\">\r\n                                Đăng bài\r\n                            </div>\r\n                            <div class=\"card-body\">\r\n                                <div class=\"row\">\r\n                                    <div class=\"col-md-6\">\r\n                                        <button class=\"btn btn-info btn-submit-form col-md-12 btncus\" type=\"submit\"\r\n                                            @click=\"DoAddEdit()\">\r\n                                            <i class=\"fa fa-save\"></i> Cập nhật\r\n                                        </button>\r\n                                    </div>\r\n                                    <div class=\"col-md-6\">\r\n                                        <button class=\"btn btn-success col-md-12 btncus\" type=\"button\"\r\n                                            @click=\"DoRefesh()\">\r\n                                            <i class=\"fa fa-refresh\"></i> Làm mới\r\n                                        </button>\r\n                                    </div>\r\n                                </div>\r\n                            </div>\r\n                        </div>\r\n                    </div>\r\n                    <div class=\"col-sm-6 col-md-12\">\r\n\r\n                        <div class=\"card\" hidden>\r\n                            <div class=\"card-header\">\r\n                                Phân loại sản phẩm\r\n                            </div>\r\n                            <div class=\"card-body\">\r\n                                <b-form-group label=\"Mô tả thời gian\">\r\n                                    <!--<Datepicker v-model=\"demoDate\" />-->\r\n                                    <b-form-input v-model=\"objRequest.ngayDem\" type=\"text\"\r\n                                        placeholder=\"số ngày và số đêm\" required></b-form-input>\r\n                                </b-form-group>\r\n                                <b-form-group label=\"Ngày bắt đầu\">\r\n                                    <!--<Datepicker v-model=\"demoDate\" />-->\r\n                                    <b-form-input v-model=\"objRequest.ngayBatDau\" type=\"date\" placeholder=\"\"\r\n                                        required></b-form-input>\r\n                                </b-form-group>\r\n                                <b-form-group label=\"Ngày kết thúc\">\r\n                                    <!--<Datepicker v-model=\"demoDate\" />-->\r\n                                    <b-form-input v-model=\"objRequest.ngayKetThuc\" type=\"date\" placeholder=\"\"\r\n                                        required></b-form-input>\r\n                                </b-form-group>\r\n                                <b-form-group label=\"Phương tiện\">\r\n                                    <treeselect :multiple=\"true\" :flat=\"false\" :options=\"ListPhuongTien\"\r\n                                        placeholder=\"Chọn phương tiện\" v-model=\"requestPhuongTien\" />\r\n                                </b-form-group>\r\n                                <b-form-group label=\"Nhà cung cấp\">\r\n                                    <v-select v-model=\"objRequest.manufacturerId\" :options=\"ManufacturerIds\"\r\n                                        :reduce=\"x => x.id\" label=\"name\" placeholder=\"Chọn nhà cung cấp\"></v-select>\r\n                                </b-form-group>\r\n                                <b-form-group label=\"Đơn vị\">\r\n                                    <b-form-input v-model=\"objRequest.unit\" placeholder=\"Đơn vị\"\r\n                                        required></b-form-input>\r\n                                </b-form-group>\r\n                                <b-form-group label=\"Số lượng\">\r\n                                    <b-form-input v-model=\"objRequest.quantity\" placeholder=\"Số lượng\" required\r\n                                        type=\"number\"></b-form-input>\r\n                                </b-form-group>\r\n                                <b-form-group label=\"Mã Voucher\">\r\n                                    <b-form-input v-model=\"objRequest.voucher\" placeholder=\"Mã Voucher\"\r\n                                        required></b-form-input>\r\n                                </b-form-group>\r\n                                <b-form-group label=\"Ngày hết hạn khuyến mại\">\r\n                                    <b-form-input type=\"date\" v-model=\"objRequest.exprirePromotion\"\r\n                                        placeholder=\"Ngày hết hạn khuyến mại\"></b-form-input>\r\n                                </b-form-group>\r\n                                <b-form-group>\r\n                                    <b-form-checkbox v-model=\"objRequest.isInstallment\"> Trả góp</b-form-checkbox>\r\n                                </b-form-group>\r\n                                <b-form-group>\r\n                                    <b-form-checkbox v-model=\"objRequest.vat\"> Có VAT</b-form-checkbox>\r\n                                </b-form-group>\r\n                                <b-form-group>\r\n                                    <label class=\"typo__label\">Chọn thuộc tính</label>\r\n                                    <treeselect :multiple=\"true\" :flat=\"true\" :options=\"Properties\"\r\n                                        placeholder=\"Xin mời bạn lựa chọn thuộc tính\" v-model=\"ListProperty\" />\r\n                                </b-form-group>\r\n                                <b-form-group label=\"Chính sách bảo hành\">\r\n                                    <select v-model=\"objRequest.guarantee\" class=\"form-control\">\r\n                                        <option value=\"\">Chọn chính sách</option>\r\n                                        <option :value=\"item.key\" v-for=\"item in ListGuarantee\">\r\n                                            {{ item.value }}\r\n                                        </option>\r\n                                    </select>\r\n                                </b-form-group>\r\n                                <b-form-group label=\"Loại linh kiện\">\r\n                                    <select v-model=\"objRequest.productCpnId\" class=\"form-control\">\r\n                                        <option value=\"0\">Chọn</option>\r\n                                        <option :value=\"item.id\" v-for=\"item in ListProductComponent\">\r\n                                            {{ item.name }}\r\n                                        </option>\r\n                                    </select>\r\n                                </b-form-group>\r\n                            </div>\r\n\r\n\r\n                        </div>\r\n\r\n                    </div>\r\n                    <div class=\"col-sm-6 col-md-12\">\r\n                        <div class=\"card\">\r\n                            <div class=\"card-header\">\r\n                                Thông tin chính\r\n                            </div>\r\n                            <div class=\"card-body\">\r\n                                <b-form class=\"form-horizontal\">\r\n                                    <b-form-group label=\"Tiêu đề\">\r\n                                        <b-form-input v-model=\"objRequest.name\" placeholder=\"Tên sản phẩm\"\r\n                                            required></b-form-input>\r\n                                    </b-form-group>\r\n                                    <b-form-group label=\"Chọn danh mục\">\r\n                                        <treeselect :multiple=\"true\" :flat=\"true\" :options=\"ZoneOptions\"\r\n                                            placeholder=\"Xin mời bạn lựa chọn danh mục\" v-model=\"ZoneValues\"\r\n                                            :default-expanded-level=\"Infinity\" />\r\n                                    </b-form-group>\r\n                                    <b-form-group label=\"Chọn điểm đến\">\r\n                                        <treeselect :multiple=\"true\" :flat=\"true\" :options=\"DiemDenOptions\"\r\n                                            placeholder=\"Xin mời bạn lựa chọn điểm đến\" v-model=\"DiemDenValues\"\r\n                                            :default-expanded-level=\"Infinity\" />\r\n                                    </b-form-group>\r\n                                    <b-form-group label=\"Chọn Tag\">\r\n                                        <treeselect :multiple=\"true\" :flat=\"true\" :options=\"TagOptions\"\r\n                                            placeholder=\"Xin mời bạn lựa chọn tag\" v-model=\"TagValues\"\r\n                                            :default-expanded-level=\"Infinity\" />\r\n                                    </b-form-group>\r\n                                    <b-form-group label=\"Note khi đặt hàng\">\r\n                                        <treeselect :multiple=\"true\" :flat=\"true\" :options=\"BookingNotesOptions\"\r\n                                            placeholder=\"Xin mời bạn lựa chọn tag\" v-model=\"NoteValues\"\r\n                                            :default-expanded-level=\"Infinity\" />\r\n                                    </b-form-group>\r\n                                    <b-form-group label=\"Giảm giá sản phẩm\">\r\n                                        <treeselect :multiple=\"true\" :flat=\"true\" :options=\"CouponZoneOptions\"\r\n                                            placeholder=\"Xin mời bạn lựa chọn tag\" v-model=\"CouponZoneValues\"\r\n                                            :default-expanded-level=\"Infinity\" />\r\n                                    </b-form-group>\r\n                                    <b-form-group label=\"Chọn các option sản phẩm\" v-if=\"objRequest.id > 0\">\r\n                                        <treeselect :multiple=\"true\" :flat=\"true\" :options=\"OpOptions\"\r\n                                            placeholder=\"Xin mời bạn lựa chọn các option sản phẩm\"\r\n                                            v-model=\"optionValues\" :default-expanded-level=\"Infinity\"\r\n                                            @input=\"updateProductOptions()\" />\r\n                                    </b-form-group>\r\n                                    <b-form-group label=\"Tọa độ trên Google Map\">\r\n                                        <b-form-input v-model=\"objRequest.googleMapCrood\" placeholder=\"(lat - long)\"\r\n                                            required></b-form-input>\r\n                                    </b-form-group>\r\n                                    <b-form-group label=\"Thời gian confirm booking\">\r\n                                        <b-form-input v-model=\"objRequest.confirmOption\"\r\n                                            @input=\"onChangePackageConfirmOption()\"\r\n                                            placeholder=\"Điền thời gian confirm theo giờ.'AUTO' hoặc để trống sẽ là AUTO CONFIRM\"></b-form-input>\r\n                                    </b-form-group>\r\n\r\n                                    <b-form-group label=\"Danh sách ảnh\">\r\n                                        <div class=\"notice-upload-image\">\r\n                                            <p>\r\n                                                <b style=\"font-size: 14px;\">Đăng nhiều ảnh để công cụ tìm kiếm dễ thấy\r\n                                                    bạn hơn!</b><br><i\r\n                                                    style=\"font-size: 11px; padding-top: 5px; color: #666;\">\r\n                                                    Kéo ảnh lên vị trí đầu tiên để chọn làm\r\n                                                    Thumbnail.\r\n                                                </i>\r\n                                            </p>\r\n                                        </div>\r\n                                        <div class=\"row gallery-upload-file ui-sortable\">\r\n\r\n                                            <draggable v-model=\"ListImg\" class=\"row col-md-10\">\r\n                                                <div style=\"padding:0\"\r\n                                                    class=\"col-md-2 col-xs-4 r-queue-item added ui-sortable-handle\"\r\n                                                    v-for=\"(itemimg, index) in ListImg\" :key=\"index\">\r\n                                                    <div class=\"item\"><img style=\"width:100%;height:100px\" alt=\"Ảnh lỗi\"\r\n                                                            :src=\"pathImgs(itemimg)\"></div><i @click=\"removeImg(index)\"\r\n                                                        class=\"fa fa-times\"></i>\r\n                                                </div>\r\n                                            </draggable>\r\n\r\n\r\n\r\n\r\n                                            <div class=\"col-md-2 col-xs-4 _library ui-sortable-handle\">\r\n                                                <i class=\"fa fa-folder-open\" @click=\"openImg('ListImg')\"></i>\r\n                                                <p>[Thư viện ảnh]</p>\r\n                                            </div>\r\n                                        </div>\r\n\r\n                                    </b-form-group>\r\n                                    <b-form-group hidden>\r\n                                        <b-form-checkbox v-model=\"IsChoseFileDowload\" style=\"padding-bottom:7px\">\r\n                                            File Dowload\r\n                                        </b-form-checkbox>\r\n\r\n                                        <b-form-input v-if=\"!IsChoseFileDowload\" v-model=\"FileMeta.FileDowload\"\r\n                                            placeholder=\"File dowload\" required></b-form-input>\r\n                                        <template v-if=\"IsChoseFileDowload\">\r\n                                            <button @click=\"openImg('filedowload')\" type=\"button\"\r\n                                                class=\"btn btn-success\">Chọn file</button>\r\n                                            <a v-if=\"FileMeta.FileDowload != null && FileMeta.FileDowload.length > 0\"\r\n                                                target=\"_blank\" href=\"FileMeta.FileDowload\"><i class=\"fa fa-file-o\"></i>\r\n                                                {{ FileMeta.FileDowload }}</a>\r\n                                        </template>\r\n                                    </b-form-group>\r\n                                    <b-form-group hidden>\r\n                                        <b-form-checkbox v-model=\"IsChoseImg360\" style=\"padding-bottom:7px\">\r\n                                            Hình 360\r\n                                        </b-form-checkbox>\r\n                                        <b-form-input v-if=\"!IsChoseImg360\" v-model=\"FileMeta.File360\"\r\n                                            placeholder=\"Hình ảnh 360\" required></b-form-input>\r\n                                        <template v-if=\"IsChoseImg360\">\r\n                                            <button @click=\"openImg('file360')\" type=\"button\"\r\n                                                class=\"btn btn-success\">Chọn file</button>\r\n                                            <a v-if=\"FileMeta.File360 != null && FileMeta.File360.length > 0\"\r\n                                                target=\"_blank\" href=\"FileMeta.File360\"><i class=\"fa fa-file-o\"></i>\r\n                                                {{ FileMeta.File360 }}</a>\r\n                                        </template>\r\n                                    </b-form-group>\r\n                                    <b-form-group hidden>\r\n                                        <b-form-checkbox v-model=\"IsChoseVideo\" style=\"padding-bottom:7px\">\r\n                                            File Video\r\n                                        </b-form-checkbox>\r\n                                        <b-form-input v-if=\"!IsChoseVideo\" v-model=\"FileMeta.FileVideo\"\r\n                                            placeholder=\"File Video\" required></b-form-input>\r\n                                        <template v-if=\"IsChoseVideo\">\r\n                                            <button @click=\"openImg('fileVideo')\" type=\"button\"\r\n                                                class=\"btn btn-success\">Chọn file</button>\r\n                                            <a v-if=\"FileMeta.FileVideo != null && FileMeta.FileVideo.length > 0\"\r\n                                                target=\"_blank\" href=\"FileMeta.FileVideo\"><i class=\"fa fa-file-o\"></i>\r\n                                                {{ FileMeta.FileVideo }}</a>\r\n                                        </template>\r\n                                    </b-form-group>\r\n                                </b-form>\r\n                            </div>\r\n                        </div>\r\n                        <div class=\"card\">\r\n                            <div class=\"card-header\">\r\n                                <b-row>\r\n                                    <b-col md=\"10\">\r\n                                        Ảnh\r\n                                    </b-col>\r\n                                </b-row>\r\n                            </div>\r\n                            <div class=\"card-body\">\r\n                                <b-form-group label=\"Ảnh đại diện\">\r\n                                    <b-form-group>\r\n                                        <a @click=\"openImg('Img')\">\r\n                                            <div style=\"width:150px;display:flex\"\r\n                                                class=\" gallery-upload-file ui-sortable\">\r\n                                                <div style=\"padding:0\"\r\n                                                    class=\"col-md-12 col-xs-12  r-queue-item ui-sortable-handle\">\r\n                                                    <div\r\n                                                        v-if=\"objRequest.avatar != null && objRequest.avatar != undefined && objRequest.avatar.length > 0\">\r\n                                                        <img alt=\"Ảnh lỗi\" style=\"height:150px;width:150px\"\r\n                                                            :src=\"pathImgs(objRequest.avatar)\"\r\n                                                            class=\"preview-image img-thumbnail\">\r\n                                                    </div>\r\n                                                    <div v-else>\r\n                                                        <i class=\"fa fa-picture-o\"></i>\r\n                                                        <p>[Chọn ảnh]</p>\r\n                                                    </div>\r\n                                                </div>\r\n                                            </div>\r\n                                        </a>\r\n                                    </b-form-group>\r\n                                </b-form-group>\r\n                            </div>\r\n                        </div>\r\n\r\n                        <div class=\"card\">\r\n                            <div class=\"card-header\">\r\n                                More Info\r\n                            </div>\r\n                            <div class=\"card-body\">\r\n\r\n                                <b-form-group label=\"Sản Phẩm cha\">\r\n                                    <treeselect :multiple=\"false\" :flat=\"false\" :options=\"ListProductParent\"\r\n                                        placeholder=\"Xin mời bạn lựa chọn SP cha\" v-model=\"ProductParent\" />\r\n                                </b-form-group>\r\n                            </div>\r\n                        </div>\r\n                        <div class=\"card\">\r\n                            <div class=\"card-header\">\r\n                                Giá sản phẩm\r\n                            </div>\r\n                            <div class=\"card-body\">\r\n                                <b-row>\r\n                                    <b-form-group style=\"display:none\" label=\"Màu sắc\">\r\n                                        <treeselect :multiple=\"true\" :flat=\"true\" :options=\"Colors\"\r\n                                            placeholder=\"Xin mời bạn lựa chọn thuộc tính\" v-model=\"ListColors\" />\r\n                                    </b-form-group>\r\n                                </b-row>\r\n                                <b-row>\r\n                                    <b-col>\r\n                                        <b-form-group label=\"Giá sản phẩm\">\r\n                                            <b-form-input @change=\"sumTotal\" :min=\"0\" v-model=\"objRequest.price\"\r\n                                                type=\"number\" placeholder=\"Giá sản phẩm\" required></b-form-input>\r\n                                        </b-form-group>\r\n                                    </b-col>\r\n                                    <b-col>\r\n                                        <b-form-group label=\"Phần trăm\">\r\n                                            <b-form-input @change=\"sumTotal\" :min=\"0\" :max=\"100\"\r\n                                                v-model=\"objRequest.discountPercent\" type=\"number\"\r\n                                                placeholder=\"Phần trăm\" required></b-form-input>\r\n                                        </b-form-group>\r\n                                    </b-col>\r\n                                    <b-col>\r\n                                        <b-form-group label=\"Giảm giá\">\r\n                                            <b-form-input v-model=\"objRequest.discountPrice\" :min=\"0\" type=\"number\"\r\n                                                placeholder=\"Giảm giá\" required></b-form-input>\r\n                                        </b-form-group>\r\n                                    </b-col>\r\n\r\n                                </b-row>\r\n                                <b-row>\r\n                                    <b-col>\r\n                                        <b-form-group label=\"Giá người lớn\">\r\n                                            <b-form-input :min=\"0\" v-model=\"objRequest.giaNguoiLon\" type=\"number\"\r\n                                                placeholder=\"Giá người lớn\" required></b-form-input>\r\n                                        </b-form-group>\r\n                                    </b-col>\r\n                                    <b-col>\r\n                                        <b-form-group label=\"Giá trẻ em\">\r\n                                            <b-form-input :min=\"0\" v-model=\"objRequest.giaTreEm\" type=\"number\"\r\n                                                placeholder=\"Giá trẻ em\" required></b-form-input>\r\n                                        </b-form-group>\r\n                                    </b-col>\r\n                                    <b-col>\r\n                                        <b-form-group label=\"Giá em bé\">\r\n                                            <b-form-input v-model=\"objRequest.giaEmBe\" :min=\"0\" type=\"number\"\r\n                                                placeholder=\"Giá em bé\" required></b-form-input>\r\n                                        </b-form-group>\r\n                                    </b-col>\r\n\r\n                                </b-row>\r\n                                <b-form-group label=\"Bảo hành\" hidden>\r\n                                    <b-form-input v-model=\"objRequest.warranty\" placeholder=\"Bảo hành\"\r\n                                        required></b-form-input>\r\n                                </b-form-group>\r\n\r\n                                <b-form-group hidden>\r\n                                    <label class=\"typo__label\">Thêm bài viết liên quan</label>\r\n                                    <v-tags-input element-id=\"tags\" placeholder=\"Bài viết liên quan\"\r\n                                        :only-existing-tags=\"true\" v-model=\"ArticleValues\" :typeahead=\"true\"\r\n                                        :existingTags=\"ListArticle\"></v-tags-input>\r\n                                </b-form-group>\r\n                            </div>\r\n                        </div>\r\n                        <div class=\"card\" v-if=\"objRequest.id > 0\">\r\n                            <div class=\"card-header\">\r\n                                <b-row>\r\n                                    <b-col md=\"11\">\r\n                                        Chính sách hoàn hủy\r\n                                    </b-col>\r\n                                    <b-col md=\"1\">\r\n                                        <b-btn v-b-toggle.collapsecancelpolicy variant=\"primary\" class=\"pull-right\"><i\r\n                                                class=\"fa fa-angle-double-down\" aria-hidden=\"true\"></i></b-btn>\r\n                                    </b-col>\r\n                                </b-row>\r\n                            </div>\r\n                            <b-collapse id=\"collapsecancelpolicy\" class=\"mt-2 scrolling-wrapper\" fluid>\r\n                                <div class=\"card-body\">\r\n                                    <h4>Thêm chính sách hoàn hủy</h4><small style=\"color:red\">(Áp dụng với sản phẩm cha)</small>\r\n                                    <b-row>\r\n                                        <b-col>\r\n                                            <button class=\"btn btn-info btn-submit-form col-md-12 btncus\" type=\"submit\"\r\n                                                @click=\"AddNewCancelPolicy()\">\r\n                                                <i class=\"fa fa-plus\"></i> Thêm mới\r\n                                            </button>\r\n                                        </b-col>\r\n                                    </b-row>\r\n                                    <br />\r\n                                    <b-container fluid>\r\n                                        <b-card v-for=\"(cp, index) in objRequestCancelPolicy\">\r\n                                            <b-row>\r\n                                                <b-col md=\"4\">\r\n                                                    <b-form-group label=\"Số ngày hủy trước\">\r\n                                                        <b-form-input type=\"number\" min=\"0\" v-model=\"cp.beforeDate\"></b-form-input>\r\n                                                    </b-form-group>\r\n                                                </b-col>\r\n                                                <b-col md=\"4\">\r\n                                                    <b-form-group label=\"Giá trị hoàn trả\">\r\n                                                        <b-form-input type=\"number\" min=\"0\" v-model=\"cp.rollbackValue\"></b-form-input>\r\n                                                    </b-form-group>\r\n                                                </b-col>\r\n                                                <b-col md=\"2\">\r\n                                                    <button class=\"btn btn-danger\" @click=\"onRemoveCancelPolicy(index)\"><i class=\"fa fa-trash\" aria-hidden=\"true\"></i>\r\n                                                    </button>\r\n                                                </b-col>\r\n                                            </b-row>\r\n                                        </b-card>\r\n                                    </b-container>\r\n                                </div>\r\n                            </b-collapse>\r\n                        </div>\r\n                        <div class=\"card\" v-if=\"objRequest.id > 0\">\r\n                            <div class=\"card-header\">\r\n                                <b-row>\r\n                                    <b-col md=\"11\">\r\n                                        Option giá\r\n                                    </b-col>\r\n                                    <b-col md=\"1\">\r\n                                        <b-btn v-b-toggle.collapseolerenewal variant=\"primary\" class=\"pull-right\"><i\r\n                                                class=\"fa fa-angle-double-down\" aria-hidden=\"true\"></i></b-btn>\r\n                                    </b-col>\r\n                                </b-row>\r\n                            </div>\r\n                            <b-collapse id=\"collapseolerenewal\" class=\"mt-2 scrolling-wrapper\" fluid>\r\n                                <div class=\"card-body\">\r\n                                    <h4>Thêm Option giá</h4>\r\n                                    <b-row>\r\n                                        <b-col>\r\n                                            <button class=\"btn btn-info btn-submit-form col-md-12 btncus\" type=\"submit\"\r\n                                                @click=\"AddNewPhienBan()\">\r\n                                                <i class=\"fa fa-plus\"></i> Thêm mới\r\n                                            </button>\r\n                                        </b-col>\r\n                                    </b-row>\r\n                                    <br />\r\n                                    <b-container fluid>\r\n                                        <b-card v-for=\"(item, index) in objRequestPhienBans\" class=\"scrolling-wrapper\">\r\n                                            <b-row>\r\n                                                <b-col style=\"min-width: 100px;\" class=\"flex-item\"\r\n                                                    v-for=\"(option, indexOption) in selectedProductOptions\">\r\n                                                    <b-form-group :label=\"option.parent.label\">\r\n                                                        <treeselect :multiple=\"false\" :flat=\"false\"\r\n                                                            :options=\"option.childs\"\r\n                                                            placeholder=\"Xin mời bạn lựa chọn SP cha\"\r\n                                                            v-model=\"item.selectedOptions[indexOption]\" />\r\n                                                    </b-form-group>\r\n                                                </b-col>\r\n                                                <b-col>\r\n                                                    <b-form-group label=\"Action\">\r\n                                                        <b-button-group>\r\n                                                            <b-button\r\n                                                                class=\"btn btn-success btn-submit-form col-md-12 btncus\"\r\n                                                                type=\"submit\" @click=\"AddNewPhienBan()\">\r\n                                                                <i class=\"fa fa-plus\"></i>\r\n                                                            </b-button>\r\n                                                            <b-button\r\n                                                                class=\"btn btn-danger btn-submit-form col-md-12 btncus\"\r\n                                                                type=\"submit\" @click=\"DoDelPhienBan(index)\">\r\n                                                                <i class=\"fa fa-trash\"></i>\r\n                                                            </b-button>\r\n                                                            <b-button\r\n                                                                class=\"btn btn-danger btn-submit-form col-md-12 btncus\"\r\n                                                                type=\"submit\" @click=\"DoAddGiaPhienBanTheoNgay(item)\">\r\n                                                                <i class=\"fa fa-money\"></i>\r\n                                                            </b-button>\r\n                                                        </b-button-group>\r\n\r\n                                                    </b-form-group>\r\n\r\n\r\n                                                </b-col>\r\n                                            </b-row>\r\n                                            <b-row>\r\n                                                <b-col style=\"min-width: 100px;\" class=\"flex-item\">\r\n                                                    <b-form-group label=\"Ng.lớn (Giá mặc định)\">\r\n                                                        <b-form-input @change=\"\" :min=\"0\"\r\n                                                            v-model=\"item.priceEachNguoiLon\" type=\"number\"\r\n                                                            placeholder=\"Giá người lớn\" required></b-form-input>\r\n                                                    </b-form-group>\r\n                                                </b-col>\r\n                                                <b-col style=\"min-width: 100px;\" class=\"flex-item\">\r\n                                                    <b-form-group label=\"Trẻ em\">\r\n                                                        <b-form-input @change=\"\" :min=\"0\" v-model=\"item.priceEachTreEm\"\r\n                                                            type=\"number\" placeholder=\"Giá trẻ em\"></b-form-input>\r\n                                                    </b-form-group>\r\n                                                </b-col>\r\n                                                <b-col style=\"min-width: 100px;\" class=\"flex-item\">\r\n                                                    <b-form-group label=\"Ng.lớn (Giá NET)\">\r\n                                                        <b-form-input @change=\"\" :min=\"0\" v-model=\"item.netEachNguoiLon\"\r\n                                                            type=\"number\" placeholder=\"Giá người lớn (NET)\"\r\n                                                            required></b-form-input>\r\n                                                    </b-form-group>\r\n                                                </b-col>\r\n                                                <b-col style=\"min-width: 100px;\" class=\"flex-item\">\r\n                                                    <b-form-group label=\"Trẻ em (Giá NET)\">\r\n                                                        <b-form-input @change=\"\" :min=\"0\" v-model=\"item.netEachTreEm\"\r\n                                                            type=\"number\" placeholder=\"Giá trẻ em (NET)\"></b-form-input>\r\n                                                    </b-form-group>\r\n                                                </b-col>\r\n                                                <b-col style=\"min-width: 100px;\" class=\"flex-item\">\r\n                                                    <b-form-group label=\"Ng.già\">\r\n                                                        <b-form-input @change=\"\" :min=\"0\"\r\n                                                            v-model=\"item.priceEachNguoiGia\" type=\"number\"\r\n                                                            placeholder=\"Giá người già\" required></b-form-input>\r\n                                                    </b-form-group>\r\n                                                </b-col>\r\n                                                <b-col style=\"min-width: 100px;\" class=\"flex-item\">\r\n                                                    <b-form-group label=\"Ng.già (Giá NET)\">\r\n                                                        <b-form-input @change=\"\" :min=\"0\" v-model=\"item.netEachNguoiGia\"\r\n                                                            type=\"number\"\r\n                                                            placeholder=\"Giá người già (NET)\"></b-form-input>\r\n                                                    </b-form-group>\r\n                                                </b-col>\r\n                                            </b-row>\r\n                                            <b-row>\r\n                                                <b-col style=\"min-width: 100px;\" class=\"flex-item\">\r\n                                                    <b-form-group label=\"SL Ng.Lớn tối thiểu\">\r\n                                                        <b-form-input @change=\"\" :min=\"1\" v-model=\"item.minimumNguoiLon\"\r\n                                                            type=\"number\" placeholder=\"SL người lớn\"\r\n                                                            required></b-form-input>\r\n                                                    </b-form-group>\r\n                                                </b-col>\r\n                                                <b-col style=\"min-width: 100px;\" class=\"flex-item\">\r\n                                                    <b-form-group label=\"SL Tr.em tối thiểu\">\r\n                                                        <b-form-input @change=\"\" :min=\"0\" v-model=\"item.minimumTreEm\"\r\n                                                            type=\"number\" placeholder=\"SL trẻ em\"\r\n                                                            required></b-form-input>\r\n                                                    </b-form-group>\r\n                                                </b-col>\r\n                                                <b-col style=\"min-width: 100px;\" class=\"flex-item\">\r\n                                                    <b-form-group label=\"SL Ng.già tối thiểu\">\r\n                                                        <b-form-input @change=\"\" :min=\"0\" v-model=\"item.minimumNguoiGia\"\r\n                                                            type=\"number\" placeholder=\"SL người già\"\r\n                                                            required></b-form-input>\r\n                                                    </b-form-group>\r\n                                                </b-col>\r\n                                                <b-col style=\"min-width: 500px;\" class=\"flex-item\">\r\n                                                    <b-form-group label=\"Email thông báo đối tác\">\r\n                                                        <treeselect :multiple=\"false\" :flat=\"true\"\r\n                                                            :options=\"userSuppliers\"\r\n                                                            placeholder=\"Xin mời bạn lựa chọn tag\"\r\n                                                            v-model=\"item.emailSupplier\"\r\n                                                            :default-expanded-level=\"Infinity\" />\r\n                                                    </b-form-group>\r\n                                                </b-col>\r\n\r\n                                            </b-row>\r\n                                            <b-row>\r\n                                                <b-col md=6>\r\n                                                    <b-form-group label=\"Thời gian confirm\">\r\n                                                        <b-form-input v-model=\"item.confirmOption\"\r\n                                                            placeholder=\"Điền thời gian confirm theo giờ.'AUTO' hoặc để trống sẽ là AUTO CONFIRM\"></b-form-input>\r\n                                                    </b-form-group>\r\n                                                </b-col>\r\n                                            </b-row>\r\n                                            <b-row>\r\n                                                <b-col md=6>\r\n                                                    <b-form-group label=\"Thời gian đặt Last Minute\">\r\n                                                        <b-row>\r\n                                                            <b-col md=\"4\">\r\n                                                                <b-form-group label=\"Số ngày tối thiểu\">\r\n                                                                    <b-form-input type=\"number\" min=\"0\" v-model=\"item.lastMinuteSetupDay\"></b-form-input>\r\n                                                                </b-form-group>\r\n                                                            </b-col>\r\n                                                            <b-col md=\"4\">\r\n                                                                <b-form-group label=\"Thời gian Last Minute\">\r\n                                                                    <b-form-input v-model=\"item.lastMinuteSetupTime\" placeholder=\"hh:mm\"></b-form-input>\r\n                                                                </b-form-group>\r\n                                                            </b-col>\r\n                                                        </b-row>\r\n                                                    </b-form-group>\r\n                                                    \r\n                                                </b-col>\r\n                                            </b-row>\r\n                                        </b-card>\r\n                                    </b-container>\r\n\r\n                                </div>\r\n                            </b-collapse>\r\n                        </div>\r\n                        <div>\r\n                            <b-modal title=\"Cập nhật giá phiên bản\" ref=\"pByDateModal\" size=\"xl\"\r\n                                @ok=\"onUpdateGiaPhienBanTheoNgay()\">\r\n                                <b-card>\r\n                                    <b-row>\r\n                                        <b-col md=\"3\">\r\n                                            <b-form-group label=\"Từ ngày\">\r\n                                                <b-form-input type=\"date\"\r\n                                                    v-model=\"filterGiaPhienBanTheoNgay.from\"></b-form-input>\r\n                                            </b-form-group>\r\n\r\n                                        </b-col>\r\n                                        <b-col md=\"3\">\r\n                                            <b-form-group label=\"Đến ngày\">\r\n                                                <b-form-input type=\"date\"\r\n                                                    v-model=\"filterGiaPhienBanTheoNgay.to\"></b-form-input>\r\n                                            </b-form-group>\r\n\r\n                                        </b-col>\r\n                                        <b-col md=\"6\">\r\n                                            <b-form-group label=\"Thứ\">\r\n                                                <b-row>\r\n                                                    <b-col v-for=\"d in filterGiaPhienBanTheoNgay.dayOfWeek\">\r\n                                                        <b-form-checkbox v-model=\"d.checked\">\r\n                                                            {{ d.label }}\r\n                                                        </b-form-checkbox>\r\n                                                    </b-col>\r\n                                                </b-row>\r\n\r\n\r\n                                            </b-form-group>\r\n                                        </b-col>\r\n                                    </b-row>\r\n                                    <b-row></b-row>\r\n                                </b-card>\r\n                                <b-card>\r\n                                    <table class=\"table table-bordered table-responsive\">\r\n                                        <thead>\r\n                                            <tr>\r\n                                                <th>Ngày</th>\r\n                                                <th>Thứ</th>\r\n                                                <th>Giá người lớn</th>\r\n                                                <th>Giá trẻ em</th>\r\n                                                <th>Giá người già</th>\r\n                                                <th>Giá người lớn (NET)</th>\r\n                                                <th>Giá trẻ em (NET)</th>\r\n                                                <th>Giá người già (NET)</th>\r\n                                            </tr>\r\n                                            <tr>\r\n                                                <th colspan=\"2\">\r\n                                                    <button class=\"form-control btn btn-success\"\r\n                                                        @click=\"onUpdateAllCurrentGiaPhienBanTheoNgay()\">Cập nhật\r\n                                                        ALL</button>\r\n                                                </th>\r\n                                                <th>\r\n                                                    <b-form-input type=\"number\"\r\n                                                        v-model=\"updateAllGiaPhienBanTheoNgay.priceEachNguoiLon\"></b-form-input>\r\n                                                </th>\r\n                                                <th>\r\n                                                    <b-form-input type=\"number\"\r\n                                                        v-model=\"updateAllGiaPhienBanTheoNgay.priceEachTreEm\"></b-form-input>\r\n                                                </th>\r\n                                                <th>\r\n                                                    <b-form-input type=\"number\"\r\n                                                        v-model=\"updateAllGiaPhienBanTheoNgay.priceEachNguoiGia\"></b-form-input>\r\n                                                </th>\r\n                                                <th>\r\n                                                    <b-form-input type=\"number\"\r\n                                                        v-model=\"updateAllGiaPhienBanTheoNgay.netEachNguoiLon\"></b-form-input>\r\n                                                </th>\r\n                                                <th>\r\n                                                    <b-form-input type=\"number\"\r\n                                                        v-model=\"updateAllGiaPhienBanTheoNgay.netEachTreEm\"></b-form-input>\r\n                                                </th>\r\n                                                <th>\r\n                                                    <b-form-input type=\"number\"\r\n                                                        v-model=\"updateAllGiaPhienBanTheoNgay.netEachNguoiGia\"></b-form-input>\r\n                                                </th>\r\n                                            </tr>\r\n                                        </thead>\r\n                                        <tbody>\r\n                                            <tr v-for=\"c in currentGiaPhienBanTheoNgay\" v-if=\"c.filterd\">\r\n                                                <td>{{ onFormatDate(c.date) }}</td>\r\n                                                <td>{{ c.dayOfWeek }}</td>\r\n                                                <td>\r\n                                                    <b-form-input v-model=\"c.priceEachNguoiLon\"\r\n                                                        type=\"number\"></b-form-input>\r\n                                                </td>\r\n                                                <td>\r\n                                                    <b-form-input v-model=\"c.priceEachTreEm\"\r\n                                                        type=\"number\"></b-form-input>\r\n                                                </td>\r\n                                                <td>\r\n                                                    <b-form-input v-model=\"c.priceEachNguoiGia\"\r\n                                                        type=\"number\"></b-form-input>\r\n                                                </td>\r\n                                                <td>\r\n                                                    <b-form-input v-model=\"c.netEachNguoiLon\"\r\n                                                        type=\"number\"></b-form-input>\r\n                                                </td>\r\n                                                <td>\r\n                                                    <b-form-input v-model=\"c.netEachTreEm\" type=\"number\"></b-form-input>\r\n                                                </td>\r\n                                                <td>\r\n                                                    <b-form-input v-model=\"c.netEachNguoiGia\"\r\n                                                        type=\"number\"></b-form-input>\r\n                                                </td>\r\n\r\n                                            </tr>\r\n                                        </tbody>\r\n                                    </table>\r\n                                </b-card>\r\n                            </b-modal>\r\n                        </div>\r\n\r\n                        <div class=\"card\" hidden>\r\n                            <div class=\"card-header\">\r\n                                <b-row>\r\n                                    <b-col md=\"11\">\r\n                                        Avalible Top-Up\r\n                                    </b-col>\r\n                                    <b-col md=\"1\">\r\n                                        <b-btn v-b-toggle.collapseolerenewal variant=\"primary\" class=\"pull-right\"><i\r\n                                                class=\"fa fa-angle-double-down\" aria-hidden=\"true\"></i></b-btn>\r\n                                    </b-col>\r\n                                </b-row>\r\n                            </div>\r\n                            <b-collapse id=\"collapseolerenewal\" class=\"mt-2\">\r\n                                <div class=\"card-body\">\r\n                                    <h4>Thêm Topup</h4>\r\n                                    <b-row>\r\n                                        <b-col>\r\n                                            <button class=\"btn btn-info btn-submit-form col-md-12 btncus\" type=\"submit\"\r\n                                                @click=\"AddNewTopUp()\">\r\n                                                <i class=\"fa fa-plus\"></i> Thêm mới\r\n                                            </button>\r\n                                        </b-col>\r\n                                    </b-row>\r\n                                    <br />\r\n                                    <b-row v-for=\"(item, index) in objRequestTopUp\">\r\n                                        <b-col>\r\n                                            <b-row>\r\n                                                <b-col>\r\n                                                    <b-form-group label=\"Title\">\r\n                                                        <b-form-input v-model=\"item.title\" type=\"text\"\r\n                                                            placeholder=\"Tên Top up\" required></b-form-input>\r\n                                                    </b-form-group>\r\n                                                </b-col>\r\n                                                <b-col>\r\n                                                    <b-form-group label=\"Data\">\r\n                                                        <b-form-input v-model=\"item.dataLimit\" type=\"text\"\r\n                                                            placeholder=\"Data Limit\" required></b-form-input>\r\n                                                    </b-form-group>\r\n                                                </b-col>\r\n                                                <b-col>\r\n                                                    <b-form-group label=\"Validaty\">\r\n                                                        <b-form-input v-model=\"item.validaty\" type=\"text\"\r\n                                                            placeholder=\"Validaty\" required></b-form-input>\r\n                                                    </b-form-group>\r\n                                                </b-col>\r\n\r\n                                            </b-row>\r\n                                            <b-row>\r\n                                                <b-col>\r\n                                                    <b-form-group label=\"SMS Number\">\r\n                                                        <b-form-input v-model=\"item.smsNumber\" type=\"text\"\r\n                                                            placeholder=\"Sms\" required></b-form-input>\r\n                                                    </b-form-group>\r\n                                                </b-col>\r\n                                                <b-col>\r\n                                                    <b-form-group label=\"Phone Minute\">\r\n                                                        <b-form-input v-model=\"item.phoneMinute\" type=\"text\"\r\n                                                            placeholder=\"Phone\" required></b-form-input>\r\n                                                    </b-form-group>\r\n                                                </b-col>\r\n                                                <b-col>\r\n                                                    <b-form-group label=\"Price\">\r\n                                                        <b-form-input @change=\"\" :min=\"0\" v-model=\"item.price\"\r\n                                                            type=\"text\" placeholder=\"\"></b-form-input>\r\n                                                    </b-form-group>\r\n                                                </b-col>\r\n                                                <b-col>\r\n                                                    <b-form-group label=\"Action\">\r\n                                                        <button class=\"btn btn-danger btn-submit-form col-md-12 btncus\"\r\n                                                            type=\"submit\" @click=\"DoDelTopUp(index)\">\r\n                                                            <i class=\"fa fa-trash\"></i> Xóa\r\n                                                        </button>\r\n                                                    </b-form-group>\r\n\r\n                                                </b-col>\r\n                                            </b-row>\r\n                                            <hr />\r\n                                        </b-col>\r\n                                    </b-row>\r\n                                </div>\r\n                            </b-collapse>\r\n                        </div>\r\n                        <div class=\"card\" hidden>\r\n                            <div class=\"card-header\">\r\n                                <b-row>\r\n                                    <b-col md=\"11\">\r\n                                        SIM Serial\r\n                                    </b-col>\r\n                                    <b-col md=\"1\">\r\n                                        <b-btn v-b-toggle.collapSerial variant=\"primary\" class=\"pull-right\"><i\r\n                                                class=\"fa fa-angle-double-down\" aria-hidden=\"true\"></i></b-btn>\r\n                                    </b-col>\r\n                                </b-row>\r\n                            </div>\r\n                            <b-collapse id=\"collapSerial\" class=\"mt-2\">\r\n                                <div class=\"card-body\">\r\n                                    <h4>Serial Number: </h4>\r\n                                    <b-row>\r\n                                        <b-col>\r\n                                            <button class=\"btn btn-info btn-submit-form col-md-12 btncus\" type=\"submit\"\r\n                                                @click=\"onUploadSerialClick()\">\r\n                                                <i class=\"fa fa-plus\"></i> Upload Data\r\n                                            </button>\r\n                                            <input ref=\"fileInput\" type=\"file\" accept=\"xlsx\" style=\"display: none\"\r\n                                                @change=\"handleFileChange\" />\r\n                                        </b-col>\r\n                                    </b-row>\r\n                                    <br />\r\n                                    <table class=\"table table-bordered\">\r\n                                        <thead>\r\n                                            <tr>\r\n                                                <th>Serial</th>\r\n                                                <th>Phone number</th>\r\n                                                <th>Status</th>\r\n                                            </tr>\r\n                                        </thead>\r\n                                        <tbody>\r\n                                            <tr v-for=\"s in serialNumbers\" :key=\"s.id\">\r\n                                                <td>{{ s.serialNumber }}</td>\r\n                                                <td>{{ s.phoneNumber }}</td>\r\n                                                <td>{{ s.status }}</td>\r\n                                            </tr>\r\n                                        </tbody>\r\n                                    </table>\r\n                                </div>\r\n                            </b-collapse>\r\n                        </div>\r\n\r\n\r\n                    </div>\r\n\r\n                </div>\r\n            </b-tab>\r\n            <b-tab v-if=\"objRequest.id > 0\" @click=\"StartLoadLang()\" title=\"2. Thông tin ngôn ngữ\">\r\n                <div>\r\n                    <div class=\"row productedit\">\r\n                        <div class=\"col-sm-6 col-md-12\">\r\n                            <div class=\"card\">\r\n                                <div class=\"card-header\">\r\n                                    Thao tác\r\n                                </div>\r\n                                <div class=\"card-body\">\r\n                                    <div class=\"row\">\r\n                                        <div class=\"col-md-6\">\r\n                                            <button class=\"btn btn-info btn-submit-form col-md-12 btncus\" type=\"submit\"\r\n                                                @click=\"DoAddDetail()\">\r\n                                                <i class=\"fa fa-save\"></i> Cập nhật\r\n                                            </button>\r\n                                        </div>\r\n                                        <div class=\"col-md-6\">\r\n                                            <button class=\"btn btn-success col-md-12 btncus\" type=\"button\"\r\n                                                @click=\"DoRefesh()\">\r\n                                                <i class=\"fa fa-refresh\"></i> Làm mới\r\n                                            </button>\r\n                                        </div>\r\n                                    </div>\r\n                                </div>\r\n                            </div>\r\n                        </div>\r\n                        <div class=\"col-sm-6 col-md-12\">\r\n                            <div class=\"card\">\r\n                                <div class=\"card-header\">\r\n                                    Thông tin ngôn ngữ\r\n                                </div>\r\n                                <div class=\"card-body\">\r\n                                    <b-form class=\"form-horizontal\">\r\n                                        <b-row>\r\n                                            <b-col>\r\n                                                <b-form-group label=\"Ngôn ngữ\">\r\n                                                    <b-form-select v-model=\"langSelected\" @change=\"onChangeSelectd\"\r\n                                                        :options=\"Languages\"></b-form-select>\r\n                                                </b-form-group>\r\n                                            </b-col>\r\n                                            <!--<b-col title=\"Xem trên website\" style=\"margin-top:25px;font-size:30px\">\r\n                        <a target=\"_blank\" :href=\"urlBases(objRequestDetail.url)\"><i class=\"fa fa-eye\"></i></a>\r\n                    </b-col>-->\r\n                                            <b-col></b-col>\r\n                                        </b-row>\r\n                                        <b-form-group label=\"Tiêu đề theo ngôn ngữ\" label-for=\"input-1\">\r\n                                            <b-form-input id=\"input-1\" v-model=\"objRequestDetail.title\" type=\"text\"\r\n                                                required v-on:keyup.13=\"slugM()\" placeholder=\"Tiêu đề\"></b-form-input>\r\n                                        </b-form-group>\r\n\r\n                                        <b-form-group label=\"Đường dẫn\">\r\n                                            <b-form-input v-model=\"objRequestDetail.url\" placeholder=\"Đường dẫn\"\r\n                                                required></b-form-input>\r\n                                        </b-form-group>\r\n                                        <b-form-group label=\"Đường dẫn cũ\">\r\n                                            <b-form-input v-model=\"objRequestDetail.urlOld\" placeholder=\"Đường dẫn\"\r\n                                                required></b-form-input>\r\n                                        </b-form-group>\r\n                                        <b-form-group label=\"Location\">\r\n                                            <b-form-input v-model=\"objRequestDetail.location\" placeholder=\"Địa chỉ\"\r\n                                                required></b-form-input>\r\n                                        </b-form-group>\r\n                                        <b-form-group label=\"Location Iframe\">\r\n                                            <b-form-input v-model=\"objRequestDetail.locationIframe\"\r\n                                                placeholder=\"Mã embed bản đồ\" required></b-form-input>\r\n                                        </b-form-group>\r\n                                        <b-form-group label=\"Đơn vị sản phẩm\">\r\n                                            <b-form-input v-model=\"objRequestDetail.unit\" placeholder=\"Đơn vị sản phẩm\"\r\n                                                required></b-form-input>\r\n                                        </b-form-group>\r\n\r\n                                        <b-form-group label=\"Mô tả\">\r\n                                            <ckeditor tag-name=\"textarea\" v-model=\"objRequestDetail.description\"\r\n                                                :rows=\"3\" :config=\"editorConfig\">\r\n                                            </ckeditor>\r\n                                        </b-form-group>\r\n                                        <b-form-group label=\"Nội dung\">\r\n                                            <MIEditor :contentEditor=\"objRequestDetail.content\"\r\n                                                v-on:handleEditorInput=\"getOrSetData\" :index=\"-1\"></MIEditor>\r\n                                        </b-form-group>\r\n                                        <b-row>\r\n                                            <b-col>\r\n                                                <b-form-group>\r\n                                                    <label class=\"typo__label\">Thêm tag</label>\r\n                                                    <v-tags-input element-id=\"tags\" v-model=\"Tags\" :typeahead=\"true\"\r\n                                                        :existingTags=\"ListAllTags\"></v-tags-input>\r\n\r\n                                                </b-form-group>\r\n                                            </b-col>\r\n                                        </b-row>\r\n                                    </b-form>\r\n                                </div>\r\n                            </div>\r\n                            <div class=\"card\">\r\n                                <div class=\"card-header\">\r\n                                    <b-row>\r\n                                        <b-col md=\"11\">\r\n                                            Thông tin\r\n                                        </b-col>\r\n                                        <b-col md=\"1\">\r\n                                            <b-btn v-b-toggle.collapseSocial3 variant=\"primary\" class=\"pull-right\"><i\r\n                                                    class=\"fa fa-angle-double-down\" aria-hidden=\"true\"></i></b-btn>\r\n                                        </b-col>\r\n                                    </b-row>\r\n                                </div>\r\n                                <b-collapse id=\"collapseSocial3\" class=\"mt-2\">\r\n                                    <div class=\"card-body\">\r\n\r\n                                        <b-row v-for=\"(item, index) in LichTrinhTour\">\r\n                                            <b-col md=\"10\">\r\n                                                <b-form-group label=\"Tiêu đề\">\r\n                                                    <b-form-input v-model=\"item.tieuDe\" placeholder=\"Tiêu đề\"\r\n                                                        required></b-form-input>\r\n                                                </b-form-group>\r\n                                                <b-form-group label=\"Nội dung\">\r\n                                                    <MIEditor :contentEditor=\"item.noiDung\"\r\n                                                        v-on:handleEditorInput=\"tour_getOrSetData_lichTour\"\r\n                                                        :index=\"index\">\r\n                                                    </MIEditor>\r\n                                                </b-form-group>\r\n                                            </b-col>\r\n                                            <b-col md=\"2\">\r\n                                                <b-row>\r\n                                                    <b-col md=\"12\">\r\n                                                        <button class=\"btn btn-primary btn-submit-form col-md-12 btncus\"\r\n                                                            type=\"submit\" @click=\"tour_DoAddLichTour()\">\r\n                                                            <i class=\"fa fa-trash\"></i> Thêm\r\n                                                        </button>\r\n                                                    </b-col>\r\n                                                    <b-col md=\"12\">\r\n                                                        <button class=\"btn btn-danger btn-submit-form col-md-12 btncus\"\r\n                                                            type=\"submit\" @click=\"tour_DoDelLichTour(index)\">\r\n                                                            <i class=\"fa fa-trash\"></i> Xóa\r\n                                                        </button>\r\n                                                    </b-col>\r\n                                                </b-row>\r\n\r\n                                            </b-col>\r\n                                        </b-row>\r\n\r\n                                    </div>\r\n                                </b-collapse>\r\n                            </div>\r\n                            <div class=\"card\">\r\n                                <div class=\"card-header\">\r\n                                    <b-row>\r\n                                        <b-col md=\"11\">\r\n                                            Note\r\n                                        </b-col>\r\n                                        <b-col md=\"1\">\r\n                                            <b-btn v-b-toggle.collapseSocial4 variant=\"primary\" class=\"pull-right\"><i\r\n                                                    class=\"fa fa-angle-double-down\" aria-hidden=\"true\"></i></b-btn>\r\n                                        </b-col>\r\n                                    </b-row>\r\n                                </div>\r\n                                <b-collapse id=\"collapseSocial4\" class=\"mt-2\">\r\n                                    <div class=\"card-body\">\r\n\r\n                                        <b-row v-for=\"(item, index) in ThongTinTour\">\r\n                                            <b-col md=\"10\">\r\n                                                <b-form-group label=\"Tiêu đề\">\r\n                                                    <b-form-input v-model=\"item.tieuDe\" placeholder=\"Tiêu đề\"\r\n                                                        required></b-form-input>\r\n                                                </b-form-group>\r\n                                                <b-form-group label=\"Nội dung\">\r\n                                                    <MIEditor :contentEditor=\"item.noiDung\"\r\n                                                        v-on:handleEditorInput=\"tour_getOrSetData_thongTinTour\"\r\n                                                        :index=\"index\">\r\n                                                    </MIEditor>\r\n                                                </b-form-group>\r\n                                            </b-col>\r\n                                            <b-col md=\"2\">\r\n                                                <b-row>\r\n                                                    <b-col md=\"12\">\r\n                                                        <button class=\"btn btn-primary btn-submit-form col-md-12 btncus\"\r\n                                                            type=\"submit\" @click=\"tour_DoAddThongTinTour()\">\r\n                                                            <i class=\"fa fa-trash\"></i> Thêm\r\n                                                        </button>\r\n                                                    </b-col>\r\n                                                    <b-col md=\"12\">\r\n                                                        <button class=\"btn btn-danger btn-submit-form col-md-12 btncus\"\r\n                                                            type=\"submit\" @click=\"tour_DoDelThongTinTour(index)\">\r\n                                                            <i class=\"fa fa-trash\"></i> Xóa\r\n                                                        </button>\r\n                                                    </b-col>\r\n                                                </b-row>\r\n\r\n                                            </b-col>\r\n\r\n\r\n                                        </b-row>\r\n\r\n                                    </div>\r\n                                </b-collapse>\r\n                            </div>\r\n                            <div class=\"card\">\r\n                                <div class=\"card-header\">\r\n                                    <b-row>\r\n                                        <b-col md=\"11\">\r\n                                            Policy\r\n                                        </b-col>\r\n                                        <b-col md=\"1\">\r\n                                            <b-btn v-b-toggle.collapseSocial5 variant=\"primary\" class=\"pull-right\"><i\r\n                                                    class=\"fa fa-angle-double-down\" aria-hidden=\"true\"></i></b-btn>\r\n                                        </b-col>\r\n                                    </b-row>\r\n                                </div>\r\n                                <b-collapse id=\"collapseSocial5\" class=\"mt-2\">\r\n                                    <div class=\"card-body\">\r\n\r\n                                        <b-row v-for=\"(item, index) in ThuTucVisa\">\r\n                                            <b-col md=\"10\">\r\n                                                <b-form-group label=\"Tiêu đề\">\r\n                                                    <b-form-input v-model=\"item.tieuDe\" placeholder=\"Tiêu đề\"\r\n                                                        required></b-form-input>\r\n                                                </b-form-group>\r\n                                                <b-form-group label=\"Nội dung\">\r\n                                                    <MIEditor :contentEditor=\"item.noiDung\"\r\n                                                        v-on:handleEditorInput=\"tour_getOrSetData_thuTucVisa\"\r\n                                                        :index=\"index\">\r\n                                                    </MIEditor>\r\n                                                </b-form-group>\r\n                                            </b-col>\r\n                                            <b-col md=\"2\">\r\n                                                <b-row>\r\n                                                    <b-col md=\"12\">\r\n                                                        <button class=\"btn btn-primary btn-submit-form col-md-12 btncus\"\r\n                                                            type=\"submit\" @click=\"tour_DoAddThuTucVisa()\">\r\n                                                            <i class=\"fa fa-trash\"></i> Thêm\r\n                                                        </button>\r\n                                                    </b-col>\r\n                                                    <b-col md=\"12\">\r\n                                                        <button class=\"btn btn-danger btn-submit-form col-md-12 btncus\"\r\n                                                            type=\"submit\" @click=\"tour_DoDelThuTucVisa(index)\">\r\n                                                            <i class=\"fa fa-trash\"></i> Xóa\r\n                                                        </button>\r\n                                                    </b-col>\r\n                                                </b-row>\r\n                                            </b-col>\r\n                                        </b-row>\r\n\r\n                                    </div>\r\n                                </b-collapse>\r\n                            </div>\r\n                            <div class=\"card\">\r\n                                <div class=\"card-header\">\r\n                                    <b-row>\r\n                                        <b-col md=\"11\">\r\n                                            SEO Analysis\r\n                                        </b-col>\r\n                                        <b-col md=\"1\">\r\n                                            <b-btn v-b-toggle.collapseSEO2 variant=\"primary\" class=\"pull-right\"><i\r\n                                                    class=\"fa fa-angle-double-down\" aria-hidden=\"true\"></i></b-btn>\r\n                                        </b-col>\r\n                                    </b-row>\r\n                                </div>\r\n                                <b-collapse id=\"collapseSEO2\" class=\"mt-2\">\r\n                                    <div class=\"card-body\">\r\n                                        <b-form-group label=\"Tiêu đề SEO\">\r\n                                            <b-form-input v-model=\"objRequestDetail.metaTitle\" placeholder=\"Tiêu đề SEO\"\r\n                                                required></b-form-input>\r\n                                        </b-form-group>\r\n                                        <b-form-group label=\"Từ khóa SEO\">\r\n                                            <b-form-input v-model=\"objRequestDetail.metaKeyword\"\r\n                                                placeholder=\"Từ khóa SEO\" required></b-form-input>\r\n                                        </b-form-group>\r\n                                        <b-form-group label=\"Mô tả SEO\">\r\n                                            <b-form-textarea rows=\"3\" max-rows=\"6\"\r\n                                                v-model=\"objRequestDetail.metaDescription\" placeholder=\"Mô tả\"\r\n                                                required></b-form-textarea>\r\n                                        </b-form-group>\r\n                                        <b-form-group label=\"Script WebPage\">\r\n                                            <b-form-textarea rows=\"3\" max-rows=\"6\"\r\n                                                v-model=\"objRequestDetail.metaWebPage\" placeholder=\"WebPage\"\r\n                                                required></b-form-textarea>\r\n                                        </b-form-group>\r\n                                        <b-form-group label=\"\">\r\n                                            <div class=\"row\">\r\n                                                <div class=\"col-md-6\">\r\n                                                    <b-form-checkbox placeholder=\"Canonical\" v-model=\"statusCanonical\"\r\n                                                        required>Chặn\r\n                                                        trùng lặp nội dung (Canonical)</b-form-checkbox>\r\n                                                </div>\r\n                                                <div class=\"col-md-6\">\r\n                                                    <b-form-checkbox placeholder=\"NoIndex\" v-model=\"statusNoindex\"\r\n                                                        required>Chặn lập\r\n                                                        chỉ mục (NoIndex)</b-form-checkbox>\r\n                                                </div>\r\n                                            </div>\r\n                                        </b-form-group>\r\n                                        <b-form-group label=\"Giá trị (Canonical)\">\r\n                                            <b-form-input placeholder=\"Canonical\" v-model=\"valueCanonical\"\r\n                                                required></b-form-input>\r\n                                        </b-form-group>\r\n                                    </div>\r\n\r\n                                </b-collapse>\r\n                            </div>\r\n                            <div class=\"card\">\r\n                                <div class=\"card-header\">\r\n                                    <b-row>\r\n                                        <b-col md=\"11\">\r\n                                            Social Share\r\n                                        </b-col>\r\n                                        <b-col md=\"1\">\r\n                                            <b-btn v-b-toggle.collapseSocial2 variant=\"primary\" class=\"pull-right\"><i\r\n                                                    class=\"fa fa-angle-double-down\" aria-hidden=\"true\"></i></b-btn>\r\n                                        </b-col>\r\n                                    </b-row>\r\n                                </div>\r\n                                <b-collapse id=\"collapseSocial2\" class=\"mt-2\">\r\n                                    <div class=\"card-body\">\r\n                                        <b-form-group label=\"Ảnh mô tả\">\r\n                                            <a @click=\"openImg('ImgS')\">\r\n                                                <div class=\"row gallery-upload-file ui-sortable\">\r\n                                                    <div style=\"width:200px;height:200px\"\r\n                                                        class=\"r-queue-item ui-sortable-handle\">\r\n                                                        <div\r\n                                                            v-if=\"objRequestDetail.socialImage != null && objRequestDetail.socialImage != undefined && objRequestDetail.socialImage.length > 0\">\r\n                                                            <img alt=\"Ảnh lỗi\"\r\n                                                                :src=\"pathImgs(objRequestDetail.socialImage)\"\r\n                                                                style=\"height:200px;width:200px\" />\r\n                                                        </div>\r\n                                                        <div v-else>\r\n                                                            <i class=\"fa fa-picture-o\"></i>\r\n                                                            <p>[Chọn ảnh]</p>\r\n                                                        </div>\r\n                                                    </div>\r\n\r\n                                                </div>\r\n                                            </a>\r\n                                        </b-form-group>\r\n                                        <b-form-group label=\"Tiêu đề\">\r\n                                            <b-form-input v-model=\"objRequestDetail.socialTitle\" placeholder=\"Tiêu đề\"\r\n                                                required></b-form-input>\r\n                                        </b-form-group>\r\n                                        <b-form-group label=\"Mô tả\">\r\n                                            <b-form-input v-model=\"objRequestDetail.socialDescription\"\r\n                                                placeholder=\"Mô tả\" required></b-form-input>\r\n                                        </b-form-group>\r\n                                    </div>\r\n                                </b-collapse>\r\n                            </div>\r\n\r\n                        </div>\r\n\r\n                    </div>\r\n                </div>\r\n            </b-tab>\r\n        </b-tabs>\r\n        <FileManager v-on:handleAttackFile=\"DoAttackFile\" :miKey=\"mikey1\" />\r\n    </div>\r\n</template>\r\n\r\n<script>\r\nimport \"vue-loading-overlay/dist/vue-loading.css\";\r\n//import ClassicEditor from '@ckeditor/ckeditor5-build-classic';\r\nimport msgNotify from \"../../common/constant\";\r\nimport { mapGetters, mapActions } from \"vuex\";\r\nimport Loading from \"vue-loading-overlay\";\r\n\r\n// import the component\r\nimport Treeselect from '@riophae/vue-treeselect'\r\n// import the styles\r\nimport '@riophae/vue-treeselect/dist/vue-treeselect.css'\r\n\r\nimport 'vue-select/dist/vue-select.css';\r\nimport { unflatten, slug, pathImg, urlBase } from \"../../plugins/helper\";\r\n\r\nimport EventBus from \"./../../common/eventBus\";\r\nimport moment from 'moment';\r\nimport VoerroTagsInput from './VoerroTagsInput';\r\nimport FileManager from './../../components/fileManager/list'\r\nimport MIEditor from '../../components/editor/MIEditor';\r\n// Import component\r\nimport { ASYNC_SEARCH, LOAD_ROOT_OPTIONS } from '@riophae/vue-treeselect'\r\n//import 'vue-datepicker-ui/lib/vuedatepickerui.css';\r\n//import VueDatepickerUi from 'vue-datepicker-ui';\r\nimport draggable from 'vuedraggable'\r\n\r\nconst simulateAsyncOperation = fn => {\r\n    setTimeout(fn, 2000)\r\n}\r\nexport default {\r\n\r\n    name: \"productaddedit\",\r\n    data() {\r\n        return {\r\n            demoDate: new Date(),\r\n            IsChoseImg360: false,\r\n            IsChoseFileDowload: false,\r\n            IsChoseVideo: false,\r\n\r\n            mikey1: 'mikey1',\r\n\r\n            content: '',\r\n            contentContent: '',\r\n\r\n            choseImg: \"\",\r\n\r\n            isLoading: false,\r\n            fullPage: false,\r\n            color: \"#007bff\",\r\n            isLoadLang: false,\r\n\r\n\r\n            preview: '/assets/img/unnamed.jpg',\r\n            previews: '/assets/img/unnamed.jpg',\r\n\r\n            //editor: ClassicEditor,\r\n            //editor1: ClassicEditor,\r\n            editorData: '<p>Content of the editor.</p>',\r\n            currentSort: \"Id\",\r\n            currentSortDir: \"asc\",\r\n            productName: \"\",\r\n            currentPage: 1,\r\n            pageSize: 10,\r\n            loading: true,\r\n            langSelected: \"\",\r\n            bootstrapPaginationClasses: {\r\n                ul: \"pagination\",\r\n                li: \"page-item\",\r\n                liActive: \"active\",\r\n                liDisable: \"disabled\",\r\n                button: \"page-link\"\r\n            },\r\n            customLabels: {\r\n                first: \"First\",\r\n                prev: \"Previous\",\r\n                next: \"Next\",\r\n                last: \"Last\"\r\n            },\r\n            selected: [],\r\n            objLocations: {\r\n                locationId: 0,\r\n            },\r\n            objCombo: {\r\n                name: ''\r\n            },\r\n            Locations: [],\r\n            editorConfig: {\r\n                allowedContent: true,\r\n                extraPlugins: \"\",\r\n\r\n            },\r\n            statusNoindex: false,\r\n            statusCanonical: false,\r\n            valueCanonical: \"\",\r\n            objRequest: {\r\n                avatar: \"\",\r\n                status: 2,\r\n                materialType: 0,\r\n                guarantee: \"\",\r\n                price: 0,\r\n                discountPrice: 0,\r\n                discountPercent: 0,\r\n                vat: false,\r\n                exprirePromotion: moment(String(new Date())).format('YYYY-MM-DD'),\r\n                productCpnId: 0,\r\n                coverage: [],\r\n                id: 0\r\n            },\r\n            objRequestDetail: {\r\n                url: \"\",\r\n                title: \"\",\r\n                content: \"\",\r\n                description: \"\"\r\n            },\r\n\r\n            objRequestDetails: [],\r\n            objRequestPhienBans: [],\r\n            objRequestTopUp: [],\r\n            templatePhienBan: {\r\n                giaNguoiLon: 0,\r\n                giaTreEm: 0,\r\n                selectedOptions: [],\r\n            },\r\n\r\n            currentPhienBan: {},\r\n            selectedPhienBan: [],\r\n            objRequestOldRenewal: {\r\n                discountPercent: 0,\r\n                discountAmount: 0\r\n            },\r\n            Tag: \"\",\r\n            Tags: [],\r\n            ListImg: [],//Danh sách hình ảnh\r\n\r\n            Languages: [],//Danh sách ngôn ngữ\r\n            ManufacturerIds: [],//Danh sách nhà cung cấp\r\n            ZoneOptions: [],\r\n            DiemDenOptions: [],\r\n            TagOptions: [],\r\n            OpOptions: [],\r\n            BookingNotesOptions: [],\r\n            CouponZoneOptions: [],\r\n            ZoneValues: [],\r\n            DiemDenValues: [],\r\n            TagValues: [],\r\n            NoteValues: [],\r\n            CouponZoneValues: [],\r\n            ArticleValues: [],\r\n            ProductUnit: [],\r\n            Properties: [],\r\n            ListProperty: [],\r\n            Colors: [],\r\n            ListColors: [],\r\n            ProductParent: 0,\r\n            ListProductParent: [],\r\n            ListPhuongTien: [],\r\n            ListAllTags: [],\r\n            ListGuarantee: [],\r\n            ListTypeMaterial: [],\r\n            ListProductComponent: [],\r\n            objUser: {},\r\n            FileMeta: {\r\n                File360: \"\",\r\n                FileDowload: \"\",\r\n                FileVideo: \"\",\r\n            },\r\n            ListArticleValue: [],\r\n            ListArticle: [],\r\n            ListOldRenewal: [],\r\n            RdoOldRenewal: \"\",\r\n            LichTrinhTour: [],\r\n            ThongTinTour: [],\r\n            ThuTucVisa: [],\r\n            TourItemTemplate: {\r\n                tieuDe: \"\",\r\n                noiDung: \"\"\r\n            },\r\n            requestPhuongTien: [],\r\n            serialNumbers: [],\r\n            countryOptions: [],\r\n            optionValues: [],\r\n            selectedProductOptions: [],\r\n            isUpdatingSelectProductOption: false,  // Biến cờ để theo dõi trạng thái cập nhật,\r\n            convertedArr: [],\r\n            zoneTreeViewOptionById: [],\r\n            currentProductId: 0,\r\n            currentGiaPhienBanTheoNgay: [],\r\n            filterGiaPhienBanTheoNgay: {\r\n                form: null,\r\n                to: null,\r\n                dayOfWeek: [\r\n                    {\r\n                        label: 'Mon',\r\n                        checked: false\r\n                    },\r\n                    {\r\n                        label: 'Tue',\r\n                        checked: false\r\n                    },\r\n                    {\r\n                        label: 'Wed',\r\n                        checked: false\r\n                    },\r\n                    {\r\n                        label: 'Thu',\r\n                        checked: false\r\n                    },\r\n                    {\r\n                        label: 'Fri',\r\n                        checked: false\r\n                    },\r\n                    {\r\n                        label: 'Sat',\r\n                        checked: false\r\n                    },\r\n                    {\r\n                        label: 'Sun',\r\n                        checked: false\r\n                    }\r\n                ]\r\n            },\r\n            updateAllGiaPhienBanTheoNgay: {\r\n\r\n                priceEachNguoiLon: 0,\r\n                priceEachTreEm: 0,\r\n                priceEachNguoiGia: 0,\r\n                netEachNguoiLon: 0,\r\n                netEachTreEm: 0,\r\n                netEachNguoiGia: 0\r\n            },\r\n            currentSelectedOptionCombination: '',\r\n            userSuppliers: [],\r\n            objRequestCancelPolicy: [],\r\n\r\n        };\r\n    },\r\n    created: {},\r\n    components: {\r\n        MIEditor,\r\n        Loading,\r\n\r\n        Treeselect,\r\n\r\n        FileManager,\r\n        \"v-tags-input\": VoerroTagsInput,\r\n        draggable\r\n        /*Datepicker: VueDatepickerUi*/\r\n    },\r\n    //mounted() {\r\n\r\n    //},\r\n\r\n\r\n\r\n    computed: {\r\n        ...mapGetters([\"product\", \"fileName\"]),\r\n    },\r\n    created() {\r\n        if (this.$route.params.id > 0) {\r\n            this.currentProductId = this.$route.params.id;\r\n            var $this = this;\r\n            this.isLoading = true;\r\n            let initial = this.$route.query.initial;\r\n            initial = typeof initial != \"undefined\" ? initial.toLowerCase() : \"\";\r\n\r\n            this.getProduct(this.$route.params.id).then(respose => {\r\n                this.objRequest = respose.data;\r\n                ////console.log(this.objRequest)\r\n\r\n                $this.ListProperty = respose.listProp;\r\n                $this.ListColors = respose.listColor;\r\n                $this.ZoneValues = respose.listCat;\r\n                $this.DiemDenValues = respose.listDiemDen;\r\n                $this.TagValues = respose.listTagOption;\r\n                $this.NoteValues = respose.listNoteOption;\r\n                $this.CouponZoneValues = respose.listCouponZoneOptions;\r\n                $this.optionValues = respose.listProductOption;\r\n                console.log('optionValues when creatd', $this.optionValues);\r\n                this.onChangePaging();\r\n                //$this.optionValues.forEach((value, index) => {\r\n\r\n                //})\r\n\r\n\r\n                $this.ListArticle = respose.listArticle;\r\n                $this.ListImg = this.objRequest.avatarArray.split(\",\");\r\n                if (respose.data.parentId) {\r\n                    $this.ProductParent = respose.data.parentId;\r\n                }\r\n\r\n\r\n\r\n\r\n                $this.loadOptionArticleDefault(respose.data.articleId);\r\n\r\n\r\n            });\r\n            this.getPhienBanInProduct(this.$route.params.id).then(response => {\r\n\r\n                if (response.data) {\r\n                    this.objRequestPhienBans = response.data;\r\n                    // console.log('objRequestPhienBan', this.objRequestPhienBans);\r\n                }\r\n\r\n\r\n            });\r\n            this.getCancelPolicies(this.$route.params.id).then(response => {\r\n                if(response.data){\r\n                    this.objRequestCancelPolicy = response.data;\r\n                }\r\n            })\r\n            this.getTopUpInProduct(this.$route.params.id).then((response) => {\r\n                ////console.log(response.data)\r\n                response.data.map(element => {\r\n                    element.title = element.title.split(';')[0]\r\n                })\r\n                this.objRequestTopUp = response.data;\r\n            })\r\n            this.getSerialNumbersByProductId(this.$route.params.id).then((response) => {\r\n                //////console.log(response);\r\n                this.serialNumbers = response;\r\n            })\r\n\r\n\r\n\r\n            this.LoadListOld(this.$route.params.id)\r\n            this.isLoading = false;\r\n        }\r\n\r\n        let vm = this;\r\n        EventBus.$on('FileSelected', value => {\r\n\r\n        });\r\n\r\n        this.objUser = this.getUser();\r\n\r\n        this.getAllLanguages().then(respose => {\r\n            let lang = respose.listData;\r\n            this.Languages = lang.map(function (item) {\r\n                return {\r\n                    value: item.languageCode,\r\n                    text: item.name\r\n                }\r\n            });\r\n        });\r\n        this.getAllColors().then(respose => {\r\n            this.Colors = respose;\r\n        });\r\n        this.getListProductParent().then(respose => {\r\n            this.ListProductParent = respose.listData;\r\n        });\r\n        this.getAllManufacturers().then(response => {\r\n\r\n            this.ManufacturerIds = response.listData;\r\n        });\r\n\r\n        this.productUnitGet().then(response => {\r\n            this.ProductUnit = response.listData;\r\n        });\r\n        this.onGetSuppliers();\r\n        this.getPropertyProduct().then(response => {\r\n            this.Properties = response;\r\n        });\r\n        this.getTagAll().then(response => {\r\n            try {\r\n                this.ListAllTags = this.convertTags(response.listData);\r\n            }\r\n            catch (ex) {\r\n                ////console.log(ex);\r\n            }\r\n        });\r\n        this.getGuarantee().then(response => {\r\n            try {\r\n                this.ListGuarantee = response;\r\n            }\r\n            catch (ex) {\r\n                ////console.log(ex);\r\n            }\r\n        });\r\n        this.getAllTypeMaterial().then(response => {\r\n            try {\r\n                this.ListTypeMaterial = response.listData;\r\n            }\r\n            catch (ex) {\r\n                ////console.log(ex);\r\n            }\r\n        });\r\n        this.getAllCatProductComponent().then(response => {\r\n            try {\r\n                this.ListProductComponent = response.listData;\r\n            }\r\n            catch (ex) {\r\n                ////console.log(ex);\r\n            }\r\n        });\r\n\r\n\r\n\r\n        // this.onChangePaging();\r\n\r\n\r\n\r\n\r\n        this.tour_DoAddLichTour();\r\n        this.tour_DoAddThuTucVisa();\r\n        this.tour_DoAddThongTinTour();\r\n        this.ListPhuongTien.push({\r\n            id: 1,\r\n            label: 'Ô tô'\r\n        })\r\n        this.ListPhuongTien.push({\r\n            id: 2,\r\n            label: 'Xe máy'\r\n        })\r\n        this.ListPhuongTien.push({\r\n            id: 3,\r\n            label: 'Máy bay'\r\n        })\r\n\r\n    },\r\n    mounted() {\r\n        // this.onChangePaging();\r\n    },\r\n    destroyed() {\r\n        EventBus.$off('FileSelected');\r\n    },\r\n    methods: {\r\n        ...mapActions([\"updateProduct\",\r\n            \"addProduct\",\r\n            \"getProduct\",\r\n            \"getAllManufacturers\",\r\n            \"getAllLanguages\",\r\n            \"addProductInLanguage\",\r\n            \"getZones\",\r\n            \"getZonesTreeviewById\",\r\n            \"deleteProduct\",\r\n            \"productUnitGet\",\r\n            \"getPropertyProduct\",\r\n            \"getLanguageById\",\r\n            \"getTagAll\",\r\n            \"getGuarantee\",\r\n            \"getAllColors\",\r\n            \"getAllTypeMaterial\",\r\n            \"getListProductParent\",\r\n            \"deleteOldRenewal\",\r\n            \"insertOrUpdate\",\r\n            \"getProductOldRenewal\",\r\n            \"getPhienBanInProduct\",\r\n            \"getAllCatProductComponent\",\r\n            \"getTopUpInProduct\",\r\n            \"getSerialNumbersByProductId\",\r\n            \"fmFileUploadExcel_ImportSeiralNumber\",\r\n            \"getGiaPhienBanTheoNgay\",\r\n            \"updateGiaPhienBanTheoNgay\",\r\n            \"getAllUserSupplier\",\r\n            \"getCancelPolicies\"\r\n        ]),\r\n        AddNewCancelPolicy() {\r\n            this.objRequestCancelPolicy.push({\r\n                productId: 0,\r\n                beforeDate: 0,\r\n                rollbackValue: 0,\r\n                rollbackValueOption: 1\r\n            })\r\n        },\r\n        onRemoveCancelPolicy(index){\r\n            this.objRequestCancelPolicy.splice(index, 1)\r\n        },\r\n        onChangePackageConfirmOption() {\r\n            //HOOK\r\n            //objRequestPhienBans\r\n            // console.log(this.objRequestPhienBans)\r\n            if (this.objRequestPhienBans.length > 0) {\r\n                this.objRequestPhienBans.forEach(item => {\r\n                    item.confirmOption = this.objRequest.confirmOption\r\n                })\r\n            }\r\n        },\r\n        onUpdateGiaPhienBanTheoNgay() {\r\n            this.updateGiaPhienBanTheoNgay(this.currentGiaPhienBanTheoNgay).then(response => {\r\n                if (response) {\r\n                    this.$toast.success(\"Cập nhật thành công!\", {});\r\n                    //reset các tham số\r\n                    this.$refs.pByDateModal.hide();\r\n                    this.filterGiaPhienBanTheoNgay = {\r\n                        form: null,\r\n                        to: null,\r\n                        dayOfWeek: [\r\n                            {\r\n                                label: 'Mon',\r\n                                checked: false\r\n                            },\r\n                            {\r\n                                label: 'Tue',\r\n                                checked: false\r\n                            },\r\n                            {\r\n                                label: 'Wed',\r\n                                checked: false\r\n                            },\r\n                            {\r\n                                label: 'Thu',\r\n                                checked: false\r\n                            },\r\n                            {\r\n                                label: 'Fri',\r\n                                checked: false\r\n                            },\r\n                            {\r\n                                label: 'Sat',\r\n                                checked: false\r\n                            },\r\n                            {\r\n                                label: 'Sun',\r\n                                checked: false\r\n                            }\r\n                        ]\r\n                    }\r\n\r\n                } else {\r\n                    this.$toast.error(\"Cập nhật thất bại! Liên hệ quản trị viên\", {});\r\n                }\r\n            })\r\n\r\n        },\r\n        onUpdateAllCurrentGiaPhienBanTheoNgay() {\r\n            //Can phai clone ra de tranh reference object\r\n            let u = JSON.parse(JSON.stringify(this.updateAllGiaPhienBanTheoNgay));\r\n            this.currentGiaPhienBanTheoNgay.forEach(v => {\r\n                if (v.filterd) {\r\n                    if (u.priceEachNguoiLon >= 0) {\r\n                        v.priceEachNguoiLon = u.priceEachNguoiLon;\r\n                    }\r\n                    if (u.priceEachTreEm >= 0) {\r\n                        v.priceEachTreEm = u.priceEachTreEm;\r\n                    }\r\n                    if (u.priceEachNguoiGia >= 0) {\r\n                        v.priceEachNguoiGia = u.priceEachNguoiGia;\r\n                    }\r\n                    if (u.netEachNguoiLon >= 0) {\r\n                        v.netEachNguoiLon = u.netEachNguoiLon;\r\n                    }\r\n                    if (u.netEachTreEm >= 0) {\r\n                        v.netEachTreEm = u.netEachTreEm;\r\n                    }\r\n                    if (u.netEachNguoiGia >= 0) {\r\n                        v.netEachNguoiGia = u.netEachNguoiGia;\r\n                    }\r\n                }\r\n            })\r\n            // Tra lai gia tri mac dinh cho object mau\r\n            this.updateAllGiaPhienBanTheoNgay = {\r\n\r\n                priceEachNguoiLon: 0,\r\n                priceEachTreEm: 0,\r\n                priceEachNguoiGia: 0,\r\n                netEachNguoiLon: 0,\r\n                netEachTreEm: 0,\r\n                netEachNguoiGia: 0\r\n            }\r\n\r\n        },\r\n        on_filterGiaPhienBanTheoNgay() {\r\n            //console.log(this.filterGiaPhienBanTheoNgay);\r\n            this.currentGiaPhienBanTheoNgay.forEach(v => {\r\n                v.filterd = false;\r\n            })\r\n            let pickedDayOfWeek = [];\r\n            this.filterGiaPhienBanTheoNgay.dayOfWeek.forEach(v => {\r\n                if (v.checked) {\r\n                    pickedDayOfWeek.push(v.label)\r\n                }\r\n            })\r\n            let result = JSON.parse(JSON.stringify(this.currentGiaPhienBanTheoNgay));\r\n            if (this.filterGiaPhienBanTheoNgay.from) {\r\n                result = result.filter(r => moment(r.date) >= moment(this.filterGiaPhienBanTheoNgay.from));\r\n            }\r\n            if (this.filterGiaPhienBanTheoNgay.to) {\r\n                result = result.filter(r => moment(r.date) <= moment(this.filterGiaPhienBanTheoNgay.to));\r\n            }\r\n            if (pickedDayOfWeek.length > 0) {\r\n                result = result.filter(r => pickedDayOfWeek.indexOf(r.dayOfWeek) >= 0);\r\n            }\r\n            let dateFilterd = result.map(r => r.date);\r\n\r\n            this.currentGiaPhienBanTheoNgay.forEach(v => {\r\n                if (dateFilterd.indexOf(v.date) >= 0) {\r\n                    v.filterd = true;\r\n                }\r\n            })\r\n        },\r\n        onFormatDate(date) {\r\n            return moment(date).format('DD/MM/YYYY')\r\n        },\r\n        DoAddGiaPhienBanTheoNgay(item) {\r\n            this.currentSelectedOptionCombination = item.selectedOptions.toString()\r\n            this.$refs.pByDateModal.show();\r\n            let data = {\r\n                selectedOptions: item.selectedOptions.toString(),\r\n                productId: this.currentProductId\r\n            }\r\n            this.getGiaPhienBanTheoNgay(data).then(response => {\r\n                this.currentGiaPhienBanTheoNgay = response;\r\n                this.currentGiaPhienBanTheoNgay.forEach(v => {\r\n                    v.filterd = true;\r\n                })\r\n                // console.log(this.currentGiaPhienBanTheoNgay);\r\n            })\r\n        },\r\n        updateProductOptions() {\r\n            //console.log(this.zoneTreeViewOptionById)\r\n            console.log('optionValue when mouted', this.optionValues)\r\n            // Đặt cờ isUpdating để ngăn chặn các lời gọi hàm tiếp theo\r\n            if (this.zoneTreeViewOptionById) {\r\n                if (this.selectedProductOptions.length > 0) {\r\n                    this.selectedProductOptions = [];\r\n                }\r\n                //sort lại optionValue ở đây\r\n                this.optionValues.sort((a, b) => a - b)\r\n                this.convertdArr = [];\r\n                //debugger\r\n                this.optionValues.forEach((item, index) => {\r\n                    let _parent = this.zoneTreeViewOptionById.find(r => r.id == item);\r\n                    let _childs = this.zoneTreeViewOptionById.filter(r => r.parentId == item);\r\n                    ////console.log(_childs)\r\n                    let obj = {\r\n                        parent: _parent,\r\n                        childs: _childs\r\n                    }\r\n                    ////console.log(obj)\r\n                    let arrItem = []\r\n                    obj.childs.forEach((c, index_c) => {\r\n                        arrItem.push(c.id)\r\n                    })\r\n                    console.log(item)\r\n                    this.convertdArr.push(arrItem)\r\n                    this.selectedProductOptions.push(obj);\r\n                })\r\n                //Bat dau kiem tra o day\r\n                console.log(this.selectedProductOptions)\r\n                if (this.convertdArr.length > 0) {\r\n                    if (this.objRequestPhienBans) {\r\n                        this.objRequestPhienBans.forEach((pb, indexPb) => {\r\n                            let isAdd = \"\";\r\n                            if (pb.selectedOptions.length < this.convertdArr.length) {\r\n                                isAdd = \"add\"\r\n                            }\r\n                            else if (pb.selectedOptions.length > this.convertdArr.length) {\r\n                                isAdd = \"minus\"\r\n                            }\r\n                            else {\r\n\r\n                            }\r\n\r\n                            if (isAdd === \"add\") {\r\n                                for (var i = 0; i < this.convertdArr.length; i++) {\r\n                                    //Kiem tra xem arr convertedArr[i] co chua phan tu pb.selectedOptions[i] khong\r\n                                    //Neu khong co thi them vao mang pb.selectedOptions[i] gia tri -1\r\n                                    //neu do dai ma khong dai bang gia tri thu i thi push them vao\r\n                                    console.log(this.convertdArr[i], pb.selectedOptions[i])\r\n                                    if (!this.convertdArr[i].includes(pb.selectedOptions[i])) {\r\n                                        pb.selectedOptions.splice(i, 0, -1)\r\n                                    }\r\n                                    if (pb.selectedOptions.length < i + 1) {\r\n                                        pb.selectedOptions.push(-1)\r\n                                    }\r\n                                }\r\n                            }\r\n                            if (isAdd === \"minus\") {\r\n                                for (var i = 0; i < this.convertdArr.length; i++) {\r\n                                    //Kiem tra xem arr convertedArr[i] co chua phan tu pb.selectedOptions[i] khong\r\n                                    //Neu khong co thi them vao mang pb.selectedOptions[i] gia tri -1\r\n                                    //neu do dai ma khong dai bang gia tri thu i thi push them vao\r\n\r\n                                    if (!this.convertdArr[i].includes(pb.selectedOptions[i])) {\r\n                                        pb.selectedOptions.splice(i, 1)\r\n                                    }\r\n                                }\r\n                            }\r\n                        })\r\n                    }\r\n                }\r\n            }\r\n\r\n        },\r\n        onUploadSerialClick() {\r\n            // Mở input file khi click vào nút \"Upload Data\"\r\n            this.$refs.fileInput.click();\r\n        },\r\n        async handleFileChange(event) {\r\n            const selectedFile = event.target.files[0];\r\n\r\n            // Kiểm tra xem có file được chọn không\r\n            if (!selectedFile) {\r\n                //////console.log('Không có file nào được chọn.');\r\n                return;\r\n            }\r\n\r\n            // Lấy productId từ nơi bạn lấy dữ liệu, ví dụ như từ state hoặc props\r\n            const productId = this.$route.params.id; // Đảm bảo bạn đã khai báo và gán giá trị cho this.productId\r\n\r\n            try {\r\n                // Tạo formData để chứa file và các tham số khác\r\n                const formData = new FormData();\r\n                formData.append('file', selectedFile);\r\n                formData.append('productId', productId); // Thêm tham số productId vào formData\r\n\r\n                this.fmFileUploadExcel_ImportSeiralNumber(formData).then((response) => {\r\n                    ////console.log(response);\r\n                })\r\n\r\n                // Gửi formData lên server bằng fetch hoặc axios\r\n                const response = await fetch('/FileUploadV2/import_serial_sim', {\r\n                    method: 'POST',\r\n                    body: formData\r\n                });\r\n\r\n                if (!response.ok) {\r\n                    throw new Error('Lỗi khi gửi file lên server.');\r\n                }\r\n\r\n                ////console.log('File đã được gửi thành công lên server.');\r\n\r\n                // Đọc dữ liệu từ file Excel và in ra cột 1 và 2\r\n                const excelData = await response.json();\r\n                ////console.log('Dữ liệu từ file Excel:');\r\n                for (const row of excelData) {\r\n                    ////console.log('Cột 1:', row.column1, ', Cột 2:', row.column2);\r\n                }\r\n            } catch (error) {\r\n                console.error('Đã xảy ra lỗi:', error.message);\r\n            }\r\n        },\r\n\r\n        tour_DoDelThuTucVisa(index) {\r\n            if (this.ThuTucVisa.length > 0)\r\n                this.ThuTucVisa.splice(index, 1);\r\n        },\r\n        tour_DoAddThuTucVisa() {\r\n            let tourItem = {\r\n                tieuDe: \"\",\r\n                noiDung: \"\"\r\n            };\r\n            this.ThuTucVisa.push(tourItem);\r\n        },\r\n        tour_DoDelThongTinTour(index) {\r\n            if (this.ThongTinTour.length > 0)\r\n                this.ThongTinTour.splice(index, 1);\r\n        },\r\n        tour_DoAddThongTinTour() {\r\n            let tourItem = {\r\n                tieuDe: \"\",\r\n                noiDung: \"\"\r\n            };\r\n            this.ThongTinTour.push(tourItem);\r\n        },\r\n        tour_DoDelLichTour(index) {\r\n            if (this.LichTrinhTour.length > 0)\r\n                this.LichTrinhTour.splice(index, 1);\r\n        },\r\n        tour_DoAddLichTour() {\r\n            this.LichTrinhTour.push({\r\n                tieuDe: \"\",\r\n                noiDung: \"\"\r\n            });\r\n        },\r\n        tour_getOrSetData_lichTour(value) {\r\n            //////console.log(value)\r\n            var dt = JSON.parse(value);\r\n            ////console.log(dt)\r\n            this.LichTrinhTour[dt.index].noiDung = dt.content;\r\n        },\r\n        tour_getOrSetData_thongTinTour(value) {\r\n            //////console.log(value)\r\n            var dt = JSON.parse(value);\r\n            ////console.log(dt)\r\n            this.ThongTinTour[dt.index].noiDung = dt.content;\r\n\r\n        },\r\n        tour_getOrSetData_thuTucVisa(value) {\r\n            //////console.log(value)\r\n            var dt = JSON.parse(value);\r\n            ////console.log(dt)\r\n            this.ThuTucVisa[dt.index].noiDung = dt.content;\r\n        },\r\n        loadOptions({ action, searchQuery, callback }) {\r\n            if (action === ASYNC_SEARCH) {\r\n                var $this = this;\r\n                simulateAsyncOperation(() => {\r\n                    const options = $this.ListArticle.filter(function (item) {\r\n                        return (item.label.toLowerCase().indexOf(searchQuery.toLowerCase()) !== -1)\r\n                    }).slice(0, 30);\r\n                    callback(null, options)\r\n                })\r\n            }\r\n        },\r\n        loadOptionArticleDefault(ArticleId) {\r\n            if (ArticleId != null && ArticleId.length > 0) {\r\n                var split = ArticleId.split(\",\");\r\n                var $this = this;\r\n\r\n                this.ListArticle.forEach(function (item, index) {\r\n                    if (split.some(x => parseInt(x) == item.key)) {\r\n                        $this.ArticleValues.push(item);\r\n                        //$this.ArticleValues.push(item.id);\r\n                    }\r\n                });\r\n            }\r\n\r\n        },\r\n        getOrSetData(value) {\r\n            this.objRequestDetail.content = value;\r\n        },\r\n        sumTotal() {\r\n            this.objRequest.discountPrice = this.objRequest.price - (this.objRequest.discountPercent * (this.objRequest.price / 100))\r\n        },\r\n        pathImgs(path) {\r\n            return pathImg(path);\r\n        },\r\n        urlBases(path) {\r\n            return urlBase(path);\r\n        },\r\n        getUser() {\r\n            //debugger-\r\n            var data = JSON.parse(localStorage.getItem('currentUser'));\r\n            return JSON.parse(localStorage.getItem('currentUser'));\r\n        },\r\n        onGetSuppliers() {\r\n            this.getAllUserSupplier().then(response => {\r\n                // console.log(response);\r\n                this.userSuppliers = response.map(r => ({\r\n                    label: r.fullName,\r\n                    id: r.email\r\n                }))\r\n\r\n            })\r\n        },\r\n        onChangePaging() {\r\n            this.isLoading = true;\r\n            let initial = this.$route.query.initial;\r\n            initial = typeof initial != \"undefined\" ? initial.toLowerCase() : \"\";\r\n            this.getZones(1).then(respose => {\r\n\r\n                var data = respose.listData;\r\n                ////console.log(data)\r\n                this.ZoneOptions = unflatten(data);\r\n                ////console.log(this.ZoneOptions);\r\n                //var countries = respose.listData.filter(element => element.parentId == 3 || element.id == 3);\r\n                //////console.log(countries);\r\n                //this.countryOptions = unflatten(countries);\r\n            });\r\n            this.getZones(5).then(respose => {\r\n                var data = respose.listData;\r\n\r\n                this.DiemDenOptions = unflatten(data);\r\n            });\r\n            this.getZones(4).then(respose => {\r\n                var data = respose.listData;\r\n\r\n                this.TagOptions = unflatten(data);\r\n            });\r\n            this.getZones(6).then(response => {\r\n                var data = response.listData;\r\n                this.BookingNotesOptions = unflatten(data)\r\n            })\r\n            this.getZones(8).then(response => {\r\n                var data = response.listData;\r\n                this.CouponZoneOptions = unflatten(data)\r\n            })\r\n            this.getZones(3).then(response => { //Lay danh sach option san pham\r\n                var data = response.listData;\r\n                ////console.log(data)\r\n                this.OpOptions = unflatten(data);\r\n                ////console.log(this.OpOptions)\r\n            })\r\n            this.getZonesTreeviewById(0).then((r) => {\r\n                r.listData.forEach(v => {\r\n                    this.zoneTreeViewOptionById.push(v)\r\n                })\r\n                this.updateProductOptions();\r\n            })\r\n\r\n            this.isLoading = false;\r\n        },\r\n        slugM: function () {\r\n            //debugger-\r\n            if (this.objRequestDetail != null && this.objRequestDetail != undefined) {\r\n                //this.objRequestDetail.url = \"\";\r\n                this.objRequestDetail.url = slug(this.objRequestDetail.title);\r\n            }\r\n        },\r\n\r\n        defaultObj: function () {\r\n            this.objRequestDetail = Object.assign({}, this.objRequestDetail);\r\n            this.objRequestDetail.id = \"00000000-0000-0000-0000-000000000000\";\r\n            this.objRequestDetail.title = \"\";\r\n            this.objRequestDetail.url = \"\";\r\n            this.objRequestDetail.content = \"\";\r\n            this.objRequestDetail.description = \"\";\r\n            this.Tags = [];\r\n        },\r\n\r\n        onLoadLang() {\r\n            //debugger-\r\n            this.isLoading = true;\r\n            this.getLanguageById(this.objRequest.id).then(respose => {\r\n                if (respose.listData != null && respose.listData.length > 0) {\r\n                    //////console.log(respose);\r\n                    //debugger-\r\n                    this.objRequestDetails = respose.listData;\r\n                    if (this.objRequestDetails != null && this.objRequestDetails != undefined && this.objRequestDetails.length > 0) {\r\n                        let obj = this.objRequestDetails.filter(x => x.languageCode == 'vi-VN     ');\r\n                        if (obj != null && obj.length > 0) {\r\n                            console.log(this.objRequestDetails)\r\n                            this.objRequestDetail = obj[0];\r\n                            //\r\n                            if (obj[0].metaNoIndex != null) {\r\n                                let objNoIndex = JSON.parse(obj[0].metaNoIndex);\r\n                                this.statusNoindex = objNoIndex.Status;\r\n                            }\r\n                            if (obj[0].metaCanonical != null) {\r\n                                let objCanonical = JSON.parse(obj[0].metaCanonical);\r\n                                this.statusCanonical = objCanonical.Status;\r\n                                this.valueCanonical = objCanonical.Value;\r\n                            }\r\n                            ////console.log(obj[0])\r\n                            if (obj[0].lichTour != null)\r\n                                this.LichTrinhTour = JSON.parse(obj[0].lichTour);\r\n                            if (obj[0].thongTinTour != null)\r\n                                this.ThongTinTour = JSON.parse(obj[0].thongTinTour);\r\n                            if (obj[0].thuTucVisa != null)\r\n                                this.ThuTucVisa = JSON.parse(obj[0].thuTucVisa);\r\n                            //////console.log(this.LichTrinhTour, this.ThongTinTour, this.ThuTucVisa)\r\n                        } else {\r\n                            this.objRequestDetail = this.objRequestDetails[0];\r\n                            console.log(this.objRequestDetail)\r\n                            //\r\n                            if (this.objRequestDetails[0].metaNoIndex != null) {\r\n                                let objNoIndex = JSON.parse(this.objRequestDetails[0].metaNoIndex);\r\n                                this.statusNoindex = objNoIndex.Status;\r\n                            }\r\n                            if (this.objRequestDetails[0].metaCanonical != null) {\r\n                                let objCanonical = JSON.parse(this.objRequestDetails[0].metaCanonical);\r\n                                this.statusCanonical = objCanonical.Status;\r\n                                this.valueCanonical = objCanonical.Value;\r\n                            }\r\n                            ////console.log(this.objRequestDetails[0].lichTour)\r\n                            if (this.objRequestDetails[0].lichTour != null)\r\n                                this.LichTrinhTour = JSON.parse(this.objRequestDetails[0].lichTour);\r\n                            else\r\n                                this.tour_DoAddLichTour();\r\n                            if (this.objRequestDetails[0].thongTinTour != null)\r\n                                this.ThongTinTour = JSON.parse(this.objRequestDetails[0].thongTinTour);\r\n                            else\r\n                                this.tour_DoAddThongTinTour();\r\n                            if (this.objRequestDetails[0].thuTucVisa != null)\r\n                                this.ThuTucVisa = JSON.parse(this.objRequestDetails[0].thuTucVisa);\r\n                            else\r\n                                this.tour_DoAddThuTucVisa();\r\n                            //\r\n\r\n                        }\r\n\r\n                        this.Tags = this.convertTags(this.objRequestDetail.listTagName);\r\n                    } else {\r\n                        this.defaultObj();\r\n                        this.statusNoindex = false;\r\n                        this.statusCanonical = false;\r\n                        this.valueCanonical = \"\";\r\n                    }\r\n                }\r\n                this.langSelected = this.objRequestDetail.languageCode;\r\n            });\r\n            this.contentContent = this.objRequestDetail.content;\r\n\r\n            this.isLoading = false;\r\n        },\r\n        StartLoadLang() {\r\n            this.isLoadLang = true;\r\n        },\r\n        removeImg(index) {\r\n            this.ListImg.splice(index, 1);\r\n        },\r\n        DoAddEdit() {\r\n            this.isLoading = true;\r\n            //debugger\r\n            this.objRequest.metaFile = JSON.stringify(this.FileMeta);\r\n            this.objRequest.avatarArray = this.ListImg.join();\r\n            this.objRequest.propertyId = this.ListProperty.join();\r\n            this.objRequest.color = this.ListColors.join();\r\n            this.objRequest.modifyBy = this.objUser.userName;\r\n            this.objRequest.ParentId = this.ProductParent;\r\n            this.objRequest.articleId = this.ArticleValues.map(x => x.key).join();\r\n            this.objRequest.phuongTien = this.requestPhuongTien.join();\r\n\r\n            let lstzone = [];\r\n            var requestId = this.objRequest.id;\r\n            this.ZoneValues.forEach(function (item, index) {\r\n                var isPrimarykey = false;\r\n                if (index == 0) {\r\n                    isPrimarykey = true;\r\n                }\r\n                try {\r\n                    var obj = {};\r\n                    obj.ZoneId = item;\r\n                    obj.ProductId = requestId;\r\n                    obj.IsPrimary = isPrimarykey;\r\n                    /*obj.IsHot = 999;*/\r\n                    obj.BigThumb = \"\";\r\n                    lstzone.push(obj);\r\n                }\r\n                catch (ex) {\r\n                    ////console.log(ex);\r\n                }\r\n            });\r\n            this.DiemDenValues.forEach(function (item, index) {\r\n                var isPrimarykey = false;\r\n                if (index == 0) {\r\n                    isPrimarykey = true;\r\n                }\r\n                try {\r\n                    var obj = {};\r\n                    obj.ZoneId = item;\r\n                    obj.ProductId = requestId;\r\n                    obj.IsPrimary = isPrimarykey;\r\n                    //obj.IsHot = false;\r\n                    obj.BigThumb = \"\";\r\n                    lstzone.push(obj);\r\n                }\r\n                catch (ex) {\r\n                    ////console.log(ex);\r\n                }\r\n            });\r\n            this.TagValues.forEach(function (item, index) {\r\n                var isPrimarykey = false;\r\n                if (index == 0) {\r\n                    isPrimarykey = true;\r\n                }\r\n                try {\r\n                    var obj = {};\r\n                    obj.ZoneId = item;\r\n                    obj.ProductId = requestId;\r\n                    obj.IsPrimary = isPrimarykey;\r\n                    //obj.IsHot = false;\r\n                    obj.BigThumb = \"\";\r\n                    lstzone.push(obj);\r\n                }\r\n                catch (ex) {\r\n                    ////console.log(ex);\r\n                }\r\n            });\r\n            this.NoteValues.forEach(function (item, index) {\r\n                var isPrimarykey = false;\r\n                if (index == 0) {\r\n                    isPrimarykey = true;\r\n                }\r\n                try {\r\n                    var obj = {};\r\n                    obj.ZoneId = item;\r\n                    obj.ProductId = requestId;\r\n                    obj.IsPrimary = isPrimarykey;\r\n                    //obj.IsHot = false;\r\n                    obj.BigThumb = \"\";\r\n                    lstzone.push(obj);\r\n                }\r\n                catch (ex) {\r\n                    ////console.log(ex);\r\n                }\r\n            });\r\n            this.CouponZoneValues.forEach(function (item, index) {\r\n                var isPrimarykey = false;\r\n                if (index == 0) {\r\n                    isPrimarykey = true;\r\n                }\r\n                try {\r\n                    var obj = {};\r\n                    obj.ZoneId = item;\r\n                    obj.ProductId = requestId;\r\n                    obj.IsPrimary = isPrimarykey;\r\n                    //obj.IsHot = false;\r\n                    obj.BigThumb = \"\";\r\n                    lstzone.push(obj);\r\n                }\r\n                catch (ex) {\r\n                    ////console.log(ex);\r\n                }\r\n            });\r\n            this.optionValues.forEach(function (item, index) {\r\n                var isPrimarykey = false;\r\n                if (index == 0) {\r\n                    isPrimarykey = true;\r\n                }\r\n                try {\r\n                    var obj = {};\r\n                    obj.ZoneId = item;\r\n                    obj.ProductId = requestId;\r\n                    obj.IsPrimary = isPrimarykey;\r\n                    //obj.IsHot = false;\r\n                    obj.BigThumb = \"\";\r\n                    lstzone.push(obj);\r\n                }\r\n                catch (ex) {\r\n                    ////console.log(ex);\r\n                }\r\n            });\r\n            ////console.log(this.optionValues)\r\n            this.objRequest.ProductInZone = lstzone;\r\n            //this.objRequest.avatar = this.Img;\r\n            ////console.log(this.objRequestPhienBans);\r\n\r\n            var data = {\r\n                product: this.objRequest,\r\n                phienBans: JSON.parse(JSON.stringify(this.objRequestPhienBans)),\r\n                cancelPolicies: JSON.parse(JSON.stringify(this.objRequestCancelPolicy))\r\n            }\r\n            //console.log(data);\r\n            if (this.objRequest.id > 0) {\r\n                this.updateProduct(data)\r\n                    .then(response => {\r\n                        this.isLoading = false;\r\n                        if (response.success == true) {\r\n\r\n                            this.$toast.success(response.message, {});\r\n                            this.isLoading = false;\r\n                            // router.push({ path: `/admin/product/list` });\r\n                        }\r\n                        else {\r\n                            this.$toast.error(response.message, {});\r\n                            this.isLoading = false;\r\n\r\n                        }\r\n\r\n                    })\r\n                    .catch(e => {\r\n                        this.$toast.error(msgNotify.error + \". error:\" + e, {});\r\n                        this.isLoading = false;\r\n                    })\r\n            } else {\r\n                this.addProduct(data.product)\r\n                    .then(response => {\r\n                        //console.log(response)\r\n                        this.isLoading = false;\r\n                        if (response.success == true) {\r\n\r\n\r\n                            this.$toast.success(response.message, {});\r\n                            this.objRequest.id = response.id;\r\n                            this.objRequestDetail.productid = response.id;\r\n                            this.$router.push({\r\n                                path: \"/admin/product/edit/\" + response.id,\r\n                            });\r\n                            this.isLoading = false;\r\n                        }\r\n                        else {\r\n                            this.$toast.error(response.message, {});\r\n                            this.isLoading = false;\r\n                        }\r\n                    })\r\n                    .catch(e => {\r\n                        this.$toast.error(msgNotify.error + \". error:\" + e, {});\r\n                        this.isLoading = false;\r\n                    })\r\n            }\r\n        },\r\n        getSelectedUser(node, id) {\r\n            this.objRequest.ZoneId = node.id;\r\n        },\r\n        convertTags(value) {\r\n            if (value != null && value != undefined && value.length > 0) {\r\n                return value.map(x => {\r\n                    return { key: slug(x), value: x }\r\n                });\r\n            }\r\n            return value;\r\n        },\r\n        onChangeSelectd() {\r\n\r\n            if (this.objRequestDetails != null && this.objRequestDetails.length > 0) {\r\n\r\n                let lang = this.langSelected || \"vi-VN     \";\r\n                let lstObjLang = this.objRequestDetails.filter(function (item) {\r\n                    return item.languageCode.trim() === lang.trim()\r\n                });\r\n                if (lstObjLang != null && lstObjLang != undefined && lstObjLang.length > 0) {\r\n                    this.objRequestDetail = lstObjLang[0];\r\n                    //\r\n                    if (lstObjLang[0].metaNoIndex != null) {\r\n                        let objNoIndex = JSON.parse(lstObjLang[0].metaNoIndex);\r\n                        this.statusNoindex = objNoIndex.Status;\r\n                    }\r\n                    if (lstObjLang[0].metaCanonical != null) {\r\n                        let objCanonical = JSON.parse(lstObjLang[0].metaCanonical);\r\n                        this.statusCanonical = objCanonical.Status;\r\n                        this.valueCanonical = objCanonical.Value;\r\n                    }\r\n                    ////console.log(obj[0])\r\n                    if (lstObjLang[0].lichTour != null)\r\n                        this.LichTrinhTour = JSON.parse(lstObjLang[0].lichTour);\r\n                    if (lstObjLang[0].thongTinTour != null)\r\n                        this.ThongTinTour = JSON.parse(lstObjLang[0].thongTinTour);\r\n                    if (lstObjLang[0].thuTucVisa != null)\r\n                        this.ThuTucVisa = JSON.parse(lstObjLang[0].thuTucVisa);\r\n                    //\r\n                    this.Tags = this.convertTags(this.objRequestDetail.listTagName);\r\n                } else {\r\n                    this.defaultObj();\r\n                    this.statusNoindex = false;\r\n                    this.statusCanonical = false;\r\n                    this.valueCanonical = \"\";\r\n                }\r\n            }\r\n            this.objRequestDetail.languageCode = this.langSelected;\r\n\r\n        },\r\n\r\n        DoAddDetail() {\r\n            this.objRequestDetail.productId = this.objRequest.id;\r\n            //\r\n            let objMetaNoIndex = {\r\n                Value: \"\",\r\n                Status: this.statusNoindex\r\n            }\r\n            let objMetaCanonical = {\r\n                Value: this.valueCanonical,\r\n                Status: this.statusCanonical\r\n            }\r\n            this.objRequestDetail.metaNoIndex = JSON.stringify(objMetaNoIndex);\r\n            this.objRequestDetail.metaCanonical = JSON.stringify(objMetaCanonical)\r\n\r\n            this.objRequestDetail.lichTour = JSON.stringify(this.LichTrinhTour)\r\n            this.objRequestDetail.thongTinTour = JSON.stringify(this.ThongTinTour)\r\n            this.objRequestDetail.thuTucVisa = JSON.stringify(this.ThuTucVisa)\r\n            //\r\n\r\n            ////console.log(this.LichTrinhTour)\r\n            ////console.log(this.ThongTinTour)\r\n            ////console.log(this.ThuTucVisa)\r\n            this.objRequestDetail.listTagName = this.Tags.map(x => {\r\n                return x.value\r\n            });\r\n\r\n            this.addProductInLanguage(this.objRequestDetail)\r\n                .then(response => {\r\n                    if (response.success == true) {\r\n                        if (response.data != null && response.data != undefined) {\r\n                            this.objRequestDetail.id = response.data.Id;\r\n                            if (!this.objRequestDetails.some(x => x.languageCode == this.objRequestDetail.languageCode)) {\r\n                                this.objRequestDetails.push(this.objRequestDetail);\r\n                            }\r\n                        }\r\n                        this.$toast.success(response.message, {});\r\n                        this.$router.push({ path: `/admin/product/list` });\r\n                    }\r\n                    else {\r\n                        this.$toast.error(response.message, {});\r\n                    }\r\n                })\r\n                .catch(e => {\r\n                    this.$toast.error(msgNotify.error + \". Error:\" + e, {});\r\n                    this.isLoading = false;\r\n                });\r\n        },\r\n        DoAttackFile(value) {\r\n            let vm = this;\r\n            if (this.choseImg == \"ListImg\") {\r\n                value.map(x => {\r\n                    vm.ListImg.push(x.path)\r\n                });\r\n            } else if (this.choseImg == \"Img\") {\r\n                vm.objRequest.avatar = value[0].path;\r\n            }\r\n            else if (this.choseImg == \"ImgS\") {\r\n                vm.objRequestDetail.socialImage = value[0].path;\r\n            }\r\n            else if (this.choseImg == \"fileVideo\") {\r\n                vm.FileMeta.FileVideo = value[0].path;\r\n            }\r\n            else if (this.choseImg == \"file360\") {\r\n                vm.FileMeta.File360 = value[0].path;\r\n            }\r\n            else if (this.choseImg == \"filedowload\") {\r\n                vm.FileMeta.FileDowload = value[0].path;\r\n            }\r\n        },\r\n        openImg(img) {\r\n            this.choseImg = img;\r\n            if (img == \"ListImg\") {\r\n                //EventBus.$emit(\"FileSelected\", );\r\n                EventBus.$emit(this.mikey1, 'multi'); // '': select one, 'multi': select multi file\r\n            } else {\r\n                //EventBus.$emit(\"FileSelected\", this.Img);\r\n                EventBus.$emit(this.mikey1, ''); // '': select one, 'multi': select multi file\r\n            }\r\n        },\r\n        LoadListOld(productid) {\r\n            this.getProductOldRenewal(productid).then(respose => {\r\n\r\n                this.ListOldRenewal = respose.data;\r\n\r\n            });\r\n        },\r\n        DoAddRenewal() {\r\n\r\n            if (!this.objRequestOldRenewal.descriptionType || !this.objRequestOldRenewal.priceRefer)\r\n                return this.$toast.error(\"Không bỏ trống tình trạng hoặc giá\", {});\r\n            this.objRequestOldRenewal.teamid = this.ListOldRenewal.length + 1;\r\n            this.ListOldRenewal.push(this.objRequestOldRenewal);\r\n            this.objRequestOldRenewal = {};\r\n        },\r\n        AddNewPhienBan() {\r\n            //debugger\r\n            //if (!this.objRequestOldRenewal.descriptionType || !this.objRequestOldRenewal.priceRefer)\r\n            //    return this.$toast.error(\"Không bỏ trống tình trạng hoặc giá\", {});\r\n            //this.objRequestOldRenewal.teamid = this.ListOldRenewal.length + 1;\r\n            //this.ListOldRenewal.push(this.objRequestOldRenewal);\r\n            //this.objRequestOldRenewal = {};\r\n            this.objRequestPhienBans.push({\r\n                priceEachNguoiLon: 0,\r\n                priceEachTreEm: 0,\r\n                netEachNguoiLon: 0,\r\n                netEachTreEm: 0,\r\n                priceEachNguoiGia: 0,\r\n                netEachNguoiGia: 0,\r\n                selectedOptions: [],\r\n            });\r\n\r\n        },\r\n        AddNewTopUp() {\r\n            this.objRequestTopUp.push({\r\n                id: 0,\r\n                parentId: 0,\r\n                title: \"\",\r\n                validaty: \"\",\r\n                price: 0,\r\n                smsNumber: 0,\r\n                phoneMinute: 0,\r\n                simType: \"\",\r\n                gradientColor: \"\",\r\n                coverage: \"\",\r\n                dataLimit: \"\",\r\n\r\n            })\r\n        },\r\n\r\n        DoDelTopUp(i) {\r\n            this.objRequestTopUp.splice(i, 1);\r\n        },\r\n\r\n        DoDelPhienBan(i) {\r\n            this.objRequestPhienBans.splice(i, 1);\r\n        },\r\n\r\n\r\n        DoEditRenewal() {\r\n            this.objRequestOldRenewal = this.RdoOldRenewal;\r\n            if (this.RdoOldRenewal.id) {\r\n                this.ListOldRenewal = this.ListOldRenewal.filter(x => x.id != this.RdoOldRenewal.id)\r\n            }\r\n            else {\r\n                this.ListOldRenewal = this.ListOldRenewal.filter(x => x.teamid != this.RdoOldRenewal.teamid)\r\n            }\r\n        },\r\n        DoDelRenewal() {\r\n            let item = this.ListOldRenewal.filter(x => x.teamid == this.RdoOldRenewal.teamid)\r\n            if (item) {\r\n                if (this.RdoOldRenewal.id) {\r\n                    this.deleteOldRenewal(this.RdoOldRenewal.id)\r\n                        .then(response => {\r\n                            if (response.success) {\r\n                                this.$toast.success(response.message, {});\r\n                                this.ListOldRenewal = this.ListOldRenewal.filter(x => x.id != this.RdoOldRenewal.id)\r\n                            }\r\n                            else {\r\n                                this.$toast.error(response.message, {});\r\n                            }\r\n\r\n                        })\r\n                }\r\n                else {\r\n                    this.ListOldRenewal = this.ListOldRenewal.filter(x => x.teamid != this.RdoOldRenewal.teamid)\r\n                }\r\n            }\r\n        }\r\n    },\r\n    watch: {\r\n        isLoadLang: function (val) {\r\n            this.onLoadLang();\r\n        },\r\n        filterGiaPhienBanTheoNgay: {\r\n            handler(newVal, oldVal) {\r\n                this.filterGiaPhienBanTheoNgay = newVal;\r\n                this.on_filterGiaPhienBanTheoNgay();\r\n            },\r\n            deep: true\r\n        }\r\n        //ArticleValues: function (val) {\r\n        //    this.\r\n        //},\r\n\r\n    },\r\n};\r\n</script>\r\n<style>\r\n/* The input */\r\n.tags-input {\r\n    display: flex;\r\n    flex-wrap: wrap;\r\n    align-items: center;\r\n}\r\n\r\n.tags-input input {\r\n    flex: 1;\r\n    background: transparent;\r\n    border: none;\r\n}\r\n\r\n.tags-input input:focus {\r\n    outline: none;\r\n}\r\n\r\n.tags-input input[type=\"text\"] {\r\n    color: #495057;\r\n}\r\n\r\n.tags-input-wrapper-default {\r\n    padding: .5em .25em;\r\n    background: #fff;\r\n    border: 1px solid transparent;\r\n    border-radius: .25em;\r\n    border-color: #dbdbdb;\r\n}\r\n\r\n.tags-input-wrapper-default.active {\r\n    border: 1px solid #8bbafe;\r\n    box-shadow: 0 0 0 0.2em rgba(13, 110, 253, 0.25);\r\n    outline: 0 none;\r\n}\r\n\r\n/* The tag badges & the remove icon */\r\n.tags-input span {\r\n    margin-right: 0.3em;\r\n}\r\n\r\n.tags-input-remove {\r\n    cursor: pointer;\r\n    position: absolute;\r\n    display: inline-block;\r\n    right: 0.3em;\r\n    top: 0.3em;\r\n    padding: 0.5em;\r\n    overflow: hidden;\r\n}\r\n\r\n.tags-input-remove:focus {\r\n    outline: none;\r\n}\r\n\r\n.tags-input-remove:before,\r\n.tags-input-remove:after {\r\n    content: '';\r\n    position: absolute;\r\n    width: 75%;\r\n    left: 0.15em;\r\n    background: #5dc282;\r\n    height: 2px;\r\n    margin-top: -1px;\r\n}\r\n\r\n.tags-input-remove:before {\r\n    transform: rotate(45deg);\r\n}\r\n\r\n.tags-input-remove:after {\r\n    transform: rotate(-45deg);\r\n}\r\n\r\n/* Tag badge styles */\r\n.tags-input-badge {\r\n    position: relative;\r\n    display: inline-block;\r\n    padding: 0.25em 0.4em;\r\n    font-size: 75%;\r\n    font-weight: 700;\r\n    line-height: 1;\r\n    text-align: center;\r\n    white-space: nowrap;\r\n    vertical-align: baseline;\r\n    border-radius: 0.25em;\r\n    overflow: hidden;\r\n    text-overflow: ellipsis;\r\n}\r\n\r\n.tags-input-badge-pill {\r\n    padding-right: 1.25em;\r\n    padding-left: 0.6em;\r\n    border-radius: 10em;\r\n}\r\n\r\n.tags-input-badge-selected-default {\r\n    color: #212529;\r\n    background-color: #f0f1f2;\r\n}\r\n\r\n/* Typeahead */\r\n.typeahead-hide-btn {\r\n    color: #999 !important;\r\n    font-style: italic;\r\n}\r\n\r\n/* Typeahead - badges */\r\n.typeahead-badges>span {\r\n    cursor: pointer;\r\n    margin-right: 0.3em;\r\n}\r\n\r\n/* Typeahead - dropdown */\r\n.typeahead-dropdown {\r\n    list-style-type: none;\r\n    padding: 0;\r\n    margin: 0;\r\n    position: absolute;\r\n    width: 100%;\r\n    z-index: 1000;\r\n}\r\n\r\n.typeahead-dropdown li {\r\n    padding: .25em 1em;\r\n    cursor: pointer;\r\n}\r\n\r\n/* Typeahead elements style/theme */\r\n.tags-input-typeahead-item-default {\r\n    color: #fff;\r\n    background-color: #343a40;\r\n}\r\n\r\n.tags-input-typeahead-item-highlighted-default {\r\n    color: #fff;\r\n    background-color: #007bff;\r\n}\r\n\r\n.modal-body {\r\n    max-height: 500px;\r\n    /* Set the desired height */\r\n    overflow-y: auto;\r\n    /* Enable vertical scrolling */\r\n}\r\n</style>\r\n"],"sourceRoot":""}]);
 
 // exports
 
 
 /***/ }),
 
-/***/ 1120:
+/***/ 1124:
 /***/ (function(module, exports, __webpack_require__) {
 
 var Component = __webpack_require__(374)(
   /* script */
-  __webpack_require__(1058),
+  __webpack_require__(1061),
   /* template */
-  __webpack_require__(1121),
+  __webpack_require__(1125),
   /* scopeId */
   null,
   /* cssModules */
   null
 )
-Component.options.__file = "C:\\WORKING\\Joytime\\dotnet-platform-backend\\Web\\Platform\\CMS\\PlatformCMS\\ClientApp\\pages\\product\\VoerroTagsInput.vue"
+Component.options.__file = "D:\\Code\\WORKING\\dotnet-platform-backend\\Web\\Platform\\CMS\\PlatformCMS\\ClientApp\\pages\\product\\VoerroTagsInput.vue"
 if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
 if (Component.options.functional) {console.error("[vue-loader] VoerroTagsInput.vue: functional components are not supported with templates, they should use render functions.")}
 
@@ -19755,7 +19829,7 @@ module.exports = Component.exports
 
 /***/ }),
 
-/***/ 1121:
+/***/ 1125:
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){
@@ -19943,7 +20017,7 @@ if (true) {
 
 /***/ }),
 
-/***/ 1235:
+/***/ 1240:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -19953,7 +20027,7 @@ Object.defineProperty(exports, "__esModule", {
     value: true
 });
 
-var _defineProperty2 = __webpack_require__(953);
+var _defineProperty2 = __webpack_require__(956);
 
 var _defineProperty3 = _interopRequireDefault(_defineProperty2);
 
@@ -19965,7 +20039,7 @@ var _regenerator = __webpack_require__(75);
 
 var _regenerator2 = _interopRequireDefault(_regenerator);
 
-var _getIterator2 = __webpack_require__(1031);
+var _getIterator2 = __webpack_require__(1034);
 
 var _getIterator3 = _interopRequireDefault(_getIterator2);
 
@@ -19977,15 +20051,15 @@ var _stringify = __webpack_require__(393);
 
 var _stringify2 = _interopRequireDefault(_stringify);
 
-var _extends2 = __webpack_require__(8);
+var _extends2 = __webpack_require__(7);
 
 var _extends3 = _interopRequireDefault(_extends2);
 
 var _name$data$created$co;
 
-__webpack_require__(793);
+__webpack_require__(796);
 
-var _constant = __webpack_require__(794);
+var _constant = __webpack_require__(797);
 
 var _constant2 = _interopRequireDefault(_constant);
 
@@ -19995,37 +20069,37 @@ var _vueLoadingOverlay = __webpack_require__(376);
 
 var _vueLoadingOverlay2 = _interopRequireDefault(_vueLoadingOverlay);
 
-var _vueTreeselect = __webpack_require__(948);
+var _vueTreeselect = __webpack_require__(951);
 
 var _vueTreeselect2 = _interopRequireDefault(_vueTreeselect);
 
-__webpack_require__(950);
+__webpack_require__(953);
 
-__webpack_require__(1022);
+__webpack_require__(1025);
 
-var _helper = __webpack_require__(947);
+var _helper = __webpack_require__(950);
 
-var _eventBus = __webpack_require__(954);
+var _eventBus = __webpack_require__(957);
 
 var _eventBus2 = _interopRequireDefault(_eventBus);
 
-var _moment = __webpack_require__(791);
+var _moment = __webpack_require__(794);
 
 var _moment2 = _interopRequireDefault(_moment);
 
-var _VoerroTagsInput = __webpack_require__(1120);
+var _VoerroTagsInput = __webpack_require__(1124);
 
 var _VoerroTagsInput2 = _interopRequireDefault(_VoerroTagsInput);
 
-var _list = __webpack_require__(1005);
+var _list = __webpack_require__(1008);
 
 var _list2 = _interopRequireDefault(_list);
 
-var _MIEditor = __webpack_require__(1025);
+var _MIEditor = __webpack_require__(1028);
 
 var _MIEditor2 = _interopRequireDefault(_MIEditor);
 
-var _vuedraggable = __webpack_require__(1046);
+var _vuedraggable = __webpack_require__(1049);
 
 var _vuedraggable2 = _interopRequireDefault(_vuedraggable);
 
@@ -21314,7 +21388,7 @@ exports.default = (_name$data$created$co = {
 
 /***/ }),
 
-/***/ 1534:
+/***/ 1539:
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
@@ -24095,23 +24169,23 @@ if (true) {
 
 /***/ }),
 
-/***/ 1605:
+/***/ 1611:
 /***/ (function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
-var content = __webpack_require__(1096);
+var content = __webpack_require__(1099);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
-var update = __webpack_require__(798)("99ca9636", content, false);
+var update = __webpack_require__(801)("99ca9636", content, false);
 // Hot Module Replacement
 if(true) {
  // When the styles change, update the <style> tags
  if(!content.locals) {
-   module.hot.accept(1096, function() {
-     var newContent = __webpack_require__(1096);
+   module.hot.accept(1099, function() {
+     var newContent = __webpack_require__(1099);
      if(typeof newContent === 'string') newContent = [[module.i, newContent, '']];
      update(newContent);
    });
@@ -24122,24 +24196,24 @@ if(true) {
 
 /***/ }),
 
-/***/ 764:
+/***/ 767:
 /***/ (function(module, exports, __webpack_require__) {
 
 
 /* styles */
-__webpack_require__(1605)
+__webpack_require__(1611)
 
 var Component = __webpack_require__(374)(
   /* script */
-  __webpack_require__(1235),
+  __webpack_require__(1240),
   /* template */
-  __webpack_require__(1534),
+  __webpack_require__(1539),
   /* scopeId */
   null,
   /* cssModules */
   null
 )
-Component.options.__file = "C:\\WORKING\\Joytime\\dotnet-platform-backend\\Web\\Platform\\CMS\\PlatformCMS\\ClientApp\\pages\\product\\edit.vue"
+Component.options.__file = "D:\\Code\\WORKING\\dotnet-platform-backend\\Web\\Platform\\CMS\\PlatformCMS\\ClientApp\\pages\\product\\edit.vue"
 if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
 if (Component.options.functional) {console.error("[vue-loader] edit.vue: functional components are not supported with templates, they should use render functions.")}
 
@@ -24161,7 +24235,7 @@ module.exports = Component.exports
 
 /***/ }),
 
-/***/ 791:
+/***/ 794:
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(module) {var require;//! moment.js
@@ -26265,7 +26339,7 @@ module.exports = Component.exports
             try {
                 oldLocale = globalLocale._abbr;
                 aliasedRequire = require;
-                __webpack_require__(995)("./" + name);
+                __webpack_require__(998)("./" + name);
                 getSetGlobalLocale(oldLocale);
             } catch (e) {
                 // mark as not found to avoid repeating expensive file require call causing high CPU
@@ -29854,7 +29928,7 @@ module.exports = Component.exports
 
 /***/ }),
 
-/***/ 792:
+/***/ 795:
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(53)();
@@ -29869,13 +29943,13 @@ exports.push([module.i, ".vld-overlay {\n  bottom: 0;\n  left: 0;\n  position: a
 
 /***/ }),
 
-/***/ 793:
+/***/ 796:
 /***/ (function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
-var content = __webpack_require__(792);
+var content = __webpack_require__(795);
 if(typeof content === 'string') content = [[module.i, content, '']];
 // add the styles to the DOM
 var update = __webpack_require__(179)(content, {});
@@ -29884,8 +29958,8 @@ if(content.locals) module.exports = content.locals;
 if(true) {
 	// When the styles change, update the <style> tags
 	if(!content.locals) {
-		module.hot.accept(792, function() {
-			var newContent = __webpack_require__(792);
+		module.hot.accept(795, function() {
+			var newContent = __webpack_require__(795);
 			if(typeof newContent === 'string') newContent = [[module.i, newContent, '']];
 			update(newContent);
 		});
@@ -29896,7 +29970,7 @@ if(true) {
 
 /***/ }),
 
-/***/ 794:
+/***/ 797:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -29910,13 +29984,13 @@ exports.default = msgNotify;
 
 /***/ }),
 
-/***/ 795:
+/***/ 798:
 /***/ (function(module, exports, __webpack_require__) {
 
 var global = __webpack_require__(21);
 var core = __webpack_require__(20);
 var LIBRARY = __webpack_require__(105);
-var wksExt = __webpack_require__(796);
+var wksExt = __webpack_require__(799);
 var defineProperty = __webpack_require__(54).f;
 module.exports = function (name) {
   var $Symbol = core.Symbol || (core.Symbol = LIBRARY ? {} : global.Symbol || {});
@@ -29926,7 +30000,7 @@ module.exports = function (name) {
 
 /***/ }),
 
-/***/ 796:
+/***/ 799:
 /***/ (function(module, exports, __webpack_require__) {
 
 exports.f = __webpack_require__(23);
@@ -29934,7 +30008,7 @@ exports.f = __webpack_require__(23);
 
 /***/ }),
 
-/***/ 797:
+/***/ 800:
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(53)();
@@ -29949,7 +30023,7 @@ exports.push([module.i, "/*!\n * vue-treeselect v0.4.0 | (c) 2017-2019 Riophae L
 
 /***/ }),
 
-/***/ 798:
+/***/ 801:
 /***/ (function(module, exports, __webpack_require__) {
 
 /*
@@ -29968,7 +30042,7 @@ if (typeof DEBUG !== 'undefined' && DEBUG) {
   ) }
 }
 
-var listToStyles = __webpack_require__(807)
+var listToStyles = __webpack_require__(809)
 
 /*
 type StyleObject = {
@@ -30171,28 +30245,28 @@ function applyToTag (styleElement, obj) {
 
 /***/ }),
 
-/***/ 799:
-/***/ (function(module, exports, __webpack_require__) {
-
-module.exports = { "default": __webpack_require__(944), __esModule: true };
-
-/***/ }),
-
-/***/ 800:
-/***/ (function(module, exports, __webpack_require__) {
-
-module.exports = { "default": __webpack_require__(957), __esModule: true };
-
-/***/ }),
-
-/***/ 801:
-/***/ (function(module, exports, __webpack_require__) {
-
-module.exports = { "default": __webpack_require__(958), __esModule: true };
-
-/***/ }),
-
 /***/ 802:
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports = { "default": __webpack_require__(947), __esModule: true };
+
+/***/ }),
+
+/***/ 803:
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports = { "default": __webpack_require__(960), __esModule: true };
+
+/***/ }),
+
+/***/ 804:
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports = { "default": __webpack_require__(961), __esModule: true };
+
+/***/ }),
+
+/***/ 805:
 /***/ (function(module, exports, __webpack_require__) {
 
 // 19.1.2.7 / 15.2.3.4 Object.getOwnPropertyNames(O)
@@ -30206,7 +30280,7 @@ exports.f = Object.getOwnPropertyNames || function getOwnPropertyNames(O) {
 
 /***/ }),
 
-/***/ 803:
+/***/ 806:
 /***/ (function(module, exports) {
 
 function _arrayLikeToArray(arr, len) {
@@ -30223,10 +30297,10 @@ module.exports = _arrayLikeToArray;
 
 /***/ }),
 
-/***/ 804:
+/***/ 807:
 /***/ (function(module, exports, __webpack_require__) {
 
-var arrayLikeToArray = __webpack_require__(803);
+var arrayLikeToArray = __webpack_require__(806);
 
 function _unsupportedIterableToArray(o, minLen) {
   if (!o) return;
@@ -30241,12 +30315,12 @@ module.exports = _unsupportedIterableToArray;
 
 /***/ }),
 
-/***/ 805:
+/***/ 808:
 /***/ (function(module, exports, __webpack_require__) {
 
-var baseTrim = __webpack_require__(979),
+var baseTrim = __webpack_require__(982),
     isObject = __webpack_require__(58),
-    isSymbol = __webpack_require__(985);
+    isSymbol = __webpack_require__(988);
 
 /** Used as references for various `Number` constants. */
 var NAN = 0 / 0;
@@ -30312,15 +30386,7 @@ module.exports = toNumber;
 
 /***/ }),
 
-/***/ 806:
-/***/ (function(module, exports) {
-
-exports.f = {}.propertyIsEnumerable;
-
-
-/***/ }),
-
-/***/ 807:
+/***/ 809:
 /***/ (function(module, exports) {
 
 /**
@@ -30354,13 +30420,21 @@ module.exports = function listToStyles (parentId, list) {
 
 /***/ }),
 
-/***/ 808:
+/***/ 810:
+/***/ (function(module, exports) {
+
+exports.f = {}.propertyIsEnumerable;
+
+
+/***/ }),
+
+/***/ 811:
 /***/ (function(module, exports, __webpack_require__) {
 
 var global = __webpack_require__(22);
 var core = __webpack_require__(37);
 var LIBRARY = __webpack_require__(107);
-var wksExt = __webpack_require__(993);
+var wksExt = __webpack_require__(996);
 var defineProperty = __webpack_require__(55).f;
 module.exports = function (name) {
   var $Symbol = core.Symbol || (core.Symbol = LIBRARY ? {} : global.Symbol || {});
@@ -30370,7 +30444,7 @@ module.exports = function (name) {
 
 /***/ }),
 
-/***/ 809:
+/***/ 812:
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -30378,7 +30452,7 @@ module.exports = function (name) {
 //! author : Werner Mollentze : https://github.com/wernerm
 
 ;(function (global, factory) {
-    true ? factory(__webpack_require__(791)) :
+    true ? factory(__webpack_require__(794)) :
    typeof define === 'function' && define.amd ? define(['../moment'], factory) :
    factory(global.moment)
 }(this, (function (moment) { 'use strict';
@@ -30458,7 +30532,7 @@ module.exports = function (name) {
 
 /***/ }),
 
-/***/ 810:
+/***/ 813:
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -30470,7 +30544,7 @@ module.exports = function (name) {
 //! author : Noureddine LOUAHEDJ : https://github.com/noureddinem
 
 ;(function (global, factory) {
-    true ? factory(__webpack_require__(791)) :
+    true ? factory(__webpack_require__(794)) :
    typeof define === 'function' && define.amd ? define(['../moment'], factory) :
    factory(global.moment)
 }(this, (function (moment) { 'use strict';
@@ -30631,7 +30705,7 @@ module.exports = function (name) {
 
 /***/ }),
 
-/***/ 811:
+/***/ 814:
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -30639,7 +30713,7 @@ module.exports = function (name) {
 //! author : Nusret Parlak: https://github.com/nusretparlak
 
 ;(function (global, factory) {
-    true ? factory(__webpack_require__(791)) :
+    true ? factory(__webpack_require__(794)) :
    typeof define === 'function' && define.amd ? define(['../moment'], factory) :
    factory(global.moment)
 }(this, (function (moment) { 'use strict';
@@ -30703,7 +30777,7 @@ module.exports = function (name) {
 
 /***/ }),
 
-/***/ 812:
+/***/ 815:
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -30711,7 +30785,7 @@ module.exports = function (name) {
 //! author : Ali Hmer: https://github.com/kikoanis
 
 ;(function (global, factory) {
-    true ? factory(__webpack_require__(791)) :
+    true ? factory(__webpack_require__(794)) :
    typeof define === 'function' && define.amd ? define(['../moment'], factory) :
    factory(global.moment)
 }(this, (function (moment) { 'use strict';
@@ -30891,7 +30965,7 @@ module.exports = function (name) {
 
 /***/ }),
 
-/***/ 813:
+/***/ 816:
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -30900,7 +30974,7 @@ module.exports = function (name) {
 //! author : Abdel Said : https://github.com/abdelsaid
 
 ;(function (global, factory) {
-    true ? factory(__webpack_require__(791)) :
+    true ? factory(__webpack_require__(794)) :
    typeof define === 'function' && define.amd ? define(['../moment'], factory) :
    factory(global.moment)
 }(this, (function (moment) { 'use strict';
@@ -30964,7 +31038,7 @@ module.exports = function (name) {
 
 /***/ }),
 
-/***/ 814:
+/***/ 817:
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -30972,7 +31046,7 @@ module.exports = function (name) {
 //! author : Suhail Alkowaileet : https://github.com/xsoh
 
 ;(function (global, factory) {
-    true ? factory(__webpack_require__(791)) :
+    true ? factory(__webpack_require__(794)) :
    typeof define === 'function' && define.amd ? define(['../moment'], factory) :
    factory(global.moment)
 }(this, (function (moment) { 'use strict';
@@ -31086,7 +31160,7 @@ module.exports = function (name) {
 
 /***/ }),
 
-/***/ 815:
+/***/ 818:
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -31094,7 +31168,7 @@ module.exports = function (name) {
 //! author : Nader Toukabri : https://github.com/naderio
 
 ;(function (global, factory) {
-    true ? factory(__webpack_require__(791)) :
+    true ? factory(__webpack_require__(794)) :
    typeof define === 'function' && define.amd ? define(['../moment'], factory) :
    factory(global.moment)
 }(this, (function (moment) { 'use strict';
@@ -31158,7 +31232,7 @@ module.exports = function (name) {
 
 /***/ }),
 
-/***/ 816:
+/***/ 819:
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -31168,7 +31242,7 @@ module.exports = function (name) {
 //! author : forabi https://github.com/forabi
 
 ;(function (global, factory) {
-    true ? factory(__webpack_require__(791)) :
+    true ? factory(__webpack_require__(794)) :
    typeof define === 'function' && define.amd ? define(['../moment'], factory) :
    factory(global.moment)
 }(this, (function (moment) { 'use strict';
@@ -31364,7 +31438,7 @@ module.exports = function (name) {
 
 /***/ }),
 
-/***/ 817:
+/***/ 820:
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -31372,7 +31446,7 @@ module.exports = function (name) {
 //! author : topchiyev : https://github.com/topchiyev
 
 ;(function (global, factory) {
-    true ? factory(__webpack_require__(791)) :
+    true ? factory(__webpack_require__(794)) :
    typeof define === 'function' && define.amd ? define(['../moment'], factory) :
    factory(global.moment)
 }(this, (function (moment) { 'use strict';
@@ -31483,7 +31557,7 @@ module.exports = function (name) {
 
 /***/ }),
 
-/***/ 818:
+/***/ 821:
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -31493,7 +31567,7 @@ module.exports = function (name) {
 //! Author : Menelion Elensúle : https://github.com/Oire
 
 ;(function (global, factory) {
-    true ? factory(__webpack_require__(791)) :
+    true ? factory(__webpack_require__(794)) :
    typeof define === 'function' && define.amd ? define(['../moment'], factory) :
    factory(global.moment)
 }(this, (function (moment) { 'use strict';
@@ -31642,7 +31716,7 @@ module.exports = function (name) {
 
 /***/ }),
 
-/***/ 819:
+/***/ 822:
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -31650,7 +31724,7 @@ module.exports = function (name) {
 //! author : Krasen Borisov : https://github.com/kraz
 
 ;(function (global, factory) {
-    true ? factory(__webpack_require__(791)) :
+    true ? factory(__webpack_require__(794)) :
    typeof define === 'function' && define.amd ? define(['../moment'], factory) :
    factory(global.moment)
 }(this, (function (moment) { 'use strict';
@@ -31746,7 +31820,7 @@ module.exports = function (name) {
 
 /***/ }),
 
-/***/ 820:
+/***/ 823:
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -31754,7 +31828,7 @@ module.exports = function (name) {
 //! author : Estelle Comment : https://github.com/estellecomment
 
 ;(function (global, factory) {
-    true ? factory(__webpack_require__(791)) :
+    true ? factory(__webpack_require__(794)) :
    typeof define === 'function' && define.amd ? define(['../moment'], factory) :
    factory(global.moment)
 }(this, (function (moment) { 'use strict';
@@ -31814,7 +31888,7 @@ module.exports = function (name) {
 
 /***/ }),
 
-/***/ 821:
+/***/ 824:
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -31822,7 +31896,7 @@ module.exports = function (name) {
 //! author : Asraf Hossain Patoary : https://github.com/ashwoolford
 
 ;(function (global, factory) {
-    true ? factory(__webpack_require__(791)) :
+    true ? factory(__webpack_require__(794)) :
    typeof define === 'function' && define.amd ? define(['../moment'], factory) :
    factory(global.moment)
 }(this, (function (moment) { 'use strict';
@@ -31960,7 +32034,7 @@ module.exports = function (name) {
 
 /***/ }),
 
-/***/ 822:
+/***/ 825:
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -31968,7 +32042,7 @@ module.exports = function (name) {
 //! author : Kaushik Gandhi : https://github.com/kaushikgandhi
 
 ;(function (global, factory) {
-    true ? factory(__webpack_require__(791)) :
+    true ? factory(__webpack_require__(794)) :
    typeof define === 'function' && define.amd ? define(['../moment'], factory) :
    factory(global.moment)
 }(this, (function (moment) { 'use strict';
@@ -32096,7 +32170,7 @@ module.exports = function (name) {
 
 /***/ }),
 
-/***/ 823:
+/***/ 826:
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -32104,7 +32178,7 @@ module.exports = function (name) {
 //! author : Thupten N. Chakrishar : https://github.com/vajradog
 
 ;(function (global, factory) {
-    true ? factory(__webpack_require__(791)) :
+    true ? factory(__webpack_require__(794)) :
    typeof define === 'function' && define.amd ? define(['../moment'], factory) :
    factory(global.moment)
 }(this, (function (moment) { 'use strict';
@@ -32237,7 +32311,7 @@ module.exports = function (name) {
 
 /***/ }),
 
-/***/ 824:
+/***/ 827:
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -32245,7 +32319,7 @@ module.exports = function (name) {
 //! author : Jean-Baptiste Le Duigou : https://github.com/jbleduigou
 
 ;(function (global, factory) {
-    true ? factory(__webpack_require__(791)) :
+    true ? factory(__webpack_require__(794)) :
    typeof define === 'function' && define.amd ? define(['../moment'], factory) :
    factory(global.moment)
 }(this, (function (moment) { 'use strict';
@@ -32422,7 +32496,7 @@ module.exports = function (name) {
 
 /***/ }),
 
-/***/ 825:
+/***/ 828:
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -32431,7 +32505,7 @@ module.exports = function (name) {
 //! based on (hr) translation by Bojan Marković
 
 ;(function (global, factory) {
-    true ? factory(__webpack_require__(791)) :
+    true ? factory(__webpack_require__(794)) :
    typeof define === 'function' && define.amd ? define(['../moment'], factory) :
    factory(global.moment)
 }(this, (function (moment) { 'use strict';
@@ -32589,7 +32663,7 @@ module.exports = function (name) {
 
 /***/ }),
 
-/***/ 826:
+/***/ 829:
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -32597,7 +32671,7 @@ module.exports = function (name) {
 //! author : Juan G. Hurtado : https://github.com/juanghurtado
 
 ;(function (global, factory) {
-    true ? factory(__webpack_require__(791)) :
+    true ? factory(__webpack_require__(794)) :
    typeof define === 'function' && define.amd ? define(['../moment'], factory) :
    factory(global.moment)
 }(this, (function (moment) { 'use strict';
@@ -32706,7 +32780,7 @@ module.exports = function (name) {
 
 /***/ }),
 
-/***/ 827:
+/***/ 830:
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -32714,7 +32788,7 @@ module.exports = function (name) {
 //! author : petrbela : https://github.com/petrbela
 
 ;(function (global, factory) {
-    true ? factory(__webpack_require__(791)) :
+    true ? factory(__webpack_require__(794)) :
    typeof define === 'function' && define.amd ? define(['../moment'], factory) :
    factory(global.moment)
 }(this, (function (moment) { 'use strict';
@@ -32903,7 +32977,7 @@ module.exports = function (name) {
 
 /***/ }),
 
-/***/ 828:
+/***/ 831:
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -32911,7 +32985,7 @@ module.exports = function (name) {
 //! author : Anatoly Mironov : https://github.com/mirontoli
 
 ;(function (global, factory) {
-    true ? factory(__webpack_require__(791)) :
+    true ? factory(__webpack_require__(794)) :
    typeof define === 'function' && define.amd ? define(['../moment'], factory) :
    factory(global.moment)
 }(this, (function (moment) { 'use strict';
@@ -32983,7 +33057,7 @@ module.exports = function (name) {
 
 /***/ }),
 
-/***/ 829:
+/***/ 832:
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -32992,7 +33066,7 @@ module.exports = function (name) {
 //! author : https://github.com/ryangreaves
 
 ;(function (global, factory) {
-    true ? factory(__webpack_require__(791)) :
+    true ? factory(__webpack_require__(794)) :
    typeof define === 'function' && define.amd ? define(['../moment'], factory) :
    factory(global.moment)
 }(this, (function (moment) { 'use strict';
@@ -33098,7 +33172,7 @@ module.exports = function (name) {
 
 /***/ }),
 
-/***/ 830:
+/***/ 833:
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -33106,7 +33180,7 @@ module.exports = function (name) {
 //! author : Ulrik Nielsen : https://github.com/mrbase
 
 ;(function (global, factory) {
-    true ? factory(__webpack_require__(791)) :
+    true ? factory(__webpack_require__(794)) :
    typeof define === 'function' && define.amd ? define(['../moment'], factory) :
    factory(global.moment)
 }(this, (function (moment) { 'use strict';
@@ -33168,7 +33242,7 @@ module.exports = function (name) {
 
 /***/ }),
 
-/***/ 831:
+/***/ 834:
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -33179,7 +33253,7 @@ module.exports = function (name) {
 //! author : Mikolaj Dadela : https://github.com/mik01aj
 
 ;(function (global, factory) {
-    true ? factory(__webpack_require__(791)) :
+    true ? factory(__webpack_require__(794)) :
    typeof define === 'function' && define.amd ? define(['../moment'], factory) :
    factory(global.moment)
 }(this, (function (moment) { 'use strict';
@@ -33264,7 +33338,7 @@ module.exports = function (name) {
 
 /***/ }),
 
-/***/ 832:
+/***/ 835:
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -33272,7 +33346,7 @@ module.exports = function (name) {
 //! author : sschueller : https://github.com/sschueller
 
 ;(function (global, factory) {
-    true ? factory(__webpack_require__(791)) :
+    true ? factory(__webpack_require__(794)) :
    typeof define === 'function' && define.amd ? define(['../moment'], factory) :
    factory(global.moment)
 }(this, (function (moment) { 'use strict';
@@ -33357,7 +33431,7 @@ module.exports = function (name) {
 
 /***/ }),
 
-/***/ 833:
+/***/ 836:
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -33367,7 +33441,7 @@ module.exports = function (name) {
 //! author : Mikolaj Dadela : https://github.com/mik01aj
 
 ;(function (global, factory) {
-    true ? factory(__webpack_require__(791)) :
+    true ? factory(__webpack_require__(794)) :
    typeof define === 'function' && define.amd ? define(['../moment'], factory) :
    factory(global.moment)
 }(this, (function (moment) { 'use strict';
@@ -33452,7 +33526,7 @@ module.exports = function (name) {
 
 /***/ }),
 
-/***/ 834:
+/***/ 837:
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -33460,7 +33534,7 @@ module.exports = function (name) {
 //! author : Jawish Hameed : https://github.com/jawish
 
 ;(function (global, factory) {
-    true ? factory(__webpack_require__(791)) :
+    true ? factory(__webpack_require__(794)) :
    typeof define === 'function' && define.amd ? define(['../moment'], factory) :
    factory(global.moment)
 }(this, (function (moment) { 'use strict';
@@ -33559,7 +33633,7 @@ module.exports = function (name) {
 
 /***/ }),
 
-/***/ 835:
+/***/ 838:
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -33567,7 +33641,7 @@ module.exports = function (name) {
 //! author : Aggelos Karalias : https://github.com/mehiel
 
 ;(function (global, factory) {
-    true ? factory(__webpack_require__(791)) :
+    true ? factory(__webpack_require__(794)) :
    typeof define === 'function' && define.amd ? define(['../moment'], factory) :
    factory(global.moment)
 }(this, (function (moment) { 'use strict';
@@ -33682,7 +33756,7 @@ module.exports = function (name) {
 
 /***/ }),
 
-/***/ 836:
+/***/ 839:
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -33690,7 +33764,7 @@ module.exports = function (name) {
 //! author : Jared Morse : https://github.com/jarcoal
 
 ;(function (global, factory) {
-    true ? factory(__webpack_require__(791)) :
+    true ? factory(__webpack_require__(794)) :
    typeof define === 'function' && define.amd ? define(['../moment'], factory) :
    factory(global.moment)
 }(this, (function (moment) { 'use strict';
@@ -33767,7 +33841,7 @@ module.exports = function (name) {
 
 /***/ }),
 
-/***/ 837:
+/***/ 840:
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -33775,7 +33849,7 @@ module.exports = function (name) {
 //! author : Jonathan Abourbih : https://github.com/jonbca
 
 ;(function (global, factory) {
-    true ? factory(__webpack_require__(791)) :
+    true ? factory(__webpack_require__(794)) :
    typeof define === 'function' && define.amd ? define(['../moment'], factory) :
    factory(global.moment)
 }(this, (function (moment) { 'use strict';
@@ -33848,7 +33922,7 @@ module.exports = function (name) {
 
 /***/ }),
 
-/***/ 838:
+/***/ 841:
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -33856,7 +33930,7 @@ module.exports = function (name) {
 //! author : Chris Gedrim : https://github.com/chrisgedrim
 
 ;(function (global, factory) {
-    true ? factory(__webpack_require__(791)) :
+    true ? factory(__webpack_require__(794)) :
    typeof define === 'function' && define.amd ? define(['../moment'], factory) :
    factory(global.moment)
 }(this, (function (moment) { 'use strict';
@@ -33933,7 +34007,7 @@ module.exports = function (name) {
 
 /***/ }),
 
-/***/ 839:
+/***/ 842:
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -33941,7 +34015,7 @@ module.exports = function (name) {
 //! author : Chris Cartlidge : https://github.com/chriscartlidge
 
 ;(function (global, factory) {
-    true ? factory(__webpack_require__(791)) :
+    true ? factory(__webpack_require__(794)) :
    typeof define === 'function' && define.amd ? define(['../moment'], factory) :
    factory(global.moment)
 }(this, (function (moment) { 'use strict';
@@ -34018,7 +34092,7 @@ module.exports = function (name) {
 
 /***/ }),
 
-/***/ 840:
+/***/ 843:
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -34026,7 +34100,7 @@ module.exports = function (name) {
 //! author : Chris Gedrim : https://github.com/chrisgedrim
 
 ;(function (global, factory) {
-    true ? factory(__webpack_require__(791)) :
+    true ? factory(__webpack_require__(794)) :
    typeof define === 'function' && define.amd ? define(['../moment'], factory) :
    factory(global.moment)
 }(this, (function (moment) { 'use strict';
@@ -34099,7 +34173,7 @@ module.exports = function (name) {
 
 /***/ }),
 
-/***/ 841:
+/***/ 844:
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -34107,7 +34181,7 @@ module.exports = function (name) {
 //! author : Jatin Agrawal : https://github.com/jatinag22
 
 ;(function (global, factory) {
-    true ? factory(__webpack_require__(791)) :
+    true ? factory(__webpack_require__(794)) :
    typeof define === 'function' && define.amd ? define(['../moment'], factory) :
    factory(global.moment)
 }(this, (function (moment) { 'use strict';
@@ -34184,7 +34258,7 @@ module.exports = function (name) {
 
 /***/ }),
 
-/***/ 842:
+/***/ 845:
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -34192,7 +34266,7 @@ module.exports = function (name) {
 //! author : Luke McGregor : https://github.com/lukemcgregor
 
 ;(function (global, factory) {
-    true ? factory(__webpack_require__(791)) :
+    true ? factory(__webpack_require__(794)) :
    typeof define === 'function' && define.amd ? define(['../moment'], factory) :
    factory(global.moment)
 }(this, (function (moment) { 'use strict';
@@ -34269,7 +34343,7 @@ module.exports = function (name) {
 
 /***/ }),
 
-/***/ 843:
+/***/ 846:
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -34277,7 +34351,7 @@ module.exports = function (name) {
 //! author : Matthew Castrillon-Madrigal : https://github.com/techdimension
 
 ;(function (global, factory) {
-    true ? factory(__webpack_require__(791)) :
+    true ? factory(__webpack_require__(794)) :
    typeof define === 'function' && define.amd ? define(['../moment'], factory) :
    factory(global.moment)
 }(this, (function (moment) { 'use strict';
@@ -34354,7 +34428,7 @@ module.exports = function (name) {
 
 /***/ }),
 
-/***/ 844:
+/***/ 847:
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -34365,7 +34439,7 @@ module.exports = function (name) {
 //! comment : Vivakvo corrected the translation by colindean and miestasmia
 
 ;(function (global, factory) {
-    true ? factory(__webpack_require__(791)) :
+    true ? factory(__webpack_require__(794)) :
    typeof define === 'function' && define.amd ? define(['../moment'], factory) :
    factory(global.moment)
 }(this, (function (moment) { 'use strict';
@@ -34439,14 +34513,14 @@ module.exports = function (name) {
 
 /***/ }),
 
-/***/ 845:
+/***/ 848:
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
 //! locale : Spanish (Dominican Republic) [es-do]
 
 ;(function (global, factory) {
-    true ? factory(__webpack_require__(791)) :
+    true ? factory(__webpack_require__(794)) :
    typeof define === 'function' && define.amd ? define(['../moment'], factory) :
    factory(global.moment)
 }(this, (function (moment) { 'use strict';
@@ -34564,7 +34638,7 @@ module.exports = function (name) {
 
 /***/ }),
 
-/***/ 846:
+/***/ 849:
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -34572,7 +34646,7 @@ module.exports = function (name) {
 //! author : JC Franco : https://github.com/jcfranco
 
 ;(function (global, factory) {
-    true ? factory(__webpack_require__(791)) :
+    true ? factory(__webpack_require__(794)) :
    typeof define === 'function' && define.amd ? define(['../moment'], factory) :
    factory(global.moment)
 }(this, (function (moment) { 'use strict';
@@ -34691,7 +34765,7 @@ module.exports = function (name) {
 
 /***/ }),
 
-/***/ 847:
+/***/ 850:
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -34700,7 +34774,7 @@ module.exports = function (name) {
 //! author : chrisrodz : https://github.com/chrisrodz
 
 ;(function (global, factory) {
-    true ? factory(__webpack_require__(791)) :
+    true ? factory(__webpack_require__(794)) :
    typeof define === 'function' && define.amd ? define(['../moment'], factory) :
    factory(global.moment)
 }(this, (function (moment) { 'use strict';
@@ -34818,7 +34892,7 @@ module.exports = function (name) {
 
 /***/ }),
 
-/***/ 848:
+/***/ 851:
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -34826,7 +34900,7 @@ module.exports = function (name) {
 //! author : Julio Napurí : https://github.com/julionc
 
 ;(function (global, factory) {
-    true ? factory(__webpack_require__(791)) :
+    true ? factory(__webpack_require__(794)) :
    typeof define === 'function' && define.amd ? define(['../moment'], factory) :
    factory(global.moment)
 }(this, (function (moment) { 'use strict';
@@ -34945,7 +35019,7 @@ module.exports = function (name) {
 
 /***/ }),
 
-/***/ 849:
+/***/ 852:
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -34954,7 +35028,7 @@ module.exports = function (name) {
 //! improvements : Illimar Tambek : https://github.com/ragulka
 
 ;(function (global, factory) {
-    true ? factory(__webpack_require__(791)) :
+    true ? factory(__webpack_require__(794)) :
    typeof define === 'function' && define.amd ? define(['../moment'], factory) :
    factory(global.moment)
 }(this, (function (moment) { 'use strict';
@@ -35040,7 +35114,7 @@ module.exports = function (name) {
 
 /***/ }),
 
-/***/ 850:
+/***/ 853:
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -35048,7 +35122,7 @@ module.exports = function (name) {
 //! author : Eneko Illarramendi : https://github.com/eillarra
 
 ;(function (global, factory) {
-    true ? factory(__webpack_require__(791)) :
+    true ? factory(__webpack_require__(794)) :
    typeof define === 'function' && define.amd ? define(['../moment'], factory) :
    factory(global.moment)
 }(this, (function (moment) { 'use strict';
@@ -35122,7 +35196,7 @@ module.exports = function (name) {
 
 /***/ }),
 
-/***/ 851:
+/***/ 854:
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -35130,7 +35204,7 @@ module.exports = function (name) {
 //! author : Ebrahim Byagowi : https://github.com/ebraminio
 
 ;(function (global, factory) {
-    true ? factory(__webpack_require__(791)) :
+    true ? factory(__webpack_require__(794)) :
    typeof define === 'function' && define.amd ? define(['../moment'], factory) :
    factory(global.moment)
 }(this, (function (moment) { 'use strict';
@@ -35252,7 +35326,7 @@ module.exports = function (name) {
 
 /***/ }),
 
-/***/ 852:
+/***/ 855:
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -35260,7 +35334,7 @@ module.exports = function (name) {
 //! author : Tarmo Aidantausta : https://github.com/bleadof
 
 ;(function (global, factory) {
-    true ? factory(__webpack_require__(791)) :
+    true ? factory(__webpack_require__(794)) :
    typeof define === 'function' && define.amd ? define(['../moment'], factory) :
    factory(global.moment)
 }(this, (function (moment) { 'use strict';
@@ -35393,7 +35467,7 @@ module.exports = function (name) {
 
 /***/ }),
 
-/***/ 853:
+/***/ 856:
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -35402,7 +35476,7 @@ module.exports = function (name) {
 //! author : Matthew Co : https://github.com/matthewdeeco
 
 ;(function (global, factory) {
-    true ? factory(__webpack_require__(791)) :
+    true ? factory(__webpack_require__(794)) :
    typeof define === 'function' && define.amd ? define(['../moment'], factory) :
    factory(global.moment)
 }(this, (function (moment) { 'use strict';
@@ -35468,7 +35542,7 @@ module.exports = function (name) {
 
 /***/ }),
 
-/***/ 854:
+/***/ 857:
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -35477,7 +35551,7 @@ module.exports = function (name) {
 //! author : Kristian Sakarisson : https://github.com/sakarisson
 
 ;(function (global, factory) {
-    true ? factory(__webpack_require__(791)) :
+    true ? factory(__webpack_require__(794)) :
    typeof define === 'function' && define.amd ? define(['../moment'], factory) :
    factory(global.moment)
 }(this, (function (moment) { 'use strict';
@@ -35542,7 +35616,7 @@ module.exports = function (name) {
 
 /***/ }),
 
-/***/ 855:
+/***/ 858:
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -35550,7 +35624,7 @@ module.exports = function (name) {
 //! author : Jonathan Abourbih : https://github.com/jonbca
 
 ;(function (global, factory) {
-    true ? factory(__webpack_require__(791)) :
+    true ? factory(__webpack_require__(794)) :
    typeof define === 'function' && define.amd ? define(['../moment'], factory) :
    factory(global.moment)
 }(this, (function (moment) { 'use strict';
@@ -35629,7 +35703,7 @@ module.exports = function (name) {
 
 /***/ }),
 
-/***/ 856:
+/***/ 859:
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -35637,7 +35711,7 @@ module.exports = function (name) {
 //! author : Gaspard Bucher : https://github.com/gaspard
 
 ;(function (global, factory) {
-    true ? factory(__webpack_require__(791)) :
+    true ? factory(__webpack_require__(794)) :
    typeof define === 'function' && define.amd ? define(['../moment'], factory) :
    factory(global.moment)
 }(this, (function (moment) { 'use strict';
@@ -35720,7 +35794,7 @@ module.exports = function (name) {
 
 /***/ }),
 
-/***/ 857:
+/***/ 860:
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -35728,7 +35802,7 @@ module.exports = function (name) {
 //! author : John Fischer : https://github.com/jfroffice
 
 ;(function (global, factory) {
-    true ? factory(__webpack_require__(791)) :
+    true ? factory(__webpack_require__(794)) :
    typeof define === 'function' && define.amd ? define(['../moment'], factory) :
    factory(global.moment)
 }(this, (function (moment) { 'use strict';
@@ -35845,7 +35919,7 @@ module.exports = function (name) {
 
 /***/ }),
 
-/***/ 858:
+/***/ 861:
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -35853,7 +35927,7 @@ module.exports = function (name) {
 //! author : Robin van der Vliet : https://github.com/robin0van0der0v
 
 ;(function (global, factory) {
-    true ? factory(__webpack_require__(791)) :
+    true ? factory(__webpack_require__(794)) :
    typeof define === 'function' && define.amd ? define(['../moment'], factory) :
    factory(global.moment)
 }(this, (function (moment) { 'use strict';
@@ -35937,7 +36011,7 @@ module.exports = function (name) {
 
 /***/ }),
 
-/***/ 859:
+/***/ 862:
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -35945,7 +36019,7 @@ module.exports = function (name) {
 //! author : André Silva : https://github.com/askpt
 
 ;(function (global, factory) {
-    true ? factory(__webpack_require__(791)) :
+    true ? factory(__webpack_require__(794)) :
    typeof define === 'function' && define.amd ? define(['../moment'], factory) :
    factory(global.moment)
 }(this, (function (moment) { 'use strict';
@@ -36049,7 +36123,7 @@ module.exports = function (name) {
 
 /***/ }),
 
-/***/ 860:
+/***/ 863:
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -36057,7 +36131,7 @@ module.exports = function (name) {
 //! author : Jon Ashdown : https://github.com/jonashdown
 
 ;(function (global, factory) {
-    true ? factory(__webpack_require__(791)) :
+    true ? factory(__webpack_require__(794)) :
    typeof define === 'function' && define.amd ? define(['../moment'], factory) :
    factory(global.moment)
 }(this, (function (moment) { 'use strict';
@@ -36161,7 +36235,7 @@ module.exports = function (name) {
 
 /***/ }),
 
-/***/ 861:
+/***/ 864:
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -36169,7 +36243,7 @@ module.exports = function (name) {
 //! author : Juan G. Hurtado : https://github.com/juanghurtado
 
 ;(function (global, factory) {
-    true ? factory(__webpack_require__(791)) :
+    true ? factory(__webpack_require__(794)) :
    typeof define === 'function' && define.amd ? define(['../moment'], factory) :
    factory(global.moment)
 }(this, (function (moment) { 'use strict';
@@ -36253,7 +36327,7 @@ module.exports = function (name) {
 
 /***/ }),
 
-/***/ 862:
+/***/ 865:
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -36261,7 +36335,7 @@ module.exports = function (name) {
 //! author : The Discoverer : https://github.com/WikiDiscoverer
 
 ;(function (global, factory) {
-    true ? factory(__webpack_require__(791)) :
+    true ? factory(__webpack_require__(794)) :
    typeof define === 'function' && define.amd ? define(['../moment'], factory) :
    factory(global.moment)
 }(this, (function (moment) { 'use strict';
@@ -36396,7 +36470,7 @@ module.exports = function (name) {
 
 /***/ }),
 
-/***/ 863:
+/***/ 866:
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -36404,7 +36478,7 @@ module.exports = function (name) {
 //! author : The Discoverer : https://github.com/WikiDiscoverer
 
 ;(function (global, factory) {
-    true ? factory(__webpack_require__(791)) :
+    true ? factory(__webpack_require__(794)) :
    typeof define === 'function' && define.amd ? define(['../moment'], factory) :
    factory(global.moment)
 }(this, (function (moment) { 'use strict';
@@ -36537,7 +36611,7 @@ module.exports = function (name) {
 
 /***/ }),
 
-/***/ 864:
+/***/ 867:
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -36545,7 +36619,7 @@ module.exports = function (name) {
 //! author : Kaushik Thanki : https://github.com/Kaushik1987
 
 ;(function (global, factory) {
-    true ? factory(__webpack_require__(791)) :
+    true ? factory(__webpack_require__(794)) :
    typeof define === 'function' && define.amd ? define(['../moment'], factory) :
    factory(global.moment)
 }(this, (function (moment) { 'use strict';
@@ -36676,7 +36750,7 @@ module.exports = function (name) {
 
 /***/ }),
 
-/***/ 865:
+/***/ 868:
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -36686,7 +36760,7 @@ module.exports = function (name) {
 //! author : Tal Ater : https://github.com/TalAter
 
 ;(function (global, factory) {
-    true ? factory(__webpack_require__(791)) :
+    true ? factory(__webpack_require__(794)) :
    typeof define === 'function' && define.amd ? define(['../moment'], factory) :
    factory(global.moment)
 }(this, (function (moment) { 'use strict';
@@ -36787,7 +36861,7 @@ module.exports = function (name) {
 
 /***/ }),
 
-/***/ 866:
+/***/ 869:
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -36795,7 +36869,7 @@ module.exports = function (name) {
 //! author : Mayank Singhal : https://github.com/mayanksinghal
 
 ;(function (global, factory) {
-    true ? factory(__webpack_require__(791)) :
+    true ? factory(__webpack_require__(794)) :
    typeof define === 'function' && define.amd ? define(['../moment'], factory) :
    factory(global.moment)
 }(this, (function (moment) { 'use strict';
@@ -36972,7 +37046,7 @@ module.exports = function (name) {
 
 /***/ }),
 
-/***/ 867:
+/***/ 870:
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -36980,7 +37054,7 @@ module.exports = function (name) {
 //! author : Bojan Marković : https://github.com/bmarkovic
 
 ;(function (global, factory) {
-    true ? factory(__webpack_require__(791)) :
+    true ? factory(__webpack_require__(794)) :
    typeof define === 'function' && define.amd ? define(['../moment'], factory) :
    factory(global.moment)
 }(this, (function (moment) { 'use strict';
@@ -37145,7 +37219,7 @@ module.exports = function (name) {
 
 /***/ }),
 
-/***/ 868:
+/***/ 871:
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -37154,7 +37228,7 @@ module.exports = function (name) {
 //! author : Peter Viszt  : https://github.com/passatgt
 
 ;(function (global, factory) {
-    true ? factory(__webpack_require__(791)) :
+    true ? factory(__webpack_require__(794)) :
    typeof define === 'function' && define.amd ? define(['../moment'], factory) :
    factory(global.moment)
 }(this, (function (moment) { 'use strict';
@@ -37280,7 +37354,7 @@ module.exports = function (name) {
 
 /***/ }),
 
-/***/ 869:
+/***/ 872:
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -37288,7 +37362,7 @@ module.exports = function (name) {
 //! author : Armendarabyan : https://github.com/armendarabyan
 
 ;(function (global, factory) {
-    true ? factory(__webpack_require__(791)) :
+    true ? factory(__webpack_require__(794)) :
    typeof define === 'function' && define.amd ? define(['../moment'], factory) :
    factory(global.moment)
 }(this, (function (moment) { 'use strict';
@@ -37391,7 +37465,7 @@ module.exports = function (name) {
 
 /***/ }),
 
-/***/ 870:
+/***/ 873:
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -37400,7 +37474,7 @@ module.exports = function (name) {
 //! reference: http://id.wikisource.org/wiki/Pedoman_Umum_Ejaan_Bahasa_Indonesia_yang_Disempurnakan
 
 ;(function (global, factory) {
-    true ? factory(__webpack_require__(791)) :
+    true ? factory(__webpack_require__(794)) :
    typeof define === 'function' && define.amd ? define(['../moment'], factory) :
    factory(global.moment)
 }(this, (function (moment) { 'use strict';
@@ -37484,7 +37558,7 @@ module.exports = function (name) {
 
 /***/ }),
 
-/***/ 871:
+/***/ 874:
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -37492,7 +37566,7 @@ module.exports = function (name) {
 //! author : Hinrik Örn Sigurðsson : https://github.com/hinrik
 
 ;(function (global, factory) {
-    true ? factory(__webpack_require__(791)) :
+    true ? factory(__webpack_require__(794)) :
    typeof define === 'function' && define.amd ? define(['../moment'], factory) :
    factory(global.moment)
 }(this, (function (moment) { 'use strict';
@@ -37641,7 +37715,7 @@ module.exports = function (name) {
 
 /***/ }),
 
-/***/ 872:
+/***/ 875:
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -37649,7 +37723,7 @@ module.exports = function (name) {
 //! author : xfh : https://github.com/xfh
 
 ;(function (global, factory) {
-    true ? factory(__webpack_require__(791)) :
+    true ? factory(__webpack_require__(794)) :
    typeof define === 'function' && define.amd ? define(['../moment'], factory) :
    factory(global.moment)
 }(this, (function (moment) { 'use strict';
@@ -37722,7 +37796,7 @@ module.exports = function (name) {
 
 /***/ }),
 
-/***/ 873:
+/***/ 876:
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -37732,7 +37806,7 @@ module.exports = function (name) {
 //! author: Marco : https://github.com/Manfre98
 
 ;(function (global, factory) {
-    true ? factory(__webpack_require__(791)) :
+    true ? factory(__webpack_require__(794)) :
    typeof define === 'function' && define.amd ? define(['../moment'], factory) :
    factory(global.moment)
 }(this, (function (moment) { 'use strict';
@@ -37845,7 +37919,7 @@ module.exports = function (name) {
 
 /***/ }),
 
-/***/ 874:
+/***/ 877:
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -37853,7 +37927,7 @@ module.exports = function (name) {
 //! author : LI Long : https://github.com/baryon
 
 ;(function (global, factory) {
-    true ? factory(__webpack_require__(791)) :
+    true ? factory(__webpack_require__(794)) :
    typeof define === 'function' && define.amd ? define(['../moment'], factory) :
    factory(global.moment)
 }(this, (function (moment) { 'use strict';
@@ -38010,7 +38084,7 @@ module.exports = function (name) {
 
 /***/ }),
 
-/***/ 875:
+/***/ 878:
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -38019,7 +38093,7 @@ module.exports = function (name) {
 //! reference: http://jv.wikipedia.org/wiki/Basa_Jawa
 
 ;(function (global, factory) {
-    true ? factory(__webpack_require__(791)) :
+    true ? factory(__webpack_require__(794)) :
    typeof define === 'function' && define.amd ? define(['../moment'], factory) :
    factory(global.moment)
 }(this, (function (moment) { 'use strict';
@@ -38103,7 +38177,7 @@ module.exports = function (name) {
 
 /***/ }),
 
-/***/ 876:
+/***/ 879:
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -38111,7 +38185,7 @@ module.exports = function (name) {
 //! author : Irakli Janiashvili : https://github.com/IrakliJani
 
 ;(function (global, factory) {
-    true ? factory(__webpack_require__(791)) :
+    true ? factory(__webpack_require__(794)) :
    typeof define === 'function' && define.amd ? define(['../moment'], factory) :
    factory(global.moment)
 }(this, (function (moment) { 'use strict';
@@ -38212,7 +38286,7 @@ module.exports = function (name) {
 
 /***/ }),
 
-/***/ 877:
+/***/ 880:
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -38220,7 +38294,7 @@ module.exports = function (name) {
 //! authors : Nurlan Rakhimzhanov : https://github.com/nurlan
 
 ;(function (global, factory) {
-    true ? factory(__webpack_require__(791)) :
+    true ? factory(__webpack_require__(794)) :
    typeof define === 'function' && define.amd ? define(['../moment'], factory) :
    factory(global.moment)
 }(this, (function (moment) { 'use strict';
@@ -38311,7 +38385,7 @@ module.exports = function (name) {
 
 /***/ }),
 
-/***/ 878:
+/***/ 881:
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -38319,7 +38393,7 @@ module.exports = function (name) {
 //! author : Kruy Vanna : https://github.com/kruyvanna
 
 ;(function (global, factory) {
-    true ? factory(__webpack_require__(791)) :
+    true ? factory(__webpack_require__(794)) :
    typeof define === 'function' && define.amd ? define(['../moment'], factory) :
    factory(global.moment)
 }(this, (function (moment) { 'use strict';
@@ -38431,7 +38505,7 @@ module.exports = function (name) {
 
 /***/ }),
 
-/***/ 879:
+/***/ 882:
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -38439,7 +38513,7 @@ module.exports = function (name) {
 //! author : Rajeev Naik : https://github.com/rajeevnaikte
 
 ;(function (global, factory) {
-    true ? factory(__webpack_require__(791)) :
+    true ? factory(__webpack_require__(794)) :
    typeof define === 'function' && define.amd ? define(['../moment'], factory) :
    factory(global.moment)
 }(this, (function (moment) { 'use strict';
@@ -38572,7 +38646,7 @@ module.exports = function (name) {
 
 /***/ }),
 
-/***/ 880:
+/***/ 883:
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -38581,7 +38655,7 @@ module.exports = function (name) {
 //! author : Jeeeyul Lee <jeeeyul@gmail.com>
 
 ;(function (global, factory) {
-    true ? factory(__webpack_require__(791)) :
+    true ? factory(__webpack_require__(794)) :
    typeof define === 'function' && define.amd ? define(['../moment'], factory) :
    factory(global.moment)
 }(this, (function (moment) { 'use strict';
@@ -38664,7 +38738,7 @@ module.exports = function (name) {
 
 /***/ }),
 
-/***/ 881:
+/***/ 884:
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -38672,7 +38746,7 @@ module.exports = function (name) {
 //! author : Shahram Mebashar : https://github.com/ShahramMebashar
 
 ;(function (global, factory) {
-    true ? factory(__webpack_require__(791)) :
+    true ? factory(__webpack_require__(794)) :
    typeof define === 'function' && define.amd ? define(['../moment'], factory) :
    factory(global.moment)
 }(this, (function (moment) { 'use strict';
@@ -38799,7 +38873,7 @@ module.exports = function (name) {
 
 /***/ }),
 
-/***/ 882:
+/***/ 885:
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -38807,7 +38881,7 @@ module.exports = function (name) {
 //! author : Chyngyz Arystan uulu : https://github.com/chyngyz
 
 ;(function (global, factory) {
-    true ? factory(__webpack_require__(791)) :
+    true ? factory(__webpack_require__(794)) :
    typeof define === 'function' && define.amd ? define(['../moment'], factory) :
    factory(global.moment)
 }(this, (function (moment) { 'use strict';
@@ -38900,7 +38974,7 @@ module.exports = function (name) {
 
 /***/ }),
 
-/***/ 883:
+/***/ 886:
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -38909,7 +38983,7 @@ module.exports = function (name) {
 //! author : David Raison : https://github.com/kwisatz
 
 ;(function (global, factory) {
-    true ? factory(__webpack_require__(791)) :
+    true ? factory(__webpack_require__(794)) :
    typeof define === 'function' && define.amd ? define(['../moment'], factory) :
    factory(global.moment)
 }(this, (function (moment) { 'use strict';
@@ -39054,7 +39128,7 @@ module.exports = function (name) {
 
 /***/ }),
 
-/***/ 884:
+/***/ 887:
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -39062,7 +39136,7 @@ module.exports = function (name) {
 //! author : Ryan Hart : https://github.com/ryanhart2
 
 ;(function (global, factory) {
-    true ? factory(__webpack_require__(791)) :
+    true ? factory(__webpack_require__(794)) :
    typeof define === 'function' && define.amd ? define(['../moment'], factory) :
    factory(global.moment)
 }(this, (function (moment) { 'use strict';
@@ -39137,7 +39211,7 @@ module.exports = function (name) {
 
 /***/ }),
 
-/***/ 885:
+/***/ 888:
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -39145,7 +39219,7 @@ module.exports = function (name) {
 //! author : Mindaugas Mozūras : https://github.com/mmozuras
 
 ;(function (global, factory) {
-    true ? factory(__webpack_require__(791)) :
+    true ? factory(__webpack_require__(794)) :
    typeof define === 'function' && define.amd ? define(['../moment'], factory) :
    factory(global.moment)
 }(this, (function (moment) { 'use strict';
@@ -39279,7 +39353,7 @@ module.exports = function (name) {
 
 /***/ }),
 
-/***/ 886:
+/***/ 889:
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -39288,7 +39362,7 @@ module.exports = function (name) {
 //! author : Jānis Elmeris : https://github.com/JanisE
 
 ;(function (global, factory) {
-    true ? factory(__webpack_require__(791)) :
+    true ? factory(__webpack_require__(794)) :
    typeof define === 'function' && define.amd ? define(['../moment'], factory) :
    factory(global.moment)
 }(this, (function (moment) { 'use strict';
@@ -39390,7 +39464,7 @@ module.exports = function (name) {
 
 /***/ }),
 
-/***/ 887:
+/***/ 890:
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -39398,7 +39472,7 @@ module.exports = function (name) {
 //! author : Miodrag Nikač <miodrag@restartit.me> : https://github.com/miodragnikac
 
 ;(function (global, factory) {
-    true ? factory(__webpack_require__(791)) :
+    true ? factory(__webpack_require__(794)) :
    typeof define === 'function' && define.amd ? define(['../moment'], factory) :
    factory(global.moment)
 }(this, (function (moment) { 'use strict';
@@ -39524,7 +39598,7 @@ module.exports = function (name) {
 
 /***/ }),
 
-/***/ 888:
+/***/ 891:
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -39532,7 +39606,7 @@ module.exports = function (name) {
 //! author : John Corrigan <robbiecloset@gmail.com> : https://github.com/johnideal
 
 ;(function (global, factory) {
-    true ? factory(__webpack_require__(791)) :
+    true ? factory(__webpack_require__(794)) :
    typeof define === 'function' && define.amd ? define(['../moment'], factory) :
    factory(global.moment)
 }(this, (function (moment) { 'use strict';
@@ -39601,7 +39675,7 @@ module.exports = function (name) {
 
 /***/ }),
 
-/***/ 889:
+/***/ 892:
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -39610,7 +39684,7 @@ module.exports = function (name) {
 //! author : Sashko Todorov : https://github.com/bkyceh
 
 ;(function (global, factory) {
-    true ? factory(__webpack_require__(791)) :
+    true ? factory(__webpack_require__(794)) :
    typeof define === 'function' && define.amd ? define(['../moment'], factory) :
    factory(global.moment)
 }(this, (function (moment) { 'use strict';
@@ -39704,7 +39778,7 @@ module.exports = function (name) {
 
 /***/ }),
 
-/***/ 890:
+/***/ 893:
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -39712,7 +39786,7 @@ module.exports = function (name) {
 //! author : Floyd Pink : https://github.com/floydpink
 
 ;(function (global, factory) {
-    true ? factory(__webpack_require__(791)) :
+    true ? factory(__webpack_require__(794)) :
    typeof define === 'function' && define.amd ? define(['../moment'], factory) :
    factory(global.moment)
 }(this, (function (moment) { 'use strict';
@@ -39803,7 +39877,7 @@ module.exports = function (name) {
 
 /***/ }),
 
-/***/ 891:
+/***/ 894:
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -39811,7 +39885,7 @@ module.exports = function (name) {
 //! author : Javkhlantugs Nyamdorj : https://github.com/javkhaanj7
 
 ;(function (global, factory) {
-    true ? factory(__webpack_require__(791)) :
+    true ? factory(__webpack_require__(794)) :
    typeof define === 'function' && define.amd ? define(['../moment'], factory) :
    factory(global.moment)
 }(this, (function (moment) { 'use strict';
@@ -39920,7 +39994,7 @@ module.exports = function (name) {
 
 /***/ }),
 
-/***/ 892:
+/***/ 895:
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -39929,7 +40003,7 @@ module.exports = function (name) {
 //! author : Vivek Athalye : https://github.com/vnathalye
 
 ;(function (global, factory) {
-    true ? factory(__webpack_require__(791)) :
+    true ? factory(__webpack_require__(794)) :
    typeof define === 'function' && define.amd ? define(['../moment'], factory) :
    factory(global.moment)
 }(this, (function (moment) { 'use strict';
@@ -40140,7 +40214,7 @@ module.exports = function (name) {
 
 /***/ }),
 
-/***/ 893:
+/***/ 896:
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -40149,7 +40223,7 @@ module.exports = function (name) {
 //! author : Weldan Jamili : https://github.com/weldan
 
 ;(function (global, factory) {
-    true ? factory(__webpack_require__(791)) :
+    true ? factory(__webpack_require__(794)) :
    typeof define === 'function' && define.amd ? define(['../moment'], factory) :
    factory(global.moment)
 }(this, (function (moment) { 'use strict';
@@ -40233,7 +40307,7 @@ module.exports = function (name) {
 
 /***/ }),
 
-/***/ 894:
+/***/ 897:
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -40241,7 +40315,7 @@ module.exports = function (name) {
 //! author : Weldan Jamili : https://github.com/weldan
 
 ;(function (global, factory) {
-    true ? factory(__webpack_require__(791)) :
+    true ? factory(__webpack_require__(794)) :
    typeof define === 'function' && define.amd ? define(['../moment'], factory) :
    factory(global.moment)
 }(this, (function (moment) { 'use strict';
@@ -40325,7 +40399,7 @@ module.exports = function (name) {
 
 /***/ }),
 
-/***/ 895:
+/***/ 898:
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -40333,7 +40407,7 @@ module.exports = function (name) {
 //! author : Alessandro Maruccia : https://github.com/alesma
 
 ;(function (global, factory) {
-    true ? factory(__webpack_require__(791)) :
+    true ? factory(__webpack_require__(794)) :
    typeof define === 'function' && define.amd ? define(['../moment'], factory) :
    factory(global.moment)
 }(this, (function (moment) { 'use strict';
@@ -40398,7 +40472,7 @@ module.exports = function (name) {
 
 /***/ }),
 
-/***/ 896:
+/***/ 899:
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -40408,7 +40482,7 @@ module.exports = function (name) {
 //! author : Tin Aung Lin : https://github.com/thanyawzinmin
 
 ;(function (global, factory) {
-    true ? factory(__webpack_require__(791)) :
+    true ? factory(__webpack_require__(794)) :
    typeof define === 'function' && define.amd ? define(['../moment'], factory) :
    factory(global.moment)
 }(this, (function (moment) { 'use strict';
@@ -40506,7 +40580,7 @@ module.exports = function (name) {
 
 /***/ }),
 
-/***/ 897:
+/***/ 900:
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -40516,7 +40590,7 @@ module.exports = function (name) {
 //!           Stephen Ramthun : https://github.com/stephenramthun
 
 ;(function (global, factory) {
-    true ? factory(__webpack_require__(791)) :
+    true ? factory(__webpack_require__(794)) :
    typeof define === 'function' && define.amd ? define(['../moment'], factory) :
    factory(global.moment)
 }(this, (function (moment) { 'use strict';
@@ -40583,7 +40657,7 @@ module.exports = function (name) {
 
 /***/ }),
 
-/***/ 898:
+/***/ 901:
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -40591,7 +40665,7 @@ module.exports = function (name) {
 //! author : suvash : https://github.com/suvash
 
 ;(function (global, factory) {
-    true ? factory(__webpack_require__(791)) :
+    true ? factory(__webpack_require__(794)) :
    typeof define === 'function' && define.amd ? define(['../moment'], factory) :
    factory(global.moment)
 }(this, (function (moment) { 'use strict';
@@ -40721,7 +40795,7 @@ module.exports = function (name) {
 
 /***/ }),
 
-/***/ 899:
+/***/ 902:
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -40730,7 +40804,7 @@ module.exports = function (name) {
 //! author : Jacob Middag : https://github.com/middagj
 
 ;(function (global, factory) {
-    true ? factory(__webpack_require__(791)) :
+    true ? factory(__webpack_require__(794)) :
    typeof define === 'function' && define.amd ? define(['../moment'], factory) :
    factory(global.moment)
 }(this, (function (moment) { 'use strict';
@@ -40840,7 +40914,7 @@ module.exports = function (name) {
 
 /***/ }),
 
-/***/ 900:
+/***/ 903:
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -40849,7 +40923,7 @@ module.exports = function (name) {
 //! author : Jacob Middag : https://github.com/middagj
 
 ;(function (global, factory) {
-    true ? factory(__webpack_require__(791)) :
+    true ? factory(__webpack_require__(794)) :
    typeof define === 'function' && define.amd ? define(['../moment'], factory) :
    factory(global.moment)
 }(this, (function (moment) { 'use strict';
@@ -40961,7 +41035,7 @@ module.exports = function (name) {
 
 /***/ }),
 
-/***/ 901:
+/***/ 904:
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -40970,7 +41044,7 @@ module.exports = function (name) {
 //!           Stephen Ramthun : https://github.com/stephenramthun
 
 ;(function (global, factory) {
-    true ? factory(__webpack_require__(791)) :
+    true ? factory(__webpack_require__(794)) :
    typeof define === 'function' && define.amd ? define(['../moment'], factory) :
    factory(global.moment)
 }(this, (function (moment) { 'use strict';
@@ -41037,7 +41111,7 @@ module.exports = function (name) {
 
 /***/ }),
 
-/***/ 902:
+/***/ 905:
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -41045,7 +41119,7 @@ module.exports = function (name) {
 //! author : Quentin PAGÈS : https://github.com/Quenty31
 
 ;(function (global, factory) {
-    true ? factory(__webpack_require__(791)) :
+    true ? factory(__webpack_require__(794)) :
    typeof define === 'function' && define.amd ? define(['../moment'], factory) :
    factory(global.moment)
 }(this, (function (moment) { 'use strict';
@@ -41139,7 +41213,7 @@ module.exports = function (name) {
 
 /***/ }),
 
-/***/ 903:
+/***/ 906:
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -41147,7 +41221,7 @@ module.exports = function (name) {
 //! author : Harpreet Singh : https://github.com/harpreetkhalsagtbit
 
 ;(function (global, factory) {
-    true ? factory(__webpack_require__(791)) :
+    true ? factory(__webpack_require__(794)) :
    typeof define === 'function' && define.amd ? define(['../moment'], factory) :
    factory(global.moment)
 }(this, (function (moment) { 'use strict';
@@ -41278,7 +41352,7 @@ module.exports = function (name) {
 
 /***/ }),
 
-/***/ 904:
+/***/ 907:
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -41286,7 +41360,7 @@ module.exports = function (name) {
 //! author : Rafal Hirsz : https://github.com/evoL
 
 ;(function (global, factory) {
-    true ? factory(__webpack_require__(791)) :
+    true ? factory(__webpack_require__(794)) :
    typeof define === 'function' && define.amd ? define(['../moment'], factory) :
    factory(global.moment)
 }(this, (function (moment) { 'use strict';
@@ -41435,7 +41509,7 @@ module.exports = function (name) {
 
 /***/ }),
 
-/***/ 905:
+/***/ 908:
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -41443,7 +41517,7 @@ module.exports = function (name) {
 //! author : Caio Ribeiro Pereira : https://github.com/caio-ribeiro-pereira
 
 ;(function (global, factory) {
-    true ? factory(__webpack_require__(791)) :
+    true ? factory(__webpack_require__(794)) :
    typeof define === 'function' && define.amd ? define(['../moment'], factory) :
    factory(global.moment)
 }(this, (function (moment) { 'use strict';
@@ -41510,7 +41584,7 @@ module.exports = function (name) {
 
 /***/ }),
 
-/***/ 906:
+/***/ 909:
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -41518,7 +41592,7 @@ module.exports = function (name) {
 //! author : Jefferson : https://github.com/jalex79
 
 ;(function (global, factory) {
-    true ? factory(__webpack_require__(791)) :
+    true ? factory(__webpack_require__(794)) :
    typeof define === 'function' && define.amd ? define(['../moment'], factory) :
    factory(global.moment)
 }(this, (function (moment) { 'use strict';
@@ -41590,7 +41664,7 @@ module.exports = function (name) {
 
 /***/ }),
 
-/***/ 907:
+/***/ 910:
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -41600,7 +41674,7 @@ module.exports = function (name) {
 //! author : Emanuel Cepoi : https://github.com/cepem
 
 ;(function (global, factory) {
-    true ? factory(__webpack_require__(791)) :
+    true ? factory(__webpack_require__(794)) :
    typeof define === 'function' && define.amd ? define(['../moment'], factory) :
    factory(global.moment)
 }(this, (function (moment) { 'use strict';
@@ -41683,7 +41757,7 @@ module.exports = function (name) {
 
 /***/ }),
 
-/***/ 908:
+/***/ 911:
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -41693,7 +41767,7 @@ module.exports = function (name) {
 //! author : Коренберг Марк : https://github.com/socketpair
 
 ;(function (global, factory) {
-    true ? factory(__webpack_require__(791)) :
+    true ? factory(__webpack_require__(794)) :
    typeof define === 'function' && define.amd ? define(['../moment'], factory) :
    factory(global.moment)
 }(this, (function (moment) { 'use strict';
@@ -41913,7 +41987,7 @@ module.exports = function (name) {
 
 /***/ }),
 
-/***/ 909:
+/***/ 912:
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -41921,7 +41995,7 @@ module.exports = function (name) {
 //! author : Narain Sagar : https://github.com/narainsagar
 
 ;(function (global, factory) {
-    true ? factory(__webpack_require__(791)) :
+    true ? factory(__webpack_require__(794)) :
    typeof define === 'function' && define.amd ? define(['../moment'], factory) :
    factory(global.moment)
 }(this, (function (moment) { 'use strict';
@@ -42011,7 +42085,7 @@ module.exports = function (name) {
 
 /***/ }),
 
-/***/ 910:
+/***/ 913:
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -42019,7 +42093,7 @@ module.exports = function (name) {
 //! authors : Bård Rolstad Henriksen : https://github.com/karamell
 
 ;(function (global, factory) {
-    true ? factory(__webpack_require__(791)) :
+    true ? factory(__webpack_require__(794)) :
    typeof define === 'function' && define.amd ? define(['../moment'], factory) :
    factory(global.moment)
 }(this, (function (moment) { 'use strict';
@@ -42085,7 +42159,7 @@ module.exports = function (name) {
 
 /***/ }),
 
-/***/ 911:
+/***/ 914:
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -42093,7 +42167,7 @@ module.exports = function (name) {
 //! author : Sampath Sitinamaluwa : https://github.com/sampathsris
 
 ;(function (global, factory) {
-    true ? factory(__webpack_require__(791)) :
+    true ? factory(__webpack_require__(794)) :
    typeof define === 'function' && define.amd ? define(['../moment'], factory) :
    factory(global.moment)
 }(this, (function (moment) { 'use strict';
@@ -42171,7 +42245,7 @@ module.exports = function (name) {
 
 /***/ }),
 
-/***/ 912:
+/***/ 915:
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -42180,7 +42254,7 @@ module.exports = function (name) {
 //! based on work of petrbela : https://github.com/petrbela
 
 ;(function (global, factory) {
-    true ? factory(__webpack_require__(791)) :
+    true ? factory(__webpack_require__(794)) :
    typeof define === 'function' && define.amd ? define(['../moment'], factory) :
    factory(global.moment)
 }(this, (function (moment) { 'use strict';
@@ -42333,7 +42407,7 @@ module.exports = function (name) {
 
 /***/ }),
 
-/***/ 913:
+/***/ 916:
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -42341,7 +42415,7 @@ module.exports = function (name) {
 //! author : Robert Sedovšek : https://github.com/sedovsek
 
 ;(function (global, factory) {
-    true ? factory(__webpack_require__(791)) :
+    true ? factory(__webpack_require__(794)) :
    typeof define === 'function' && define.amd ? define(['../moment'], factory) :
    factory(global.moment)
 }(this, (function (moment) { 'use strict';
@@ -42521,7 +42595,7 @@ module.exports = function (name) {
 
 /***/ }),
 
-/***/ 914:
+/***/ 917:
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -42531,7 +42605,7 @@ module.exports = function (name) {
 //! author : Oerd Cukalla : https://github.com/oerd
 
 ;(function (global, factory) {
-    true ? factory(__webpack_require__(791)) :
+    true ? factory(__webpack_require__(794)) :
    typeof define === 'function' && define.amd ? define(['../moment'], factory) :
    factory(global.moment)
 }(this, (function (moment) { 'use strict';
@@ -42603,7 +42677,7 @@ module.exports = function (name) {
 
 /***/ }),
 
-/***/ 915:
+/***/ 918:
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -42612,7 +42686,7 @@ module.exports = function (name) {
 //! author : Stefan Crnjaković <stefan@hotmail.rs> : https://github.com/crnjakovic
 
 ;(function (global, factory) {
-    true ? factory(__webpack_require__(791)) :
+    true ? factory(__webpack_require__(794)) :
    typeof define === 'function' && define.amd ? define(['../moment'], factory) :
    factory(global.moment)
 }(this, (function (moment) { 'use strict';
@@ -42747,7 +42821,7 @@ module.exports = function (name) {
 
 /***/ }),
 
-/***/ 916:
+/***/ 919:
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -42756,7 +42830,7 @@ module.exports = function (name) {
 //! author : Stefan Crnjaković <stefan@hotmail.rs> : https://github.com/crnjakovic
 
 ;(function (global, factory) {
-    true ? factory(__webpack_require__(791)) :
+    true ? factory(__webpack_require__(794)) :
    typeof define === 'function' && define.amd ? define(['../moment'], factory) :
    factory(global.moment)
 }(this, (function (moment) { 'use strict';
@@ -42893,7 +42967,7 @@ module.exports = function (name) {
 
 /***/ }),
 
-/***/ 917:
+/***/ 920:
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -42901,7 +42975,7 @@ module.exports = function (name) {
 //! author : Nicolai Davies<mail@nicolai.io> : https://github.com/nicolaidavies
 
 ;(function (global, factory) {
-    true ? factory(__webpack_require__(791)) :
+    true ? factory(__webpack_require__(794)) :
    typeof define === 'function' && define.amd ? define(['../moment'], factory) :
    factory(global.moment)
 }(this, (function (moment) { 'use strict';
@@ -42994,7 +43068,7 @@ module.exports = function (name) {
 
 /***/ }),
 
-/***/ 918:
+/***/ 921:
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -43002,7 +43076,7 @@ module.exports = function (name) {
 //! author : Jens Alm : https://github.com/ulmus
 
 ;(function (global, factory) {
-    true ? factory(__webpack_require__(791)) :
+    true ? factory(__webpack_require__(794)) :
    typeof define === 'function' && define.amd ? define(['../moment'], factory) :
    factory(global.moment)
 }(this, (function (moment) { 'use strict';
@@ -43079,7 +43153,7 @@ module.exports = function (name) {
 
 /***/ }),
 
-/***/ 919:
+/***/ 922:
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -43087,7 +43161,7 @@ module.exports = function (name) {
 //! author : Fahad Kassim : https://github.com/fadsel
 
 ;(function (global, factory) {
-    true ? factory(__webpack_require__(791)) :
+    true ? factory(__webpack_require__(794)) :
    typeof define === 'function' && define.amd ? define(['../moment'], factory) :
    factory(global.moment)
 }(this, (function (moment) { 'use strict';
@@ -43151,7 +43225,7 @@ module.exports = function (name) {
 
 /***/ }),
 
-/***/ 920:
+/***/ 923:
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -43159,7 +43233,7 @@ module.exports = function (name) {
 //! author : Arjunkumar Krishnamoorthy : https://github.com/tk120404
 
 ;(function (global, factory) {
-    true ? factory(__webpack_require__(791)) :
+    true ? factory(__webpack_require__(794)) :
    typeof define === 'function' && define.amd ? define(['../moment'], factory) :
    factory(global.moment)
 }(this, (function (moment) { 'use strict';
@@ -43299,7 +43373,7 @@ module.exports = function (name) {
 
 /***/ }),
 
-/***/ 921:
+/***/ 924:
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -43307,7 +43381,7 @@ module.exports = function (name) {
 //! author : Krishna Chaitanya Thota : https://github.com/kcthota
 
 ;(function (global, factory) {
-    true ? factory(__webpack_require__(791)) :
+    true ? factory(__webpack_require__(794)) :
    typeof define === 'function' && define.amd ? define(['../moment'], factory) :
    factory(global.moment)
 }(this, (function (moment) { 'use strict';
@@ -43404,7 +43478,7 @@ module.exports = function (name) {
 
 /***/ }),
 
-/***/ 922:
+/***/ 925:
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -43414,7 +43488,7 @@ module.exports = function (name) {
 //! author : Sonia Simoes : https://github.com/soniasimoes
 
 ;(function (global, factory) {
-    true ? factory(__webpack_require__(791)) :
+    true ? factory(__webpack_require__(794)) :
    typeof define === 'function' && define.amd ? define(['../moment'], factory) :
    factory(global.moment)
 }(this, (function (moment) { 'use strict';
@@ -43489,7 +43563,7 @@ module.exports = function (name) {
 
 /***/ }),
 
-/***/ 923:
+/***/ 926:
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -43497,7 +43571,7 @@ module.exports = function (name) {
 //! author : Orif N. Jr. : https://github.com/orif-jr
 
 ;(function (global, factory) {
-    true ? factory(__webpack_require__(791)) :
+    true ? factory(__webpack_require__(794)) :
    typeof define === 'function' && define.amd ? define(['../moment'], factory) :
    factory(global.moment)
 }(this, (function (moment) { 'use strict';
@@ -43623,7 +43697,7 @@ module.exports = function (name) {
 
 /***/ }),
 
-/***/ 924:
+/***/ 927:
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -43631,7 +43705,7 @@ module.exports = function (name) {
 //! author : Kridsada Thanabulpong : https://github.com/sirn
 
 ;(function (global, factory) {
-    true ? factory(__webpack_require__(791)) :
+    true ? factory(__webpack_require__(794)) :
    typeof define === 'function' && define.amd ? define(['../moment'], factory) :
    factory(global.moment)
 }(this, (function (moment) { 'use strict';
@@ -43705,7 +43779,7 @@ module.exports = function (name) {
 
 /***/ }),
 
-/***/ 925:
+/***/ 928:
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -43713,7 +43787,7 @@ module.exports = function (name) {
 //! author : Atamyrat Abdyrahmanov : https://github.com/atamyratabdy
 
 ;(function (global, factory) {
-    true ? factory(__webpack_require__(791)) :
+    true ? factory(__webpack_require__(794)) :
    typeof define === 'function' && define.amd ? define(['../moment'], factory) :
    factory(global.moment)
 }(this, (function (moment) { 'use strict';
@@ -43813,7 +43887,7 @@ module.exports = function (name) {
 
 /***/ }),
 
-/***/ 926:
+/***/ 929:
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -43821,7 +43895,7 @@ module.exports = function (name) {
 //! author : Dan Hagman : https://github.com/hagmandan
 
 ;(function (global, factory) {
-    true ? factory(__webpack_require__(791)) :
+    true ? factory(__webpack_require__(794)) :
    typeof define === 'function' && define.amd ? define(['../moment'], factory) :
    factory(global.moment)
 }(this, (function (moment) { 'use strict';
@@ -43887,7 +43961,7 @@ module.exports = function (name) {
 
 /***/ }),
 
-/***/ 927:
+/***/ 930:
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -43895,7 +43969,7 @@ module.exports = function (name) {
 //! author : Dominika Kruk : https://github.com/amaranthrose
 
 ;(function (global, factory) {
-    true ? factory(__webpack_require__(791)) :
+    true ? factory(__webpack_require__(794)) :
    typeof define === 'function' && define.amd ? define(['../moment'], factory) :
    factory(global.moment)
 }(this, (function (moment) { 'use strict';
@@ -44028,7 +44102,7 @@ module.exports = function (name) {
 
 /***/ }),
 
-/***/ 928:
+/***/ 931:
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -44037,7 +44111,7 @@ module.exports = function (name) {
 //!           Burak Yiğit Kaya: https://github.com/BYK
 
 ;(function (global, factory) {
-    true ? factory(__webpack_require__(791)) :
+    true ? factory(__webpack_require__(794)) :
    typeof define === 'function' && define.amd ? define(['../moment'], factory) :
    factory(global.moment)
 }(this, (function (moment) { 'use strict';
@@ -44151,7 +44225,7 @@ module.exports = function (name) {
 
 /***/ }),
 
-/***/ 929:
+/***/ 932:
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -44160,7 +44234,7 @@ module.exports = function (name) {
 //! author : Iustì Canun
 
 ;(function (global, factory) {
-    true ? factory(__webpack_require__(791)) :
+    true ? factory(__webpack_require__(794)) :
    typeof define === 'function' && define.amd ? define(['../moment'], factory) :
    factory(global.moment)
 }(this, (function (moment) { 'use strict';
@@ -44257,7 +44331,7 @@ module.exports = function (name) {
 
 /***/ }),
 
-/***/ 930:
+/***/ 933:
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -44265,7 +44339,7 @@ module.exports = function (name) {
 //! author : Abdel Said : https://github.com/abdelsaid
 
 ;(function (global, factory) {
-    true ? factory(__webpack_require__(791)) :
+    true ? factory(__webpack_require__(794)) :
    typeof define === 'function' && define.amd ? define(['../moment'], factory) :
    factory(global.moment)
 }(this, (function (moment) { 'use strict';
@@ -44328,7 +44402,7 @@ module.exports = function (name) {
 
 /***/ }),
 
-/***/ 931:
+/***/ 934:
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -44336,7 +44410,7 @@ module.exports = function (name) {
 //! author : Abdel Said : https://github.com/abdelsaid
 
 ;(function (global, factory) {
-    true ? factory(__webpack_require__(791)) :
+    true ? factory(__webpack_require__(794)) :
    typeof define === 'function' && define.amd ? define(['../moment'], factory) :
    factory(global.moment)
 }(this, (function (moment) { 'use strict';
@@ -44399,7 +44473,7 @@ module.exports = function (name) {
 
 /***/ }),
 
-/***/ 932:
+/***/ 935:
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -44407,7 +44481,7 @@ module.exports = function (name) {
 //! author: boyaq : https://github.com/boyaq
 
 ;(function (global, factory) {
-    true ? factory(__webpack_require__(791)) :
+    true ? factory(__webpack_require__(794)) :
    typeof define === 'function' && define.amd ? define(['../moment'], factory) :
    factory(global.moment)
 }(this, (function (moment) { 'use strict';
@@ -44527,7 +44601,7 @@ module.exports = function (name) {
 
 /***/ }),
 
-/***/ 933:
+/***/ 936:
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -44536,7 +44610,7 @@ module.exports = function (name) {
 //! Author : Menelion Elensúle : https://github.com/Oire
 
 ;(function (global, factory) {
-    true ? factory(__webpack_require__(791)) :
+    true ? factory(__webpack_require__(794)) :
    typeof define === 'function' && define.amd ? define(['../moment'], factory) :
    factory(global.moment)
 }(this, (function (moment) { 'use strict';
@@ -44711,7 +44785,7 @@ module.exports = function (name) {
 
 /***/ }),
 
-/***/ 934:
+/***/ 937:
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -44720,7 +44794,7 @@ module.exports = function (name) {
 //! author : Zack : https://github.com/ZackVision
 
 ;(function (global, factory) {
-    true ? factory(__webpack_require__(791)) :
+    true ? factory(__webpack_require__(794)) :
    typeof define === 'function' && define.amd ? define(['../moment'], factory) :
    factory(global.moment)
 }(this, (function (moment) { 'use strict';
@@ -44810,7 +44884,7 @@ module.exports = function (name) {
 
 /***/ }),
 
-/***/ 935:
+/***/ 938:
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -44818,7 +44892,7 @@ module.exports = function (name) {
 //! author : Rasulbek Mirzayev : github.com/Rasulbeeek
 
 ;(function (global, factory) {
-    true ? factory(__webpack_require__(791)) :
+    true ? factory(__webpack_require__(794)) :
    typeof define === 'function' && define.amd ? define(['../moment'], factory) :
    factory(global.moment)
 }(this, (function (moment) { 'use strict';
@@ -44881,7 +44955,7 @@ module.exports = function (name) {
 
 /***/ }),
 
-/***/ 936:
+/***/ 939:
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -44889,7 +44963,7 @@ module.exports = function (name) {
 //! author : Sardor Muminov : https://github.com/muminoff
 
 ;(function (global, factory) {
-    true ? factory(__webpack_require__(791)) :
+    true ? factory(__webpack_require__(794)) :
    typeof define === 'function' && define.amd ? define(['../moment'], factory) :
    factory(global.moment)
 }(this, (function (moment) { 'use strict';
@@ -44949,7 +45023,7 @@ module.exports = function (name) {
 
 /***/ }),
 
-/***/ 937:
+/***/ 940:
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -44958,7 +45032,7 @@ module.exports = function (name) {
 //! author : Chien Kira : https://github.com/chienkira
 
 ;(function (global, factory) {
-    true ? factory(__webpack_require__(791)) :
+    true ? factory(__webpack_require__(794)) :
    typeof define === 'function' && define.amd ? define(['../moment'], factory) :
    factory(global.moment)
 }(this, (function (moment) { 'use strict';
@@ -45046,7 +45120,7 @@ module.exports = function (name) {
 
 /***/ }),
 
-/***/ 938:
+/***/ 941:
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -45054,7 +45128,7 @@ module.exports = function (name) {
 //! author : Andrew Hood : https://github.com/andrewhood125
 
 ;(function (global, factory) {
-    true ? factory(__webpack_require__(791)) :
+    true ? factory(__webpack_require__(794)) :
    typeof define === 'function' && define.amd ? define(['../moment'], factory) :
    factory(global.moment)
 }(this, (function (moment) { 'use strict';
@@ -45136,7 +45210,7 @@ module.exports = function (name) {
 
 /***/ }),
 
-/***/ 939:
+/***/ 942:
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -45144,7 +45218,7 @@ module.exports = function (name) {
 //! author : Atolagbe Abisoye : https://github.com/andela-batolagbe
 
 ;(function (global, factory) {
-    true ? factory(__webpack_require__(791)) :
+    true ? factory(__webpack_require__(794)) :
    typeof define === 'function' && define.amd ? define(['../moment'], factory) :
    factory(global.moment)
 }(this, (function (moment) { 'use strict';
@@ -45206,7 +45280,7 @@ module.exports = function (name) {
 
 /***/ }),
 
-/***/ 940:
+/***/ 943:
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -45216,7 +45290,7 @@ module.exports = function (name) {
 //! author : uu109 : https://github.com/uu109
 
 ;(function (global, factory) {
-    true ? factory(__webpack_require__(791)) :
+    true ? factory(__webpack_require__(794)) :
    typeof define === 'function' && define.amd ? define(['../moment'], factory) :
    factory(global.moment)
 }(this, (function (moment) { 'use strict';
@@ -45343,7 +45417,7 @@ module.exports = function (name) {
 
 /***/ }),
 
-/***/ 941:
+/***/ 944:
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -45354,7 +45428,7 @@ module.exports = function (name) {
 //! author : Anthony : https://github.com/anthonylau
 
 ;(function (global, factory) {
-    true ? factory(__webpack_require__(791)) :
+    true ? factory(__webpack_require__(794)) :
    typeof define === 'function' && define.amd ? define(['../moment'], factory) :
    factory(global.moment)
 }(this, (function (moment) { 'use strict';
@@ -45461,7 +45535,7 @@ module.exports = function (name) {
 
 /***/ }),
 
-/***/ 942:
+/***/ 945:
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -45471,7 +45545,7 @@ module.exports = function (name) {
 //! author : Tan Yuanhong : https://github.com/le0tan
 
 ;(function (global, factory) {
-    true ? factory(__webpack_require__(791)) :
+    true ? factory(__webpack_require__(794)) :
    typeof define === 'function' && define.amd ? define(['../moment'], factory) :
    factory(global.moment)
 }(this, (function (moment) { 'use strict';
@@ -45578,7 +45652,7 @@ module.exports = function (name) {
 
 /***/ }),
 
-/***/ 943:
+/***/ 946:
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -45587,7 +45661,7 @@ module.exports = function (name) {
 //! author : Chris Lam : https://github.com/hehachris
 
 ;(function (global, factory) {
-    true ? factory(__webpack_require__(791)) :
+    true ? factory(__webpack_require__(794)) :
    typeof define === 'function' && define.amd ? define(['../moment'], factory) :
    factory(global.moment)
 }(this, (function (moment) { 'use strict';
@@ -45694,10 +45768,10 @@ module.exports = function (name) {
 
 /***/ }),
 
-/***/ 944:
+/***/ 947:
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(945);
+__webpack_require__(948);
 var $Object = __webpack_require__(20).Object;
 module.exports = function defineProperty(it, key, desc) {
   return $Object.defineProperty(it, key, desc);
@@ -45706,7 +45780,7 @@ module.exports = function defineProperty(it, key, desc) {
 
 /***/ }),
 
-/***/ 945:
+/***/ 948:
 /***/ (function(module, exports, __webpack_require__) {
 
 var $export = __webpack_require__(32);
@@ -45716,7 +45790,7 @@ $export($export.S + $export.F * !__webpack_require__(44), 'Object', { defineProp
 
 /***/ }),
 
-/***/ 946:
+/***/ 949:
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(53)();
@@ -45724,14 +45798,14 @@ exports = module.exports = __webpack_require__(53)();
 
 
 // module
-exports.push([module.i, "\n#file-manager[data-v-497df3b6] {\n    padding: 0;\n}\n#file-manager___BV_modal_body_[data-v-497df3b6] {\n    padding: 0;\n}\n#fm-container-dialog[data-v-497df3b6] {\n    padding: 0;\n    overflow: hidden !important;\n}\n#fm-container[data-v-497df3b6] {\n    font-size: 12px;\n    font-family: sans-serif;\n    padding: 0\n}\n#fm-toolbar ul[data-v-497df3b6] {\n    float: left;\n    margin: 3.5px 0 3px 10px;\n    padding: 1px 2px;\n    border-radius: 0\n}\n#fm-toolbar ul li[data-v-497df3b6] {\n        border: 1px solid #fff;\n        cursor: pointer;\n        float: left;\n        line-height: 26px;\n        list-style-type: none;\n        padding: 0 8px;\n        text-align: center;\n}\n#fm-toolbar ul li[data-v-497df3b6]:hover {\n            background: #eaeaea;\n}\n#fm-toolbar ul li.active[data-v-497df3b6] {\n            background: #eaeaea;\n}\n#fm-container[data-v-497df3b6] {\n}\n#fm-toolbar[data-v-497df3b6] {\n}\n#fm-footer[data-v-497df3b6] {\n    border-top: 1px solid #eaeaea;\n    padding-top: 10px\n}\n#fm-toolbar .tool-items[data-v-497df3b6] {\n    clear: both;\n    padding-right: 6px;\n}\n#fm-toolbar .tools[data-v-497df3b6] {\n    float: left;\n}\n#fm-main[data-v-497df3b6] {\n    margin-top: 8px;\n    border-top: 1px solid #eaeaea;\n}\n#fm-sidebar .fm-header[data-v-497df3b6] {\n    height: 35px;\n    line-height: 35px;\n    background-color: #39c;\n    overflow: hidden;\n    font-size: 17px;\n    color: #ecf3f9;\n    text-align: center;\n}\n#fm-sidebar[data-v-497df3b6] {\n    border-right: 1px solid #eaeaea\n}\n#fm-content[data-v-497df3b6] {\n    background-color: white;\n    cursor: default; /*z-index: 0; box-shadow: 0 2px 4px rgba(0,0,0,0.04), 0 1px 4px rgba(0,0,0,0.12);*/\n    height: 100%;\n}\n#fm-data-wrapper[data-v-497df3b6] {\n    overflow: hidden;\n}\n#fm-file-view[data-v-497df3b6] {\n    border-left: 1px solid #eaeaea;\n    float: right;\n    height: 100%;\n    width: 250px;\n    padding: 9px;\n    background: #fff;\n}\n#fm-file-view .file-thumb[data-v-497df3b6] {\n        text-align: center;\n        max-height: 250px;\n        max-width: 230px;\n        overflow: hidden;\n}\n#fm-file-view .header[data-v-497df3b6] {\n        font-weight: bold;\n        margin-bottom: 12px;\n        padding: 2px 0;\n        text-align: center;\n        text-transform: uppercase;\n}\n#fm-file-view .details[data-v-497df3b6] {\n        padding-top: 16px;\n}\n#fm-file-view .details div[data-v-497df3b6] {\n            line-height: 21px;\n}\n#fm-file-view .details .uploaded[data-v-497df3b6],\n        #fm-file-view .details .file-size[data-v-497df3b6],\n        #fm-file-view .details .dimensions[data-v-497df3b6] {\n            line-height: 21px;\n}\n#fm-file-view .file-thumb img[data-v-497df3b6] {\n        border: 1px solid #eaeaea;\n        padding: 4px; /*max-height: 220px; max-width: 228px;*/\n}\n.attachment-info .filename[data-v-497df3b6] {\n    font-weight: 600;\n    color: #444;\n    word-wrap: break-word;\n}\n.btn-attack[data-v-497df3b6] {\n    background: #fff none repeat scroll 0 0;\n    padding: 3px 3px 3px 0;\n    width: 230px;\n    float: right;\n    clear: both;\n}\n.btn-attack button#btn-attack[data-v-497df3b6] {\n        color: #fff;\n        background: #0085ba;\n        border: 0;\n        padding: 4px 6px;\n}\n.btn-attack button#dl-close[data-v-497df3b6] {\n        background: #eaeaea;\n        border: 0;\n        padding: 4px 6px;\n        float: right;\n        clear: both;\n}\n#fm-content table._list[data-v-497df3b6] {\n    width: 100%;\n}\n#fm-content table._list tr[data-v-497df3b6] {\n}\n#fm-content table._list tr th[data-v-497df3b6] {\n            text-align: center;\n            font-weight: bold;\n}\n#fm-content table._list tr td[data-v-497df3b6] {\n            padding: 5px 4px;\n}\n#fm-content table._list tr._active[data-v-497df3b6] {\n            background: #48adff;\n}\n#fm-toolbar ul li i[data-v-497df3b6] {\n    background-repeat: no-repeat;\n    display: inline-block;\n    height: 16px;\n    vertical-align: middle;\n    width: 16px;\n}\n#fm-toolbar ul li i[data-v-497df3b6] {\n}\nli i.create-folder[data-v-497df3b6] {\n    background-image: url(" + __webpack_require__(1002) + ");\n}\nli i.upload[data-v-497df3b6] {\n    background-image: url(" + __webpack_require__(1004) + ");\n}\nli i.list[data-v-497df3b6] {\n    background-image: url(" + __webpack_require__(999) + ");\n}\nli i.grid[data-v-497df3b6] {\n    background-image: url(" + __webpack_require__(998) + ");\n}\nli i.iclose[data-v-497df3b6] {\n    background-image: url(" + __webpack_require__(1003) + ");\n}\nli i.crop[data-v-497df3b6] {\n    background-image: url(" + __webpack_require__(1001) + ");\n}\nli i.remove[data-v-497df3b6] {\n    background-image: url(" + __webpack_require__(1000) + ");\n}\nli i.close[data-v-497df3b6]:hover {\n}\n#fm-footer[data-v-497df3b6] {\n    min-height: 32px;\n}\n#fm-data-wrapper[data-v-497df3b6] {\n    height: 100%;\n}\n.clear[data-v-497df3b6] {\n    clear: both;\n}\n#_list ._active[data-v-497df3b6] {\n    background: #48adff;\n}\n#fm-content[data-v-497df3b6] {\n}\n#fm-content table._list table thead tr th[data-v-497df3b6] {\n        text-align: center;\n}\n#fm-content table._list tr[data-v-497df3b6] {\n        font-size: 11px;\n}\n#fm-content table._list tr[data-v-497df3b6]:hover {\n            background: #c1edff;\n            cursor: pointer;\n}\n#fm-content table._list tr td[data-v-497df3b6] {\n}\n#fm-content table._list tbody tr td.name[data-v-497df3b6] {\n        display: inline-flex;\n}\n#fm-content table._list tbody tr td.name .list-icon[data-v-497df3b6] {\n            display: inline-block;\n            float: left;\n            padding-right: 20px;\n}\n/* #fm-content table._list tbody tr td.name .png, #fm-content table tbody tr td.name .jpg, #fm-content table tbody tr td.name .jpeg, #fm-content table tbody tr td.name .gif,\n#fm-content table._list tbody tr td.name .bmp { background: url(/CMS/Modules/FileManager/Libs/Images/filetree/picture.png) no-repeat; width: 16px; height: 16px; }\n#fm-content table._list tbody tr td.name .doc, #fm-content table tbody tr td.name .docx { background: url(/CMS/Modules/FileManager/Libs/Images/filetree/doc.png) no-repeat; width: 16px; height: 16px; }\n#fm-content table._list tbody tr td.name .xlsx, #fm-content table tbody tr td.name .xls { background: url(/CMS/Modules/FileManager/Libs/Images/filetree/xls.png) no-repeat; width: 16px; height: 16px; }\n#fm-content table._list tbody tr td.name .zip, #fm-content table tbody tr td.name .rar { background: url(/CMS/Modules/FileManager/Libs/Images/filetree/zip.png) no-repeat; width: 16px; height: 16px; }\n#fm-content table._list tbody tr td.name .txt { background: url(/CMS/Modules/FileManager/Libs/Images/filetree/txt.png) no-repeat; width: 16px; height: 16px; }\n#fm-content table._list tbody tr td.name .pdf { background: url(/CMS/Modules/FileManager/Libs/Images/filetree/pdf.png) no-repeat; width: 16px; height: 16px; }\n#fm-content table._list tbody tr td.name { width: 274px; display: inline-block; overflow: hidden; }\n#fm-content table._list tbody tr td.name .fname { display: inline-flex; }\n#fm-content table._list tbody tr td.type, #fm-content table tbody tr td.size, #fm-content table tbody tr td.dimensions, #fm-content table tbody tr td.date { overflow: hidden; width: 98px; }\n#fm-content table._list tbody tr td.size { width: 70px; }\n#fm-content table._list tbody tr td.dimensions { width: 80px; }\n#fm-content table._list tbody tr td.date { width: 115px; } */\n#fm-grid[data-v-497df3b6], #fm-folder ul[data-v-497df3b6], #fm-grid li .info p[data-v-497df3b6] {\n    padding: 0;\n    margin: 0;\n}\n#fm-grid li[data-v-497df3b6] {\n        position: relative;\n        vertical-align: middle;\n        display: table-cell;\n        border: 1px solid #eaeaea;\n        cursor: pointer;\n        float: left;\n        height: 100px;\n        min-width: 114px;\n        list-style-type: none;\n        margin: 4px;\n        padding: 2px;\n        width: 15.78%;\n        position: relative;\n        overflow: hidden;\n        text-align: center;\n}\n#fm-grid li .info[data-v-497df3b6] {\n            font-size: 10px;\n            background: rgba(109,105,105,0.45882);\n            position: absolute;\n            bottom: 0;\n            width: 100%;\n            height: 0\n}\n#fm-grid li:hover .info[data-v-497df3b6] {\n            height: auto\n}\n.fm-list li img[data-v-497df3b6] {\n    width: 100%\n}\n.fm-list li.not_img img[data-v-497df3b6] {\n    width: 50%;\n    padding-top: 10px\n}\n#fm-grid li img.thumb[data-v-497df3b6] {\n    width: 60%;\n    margin: 0 auto;\n}\n#fm-grid li i[data-v-497df3b6] {\n    position: absolute;\n    z-index: 999;\n    right: 4px;\n    background: #fff;\n    border-radius: 11px;\n    color: #0085ba;\n    padding: 1px;\n    top: 3px;\n    display: none;\n}\n#fm-grid li._active i[data-v-497df3b6] {\n    display: block;\n}\n#fm-grid li._active[data-v-497df3b6] {\n    border: 1px solid #0085ba;\n}\n#fm-folder ul li[data-v-497df3b6] {\n    list-style-type: none;\n    padding: 8px 0;\n    cursor: pointer\n}\n#fm-folder ul li i[data-v-497df3b6] {\n        background-repeat: no-repeat;\n        display: inline-block;\n        height: 16px;\n        vertical-align: middle;\n        width: 16px;\n}\n.plupload_filelist_header[data-v-497df3b6] {\n    height: 20px;\n}\n.plupload_filelist_footer[data-v-497df3b6] {\n    padding: 6px 20px;\n    height: 33px;\n}\n.plupload_scroll .plupload_filelist[data-v-497df3b6] {\n    height: 172px !important;\n}\n.plupload_filelist_footer[data-v-497df3b6] {\n    padding: 6px 20px;\n}\n.plupload_filelist[data-v-497df3b6]:empty,\n.plupload_filelist li.plupload_droptext[data-v-497df3b6] {\n    height: 140px;\n}\n.plupload_filelist[data-v-497df3b6]:empty::before,\n    .plupload_filelist li.plupload_droptext[data-v-497df3b6]::before {\n        font-size: 52px;\n        height: 75px;\n        left: 49%;\n        margin-left: -40px;\n        padding-top: 43px;\n}\n.items-action[data-v-497df3b6] {\n    padding-top: 20px;\n    display: inline-block;\n    width: 100%;\n}\n.items-action .file-action[data-v-497df3b6] {\n        border: 0 none;\n        color: #fff;\n        padding: 4px 10px;\n}\n.items-action .file-action[data-v-497df3b6] {\n        background: rosybrown;\n        float: left;\n        clear: both;\n}\n/*.items-action .file-action:last-child { background: #0085ba;float: right;}*/\n#fm-toolbar .Mi.ipagination a[data-v-497df3b6]:first-child {\n    border: 0;\n    border-radius: 0;\n}\n#fm-toolbar .Mi.ipagination input[data-v-497df3b6] {\n    border: medium none;\n    float: left;\n    font-family: arial;\n    font-size: 11px;\n    height: 30px;\n    margin: 0;\n    outline: medium none;\n    padding: 0;\n    text-align: center;\n    vertical-align: middle;\n    width: 84px;\n}\n#fm-toolbar .Mi.ipagination a[data-v-497df3b6] {\n    border: 0;\n    border-radius: 0;\n    background: #fff;\n}\n#fm-toolbar .ipagination.iweb[data-v-497df3b6] {\n    margin-top: 3.45px;\n}\n#frowInTotals[data-v-497df3b6] {\n    display: inline-block;\n    float: left;\n    line-height: 39px;\n    padding-right: 3px;\n    vertical-align: baseline;\n}\nlabel#progressall[data-v-497df3b6] {\n    display: none;\n    padding: 7px 7px;\n}\n.Cdiv[data-v-497df3b6] {\n    padding-left: 12px;\n    height: 17px;\n    overflow: hidden;\n    text-overflow: ellipsis;\n    white-space: nowrap;\n    width: 100%;\n    display: inline-block;\n    font-weight: normal;\n}\n#btn-fm-upload label[data-v-497df3b6] {\n    margin-bottom: 0 !important;\n}\n/* Extra small devices (phones, 600px and down) */\n@media only screen and (max-width: 600px) {\n#fm-grid li[data-v-497df3b6] {\n        width: 47.65%;\n}\n}\n\n/* Small devices (portrait tablets and large phones, 600px and up) */\n@media only screen and (min-width: 600px) {\n}\n\n/* Medium devices (landscape tablets, 768px and up) */\n@media only screen and (min-width: 768px) {\n}\n\n/* Large devices (laptops/desktops, 992px and up) */\n@media only screen and (min-width: 992px) {\n}\n\n/* Extra large devices (large laptops and desktops, 1200px and up) */\n@media only screen and (min-width: 1200px) {\n}\n", "", {"version":3,"sources":["C:/WORKING/Joytime/dotnet-platform-backend/Web/Platform/CMS/PlatformCMS/ClientApp/components/fileManager/list.vue?b8c85d56"],"names":[],"mappings":";AAgYA;IACA,WAAA;CACA;AAEA;IACA,WAAA;CACA;AAEA;IACA,WAAA;IACA,4BAAA;CACA;AAEA;IACA,gBAAA;IACA,wBAAA;IACA,UAAA;CACA;AAEA;IACA,YAAA;IACA,yBAAA;IACA,iBAAA;IACA,gBAAA;CACA;AAEA;QACA,uBAAA;QACA,gBAAA;QACA,YAAA;QACA,kBAAA;QACA,sBAAA;QACA,eAAA;QACA,mBAAA;CACA;AAEA;YACA,oBAAA;CACA;AAEA;YACA,oBAAA;CACA;AAEA;CACA;AAEA;CACA;AAEA;IACA,8BAAA;IACA,iBAAA;CACA;AAEA;IACA,YAAA;IACA,mBAAA;CACA;AAEA;IACA,YAAA;CACA;AAEA;IACA,gBAAA;IACA,8BAAA;CACA;AAEA;IACA,aAAA;IACA,kBAAA;IACA,uBAAA;IACA,iBAAA;IACA,gBAAA;IACA,eAAA;IACA,mBAAA;CACA;AAEA;IACA,+BAAA;CACA;AAEA;IACA,wBAAA;IACA,gBAAA,CAAA,mFAAA;IACA,aAAA;CACA;AAEA;IACA,iBAAA;CACA;AAEA;IACA,+BAAA;IACA,aAAA;IACA,aAAA;IACA,aAAA;IACA,aAAA;IACA,iBAAA;CACA;AAEA;QACA,mBAAA;QACA,kBAAA;QACA,iBAAA;QACA,iBAAA;CACA;AAEA;QACA,kBAAA;QACA,oBAAA;QACA,eAAA;QACA,mBAAA;QACA,0BAAA;CACA;AAEA;QACA,kBAAA;CACA;AAEA;YACA,kBAAA;CACA;AAEA;;;YAGA,kBAAA;CACA;AAEA;QACA,0BAAA;QACA,aAAA,CAAA,wCAAA;CACA;AAEA;IACA,iBAAA;IACA,YAAA;IACA,sBAAA;CACA;AAEA;IACA,wCAAA;IACA,uBAAA;IACA,aAAA;IACA,aAAA;IACA,YAAA;CACA;AAEA;QACA,YAAA;QACA,oBAAA;QACA,UAAA;QACA,iBAAA;CACA;AAEA;QACA,oBAAA;QACA,UAAA;QACA,iBAAA;QACA,aAAA;QACA,YAAA;CACA;AAEA;IACA,YAAA;CACA;AAEA;CACA;AAEA;YACA,mBAAA;YACA,kBAAA;CACA;AAEA;YACA,iBAAA;CACA;AAEA;YACA,oBAAA;CACA;AAEA;IACA,6BAAA;IACA,sBAAA;IACA,aAAA;IACA,uBAAA;IACA,YAAA;CACA;AAEA;CACA;AAEA;IACA,gDAAA;CACA;AAEA;IACA,gDAAA;CACA;AAEA;IACA,gDAAA;CACA;AAEA;IACA,gDAAA;CACA;AAEA;IACA,gDAAA;CACA;AAEA;IACA,gDAAA;CACA;AAEA;IACA,gDAAA;CACA;AAEA;CACA;AAEA;IACA,iBAAA;CACA;AAEA;IACA,aAAA;CACA;AAEA;IACA,YAAA;CACA;AAEA;IACA,oBAAA;CACA;AAEA;CACA;AAEA;QACA,mBAAA;CACA;AAEA;QACA,gBAAA;CACA;AAEA;YACA,oBAAA;YACA,gBAAA;CACA;AAEA;CACA;AAEA;QACA,qBAAA;CACA;AAEA;YACA,sBAAA;YACA,YAAA;YACA,oBAAA;CACA;AACA;;;;;;;;;;;;6DAYA;AAEA;IACA,WAAA;IACA,UAAA;CACA;AAEA;QACA,mBAAA;QACA,uBAAA;QACA,oBAAA;QACA,0BAAA;QACA,gBAAA;QACA,YAAA;QACA,cAAA;QACA,iBAAA;QACA,sBAAA;QACA,YAAA;QACA,aAAA;QACA,cAAA;QACA,mBAAA;QACA,iBAAA;QACA,mBAAA;CACA;AAEA;YACA,gBAAA;YACA,sCAAA;YACA,mBAAA;YACA,UAAA;YACA,YAAA;YACA,SAAA;CACA;AAEA;YACA,YAAA;CACA;AAEA;IACA,WAAA;CACA;AAEA;IACA,WAAA;IACA,iBAAA;CACA;AAEA;IACA,WAAA;IACA,eAAA;CACA;AAEA;IACA,mBAAA;IACA,aAAA;IACA,WAAA;IACA,iBAAA;IACA,oBAAA;IACA,eAAA;IACA,aAAA;IACA,SAAA;IACA,cAAA;CACA;AAEA;IACA,eAAA;CACA;AAEA;IACA,0BAAA;CACA;AAEA;IACA,sBAAA;IACA,eAAA;IACA,eAAA;CACA;AAEA;QACA,6BAAA;QACA,sBAAA;QACA,aAAA;QACA,uBAAA;QACA,YAAA;CACA;AAEA;IACA,aAAA;CACA;AAEA;IACA,kBAAA;IACA,aAAA;CACA;AAEA;IACA,yBAAA;CACA;AAEA;IACA,kBAAA;CACA;AAEA;;IAEA,cAAA;CACA;AAEA;;QAEA,gBAAA;QACA,aAAA;QACA,UAAA;QACA,mBAAA;QACA,kBAAA;CACA;AAEA;IACA,kBAAA;IACA,sBAAA;IACA,YAAA;CACA;AAEA;QACA,eAAA;QACA,YAAA;QACA,kBAAA;CACA;AAEA;QACA,sBAAA;QACA,YAAA;QACA,YAAA;CACA;AACA,8EAAA;AACA;IACA,UAAA;IACA,iBAAA;CACA;AAEA;IACA,oBAAA;IACA,YAAA;IACA,mBAAA;IACA,gBAAA;IACA,aAAA;IACA,UAAA;IACA,qBAAA;IACA,WAAA;IACA,mBAAA;IACA,uBAAA;IACA,YAAA;CACA;AAEA;IACA,UAAA;IACA,iBAAA;IACA,iBAAA;CACA;AAEA;IACA,mBAAA;CACA;AAEA;IACA,sBAAA;IACA,YAAA;IACA,kBAAA;IACA,mBAAA;IACA,yBAAA;CACA;AAEA;IACA,cAAA;IACA,iBAAA;CACA;AAEA;IACA,mBAAA;IACA,aAAA;IACA,iBAAA;IACA,wBAAA;IACA,oBAAA;IACA,YAAA;IACA,sBAAA;IACA,oBAAA;CACA;AAEA;IACA,4BAAA;CACA;AACA,kDAAA;AAEA;AACA;QACA,cAAA;CACA;CACA;;AAEA,qEAAA;AAEA;CACA;;AAEA,sDAAA;AAEA;CACA;;AAEA,oDAAA;AAEA;CACA;;AAEA,qEAAA;AAEA;CACA","file":"list.vue","sourcesContent":["<template>\r\n    <div class=\"file-manager\">\r\n        <loading :active.sync=\"isLoading\"\r\n                 :height=\"35\"\r\n                 :width=\"35\"\r\n                 :color=\"color\"\r\n                 :is-full-page=\"fullPage\"></loading>\r\n        <b-modal ref=\"file-manager-modal\" id=\"file-manager\" fbody=\"xxx\" hide-footer hide-header size=\"xl\">\r\n            <div id=\"fm-container\" class=\"container-fluid\">\r\n                <b-row id=\"fm-toolbar\">\r\n                    <b-col lg=\"2\" md=\"2\" sm=\"12\">\r\n                        <b>Thư viện</b>\r\n                    </b-col>\r\n                    <b-col>\r\n                        <b-row align-h=\"between\">\r\n                            <b-col cols=\"4\">\r\n                                <div class=\"tool-items\">\r\n                                    <ul class=\"tools\">\r\n                                        <li title=\"Create folder\">\r\n                                            <i class=\"create-folder\"></i>\r\n                                        </li>\r\n                                    </ul>\r\n                                    <ul class=\"tools\">\r\n                                        <li title=\"Remove\" @click=\"removeFile\">\r\n                                            <i class=\"remove\"></i>\r\n                                        </li>\r\n\r\n                                    </ul>\r\n                                    <div class=\"tools\">\r\n                                        <input v-model=\"keyword\" v-on:keyup.enter=\"LoadFile()\" class=\"form-control\" placeholder=\"Gõ tên ảnh ấn enter\" />\r\n                                    </div>\r\n                                </div>\r\n                            </b-col>\r\n                            <b-col cols=\"4\" class=\"bd-0\">\r\n                                <b-pagination v-model=\"currentPage\" align=\"right\" size=\"sm\" :limit=\"4\"\r\n                                              :total-rows=\"files.totals\"\r\n                                              :per-page=\"pageSize\"></b-pagination>\r\n                            </b-col>\r\n                            <b-col cols=\"4\">\r\n                                <div class=\"tool-items float-right\">\r\n\r\n                                    <ul class=\"tools\">\r\n                                        <li title=\"Create folder\">\r\n                                            <i class=\"create-folder\"></i>\r\n                                        </li>\r\n                                        <li title=\"Upload\" id=\"btn-fm-upload\">\r\n                                            <label for=\"fileSingleupload\">\r\n                                                <i class=\"upload\"></i>\r\n                                            </label>\r\n                                            <input accept=\"image/*,.doc,.docx,.pdf,.xls,.xlsx,.zip,.rar\" @change=\"DoUploadFile\" id=\"fileSingleupload\"\r\n                                                   multiple\r\n                                                   type=\"file\"\r\n                                                   name=\"files[]\"\r\n                                                   style=\"display: none\" />\r\n                                        </li>\r\n                                    </ul>\r\n                                    <ul class=\"tools\">\r\n                                        <li title=\"List view\">\r\n                                            <i class=\"list\"></i>\r\n                                        </li>\r\n                                        <li title=\"Grid View\">\r\n                                            <i class=\"grid\"></i>\r\n                                        </li>\r\n                                    </ul>\r\n                                </div>\r\n                            </b-col>\r\n                        </b-row>\r\n\r\n                    </b-col>\r\n\r\n                </b-row>\r\n                <b-row id=\"fm-main\">\r\n                    <b-col id=\"fm-sidebar\" lg=\"2\" md=\"2\" sm=\"12\">\r\n                        <div id=\"fm-folder\">\r\n                            <ul>\r\n                                <li><i class=\"create-folder\"></i> Document</li>\r\n                                <li><i class=\"create-folder\"></i> Image</li>\r\n                                <li><i class=\"create-folder\"></i> Icon</li>\r\n                            </ul>\r\n                        </div>\r\n                    </b-col>\r\n                    <b-col id=\"fm-content\" lg=\"10\" dm=\"2\" sm=\"12\">\r\n                        <div id=\"fm-data-wrapper\">\r\n                            <div class=\"fm-list-wrapper\">\r\n                                <div class=\"fm-list\">\r\n                                    <ul id=\"fm-grid\">\r\n                                        <li v-for=\"file in files.files\" :key=\"file.id\" class=\"item\" :class=\"{ _active: isActive, not_img:checkImage(file.fileExt)}\" @click=\"SelectFile($event,{path:file.filePath,id:file.id})\">\r\n                                            <img :src=\"mapImageUrl(file.filePath,file.fileExt)\" alt=\"\">\r\n                                            <i class=\"fa fa-check\"></i>\r\n                                            <div class=\"info\">\r\n                                                <p class=\"name\">{{file.name}}</p>\r\n                                                <p class=\"dimensions\">{{file.dimensions}}</p>\r\n                                                <p class=\"size\">{{file.fileSize}}kb</p>\r\n                                            </div>\r\n                                        </li>\r\n                                    </ul>\r\n                                </div>\r\n                            </div>\r\n                        </div>\r\n\r\n                    </b-col>\r\n                </b-row>\r\n                <b-row align-h=\"end\" id=\"fm-footer\">\r\n                    <b-col cols=\"4\">\r\n                        <div class=\"btn-attack\">\r\n                            <button type=\"button\" id=\"btn-attack\" @click=\"attackFile\">Đính kèm</button>\r\n                            <!--<button type=\"button\" id=\"btn-attack\" @click=\"attackFileSelected\">Đính kèm2</button>-->\r\n                            <button type=\"button\" id=\"dl-close\" @click=\"hideFileManagerModal\" class=\"iclose\">Đóng</button>\r\n                        </div>\r\n                    </b-col>\r\n                </b-row>\r\n            </div>\r\n        </b-modal>\r\n    </div>\r\n</template>\r\n\r\n<script>\r\n    import \"vue-loading-overlay/dist/vue-loading.css\";\r\n    import msgNotify from \"./../../common/constant\";\r\n    import { mapActions } from \"vuex\";\r\n    import Loading from \"vue-loading-overlay\";\r\n    import EventBus from \"./../../common/eventBus\";\r\n    import { search } from \"core-js/fn/symbol\";\r\n    import { data } from \"jquery\";\r\n\r\n\r\n    export default {\r\n        name: \"FileManager\",\r\n        props: {\r\n            miKey: {\r\n                type: String\r\n            }\r\n        },\r\n        components: {\r\n            Loading\r\n        },\r\n        data() {\r\n            return {\r\n                isLoading: false,\r\n                fullPage: false,\r\n                color: \"#007bff\",\r\n                isLoadLang: false,\r\n                //  perPage: 10,\r\n                currentPage: 1,\r\n                pageSize: 30,\r\n                isLoading: false,\r\n                MaxFileSize: 3000,//Kb\r\n                selectedFile: [],\r\n                extensions: [],\r\n                extImage: [],\r\n                isActive: false,\r\n                selectType: '',\r\n                keyword: '',\r\n\r\n            };\r\n        },\r\n        created() {\r\n            let config = require('./../../../appsettings.json');\r\n            this.extImage = config.AppSettings.ImageAllowUpload;\r\n            this.extensions = config.AppSettings.ImageAllowUpload.concat(config.AppSettings.DocumentAllowUpload);\r\n\r\n            EventBus.$on(this.miKey, this.FileManagerOpen);\r\n        },\r\n        destroyed() {\r\n\r\n        },\r\n        computed: {\r\n            files() {\r\n                return this.$store.getters.files\r\n            }\r\n        },\r\n        methods: {\r\n            ...mapActions([\"fmFileUpload\", \"fmFileGetAll\", \"fmRemove\"]),\r\n            mapImageUrl(img, ext) {\r\n                if (this.extImage.indexOf(ext.toLowerCase()) !== -1) {\r\n                    return '/uploads/thumb' + img;\r\n                }\r\n                return './../../ClientApp/assets/fileicons/' + ext.replace('.', '') + '.png';\r\n            },\r\n            checkImage(ext) {\r\n                //debugger\r\n                if (this.extImage.indexOf(ext) == -1) {\r\n                    return true\r\n                }\r\n                return false\r\n            },\r\n            DoUploadFile(e) {\r\n                debugger\r\n                let files = e.srcElement.files;\r\n\r\n                if (files) {\r\n                    let filesTemp = Array.from(files);\r\n\r\n                    let msgFileAllow = '';\r\n                    let msgLimitedSize = '';\r\n                    for (var i = 0; i < filesTemp.length; i++) {\r\n\r\n                        let name = filesTemp[i].name;\r\n                        let type = name.split('.').pop().toLowerCase();\r\n\r\n                        if (this.extensions.indexOf(type) == -1) {\r\n                            filesTemp.splice(i, 1); // xóa khỏi array\r\n                            if (msgFileAllow.length == 0) {\r\n                                msgFileAllow = name;\r\n                            } else {\r\n                                msgFileAllow += ', ' + name;\r\n                            }\r\n                        }\r\n                        if (msgFileAllow.length > 0) {\r\n                            this.$toast.error(msgFileAllow + ' không hợp lệ !', {});\r\n                        }\r\n                    }\r\n                    for (var i = 0; i < filesTemp.length; i++) {\r\n                        let size = filesTemp[i].size;\r\n                        let name = filesTemp[i].name;\r\n\r\n\r\n                        if (this.MaxFileSize < (size / 1024)) {\r\n                            filesTemp.splice(i, 1);\r\n                            if (msgLimitedSize.length == 0) {\r\n                                msgLimitedSize = name;\r\n                            } else {\r\n                                msgLimitedSize += ', ' + name;\r\n                            }\r\n                        }\r\n                        if (msgLimitedSize.length > 0) {\r\n                            this.$toast.error(msgFileAllow + ' dung lượng quá lớn !', {});\r\n                        }\r\n                    }\r\n                    if (filesTemp.length) {\r\n                        let fd = new FormData();\r\n\r\n                        filesTemp.forEach(function (item) {\r\n                            fd.append('files', item);\r\n                        });\r\n                        this.UploadFileAction(fd);\r\n                    }\r\n\r\n                }\r\n\r\n            },\r\n            UploadFileAction(files) {\r\n                \r\n                this.fmFileUpload(files)\r\n                    .then(response => {\r\n                        if (response.success) {\r\n                            debugger\r\n                            console.log(response.data);\r\n                            var objtoast = this.$toast;\r\n                            response.data.forEach(function (item) {\r\n                                if (item.code == 200) {\r\n                                    objtoast.success(item.messages, {});\r\n                                } else {\r\n                                    objtoast.error(item.messages, {});\r\n                                }\r\n                            })\r\n                            //response.data.forEach(function () {\r\n\r\n                            //    this.$toast.success(response.message, {});\r\n                            //});\r\n                            //this.$toast.success(response.message, {});\r\n                            this.LoadFile();\r\n\r\n                            this.isLoading = false;\r\n                        }\r\n                        else {\r\n                            \r\n                            this.$toast.error(response.message, {});\r\n                            this.isLoading = false;\r\n                        }\r\n                    })\r\n                    .catch(e => {\r\n                        debugger\r\n                        this.$toast.error(msgNotify.error + \". Error:\" + e, {});\r\n                        this.isLoading = false;\r\n                    });\r\n\r\n\r\n            },\r\n            SelectFile(event, file) {\r\n                if (this.selectType == 'multi') {\r\n                    if (event.currentTarget.classList.contains('_active')) {\r\n                        event.currentTarget.classList.remove('_active');\r\n\r\n                        // let objIsExist = this.selectedFile.some(obj => obj.id = file.id);\r\n                        // if (objIsExist) {\r\n                        this.selectedFile = this.selectedFile.filter(obj => obj.id != file.id)\r\n                        // }\r\n                    }\r\n                    else {\r\n                        event.currentTarget.classList.add(\"_active\");\r\n                        this.selectedFile.push(file)\r\n                    }\r\n                } else {\r\n\r\n                    this.selectedFile = [];\r\n                    if (event.currentTarget.classList.contains('_active')) {\r\n                        event.currentTarget.classList.remove('_active');\r\n\r\n                    }\r\n                    else {\r\n                        let items = document.querySelectorAll('.item');\r\n                        items.forEach(function (item) {\r\n                            item.classList.remove('_active');\r\n                        });\r\n                        event.currentTarget.classList.add(\"_active\");\r\n                        this.selectedFile.push(file)\r\n                    }\r\n                }\r\n            },\r\n            LoadFile() {\r\n                this.fmFileGetAll({\r\n                    keyword: this.keyword,\r\n                    pageIndex: this.currentPage,\r\n                    pageSize: this.pageSize\r\n                });\r\n            }\r\n\r\n            ,\r\n            FileManagerOpen(param) {\r\n                this.selectType = param;\r\n                this.$refs[\"file-manager-modal\"].show();\r\n                this.LoadFile();\r\n            },\r\n\r\n            hideFileManagerModal() {\r\n                this.$refs[\"file-manager-modal\"].hide();\r\n            },\r\n            attackFile() {\r\n                // EventBus.$emit(\"FileSelected\", this.selectedFile);\r\n                this.$emit(\"handleAttackFile\", this.selectedFile);\r\n                this.$refs[\"file-manager-modal\"].hide();\r\n                this.selectedFile = [];\r\n            },\r\n\r\n            toggleFileModal() {\r\n                // We pass the ID of the button that we want to return focus to\r\n                // when the modal has hidden\r\n                this.$refs[\"file-manager-modal\"].toggle(\"#toggle-btn\");\r\n            },\r\n            removeFile() {\r\n                var result = confirm(\"Xác nhận?\");\r\n                if (!result) {\r\n                    return false;\r\n                }\r\n\r\n                let $this = this;\r\n                this.selectedFile.forEach(function (item) {\r\n                    $this.fmRemove(item.id)\r\n                        .then(response => {\r\n                            if (response.success) {\r\n                                \r\n                                $this.LoadFile();\r\n                                $this.$toast.success(response.message, {});\r\n                                $this.isLoading = false;\r\n                            }\r\n                            else {\r\n                                \r\n                                $this.$toast.error(response.message, {});\r\n                                $this.isLoading = false;\r\n                            }\r\n                        })\r\n                        .catch(e => {\r\n                            \r\n                            $this.$toast.error(msgNotify.error + \". Error:\" + e, {});\r\n                            $this.isLoading = false;\r\n                        });\r\n                });\r\n\r\n\r\n\r\n            }\r\n        },\r\n        mounted() {\r\n            //   this.fmFileGetAll();\r\n        },\r\n        watch: {\r\n            currentPage() {\r\n                this.LoadFile();\r\n            }\r\n        }\r\n    };\r\n</script>\r\n<style scoped>\r\n    #file-manager {\r\n        padding: 0;\r\n    }\r\n\r\n    #file-manager___BV_modal_body_ {\r\n        padding: 0;\r\n    }\r\n\r\n    #fm-container-dialog {\r\n        padding: 0;\r\n        overflow: hidden !important;\r\n    }\r\n\r\n    #fm-container {\r\n        font-size: 12px;\r\n        font-family: sans-serif;\r\n        padding: 0\r\n    }\r\n\r\n    #fm-toolbar ul {\r\n        float: left;\r\n        margin: 3.5px 0 3px 10px;\r\n        padding: 1px 2px;\r\n        border-radius: 0\r\n    }\r\n\r\n        #fm-toolbar ul li {\r\n            border: 1px solid #fff;\r\n            cursor: pointer;\r\n            float: left;\r\n            line-height: 26px;\r\n            list-style-type: none;\r\n            padding: 0 8px;\r\n            text-align: center;\r\n        }\r\n\r\n            #fm-toolbar ul li:hover {\r\n                background: #eaeaea;\r\n            }\r\n\r\n            #fm-toolbar ul li.active {\r\n                background: #eaeaea;\r\n            }\r\n\r\n    #fm-container {\r\n    }\r\n\r\n    #fm-toolbar {\r\n    }\r\n\r\n    #fm-footer {\r\n        border-top: 1px solid #eaeaea;\r\n        padding-top: 10px\r\n    }\r\n\r\n    #fm-toolbar .tool-items {\r\n        clear: both;\r\n        padding-right: 6px;\r\n    }\r\n\r\n    #fm-toolbar .tools {\r\n        float: left;\r\n    }\r\n\r\n    #fm-main {\r\n        margin-top: 8px;\r\n        border-top: 1px solid #eaeaea;\r\n    }\r\n\r\n    #fm-sidebar .fm-header {\r\n        height: 35px;\r\n        line-height: 35px;\r\n        background-color: #39c;\r\n        overflow: hidden;\r\n        font-size: 17px;\r\n        color: #ecf3f9;\r\n        text-align: center;\r\n    }\r\n\r\n    #fm-sidebar {\r\n        border-right: 1px solid #eaeaea\r\n    }\r\n\r\n    #fm-content {\r\n        background-color: white;\r\n        cursor: default; /*z-index: 0; box-shadow: 0 2px 4px rgba(0,0,0,0.04), 0 1px 4px rgba(0,0,0,0.12);*/\r\n        height: 100%;\r\n    }\r\n\r\n    #fm-data-wrapper {\r\n        overflow: hidden;\r\n    }\r\n\r\n    #fm-file-view {\r\n        border-left: 1px solid #eaeaea;\r\n        float: right;\r\n        height: 100%;\r\n        width: 250px;\r\n        padding: 9px;\r\n        background: #fff;\r\n    }\r\n\r\n        #fm-file-view .file-thumb {\r\n            text-align: center;\r\n            max-height: 250px;\r\n            max-width: 230px;\r\n            overflow: hidden;\r\n        }\r\n\r\n        #fm-file-view .header {\r\n            font-weight: bold;\r\n            margin-bottom: 12px;\r\n            padding: 2px 0;\r\n            text-align: center;\r\n            text-transform: uppercase;\r\n        }\r\n\r\n        #fm-file-view .details {\r\n            padding-top: 16px;\r\n        }\r\n\r\n            #fm-file-view .details div {\r\n                line-height: 21px;\r\n            }\r\n\r\n            #fm-file-view .details .uploaded,\r\n            #fm-file-view .details .file-size,\r\n            #fm-file-view .details .dimensions {\r\n                line-height: 21px;\r\n            }\r\n\r\n        #fm-file-view .file-thumb img {\r\n            border: 1px solid #eaeaea;\r\n            padding: 4px; /*max-height: 220px; max-width: 228px;*/\r\n        }\r\n\r\n    .attachment-info .filename {\r\n        font-weight: 600;\r\n        color: #444;\r\n        word-wrap: break-word;\r\n    }\r\n\r\n    .btn-attack {\r\n        background: #fff none repeat scroll 0 0;\r\n        padding: 3px 3px 3px 0;\r\n        width: 230px;\r\n        float: right;\r\n        clear: both;\r\n    }\r\n\r\n        .btn-attack button#btn-attack {\r\n            color: #fff;\r\n            background: #0085ba;\r\n            border: 0;\r\n            padding: 4px 6px;\r\n        }\r\n\r\n        .btn-attack button#dl-close {\r\n            background: #eaeaea;\r\n            border: 0;\r\n            padding: 4px 6px;\r\n            float: right;\r\n            clear: both;\r\n        }\r\n\r\n    #fm-content table._list {\r\n        width: 100%;\r\n    }\r\n\r\n        #fm-content table._list tr {\r\n        }\r\n\r\n            #fm-content table._list tr th {\r\n                text-align: center;\r\n                font-weight: bold;\r\n            }\r\n\r\n            #fm-content table._list tr td {\r\n                padding: 5px 4px;\r\n            }\r\n\r\n            #fm-content table._list tr._active {\r\n                background: #48adff;\r\n            }\r\n\r\n    #fm-toolbar ul li i {\r\n        background-repeat: no-repeat;\r\n        display: inline-block;\r\n        height: 16px;\r\n        vertical-align: middle;\r\n        width: 16px;\r\n    }\r\n\r\n    #fm-toolbar ul li i {\r\n    }\r\n\r\n    li i.create-folder {\r\n        background-image: url(./../../assets/img/icon/folder_add.png);\r\n    }\r\n\r\n    li i.upload {\r\n        background-image: url(\"./../../assets/img/icon/upload.png\");\r\n    }\r\n\r\n    li i.list {\r\n        background-image: url(\"./../../assets/img/icon/application_view_list.png\");\r\n    }\r\n\r\n    li i.grid {\r\n        background-image: url(\"./../../assets/img/icon/application_view_icons.png\");\r\n    }\r\n\r\n    li i.iclose {\r\n        background-image: url(\"./../../assets/img/icon/reset.png\");\r\n    }\r\n\r\n    li i.crop {\r\n        background-image: url(\"./../../assets/img/icon/crop.png\");\r\n    }\r\n\r\n    li i.remove {\r\n        background-image: url(\"./../../assets/img/icon/bin_closed.png\");\r\n    }\r\n\r\n    li i.close:hover {\r\n    }\r\n\r\n    #fm-footer {\r\n        min-height: 32px;\r\n    }\r\n\r\n    #fm-data-wrapper {\r\n        height: 100%;\r\n    }\r\n\r\n    .clear {\r\n        clear: both;\r\n    }\r\n\r\n    #_list ._active {\r\n        background: #48adff;\r\n    }\r\n\r\n    #fm-content {\r\n    }\r\n\r\n        #fm-content table._list table thead tr th {\r\n            text-align: center;\r\n        }\r\n\r\n        #fm-content table._list tr {\r\n            font-size: 11px;\r\n        }\r\n\r\n            #fm-content table._list tr:hover {\r\n                background: #c1edff;\r\n                cursor: pointer;\r\n            }\r\n\r\n            #fm-content table._list tr td {\r\n            }\r\n\r\n        #fm-content table._list tbody tr td.name {\r\n            display: inline-flex;\r\n        }\r\n\r\n            #fm-content table._list tbody tr td.name .list-icon {\r\n                display: inline-block;\r\n                float: left;\r\n                padding-right: 20px;\r\n            }\r\n    /* #fm-content table._list tbody tr td.name .png, #fm-content table tbody tr td.name .jpg, #fm-content table tbody tr td.name .jpeg, #fm-content table tbody tr td.name .gif,\r\n    #fm-content table._list tbody tr td.name .bmp { background: url(/CMS/Modules/FileManager/Libs/Images/filetree/picture.png) no-repeat; width: 16px; height: 16px; }\r\n    #fm-content table._list tbody tr td.name .doc, #fm-content table tbody tr td.name .docx { background: url(/CMS/Modules/FileManager/Libs/Images/filetree/doc.png) no-repeat; width: 16px; height: 16px; }\r\n    #fm-content table._list tbody tr td.name .xlsx, #fm-content table tbody tr td.name .xls { background: url(/CMS/Modules/FileManager/Libs/Images/filetree/xls.png) no-repeat; width: 16px; height: 16px; }\r\n    #fm-content table._list tbody tr td.name .zip, #fm-content table tbody tr td.name .rar { background: url(/CMS/Modules/FileManager/Libs/Images/filetree/zip.png) no-repeat; width: 16px; height: 16px; }\r\n    #fm-content table._list tbody tr td.name .txt { background: url(/CMS/Modules/FileManager/Libs/Images/filetree/txt.png) no-repeat; width: 16px; height: 16px; }\r\n    #fm-content table._list tbody tr td.name .pdf { background: url(/CMS/Modules/FileManager/Libs/Images/filetree/pdf.png) no-repeat; width: 16px; height: 16px; }\r\n    #fm-content table._list tbody tr td.name { width: 274px; display: inline-block; overflow: hidden; }\r\n    #fm-content table._list tbody tr td.name .fname { display: inline-flex; }\r\n    #fm-content table._list tbody tr td.type, #fm-content table tbody tr td.size, #fm-content table tbody tr td.dimensions, #fm-content table tbody tr td.date { overflow: hidden; width: 98px; }\r\n    #fm-content table._list tbody tr td.size { width: 70px; }\r\n    #fm-content table._list tbody tr td.dimensions { width: 80px; }\r\n    #fm-content table._list tbody tr td.date { width: 115px; } */\r\n\r\n    #fm-grid, #fm-folder ul, #fm-grid li .info p {\r\n        padding: 0;\r\n        margin: 0;\r\n    }\r\n\r\n        #fm-grid li {\r\n            position: relative;\r\n            vertical-align: middle;\r\n            display: table-cell;\r\n            border: 1px solid #eaeaea;\r\n            cursor: pointer;\r\n            float: left;\r\n            height: 100px;\r\n            min-width: 114px;\r\n            list-style-type: none;\r\n            margin: 4px;\r\n            padding: 2px;\r\n            width: 15.78%;\r\n            position: relative;\r\n            overflow: hidden;\r\n            text-align: center;\r\n        }\r\n\r\n            #fm-grid li .info {\r\n                font-size: 10px;\r\n                background: rgba(109,105,105,0.45882);\r\n                position: absolute;\r\n                bottom: 0;\r\n                width: 100%;\r\n                height: 0\r\n            }\r\n\r\n            #fm-grid li:hover .info {\r\n                height: auto\r\n            }\r\n\r\n    .fm-list li img {\r\n        width: 100%\r\n    }\r\n\r\n    .fm-list li.not_img img {\r\n        width: 50%;\r\n        padding-top: 10px\r\n    }\r\n\r\n    #fm-grid li img.thumb {\r\n        width: 60%;\r\n        margin: 0 auto;\r\n    }\r\n\r\n    #fm-grid li i {\r\n        position: absolute;\r\n        z-index: 999;\r\n        right: 4px;\r\n        background: #fff;\r\n        border-radius: 11px;\r\n        color: #0085ba;\r\n        padding: 1px;\r\n        top: 3px;\r\n        display: none;\r\n    }\r\n\r\n    #fm-grid li._active i {\r\n        display: block;\r\n    }\r\n\r\n    #fm-grid li._active {\r\n        border: 1px solid #0085ba;\r\n    }\r\n\r\n    #fm-folder ul li {\r\n        list-style-type: none;\r\n        padding: 8px 0;\r\n        cursor: pointer\r\n    }\r\n\r\n        #fm-folder ul li i {\r\n            background-repeat: no-repeat;\r\n            display: inline-block;\r\n            height: 16px;\r\n            vertical-align: middle;\r\n            width: 16px;\r\n        }\r\n\r\n    .plupload_filelist_header {\r\n        height: 20px;\r\n    }\r\n\r\n    .plupload_filelist_footer {\r\n        padding: 6px 20px;\r\n        height: 33px;\r\n    }\r\n\r\n    .plupload_scroll .plupload_filelist {\r\n        height: 172px !important;\r\n    }\r\n\r\n    .plupload_filelist_footer {\r\n        padding: 6px 20px;\r\n    }\r\n\r\n    .plupload_filelist:empty,\r\n    .plupload_filelist li.plupload_droptext {\r\n        height: 140px;\r\n    }\r\n\r\n        .plupload_filelist:empty::before,\r\n        .plupload_filelist li.plupload_droptext::before {\r\n            font-size: 52px;\r\n            height: 75px;\r\n            left: 49%;\r\n            margin-left: -40px;\r\n            padding-top: 43px;\r\n        }\r\n\r\n    .items-action {\r\n        padding-top: 20px;\r\n        display: inline-block;\r\n        width: 100%;\r\n    }\r\n\r\n        .items-action .file-action {\r\n            border: 0 none;\r\n            color: #fff;\r\n            padding: 4px 10px;\r\n        }\r\n\r\n        .items-action .file-action {\r\n            background: rosybrown;\r\n            float: left;\r\n            clear: both;\r\n        }\r\n    /*.items-action .file-action:last-child { background: #0085ba;float: right;}*/\r\n    #fm-toolbar .Mi.ipagination a:first-child {\r\n        border: 0;\r\n        border-radius: 0;\r\n    }\r\n\r\n    #fm-toolbar .Mi.ipagination input {\r\n        border: medium none;\r\n        float: left;\r\n        font-family: arial;\r\n        font-size: 11px;\r\n        height: 30px;\r\n        margin: 0;\r\n        outline: medium none;\r\n        padding: 0;\r\n        text-align: center;\r\n        vertical-align: middle;\r\n        width: 84px;\r\n    }\r\n\r\n    #fm-toolbar .Mi.ipagination a {\r\n        border: 0;\r\n        border-radius: 0;\r\n        background: #fff;\r\n    }\r\n\r\n    #fm-toolbar .ipagination.iweb {\r\n        margin-top: 3.45px;\r\n    }\r\n\r\n    #frowInTotals {\r\n        display: inline-block;\r\n        float: left;\r\n        line-height: 39px;\r\n        padding-right: 3px;\r\n        vertical-align: baseline;\r\n    }\r\n\r\n    label#progressall {\r\n        display: none;\r\n        padding: 7px 7px;\r\n    }\r\n\r\n    .Cdiv {\r\n        padding-left: 12px;\r\n        height: 17px;\r\n        overflow: hidden;\r\n        text-overflow: ellipsis;\r\n        white-space: nowrap;\r\n        width: 100%;\r\n        display: inline-block;\r\n        font-weight: normal;\r\n    }\r\n\r\n    #btn-fm-upload label {\r\n        margin-bottom: 0 !important;\r\n    }\r\n    /* Extra small devices (phones, 600px and down) */\r\n\r\n    @media only screen and (max-width: 600px) {\r\n        #fm-grid li {\r\n            width: 47.65%;\r\n        }\r\n    }\r\n\r\n    /* Small devices (portrait tablets and large phones, 600px and up) */\r\n\r\n    @media only screen and (min-width: 600px) {\r\n    }\r\n\r\n    /* Medium devices (landscape tablets, 768px and up) */\r\n\r\n    @media only screen and (min-width: 768px) {\r\n    }\r\n\r\n    /* Large devices (laptops/desktops, 992px and up) */\r\n\r\n    @media only screen and (min-width: 992px) {\r\n    }\r\n\r\n    /* Extra large devices (large laptops and desktops, 1200px and up) */\r\n\r\n    @media only screen and (min-width: 1200px) {\r\n    }\r\n</style>\r\n"],"sourceRoot":""}]);
+exports.push([module.i, "\n#file-manager[data-v-497df3b6] {\n    padding: 0;\n}\n#file-manager___BV_modal_body_[data-v-497df3b6] {\n    padding: 0;\n}\n#fm-container-dialog[data-v-497df3b6] {\n    padding: 0;\n    overflow: hidden !important;\n}\n#fm-container[data-v-497df3b6] {\n    font-size: 12px;\n    font-family: sans-serif;\n    padding: 0\n}\n#fm-toolbar ul[data-v-497df3b6] {\n    float: left;\n    margin: 3.5px 0 3px 10px;\n    padding: 1px 2px;\n    border-radius: 0\n}\n#fm-toolbar ul li[data-v-497df3b6] {\n        border: 1px solid #fff;\n        cursor: pointer;\n        float: left;\n        line-height: 26px;\n        list-style-type: none;\n        padding: 0 8px;\n        text-align: center;\n}\n#fm-toolbar ul li[data-v-497df3b6]:hover {\n            background: #eaeaea;\n}\n#fm-toolbar ul li.active[data-v-497df3b6] {\n            background: #eaeaea;\n}\n#fm-container[data-v-497df3b6] {\n}\n#fm-toolbar[data-v-497df3b6] {\n}\n#fm-footer[data-v-497df3b6] {\n    border-top: 1px solid #eaeaea;\n    padding-top: 10px\n}\n#fm-toolbar .tool-items[data-v-497df3b6] {\n    clear: both;\n    padding-right: 6px;\n}\n#fm-toolbar .tools[data-v-497df3b6] {\n    float: left;\n}\n#fm-main[data-v-497df3b6] {\n    margin-top: 8px;\n    border-top: 1px solid #eaeaea;\n}\n#fm-sidebar .fm-header[data-v-497df3b6] {\n    height: 35px;\n    line-height: 35px;\n    background-color: #39c;\n    overflow: hidden;\n    font-size: 17px;\n    color: #ecf3f9;\n    text-align: center;\n}\n#fm-sidebar[data-v-497df3b6] {\n    border-right: 1px solid #eaeaea\n}\n#fm-content[data-v-497df3b6] {\n    background-color: white;\n    cursor: default; /*z-index: 0; box-shadow: 0 2px 4px rgba(0,0,0,0.04), 0 1px 4px rgba(0,0,0,0.12);*/\n    height: 100%;\n}\n#fm-data-wrapper[data-v-497df3b6] {\n    overflow: hidden;\n}\n#fm-file-view[data-v-497df3b6] {\n    border-left: 1px solid #eaeaea;\n    float: right;\n    height: 100%;\n    width: 250px;\n    padding: 9px;\n    background: #fff;\n}\n#fm-file-view .file-thumb[data-v-497df3b6] {\n        text-align: center;\n        max-height: 250px;\n        max-width: 230px;\n        overflow: hidden;\n}\n#fm-file-view .header[data-v-497df3b6] {\n        font-weight: bold;\n        margin-bottom: 12px;\n        padding: 2px 0;\n        text-align: center;\n        text-transform: uppercase;\n}\n#fm-file-view .details[data-v-497df3b6] {\n        padding-top: 16px;\n}\n#fm-file-view .details div[data-v-497df3b6] {\n            line-height: 21px;\n}\n#fm-file-view .details .uploaded[data-v-497df3b6],\n        #fm-file-view .details .file-size[data-v-497df3b6],\n        #fm-file-view .details .dimensions[data-v-497df3b6] {\n            line-height: 21px;\n}\n#fm-file-view .file-thumb img[data-v-497df3b6] {\n        border: 1px solid #eaeaea;\n        padding: 4px; /*max-height: 220px; max-width: 228px;*/\n}\n.attachment-info .filename[data-v-497df3b6] {\n    font-weight: 600;\n    color: #444;\n    word-wrap: break-word;\n}\n.btn-attack[data-v-497df3b6] {\n    background: #fff none repeat scroll 0 0;\n    padding: 3px 3px 3px 0;\n    width: 230px;\n    float: right;\n    clear: both;\n}\n.btn-attack button#btn-attack[data-v-497df3b6] {\n        color: #fff;\n        background: #0085ba;\n        border: 0;\n        padding: 4px 6px;\n}\n.btn-attack button#dl-close[data-v-497df3b6] {\n        background: #eaeaea;\n        border: 0;\n        padding: 4px 6px;\n        float: right;\n        clear: both;\n}\n#fm-content table._list[data-v-497df3b6] {\n    width: 100%;\n}\n#fm-content table._list tr[data-v-497df3b6] {\n}\n#fm-content table._list tr th[data-v-497df3b6] {\n            text-align: center;\n            font-weight: bold;\n}\n#fm-content table._list tr td[data-v-497df3b6] {\n            padding: 5px 4px;\n}\n#fm-content table._list tr._active[data-v-497df3b6] {\n            background: #48adff;\n}\n#fm-toolbar ul li i[data-v-497df3b6] {\n    background-repeat: no-repeat;\n    display: inline-block;\n    height: 16px;\n    vertical-align: middle;\n    width: 16px;\n}\n#fm-toolbar ul li i[data-v-497df3b6] {\n}\nli i.create-folder[data-v-497df3b6] {\n    background-image: url(" + __webpack_require__(1005) + ");\n}\nli i.upload[data-v-497df3b6] {\n    background-image: url(" + __webpack_require__(1007) + ");\n}\nli i.list[data-v-497df3b6] {\n    background-image: url(" + __webpack_require__(1002) + ");\n}\nli i.grid[data-v-497df3b6] {\n    background-image: url(" + __webpack_require__(1001) + ");\n}\nli i.iclose[data-v-497df3b6] {\n    background-image: url(" + __webpack_require__(1006) + ");\n}\nli i.crop[data-v-497df3b6] {\n    background-image: url(" + __webpack_require__(1004) + ");\n}\nli i.remove[data-v-497df3b6] {\n    background-image: url(" + __webpack_require__(1003) + ");\n}\nli i.close[data-v-497df3b6]:hover {\n}\n#fm-footer[data-v-497df3b6] {\n    min-height: 32px;\n}\n#fm-data-wrapper[data-v-497df3b6] {\n    height: 100%;\n}\n.clear[data-v-497df3b6] {\n    clear: both;\n}\n#_list ._active[data-v-497df3b6] {\n    background: #48adff;\n}\n#fm-content[data-v-497df3b6] {\n}\n#fm-content table._list table thead tr th[data-v-497df3b6] {\n        text-align: center;\n}\n#fm-content table._list tr[data-v-497df3b6] {\n        font-size: 11px;\n}\n#fm-content table._list tr[data-v-497df3b6]:hover {\n            background: #c1edff;\n            cursor: pointer;\n}\n#fm-content table._list tr td[data-v-497df3b6] {\n}\n#fm-content table._list tbody tr td.name[data-v-497df3b6] {\n        display: inline-flex;\n}\n#fm-content table._list tbody tr td.name .list-icon[data-v-497df3b6] {\n            display: inline-block;\n            float: left;\n            padding-right: 20px;\n}\n/* #fm-content table._list tbody tr td.name .png, #fm-content table tbody tr td.name .jpg, #fm-content table tbody tr td.name .jpeg, #fm-content table tbody tr td.name .gif,\n#fm-content table._list tbody tr td.name .bmp { background: url(/CMS/Modules/FileManager/Libs/Images/filetree/picture.png) no-repeat; width: 16px; height: 16px; }\n#fm-content table._list tbody tr td.name .doc, #fm-content table tbody tr td.name .docx { background: url(/CMS/Modules/FileManager/Libs/Images/filetree/doc.png) no-repeat; width: 16px; height: 16px; }\n#fm-content table._list tbody tr td.name .xlsx, #fm-content table tbody tr td.name .xls { background: url(/CMS/Modules/FileManager/Libs/Images/filetree/xls.png) no-repeat; width: 16px; height: 16px; }\n#fm-content table._list tbody tr td.name .zip, #fm-content table tbody tr td.name .rar { background: url(/CMS/Modules/FileManager/Libs/Images/filetree/zip.png) no-repeat; width: 16px; height: 16px; }\n#fm-content table._list tbody tr td.name .txt { background: url(/CMS/Modules/FileManager/Libs/Images/filetree/txt.png) no-repeat; width: 16px; height: 16px; }\n#fm-content table._list tbody tr td.name .pdf { background: url(/CMS/Modules/FileManager/Libs/Images/filetree/pdf.png) no-repeat; width: 16px; height: 16px; }\n#fm-content table._list tbody tr td.name { width: 274px; display: inline-block; overflow: hidden; }\n#fm-content table._list tbody tr td.name .fname { display: inline-flex; }\n#fm-content table._list tbody tr td.type, #fm-content table tbody tr td.size, #fm-content table tbody tr td.dimensions, #fm-content table tbody tr td.date { overflow: hidden; width: 98px; }\n#fm-content table._list tbody tr td.size { width: 70px; }\n#fm-content table._list tbody tr td.dimensions { width: 80px; }\n#fm-content table._list tbody tr td.date { width: 115px; } */\n#fm-grid[data-v-497df3b6], #fm-folder ul[data-v-497df3b6], #fm-grid li .info p[data-v-497df3b6] {\n    padding: 0;\n    margin: 0;\n}\n#fm-grid li[data-v-497df3b6] {\n        position: relative;\n        vertical-align: middle;\n        display: table-cell;\n        border: 1px solid #eaeaea;\n        cursor: pointer;\n        float: left;\n        height: 100px;\n        min-width: 114px;\n        list-style-type: none;\n        margin: 4px;\n        padding: 2px;\n        width: 15.78%;\n        position: relative;\n        overflow: hidden;\n        text-align: center;\n}\n#fm-grid li .info[data-v-497df3b6] {\n            font-size: 10px;\n            background: rgba(109,105,105,0.45882);\n            position: absolute;\n            bottom: 0;\n            width: 100%;\n            height: 0\n}\n#fm-grid li:hover .info[data-v-497df3b6] {\n            height: auto\n}\n.fm-list li img[data-v-497df3b6] {\n    width: 100%\n}\n.fm-list li.not_img img[data-v-497df3b6] {\n    width: 50%;\n    padding-top: 10px\n}\n#fm-grid li img.thumb[data-v-497df3b6] {\n    width: 60%;\n    margin: 0 auto;\n}\n#fm-grid li i[data-v-497df3b6] {\n    position: absolute;\n    z-index: 999;\n    right: 4px;\n    background: #fff;\n    border-radius: 11px;\n    color: #0085ba;\n    padding: 1px;\n    top: 3px;\n    display: none;\n}\n#fm-grid li._active i[data-v-497df3b6] {\n    display: block;\n}\n#fm-grid li._active[data-v-497df3b6] {\n    border: 1px solid #0085ba;\n}\n#fm-folder ul li[data-v-497df3b6] {\n    list-style-type: none;\n    padding: 8px 0;\n    cursor: pointer\n}\n#fm-folder ul li i[data-v-497df3b6] {\n        background-repeat: no-repeat;\n        display: inline-block;\n        height: 16px;\n        vertical-align: middle;\n        width: 16px;\n}\n.plupload_filelist_header[data-v-497df3b6] {\n    height: 20px;\n}\n.plupload_filelist_footer[data-v-497df3b6] {\n    padding: 6px 20px;\n    height: 33px;\n}\n.plupload_scroll .plupload_filelist[data-v-497df3b6] {\n    height: 172px !important;\n}\n.plupload_filelist_footer[data-v-497df3b6] {\n    padding: 6px 20px;\n}\n.plupload_filelist[data-v-497df3b6]:empty,\n.plupload_filelist li.plupload_droptext[data-v-497df3b6] {\n    height: 140px;\n}\n.plupload_filelist[data-v-497df3b6]:empty::before,\n    .plupload_filelist li.plupload_droptext[data-v-497df3b6]::before {\n        font-size: 52px;\n        height: 75px;\n        left: 49%;\n        margin-left: -40px;\n        padding-top: 43px;\n}\n.items-action[data-v-497df3b6] {\n    padding-top: 20px;\n    display: inline-block;\n    width: 100%;\n}\n.items-action .file-action[data-v-497df3b6] {\n        border: 0 none;\n        color: #fff;\n        padding: 4px 10px;\n}\n.items-action .file-action[data-v-497df3b6] {\n        background: rosybrown;\n        float: left;\n        clear: both;\n}\n/*.items-action .file-action:last-child { background: #0085ba;float: right;}*/\n#fm-toolbar .Mi.ipagination a[data-v-497df3b6]:first-child {\n    border: 0;\n    border-radius: 0;\n}\n#fm-toolbar .Mi.ipagination input[data-v-497df3b6] {\n    border: medium none;\n    float: left;\n    font-family: arial;\n    font-size: 11px;\n    height: 30px;\n    margin: 0;\n    outline: medium none;\n    padding: 0;\n    text-align: center;\n    vertical-align: middle;\n    width: 84px;\n}\n#fm-toolbar .Mi.ipagination a[data-v-497df3b6] {\n    border: 0;\n    border-radius: 0;\n    background: #fff;\n}\n#fm-toolbar .ipagination.iweb[data-v-497df3b6] {\n    margin-top: 3.45px;\n}\n#frowInTotals[data-v-497df3b6] {\n    display: inline-block;\n    float: left;\n    line-height: 39px;\n    padding-right: 3px;\n    vertical-align: baseline;\n}\nlabel#progressall[data-v-497df3b6] {\n    display: none;\n    padding: 7px 7px;\n}\n.Cdiv[data-v-497df3b6] {\n    padding-left: 12px;\n    height: 17px;\n    overflow: hidden;\n    text-overflow: ellipsis;\n    white-space: nowrap;\n    width: 100%;\n    display: inline-block;\n    font-weight: normal;\n}\n#btn-fm-upload label[data-v-497df3b6] {\n    margin-bottom: 0 !important;\n}\n/* Extra small devices (phones, 600px and down) */\n@media only screen and (max-width: 600px) {\n#fm-grid li[data-v-497df3b6] {\n        width: 47.65%;\n}\n}\n\n/* Small devices (portrait tablets and large phones, 600px and up) */\n@media only screen and (min-width: 600px) {\n}\n\n/* Medium devices (landscape tablets, 768px and up) */\n@media only screen and (min-width: 768px) {\n}\n\n/* Large devices (laptops/desktops, 992px and up) */\n@media only screen and (min-width: 992px) {\n}\n\n/* Extra large devices (large laptops and desktops, 1200px and up) */\n@media only screen and (min-width: 1200px) {\n}\n", "", {"version":3,"sources":["D:/Code/WORKING/dotnet-platform-backend/Web/Platform/CMS/PlatformCMS/ClientApp/components/fileManager/list.vue?b8c85d56"],"names":[],"mappings":";AAgYA;IACA,WAAA;CACA;AAEA;IACA,WAAA;CACA;AAEA;IACA,WAAA;IACA,4BAAA;CACA;AAEA;IACA,gBAAA;IACA,wBAAA;IACA,UAAA;CACA;AAEA;IACA,YAAA;IACA,yBAAA;IACA,iBAAA;IACA,gBAAA;CACA;AAEA;QACA,uBAAA;QACA,gBAAA;QACA,YAAA;QACA,kBAAA;QACA,sBAAA;QACA,eAAA;QACA,mBAAA;CACA;AAEA;YACA,oBAAA;CACA;AAEA;YACA,oBAAA;CACA;AAEA;CACA;AAEA;CACA;AAEA;IACA,8BAAA;IACA,iBAAA;CACA;AAEA;IACA,YAAA;IACA,mBAAA;CACA;AAEA;IACA,YAAA;CACA;AAEA;IACA,gBAAA;IACA,8BAAA;CACA;AAEA;IACA,aAAA;IACA,kBAAA;IACA,uBAAA;IACA,iBAAA;IACA,gBAAA;IACA,eAAA;IACA,mBAAA;CACA;AAEA;IACA,+BAAA;CACA;AAEA;IACA,wBAAA;IACA,gBAAA,CAAA,mFAAA;IACA,aAAA;CACA;AAEA;IACA,iBAAA;CACA;AAEA;IACA,+BAAA;IACA,aAAA;IACA,aAAA;IACA,aAAA;IACA,aAAA;IACA,iBAAA;CACA;AAEA;QACA,mBAAA;QACA,kBAAA;QACA,iBAAA;QACA,iBAAA;CACA;AAEA;QACA,kBAAA;QACA,oBAAA;QACA,eAAA;QACA,mBAAA;QACA,0BAAA;CACA;AAEA;QACA,kBAAA;CACA;AAEA;YACA,kBAAA;CACA;AAEA;;;YAGA,kBAAA;CACA;AAEA;QACA,0BAAA;QACA,aAAA,CAAA,wCAAA;CACA;AAEA;IACA,iBAAA;IACA,YAAA;IACA,sBAAA;CACA;AAEA;IACA,wCAAA;IACA,uBAAA;IACA,aAAA;IACA,aAAA;IACA,YAAA;CACA;AAEA;QACA,YAAA;QACA,oBAAA;QACA,UAAA;QACA,iBAAA;CACA;AAEA;QACA,oBAAA;QACA,UAAA;QACA,iBAAA;QACA,aAAA;QACA,YAAA;CACA;AAEA;IACA,YAAA;CACA;AAEA;CACA;AAEA;YACA,mBAAA;YACA,kBAAA;CACA;AAEA;YACA,iBAAA;CACA;AAEA;YACA,oBAAA;CACA;AAEA;IACA,6BAAA;IACA,sBAAA;IACA,aAAA;IACA,uBAAA;IACA,YAAA;CACA;AAEA;CACA;AAEA;IACA,gDAAA;CACA;AAEA;IACA,gDAAA;CACA;AAEA;IACA,gDAAA;CACA;AAEA;IACA,gDAAA;CACA;AAEA;IACA,gDAAA;CACA;AAEA;IACA,gDAAA;CACA;AAEA;IACA,gDAAA;CACA;AAEA;CACA;AAEA;IACA,iBAAA;CACA;AAEA;IACA,aAAA;CACA;AAEA;IACA,YAAA;CACA;AAEA;IACA,oBAAA;CACA;AAEA;CACA;AAEA;QACA,mBAAA;CACA;AAEA;QACA,gBAAA;CACA;AAEA;YACA,oBAAA;YACA,gBAAA;CACA;AAEA;CACA;AAEA;QACA,qBAAA;CACA;AAEA;YACA,sBAAA;YACA,YAAA;YACA,oBAAA;CACA;AACA;;;;;;;;;;;;6DAYA;AAEA;IACA,WAAA;IACA,UAAA;CACA;AAEA;QACA,mBAAA;QACA,uBAAA;QACA,oBAAA;QACA,0BAAA;QACA,gBAAA;QACA,YAAA;QACA,cAAA;QACA,iBAAA;QACA,sBAAA;QACA,YAAA;QACA,aAAA;QACA,cAAA;QACA,mBAAA;QACA,iBAAA;QACA,mBAAA;CACA;AAEA;YACA,gBAAA;YACA,sCAAA;YACA,mBAAA;YACA,UAAA;YACA,YAAA;YACA,SAAA;CACA;AAEA;YACA,YAAA;CACA;AAEA;IACA,WAAA;CACA;AAEA;IACA,WAAA;IACA,iBAAA;CACA;AAEA;IACA,WAAA;IACA,eAAA;CACA;AAEA;IACA,mBAAA;IACA,aAAA;IACA,WAAA;IACA,iBAAA;IACA,oBAAA;IACA,eAAA;IACA,aAAA;IACA,SAAA;IACA,cAAA;CACA;AAEA;IACA,eAAA;CACA;AAEA;IACA,0BAAA;CACA;AAEA;IACA,sBAAA;IACA,eAAA;IACA,eAAA;CACA;AAEA;QACA,6BAAA;QACA,sBAAA;QACA,aAAA;QACA,uBAAA;QACA,YAAA;CACA;AAEA;IACA,aAAA;CACA;AAEA;IACA,kBAAA;IACA,aAAA;CACA;AAEA;IACA,yBAAA;CACA;AAEA;IACA,kBAAA;CACA;AAEA;;IAEA,cAAA;CACA;AAEA;;QAEA,gBAAA;QACA,aAAA;QACA,UAAA;QACA,mBAAA;QACA,kBAAA;CACA;AAEA;IACA,kBAAA;IACA,sBAAA;IACA,YAAA;CACA;AAEA;QACA,eAAA;QACA,YAAA;QACA,kBAAA;CACA;AAEA;QACA,sBAAA;QACA,YAAA;QACA,YAAA;CACA;AACA,8EAAA;AACA;IACA,UAAA;IACA,iBAAA;CACA;AAEA;IACA,oBAAA;IACA,YAAA;IACA,mBAAA;IACA,gBAAA;IACA,aAAA;IACA,UAAA;IACA,qBAAA;IACA,WAAA;IACA,mBAAA;IACA,uBAAA;IACA,YAAA;CACA;AAEA;IACA,UAAA;IACA,iBAAA;IACA,iBAAA;CACA;AAEA;IACA,mBAAA;CACA;AAEA;IACA,sBAAA;IACA,YAAA;IACA,kBAAA;IACA,mBAAA;IACA,yBAAA;CACA;AAEA;IACA,cAAA;IACA,iBAAA;CACA;AAEA;IACA,mBAAA;IACA,aAAA;IACA,iBAAA;IACA,wBAAA;IACA,oBAAA;IACA,YAAA;IACA,sBAAA;IACA,oBAAA;CACA;AAEA;IACA,4BAAA;CACA;AACA,kDAAA;AAEA;AACA;QACA,cAAA;CACA;CACA;;AAEA,qEAAA;AAEA;CACA;;AAEA,sDAAA;AAEA;CACA;;AAEA,oDAAA;AAEA;CACA;;AAEA,qEAAA;AAEA;CACA","file":"list.vue","sourcesContent":["<template>\r\n    <div class=\"file-manager\">\r\n        <loading :active.sync=\"isLoading\"\r\n                 :height=\"35\"\r\n                 :width=\"35\"\r\n                 :color=\"color\"\r\n                 :is-full-page=\"fullPage\"></loading>\r\n        <b-modal ref=\"file-manager-modal\" id=\"file-manager\" fbody=\"xxx\" hide-footer hide-header size=\"xl\">\r\n            <div id=\"fm-container\" class=\"container-fluid\">\r\n                <b-row id=\"fm-toolbar\">\r\n                    <b-col lg=\"2\" md=\"2\" sm=\"12\">\r\n                        <b>Thư viện</b>\r\n                    </b-col>\r\n                    <b-col>\r\n                        <b-row align-h=\"between\">\r\n                            <b-col cols=\"4\">\r\n                                <div class=\"tool-items\">\r\n                                    <ul class=\"tools\">\r\n                                        <li title=\"Create folder\">\r\n                                            <i class=\"create-folder\"></i>\r\n                                        </li>\r\n                                    </ul>\r\n                                    <ul class=\"tools\">\r\n                                        <li title=\"Remove\" @click=\"removeFile\">\r\n                                            <i class=\"remove\"></i>\r\n                                        </li>\r\n\r\n                                    </ul>\r\n                                    <div class=\"tools\">\r\n                                        <input v-model=\"keyword\" v-on:keyup.enter=\"LoadFile()\" class=\"form-control\" placeholder=\"Gõ tên ảnh ấn enter\" />\r\n                                    </div>\r\n                                </div>\r\n                            </b-col>\r\n                            <b-col cols=\"4\" class=\"bd-0\">\r\n                                <b-pagination v-model=\"currentPage\" align=\"right\" size=\"sm\" :limit=\"4\"\r\n                                              :total-rows=\"files.totals\"\r\n                                              :per-page=\"pageSize\"></b-pagination>\r\n                            </b-col>\r\n                            <b-col cols=\"4\">\r\n                                <div class=\"tool-items float-right\">\r\n\r\n                                    <ul class=\"tools\">\r\n                                        <li title=\"Create folder\">\r\n                                            <i class=\"create-folder\"></i>\r\n                                        </li>\r\n                                        <li title=\"Upload\" id=\"btn-fm-upload\">\r\n                                            <label for=\"fileSingleupload\">\r\n                                                <i class=\"upload\"></i>\r\n                                            </label>\r\n                                            <input accept=\"image/*,.doc,.docx,.pdf,.xls,.xlsx,.zip,.rar\" @change=\"DoUploadFile\" id=\"fileSingleupload\"\r\n                                                   multiple\r\n                                                   type=\"file\"\r\n                                                   name=\"files[]\"\r\n                                                   style=\"display: none\" />\r\n                                        </li>\r\n                                    </ul>\r\n                                    <ul class=\"tools\">\r\n                                        <li title=\"List view\">\r\n                                            <i class=\"list\"></i>\r\n                                        </li>\r\n                                        <li title=\"Grid View\">\r\n                                            <i class=\"grid\"></i>\r\n                                        </li>\r\n                                    </ul>\r\n                                </div>\r\n                            </b-col>\r\n                        </b-row>\r\n\r\n                    </b-col>\r\n\r\n                </b-row>\r\n                <b-row id=\"fm-main\">\r\n                    <b-col id=\"fm-sidebar\" lg=\"2\" md=\"2\" sm=\"12\">\r\n                        <div id=\"fm-folder\">\r\n                            <ul>\r\n                                <li><i class=\"create-folder\"></i> Document</li>\r\n                                <li><i class=\"create-folder\"></i> Image</li>\r\n                                <li><i class=\"create-folder\"></i> Icon</li>\r\n                            </ul>\r\n                        </div>\r\n                    </b-col>\r\n                    <b-col id=\"fm-content\" lg=\"10\" dm=\"2\" sm=\"12\">\r\n                        <div id=\"fm-data-wrapper\">\r\n                            <div class=\"fm-list-wrapper\">\r\n                                <div class=\"fm-list\">\r\n                                    <ul id=\"fm-grid\">\r\n                                        <li v-for=\"file in files.files\" :key=\"file.id\" class=\"item\" :class=\"{ _active: isActive, not_img:checkImage(file.fileExt)}\" @click=\"SelectFile($event,{path:file.filePath,id:file.id})\">\r\n                                            <img :src=\"mapImageUrl(file.filePath,file.fileExt)\" alt=\"\">\r\n                                            <i class=\"fa fa-check\"></i>\r\n                                            <div class=\"info\">\r\n                                                <p class=\"name\">{{file.name}}</p>\r\n                                                <p class=\"dimensions\">{{file.dimensions}}</p>\r\n                                                <p class=\"size\">{{file.fileSize}}kb</p>\r\n                                            </div>\r\n                                        </li>\r\n                                    </ul>\r\n                                </div>\r\n                            </div>\r\n                        </div>\r\n\r\n                    </b-col>\r\n                </b-row>\r\n                <b-row align-h=\"end\" id=\"fm-footer\">\r\n                    <b-col cols=\"4\">\r\n                        <div class=\"btn-attack\">\r\n                            <button type=\"button\" id=\"btn-attack\" @click=\"attackFile\">Đính kèm</button>\r\n                            <!--<button type=\"button\" id=\"btn-attack\" @click=\"attackFileSelected\">Đính kèm2</button>-->\r\n                            <button type=\"button\" id=\"dl-close\" @click=\"hideFileManagerModal\" class=\"iclose\">Đóng</button>\r\n                        </div>\r\n                    </b-col>\r\n                </b-row>\r\n            </div>\r\n        </b-modal>\r\n    </div>\r\n</template>\r\n\r\n<script>\r\n    import \"vue-loading-overlay/dist/vue-loading.css\";\r\n    import msgNotify from \"./../../common/constant\";\r\n    import { mapActions } from \"vuex\";\r\n    import Loading from \"vue-loading-overlay\";\r\n    import EventBus from \"./../../common/eventBus\";\r\n    import { search } from \"core-js/fn/symbol\";\r\n    import { data } from \"jquery\";\r\n\r\n\r\n    export default {\r\n        name: \"FileManager\",\r\n        props: {\r\n            miKey: {\r\n                type: String\r\n            }\r\n        },\r\n        components: {\r\n            Loading\r\n        },\r\n        data() {\r\n            return {\r\n                isLoading: false,\r\n                fullPage: false,\r\n                color: \"#007bff\",\r\n                isLoadLang: false,\r\n                //  perPage: 10,\r\n                currentPage: 1,\r\n                pageSize: 30,\r\n                isLoading: false,\r\n                MaxFileSize: 3000,//Kb\r\n                selectedFile: [],\r\n                extensions: [],\r\n                extImage: [],\r\n                isActive: false,\r\n                selectType: '',\r\n                keyword: '',\r\n\r\n            };\r\n        },\r\n        created() {\r\n            let config = require('./../../../appsettings.json');\r\n            this.extImage = config.AppSettings.ImageAllowUpload;\r\n            this.extensions = config.AppSettings.ImageAllowUpload.concat(config.AppSettings.DocumentAllowUpload);\r\n\r\n            EventBus.$on(this.miKey, this.FileManagerOpen);\r\n        },\r\n        destroyed() {\r\n\r\n        },\r\n        computed: {\r\n            files() {\r\n                return this.$store.getters.files\r\n            }\r\n        },\r\n        methods: {\r\n            ...mapActions([\"fmFileUpload\", \"fmFileGetAll\", \"fmRemove\"]),\r\n            mapImageUrl(img, ext) {\r\n                if (this.extImage.indexOf(ext.toLowerCase()) !== -1) {\r\n                    return '/uploads/thumb' + img;\r\n                }\r\n                return './../../ClientApp/assets/fileicons/' + ext.replace('.', '') + '.png';\r\n            },\r\n            checkImage(ext) {\r\n                //debugger\r\n                if (this.extImage.indexOf(ext) == -1) {\r\n                    return true\r\n                }\r\n                return false\r\n            },\r\n            DoUploadFile(e) {\r\n                debugger\r\n                let files = e.srcElement.files;\r\n\r\n                if (files) {\r\n                    let filesTemp = Array.from(files);\r\n\r\n                    let msgFileAllow = '';\r\n                    let msgLimitedSize = '';\r\n                    for (var i = 0; i < filesTemp.length; i++) {\r\n\r\n                        let name = filesTemp[i].name;\r\n                        let type = name.split('.').pop().toLowerCase();\r\n\r\n                        if (this.extensions.indexOf(type) == -1) {\r\n                            filesTemp.splice(i, 1); // xóa khỏi array\r\n                            if (msgFileAllow.length == 0) {\r\n                                msgFileAllow = name;\r\n                            } else {\r\n                                msgFileAllow += ', ' + name;\r\n                            }\r\n                        }\r\n                        if (msgFileAllow.length > 0) {\r\n                            this.$toast.error(msgFileAllow + ' không hợp lệ !', {});\r\n                        }\r\n                    }\r\n                    for (var i = 0; i < filesTemp.length; i++) {\r\n                        let size = filesTemp[i].size;\r\n                        let name = filesTemp[i].name;\r\n\r\n\r\n                        if (this.MaxFileSize < (size / 1024)) {\r\n                            filesTemp.splice(i, 1);\r\n                            if (msgLimitedSize.length == 0) {\r\n                                msgLimitedSize = name;\r\n                            } else {\r\n                                msgLimitedSize += ', ' + name;\r\n                            }\r\n                        }\r\n                        if (msgLimitedSize.length > 0) {\r\n                            this.$toast.error(msgFileAllow + ' dung lượng quá lớn !', {});\r\n                        }\r\n                    }\r\n                    if (filesTemp.length) {\r\n                        let fd = new FormData();\r\n\r\n                        filesTemp.forEach(function (item) {\r\n                            fd.append('files', item);\r\n                        });\r\n                        this.UploadFileAction(fd);\r\n                    }\r\n\r\n                }\r\n\r\n            },\r\n            UploadFileAction(files) {\r\n                \r\n                this.fmFileUpload(files)\r\n                    .then(response => {\r\n                        if (response.success) {\r\n                            debugger\r\n                            console.log(response.data);\r\n                            var objtoast = this.$toast;\r\n                            response.data.forEach(function (item) {\r\n                                if (item.code == 200) {\r\n                                    objtoast.success(item.messages, {});\r\n                                } else {\r\n                                    objtoast.error(item.messages, {});\r\n                                }\r\n                            })\r\n                            //response.data.forEach(function () {\r\n\r\n                            //    this.$toast.success(response.message, {});\r\n                            //});\r\n                            //this.$toast.success(response.message, {});\r\n                            this.LoadFile();\r\n\r\n                            this.isLoading = false;\r\n                        }\r\n                        else {\r\n                            \r\n                            this.$toast.error(response.message, {});\r\n                            this.isLoading = false;\r\n                        }\r\n                    })\r\n                    .catch(e => {\r\n                        debugger\r\n                        this.$toast.error(msgNotify.error + \". Error:\" + e, {});\r\n                        this.isLoading = false;\r\n                    });\r\n\r\n\r\n            },\r\n            SelectFile(event, file) {\r\n                if (this.selectType == 'multi') {\r\n                    if (event.currentTarget.classList.contains('_active')) {\r\n                        event.currentTarget.classList.remove('_active');\r\n\r\n                        // let objIsExist = this.selectedFile.some(obj => obj.id = file.id);\r\n                        // if (objIsExist) {\r\n                        this.selectedFile = this.selectedFile.filter(obj => obj.id != file.id)\r\n                        // }\r\n                    }\r\n                    else {\r\n                        event.currentTarget.classList.add(\"_active\");\r\n                        this.selectedFile.push(file)\r\n                    }\r\n                } else {\r\n\r\n                    this.selectedFile = [];\r\n                    if (event.currentTarget.classList.contains('_active')) {\r\n                        event.currentTarget.classList.remove('_active');\r\n\r\n                    }\r\n                    else {\r\n                        let items = document.querySelectorAll('.item');\r\n                        items.forEach(function (item) {\r\n                            item.classList.remove('_active');\r\n                        });\r\n                        event.currentTarget.classList.add(\"_active\");\r\n                        this.selectedFile.push(file)\r\n                    }\r\n                }\r\n            },\r\n            LoadFile() {\r\n                this.fmFileGetAll({\r\n                    keyword: this.keyword,\r\n                    pageIndex: this.currentPage,\r\n                    pageSize: this.pageSize\r\n                });\r\n            }\r\n\r\n            ,\r\n            FileManagerOpen(param) {\r\n                this.selectType = param;\r\n                this.$refs[\"file-manager-modal\"].show();\r\n                this.LoadFile();\r\n            },\r\n\r\n            hideFileManagerModal() {\r\n                this.$refs[\"file-manager-modal\"].hide();\r\n            },\r\n            attackFile() {\r\n                // EventBus.$emit(\"FileSelected\", this.selectedFile);\r\n                this.$emit(\"handleAttackFile\", this.selectedFile);\r\n                this.$refs[\"file-manager-modal\"].hide();\r\n                this.selectedFile = [];\r\n            },\r\n\r\n            toggleFileModal() {\r\n                // We pass the ID of the button that we want to return focus to\r\n                // when the modal has hidden\r\n                this.$refs[\"file-manager-modal\"].toggle(\"#toggle-btn\");\r\n            },\r\n            removeFile() {\r\n                var result = confirm(\"Xác nhận?\");\r\n                if (!result) {\r\n                    return false;\r\n                }\r\n\r\n                let $this = this;\r\n                this.selectedFile.forEach(function (item) {\r\n                    $this.fmRemove(item.id)\r\n                        .then(response => {\r\n                            if (response.success) {\r\n                                \r\n                                $this.LoadFile();\r\n                                $this.$toast.success(response.message, {});\r\n                                $this.isLoading = false;\r\n                            }\r\n                            else {\r\n                                \r\n                                $this.$toast.error(response.message, {});\r\n                                $this.isLoading = false;\r\n                            }\r\n                        })\r\n                        .catch(e => {\r\n                            \r\n                            $this.$toast.error(msgNotify.error + \". Error:\" + e, {});\r\n                            $this.isLoading = false;\r\n                        });\r\n                });\r\n\r\n\r\n\r\n            }\r\n        },\r\n        mounted() {\r\n            //   this.fmFileGetAll();\r\n        },\r\n        watch: {\r\n            currentPage() {\r\n                this.LoadFile();\r\n            }\r\n        }\r\n    };\r\n</script>\r\n<style scoped>\r\n    #file-manager {\r\n        padding: 0;\r\n    }\r\n\r\n    #file-manager___BV_modal_body_ {\r\n        padding: 0;\r\n    }\r\n\r\n    #fm-container-dialog {\r\n        padding: 0;\r\n        overflow: hidden !important;\r\n    }\r\n\r\n    #fm-container {\r\n        font-size: 12px;\r\n        font-family: sans-serif;\r\n        padding: 0\r\n    }\r\n\r\n    #fm-toolbar ul {\r\n        float: left;\r\n        margin: 3.5px 0 3px 10px;\r\n        padding: 1px 2px;\r\n        border-radius: 0\r\n    }\r\n\r\n        #fm-toolbar ul li {\r\n            border: 1px solid #fff;\r\n            cursor: pointer;\r\n            float: left;\r\n            line-height: 26px;\r\n            list-style-type: none;\r\n            padding: 0 8px;\r\n            text-align: center;\r\n        }\r\n\r\n            #fm-toolbar ul li:hover {\r\n                background: #eaeaea;\r\n            }\r\n\r\n            #fm-toolbar ul li.active {\r\n                background: #eaeaea;\r\n            }\r\n\r\n    #fm-container {\r\n    }\r\n\r\n    #fm-toolbar {\r\n    }\r\n\r\n    #fm-footer {\r\n        border-top: 1px solid #eaeaea;\r\n        padding-top: 10px\r\n    }\r\n\r\n    #fm-toolbar .tool-items {\r\n        clear: both;\r\n        padding-right: 6px;\r\n    }\r\n\r\n    #fm-toolbar .tools {\r\n        float: left;\r\n    }\r\n\r\n    #fm-main {\r\n        margin-top: 8px;\r\n        border-top: 1px solid #eaeaea;\r\n    }\r\n\r\n    #fm-sidebar .fm-header {\r\n        height: 35px;\r\n        line-height: 35px;\r\n        background-color: #39c;\r\n        overflow: hidden;\r\n        font-size: 17px;\r\n        color: #ecf3f9;\r\n        text-align: center;\r\n    }\r\n\r\n    #fm-sidebar {\r\n        border-right: 1px solid #eaeaea\r\n    }\r\n\r\n    #fm-content {\r\n        background-color: white;\r\n        cursor: default; /*z-index: 0; box-shadow: 0 2px 4px rgba(0,0,0,0.04), 0 1px 4px rgba(0,0,0,0.12);*/\r\n        height: 100%;\r\n    }\r\n\r\n    #fm-data-wrapper {\r\n        overflow: hidden;\r\n    }\r\n\r\n    #fm-file-view {\r\n        border-left: 1px solid #eaeaea;\r\n        float: right;\r\n        height: 100%;\r\n        width: 250px;\r\n        padding: 9px;\r\n        background: #fff;\r\n    }\r\n\r\n        #fm-file-view .file-thumb {\r\n            text-align: center;\r\n            max-height: 250px;\r\n            max-width: 230px;\r\n            overflow: hidden;\r\n        }\r\n\r\n        #fm-file-view .header {\r\n            font-weight: bold;\r\n            margin-bottom: 12px;\r\n            padding: 2px 0;\r\n            text-align: center;\r\n            text-transform: uppercase;\r\n        }\r\n\r\n        #fm-file-view .details {\r\n            padding-top: 16px;\r\n        }\r\n\r\n            #fm-file-view .details div {\r\n                line-height: 21px;\r\n            }\r\n\r\n            #fm-file-view .details .uploaded,\r\n            #fm-file-view .details .file-size,\r\n            #fm-file-view .details .dimensions {\r\n                line-height: 21px;\r\n            }\r\n\r\n        #fm-file-view .file-thumb img {\r\n            border: 1px solid #eaeaea;\r\n            padding: 4px; /*max-height: 220px; max-width: 228px;*/\r\n        }\r\n\r\n    .attachment-info .filename {\r\n        font-weight: 600;\r\n        color: #444;\r\n        word-wrap: break-word;\r\n    }\r\n\r\n    .btn-attack {\r\n        background: #fff none repeat scroll 0 0;\r\n        padding: 3px 3px 3px 0;\r\n        width: 230px;\r\n        float: right;\r\n        clear: both;\r\n    }\r\n\r\n        .btn-attack button#btn-attack {\r\n            color: #fff;\r\n            background: #0085ba;\r\n            border: 0;\r\n            padding: 4px 6px;\r\n        }\r\n\r\n        .btn-attack button#dl-close {\r\n            background: #eaeaea;\r\n            border: 0;\r\n            padding: 4px 6px;\r\n            float: right;\r\n            clear: both;\r\n        }\r\n\r\n    #fm-content table._list {\r\n        width: 100%;\r\n    }\r\n\r\n        #fm-content table._list tr {\r\n        }\r\n\r\n            #fm-content table._list tr th {\r\n                text-align: center;\r\n                font-weight: bold;\r\n            }\r\n\r\n            #fm-content table._list tr td {\r\n                padding: 5px 4px;\r\n            }\r\n\r\n            #fm-content table._list tr._active {\r\n                background: #48adff;\r\n            }\r\n\r\n    #fm-toolbar ul li i {\r\n        background-repeat: no-repeat;\r\n        display: inline-block;\r\n        height: 16px;\r\n        vertical-align: middle;\r\n        width: 16px;\r\n    }\r\n\r\n    #fm-toolbar ul li i {\r\n    }\r\n\r\n    li i.create-folder {\r\n        background-image: url(./../../assets/img/icon/folder_add.png);\r\n    }\r\n\r\n    li i.upload {\r\n        background-image: url(\"./../../assets/img/icon/upload.png\");\r\n    }\r\n\r\n    li i.list {\r\n        background-image: url(\"./../../assets/img/icon/application_view_list.png\");\r\n    }\r\n\r\n    li i.grid {\r\n        background-image: url(\"./../../assets/img/icon/application_view_icons.png\");\r\n    }\r\n\r\n    li i.iclose {\r\n        background-image: url(\"./../../assets/img/icon/reset.png\");\r\n    }\r\n\r\n    li i.crop {\r\n        background-image: url(\"./../../assets/img/icon/crop.png\");\r\n    }\r\n\r\n    li i.remove {\r\n        background-image: url(\"./../../assets/img/icon/bin_closed.png\");\r\n    }\r\n\r\n    li i.close:hover {\r\n    }\r\n\r\n    #fm-footer {\r\n        min-height: 32px;\r\n    }\r\n\r\n    #fm-data-wrapper {\r\n        height: 100%;\r\n    }\r\n\r\n    .clear {\r\n        clear: both;\r\n    }\r\n\r\n    #_list ._active {\r\n        background: #48adff;\r\n    }\r\n\r\n    #fm-content {\r\n    }\r\n\r\n        #fm-content table._list table thead tr th {\r\n            text-align: center;\r\n        }\r\n\r\n        #fm-content table._list tr {\r\n            font-size: 11px;\r\n        }\r\n\r\n            #fm-content table._list tr:hover {\r\n                background: #c1edff;\r\n                cursor: pointer;\r\n            }\r\n\r\n            #fm-content table._list tr td {\r\n            }\r\n\r\n        #fm-content table._list tbody tr td.name {\r\n            display: inline-flex;\r\n        }\r\n\r\n            #fm-content table._list tbody tr td.name .list-icon {\r\n                display: inline-block;\r\n                float: left;\r\n                padding-right: 20px;\r\n            }\r\n    /* #fm-content table._list tbody tr td.name .png, #fm-content table tbody tr td.name .jpg, #fm-content table tbody tr td.name .jpeg, #fm-content table tbody tr td.name .gif,\r\n    #fm-content table._list tbody tr td.name .bmp { background: url(/CMS/Modules/FileManager/Libs/Images/filetree/picture.png) no-repeat; width: 16px; height: 16px; }\r\n    #fm-content table._list tbody tr td.name .doc, #fm-content table tbody tr td.name .docx { background: url(/CMS/Modules/FileManager/Libs/Images/filetree/doc.png) no-repeat; width: 16px; height: 16px; }\r\n    #fm-content table._list tbody tr td.name .xlsx, #fm-content table tbody tr td.name .xls { background: url(/CMS/Modules/FileManager/Libs/Images/filetree/xls.png) no-repeat; width: 16px; height: 16px; }\r\n    #fm-content table._list tbody tr td.name .zip, #fm-content table tbody tr td.name .rar { background: url(/CMS/Modules/FileManager/Libs/Images/filetree/zip.png) no-repeat; width: 16px; height: 16px; }\r\n    #fm-content table._list tbody tr td.name .txt { background: url(/CMS/Modules/FileManager/Libs/Images/filetree/txt.png) no-repeat; width: 16px; height: 16px; }\r\n    #fm-content table._list tbody tr td.name .pdf { background: url(/CMS/Modules/FileManager/Libs/Images/filetree/pdf.png) no-repeat; width: 16px; height: 16px; }\r\n    #fm-content table._list tbody tr td.name { width: 274px; display: inline-block; overflow: hidden; }\r\n    #fm-content table._list tbody tr td.name .fname { display: inline-flex; }\r\n    #fm-content table._list tbody tr td.type, #fm-content table tbody tr td.size, #fm-content table tbody tr td.dimensions, #fm-content table tbody tr td.date { overflow: hidden; width: 98px; }\r\n    #fm-content table._list tbody tr td.size { width: 70px; }\r\n    #fm-content table._list tbody tr td.dimensions { width: 80px; }\r\n    #fm-content table._list tbody tr td.date { width: 115px; } */\r\n\r\n    #fm-grid, #fm-folder ul, #fm-grid li .info p {\r\n        padding: 0;\r\n        margin: 0;\r\n    }\r\n\r\n        #fm-grid li {\r\n            position: relative;\r\n            vertical-align: middle;\r\n            display: table-cell;\r\n            border: 1px solid #eaeaea;\r\n            cursor: pointer;\r\n            float: left;\r\n            height: 100px;\r\n            min-width: 114px;\r\n            list-style-type: none;\r\n            margin: 4px;\r\n            padding: 2px;\r\n            width: 15.78%;\r\n            position: relative;\r\n            overflow: hidden;\r\n            text-align: center;\r\n        }\r\n\r\n            #fm-grid li .info {\r\n                font-size: 10px;\r\n                background: rgba(109,105,105,0.45882);\r\n                position: absolute;\r\n                bottom: 0;\r\n                width: 100%;\r\n                height: 0\r\n            }\r\n\r\n            #fm-grid li:hover .info {\r\n                height: auto\r\n            }\r\n\r\n    .fm-list li img {\r\n        width: 100%\r\n    }\r\n\r\n    .fm-list li.not_img img {\r\n        width: 50%;\r\n        padding-top: 10px\r\n    }\r\n\r\n    #fm-grid li img.thumb {\r\n        width: 60%;\r\n        margin: 0 auto;\r\n    }\r\n\r\n    #fm-grid li i {\r\n        position: absolute;\r\n        z-index: 999;\r\n        right: 4px;\r\n        background: #fff;\r\n        border-radius: 11px;\r\n        color: #0085ba;\r\n        padding: 1px;\r\n        top: 3px;\r\n        display: none;\r\n    }\r\n\r\n    #fm-grid li._active i {\r\n        display: block;\r\n    }\r\n\r\n    #fm-grid li._active {\r\n        border: 1px solid #0085ba;\r\n    }\r\n\r\n    #fm-folder ul li {\r\n        list-style-type: none;\r\n        padding: 8px 0;\r\n        cursor: pointer\r\n    }\r\n\r\n        #fm-folder ul li i {\r\n            background-repeat: no-repeat;\r\n            display: inline-block;\r\n            height: 16px;\r\n            vertical-align: middle;\r\n            width: 16px;\r\n        }\r\n\r\n    .plupload_filelist_header {\r\n        height: 20px;\r\n    }\r\n\r\n    .plupload_filelist_footer {\r\n        padding: 6px 20px;\r\n        height: 33px;\r\n    }\r\n\r\n    .plupload_scroll .plupload_filelist {\r\n        height: 172px !important;\r\n    }\r\n\r\n    .plupload_filelist_footer {\r\n        padding: 6px 20px;\r\n    }\r\n\r\n    .plupload_filelist:empty,\r\n    .plupload_filelist li.plupload_droptext {\r\n        height: 140px;\r\n    }\r\n\r\n        .plupload_filelist:empty::before,\r\n        .plupload_filelist li.plupload_droptext::before {\r\n            font-size: 52px;\r\n            height: 75px;\r\n            left: 49%;\r\n            margin-left: -40px;\r\n            padding-top: 43px;\r\n        }\r\n\r\n    .items-action {\r\n        padding-top: 20px;\r\n        display: inline-block;\r\n        width: 100%;\r\n    }\r\n\r\n        .items-action .file-action {\r\n            border: 0 none;\r\n            color: #fff;\r\n            padding: 4px 10px;\r\n        }\r\n\r\n        .items-action .file-action {\r\n            background: rosybrown;\r\n            float: left;\r\n            clear: both;\r\n        }\r\n    /*.items-action .file-action:last-child { background: #0085ba;float: right;}*/\r\n    #fm-toolbar .Mi.ipagination a:first-child {\r\n        border: 0;\r\n        border-radius: 0;\r\n    }\r\n\r\n    #fm-toolbar .Mi.ipagination input {\r\n        border: medium none;\r\n        float: left;\r\n        font-family: arial;\r\n        font-size: 11px;\r\n        height: 30px;\r\n        margin: 0;\r\n        outline: medium none;\r\n        padding: 0;\r\n        text-align: center;\r\n        vertical-align: middle;\r\n        width: 84px;\r\n    }\r\n\r\n    #fm-toolbar .Mi.ipagination a {\r\n        border: 0;\r\n        border-radius: 0;\r\n        background: #fff;\r\n    }\r\n\r\n    #fm-toolbar .ipagination.iweb {\r\n        margin-top: 3.45px;\r\n    }\r\n\r\n    #frowInTotals {\r\n        display: inline-block;\r\n        float: left;\r\n        line-height: 39px;\r\n        padding-right: 3px;\r\n        vertical-align: baseline;\r\n    }\r\n\r\n    label#progressall {\r\n        display: none;\r\n        padding: 7px 7px;\r\n    }\r\n\r\n    .Cdiv {\r\n        padding-left: 12px;\r\n        height: 17px;\r\n        overflow: hidden;\r\n        text-overflow: ellipsis;\r\n        white-space: nowrap;\r\n        width: 100%;\r\n        display: inline-block;\r\n        font-weight: normal;\r\n    }\r\n\r\n    #btn-fm-upload label {\r\n        margin-bottom: 0 !important;\r\n    }\r\n    /* Extra small devices (phones, 600px and down) */\r\n\r\n    @media only screen and (max-width: 600px) {\r\n        #fm-grid li {\r\n            width: 47.65%;\r\n        }\r\n    }\r\n\r\n    /* Small devices (portrait tablets and large phones, 600px and up) */\r\n\r\n    @media only screen and (min-width: 600px) {\r\n    }\r\n\r\n    /* Medium devices (landscape tablets, 768px and up) */\r\n\r\n    @media only screen and (min-width: 768px) {\r\n    }\r\n\r\n    /* Large devices (laptops/desktops, 992px and up) */\r\n\r\n    @media only screen and (min-width: 992px) {\r\n    }\r\n\r\n    /* Extra large devices (large laptops and desktops, 1200px and up) */\r\n\r\n    @media only screen and (min-width: 1200px) {\r\n    }\r\n</style>\r\n"],"sourceRoot":""}]);
 
 // exports
 
 
 /***/ }),
 
-/***/ 947:
+/***/ 950:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -45750,7 +45824,7 @@ var _vue = __webpack_require__(26);
 
 var _vue2 = _interopRequireDefault(_vue);
 
-var _jsTreeList = __webpack_require__(955);
+var _jsTreeList = __webpack_require__(958);
 
 var _jsTreeList2 = _interopRequireDefault(_jsTreeList);
 
@@ -45847,7 +45921,7 @@ function urlBase(title) {
 
 /***/ }),
 
-/***/ 948:
+/***/ 951:
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(process) {/*!
@@ -45946,85 +46020,85 @@ module.exports =
 /* 0 */
 /***/ (function(module, exports) {
 
-module.exports = __webpack_require__(973);
+module.exports = __webpack_require__(976);
 
 /***/ }),
 /* 1 */
 /***/ (function(module, exports) {
 
-module.exports = __webpack_require__(974);
+module.exports = __webpack_require__(977);
 
 /***/ }),
 /* 2 */
 /***/ (function(module, exports) {
 
-module.exports = __webpack_require__(968);
+module.exports = __webpack_require__(971);
 
 /***/ }),
 /* 3 */
 /***/ (function(module, exports) {
 
-module.exports = __webpack_require__(977);
+module.exports = __webpack_require__(980);
 
 /***/ }),
 /* 4 */
 /***/ (function(module, exports) {
 
-module.exports = __webpack_require__(987);
+module.exports = __webpack_require__(990);
 
 /***/ }),
 /* 5 */
 /***/ (function(module, exports) {
 
-module.exports = __webpack_require__(983);
+module.exports = __webpack_require__(986);
 
 /***/ }),
 /* 6 */
 /***/ (function(module, exports) {
 
-module.exports = __webpack_require__(992);
+module.exports = __webpack_require__(995);
 
 /***/ }),
 /* 7 */
 /***/ (function(module, exports) {
 
-module.exports = __webpack_require__(978);
+module.exports = __webpack_require__(981);
 
 /***/ }),
 /* 8 */
 /***/ (function(module, exports) {
 
-module.exports = __webpack_require__(989);
+module.exports = __webpack_require__(992);
 
 /***/ }),
 /* 9 */
 /***/ (function(module, exports) {
 
-module.exports = __webpack_require__(984);
+module.exports = __webpack_require__(987);
 
 /***/ }),
 /* 10 */
 /***/ (function(module, exports) {
 
-module.exports = __webpack_require__(982);
+module.exports = __webpack_require__(985);
 
 /***/ }),
 /* 11 */
 /***/ (function(module, exports) {
 
-module.exports = __webpack_require__(975);
+module.exports = __webpack_require__(978);
 
 /***/ }),
 /* 12 */
 /***/ (function(module, exports) {
 
-module.exports = __webpack_require__(986);
+module.exports = __webpack_require__(989);
 
 /***/ }),
 /* 13 */
 /***/ (function(module, exports) {
 
-module.exports = __webpack_require__(976);
+module.exports = __webpack_require__(979);
 
 /***/ }),
 /* 14 */
@@ -49758,7 +49832,7 @@ var VERSION = "0.4.0";
 
 /***/ }),
 
-/***/ 949:
+/***/ 952:
 /***/ (function(module, exports, __webpack_require__) {
 
 var META = __webpack_require__(182)('meta');
@@ -49818,13 +49892,13 @@ var meta = module.exports = {
 
 /***/ }),
 
-/***/ 950:
+/***/ 953:
 /***/ (function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
-var content = __webpack_require__(797);
+var content = __webpack_require__(800);
 if(typeof content === 'string') content = [[module.i, content, '']];
 // add the styles to the DOM
 var update = __webpack_require__(179)(content, {});
@@ -49833,8 +49907,8 @@ if(content.locals) module.exports = content.locals;
 if(true) {
 	// When the styles change, update the <style> tags
 	if(!content.locals) {
-		module.hot.accept(797, function() {
-			var newContent = __webpack_require__(797);
+		module.hot.accept(800, function() {
+			var newContent = __webpack_require__(800);
 			if(typeof newContent === 'string') newContent = [[module.i, newContent, '']];
 			update(newContent);
 		});
@@ -49845,14 +49919,14 @@ if(true) {
 
 /***/ }),
 
-/***/ 951:
+/***/ 954:
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports = { "default": __webpack_require__(389), __esModule: true };
 
 /***/ }),
 
-/***/ 952:
+/***/ 955:
 /***/ (function(module, exports, __webpack_require__) {
 
 // 19.1.2.7 / 15.2.3.4 Object.getOwnPropertyNames(O)
@@ -49866,7 +49940,7 @@ exports.f = Object.getOwnPropertyNames || function getOwnPropertyNames(O) {
 
 /***/ }),
 
-/***/ 953:
+/***/ 956:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -49874,7 +49948,7 @@ exports.f = Object.getOwnPropertyNames || function getOwnPropertyNames(O) {
 
 exports.__esModule = true;
 
-var _defineProperty = __webpack_require__(799);
+var _defineProperty = __webpack_require__(802);
 
 var _defineProperty2 = _interopRequireDefault(_defineProperty);
 
@@ -49897,7 +49971,7 @@ exports.default = function (obj, key, value) {
 
 /***/ }),
 
-/***/ 954:
+/***/ 957:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -49918,7 +49992,7 @@ exports.default = EventBus;
 
 /***/ }),
 
-/***/ 955:
+/***/ 958:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -49928,19 +50002,19 @@ var _assign = __webpack_require__(377);
 
 var _assign2 = _interopRequireDefault(_assign);
 
-var _defineProperty = __webpack_require__(799);
+var _defineProperty = __webpack_require__(802);
 
 var _defineProperty2 = _interopRequireDefault(_defineProperty);
 
-var _iterator = __webpack_require__(801);
+var _iterator = __webpack_require__(804);
 
 var _iterator2 = _interopRequireDefault(_iterator);
 
-var _symbol = __webpack_require__(800);
+var _symbol = __webpack_require__(803);
 
 var _symbol2 = _interopRequireDefault(_symbol);
 
-var _typeof3 = __webpack_require__(956);
+var _typeof3 = __webpack_require__(959);
 
 var _typeof4 = _interopRequireDefault(_typeof3);
 
@@ -50336,7 +50410,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 /***/ }),
 
-/***/ 956:
+/***/ 959:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -50344,11 +50418,11 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 exports.__esModule = true;
 
-var _iterator = __webpack_require__(801);
+var _iterator = __webpack_require__(804);
 
 var _iterator2 = _interopRequireDefault(_iterator);
 
-var _symbol = __webpack_require__(800);
+var _symbol = __webpack_require__(803);
 
 var _symbol2 = _interopRequireDefault(_symbol);
 
@@ -50364,29 +50438,29 @@ exports.default = typeof _symbol2.default === "function" && _typeof(_iterator2.d
 
 /***/ }),
 
-/***/ 957:
+/***/ 960:
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(962);
+__webpack_require__(965);
 __webpack_require__(387);
-__webpack_require__(963);
-__webpack_require__(964);
+__webpack_require__(966);
+__webpack_require__(967);
 module.exports = __webpack_require__(20).Symbol;
 
 
 /***/ }),
 
-/***/ 958:
+/***/ 961:
 /***/ (function(module, exports, __webpack_require__) {
 
 __webpack_require__(184);
 __webpack_require__(381);
-module.exports = __webpack_require__(796).f('iterator');
+module.exports = __webpack_require__(799).f('iterator');
 
 
 /***/ }),
 
-/***/ 959:
+/***/ 962:
 /***/ (function(module, exports, __webpack_require__) {
 
 // all enumerable object keys, includes symbols
@@ -50408,7 +50482,7 @@ module.exports = function (it) {
 
 /***/ }),
 
-/***/ 960:
+/***/ 963:
 /***/ (function(module, exports, __webpack_require__) {
 
 var pIE = __webpack_require__(375);
@@ -50431,12 +50505,12 @@ exports.f = __webpack_require__(44) ? gOPD : function getOwnPropertyDescriptor(O
 
 /***/ }),
 
-/***/ 961:
+/***/ 964:
 /***/ (function(module, exports, __webpack_require__) {
 
 // fallback for IE11 buggy Object.getOwnPropertyNames with iframe and window
 var toIObject = __webpack_require__(103);
-var gOPN = __webpack_require__(802).f;
+var gOPN = __webpack_require__(805).f;
 var toString = {}.toString;
 
 var windowNames = typeof window == 'object' && window && Object.getOwnPropertyNames
@@ -50457,7 +50531,7 @@ module.exports.f = function getOwnPropertyNames(it) {
 
 /***/ }),
 
-/***/ 962:
+/***/ 965:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -50468,15 +50542,15 @@ var has = __webpack_require__(72);
 var DESCRIPTORS = __webpack_require__(44);
 var $export = __webpack_require__(32);
 var redefine = __webpack_require__(386);
-var META = __webpack_require__(949).KEY;
+var META = __webpack_require__(952).KEY;
 var $fails = __webpack_require__(104);
 var shared = __webpack_require__(186);
 var setToStringTag = __webpack_require__(111);
 var uid = __webpack_require__(182);
 var wks = __webpack_require__(23);
-var wksExt = __webpack_require__(796);
-var wksDefine = __webpack_require__(795);
-var enumKeys = __webpack_require__(959);
+var wksExt = __webpack_require__(799);
+var wksDefine = __webpack_require__(798);
+var enumKeys = __webpack_require__(962);
 var isArray = __webpack_require__(383);
 var anObject = __webpack_require__(38);
 var isObject = __webpack_require__(56);
@@ -50485,8 +50559,8 @@ var toIObject = __webpack_require__(103);
 var toPrimitive = __webpack_require__(379);
 var createDesc = __webpack_require__(106);
 var _create = __webpack_require__(384);
-var gOPNExt = __webpack_require__(961);
-var $GOPD = __webpack_require__(960);
+var gOPNExt = __webpack_require__(964);
+var $GOPD = __webpack_require__(963);
 var $GOPS = __webpack_require__(378);
 var $DP = __webpack_require__(54);
 var $keys = __webpack_require__(181);
@@ -50612,7 +50686,7 @@ if (!USE_NATIVE) {
 
   $GOPD.f = $getOwnPropertyDescriptor;
   $DP.f = $defineProperty;
-  __webpack_require__(802).f = gOPNExt.f = $getOwnPropertyNames;
+  __webpack_require__(805).f = gOPNExt.f = $getOwnPropertyNames;
   __webpack_require__(375).f = $propertyIsEnumerable;
   $GOPS.f = $getOwnPropertySymbols;
 
@@ -50711,23 +50785,23 @@ setToStringTag(global.JSON, 'JSON', true);
 
 /***/ }),
 
-/***/ 963:
+/***/ 966:
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(795)('asyncIterator');
+__webpack_require__(798)('asyncIterator');
 
 
 /***/ }),
 
-/***/ 964:
+/***/ 967:
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(795)('observable');
+__webpack_require__(798)('observable');
 
 
 /***/ }),
 
-/***/ 965:
+/***/ 968:
 /***/ (function(module, exports) {
 
 exports.f = Object.getOwnPropertySymbols;
@@ -50735,7 +50809,7 @@ exports.f = Object.getOwnPropertySymbols;
 
 /***/ }),
 
-/***/ 966:
+/***/ 969:
 /***/ (function(module, exports) {
 
 function _arrayWithHoles(arr) {
@@ -50746,10 +50820,10 @@ module.exports = _arrayWithHoles;
 
 /***/ }),
 
-/***/ 967:
+/***/ 970:
 /***/ (function(module, exports, __webpack_require__) {
 
-var arrayLikeToArray = __webpack_require__(803);
+var arrayLikeToArray = __webpack_require__(806);
 
 function _arrayWithoutHoles(arr) {
   if (Array.isArray(arr)) return arrayLikeToArray(arr);
@@ -50759,7 +50833,7 @@ module.exports = _arrayWithoutHoles;
 
 /***/ }),
 
-/***/ 968:
+/***/ 971:
 /***/ (function(module, exports) {
 
 function _defineProperty(obj, key, value) {
@@ -50781,7 +50855,7 @@ module.exports = _defineProperty;
 
 /***/ }),
 
-/***/ 969:
+/***/ 972:
 /***/ (function(module, exports) {
 
 function _iterableToArray(iter) {
@@ -50792,7 +50866,7 @@ module.exports = _iterableToArray;
 
 /***/ }),
 
-/***/ 970:
+/***/ 973:
 /***/ (function(module, exports) {
 
 function _iterableToArrayLimit(arr, i) {
@@ -50826,7 +50900,7 @@ module.exports = _iterableToArrayLimit;
 
 /***/ }),
 
-/***/ 971:
+/***/ 974:
 /***/ (function(module, exports) {
 
 function _nonIterableRest() {
@@ -50837,7 +50911,7 @@ module.exports = _nonIterableRest;
 
 /***/ }),
 
-/***/ 972:
+/***/ 975:
 /***/ (function(module, exports) {
 
 function _nonIterableSpread() {
@@ -50848,16 +50922,16 @@ module.exports = _nonIterableSpread;
 
 /***/ }),
 
-/***/ 973:
+/***/ 976:
 /***/ (function(module, exports, __webpack_require__) {
 
-var arrayWithHoles = __webpack_require__(966);
+var arrayWithHoles = __webpack_require__(969);
 
-var iterableToArrayLimit = __webpack_require__(970);
+var iterableToArrayLimit = __webpack_require__(973);
 
-var unsupportedIterableToArray = __webpack_require__(804);
+var unsupportedIterableToArray = __webpack_require__(807);
 
-var nonIterableRest = __webpack_require__(971);
+var nonIterableRest = __webpack_require__(974);
 
 function _slicedToArray(arr, i) {
   return arrayWithHoles(arr) || iterableToArrayLimit(arr, i) || unsupportedIterableToArray(arr, i) || nonIterableRest();
@@ -50867,16 +50941,16 @@ module.exports = _slicedToArray;
 
 /***/ }),
 
-/***/ 974:
+/***/ 977:
 /***/ (function(module, exports, __webpack_require__) {
 
-var arrayWithoutHoles = __webpack_require__(967);
+var arrayWithoutHoles = __webpack_require__(970);
 
-var iterableToArray = __webpack_require__(969);
+var iterableToArray = __webpack_require__(972);
 
-var unsupportedIterableToArray = __webpack_require__(804);
+var unsupportedIterableToArray = __webpack_require__(807);
 
-var nonIterableSpread = __webpack_require__(972);
+var nonIterableSpread = __webpack_require__(975);
 
 function _toConsumableArray(arr) {
   return arrayWithoutHoles(arr) || iterableToArray(arr) || unsupportedIterableToArray(arr) || nonIterableSpread();
@@ -50886,7 +50960,7 @@ module.exports = _toConsumableArray;
 
 /***/ }),
 
-/***/ 975:
+/***/ 978:
 /***/ (function(module, exports) {
 
 function _typeof(obj) {
@@ -50909,7 +50983,7 @@ module.exports = _typeof;
 
 /***/ }),
 
-/***/ 976:
+/***/ 979:
 /***/ (function(module, exports) {
 
 var nestRE = /^(attrs|props|on|nativeOn|class|style|hook)$/
@@ -50966,7 +51040,7 @@ function mergeFn (a, b) {
 
 /***/ }),
 
-/***/ 977:
+/***/ 980:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -50998,7 +51072,7 @@ module.exports = fuzzysearch;
 
 /***/ }),
 
-/***/ 978:
+/***/ 981:
 /***/ (function(module, exports) {
 
 module.exports = isPromise;
@@ -51010,10 +51084,10 @@ function isPromise(obj) {
 
 /***/ }),
 
-/***/ 979:
+/***/ 982:
 /***/ (function(module, exports, __webpack_require__) {
 
-var trimmedEndIndex = __webpack_require__(980);
+var trimmedEndIndex = __webpack_require__(983);
 
 /** Used to match leading whitespace. */
 var reTrimStart = /^\s+/;
@@ -51036,7 +51110,7 @@ module.exports = baseTrim;
 
 /***/ }),
 
-/***/ 980:
+/***/ 983:
 /***/ (function(module, exports) {
 
 /** Used to match a single whitespace character. */
@@ -51062,10 +51136,10 @@ module.exports = trimmedEndIndex;
 
 /***/ }),
 
-/***/ 981:
+/***/ 984:
 /***/ (function(module, exports, __webpack_require__) {
 
-var toInteger = __webpack_require__(991);
+var toInteger = __webpack_require__(994);
 
 /** Error message constants. */
 var FUNC_ERROR_TEXT = 'Expected a function';
@@ -51109,7 +51183,7 @@ module.exports = before;
 
 /***/ }),
 
-/***/ 982:
+/***/ 985:
 /***/ (function(module, exports) {
 
 /**
@@ -51142,12 +51216,12 @@ module.exports = constant;
 
 /***/ }),
 
-/***/ 983:
+/***/ 986:
 /***/ (function(module, exports, __webpack_require__) {
 
 var isObject = __webpack_require__(58),
-    now = __webpack_require__(988),
-    toNumber = __webpack_require__(805);
+    now = __webpack_require__(991),
+    toNumber = __webpack_require__(808);
 
 /** Error message constants. */
 var FUNC_ERROR_TEXT = 'Expected a function';
@@ -51340,7 +51414,7 @@ module.exports = debounce;
 
 /***/ }),
 
-/***/ 984:
+/***/ 987:
 /***/ (function(module, exports) {
 
 /**
@@ -51368,7 +51442,7 @@ module.exports = identity;
 
 /***/ }),
 
-/***/ 985:
+/***/ 988:
 /***/ (function(module, exports, __webpack_require__) {
 
 var baseGetTag = __webpack_require__(76),
@@ -51404,7 +51478,7 @@ module.exports = isSymbol;
 
 /***/ }),
 
-/***/ 986:
+/***/ 989:
 /***/ (function(module, exports) {
 
 /**
@@ -51431,7 +51505,7 @@ module.exports = last;
 
 /***/ }),
 
-/***/ 987:
+/***/ 990:
 /***/ (function(module, exports) {
 
 /**
@@ -51455,7 +51529,7 @@ module.exports = noop;
 
 /***/ }),
 
-/***/ 988:
+/***/ 991:
 /***/ (function(module, exports, __webpack_require__) {
 
 var root = __webpack_require__(25);
@@ -51485,10 +51559,10 @@ module.exports = now;
 
 /***/ }),
 
-/***/ 989:
+/***/ 992:
 /***/ (function(module, exports, __webpack_require__) {
 
-var before = __webpack_require__(981);
+var before = __webpack_require__(984);
 
 /**
  * Creates a function that is restricted to invoking `func` once. Repeat calls
@@ -51517,10 +51591,10 @@ module.exports = once;
 
 /***/ }),
 
-/***/ 990:
+/***/ 993:
 /***/ (function(module, exports, __webpack_require__) {
 
-var toNumber = __webpack_require__(805);
+var toNumber = __webpack_require__(808);
 
 /** Used as references for various `Number` constants. */
 var INFINITY = 1 / 0,
@@ -51566,10 +51640,10 @@ module.exports = toFinite;
 
 /***/ }),
 
-/***/ 991:
+/***/ 994:
 /***/ (function(module, exports, __webpack_require__) {
 
-var toFinite = __webpack_require__(990);
+var toFinite = __webpack_require__(993);
 
 /**
  * Converts `value` to an integer.
@@ -51609,7 +51683,7 @@ module.exports = toInteger;
 
 /***/ }),
 
-/***/ 992:
+/***/ 995:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -51675,7 +51749,7 @@ var index = (function (element, listener) {
 
 /***/ }),
 
-/***/ 993:
+/***/ 996:
 /***/ (function(module, exports, __webpack_require__) {
 
 exports.f = __webpack_require__(17);
@@ -51683,10 +51757,10 @@ exports.f = __webpack_require__(17);
 
 /***/ }),
 
-/***/ 994:
+/***/ 997:
 /***/ (function(module, exports, __webpack_require__) {
 
-var pIE = __webpack_require__(806);
+var pIE = __webpack_require__(810);
 var createDesc = __webpack_require__(108);
 var toIObject = __webpack_require__(57);
 var toPrimitive = __webpack_require__(380);
@@ -51706,280 +51780,280 @@ exports.f = __webpack_require__(59) ? gOPD : function getOwnPropertyDescriptor(O
 
 /***/ }),
 
-/***/ 995:
+/***/ 998:
 /***/ (function(module, exports, __webpack_require__) {
 
 var map = {
-	"./af": 809,
-	"./af.js": 809,
-	"./ar": 816,
-	"./ar-dz": 810,
-	"./ar-dz.js": 810,
-	"./ar-kw": 811,
-	"./ar-kw.js": 811,
-	"./ar-ly": 812,
-	"./ar-ly.js": 812,
-	"./ar-ma": 813,
-	"./ar-ma.js": 813,
-	"./ar-sa": 814,
-	"./ar-sa.js": 814,
-	"./ar-tn": 815,
-	"./ar-tn.js": 815,
-	"./ar.js": 816,
-	"./az": 817,
-	"./az.js": 817,
-	"./be": 818,
-	"./be.js": 818,
-	"./bg": 819,
-	"./bg.js": 819,
-	"./bm": 820,
-	"./bm.js": 820,
-	"./bn": 822,
-	"./bn-bd": 821,
-	"./bn-bd.js": 821,
-	"./bn.js": 822,
-	"./bo": 823,
-	"./bo.js": 823,
-	"./br": 824,
-	"./br.js": 824,
-	"./bs": 825,
-	"./bs.js": 825,
-	"./ca": 826,
-	"./ca.js": 826,
-	"./cs": 827,
-	"./cs.js": 827,
-	"./cv": 828,
-	"./cv.js": 828,
-	"./cy": 829,
-	"./cy.js": 829,
-	"./da": 830,
-	"./da.js": 830,
-	"./de": 833,
-	"./de-at": 831,
-	"./de-at.js": 831,
-	"./de-ch": 832,
-	"./de-ch.js": 832,
-	"./de.js": 833,
-	"./dv": 834,
-	"./dv.js": 834,
-	"./el": 835,
-	"./el.js": 835,
-	"./en-au": 836,
-	"./en-au.js": 836,
-	"./en-ca": 837,
-	"./en-ca.js": 837,
-	"./en-gb": 838,
-	"./en-gb.js": 838,
-	"./en-ie": 839,
-	"./en-ie.js": 839,
-	"./en-il": 840,
-	"./en-il.js": 840,
-	"./en-in": 841,
-	"./en-in.js": 841,
-	"./en-nz": 842,
-	"./en-nz.js": 842,
-	"./en-sg": 843,
-	"./en-sg.js": 843,
-	"./eo": 844,
-	"./eo.js": 844,
-	"./es": 848,
-	"./es-do": 845,
-	"./es-do.js": 845,
-	"./es-mx": 846,
-	"./es-mx.js": 846,
-	"./es-us": 847,
-	"./es-us.js": 847,
-	"./es.js": 848,
-	"./et": 849,
-	"./et.js": 849,
-	"./eu": 850,
-	"./eu.js": 850,
-	"./fa": 851,
-	"./fa.js": 851,
-	"./fi": 852,
-	"./fi.js": 852,
-	"./fil": 853,
-	"./fil.js": 853,
-	"./fo": 854,
-	"./fo.js": 854,
-	"./fr": 857,
-	"./fr-ca": 855,
-	"./fr-ca.js": 855,
-	"./fr-ch": 856,
-	"./fr-ch.js": 856,
-	"./fr.js": 857,
-	"./fy": 858,
-	"./fy.js": 858,
-	"./ga": 859,
-	"./ga.js": 859,
-	"./gd": 860,
-	"./gd.js": 860,
-	"./gl": 861,
-	"./gl.js": 861,
-	"./gom-deva": 862,
-	"./gom-deva.js": 862,
-	"./gom-latn": 863,
-	"./gom-latn.js": 863,
-	"./gu": 864,
-	"./gu.js": 864,
-	"./he": 865,
-	"./he.js": 865,
-	"./hi": 866,
-	"./hi.js": 866,
-	"./hr": 867,
-	"./hr.js": 867,
-	"./hu": 868,
-	"./hu.js": 868,
-	"./hy-am": 869,
-	"./hy-am.js": 869,
-	"./id": 870,
-	"./id.js": 870,
-	"./is": 871,
-	"./is.js": 871,
-	"./it": 873,
-	"./it-ch": 872,
-	"./it-ch.js": 872,
-	"./it.js": 873,
-	"./ja": 874,
-	"./ja.js": 874,
-	"./jv": 875,
-	"./jv.js": 875,
-	"./ka": 876,
-	"./ka.js": 876,
-	"./kk": 877,
-	"./kk.js": 877,
-	"./km": 878,
-	"./km.js": 878,
-	"./kn": 879,
-	"./kn.js": 879,
-	"./ko": 880,
-	"./ko.js": 880,
-	"./ku": 881,
-	"./ku.js": 881,
-	"./ky": 882,
-	"./ky.js": 882,
-	"./lb": 883,
-	"./lb.js": 883,
-	"./lo": 884,
-	"./lo.js": 884,
-	"./lt": 885,
-	"./lt.js": 885,
-	"./lv": 886,
-	"./lv.js": 886,
-	"./me": 887,
-	"./me.js": 887,
-	"./mi": 888,
-	"./mi.js": 888,
-	"./mk": 889,
-	"./mk.js": 889,
-	"./ml": 890,
-	"./ml.js": 890,
-	"./mn": 891,
-	"./mn.js": 891,
-	"./mr": 892,
-	"./mr.js": 892,
-	"./ms": 894,
-	"./ms-my": 893,
-	"./ms-my.js": 893,
-	"./ms.js": 894,
-	"./mt": 895,
-	"./mt.js": 895,
-	"./my": 896,
-	"./my.js": 896,
-	"./nb": 897,
-	"./nb.js": 897,
-	"./ne": 898,
-	"./ne.js": 898,
-	"./nl": 900,
-	"./nl-be": 899,
-	"./nl-be.js": 899,
-	"./nl.js": 900,
-	"./nn": 901,
-	"./nn.js": 901,
-	"./oc-lnc": 902,
-	"./oc-lnc.js": 902,
-	"./pa-in": 903,
-	"./pa-in.js": 903,
-	"./pl": 904,
-	"./pl.js": 904,
-	"./pt": 906,
-	"./pt-br": 905,
-	"./pt-br.js": 905,
-	"./pt.js": 906,
-	"./ro": 907,
-	"./ro.js": 907,
-	"./ru": 908,
-	"./ru.js": 908,
-	"./sd": 909,
-	"./sd.js": 909,
-	"./se": 910,
-	"./se.js": 910,
-	"./si": 911,
-	"./si.js": 911,
-	"./sk": 912,
-	"./sk.js": 912,
-	"./sl": 913,
-	"./sl.js": 913,
-	"./sq": 914,
-	"./sq.js": 914,
-	"./sr": 916,
-	"./sr-cyrl": 915,
-	"./sr-cyrl.js": 915,
-	"./sr.js": 916,
-	"./ss": 917,
-	"./ss.js": 917,
-	"./sv": 918,
-	"./sv.js": 918,
-	"./sw": 919,
-	"./sw.js": 919,
-	"./ta": 920,
-	"./ta.js": 920,
-	"./te": 921,
-	"./te.js": 921,
-	"./tet": 922,
-	"./tet.js": 922,
-	"./tg": 923,
-	"./tg.js": 923,
-	"./th": 924,
-	"./th.js": 924,
-	"./tk": 925,
-	"./tk.js": 925,
-	"./tl-ph": 926,
-	"./tl-ph.js": 926,
-	"./tlh": 927,
-	"./tlh.js": 927,
-	"./tr": 928,
-	"./tr.js": 928,
-	"./tzl": 929,
-	"./tzl.js": 929,
-	"./tzm": 931,
-	"./tzm-latn": 930,
-	"./tzm-latn.js": 930,
-	"./tzm.js": 931,
-	"./ug-cn": 932,
-	"./ug-cn.js": 932,
-	"./uk": 933,
-	"./uk.js": 933,
-	"./ur": 934,
-	"./ur.js": 934,
-	"./uz": 936,
-	"./uz-latn": 935,
-	"./uz-latn.js": 935,
-	"./uz.js": 936,
-	"./vi": 937,
-	"./vi.js": 937,
-	"./x-pseudo": 938,
-	"./x-pseudo.js": 938,
-	"./yo": 939,
-	"./yo.js": 939,
-	"./zh-cn": 940,
-	"./zh-cn.js": 940,
-	"./zh-hk": 941,
-	"./zh-hk.js": 941,
-	"./zh-mo": 942,
-	"./zh-mo.js": 942,
-	"./zh-tw": 943,
-	"./zh-tw.js": 943
+	"./af": 812,
+	"./af.js": 812,
+	"./ar": 819,
+	"./ar-dz": 813,
+	"./ar-dz.js": 813,
+	"./ar-kw": 814,
+	"./ar-kw.js": 814,
+	"./ar-ly": 815,
+	"./ar-ly.js": 815,
+	"./ar-ma": 816,
+	"./ar-ma.js": 816,
+	"./ar-sa": 817,
+	"./ar-sa.js": 817,
+	"./ar-tn": 818,
+	"./ar-tn.js": 818,
+	"./ar.js": 819,
+	"./az": 820,
+	"./az.js": 820,
+	"./be": 821,
+	"./be.js": 821,
+	"./bg": 822,
+	"./bg.js": 822,
+	"./bm": 823,
+	"./bm.js": 823,
+	"./bn": 825,
+	"./bn-bd": 824,
+	"./bn-bd.js": 824,
+	"./bn.js": 825,
+	"./bo": 826,
+	"./bo.js": 826,
+	"./br": 827,
+	"./br.js": 827,
+	"./bs": 828,
+	"./bs.js": 828,
+	"./ca": 829,
+	"./ca.js": 829,
+	"./cs": 830,
+	"./cs.js": 830,
+	"./cv": 831,
+	"./cv.js": 831,
+	"./cy": 832,
+	"./cy.js": 832,
+	"./da": 833,
+	"./da.js": 833,
+	"./de": 836,
+	"./de-at": 834,
+	"./de-at.js": 834,
+	"./de-ch": 835,
+	"./de-ch.js": 835,
+	"./de.js": 836,
+	"./dv": 837,
+	"./dv.js": 837,
+	"./el": 838,
+	"./el.js": 838,
+	"./en-au": 839,
+	"./en-au.js": 839,
+	"./en-ca": 840,
+	"./en-ca.js": 840,
+	"./en-gb": 841,
+	"./en-gb.js": 841,
+	"./en-ie": 842,
+	"./en-ie.js": 842,
+	"./en-il": 843,
+	"./en-il.js": 843,
+	"./en-in": 844,
+	"./en-in.js": 844,
+	"./en-nz": 845,
+	"./en-nz.js": 845,
+	"./en-sg": 846,
+	"./en-sg.js": 846,
+	"./eo": 847,
+	"./eo.js": 847,
+	"./es": 851,
+	"./es-do": 848,
+	"./es-do.js": 848,
+	"./es-mx": 849,
+	"./es-mx.js": 849,
+	"./es-us": 850,
+	"./es-us.js": 850,
+	"./es.js": 851,
+	"./et": 852,
+	"./et.js": 852,
+	"./eu": 853,
+	"./eu.js": 853,
+	"./fa": 854,
+	"./fa.js": 854,
+	"./fi": 855,
+	"./fi.js": 855,
+	"./fil": 856,
+	"./fil.js": 856,
+	"./fo": 857,
+	"./fo.js": 857,
+	"./fr": 860,
+	"./fr-ca": 858,
+	"./fr-ca.js": 858,
+	"./fr-ch": 859,
+	"./fr-ch.js": 859,
+	"./fr.js": 860,
+	"./fy": 861,
+	"./fy.js": 861,
+	"./ga": 862,
+	"./ga.js": 862,
+	"./gd": 863,
+	"./gd.js": 863,
+	"./gl": 864,
+	"./gl.js": 864,
+	"./gom-deva": 865,
+	"./gom-deva.js": 865,
+	"./gom-latn": 866,
+	"./gom-latn.js": 866,
+	"./gu": 867,
+	"./gu.js": 867,
+	"./he": 868,
+	"./he.js": 868,
+	"./hi": 869,
+	"./hi.js": 869,
+	"./hr": 870,
+	"./hr.js": 870,
+	"./hu": 871,
+	"./hu.js": 871,
+	"./hy-am": 872,
+	"./hy-am.js": 872,
+	"./id": 873,
+	"./id.js": 873,
+	"./is": 874,
+	"./is.js": 874,
+	"./it": 876,
+	"./it-ch": 875,
+	"./it-ch.js": 875,
+	"./it.js": 876,
+	"./ja": 877,
+	"./ja.js": 877,
+	"./jv": 878,
+	"./jv.js": 878,
+	"./ka": 879,
+	"./ka.js": 879,
+	"./kk": 880,
+	"./kk.js": 880,
+	"./km": 881,
+	"./km.js": 881,
+	"./kn": 882,
+	"./kn.js": 882,
+	"./ko": 883,
+	"./ko.js": 883,
+	"./ku": 884,
+	"./ku.js": 884,
+	"./ky": 885,
+	"./ky.js": 885,
+	"./lb": 886,
+	"./lb.js": 886,
+	"./lo": 887,
+	"./lo.js": 887,
+	"./lt": 888,
+	"./lt.js": 888,
+	"./lv": 889,
+	"./lv.js": 889,
+	"./me": 890,
+	"./me.js": 890,
+	"./mi": 891,
+	"./mi.js": 891,
+	"./mk": 892,
+	"./mk.js": 892,
+	"./ml": 893,
+	"./ml.js": 893,
+	"./mn": 894,
+	"./mn.js": 894,
+	"./mr": 895,
+	"./mr.js": 895,
+	"./ms": 897,
+	"./ms-my": 896,
+	"./ms-my.js": 896,
+	"./ms.js": 897,
+	"./mt": 898,
+	"./mt.js": 898,
+	"./my": 899,
+	"./my.js": 899,
+	"./nb": 900,
+	"./nb.js": 900,
+	"./ne": 901,
+	"./ne.js": 901,
+	"./nl": 903,
+	"./nl-be": 902,
+	"./nl-be.js": 902,
+	"./nl.js": 903,
+	"./nn": 904,
+	"./nn.js": 904,
+	"./oc-lnc": 905,
+	"./oc-lnc.js": 905,
+	"./pa-in": 906,
+	"./pa-in.js": 906,
+	"./pl": 907,
+	"./pl.js": 907,
+	"./pt": 909,
+	"./pt-br": 908,
+	"./pt-br.js": 908,
+	"./pt.js": 909,
+	"./ro": 910,
+	"./ro.js": 910,
+	"./ru": 911,
+	"./ru.js": 911,
+	"./sd": 912,
+	"./sd.js": 912,
+	"./se": 913,
+	"./se.js": 913,
+	"./si": 914,
+	"./si.js": 914,
+	"./sk": 915,
+	"./sk.js": 915,
+	"./sl": 916,
+	"./sl.js": 916,
+	"./sq": 917,
+	"./sq.js": 917,
+	"./sr": 919,
+	"./sr-cyrl": 918,
+	"./sr-cyrl.js": 918,
+	"./sr.js": 919,
+	"./ss": 920,
+	"./ss.js": 920,
+	"./sv": 921,
+	"./sv.js": 921,
+	"./sw": 922,
+	"./sw.js": 922,
+	"./ta": 923,
+	"./ta.js": 923,
+	"./te": 924,
+	"./te.js": 924,
+	"./tet": 925,
+	"./tet.js": 925,
+	"./tg": 926,
+	"./tg.js": 926,
+	"./th": 927,
+	"./th.js": 927,
+	"./tk": 928,
+	"./tk.js": 928,
+	"./tl-ph": 929,
+	"./tl-ph.js": 929,
+	"./tlh": 930,
+	"./tlh.js": 930,
+	"./tr": 931,
+	"./tr.js": 931,
+	"./tzl": 932,
+	"./tzl.js": 932,
+	"./tzm": 934,
+	"./tzm-latn": 933,
+	"./tzm-latn.js": 933,
+	"./tzm.js": 934,
+	"./ug-cn": 935,
+	"./ug-cn.js": 935,
+	"./uk": 936,
+	"./uk.js": 936,
+	"./ur": 937,
+	"./ur.js": 937,
+	"./uz": 939,
+	"./uz-latn": 938,
+	"./uz-latn.js": 938,
+	"./uz.js": 939,
+	"./vi": 940,
+	"./vi.js": 940,
+	"./x-pseudo": 941,
+	"./x-pseudo.js": 941,
+	"./yo": 942,
+	"./yo.js": 942,
+	"./zh-cn": 943,
+	"./zh-cn.js": 943,
+	"./zh-hk": 944,
+	"./zh-hk.js": 944,
+	"./zh-mo": 945,
+	"./zh-mo.js": 945,
+	"./zh-tw": 946,
+	"./zh-tw.js": 946
 };
 function webpackContext(req) {
 	return __webpack_require__(webpackContextResolve(req));
@@ -51995,88 +52069,14 @@ webpackContext.keys = function webpackContextKeys() {
 };
 webpackContext.resolve = webpackContextResolve;
 module.exports = webpackContext;
-webpackContext.id = 995;
-
-/***/ }),
-
-/***/ 996:
-/***/ (function(module, exports) {
-
-module.exports = {"AppSettings":{"Debug":true,"Version":"1.0.0.0","Domain":"http://demo.way2go.vn","UploadFolder":"uploads","FileUploadMaxSize":5000,"FileUploadSubFix":false,"ImageScaleWidth":300,"ImageScaleHeight":0,"ImageAllowUpload":".jpg,.jpeg,.png,.gif,.bit,.webp,.svg","DocumentAllowUpload":".doc,.docx,.pdf,.xls,.xlsx,.zip,.rar","FoderImg":"https://platformcms.hndedu.com","BaseDomain":"https://demo.way2go.vn","CacheEnable":"0","ESEnable":true,"NodeES":"http://127.0.0.1:9200","IndexES":"product_suggest"},"Redis":{"ConnectionString":"127.0.0.1:6379","DefaultDatabase":1,"InstanceName":"PLM_","CachingExpireMinute":3},"ConnectionStrings":{"DefaultConnection":"Server=103.184.112.82;Database=JT_DEV_2;Trusted_Connection=False;User Id=sa;password=EcaOicT35K%EC1"},"Cors":{"WithOrigin":"http://localhost:60099/"},"Logging":{"IncludeScopes":false,"LogLevel":{"Default":"Debug","System":"Information","Microsoft":"Information"}},"Tokens":{"Key":"0123456789ABCDEF","Issuer":"https://janhome.vn/"},"EmailSender":{"Host":"mail247.vn","Port":465,"CustomerService":{"Email":"cs@joytime.vn","Password":"D2A9HnvGMJYW3BeKQw5f4F"},"SupplierService":{"Email":"partner@joytime.vn","Password":"SL9QgKGtjCNUcbr7uXdWPY"},"HelpDesk":{"Email":"helpdesk@joytime.vn","Password":"jaR548durV2tpFCkX6qENx"},"BookingService":{"Email":"booking@joytime.vn","Password":"zydcpPBfEHeM7u9DU6XLVT"}}}
-
-/***/ }),
-
-/***/ 997:
-/***/ (function(module, exports, __webpack_require__) {
-
-var META = __webpack_require__(109)('meta');
-var isObject = __webpack_require__(45);
-var has = __webpack_require__(73);
-var setDesc = __webpack_require__(55).f;
-var id = 0;
-var isExtensible = Object.isExtensible || function () {
-  return true;
-};
-var FREEZE = !__webpack_require__(46)(function () {
-  return isExtensible(Object.preventExtensions({}));
-});
-var setMeta = function (it) {
-  setDesc(it, META, { value: {
-    i: 'O' + ++id, // object ID
-    w: {}          // weak collections IDs
-  } });
-};
-var fastKey = function (it, create) {
-  // return primitive with prefix
-  if (!isObject(it)) return typeof it == 'symbol' ? it : (typeof it == 'string' ? 'S' : 'P') + it;
-  if (!has(it, META)) {
-    // can't set metadata to uncaught frozen object
-    if (!isExtensible(it)) return 'F';
-    // not necessary to add metadata
-    if (!create) return 'E';
-    // add missing metadata
-    setMeta(it);
-  // return object ID
-  } return it[META].i;
-};
-var getWeak = function (it, create) {
-  if (!has(it, META)) {
-    // can't set metadata to uncaught frozen object
-    if (!isExtensible(it)) return true;
-    // not necessary to add metadata
-    if (!create) return false;
-    // add missing metadata
-    setMeta(it);
-  // return hash weak collections IDs
-  } return it[META].w;
-};
-// add metadata on freeze-family methods calling
-var onFreeze = function (it) {
-  if (FREEZE && meta.NEED && isExtensible(it) && !has(it, META)) setMeta(it);
-  return it;
-};
-var meta = module.exports = {
-  KEY: META,
-  NEED: false,
-  fastKey: fastKey,
-  getWeak: getWeak,
-  onFreeze: onFreeze
-};
-
-
-/***/ }),
-
-/***/ 998:
-/***/ (function(module, exports) {
-
-module.exports = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAJUlEQVQ4jWNgoBSkpaX9pwRTxwBsriJabHAYMBoGo2FAcRhQCgAhhv41B1NcjwAAAABJRU5ErkJggg=="
+webpackContext.id = 998;
 
 /***/ }),
 
 /***/ 999:
 /***/ (function(module, exports) {
 
-module.exports = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAHElEQVQ4jWNgGPogLS3tPyV41AWjLhguLqAUAABjQNJhHOFYqgAAAABJRU5ErkJggg=="
+module.exports = {"AppSettings":{"Debug":true,"Version":"1.0.0.0","Domain":"http://demo.way2go.vn","UploadFolder":"uploads","FileUploadMaxSize":5000,"FileUploadSubFix":false,"ImageScaleWidth":300,"ImageScaleHeight":0,"ImageAllowUpload":".jpg,.jpeg,.png,.gif,.bit,.webp,.svg","DocumentAllowUpload":".doc,.docx,.pdf,.xls,.xlsx,.zip,.rar","FoderImg":"https://platformcms.hndedu.com","BaseDomain":"https://demo.way2go.vn","CacheEnable":"0","ESEnable":true,"NodeES":"http://127.0.0.1:9200","IndexES":"product_suggest"},"Redis":{"ConnectionString":"127.0.0.1:6379","DefaultDatabase":1,"InstanceName":"PLM_","CachingExpireMinute":3},"ConnectionStrings":{"DefaultConnection":"Server=103.184.112.82;Database=JT_DEV_2;Trusted_Connection=False;User Id=sa;password=EcaOicT35K%EC1"},"Cors":{"WithOrigin":"http://localhost:60099/"},"Logging":{"IncludeScopes":false,"LogLevel":{"Default":"Debug","System":"Information","Microsoft":"Information"}},"Tokens":{"Key":"0123456789ABCDEF","Issuer":"https://janhome.vn/"},"EmailSender":{"Host":"mail247.vn","Port":465,"CustomerService":{"Email":"cs@joytime.vn","Password":"D2A9HnvGMJYW3BeKQw5f4F"},"SupplierService":{"Email":"partner@joytime.vn","Password":"SL9QgKGtjCNUcbr7uXdWPY"},"HelpDesk":{"Email":"helpdesk@joytime.vn","Password":"jaR548durV2tpFCkX6qENx"},"BookingService":{"Email":"booking@joytime.vn","Password":"zydcpPBfEHeM7u9DU6XLVT"}}}
 
 /***/ })
 
