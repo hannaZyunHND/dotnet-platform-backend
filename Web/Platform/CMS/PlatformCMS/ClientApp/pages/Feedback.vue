@@ -155,7 +155,6 @@ export default {
             currentChatSession: null,
             updateInterval: null, // To store the interval ID for clearing later
             currentOrderCode: "",
-            // end region
 
         };
     },
