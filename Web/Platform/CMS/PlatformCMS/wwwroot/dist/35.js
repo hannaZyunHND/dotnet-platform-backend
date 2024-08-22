@@ -214,7 +214,7 @@ var setToStringTag = __webpack_require__(112);
 var uid = __webpack_require__(109);
 var wks = __webpack_require__(17);
 var wksExt = __webpack_require__(996);
-var wksDefine = __webpack_require__(811);
+var wksDefine = __webpack_require__(946);
 var enumKeys = __webpack_require__(1010);
 var isArray = __webpack_require__(187);
 var anObject = __webpack_require__(36);
@@ -225,7 +225,7 @@ var toPrimitive = __webpack_require__(380);
 var createDesc = __webpack_require__(108);
 var _create = __webpack_require__(388);
 var gOPNExt = __webpack_require__(1009);
-var $GOPD = __webpack_require__(997);
+var $GOPD = __webpack_require__(998);
 var $GOPS = __webpack_require__(968);
 var $DP = __webpack_require__(55);
 var $keys = __webpack_require__(183);
@@ -453,7 +453,7 @@ setToStringTag(global.JSON, 'JSON', true);
 /***/ 1012:
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(811)('asyncIterator');
+__webpack_require__(946)('asyncIterator');
 
 
 /***/ }),
@@ -461,7 +461,7 @@ __webpack_require__(811)('asyncIterator');
 /***/ 1013:
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(811)('observable');
+__webpack_require__(946)('observable');
 
 
 /***/ }),
@@ -480,7 +480,7 @@ var _from = __webpack_require__(954);
 
 var _from2 = _interopRequireDefault(_from);
 
-var _extends2 = __webpack_require__(7);
+var _extends2 = __webpack_require__(8);
 
 var _extends3 = _interopRequireDefault(_extends2);
 
@@ -11940,182 +11940,22 @@ if(true) {
 
 /***/ }),
 
-/***/ 1023:
+/***/ 1116:
 /***/ (function(module, exports, __webpack_require__) {
 
-"use strict";
+exports = module.exports = __webpack_require__(53)();
+// imports
 
 
-Object.defineProperty(exports, "__esModule", {
-    value: true
-});
+// module
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", "", {"version":3,"sources":[],"names":[],"mappings":"","file":"edit.vue","sourceRoot":""}]);
 
-var _regenerator = __webpack_require__(75);
+// exports
 
-var _regenerator2 = _interopRequireDefault(_regenerator);
-
-var _asyncToGenerator2 = __webpack_require__(74);
-
-var _asyncToGenerator3 = _interopRequireDefault(_asyncToGenerator2);
-
-var _http = __webpack_require__(4);
-
-var _http2 = _interopRequireDefault(_http);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-var manufacturersRepository = {
-    getPageManufacturers: function getPageManufacturers(data) {
-        var _this = this;
-
-        return (0, _asyncToGenerator3.default)(_regenerator2.default.mark(function _callee() {
-            var response;
-            return _regenerator2.default.wrap(function _callee$(_context) {
-                while (1) {
-                    switch (_context.prev = _context.next) {
-                        case 0:
-                            _context.next = 2;
-                            return _http2.default.get('/api/Manufacturer/Get?pageIndex=' + data.pageIndex + '&pageSize=' + data.pageSize + '&keyword=' + data.title, {}).catch(function (e) {
-                                alert('ex found:' + e);
-                            });
-
-                        case 2:
-                            response = _context.sent;
-
-                            console.log(response);
-                            return _context.abrupt('return', response.data);
-
-                        case 5:
-                        case 'end':
-                            return _context.stop();
-                    }
-                }
-            }, _callee, _this);
-        }))();
-    },
-    addManufacturers: function addManufacturers(data) {
-        var _this2 = this;
-
-        return (0, _asyncToGenerator3.default)(_regenerator2.default.mark(function _callee2() {
-            var response;
-            return _regenerator2.default.wrap(function _callee2$(_context2) {
-                while (1) {
-                    switch (_context2.prev = _context2.next) {
-                        case 0:
-                            _context2.next = 2;
-                            return _http2.default.post('/api/Manufacturer/Add', data).catch(function (e) {
-                                alert('ex found:' + e);
-                            });
-
-                        case 2:
-                            response = _context2.sent;
-
-                            console.log(response.data);
-                            return _context2.abrupt('return', response.data);
-
-                        case 5:
-                        case 'end':
-                            return _context2.stop();
-                    }
-                }
-            }, _callee2, _this2);
-        }))();
-    },
-    updateManufacturers: function updateManufacturers(data) {
-        var _this3 = this;
-
-        return (0, _asyncToGenerator3.default)(_regenerator2.default.mark(function _callee3() {
-            var response;
-            return _regenerator2.default.wrap(function _callee3$(_context3) {
-                while (1) {
-                    switch (_context3.prev = _context3.next) {
-                        case 0:
-                            _context3.next = 2;
-                            return _http2.default.put('/api/Manufacturer/Update', data).catch(function (e) {
-                                alert('ex found:' + e);
-                            });
-
-                        case 2:
-                            response = _context3.sent;
-
-                            console.log(response.data);
-                            return _context3.abrupt('return', response.data);
-
-                        case 5:
-                        case 'end':
-                            return _context3.stop();
-                    }
-                }
-            }, _callee3, _this3);
-        }))();
-    },
-    getManufacturersById: function getManufacturersById(id) {
-        var _this4 = this;
-
-        return (0, _asyncToGenerator3.default)(_regenerator2.default.mark(function _callee4() {
-            var response;
-            return _regenerator2.default.wrap(function _callee4$(_context4) {
-                while (1) {
-                    switch (_context4.prev = _context4.next) {
-                        case 0:
-                            _context4.next = 2;
-                            return _http2.default.get('/api/Manufacturer/GetById?id=' + id).catch(function (e) {
-                                alert('ex found:' + e);
-                            });
-
-                        case 2:
-                            response = _context4.sent;
-                            return _context4.abrupt('return', response.data);
-
-                        case 4:
-                        case 'end':
-                            return _context4.stop();
-                    }
-                }
-            }, _callee4, _this4);
-        }))();
-    },
-    deleteManufacturers: function deleteManufacturers(data) {
-        return _http2.default.post('/api/Manufacturer/UnPublish?id=' + data).then(function (response) {
-            console.log(response.data);
-            return response.data;
-        }).catch(function (e) {
-            alert('ex found:' + e);
-        });
-    },
-    getAllLanguageOption: function getAllLanguageOption() {
-        var _this5 = this;
-
-        return (0, _asyncToGenerator3.default)(_regenerator2.default.mark(function _callee5() {
-            var response;
-            return _regenerator2.default.wrap(function _callee5$(_context5) {
-                while (1) {
-                    switch (_context5.prev = _context5.next) {
-                        case 0:
-                            _context5.next = 2;
-                            return _http2.default.get('/api/Common/GetAllLanguageOptions').catch(function (e) {
-                                alert('ex found:' + e);
-                            });
-
-                        case 2:
-                            response = _context5.sent;
-                            return _context5.abrupt('return', response.data);
-
-                        case 4:
-                        case 'end':
-                            return _context5.stop();
-                    }
-                }
-            }, _callee5, _this5);
-        }))();
-    }
-};
-
-exports.default = manufacturersRepository;
 
 /***/ }),
 
-/***/ 1026:
+/***/ 1232:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -12125,222 +11965,13 @@ Object.defineProperty(exports, "__esModule", {
     value: true
 });
 
-var _regenerator = __webpack_require__(75);
+var _stringify = __webpack_require__(393);
 
-var _regenerator2 = _interopRequireDefault(_regenerator);
+var _stringify2 = _interopRequireDefault(_stringify);
 
-var _asyncToGenerator2 = __webpack_require__(74);
-
-var _asyncToGenerator3 = _interopRequireDefault(_asyncToGenerator2);
-
-var _http = __webpack_require__(4);
-
-var _http2 = _interopRequireDefault(_http);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-var productSpecificationTemplateRepository = {
-    getProductSpecificationTemplate: function getProductSpecificationTemplate(data) {
-        var _this = this;
-
-        return (0, _asyncToGenerator3.default)(_regenerator2.default.mark(function _callee() {
-            var response;
-            return _regenerator2.default.wrap(function _callee$(_context) {
-                while (1) {
-                    switch (_context.prev = _context.next) {
-                        case 0:
-                            _context.next = 2;
-                            return _http2.default.get('/api/productspecificationtemplate/get?pageIndex=' + data.pageIndex + '&pageSize=' + data.pageSize + '&keyword=' + data.title, {}).catch(function (e) {
-                                alert('ex found:' + e);
-                            });
-
-                        case 2:
-                            response = _context.sent;
-
-                            console.log(response);
-                            return _context.abrupt('return', response.data);
-
-                        case 5:
-                        case 'end':
-                            return _context.stop();
-                    }
-                }
-            }, _callee, _this);
-        }))();
-    },
-    addProductSpecificationTemplate: function addProductSpecificationTemplate(data) {
-        var _this2 = this;
-
-        return (0, _asyncToGenerator3.default)(_regenerator2.default.mark(function _callee2() {
-            var response;
-            return _regenerator2.default.wrap(function _callee2$(_context2) {
-                while (1) {
-                    switch (_context2.prev = _context2.next) {
-                        case 0:
-                            _context2.next = 2;
-                            return _http2.default.post('/api/productspecificationtemplate/Add', data).catch(function (e) {
-                                alert('ex found:' + e);
-                            });
-
-                        case 2:
-                            response = _context2.sent;
-
-                            console.log(response.data);
-                            return _context2.abrupt('return', response.data);
-
-                        case 5:
-                        case 'end':
-                            return _context2.stop();
-                    }
-                }
-            }, _callee2, _this2);
-        }))();
-    },
-    updateProductSpecificationTemplate: function updateProductSpecificationTemplate(data) {
-        var _this3 = this;
-
-        return (0, _asyncToGenerator3.default)(_regenerator2.default.mark(function _callee3() {
-            var response;
-            return _regenerator2.default.wrap(function _callee3$(_context3) {
-                while (1) {
-                    switch (_context3.prev = _context3.next) {
-                        case 0:
-                            _context3.next = 2;
-                            return _http2.default.put('/api/productspecificationtemplate/Update', data).catch(function (e) {
-                                alert('ex found:' + e);
-                            });
-
-                        case 2:
-                            response = _context3.sent;
-
-                            console.log(response.data);
-                            return _context3.abrupt('return', response.data);
-
-                        case 5:
-                        case 'end':
-                            return _context3.stop();
-                    }
-                }
-            }, _callee3, _this3);
-        }))();
-    },
-    getProductSpecificationTemplateById: function getProductSpecificationTemplateById(id) {
-        var _this4 = this;
-
-        return (0, _asyncToGenerator3.default)(_regenerator2.default.mark(function _callee4() {
-            var response;
-            return _regenerator2.default.wrap(function _callee4$(_context4) {
-                while (1) {
-                    switch (_context4.prev = _context4.next) {
-                        case 0:
-                            _context4.next = 2;
-                            return _http2.default.get('/api/productspecificationtemplate/GetById?id=' + id).catch(function (e) {
-                                alert('ex found:' + e);
-                            });
-
-                        case 2:
-                            response = _context4.sent;
-                            return _context4.abrupt('return', response.data);
-
-                        case 4:
-                        case 'end':
-                            return _context4.stop();
-                    }
-                }
-            }, _callee4, _this4);
-        }))();
-    },
-    deleteProductSpecificationTemplate: function deleteProductSpecificationTemplate(data) {
-        return _http2.default.post('/api/ProductSpecificationTemplate/unpublish?id=' + data).then(function (response) {
-            console.log(response.data);
-            return response.data;
-        }).catch(function (e) {
-            alert('ex found:' + e);
-        });
-    },
-    getAllLanguageOption: function getAllLanguageOption() {
-        var _this5 = this;
-
-        return (0, _asyncToGenerator3.default)(_regenerator2.default.mark(function _callee5() {
-            var response;
-            return _regenerator2.default.wrap(function _callee5$(_context5) {
-                while (1) {
-                    switch (_context5.prev = _context5.next) {
-                        case 0:
-                            _context5.next = 2;
-                            return _http2.default.get('/api/Common/GetAllLanguageOptions').catch(function (e) {
-                                alert('ex found:' + e);
-                            });
-
-                        case 2:
-                            response = _context5.sent;
-                            return _context5.abrupt('return', response.data);
-
-                        case 4:
-                        case 'end':
-                            return _context5.stop();
-                    }
-                }
-            }, _callee5, _this5);
-        }))();
-    },
-    getZoneArticle: function getZoneArticle() {
-        var _this6 = this;
-
-        return (0, _asyncToGenerator3.default)(_regenerator2.default.mark(function _callee6() {
-            var response;
-            return _regenerator2.default.wrap(function _callee6$(_context6) {
-                while (1) {
-                    switch (_context6.prev = _context6.next) {
-                        case 0:
-                            _context6.next = 2;
-                            return _http2.default.get('/api/Article/GetZoneArticle').catch(function (e) {
-                                alert('ex found:' + e);
-                            });
-
-                        case 2:
-                            response = _context6.sent;
-                            return _context6.abrupt('return', response.data);
-
-                        case 4:
-                        case 'end':
-                            return _context6.stop();
-                    }
-                }
-            }, _callee6, _this6);
-        }))();
-    }
-};
-
-exports.default = productSpecificationTemplateRepository;
-
-/***/ }),
-
-/***/ 1228:
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-    value: true
-});
-
-var _extends2 = __webpack_require__(7);
+var _extends2 = __webpack_require__(8);
 
 var _extends3 = _interopRequireDefault(_extends2);
-
-var _regenerator = __webpack_require__(75);
-
-var _regenerator2 = _interopRequireDefault(_regenerator);
-
-var _asyncToGenerator2 = __webpack_require__(74);
-
-var _asyncToGenerator3 = _interopRequireDefault(_asyncToGenerator2);
-
-var _axios = __webpack_require__(192);
-
-var _axios2 = _interopRequireDefault(_axios);
 
 __webpack_require__(796);
 
@@ -12354,20 +11985,6 @@ var _vueLoadingOverlay = __webpack_require__(376);
 
 var _vueLoadingOverlay2 = _interopRequireDefault(_vueLoadingOverlay);
 
-var _vueTreeselect = __webpack_require__(951);
-
-var _vueTreeselect2 = _interopRequireDefault(_vueTreeselect);
-
-__webpack_require__(953);
-
-var _manufacturerRepository = __webpack_require__(1023);
-
-var _manufacturerRepository2 = _interopRequireDefault(_manufacturerRepository);
-
-var _productSpecificationTemplateRepository = __webpack_require__(1026);
-
-var _productSpecificationTemplateRepository2 = _interopRequireDefault(_productSpecificationTemplateRepository);
-
 var _helper = __webpack_require__(950);
 
 var _list = __webpack_require__(1008);
@@ -12378,72 +11995,84 @@ var _eventBus = __webpack_require__(957);
 
 var _eventBus2 = _interopRequireDefault(_eventBus);
 
+__webpack_require__(953);
+
+var _vueTreeselect = __webpack_require__(951);
+
+var _vueTreeselect2 = _interopRequireDefault(_vueTreeselect);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 exports.default = {
-    name: "articleaddedit",
+    name: "configaddedit",
     data: function data() {
         return {
-            mikey1: 'mikey1',
 
-            editorData: '<p>Content of the editor.</p>',
+            mikey1: 'mikey1',
+            isLoading: false,
+            fullPage: false,
+            searchLanguageCode: "vi-VN",
+            searchKeyCode: "",
+            color: "#007bff",
+            currentSort: "Id",
+            currentSortDir: "asc",
+            loading: true,
+            configId: "",
+            objRequest: {
+                type: 3,
+                languageCode: 'vi-VN',
+                code: ""
+
+            },
+
             editorConfig: {
                 allowedContent: true,
                 extraPlugins: ""
+            },
 
+            IsChose: false,
+
+            IsDisabled: false,
+
+            objRequestDetail: {
+                Order: 255,
+                Image: "",
+                Title: "",
+                Url: "",
+                Description: ""
             },
-            disabled: false,
-            selectedFile: null,
-            preview: '/assets/img/unnamed.jpg',
-            previewImageFacebook: '/assets/img/unnamed.jpg',
-            isLoading: false,
-            fullPage: false,
-            color: "#007bff",
-            objRequest: {
-                Id: 0,
-                urlInLanguage: "",
-                name: "",
-                avatar: ""
-            },
-            LanguageCodes: [],
-            LanguageValues: null,
-            listManufacturersInLanguage: null
+            objRequestDetails: [],
+            langSelected: "",
+            Languages: [],
+            ConfigValueTypes: [],
+            KeyImg: -1,
+            ListCodeBanger: []
         };
     },
     created: function created() {
         var _this = this;
 
-        return (0, _asyncToGenerator3.default)(_regenerator2.default.mark(function _callee() {
-            var vm;
-            return _regenerator2.default.wrap(function _callee$(_context) {
-                while (1) {
-                    switch (_context.prev = _context.next) {
-                        case 0:
-                            vm = _this;
-
-                            _eventBus2.default.$on('FileSelected', function (value) {
-                                if (_this.choseImg == "avatar") {
-                                    vm.objRequest.avatar = value[0].path;
-                                }
-                            });
-                            _context.next = 4;
-                            return _productSpecificationTemplateRepository2.default.getAllLanguageOption();
-
-                        case 4:
-                            _this.LanguageCodes = _context.sent;
-
-                            _this.GetById();
-
-                        case 6:
-                        case "end":
-                            return _context.stop();
-                    }
+        var vm = this;
+        _eventBus2.default.$on('FileSelected', function (value) {
+            if (_this.KeyImg == 99999) {
+                debugger;
+                vm.objRequestDetail.Image = value[0].path;
+            } else {
+                if (_this.KeyImg >= 0) {
+                    vm.objRequestDetails[_this.KeyImg].Image = value[0].path;
                 }
-            }, _callee, _this);
-        }))();
-    },
-    destroyed: function destroyed() {
-        _eventBus2.default.$off('FileSelected');
+            }
+        });
+
+        this.getAllLanguages().then(function (respose) {
+            var lang = respose.listData;
+            _this.Languages = lang.map(function (item) {
+                return {
+                    value: item.languageCode.trim(),
+                    text: item.name
+                };
+            });
+        });
     },
 
     components: {
@@ -12451,247 +12080,169 @@ exports.default = {
         Treeselect: _vueTreeselect2.default,
         FileManager: _list2.default
     },
+    mounted: function mounted() {
+        var _this2 = this;
 
-    mounted: function mounted() {},
+        if (this.$route.params.code != null && this.$route.params.code.length > 0) {
+            this.IsDisabled = true;
+            this.objRequest.code = this.$route.params.code;
+            this.onChange();
+        };
 
-
-    computed: (0, _extends3.default)({}, (0, _vuex.mapGetters)(["article", "isOR", "fileName"]), {
-        slugM: function slugM() {
-            if (this.objRequest != null && this.objRequest != undefined) {
-                this.objRequest.urlInLanguage = (0, _helper.slug)(this.objRequest.name);
-            }
-        }
-    }),
-    watch: {
-        article: function article(val) {
-            this.objRequest = this.article;
-        }
+        this.getAllLanguages().then(function (respose) {
+            var lang = respose.listData;
+            _this2.Languages = lang.map(function (item) {
+                return {
+                    value: item.languageCode.trim(),
+                    text: item.name.trim()
+                };
+            });
+        });
     },
-    methods: (0, _extends3.default)({}, (0, _vuex.mapActions)(["updateArticle", "addArticle", "getArticle", "uploadFile"]), {
+
+
+    computed: (0, _extends3.default)({}, (0, _vuex.mapGetters)(["config"])),
+
+    methods: (0, _extends3.default)({}, (0, _vuex.mapActions)(["getBannerAds", "createBannerAds", "getAllLanguages", "getBannerByCode"]), {
+        removeSlide: function removeSlide(index) {
+            debugger;
+            this.objRequestDetails.splice(index, 1);
+        },
+        DoAdd: function DoAdd() {
+            this.objRequestDetails.push({
+                Order: 255,
+                Image: ""
+            });
+        },
         pathImgs: function pathImgs(path) {
             return (0, _helper.pathImg)(path);
         },
         openImg: function openImg(img) {
-            var _this2 = this;
-
-            return (0, _asyncToGenerator3.default)(_regenerator2.default.mark(function _callee2() {
-                return _regenerator2.default.wrap(function _callee2$(_context2) {
-                    while (1) {
-                        switch (_context2.prev = _context2.next) {
-                            case 0:
-                                _this2.choseImg = img;
-
-                                _eventBus2.default.$emit(_this2.mikey1, '');
-                            case 2:
-                            case "end":
-                                return _context2.stop();
-                        }
-                    }
-                }, _callee2, _this2);
-            }))();
+            this.KeyImg = img;
+            _eventBus2.default.$emit(this.mikey1, '');
         },
         DoAttackFile: function DoAttackFile(value) {
             var vm = this;
-            if (this.choseImg == "avatar") {
-                vm.objRequest.avatar = value[0].path;
+            if (this.KeyImg == 99999) {
+                debugger;
+                vm.objRequestDetail.Image = value[0].path;
+            } else {
+                if (this.KeyImg >= 0) {
+                    vm.objRequestDetails[this.KeyImg].Image = value[0].path;
+                }
             }
         },
-        GetById: function GetById() {
+        onChange: function onChange() {
             var _this3 = this;
 
-            return (0, _asyncToGenerator3.default)(_regenerator2.default.mark(function _callee3() {
-                var id, initial, response, listManufacturersInLanguage, i;
-                return _regenerator2.default.wrap(function _callee3$(_context3) {
-                    while (1) {
-                        switch (_context3.prev = _context3.next) {
-                            case 0:
-                                if (!(_this3.$route.params.id > 0)) {
-                                    _context3.next = 17;
-                                    break;
-                                }
+            debugger;
+            var key = this.objRequest.languageCode + "_" + this.objRequest.code;
+            this.getBannerAds(key).then(function (response) {
+                var data = response;
+                data.languageCode = _this3.objRequest.languageCode;
+                data.code = _this3.objRequest.code;
 
-                                id = _this3.$route.params.id;
+                _this3.objRequestDetails = JSON.parse(data.metaData);
 
-                                console.log(id);
-                                _this3.isLoading = true;
-                                initial = _this3.$route.query.initial;
-
-                                initial = typeof initial != "undefined" ? initial.toLowerCase() : "";
-                                _context3.next = 8;
-                                return _manufacturerRepository2.default.getManufacturersById(id);
-
-                            case 8:
-                                response = _context3.sent;
-
-                                console.log(response);
-                                _this3.objRequest.Id = response.manufacturers.id;
-                                _this3.objRequest.url = response.manufacturers.name;
-                                if (response.manufacturers.avatar != null && response.manufacturers.avatar != "") {
-                                    _this3.preview = response.manufacturers.avatar;
-                                    _this3.objRequest.avatar = response.manufacturers.avatar;
-                                }
-                                listManufacturersInLanguage = response.manufacturersInLanguages;
-
-                                _this3.listManufacturersInLanguage = listManufacturersInLanguage;
-                                for (i = 0; i < listManufacturersInLanguage.length; i++) {
-                                    _this3.LanguageValues = listManufacturersInLanguage[0].languageCode;
-                                    _this3.objRequest.urlInLanguage = listManufacturersInLanguage[0].url;
-                                    _this3.objRequest.name = listManufacturersInLanguage[0].name;
-                                    _this3.objRequest.LanguageCode = listManufacturersInLanguage[0].languageCode;
-                                }
-                                _this3.isLoading = false;
-
-                            case 17:
-                            case "end":
-                                return _context3.stop();
-                        }
-                    }
-                }, _callee3, _this3);
-            }))();
+                _this3.objRequest = data;
+            });
         },
         DoAddEdit: function DoAddEdit() {
             var _this4 = this;
 
-            return (0, _asyncToGenerator3.default)(_regenerator2.default.mark(function _callee4() {
-                var result;
-                return _regenerator2.default.wrap(function _callee4$(_context4) {
-                    while (1) {
-                        switch (_context4.prev = _context4.next) {
-                            case 0:
-                                _this4.isLoading = true;
-
-                                if (!(_this4.objRequest.Id > 0)) {
-                                    _context4.next = 9;
-                                    break;
-                                }
-
-                                _context4.next = 4;
-                                return _manufacturerRepository2.default.updateManufacturers(_this4.objRequest);
-
-                            case 4:
-                                result = _context4.sent;
-
-                                console.log(result);
-                                if (result.success == true) {
-                                    _this4.$toast.success("tạo thành công", {});
-                                    _this4.isLoading = false;
-                                    _this4.$router.go(-1);
-                                } else {
-                                    _this4.$router.go(-1);
-                                    _this4.$toast.error("cập nhật thất bại", {});
-                                    _this4.isLoading = false;
-                                }
-                                _context4.next = 14;
-                                break;
-
-                            case 9:
-                                _context4.next = 11;
-                                return _manufacturerRepository2.default.addManufacturers(_this4.objRequest);
-
-                            case 11:
-                                result = _context4.sent;
-
-                                console.log(result);
-                                if (result.success == true) {
-                                    _this4.$toast.success("tạo thành công", {});
-                                    _this4.isLoading = false;
-                                    _this4.$router.go(-1);
-                                } else {
-                                    _this4.$router.go(-1);
-                                    _this4.$toast.error("cập nhật thất bại", {});
-                                    _this4.isLoading = false;
-                                }
-
-                            case 14:
-                            case "end":
-                                return _context4.stop();
+            this.isLoading = true;
+            if (this.objRequest.type > 0) {
+                if (this.objRequest.type > 1) {
+                    this.objRequest.metaData = (0, _stringify2.default)(this.objRequestDetails);
+                } else {
+                    this.objRequest.metaData = (0, _stringify2.default)(this.objRequestDetail);
+                }
+                this.createBannerAds(this.objRequest).then(function (response) {
+                    debugger;
+                    if (response.key == true) {
+                        if (_this4.IsChose) {
+                            if (_this4.ListCodeBanger.some(function (x) {
+                                return x.key != _this4.objRequest.code;
+                            })) {
+                                _this4.ListCodeBanger.push({
+                                    key: _this4.objRequest.code,
+                                    value: _this4.objRequest.code
+                                });
+                            }
                         }
+
+                        _this4.$toast.success(response.value, {});
+                        _this4.isLoading = false;
+                    } else {
+                        _this4.$toast.error(response.value, {});
+                        _this4.isLoading = false;
                     }
-                }, _callee4, _this4);
-            }))();
+                }).catch(function (e) {
+                    _this4.$toast.error(_constant2.default.error + ". Error:" + e, {});
+                    _this4.isLoading = false;
+                });
+            } else {
+                this.$toast.error("Bạn chưa chọn loại", {});
+                this.isLoading = false;
+            }
         },
-        DoRefesh: function DoRefesh() {
-            this.objRequest.Title = "";
+        onChangeSelectd: function onChangeSelectd() {
+            if (this.objRequestDetails != null && this.objRequestDetails.length > 0) {
+                var lang = this.langSelected || "vi-VN";
+                var lstObjLang = this.objRequestDetails.filter(function (item) {
+                    return item.languageCode.trim() === lang.trim();
+                });
+                if (lstObjLang != null && lstObjLang != undefined && lstObjLang.length > 0) {
+                    this.objRequestDetail = lstObjLang[0];
+                } else {
+                    this.objRequestDetail = {};
+                    this.objRequestDetail.languageCode = lang;
+                }
+            } else {
+                var _lang = this.langSelected;
+                this.objRequestDetail = {};
+                this.objRequestDetail.languageCode = _lang;
+            }
         },
-        openUpload: function openUpload() {
-            document.getElementById('file-field').click();
-        },
-        updatePreview: function updatePreview(e) {
+        DoAddDetail: function DoAddDetail() {
             var _this5 = this;
 
-            var reader,
-                files = e.target.files;
-            if (files.length === 0) {
-                console.log('Empty');
-            }
-            this.selectedFile = files[0];
-            reader = new FileReader();
-            var data = new FormData();
-            for (var x = 0; x < files.length; x++) {
-                data.append("file" + x, files[x]);
-            }
-            this.uploadFile(data).then(function (response) {
+            this.objRequestDetail.ConfigGroupKey = this.configId;
+            this.addConfigInLanguage(this.objRequestDetail).then(function (response) {
                 if (response.success == true) {
-                    reader.onload = function (e) {
-                        _this5.preview = e.target.result;
-                        console.log(_this5.selectedFile);
-                        _this5.objRequest.avatar = response.linkImage;
-                    };
-                    reader.readAsDataURL(files[0]);
+
+                    if (!_this5.objRequestDetails.some(function (x) {
+                        return x.languageCode == _this5.objRequestDetail.languageCode;
+                    })) {
+                        _this5.objRequestDetails.push(_this5.objRequestDetail);
+                    }
+                    _this5.$toast.success(response.message, {});
                 } else {
-                    _this5.$toast.error(_constant2.default.error + ". Error:" + e, {});
-                    _this5.isLoading = false;
+                    _this5.$toast.error(response.message, {});
                 }
             }).catch(function (e) {
                 _this5.$toast.error(_constant2.default.error + ". Error:" + e, {});
                 _this5.isLoading = false;
             });
-        },
-        getSelectedUser: function getSelectedUser(node, id) {
-            this.objRequest.ZoneId = node.id;
-        },
-        getSelectedLanguge: function getSelectedLanguge(node, id) {
-            this.LanguageValues = node.id;
-            this.objRequest.LanguageCode = node.id;
-            if (this.listManufacturersInLanguage != null) {
-                for (var i = 0; i < this.listManufacturersInLanguage.length; i++) {
-                    if (node.id == this.listManufacturersInLanguage[i].languageCode) {
-                        this.LanguageValues = this.listManufacturersInLanguage[i].languageCode;
-                        this.objRequest.urlInLanguage = this.listManufacturersInLanguage[i].url;
-                        this.objRequest.name = this.listManufacturersInLanguage[i].name;
-                        this.objRequest.LanguageCode = this.listManufacturersInLanguage[i].languageCode;
-                        break;
-                    } else {
-                        this.objRequest.urlInLanguage = "";
-                        this.objRequest.name = "";
-                        this.objRequest.LanguageCode = node.id;
-                    }
-                }
-            }
-            console.log(this.LanguageValues);
-        },
-
-        onChangeList: function onChangeList(_ref) {
-            var source = _ref.source,
-                destination = _ref.destination;
-
-            this.ProductOptionsSource = source;
-            this.ProductOptionsDestination = destination;
         }
-    })
+    }),
+
+    watch: {
+        'objRequest.languageCode': function objRequestLanguageCode(newVal) {
+            this.onChange();
+        }
+
+    }
 };
 
 /***/ }),
 
-/***/ 1522:
+/***/ 1583:
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
   return _c('div', {
-    staticStyle: {
-      "display": "flex",
-      "width": "100%"
-    }
+    staticClass: "productadd"
   }, [_c('loading', {
     attrs: {
       "active": _vm.isLoading,
@@ -12705,170 +12256,69 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         _vm.isLoading = $event
       }
     }
-  }), _vm._v(" "), _c('b-tabs', {
-    staticClass: "col-md-12",
-    attrs: {
-      "pills": ""
-    }
-  }, [_c('b-tab', {
-    attrs: {
-      "title": "1. Nhập thông tin nhà cung cấp",
-      "active": ""
-    }
-  }, [_c('div', {
+  }), _vm._v(" "), _c('div', {
     staticClass: "row productedit"
   }, [_c('div', {
-    staticClass: "col-md-12"
-  }, [_c('b-card', {
-    staticClass: "mt-3 ",
-    attrs: {
-      "header": "Thêm / Sửa nhà cung cấp"
-    }
+    staticClass: "col-sm-12 col-md-12"
+  }, [_c('div', {
+    staticClass: "card"
+  }, [_c('div', {
+    staticClass: "card-header"
+  }, [_vm._v("\n                    Thông tin cấu hình Banner\n                ")]), _vm._v(" "), _c('div', {
+    staticClass: "card-body"
   }, [_c('b-form', {
     staticClass: "form-horizontal"
   }, [_c('div', {
     staticClass: "row"
   }, [_c('div', {
-    staticClass: "col-md-5 col-xs-12"
+    staticClass: "col-md-3 col-xs-12"
   }, [_c('b-form-group', {
     attrs: {
-      "label": "Tên nhà cung cấp"
+      "label": "Ngôn ngữ"
     }
-  }, [_c('b-form-input', {
+  }, [_c('b-form-select', {
     attrs: {
-      "placeholder": "Tên nhà cung cấp",
-      "required": ""
-    },
-    on: {
-      "keyup": function($event) {
-        if (!$event.type.indexOf('key') && $event.keyCode !== 13) { return null; }
-        return _vm.slugM($event)
-      }
+      "options": _vm.Languages
     },
     model: {
-      value: (_vm.objRequest.url),
+      value: (_vm.objRequest.languageCode),
       callback: function($$v) {
-        _vm.$set(_vm.objRequest, "url", $$v)
+        _vm.$set(_vm.objRequest, "languageCode", $$v)
       },
-      expression: "objRequest.url"
+      expression: "objRequest.languageCode"
     }
-  })], 1), _vm._v(" "), _c('b-form-group', {
-    attrs: {
-      "label": "Hình đại diện"
-    }
-  }, [_c('a', {
-    on: {
-      "click": function($event) {
-        return _vm.openImg('avatar')
-      }
-    }
-  }, [_c('div', {
-    staticClass: "gallery-upload-file ui-sortable",
-    staticStyle: {
-      "width": "30%",
-      "display": "flex"
-    }
-  }, [_c('div', {
-    staticClass: " r-queue-item ui-sortable-handle",
-    staticStyle: {
-      "width": "100%",
-      "height": "auto",
-      "margin": "0"
-    }
-  }, [(_vm.objRequest.avatar != null && _vm.objRequest.avatar != undefined && _vm.objRequest.avatar.length > 0) ? _c('div', {
-    staticStyle: {
-      "width": "100%"
-    }
-  }, [_c('img', {
-    staticClass: "preview-image img-thumbnail-full",
-    staticStyle: {
-      "height": "auto",
-      "width": "100%"
-    },
-    attrs: {
-      "alt": "Ảnh lỗi",
-      "src": _vm.pathImgs(_vm.objRequest.avatar)
-    }
-  })]) : _c('div', [_c('i', {
-    staticClass: "fa fa-picture-o"
-  }), _vm._v(" "), _c('p', [_vm._v("[Chọn ảnh]")])])])])])])], 1), _vm._v(" "), _c('div', {
+  })], 1)], 1), _vm._v(" "), _c('div', {
     staticClass: "col-md-7"
   }, [_c('div', {
-    staticClass: "col-md-8"
-  }, [_c('b-form-group', {
+    staticClass: "form-group"
+  }, [_c('label', [_vm._v("Nhập mã chinh sách (Có định dạng chữ không dấu)")]), _vm._v(" "), _c('input', {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: (_vm.objRequest.code),
+      expression: "objRequest.code"
+    }],
+    staticClass: "form-control",
     attrs: {
-      "label": "Chọn ngôn ngữ"
-    }
-  }, [_c('treeselect', {
-    attrs: {
-      "options": _vm.LanguageCodes,
-      "disable-branch-nodes": true,
-      "default-expanded-level": Infinity,
-      "disabled": _vm.disabled,
-      "placeholder": "Xin mời bạn lựa chọn ngôn ngữ"
+      "disabled": _vm.IsDisabled,
+      "placeholder": "Nhập mã code không dấu"
+    },
+    domProps: {
+      "value": (_vm.objRequest.code)
     },
     on: {
-      "select": _vm.getSelectedLanguge
-    },
-    model: {
-      value: (_vm.LanguageValues),
-      callback: function($$v) {
-        _vm.LanguageValues = $$v
-      },
-      expression: "LanguageValues"
-    }
-  })], 1)], 1), _vm._v(" "), _c('div', {
-    staticClass: "col-md-12"
-  }, [_c('b-form-group', {
-    attrs: {
-      "label": "Tên theo ngôn ngữ"
-    }
-  }, [_c('b-form-input', {
-    attrs: {
-      "placeholder": "Tên nhà cung cấp",
-      "required": ""
-    },
-    on: {
-      "keyup": function($event) {
-        if (!$event.type.indexOf('key') && $event.keyCode !== 13) { return null; }
-        return _vm.slugM($event)
+      "input": function($event) {
+        if ($event.target.composing) { return; }
+        _vm.$set(_vm.objRequest, "code", $event.target.value)
       }
-    },
-    model: {
-      value: (_vm.objRequest.name),
-      callback: function($$v) {
-        _vm.$set(_vm.objRequest, "name", $$v)
-      },
-      expression: "objRequest.name"
     }
-  })], 1)], 1), _vm._v(" "), _c('div', {
-    staticClass: "col-md-12"
-  }, [_c('b-form-group', {
-    attrs: {
-      "label": "Đường dẫn"
-    }
-  }, [_c('b-form-input', {
-    attrs: {
-      "placeholder": "Url",
-      "required": ""
-    },
-    model: {
-      value: (_vm.objRequest.urlInLanguage),
-      callback: function($$v) {
-        _vm.$set(_vm.objRequest, "urlInLanguage", $$v)
-      },
-      expression: "objRequest.urlInLanguage"
-    }
-  })], 1)], 1), _vm._v(" "), _c('div', {
-    staticClass: "col-md-12"
-  }, [_c('div', {
-    staticClass: "mt-3"
-  }, [_c('div', {
-    staticClass: "row"
-  }, [_c('div', {
-    staticClass: "col-md-6"
+  })])]), _vm._v(" "), _c('div', {
+    staticClass: "col-md-2 col-xs-12"
   }, [_c('button', {
-    staticClass: "btn btn-info btn-submit-form col-md-12 btncus",
+    staticClass: "btn btn-info btn-submit-form",
+    staticStyle: {
+      "margin-top": "32px"
+    },
     attrs: {
       "type": "button"
     },
@@ -12879,21 +12329,172 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }
   }, [_c('i', {
     staticClass: "fa fa-save"
-  }), _vm._v(" Cập nhật\n                                                    ")])]), _vm._v(" "), _c('div', {
-    staticClass: "col-md-6"
+  }), _vm._v(" Cập nhật\n                                ")])])]), _vm._v(" "), _c('div', {
+    staticClass: "row",
+    staticStyle: {
+      "margin-bottom": "20px"
+    }
+  }, [_c('div', {
+    staticClass: "col-md-12"
   }, [_c('button', {
-    staticClass: "btn btn-success col-md-12 btncus",
+    staticClass: "btn btn-success",
     attrs: {
       "type": "button"
     },
     on: {
       "click": function($event) {
-        return _vm.DoRefesh()
+        return _vm.DoAdd()
       }
     }
-  }, [_c('i', {
-    staticClass: "fa fa-refresh"
-  }), _vm._v(" Làm mới\n                                                    ")])])])])])])])])], 1)], 1)])])], 1), _vm._v(" "), _c('FileManager', {
+  }, [_vm._v("\n                                    Thêm mới\n                                ")])])]), _vm._v(" "), _vm._l((_vm.objRequestDetails), function(item, index) {
+    return _c('div', {
+      staticClass: "row",
+      staticStyle: {
+        "position": "relative",
+        "border": "2px dashed #dcd6d6",
+        "padding": "20px",
+        "margin": "0"
+      }
+    }, [_c('i', {
+      staticClass: "fa fa-remove",
+      staticStyle: {
+        "cursor": "pointer",
+        "font-size": "30px",
+        "color": "red",
+        "position": "absolute",
+        "top": "0",
+        "left": "5px"
+      },
+      on: {
+        "click": function($event) {
+          return _vm.removeSlide(index)
+        }
+      }
+    }), _vm._v(" "), _c('div', {
+      staticClass: "col-md-9"
+    }, [_c('b-form-group', {
+      attrs: {
+        "label": "Mô tả ngắn"
+      }
+    }, [_c('ckeditor', {
+      attrs: {
+        "tag-name": "textarea",
+        "config": _vm.editorConfig
+      },
+      model: {
+        value: (item.Description),
+        callback: function($$v) {
+          _vm.$set(item, "Description", $$v)
+        },
+        expression: "item.Description"
+      }
+    })], 1)], 1), _vm._v(" "), _c('div', {
+      staticClass: "col-md-3"
+    }, [_c('div', {
+      staticClass: "col-md-12"
+    }, [_c('b-form-group', {
+      attrs: {
+        "label": "Thứ tự"
+      }
+    }, [_c('b-form-input', {
+      attrs: {
+        "type": "number",
+        "placeholder": "Thứ tự"
+      },
+      model: {
+        value: (item.Order),
+        callback: function($$v) {
+          _vm.$set(item, "Order", $$v)
+        },
+        expression: "item.Order"
+      }
+    })], 1)], 1), _vm._v(" "), _c('div', {
+      staticClass: "col-md-12"
+    }, [_c('div', {
+      staticStyle: {
+        "cursor": "pointer"
+      },
+      on: {
+        "click": function($event) {
+          return _vm.openImg(index)
+        }
+      }
+    }, [_c('div', {
+      staticClass: "gallery-upload-file ui-sortable",
+      staticStyle: {
+        "width": "100%",
+        "display": "flex"
+      }
+    }, [_c('div', {
+      staticClass: " r-queue-item ui-sortable-handle",
+      staticStyle: {
+        "width": "100%",
+        "height": "auto",
+        "margin": "0"
+      }
+    }, [(item.Image != null && item.Image != undefined && item.Image.length > 0) ? _c('div', {
+      staticStyle: {
+        "width": "100%"
+      }
+    }, [_c('img', {
+      staticStyle: {
+        "height": "100px",
+        "width": "100%"
+      },
+      attrs: {
+        "alt": "Ảnh lỗi",
+        "src": _vm.pathImgs(item.Image)
+      }
+    })]) : _c('div', [_c('i', {
+      staticClass: "fa fa-picture-o"
+    }), _vm._v(" "), _c('p', [_vm._v("[Chọn ảnh]")])])])])])]), _vm._v(" "), _c('div', {
+      staticClass: "col-md-12"
+    }, [_c('label', [_vm._v("Hiển thị")]), _vm._v(" "), _c('label', {
+      staticClass: "switch switch-outline-primary-alt ",
+      staticStyle: {
+        "padding-top": "15px",
+        "padding-left": "10px"
+      }
+    }, [_c('input', {
+      directives: [{
+        name: "model",
+        rawName: "v-model",
+        value: (item.Show),
+        expression: "item.Show"
+      }],
+      staticClass: "switch-input",
+      attrs: {
+        "type": "checkbox",
+        "checked": ""
+      },
+      domProps: {
+        "checked": Array.isArray(item.Show) ? _vm._i(item.Show, null) > -1 : (item.Show)
+      },
+      on: {
+        "change": function($event) {
+          var $$a = item.Show,
+            $$el = $event.target,
+            $$c = $$el.checked ? (true) : (false);
+          if (Array.isArray($$a)) {
+            var $$v = null,
+              $$i = _vm._i($$a, $$v);
+            if ($$el.checked) {
+              $$i < 0 && (_vm.$set(item, "Show", $$a.concat([$$v])))
+            } else {
+              $$i > -1 && (_vm.$set(item, "Show", $$a.slice(0, $$i).concat($$a.slice($$i + 1))))
+            }
+          } else {
+            _vm.$set(item, "Show", $$c)
+          }
+        }
+      }
+    }), _vm._v(" "), _c('span', {
+      staticClass: "switch-slider",
+      staticStyle: {
+        "width": "40px"
+      }
+    })])])])])
+  })], 2), _vm._v(" "), _vm._m(0)], 1)])])]), _vm._v(" "), _c('FileManager', {
     attrs: {
       "miKey": _vm.mikey1
     },
@@ -12901,31 +12502,70 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       "handleAttackFile": _vm.DoAttackFile
     }
   })], 1)
-},staticRenderFns: []}
+},staticRenderFns: [function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('div', {
+    staticClass: "row"
+  }, [_c('div', {
+    staticClass: "col-md-3"
+  }), _vm._v(" "), _c('div', {
+    staticClass: "col-md-3"
+  })])
+}]}
 module.exports.render._withStripped = true
 if (true) {
   module.hot.accept()
   if (module.hot.data) {
-     __webpack_require__(178).rerender("data-v-1242baed", module.exports)
+     __webpack_require__(178).rerender("data-v-ce8ed728", module.exports)
   }
 }
 
 /***/ }),
 
-/***/ 756:
+/***/ 1628:
 /***/ (function(module, exports, __webpack_require__) {
+
+// style-loader: Adds some css to the DOM by adding a <style> tag
+
+// load the styles
+var content = __webpack_require__(1116);
+if(typeof content === 'string') content = [[module.i, content, '']];
+if(content.locals) module.exports = content.locals;
+// add the styles to the DOM
+var update = __webpack_require__(801)("4f69d2ac", content, false);
+// Hot Module Replacement
+if(true) {
+ // When the styles change, update the <style> tags
+ if(!content.locals) {
+   module.hot.accept(1116, function() {
+     var newContent = __webpack_require__(1116);
+     if(typeof newContent === 'string') newContent = [[module.i, newContent, '']];
+     update(newContent);
+   });
+ }
+ // When the module is disposed, remove the <style> tags
+ module.hot.dispose(function() { update(); });
+}
+
+/***/ }),
+
+/***/ 760:
+/***/ (function(module, exports, __webpack_require__) {
+
+
+/* styles */
+__webpack_require__(1628)
 
 var Component = __webpack_require__(374)(
   /* script */
-  __webpack_require__(1228),
+  __webpack_require__(1232),
   /* template */
-  __webpack_require__(1522),
+  __webpack_require__(1583),
   /* scopeId */
   null,
   /* cssModules */
   null
 )
-Component.options.__file = "D:\\Code\\WORKING\\dotnet-platform-backend\\Web\\Platform\\CMS\\PlatformCMS\\ClientApp\\pages\\manufacturer\\edit.vue"
+Component.options.__file = "D:\\Code\\WORKING\\dotnet-platform-backend\\Web\\Platform\\CMS\\PlatformCMS\\ClientApp\\pages\\policy\\edit.vue"
 if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
 if (Component.options.functional) {console.error("[vue-loader] edit.vue: functional components are not supported with templates, they should use render functions.")}
 
@@ -12936,9 +12576,9 @@ if (true) {(function () {
   if (!hotAPI.compatible) return
   module.hot.accept()
   if (!module.hot.data) {
-    hotAPI.createRecord("data-v-1242baed", Component.options)
+    hotAPI.createRecord("data-v-ce8ed728", Component.options)
   } else {
-    hotAPI.reload("data-v-1242baed", Component.options)
+    hotAPI.reload("data-v-ce8ed728", Component.options)
   }
 })()}
 
@@ -13447,7 +13087,7 @@ exports.f = {}.propertyIsEnumerable;
 
 /***/ }),
 
-/***/ 811:
+/***/ 946:
 /***/ (function(module, exports, __webpack_require__) {
 
 var global = __webpack_require__(22);
@@ -19452,7 +19092,7 @@ exports.f = __webpack_require__(17);
 
 /***/ }),
 
-/***/ 997:
+/***/ 998:
 /***/ (function(module, exports, __webpack_require__) {
 
 var pIE = __webpack_require__(810);
@@ -19478,7 +19118,7 @@ exports.f = __webpack_require__(59) ? gOPD : function getOwnPropertyDescriptor(O
 /***/ 999:
 /***/ (function(module, exports) {
 
-module.exports = {"AppSettings":{"Debug":true,"Version":"1.0.0.0","Domain":"http://demo.way2go.vn","UploadFolder":"uploads","FileUploadMaxSize":5000,"FileUploadSubFix":false,"ImageScaleWidth":300,"ImageScaleHeight":0,"ImageAllowUpload":".jpg,.jpeg,.png,.gif,.bit,.webp,.svg","DocumentAllowUpload":".doc,.docx,.pdf,.xls,.xlsx,.zip,.rar","FoderImg":"https://platformcms.hndedu.com","BaseDomain":"https://demo.way2go.vn","CacheEnable":"0","ESEnable":true,"NodeES":"http://127.0.0.1:9200","IndexES":"product_suggest"},"Redis":{"ConnectionString":"127.0.0.1:6379","DefaultDatabase":1,"InstanceName":"PLM_","CachingExpireMinute":3},"ConnectionStrings":{"DefaultConnection":"Server=103.184.112.82;Database=JT_DEV_2;Trusted_Connection=False;User Id=sa;password=EcaOicT35K%EC1"},"Cors":{"WithOrigin":"http://localhost:60099/"},"Logging":{"IncludeScopes":false,"LogLevel":{"Default":"Debug","System":"Information","Microsoft":"Information"}},"Tokens":{"Key":"0123456789ABCDEF","Issuer":"https://janhome.vn/"},"EmailSender":{"Host":"mail247.vn","Port":465,"CustomerService":{"Email":"cs@joytime.vn","Password":"D2A9HnvGMJYW3BeKQw5f4F"},"SupplierService":{"Email":"partner@joytime.vn","Password":"SL9QgKGtjCNUcbr7uXdWPY"},"HelpDesk":{"Email":"helpdesk@joytime.vn","Password":"jaR548durV2tpFCkX6qENx"},"BookingService":{"Email":"booking@joytime.vn","Password":"zydcpPBfEHeM7u9DU6XLVT"}}}
+module.exports = {"AppSettings":{"Debug":true,"Version":"1.0.0.0","Domain":"http://demo.way2go.vn","UploadFolder":"uploads","FileUploadMaxSize":5000,"FileUploadSubFix":false,"ImageScaleWidth":300,"ImageScaleHeight":0,"ImageAllowUpload":".jpg,.jpeg,.png,.gif,.bit,.webp,.svg","DocumentAllowUpload":".doc,.docx,.pdf,.xls,.xlsx,.zip,.rar","FoderImg":"https://platformcms.hndedu.com","BaseDomain":"https://demo.way2go.vn","CacheEnable":"0","ESEnable":true,"NodeES":"http://127.0.0.1:9200","IndexES":"product_suggest"},"Redis":{"ConnectionString":"127.0.0.1:6379","DefaultDatabase":1,"InstanceName":"PLM_","CachingExpireMinute":3},"ConnectionStrings":{"DefaultConnection":"Server=103.184.112.82;Database=PlatformRelease2;Trusted_Connection=False;User Id=sa;password=EcaOicT35K%EC1"},"Cors":{"WithOrigin":"http://localhost:60099/"},"Logging":{"IncludeScopes":false,"LogLevel":{"Default":"Debug","System":"Information","Microsoft":"Information"}},"Tokens":{"Key":"0123456789ABCDEF","Issuer":"https://janhome.vn/"},"EmailSender":{"Host":"mail247.vn","Port":465,"CustomerService":{"Email":"cs@joytime.vn","Password":"D2A9HnvGMJYW3BeKQw5f4F"},"SupplierService":{"Email":"partner@joytime.vn","Password":"SL9QgKGtjCNUcbr7uXdWPY"},"HelpDesk":{"Email":"helpdesk@joytime.vn","Password":"jaR548durV2tpFCkX6qENx"},"BookingService":{"Email":"booking@joytime.vn","Password":"zydcpPBfEHeM7u9DU6XLVT"}}}
 
 /***/ })
 

@@ -287,7 +287,7 @@ __webpack_require__(1037)('freeze', function ($freeze) {
 
 /***/ }),
 
-/***/ 1265:
+/***/ 1271:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -309,7 +309,7 @@ var _asyncToGenerator2 = __webpack_require__(74);
 
 var _asyncToGenerator3 = _interopRequireDefault(_asyncToGenerator2);
 
-var _extends2 = __webpack_require__(7);
+var _extends2 = __webpack_require__(8);
 
 var _extends3 = _interopRequireDefault(_extends2);
 
@@ -347,9 +347,9 @@ var _actionsConstant2 = _interopRequireDefault(_actionsConstant);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-var fields = [{ key: "Name", label: "Tên nhóm người dùng", sortable: true }, { key: "Action", label: "Thao tác" }];
+var fields = [{ key: "User", label: "Tên tài khoản", sortable: true }, { key: "FullName", label: "Tên người dùng", sortable: true }, { key: "Action", label: "Thao tác" }];
 exports.default = (0, _defineProperty3.default)({
-    name: "Role",
+    name: "User",
     components: {
         Loading: _vueLoadingOverlay2.default
     },
@@ -380,7 +380,7 @@ exports.default = (0, _defineProperty3.default)({
                 next: "Next",
                 last: "Last"
             },
-            listRole: null,
+            listUser: null,
             items: null,
             currentUser: null,
             permissionAdd: false,
@@ -388,7 +388,7 @@ exports.default = (0, _defineProperty3.default)({
         };
     },
 
-    methods: (0, _extends3.default)({}, (0, _vuex.mapActions)(["getPageRole", "deleteRole"]), {
+    methods: (0, _extends3.default)({}, (0, _vuex.mapActions)(["getPageUser", "lockUser"]), {
         onChangePaging: function onChangePaging() {
             var _this = this;
 
@@ -403,7 +403,7 @@ exports.default = (0, _defineProperty3.default)({
 
                                 initial = typeof initial != "undefined" ? initial.toLowerCase() : "";
                                 _context.next = 5;
-                                return _this.getPageRole({
+                                return _this.getPageUser({
                                     initial: initial,
                                     pageIndex: _this.currentPage,
                                     pageSize: _this.pageSize,
@@ -411,11 +411,11 @@ exports.default = (0, _defineProperty3.default)({
                                 });
 
                             case 5:
-                                _this.listRole = _context.sent;
+                                _this.listUser = _context.sent;
 
-                                console.log(_this.listRole);
-                                _this.totalRow = _this.listRole.totalRow;
-                                _this.items = _this.listRole.items;
+                                console.log(_this.listUser);
+                                _this.totalRow = _this.listUser.totalRow;
+                                _this.items = _this.listUser.items;
                                 _this.isLoading = false;
 
                             case 10:
@@ -429,8 +429,8 @@ exports.default = (0, _defineProperty3.default)({
         remove: function remove(item) {
             var _this2 = this;
 
-            if (confirm("Bạn có thực sự muốn xoá?")) {
-                this.deleteRole(item).then(function (response) {
+            if (confirm("Bạn có thực sự muốn khóa?")) {
+                this.lockUser(item).then(function (response) {
                     console.log(response);
                     if (response.success == true) {
                         _this2.$toast.success(response.message, {});
@@ -515,7 +515,7 @@ exports.default = (0, _defineProperty3.default)({
 
 /***/ }),
 
-/***/ 1557:
+/***/ 1582:
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
@@ -615,7 +615,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
   })], 1)]), _vm._v(" "), _c('div', {
     staticClass: "table-responsive"
   }, [_c('table', {
-    staticClass: "table table-centered data-thumb-view dataTable no-footer table-nowrap"
+    staticClass: "table data-thumb-view dataTable no-footer table-centered table-nowrap"
   }, [_c('thead', {
     staticClass: "thead-dark table table-centered table-nowrap"
   }, [_c('tr', _vm._l((_vm.fields), function(field) {
@@ -632,11 +632,13 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
           field.sortable ? _vm.sortor(field.key) : null
         }
       }
-    }, [_vm._v(_vm._s(field.label) + "\n                    ")])
+    }, [_vm._v("\n                            " + _vm._s(field.label) + "\n                        ")])
   }), 0)]), _vm._v(" "), _c('tbody', _vm._l((this.items), function(item) {
     return _c('tr', [_c('td', {
       staticClass: "text-center"
-    }, [_vm._v(_vm._s(item.name))]), _vm._v(" "), _c('td', {
+    }, [_vm._v(_vm._s(item.userName))]), _vm._v(" "), _c('td', {
+      staticClass: "text-center"
+    }, [_vm._v(_vm._s(item.fullName))]), _vm._v(" "), _c('td', {
       staticClass: "text-center"
     }, [(item.name != 'Admin') ? _c('router-link', {
       attrs: {
@@ -653,7 +655,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         }
       }],
       attrs: {
-        "title": "Sửa nhóm người dùng"
+        "title": "Sửa người dùng"
       }
     }, [_c('i', {
       staticClass: "fa fa-edit",
@@ -663,7 +665,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     })])]) : _vm._e(), _vm._v(" "), (item.name != 'Admin') ? _c('router-link', {
       attrs: {
         "to": {
-          path: 'assignPermissionRole/' + item.id
+          path: 'assignRole/' + item.id
         }
       }
     }, [_c('span', {
@@ -675,7 +677,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         }
       }],
       attrs: {
-        "title": "Thêm quyền nhóm người dùng"
+        "title": "Thêm nhóm người dùng"
       }
     }, [_c('i', {
       staticClass: "fa fa-users",
@@ -691,7 +693,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         }
       }],
       attrs: {
-        "title": "Hạ nhóm người dùng"
+        "title": "Khóa người dùng"
       },
       on: {
         "click": function($event) {
@@ -710,26 +712,26 @@ module.exports.render._withStripped = true
 if (true) {
   module.hot.accept()
   if (module.hot.data) {
-     __webpack_require__(178).rerender("data-v-59f6bd7c", module.exports)
+     __webpack_require__(178).rerender("data-v-cc7f7c72", module.exports)
   }
 }
 
 /***/ }),
 
-/***/ 785:
+/***/ 791:
 /***/ (function(module, exports, __webpack_require__) {
 
 var Component = __webpack_require__(374)(
   /* script */
-  __webpack_require__(1265),
+  __webpack_require__(1271),
   /* template */
-  __webpack_require__(1557),
+  __webpack_require__(1582),
   /* scopeId */
   null,
   /* cssModules */
   null
 )
-Component.options.__file = "D:\\Code\\WORKING\\dotnet-platform-backend\\Web\\Platform\\CMS\\PlatformCMS\\ClientApp\\pages\\role\\list.vue"
+Component.options.__file = "D:\\Code\\WORKING\\dotnet-platform-backend\\Web\\Platform\\CMS\\PlatformCMS\\ClientApp\\pages\\user\\list.vue"
 if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
 if (Component.options.functional) {console.error("[vue-loader] list.vue: functional components are not supported with templates, they should use render functions.")}
 
@@ -740,9 +742,9 @@ if (true) {(function () {
   if (!hotAPI.compatible) return
   module.hot.accept()
   if (!module.hot.data) {
-    hotAPI.createRecord("data-v-59f6bd7c", Component.options)
+    hotAPI.createRecord("data-v-cc7f7c72", Component.options)
   } else {
-    hotAPI.reload("data-v-59f6bd7c", Component.options)
+    hotAPI.reload("data-v-cc7f7c72", Component.options)
   }
 })()}
 

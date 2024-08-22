@@ -214,7 +214,7 @@ var setToStringTag = __webpack_require__(112);
 var uid = __webpack_require__(109);
 var wks = __webpack_require__(17);
 var wksExt = __webpack_require__(996);
-var wksDefine = __webpack_require__(811);
+var wksDefine = __webpack_require__(946);
 var enumKeys = __webpack_require__(1010);
 var isArray = __webpack_require__(187);
 var anObject = __webpack_require__(36);
@@ -225,7 +225,7 @@ var toPrimitive = __webpack_require__(380);
 var createDesc = __webpack_require__(108);
 var _create = __webpack_require__(388);
 var gOPNExt = __webpack_require__(1009);
-var $GOPD = __webpack_require__(997);
+var $GOPD = __webpack_require__(998);
 var $GOPS = __webpack_require__(968);
 var $DP = __webpack_require__(55);
 var $keys = __webpack_require__(183);
@@ -453,7 +453,7 @@ setToStringTag(global.JSON, 'JSON', true);
 /***/ 1012:
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(811)('asyncIterator');
+__webpack_require__(946)('asyncIterator');
 
 
 /***/ }),
@@ -461,7 +461,7 @@ __webpack_require__(811)('asyncIterator');
 /***/ 1013:
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(811)('observable');
+__webpack_require__(946)('observable');
 
 
 /***/ }),
@@ -480,7 +480,7 @@ var _from = __webpack_require__(954);
 
 var _from2 = _interopRequireDefault(_from);
 
-var _extends2 = __webpack_require__(7);
+var _extends2 = __webpack_require__(8);
 
 var _extends3 = _interopRequireDefault(_extends2);
 
@@ -11940,7 +11940,35 @@ if(true) {
 
 /***/ }),
 
-/***/ 1082:
+/***/ 1019:
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+exports.__esModule = true;
+
+var _from = __webpack_require__(954);
+
+var _from2 = _interopRequireDefault(_from);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+exports.default = function (arr) {
+  if (Array.isArray(arr)) {
+    for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) {
+      arr2[i] = arr[i];
+    }
+
+    return arr2;
+  } else {
+    return (0, _from2.default)(arr);
+  }
+};
+
+/***/ }),
+
+/***/ 1119:
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(53)();
@@ -11948,14 +11976,14 @@ exports = module.exports = __webpack_require__(53)();
 
 
 // module
-exports.push([module.i, "\n.productedit .form-control {\n    height: 35px;\n}\n.panel-body ul li .thumb {\n    float: left;\n    height: 30px;\n    margin-right: 10px;\n    overflow: hidden;\n    width: 30px;\n    border: 1px solid #ddd;\n}\n.panel-body ul li p.text-muted {\n    font-size: 11px;\n    line-height: 15px;\n}\n.panel-body ul li p {\n    margin-bottom: 0px;\n}\n.panel-body ul li {\n    border-bottom: 1px solid #e6e6fa;\n    cursor: pointer;\n    list-style-type: none;\n    padding: 4px 0;\n    padding-left: 10px;\n}\n/* width */\n::-webkit-scrollbar {\n    width: 10px;\n}\n\n/* Track */\n::-webkit-scrollbar-track {\n    background: #f1f1f1;\n}\n\n/* Handle */\n::-webkit-scrollbar-thumb {\n    background: #888;\n}\n\n    /* Handle on hover */\n::-webkit-scrollbar-thumb:hover {\n        background: #555;\n}\n.row ul li.active, #rlist .row ul li.active {\n    background: #f1f7fd;\n}\n.pagination .page-item .page-link {\n    font-size: 12px;\n}\n.pagination {\n    margin-top: 10px\n}\n", "", {"version":3,"sources":["D:/Code/WORKING/dotnet-platform-backend/Web/Platform/CMS/PlatformCMS/ClientApp/pages/product/zone.vue?725811be"],"names":[],"mappings":";AA4PA;IACA,aAAA;CACA;AAGA;IACA,YAAA;IACA,aAAA;IACA,mBAAA;IACA,iBAAA;IACA,YAAA;IACA,uBAAA;CACA;AAIA;IACA,gBAAA;IACA,kBAAA;CACA;AAEA;IACA,mBAAA;CACA;AAEA;IACA,iCAAA;IACA,gBAAA;IACA,sBAAA;IACA,eAAA;IACA,mBAAA;CACA;AACA,WAAA;AACA;IACA,YAAA;CACA;;AAEA,WAAA;AACA;IACA,oBAAA;CACA;;AAEA,YAAA;AACA;IACA,iBAAA;CACA;;IAEA,qBAAA;AACA;QACA,iBAAA;CACA;AAEA;IACA,oBAAA;CACA;AAGA;IACA,gBAAA;CACA;AAEA;IACA,gBAAA;CACA","file":"zone.vue","sourcesContent":["<template>\r\n    <div class=\"row productedit\">\r\n        <div class=\"col-sm-12 col-md-12\">\r\n            <div class=\"card\">\r\n                <div class=\"card-header\">\r\n                    Sản phẩm sắp xếp trong danh mục\r\n                </div>\r\n                <div class=\"card-body\">\r\n                    <div class=\"row\">\r\n                        <div class=\"col-md-12\">\r\n                            <div class=\"panel panel-white\">\r\n                                <div class=\"panel-heading\">\r\n                                    <div style=\"display:flex;width:100%\">\r\n                                        <div class=\"col-md-7\" style=\"padding-left:0px\">\r\n                                            <treeselect :multiple=\"false\"\r\n                                                        :options=\"unflattenBase(ListZone)\"\r\n                                                        placeholder=\"Xin mời bạn lựa chọn danh mục\"\r\n                                                        v-model=\"SearchZoneId\"\r\n                                                        :default-expand-level=\"Infinity\" />\r\n                                        </div>\r\n                                        <div class=\"input-group\" style=\"display:flex;width:40%\">\r\n                                            <input type=\"text\" autocomplete=\"off\" v-model=\"keyword\" placeholder=\"Tìm kiếm sản phẩm\" v-on:keyup.enter=\"onLoadProduct()\" class=\"form-control\"> <span @click=\"onLoadProduct()\" class=\"input-group-addon bg-primary\" style=\"cursor: pointer; width: 45px;\"><i class=\"fa fa-search\" style=\"padding-top: 10px; padding-left: 15px;\"></i></span>\r\n                                        </div>\r\n                                    </div>\r\n                                </div>\r\n                                <div class=\"panel-body\">\r\n                                    <div class=\"slimScrollDiv\">\r\n                                        <div class=\"row\">\r\n                                            <ul style=\"padding:20px;padding-left:10px ;width:100%\">\r\n                                                <li v-for=\"(item,index) in ListProduct\" class=\"row\">\r\n                                                    <div class=\"col-md-5\">\r\n                                                        <a class=\"thumb\"><img :src=\"pathImgs(item.avatar)\" width=\"30\"></a>\r\n                                                        <p style=\"font-size:13px;overflow:hidden\">Mã: {{item.code}}</p>\r\n                                                        <p class=\"text-muted\">Tên: {{item.name}}</p>\r\n                                                    </div>\r\n                                                    <div class=\"col-md-2\">\r\n                                                        <b-form-group label=\"Sắp xếp sản phẩm\">\r\n                                                            <b-form-input v-model=\"item.isHot\" placeholder=\"Sắp xếp trong danh mục\" type=\"number\"></b-form-input>\r\n                                                        </b-form-group>\r\n                                                    </div>\r\n                                                    <div class=\"col-md-2\">\r\n                                                        <img @click=\"openImg(item.productId)\" v-if=\"item.bigThumb != null && item.bigThumb.length >0\" style=\"width:50px;height:20px\" :src=\"pathImgs(item.bigThumb)\" alt=\"Ảnh lỗi\" />\r\n                                                        <i @click=\"openImg(item.productId)\" v-else style=\"font-size:30px\" class=\"fa fa-picture-o\"></i>\r\n                                                    </div>\r\n                                                    <div class=\"col-md-2\">\r\n                                                        <a class=\"btn btn-success\" @click=\"SaveProductHot(item)\"><i style=\"color:#fff\" class=\"fa fa-save\"></i></a>\r\n                                                    </div>\r\n                                                </li>\r\n                                            </ul>\r\n                                        </div>\r\n                                    </div>\r\n                                </div>\r\n                                <div class=\"panel-footer\">\r\n                                    <b-pagination v-model=\"currentPage\"\r\n                                                  :total-rows=\"total\"\r\n                                                  :per-page=\"pageSize\"></b-pagination>\r\n                                </div>\r\n                            </div>\r\n                        </div>\r\n\r\n                    </div>\r\n                </div>\r\n            </div>\r\n        </div>\r\n        <FileManager v-on:handleAttackFile=\"DoAttackFile\" :miKey=\"mikey1\" />\r\n    </div>\r\n</template>\r\n\r\n<script>\r\n\r\n    import { mapActions } from \"vuex\";\r\n    import Treeselect from '@riophae/vue-treeselect';\r\n    import { unflatten, pathImg } from '../../plugins/helper';\r\n    import '@riophae/vue-treeselect/dist/vue-treeselect.css'\r\n\r\n    import FileManager from './../../components/fileManager/list'\r\n    import EventBus from \"./../../common/eventBus\";\r\n\r\n    export default {\r\n        name: \"productinzone\",\r\n        components: {\r\n            Treeselect,\r\n            FileManager\r\n        },\r\n        props: {\r\n            productId: {\r\n                type: Number,\r\n                required: false,\r\n                default: 0\r\n            },\r\n            actions: {\r\n                type: Boolean,\r\n                required: false,\r\n                default: false\r\n            }\r\n        },\r\n        data() {\r\n            return {\r\n                mikey1: 'mikey1',\r\n\r\n                SelectedRegion: \"\",\r\n\r\n                SearchZoneId: 0,\r\n                ChoseZoneId: 0,\r\n                ListZone: [],\r\n                ListProduct: [],\r\n                ListValue: [],\r\n\r\n                ListRegion: [],\r\n\r\n                ListZoneRight: [],\r\n\r\n\r\n                keyword: \"\",\r\n                activeLeft: [],\r\n                activeRight: [],\r\n\r\n                pageSize: 20,\r\n                currentPage: 1,\r\n                total: 0,\r\n                choseImg: 0,\r\n            };\r\n        },\r\n        mounted: function () {\r\n\r\n\r\n        },\r\n        methods: {\r\n            ...mapActions([\"getProductByZone\", \"getZones\", \"addProductHotInZone\"]),\r\n            pathImgs(path) {\r\n                return pathImg(path);\r\n            },\r\n\r\n            openImg(img) {\r\n                this.choseImg = img;\r\n                EventBus.$emit(this.mikey1, '');\r\n            },\r\n\r\n            DoAttackFile(value) {\r\n                let vm = this;\r\n                for (let i = 0; i < vm.ListProduct.length; i++) {\r\n                    if (vm.ListProduct[i].productId == this.choseImg) {\r\n                        vm.ListProduct[i].bigThumb = value[0].path;\r\n                    }\r\n                }\r\n            },\r\n            toggleActive(item) {\r\n                if (this.activeItem[item.id]) {\r\n                    this.removeActiveItem(item);\r\n                    return;\r\n                }\r\n\r\n                this.addActiveItem(item);\r\n            },\r\n\r\n            addActiveItem(item) {\r\n                this.activeItem = Object.assign({},\r\n                    this.activeItem ? [item.id] : item,\r\n                );\r\n            },\r\n            removeActiveItem(item) {\r\n                delete this.activeItem[item.id];\r\n                this.activeItem = Object.assign({}, this.activeItem);\r\n            },\r\n            onLoadProduct() {\r\n                this.activeLeft = [];\r\n                this.activeRight = [];\r\n                let initial = this.$route.query.initial;\r\n                initial = typeof initial != \"undefined\" ? initial.toLowerCase() : \"\";\r\n                this.getProductByZone({\r\n                    keyword: this.keyword,\r\n                    idZone: this.SearchZoneId || 0,\r\n                    pageSize: this.pageSize,\r\n                    pageIndex: this.currentPage,\r\n                }).then(respose => {\r\n                    this.ListProduct = respose.listData.map(item => ({\r\n                        ...item,\r\n                        active: false\r\n                    }));\r\n                    console.log(this.ListProduct);\r\n                    this.total = respose.total;\r\n                })\r\n            },\r\n\r\n\r\n            SaveProductHot: function (item) {\r\n                //debugger-\r\n\r\n                this.addProductHotInZone(item).then(response => {\r\n                    //debugger\r\n                    if (response.success == true) {\r\n                        this.$toast.success(response.message, {});\r\n\r\n                    } else {\r\n                        this.$toast.error(response.message, {});\r\n                    }\r\n                }).catch(e => {\r\n                    this.$toast.error(\"Lỗi hệ thống\");\r\n\r\n                });\r\n\r\n            },\r\n\r\n\r\n            unflattenBase(data) {\r\n                return unflatten(data);\r\n            },\r\n        },\r\n        created() {\r\n            var vm = this;\r\n            EventBus.$on('FileSelected', value => {\r\n                for (let i = 0; i < vm.ListProduct.length; i++) {\r\n                    if (vm.ListProduct[i].productId == this.choseImg) {\r\n                        vm.ListProduct[i].bigThumb = value[0].path;\r\n                    }\r\n                }\r\n            })\r\n\r\n\r\n\r\n            this.getZones(1).then(respose => {\r\n                try {\r\n                    //debugger-\r\n                    respose.listData.push({ id: 0, label: \"Chọn danh mục cha\", parentId: 0 });\r\n                    var data = respose.listData;\r\n                    this.ListZone = data;\r\n\r\n                }\r\n                catch (ex) {\r\n\r\n                }\r\n            });\r\n\r\n        },\r\n        destroyed() {\r\n            EventBus.$off('FileSelected');\r\n        },\r\n        watch: {\r\n            currentPage: function (newVal) {\r\n                this.currentPage = newVal;\r\n                this.onLoadProduct();\r\n            },\r\n\r\n            SearchZoneId: function (newVal) {\r\n                this.currentPage = 1;\r\n                this.onLoadProduct();\r\n            },\r\n        }\r\n    };\r\n</script>\r\n\r\n<style>\r\n    .productedit .form-control {\r\n        height: 35px;\r\n    }\r\n\r\n\r\n    .panel-body ul li .thumb {\r\n        float: left;\r\n        height: 30px;\r\n        margin-right: 10px;\r\n        overflow: hidden;\r\n        width: 30px;\r\n        border: 1px solid #ddd;\r\n    }\r\n\r\n\r\n\r\n    .panel-body ul li p.text-muted {\r\n        font-size: 11px;\r\n        line-height: 15px;\r\n    }\r\n\r\n    .panel-body ul li p {\r\n        margin-bottom: 0px;\r\n    }\r\n\r\n    .panel-body ul li {\r\n        border-bottom: 1px solid #e6e6fa;\r\n        cursor: pointer;\r\n        list-style-type: none;\r\n        padding: 4px 0;\r\n        padding-left: 10px;\r\n    }\r\n    /* width */\r\n    ::-webkit-scrollbar {\r\n        width: 10px;\r\n    }\r\n\r\n    /* Track */\r\n    ::-webkit-scrollbar-track {\r\n        background: #f1f1f1;\r\n    }\r\n\r\n    /* Handle */\r\n    ::-webkit-scrollbar-thumb {\r\n        background: #888;\r\n    }\r\n\r\n        /* Handle on hover */\r\n        ::-webkit-scrollbar-thumb:hover {\r\n            background: #555;\r\n        }\r\n\r\n    .row ul li.active, #rlist .row ul li.active {\r\n        background: #f1f7fd;\r\n    }\r\n\r\n\r\n    .pagination .page-item .page-link {\r\n        font-size: 12px;\r\n    }\r\n\r\n    .pagination {\r\n        margin-top: 10px\r\n    }\r\n</style>\r\n"],"sourceRoot":""}]);
+exports.push([module.i, "\n.productedit .form-control {\n    height: 35px;\n}\n.panel-body ul li .thumb {\n    float: left;\n    height: 30px;\n    margin-right: 10px;\n    overflow: hidden;\n    width: 30px;\n    border: 1px solid #ddd;\n}\n.panel-body ul li p.text-muted {\n    font-size: 11px;\n    line-height: 15px;\n}\n.panel-body ul li p {\n    margin-bottom: 0px;\n}\n.panel-body ul li {\n    border-bottom: 1px solid #e6e6fa;\n    cursor: pointer;\n    list-style-type: none;\n    padding: 4px 0;\n    padding-left: 10px;\n}\n\n/* width */\n::-webkit-scrollbar {\n    width: 10px;\n}\n\n/* Track */\n::-webkit-scrollbar-track {\n    background: #f1f1f1;\n}\n\n/* Handle */\n::-webkit-scrollbar-thumb {\n    background: #888;\n}\n\n/* Handle on hover */\n::-webkit-scrollbar-thumb:hover {\n    background: #555;\n}\n.row ul li.active, #rlist .row ul li.active {\n    background: #f1f7fd;\n}\n.pagination .page-item .page-link {\n    font-size: 12px;\n}\n.pagination {\n    margin-top: 10px\n}\n", "", {"version":3,"sources":["D:/Code/WORKING/dotnet-platform-backend/Web/Platform/CMS/PlatformCMS/ClientApp/pages/product/promotion.vue?a420a758"],"names":[],"mappings":";AA2gBA;IACA,aAAA;CACA;AAGA;IACA,YAAA;IACA,aAAA;IACA,mBAAA;IACA,iBAAA;IACA,YAAA;IACA,uBAAA;CACA;AAGA;IACA,gBAAA;IACA,kBAAA;CACA;AAEA;IACA,mBAAA;CACA;AAEA;IACA,iCAAA;IACA,gBAAA;IACA,sBAAA;IACA,eAAA;IACA,mBAAA;CACA;;AAEA,WAAA;AACA;IACA,YAAA;CACA;;AAEA,WAAA;AACA;IACA,oBAAA;CACA;;AAEA,YAAA;AACA;IACA,iBAAA;CACA;;AAEA,qBAAA;AACA;IACA,iBAAA;CACA;AAEA;IACA,oBAAA;CACA;AAGA;IACA,gBAAA;CACA;AAEA;IACA,gBAAA;CACA","file":"promotion.vue","sourcesContent":["<template>\r\n    <div class=\"row productedit\">\r\n        <div class=\"col-sm-12 col-md-12\">\r\n            <div class=\"card\">\r\n                <div class=\"card-header\">\r\n                    Chương trình khuyễn mại\r\n                </div>\r\n                <div class=\"card-body\">\r\n                    <div class=\"row\">\r\n                        <div class=\"col-md-5\">\r\n                            <div class=\"panel panel-white\">\r\n                                <div class=\"panel-heading\">\r\n                                    <div style=\"display:flex;width:100%\">\r\n                                        <div class=\"col-md-7\" style=\"padding-left:0px\">\r\n                                            <treeselect :multiple=\"false\"\r\n                                                        :options=\"unflattenBase(ListZone)\"\r\n                                                        placeholder=\"Xin mời bạn lựa chọn danh mục\"\r\n                                                        v-model=\"SearchZoneId\"\r\n                                                        :default-expanded-level=\"Infinity\"/>\r\n                                        </div>\r\n                                        <div class=\"input-group\" style=\"display:flex;width:40%\">\r\n                                            <input type=\"text\" autocomplete=\"off\" v-model=\"keyword\"\r\n                                                   placeholder=\"Tìm kiếm sản phẩm\" v-on:keyup.enter=\"onLoadProduct()\"\r\n                                                   class=\"form-control\"> <span @click=\"onLoadProduct()\"\r\n                                                                               class=\"input-group-addon bg-primary\"\r\n                                                                               style=\"cursor: pointer; width: 45px;\">\r\n                                                <i class=\"fa fa-search\"\r\n                                                   style=\"padding-top: 10px; padding-left: 15px;\"></i>\r\n                                            </span>\r\n                                        </div>\r\n                                    </div>\r\n                                </div>\r\n                                <div class=\"panel-body\">\r\n                                    <div class=\"slimScrollDiv\"\r\n                                         style=\"position: relative; overflow-x: scroll; width: auto; height: 300px;margin-top:10px\">\r\n                                        <div class=\"row\" style=\"width: auto; height: 300px;\">\r\n                                            <ul style=\"padding:20px;padding-left:10px ;width:100%\">\r\n                                                <li>\r\n                                                    <div style=\"font-size: 13px\">\r\n                                                        <b-form-checkbox v-model=\"this.isAllProduct\"\r\n                                                                         @change=\"filterAllProduct\">\r\n                                                            Chọn tất cả\r\n                                                        </b-form-checkbox>\r\n                                                    </div>\r\n                                                </li>\r\n                                                <li v-for=\"(item,index) in ListProduct\" @click=\"changeValueLeft(index)\"\r\n                                                    :class=\"{'active':item.active==true}\">\r\n                                                    <a class=\"thumb\"><img :src=\"pathImgs(item.avatar)\" width=\"30\"></a>\r\n                                                    <p style=\"font-size:13px;overflow:hidden\"> {{item.name}}</p>\r\n                                                    <p class=\"text-muted\">Giá bản {{item.price}}</p>\r\n                                                </li>\r\n                                            </ul>\r\n                                        </div>\r\n                                    </div>\r\n                                </div>\r\n                                <div class=\"panel-footer\">\r\n                                    <b-pagination v-model=\"currentPage\"\r\n                                                  :total-rows=\"total\"\r\n                                                  :per-page=\"pageSize\"></b-pagination>\r\n                                </div>\r\n                            </div>\r\n                        </div>\r\n                        <div class=\"col-md-1\" style=\"padding-top:30px\">\r\n                            <button class=\"btn btn-primary btn-block mb-2\" title=\"Thêm sản phẩm\" @click=\"onetoRight\">\r\n                                <i class=\"fa fa-angle-right\" aria-hidden=\"true\"></i>\r\n                            </button>\r\n                            <button class=\"btn btn-danger btn-block mb-2\" title=\"Xóa sản phẩm\" @click=\"onetoRemove\">\r\n                                <i class=\"fa fa-trash\" aria-hidden=\"true\"></i>\r\n                            </button>\r\n                        </div>\r\n                        <div class=\"col-md-6\">\r\n                            <div class=\"panel panel-white\">\r\n                                <div class=\"panel-heading\">\r\n                                    <div style=\"display:flex\">\r\n                                        <div class=\"input-group\" style=\"display:flex;width:40%\">\r\n                                            <input type=\"text\" autocomplete=\"off\" v-model=\"keywordPromotion\"\r\n                                                   placeholder=\"Tìm kiếm chương trình khuyễn mại\"\r\n                                                   v-on:keyup.enter=\"onLoadPromotion()\" class=\"form-control\"> <span\r\n                                            @click=\"onLoadPromotion()\" class=\"input-group-addon bg-primary\"\r\n                                            style=\"cursor: pointer; width: 45px;\">\r\n                                                <i class=\"fa fa-search\"\r\n                                                   style=\"padding-top: 10px; padding-left: 15px;\"></i>\r\n                                            </span>\r\n                                        </div>\r\n                                        <div style=\"display:flex;width:15%;padding-left:2%\">\r\n                                            <button class=\"btn btn-info btn-submit-form col-md-12 btncus\" type=\"submit\"\r\n                                                    @click=\"AddPromotionWithProduct()\">\r\n                                                <i class=\"fa fa-save\"></i> Lưu\r\n                                            </button>\r\n                                        </div>\r\n                                    </div>\r\n                                </div>\r\n                                <div class=\"panel-body\">\r\n                                    <div class=\"slimScrollDiv\"\r\n                                         style=\"position: relative; overflow-x: scroll; width: auto; height: 300px;margin-top:10px\">\r\n                                        <div class=\"row\" style=\"width: auto; height: 300px;\">\r\n                                            <ul style=\"padding:20px;padding-left:10px ;width:100%\">\r\n                                                <li>\r\n                                                    <div style=\"font-size: 13px\">\r\n                                                        <b-form-checkbox v-model=\"this.isAll\" @change=\"filter\">\r\n                                                            Chọn tất cả\r\n                                                        </b-form-checkbox>\r\n                                                    </div>\r\n                                                </li>\r\n                                                <li v-for=\"(item,index) in ListPromotion\"\r\n                                                    @click=\"changeValueRight(index)\"\r\n                                                    :class=\"{'active':item.isChoose==true}\">\r\n                                                    <div style=\"font-size:13px\">\r\n                                                        <b-form-checkbox v-model=\"item.isChoose\" :disabled=\"disabled\">\r\n                                                            {{item.name}}\r\n                                                        </b-form-checkbox>\r\n                                                    </div>\r\n                                                </li>\r\n                                            </ul>\r\n                                        </div>\r\n                                    </div>\r\n                                </div>\r\n                                <div class=\"panel-footer\">\r\n                                    <b-pagination v-model=\"currentPage\"\r\n                                                  :total-rows=\"total\"\r\n                                                  :per-page=\"pageSize\"></b-pagination>\r\n                                </div>\r\n                            </div>\r\n                        </div>\r\n                    </div>\r\n                </div>\r\n            </div>\r\n        </div>\r\n        <cmodal></cmodal>\r\n    </div>\r\n</template>\r\n\r\n<script>\r\n\r\n    import {mapActions} from \"vuex\";\r\n    import Treeselect from '@riophae/vue-treeselect';\r\n    import {unflatten, pathImg} from '../../plugins/helper';\r\n    import '@riophae/vue-treeselect/dist/vue-treeselect.css'\r\n\r\n    import cmodal from './../../components/fileManager/list';\r\n    import EventBus from \"./../../common/eventBus\";\r\n\r\n    export default {\r\n        name: \"productinregion\",\r\n        components: {\r\n            Treeselect,\r\n            'cmodal': cmodal,\r\n        },\r\n        props: {\r\n            productId: {\r\n                type: Number,\r\n                required: false,\r\n                default: 0\r\n            },\r\n            actions: {\r\n                type: Boolean,\r\n                required: false,\r\n                default: false\r\n            }\r\n        },\r\n        data() {\r\n            return {\r\n                SelectedRegion: \"\",\r\n                SearchZoneId: 0,\r\n                ChoseZoneId: 0,\r\n                ListZone: [],\r\n                ListProduct: [],\r\n                ListPromotion: [],\r\n                ListValue: [],\r\n                ListRegion: [],\r\n                ListZoneRight: [],\r\n                keyword: \"\",\r\n                keywordPromotion: \"\",\r\n                activeLeft: [],\r\n                activeRight: [],\r\n                pageSize: 20,\r\n                currentPage: 1,\r\n                total: 0,\r\n                isAll: false,\r\n                isAllProduct: false,\r\n                disabled: false,\r\n                ListResult: [],\r\n                ListPromotionResult: [],\r\n                ListPushAPI: [],\r\n                ListChooseProduct: [],\r\n                ListPromotionChoose: []\r\n            };\r\n        },\r\n        mounted: function () {\r\n\r\n\r\n        },\r\n        methods: {\r\n            ...mapActions([\"getProductForCombo\", \"addPromotionWithProduct\", \"getAllRegion\", \"getProductByRegion\", \"getZones\", \"addProductByRegion\", \"getListPromotion\", \"getListPromotionByProductId\"]),\r\n            pathImgs(path) {\r\n                return pathImg(path);\r\n            },\r\n            filter() {\r\n                debugger\r\n                if (this.isAll) {\r\n                    this.isAll = false;\r\n                    this.disabled = false\r\n                } else {\r\n                    this.isAll = true;\r\n                    this.disabled = true;\r\n                    var result = [];\r\n                    this.onLoadPromotion()\r\n                    var listPromotionResult = this.ListPromotion\r\n                    this.ListChooseProduct.forEach(function (entry) {\r\n                        listPromotionResult.forEach(function (entryj) {\r\n                            var promotionInProduct = {};\r\n                            promotionInProduct.productId = entry\r\n                            promotionInProduct.id = entryj.id\r\n                            result.push(promotionInProduct);\r\n                        })\r\n                    })\r\n                    this.ListPushAPI = [];\r\n                    for (let i = 0; i < result.length; i++) {\r\n                        let resultObject = {}\r\n                        resultObject.productId = result[i].productId\r\n                        resultObject.id = result[i].id\r\n                        this.ListPushAPI.push(resultObject)\r\n                    }\r\n                    // this.ListPushAPI=result\r\n                    console.log(this.ListPushAPI);\r\n\r\n                }\r\n            },\r\n            filterAllProduct() {\r\n                console.log(this.ListResult)\r\n                if (this.isAllProduct) {\r\n                    this.isAllProduct = false;\r\n                } else {\r\n                    this.isAllProduct = true;\r\n                    this.onLoadPromotion();\r\n                    var result = []\r\n                    this.ListProduct.forEach(function (entry) {\r\n                        var promotionInProduct = {};\r\n                        promotionInProduct.productId = entry.id\r\n                        result.push(promotionInProduct);\r\n                    })\r\n                    this.ListResult = result\r\n                    console.log(this.ListResult);\r\n                }\r\n            },\r\n            openImg(img) {\r\n                this.choseImg = img;\r\n                EventBus.$emit('FileManagerOpen', '');\r\n            },\r\n            toggleActive(item) {\r\n                if (this.activeItem[item.id]) {\r\n                    this.removeActiveItem(item);\r\n                    return;\r\n                }\r\n\r\n                this.addActiveItem(item);\r\n            },\r\n\r\n            addActiveItem(item) {\r\n                this.activeItem = Object.assign({},\r\n                    this.activeItem ? [item.id] : item,\r\n                );\r\n            },\r\n            removeActiveItem(item) {\r\n                delete this.activeItem[item.id];\r\n                this.activeItem = Object.assign({}, this.activeItem);\r\n            },\r\n            onLoadPromotion() {\r\n                this.activeLeft = [];\r\n                this.activeRight = [];\r\n                let initial = this.$route.query.initial;\r\n                initial = typeof initial != \"undefined\" ? initial.toLowerCase() : \"\";\r\n                this.getListPromotion({\r\n                    keyword: this.keywordPromotion,\r\n                    pageSize: this.pageSize,\r\n                    pageIndex: this.currentPage,\r\n\r\n                }).then(respose => {\r\n                    this.ListPromotion = respose.listData.map(item => ({\r\n                        ...item,\r\n                        active: false\r\n                    }));\r\n                    console.log(this.ListPromotion);\r\n                    this.total = respose.total;\r\n                })\r\n            }\r\n            ,\r\n            onLoadProduct() {\r\n                this.activeLeft = [];\r\n                this.activeRight = [];\r\n                let initial = this.$route.query.initial;\r\n                initial = typeof initial != \"undefined\" ? initial.toLowerCase() : \"\";\r\n                this.getProductForCombo({\r\n                    keyword: this.keyword,\r\n                    idZone: this.SearchZoneId || 0,\r\n                    pageSize: this.pageSize,\r\n                    pageIndex: this.currentPage,\r\n\r\n                }).then(respose => {\r\n                    this.ListProduct = respose.listData.map(item => ({\r\n                        ...item,\r\n                        active: false\r\n                    }));\r\n                    console.log(this.ListProduct);\r\n                    this.total = respose.total;\r\n                })\r\n            },\r\n            onLoadProductByRegion() {\r\n                //debugger-\r\n                this.getProductByRegion(\r\n                    {\r\n                        zoneId: this.ChoseZoneId || 0\r\n                    }).then(respose => {\r\n                    this.ListValue = respose.map(item => ({\r\n                        ...item,\r\n                        active: false\r\n                    }));\r\n                    console.log(this.ListValue);\r\n                })\r\n            },\r\n            onLoadProductCombo() {\r\n                this.activeLeft = [];\r\n                this.activeRight = [];\r\n                let initial = this.$route.query.initial;\r\n                initial = typeof initial != \"undefined\" ? initial.toLowerCase() : \"\";\r\n                this.getComboById(this.productId).then(respose => {\r\n                    this.ListValue = respose.listData.map(item => ({\r\n                        ...item,\r\n                        active: false\r\n                    }));\r\n\r\n                })\r\n            },\r\n            AddPromotionWithProduct: function () {\r\n                //debugger-\r\n                // if (this.ChoseZoneId > 0) {\r\n                //     this.addPromotionWithProduct(this.ListPushAPI).then(response => {\r\n                //         if (response.success == true) {\r\n                //             this.$toast.success(response.message, {});\r\n                //\r\n                //         } else {\r\n                //             this.$toast.error(response.message, {});\r\n                //         }\r\n                //     }).catch(e => {\r\n                //         this.$toast.error(\"Lỗi hệ thống\");\r\n                //\r\n                //     });\r\n                // } else {\r\n                //     this.$toast.error(\"Chưa chọn vùng\");\r\n                // }\r\n                if (!this.isAllProduct && !this.isAll) {\r\n                    var result=[]\r\n                    var listPromotionChoose = this.ListPromotionChoose\r\n                    this.ListChooseProduct.forEach(function (entry) {\r\n                        listPromotionChoose.forEach(function (entryj) {\r\n                            var promotionInProduct={}\r\n                            promotionInProduct.productId = entry;\r\n                            promotionInProduct.id=entryj;\r\n                            result.push(promotionInProduct)\r\n                        })\r\n                    })\r\n                    this.ListPushAPI = [];\r\n                    for (let i = 0; i < result.length; i++) {\r\n                        let resultObject = {}\r\n                        resultObject.productId = result[i].productId\r\n                        resultObject.id = result[i].id\r\n                        this.ListPushAPI.push(resultObject)\r\n                    }\r\n                }\r\n                this.addPromotionWithProduct(this.ListPushAPI).then(response => {\r\n                    if (response.success == true) {\r\n                        this.$toast.success(response.message, {});\r\n                        this.ListPushAPI = []\r\n                    } else {\r\n                        this.$toast.error(response.message, {});\r\n                    }\r\n                }).catch(e => {\r\n                    this.$toast.error(\"Lỗi hệ thống\");\r\n\r\n                });\r\n\r\n\r\n            },\r\n\r\n            onetoRight: function () {\r\n\r\n                if (this.ChoseZoneId > 0) {\r\n                    var vm = this;\r\n                    var data = vm.ListZone;\r\n                    var lstChose = this.ListProduct.filter(x => x.active == true).map(item => ({\r\n                        productId: item.id,\r\n                        isHot: false,\r\n                        productName: item.name,\r\n                        avatar: item.avatar,\r\n                        zoneId: vm.ChoseZoneId,\r\n                        bigThumb: \"\",\r\n                        active: false,\r\n                        zoneName: vm.ListZoneRight.filter(x => x.id == vm.ChoseZoneId)[0].label\r\n                    }));\r\n\r\n                    this.ListProduct = this.ListProduct.map(item => ({\r\n                        ...item,\r\n                        active: false\r\n                    }))\r\n\r\n                    this.ListValue = [...this.ListValue, ...lstChose];\r\n\r\n                } else {\r\n                    this.$toast.error(\"Chưa chọn vùng\", {});\r\n                }\r\n\r\n            },\r\n            onetoRemove: function () {\r\n                //debugger-\r\n                this.ListValue = this.ListValue.filter(x => x.active != true);\r\n            },\r\n\r\n            changeValueLeft: function (id) {\r\n                if (!this.isAllProduct) {\r\n                    this.getListPromotionByProductId(this.ListProduct[id].id).then(response => {\r\n                        this.ListPromotion = response;\r\n                    });\r\n                    this.ListChooseProduct.push(this.ListProduct[id].id)\r\n                    this\r\n                    if (this.ListProduct[id].active == true) {\r\n                        this.ListProduct[id].active = false;\r\n                    } else {\r\n                        this.ListProduct[id].active = true;\r\n                    }\r\n                } else {\r\n                    this.onLoadPromotion()\r\n                }\r\n            },\r\n            changeValueRight: function (id) {\r\n                debugger\r\n                this.ListPromotionResult.push(this.ListPromotion[id])\r\n                var listPromotionResult = this.ListPromotionResult\r\n                if (this.isAllProduct) {\r\n                    var result = []\r\n                    this.ListResult.forEach(function (entry) {\r\n                        var promotionInProduct = {};\r\n                        listPromotionResult.forEach(function (entryj) {\r\n                            promotionInProduct.productId = entry.productId\r\n                            promotionInProduct.id = entryj.id\r\n                        })\r\n                        result.push(promotionInProduct);\r\n                    })\r\n                    for (let i = 0; i < result.length; i++) {\r\n                        let resultObject = {}\r\n                        resultObject.productId = result[i].productId\r\n                        resultObject.id = result[i].id\r\n                        this.ListPushAPI.push(resultObject)\r\n                    }\r\n                    // this.ListPushAPI=result\r\n                    console.log(this.ListPushAPI);\r\n                } else {\r\n                    this.ListPromotionChoose.push(this.ListPromotion[id].id)\r\n                }\r\n            },\r\n            ExistId(id) {\r\n\r\n            },\r\n            unflattenBase(data) {\r\n                return unflatten(data);\r\n            },\r\n        },\r\n        created() {\r\n            var vm = this;\r\n            EventBus.$on('FileSelected', value => {\r\n                for (let i = 0; i < vm.ListValue.length; i++) {\r\n                    if (vm.ListValue[i].active == true) {\r\n                        vm.ListValue[i].bigThumb = value[0].path;\r\n                    }\r\n                }\r\n\r\n                console.log(vm.ListValue);\r\n            })\r\n\r\n            this.getAllRegion().then(respose => {\r\n                this.ListRegion = respose;\r\n            });\r\n\r\n            this.getZones(0).then(respose => {\r\n                try {\r\n                    //debugger-\r\n                    respose.listData.push({id: 0, label: \"Chọn danh mục cha\", parentId: 0});\r\n                    var data = respose.listData;\r\n                    var dataRight = data.filter(x => x.type == 7 || x.id == 0);\r\n                    var dataLeft = data.filter(x => x.type == 1 || x.id == 0);\r\n                    this.ListZone = dataLeft;\r\n                    this.ListZoneRight = dataRight;\r\n                } catch (ex) {\r\n\r\n                }\r\n\r\n            });\r\n            // this.onLoadProduct();\r\n            this.onLoadPromotion();\r\n        },\r\n        destroyed() {\r\n            EventBus.$off('FileSelected');\r\n        },\r\n        watch: {\r\n            currentPage: function (newVal) {\r\n                this.currentPage = newVal;\r\n                this.onLoadProduct();\r\n            },\r\n\r\n            ChoseZoneId: function (newVal) {\r\n\r\n                //debugger-\r\n\r\n                this.onLoadProductByRegion();\r\n            },\r\n            SearchZoneId: function (newVal) {\r\n                this.onLoadProduct();\r\n            },\r\n        }\r\n    };\r\n</script>\r\n\r\n<style>\r\n\r\n    .productedit .form-control {\r\n        height: 35px;\r\n    }\r\n\r\n\r\n    .panel-body ul li .thumb {\r\n        float: left;\r\n        height: 30px;\r\n        margin-right: 10px;\r\n        overflow: hidden;\r\n        width: 30px;\r\n        border: 1px solid #ddd;\r\n    }\r\n\r\n\r\n    .panel-body ul li p.text-muted {\r\n        font-size: 11px;\r\n        line-height: 15px;\r\n    }\r\n\r\n    .panel-body ul li p {\r\n        margin-bottom: 0px;\r\n    }\r\n\r\n    .panel-body ul li {\r\n        border-bottom: 1px solid #e6e6fa;\r\n        cursor: pointer;\r\n        list-style-type: none;\r\n        padding: 4px 0;\r\n        padding-left: 10px;\r\n    }\r\n\r\n    /* width */\r\n    ::-webkit-scrollbar {\r\n        width: 10px;\r\n    }\r\n\r\n    /* Track */\r\n    ::-webkit-scrollbar-track {\r\n        background: #f1f1f1;\r\n    }\r\n\r\n    /* Handle */\r\n    ::-webkit-scrollbar-thumb {\r\n        background: #888;\r\n    }\r\n\r\n    /* Handle on hover */\r\n    ::-webkit-scrollbar-thumb:hover {\r\n        background: #555;\r\n    }\r\n\r\n    .row ul li.active, #rlist .row ul li.active {\r\n        background: #f1f7fd;\r\n    }\r\n\r\n\r\n    .pagination .page-item .page-link {\r\n        font-size: 12px;\r\n    }\r\n\r\n    .pagination {\r\n        margin-top: 10px\r\n    }\r\n</style>\r\n"],"sourceRoot":""}]);
 
 // exports
 
 
 /***/ }),
 
-/***/ 1246:
+/***/ 1244:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -11965,11 +11993,15 @@ Object.defineProperty(exports, "__esModule", {
     value: true
 });
 
+var _toConsumableArray2 = __webpack_require__(1019);
+
+var _toConsumableArray3 = _interopRequireDefault(_toConsumableArray2);
+
 var _assign = __webpack_require__(377);
 
 var _assign2 = _interopRequireDefault(_assign);
 
-var _extends2 = __webpack_require__(7);
+var _extends2 = __webpack_require__(8);
 
 var _extends3 = _interopRequireDefault(_extends2);
 
@@ -11994,10 +12026,10 @@ var _eventBus2 = _interopRequireDefault(_eventBus);
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 exports.default = {
-    name: "productinzone",
+    name: "productinregion",
     components: {
         Treeselect: _vueTreeselect2.default,
-        FileManager: _list2.default
+        'cmodal': _list2.default
     },
     props: {
         productId: {
@@ -12013,47 +12045,88 @@ exports.default = {
     },
     data: function data() {
         return {
-            mikey1: 'mikey1',
-
             SelectedRegion: "",
-
             SearchZoneId: 0,
             ChoseZoneId: 0,
             ListZone: [],
             ListProduct: [],
+            ListPromotion: [],
             ListValue: [],
-
             ListRegion: [],
-
             ListZoneRight: [],
-
             keyword: "",
+            keywordPromotion: "",
             activeLeft: [],
             activeRight: [],
-
             pageSize: 20,
             currentPage: 1,
             total: 0,
-            choseImg: 0
+            isAll: false,
+            isAllProduct: false,
+            disabled: false,
+            ListResult: [],
+            ListPromotionResult: [],
+            ListPushAPI: [],
+            ListChooseProduct: [],
+            ListPromotionChoose: []
         };
     },
 
     mounted: function mounted() {},
-    methods: (0, _extends3.default)({}, (0, _vuex.mapActions)(["getProductByZone", "getZones", "addProductHotInZone"]), {
+    methods: (0, _extends3.default)({}, (0, _vuex.mapActions)(["getProductForCombo", "addPromotionWithProduct", "getAllRegion", "getProductByRegion", "getZones", "addProductByRegion", "getListPromotion", "getListPromotionByProductId"]), {
         pathImgs: function pathImgs(path) {
             return (0, _helper.pathImg)(path);
         },
+        filter: function filter() {
+            debugger;
+            if (this.isAll) {
+                this.isAll = false;
+                this.disabled = false;
+            } else {
+                this.isAll = true;
+                this.disabled = true;
+                var result = [];
+                this.onLoadPromotion();
+                var listPromotionResult = this.ListPromotion;
+                this.ListChooseProduct.forEach(function (entry) {
+                    listPromotionResult.forEach(function (entryj) {
+                        var promotionInProduct = {};
+                        promotionInProduct.productId = entry;
+                        promotionInProduct.id = entryj.id;
+                        result.push(promotionInProduct);
+                    });
+                });
+                this.ListPushAPI = [];
+                for (var i = 0; i < result.length; i++) {
+                    var resultObject = {};
+                    resultObject.productId = result[i].productId;
+                    resultObject.id = result[i].id;
+                    this.ListPushAPI.push(resultObject);
+                }
+
+                console.log(this.ListPushAPI);
+            }
+        },
+        filterAllProduct: function filterAllProduct() {
+            console.log(this.ListResult);
+            if (this.isAllProduct) {
+                this.isAllProduct = false;
+            } else {
+                this.isAllProduct = true;
+                this.onLoadPromotion();
+                var result = [];
+                this.ListProduct.forEach(function (entry) {
+                    var promotionInProduct = {};
+                    promotionInProduct.productId = entry.id;
+                    result.push(promotionInProduct);
+                });
+                this.ListResult = result;
+                console.log(this.ListResult);
+            }
+        },
         openImg: function openImg(img) {
             this.choseImg = img;
-            _eventBus2.default.$emit(this.mikey1, '');
-        },
-        DoAttackFile: function DoAttackFile(value) {
-            var vm = this;
-            for (var i = 0; i < vm.ListProduct.length; i++) {
-                if (vm.ListProduct[i].productId == this.choseImg) {
-                    vm.ListProduct[i].bigThumb = value[0].path;
-                }
-            }
+            _eventBus2.default.$emit('FileManagerOpen', '');
         },
         toggleActive: function toggleActive(item) {
             if (this.activeItem[item.id]) {
@@ -12070,67 +12143,237 @@ exports.default = {
             delete this.activeItem[item.id];
             this.activeItem = (0, _assign2.default)({}, this.activeItem);
         },
-        onLoadProduct: function onLoadProduct() {
+        onLoadPromotion: function onLoadPromotion() {
             var _this = this;
 
             this.activeLeft = [];
             this.activeRight = [];
             var initial = this.$route.query.initial;
             initial = typeof initial != "undefined" ? initial.toLowerCase() : "";
-            this.getProductByZone({
-                keyword: this.keyword,
-                idZone: this.SearchZoneId || 0,
+            this.getListPromotion({
+                keyword: this.keywordPromotion,
                 pageSize: this.pageSize,
                 pageIndex: this.currentPage
+
             }).then(function (respose) {
-                _this.ListProduct = respose.listData.map(function (item) {
+                _this.ListPromotion = respose.listData.map(function (item) {
                     return (0, _extends3.default)({}, item, {
                         active: false
                     });
                 });
-                console.log(_this.ListProduct);
+                console.log(_this.ListPromotion);
                 _this.total = respose.total;
             });
         },
-
-
-        SaveProductHot: function SaveProductHot(item) {
+        onLoadProduct: function onLoadProduct() {
             var _this2 = this;
 
-            this.addProductHotInZone(item).then(function (response) {
-                if (response.success == true) {
-                    _this2.$toast.success(response.message, {});
-                } else {
-                    _this2.$toast.error(response.message, {});
-                }
-            }).catch(function (e) {
-                _this2.$toast.error("Lỗi hệ thống");
+            this.activeLeft = [];
+            this.activeRight = [];
+            var initial = this.$route.query.initial;
+            initial = typeof initial != "undefined" ? initial.toLowerCase() : "";
+            this.getProductForCombo({
+                keyword: this.keyword,
+                idZone: this.SearchZoneId || 0,
+                pageSize: this.pageSize,
+                pageIndex: this.currentPage
+
+            }).then(function (respose) {
+                _this2.ListProduct = respose.listData.map(function (item) {
+                    return (0, _extends3.default)({}, item, {
+                        active: false
+                    });
+                });
+                console.log(_this2.ListProduct);
+                _this2.total = respose.total;
+            });
+        },
+        onLoadProductByRegion: function onLoadProductByRegion() {
+            var _this3 = this;
+
+            this.getProductByRegion({
+                zoneId: this.ChoseZoneId || 0
+            }).then(function (respose) {
+                _this3.ListValue = respose.map(function (item) {
+                    return (0, _extends3.default)({}, item, {
+                        active: false
+                    });
+                });
+                console.log(_this3.ListValue);
+            });
+        },
+        onLoadProductCombo: function onLoadProductCombo() {
+            var _this4 = this;
+
+            this.activeLeft = [];
+            this.activeRight = [];
+            var initial = this.$route.query.initial;
+            initial = typeof initial != "undefined" ? initial.toLowerCase() : "";
+            this.getComboById(this.productId).then(function (respose) {
+                _this4.ListValue = respose.listData.map(function (item) {
+                    return (0, _extends3.default)({}, item, {
+                        active: false
+                    });
+                });
             });
         },
 
+        AddPromotionWithProduct: function AddPromotionWithProduct() {
+            var _this5 = this;
+
+            if (!this.isAllProduct && !this.isAll) {
+                var result = [];
+                var listPromotionChoose = this.ListPromotionChoose;
+                this.ListChooseProduct.forEach(function (entry) {
+                    listPromotionChoose.forEach(function (entryj) {
+                        var promotionInProduct = {};
+                        promotionInProduct.productId = entry;
+                        promotionInProduct.id = entryj;
+                        result.push(promotionInProduct);
+                    });
+                });
+                this.ListPushAPI = [];
+                for (var i = 0; i < result.length; i++) {
+                    var resultObject = {};
+                    resultObject.productId = result[i].productId;
+                    resultObject.id = result[i].id;
+                    this.ListPushAPI.push(resultObject);
+                }
+            }
+            this.addPromotionWithProduct(this.ListPushAPI).then(function (response) {
+                if (response.success == true) {
+                    _this5.$toast.success(response.message, {});
+                    _this5.ListPushAPI = [];
+                } else {
+                    _this5.$toast.error(response.message, {});
+                }
+            }).catch(function (e) {
+                _this5.$toast.error("Lỗi hệ thống");
+            });
+        },
+
+        onetoRight: function onetoRight() {
+
+            if (this.ChoseZoneId > 0) {
+                var vm = this;
+                var data = vm.ListZone;
+                var lstChose = this.ListProduct.filter(function (x) {
+                    return x.active == true;
+                }).map(function (item) {
+                    return {
+                        productId: item.id,
+                        isHot: false,
+                        productName: item.name,
+                        avatar: item.avatar,
+                        zoneId: vm.ChoseZoneId,
+                        bigThumb: "",
+                        active: false,
+                        zoneName: vm.ListZoneRight.filter(function (x) {
+                            return x.id == vm.ChoseZoneId;
+                        })[0].label
+                    };
+                });
+
+                this.ListProduct = this.ListProduct.map(function (item) {
+                    return (0, _extends3.default)({}, item, {
+                        active: false
+                    });
+                });
+
+                this.ListValue = [].concat((0, _toConsumableArray3.default)(this.ListValue), (0, _toConsumableArray3.default)(lstChose));
+            } else {
+                this.$toast.error("Chưa chọn vùng", {});
+            }
+        },
+        onetoRemove: function onetoRemove() {
+            this.ListValue = this.ListValue.filter(function (x) {
+                return x.active != true;
+            });
+        },
+
+        changeValueLeft: function changeValueLeft(id) {
+            var _this6 = this;
+
+            if (!this.isAllProduct) {
+                this.getListPromotionByProductId(this.ListProduct[id].id).then(function (response) {
+                    _this6.ListPromotion = response;
+                });
+                this.ListChooseProduct.push(this.ListProduct[id].id);
+                this;
+                if (this.ListProduct[id].active == true) {
+                    this.ListProduct[id].active = false;
+                } else {
+                    this.ListProduct[id].active = true;
+                }
+            } else {
+                this.onLoadPromotion();
+            }
+        },
+        changeValueRight: function changeValueRight(id) {
+            debugger;
+            this.ListPromotionResult.push(this.ListPromotion[id]);
+            var listPromotionResult = this.ListPromotionResult;
+            if (this.isAllProduct) {
+                var result = [];
+                this.ListResult.forEach(function (entry) {
+                    var promotionInProduct = {};
+                    listPromotionResult.forEach(function (entryj) {
+                        promotionInProduct.productId = entry.productId;
+                        promotionInProduct.id = entryj.id;
+                    });
+                    result.push(promotionInProduct);
+                });
+                for (var i = 0; i < result.length; i++) {
+                    var resultObject = {};
+                    resultObject.productId = result[i].productId;
+                    resultObject.id = result[i].id;
+                    this.ListPushAPI.push(resultObject);
+                }
+
+                console.log(this.ListPushAPI);
+            } else {
+                this.ListPromotionChoose.push(this.ListPromotion[id].id);
+            }
+        },
+        ExistId: function ExistId(id) {},
         unflattenBase: function unflattenBase(data) {
             return (0, _helper.unflatten)(data);
         }
     }),
     created: function created() {
-        var _this3 = this;
+        var _this7 = this;
 
         var vm = this;
         _eventBus2.default.$on('FileSelected', function (value) {
-            for (var i = 0; i < vm.ListProduct.length; i++) {
-                if (vm.ListProduct[i].productId == _this3.choseImg) {
-                    vm.ListProduct[i].bigThumb = value[0].path;
+            for (var i = 0; i < vm.ListValue.length; i++) {
+                if (vm.ListValue[i].active == true) {
+                    vm.ListValue[i].bigThumb = value[0].path;
                 }
             }
+
+            console.log(vm.ListValue);
         });
 
-        this.getZones(1).then(function (respose) {
+        this.getAllRegion().then(function (respose) {
+            _this7.ListRegion = respose;
+        });
+
+        this.getZones(0).then(function (respose) {
             try {
                 respose.listData.push({ id: 0, label: "Chọn danh mục cha", parentId: 0 });
                 var data = respose.listData;
-                _this3.ListZone = data;
+                var dataRight = data.filter(function (x) {
+                    return x.type == 7 || x.id == 0;
+                });
+                var dataLeft = data.filter(function (x) {
+                    return x.type == 1 || x.id == 0;
+                });
+                _this7.ListZone = dataLeft;
+                _this7.ListZoneRight = dataRight;
             } catch (ex) {}
         });
+
+        this.onLoadPromotion();
     },
     destroyed: function destroyed() {
         _eventBus2.default.$off('FileSelected');
@@ -12142,8 +12385,11 @@ exports.default = {
             this.onLoadProduct();
         },
 
+        ChoseZoneId: function ChoseZoneId(newVal) {
+
+            this.onLoadProductByRegion();
+        },
         SearchZoneId: function SearchZoneId(newVal) {
-            this.currentPage = 1;
             this.onLoadProduct();
         }
     }
@@ -12151,7 +12397,7 @@ exports.default = {
 
 /***/ }),
 
-/***/ 1511:
+/***/ 1588:
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
@@ -12163,12 +12409,12 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "card"
   }, [_c('div', {
     staticClass: "card-header"
-  }, [_vm._v("\n                Sản phẩm sắp xếp trong danh mục\n            ")]), _vm._v(" "), _c('div', {
+  }, [_vm._v("\n                Chương trình khuyễn mại\n            ")]), _vm._v(" "), _c('div', {
     staticClass: "card-body"
   }, [_c('div', {
     staticClass: "row"
   }, [_c('div', {
-    staticClass: "col-md-12"
+    staticClass: "col-md-5"
   }, [_c('div', {
     staticClass: "panel panel-white"
   }, [_c('div', {
@@ -12188,7 +12434,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       "multiple": false,
       "options": _vm.unflattenBase(_vm.ListZone),
       "placeholder": "Xin mời bạn lựa chọn danh mục",
-      "default-expand-level": Infinity
+      "default-expanded-level": Infinity
     },
     model: {
       value: (_vm.SearchZoneId),
@@ -12249,20 +12495,51 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
   })])])])]), _vm._v(" "), _c('div', {
     staticClass: "panel-body"
   }, [_c('div', {
-    staticClass: "slimScrollDiv"
+    staticClass: "slimScrollDiv",
+    staticStyle: {
+      "position": "relative",
+      "overflow-x": "scroll",
+      "width": "auto",
+      "height": "300px",
+      "margin-top": "10px"
+    }
   }, [_c('div', {
-    staticClass: "row"
+    staticClass: "row",
+    staticStyle: {
+      "width": "auto",
+      "height": "300px"
+    }
   }, [_c('ul', {
     staticStyle: {
       "padding": "20px",
       "padding-left": "10px",
       "width": "100%"
     }
-  }, _vm._l((_vm.ListProduct), function(item, index) {
+  }, [_c('li', [_c('div', {
+    staticStyle: {
+      "font-size": "13px"
+    }
+  }, [_c('b-form-checkbox', {
+    on: {
+      "change": _vm.filterAllProduct
+    },
+    model: {
+      value: (this.isAllProduct),
+      callback: function($$v) {
+        _vm.$set(this, "isAllProduct", $$v)
+      },
+      expression: "this.isAllProduct"
+    }
+  }, [_vm._v("\n                                                        Chọn tất cả\n                                                    ")])], 1)]), _vm._v(" "), _vm._l((_vm.ListProduct), function(item, index) {
     return _c('li', {
-      staticClass: "row"
-    }, [_c('div', {
-      staticClass: "col-md-5"
+      class: {
+        'active': item.active == true
+      },
+      on: {
+        "click": function($event) {
+          return _vm.changeValueLeft(index)
+        }
+      }
     }, [_c('a', {
       staticClass: "thumb"
     }, [_c('img', {
@@ -12275,68 +12552,10 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         "font-size": "13px",
         "overflow": "hidden"
       }
-    }, [_vm._v("Mã: " + _vm._s(item.code))]), _vm._v(" "), _c('p', {
+    }, [_vm._v(" " + _vm._s(item.name))]), _vm._v(" "), _c('p', {
       staticClass: "text-muted"
-    }, [_vm._v("Tên: " + _vm._s(item.name))])]), _vm._v(" "), _c('div', {
-      staticClass: "col-md-2"
-    }, [_c('b-form-group', {
-      attrs: {
-        "label": "Sắp xếp sản phẩm"
-      }
-    }, [_c('b-form-input', {
-      attrs: {
-        "placeholder": "Sắp xếp trong danh mục",
-        "type": "number"
-      },
-      model: {
-        value: (item.isHot),
-        callback: function($$v) {
-          _vm.$set(item, "isHot", $$v)
-        },
-        expression: "item.isHot"
-      }
-    })], 1)], 1), _vm._v(" "), _c('div', {
-      staticClass: "col-md-2"
-    }, [(item.bigThumb != null && item.bigThumb.length > 0) ? _c('img', {
-      staticStyle: {
-        "width": "50px",
-        "height": "20px"
-      },
-      attrs: {
-        "src": _vm.pathImgs(item.bigThumb),
-        "alt": "Ảnh lỗi"
-      },
-      on: {
-        "click": function($event) {
-          return _vm.openImg(item.productId)
-        }
-      }
-    }) : _c('i', {
-      staticClass: "fa fa-picture-o",
-      staticStyle: {
-        "font-size": "30px"
-      },
-      on: {
-        "click": function($event) {
-          return _vm.openImg(item.productId)
-        }
-      }
-    })]), _vm._v(" "), _c('div', {
-      staticClass: "col-md-2"
-    }, [_c('a', {
-      staticClass: "btn btn-success",
-      on: {
-        "click": function($event) {
-          return _vm.SaveProductHot(item)
-        }
-      }
-    }, [_c('i', {
-      staticClass: "fa fa-save",
-      staticStyle: {
-        "color": "#fff"
-      }
-    })])])])
-  }), 0)])])]), _vm._v(" "), _c('div', {
+    }, [_vm._v("Giá bản " + _vm._s(item.price))])])
+  })], 2)])])]), _vm._v(" "), _c('div', {
     staticClass: "panel-footer"
   }, [_c('b-pagination', {
     attrs: {
@@ -12350,42 +12569,221 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       },
       expression: "currentPage"
     }
-  })], 1)])])])])])]), _vm._v(" "), _c('FileManager', {
+  })], 1)])]), _vm._v(" "), _c('div', {
+    staticClass: "col-md-1",
+    staticStyle: {
+      "padding-top": "30px"
+    }
+  }, [_c('button', {
+    staticClass: "btn btn-primary btn-block mb-2",
     attrs: {
-      "miKey": _vm.mikey1
+      "title": "Thêm sản phẩm"
     },
     on: {
-      "handleAttackFile": _vm.DoAttackFile
+      "click": _vm.onetoRight
     }
-  })], 1)
+  }, [_c('i', {
+    staticClass: "fa fa-angle-right",
+    attrs: {
+      "aria-hidden": "true"
+    }
+  })]), _vm._v(" "), _c('button', {
+    staticClass: "btn btn-danger btn-block mb-2",
+    attrs: {
+      "title": "Xóa sản phẩm"
+    },
+    on: {
+      "click": _vm.onetoRemove
+    }
+  }, [_c('i', {
+    staticClass: "fa fa-trash",
+    attrs: {
+      "aria-hidden": "true"
+    }
+  })])]), _vm._v(" "), _c('div', {
+    staticClass: "col-md-6"
+  }, [_c('div', {
+    staticClass: "panel panel-white"
+  }, [_c('div', {
+    staticClass: "panel-heading"
+  }, [_c('div', {
+    staticStyle: {
+      "display": "flex"
+    }
+  }, [_c('div', {
+    staticClass: "input-group",
+    staticStyle: {
+      "display": "flex",
+      "width": "40%"
+    }
+  }, [_c('input', {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: (_vm.keywordPromotion),
+      expression: "keywordPromotion"
+    }],
+    staticClass: "form-control",
+    attrs: {
+      "type": "text",
+      "autocomplete": "off",
+      "placeholder": "Tìm kiếm chương trình khuyễn mại"
+    },
+    domProps: {
+      "value": (_vm.keywordPromotion)
+    },
+    on: {
+      "keyup": function($event) {
+        if (!$event.type.indexOf('key') && _vm._k($event.keyCode, "enter", 13, $event.key, "Enter")) { return null; }
+        return _vm.onLoadPromotion()
+      },
+      "input": function($event) {
+        if ($event.target.composing) { return; }
+        _vm.keywordPromotion = $event.target.value
+      }
+    }
+  }), _vm._v(" "), _c('span', {
+    staticClass: "input-group-addon bg-primary",
+    staticStyle: {
+      "cursor": "pointer",
+      "width": "45px"
+    },
+    on: {
+      "click": function($event) {
+        return _vm.onLoadPromotion()
+      }
+    }
+  }, [_c('i', {
+    staticClass: "fa fa-search",
+    staticStyle: {
+      "padding-top": "10px",
+      "padding-left": "15px"
+    }
+  })])]), _vm._v(" "), _c('div', {
+    staticStyle: {
+      "display": "flex",
+      "width": "15%",
+      "padding-left": "2%"
+    }
+  }, [_c('button', {
+    staticClass: "btn btn-info btn-submit-form col-md-12 btncus",
+    attrs: {
+      "type": "submit"
+    },
+    on: {
+      "click": function($event) {
+        return _vm.AddPromotionWithProduct()
+      }
+    }
+  }, [_c('i', {
+    staticClass: "fa fa-save"
+  }), _vm._v(" Lưu\n                                        ")])])])]), _vm._v(" "), _c('div', {
+    staticClass: "panel-body"
+  }, [_c('div', {
+    staticClass: "slimScrollDiv",
+    staticStyle: {
+      "position": "relative",
+      "overflow-x": "scroll",
+      "width": "auto",
+      "height": "300px",
+      "margin-top": "10px"
+    }
+  }, [_c('div', {
+    staticClass: "row",
+    staticStyle: {
+      "width": "auto",
+      "height": "300px"
+    }
+  }, [_c('ul', {
+    staticStyle: {
+      "padding": "20px",
+      "padding-left": "10px",
+      "width": "100%"
+    }
+  }, [_c('li', [_c('div', {
+    staticStyle: {
+      "font-size": "13px"
+    }
+  }, [_c('b-form-checkbox', {
+    on: {
+      "change": _vm.filter
+    },
+    model: {
+      value: (this.isAll),
+      callback: function($$v) {
+        _vm.$set(this, "isAll", $$v)
+      },
+      expression: "this.isAll"
+    }
+  }, [_vm._v("\n                                                        Chọn tất cả\n                                                    ")])], 1)]), _vm._v(" "), _vm._l((_vm.ListPromotion), function(item, index) {
+    return _c('li', {
+      class: {
+        'active': item.isChoose == true
+      },
+      on: {
+        "click": function($event) {
+          return _vm.changeValueRight(index)
+        }
+      }
+    }, [_c('div', {
+      staticStyle: {
+        "font-size": "13px"
+      }
+    }, [_c('b-form-checkbox', {
+      attrs: {
+        "disabled": _vm.disabled
+      },
+      model: {
+        value: (item.isChoose),
+        callback: function($$v) {
+          _vm.$set(item, "isChoose", $$v)
+        },
+        expression: "item.isChoose"
+      }
+    }, [_vm._v("\n                                                        " + _vm._s(item.name) + "\n                                                    ")])], 1)])
+  })], 2)])])]), _vm._v(" "), _c('div', {
+    staticClass: "panel-footer"
+  }, [_c('b-pagination', {
+    attrs: {
+      "total-rows": _vm.total,
+      "per-page": _vm.pageSize
+    },
+    model: {
+      value: (_vm.currentPage),
+      callback: function($$v) {
+        _vm.currentPage = $$v
+      },
+      expression: "currentPage"
+    }
+  })], 1)])])])])])]), _vm._v(" "), _c('cmodal')], 1)
 },staticRenderFns: []}
 module.exports.render._withStripped = true
 if (true) {
   module.hot.accept()
   if (module.hot.data) {
-     __webpack_require__(178).rerender("data-v-06dd6312", module.exports)
+     __webpack_require__(178).rerender("data-v-eb614130", module.exports)
   }
 }
 
 /***/ }),
 
-/***/ 1594:
+/***/ 1631:
 /***/ (function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
-var content = __webpack_require__(1082);
+var content = __webpack_require__(1119);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
-var update = __webpack_require__(801)("8ca348e8", content, false);
+var update = __webpack_require__(801)("663acae7", content, false);
 // Hot Module Replacement
 if(true) {
  // When the styles change, update the <style> tags
  if(!content.locals) {
-   module.hot.accept(1082, function() {
-     var newContent = __webpack_require__(1082);
+   module.hot.accept(1119, function() {
+     var newContent = __webpack_require__(1119);
      if(typeof newContent === 'string') newContent = [[module.i, newContent, '']];
      update(newContent);
    });
@@ -12396,26 +12794,26 @@ if(true) {
 
 /***/ }),
 
-/***/ 773:
+/***/ 771:
 /***/ (function(module, exports, __webpack_require__) {
 
 
 /* styles */
-__webpack_require__(1594)
+__webpack_require__(1631)
 
 var Component = __webpack_require__(374)(
   /* script */
-  __webpack_require__(1246),
+  __webpack_require__(1244),
   /* template */
-  __webpack_require__(1511),
+  __webpack_require__(1588),
   /* scopeId */
   null,
   /* cssModules */
   null
 )
-Component.options.__file = "D:\\Code\\WORKING\\dotnet-platform-backend\\Web\\Platform\\CMS\\PlatformCMS\\ClientApp\\pages\\product\\zone.vue"
+Component.options.__file = "D:\\Code\\WORKING\\dotnet-platform-backend\\Web\\Platform\\CMS\\PlatformCMS\\ClientApp\\pages\\product\\promotion.vue"
 if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
-if (Component.options.functional) {console.error("[vue-loader] zone.vue: functional components are not supported with templates, they should use render functions.")}
+if (Component.options.functional) {console.error("[vue-loader] promotion.vue: functional components are not supported with templates, they should use render functions.")}
 
 /* hot reload */
 if (true) {(function () {
@@ -12424,9 +12822,9 @@ if (true) {(function () {
   if (!hotAPI.compatible) return
   module.hot.accept()
   if (!module.hot.data) {
-    hotAPI.createRecord("data-v-06dd6312", Component.options)
+    hotAPI.createRecord("data-v-eb614130", Component.options)
   } else {
-    hotAPI.reload("data-v-06dd6312", Component.options)
+    hotAPI.reload("data-v-eb614130", Component.options)
   }
 })()}
 
@@ -12935,7 +13333,7 @@ exports.f = {}.propertyIsEnumerable;
 
 /***/ }),
 
-/***/ 811:
+/***/ 946:
 /***/ (function(module, exports, __webpack_require__) {
 
 var global = __webpack_require__(22);
@@ -18940,7 +19338,7 @@ exports.f = __webpack_require__(17);
 
 /***/ }),
 
-/***/ 997:
+/***/ 998:
 /***/ (function(module, exports, __webpack_require__) {
 
 var pIE = __webpack_require__(810);
@@ -18966,7 +19364,7 @@ exports.f = __webpack_require__(59) ? gOPD : function getOwnPropertyDescriptor(O
 /***/ 999:
 /***/ (function(module, exports) {
 
-module.exports = {"AppSettings":{"Debug":true,"Version":"1.0.0.0","Domain":"http://demo.way2go.vn","UploadFolder":"uploads","FileUploadMaxSize":5000,"FileUploadSubFix":false,"ImageScaleWidth":300,"ImageScaleHeight":0,"ImageAllowUpload":".jpg,.jpeg,.png,.gif,.bit,.webp,.svg","DocumentAllowUpload":".doc,.docx,.pdf,.xls,.xlsx,.zip,.rar","FoderImg":"https://platformcms.hndedu.com","BaseDomain":"https://demo.way2go.vn","CacheEnable":"0","ESEnable":true,"NodeES":"http://127.0.0.1:9200","IndexES":"product_suggest"},"Redis":{"ConnectionString":"127.0.0.1:6379","DefaultDatabase":1,"InstanceName":"PLM_","CachingExpireMinute":3},"ConnectionStrings":{"DefaultConnection":"Server=103.184.112.82;Database=JT_DEV_2;Trusted_Connection=False;User Id=sa;password=EcaOicT35K%EC1"},"Cors":{"WithOrigin":"http://localhost:60099/"},"Logging":{"IncludeScopes":false,"LogLevel":{"Default":"Debug","System":"Information","Microsoft":"Information"}},"Tokens":{"Key":"0123456789ABCDEF","Issuer":"https://janhome.vn/"},"EmailSender":{"Host":"mail247.vn","Port":465,"CustomerService":{"Email":"cs@joytime.vn","Password":"D2A9HnvGMJYW3BeKQw5f4F"},"SupplierService":{"Email":"partner@joytime.vn","Password":"SL9QgKGtjCNUcbr7uXdWPY"},"HelpDesk":{"Email":"helpdesk@joytime.vn","Password":"jaR548durV2tpFCkX6qENx"},"BookingService":{"Email":"booking@joytime.vn","Password":"zydcpPBfEHeM7u9DU6XLVT"}}}
+module.exports = {"AppSettings":{"Debug":true,"Version":"1.0.0.0","Domain":"http://demo.way2go.vn","UploadFolder":"uploads","FileUploadMaxSize":5000,"FileUploadSubFix":false,"ImageScaleWidth":300,"ImageScaleHeight":0,"ImageAllowUpload":".jpg,.jpeg,.png,.gif,.bit,.webp,.svg","DocumentAllowUpload":".doc,.docx,.pdf,.xls,.xlsx,.zip,.rar","FoderImg":"https://platformcms.hndedu.com","BaseDomain":"https://demo.way2go.vn","CacheEnable":"0","ESEnable":true,"NodeES":"http://127.0.0.1:9200","IndexES":"product_suggest"},"Redis":{"ConnectionString":"127.0.0.1:6379","DefaultDatabase":1,"InstanceName":"PLM_","CachingExpireMinute":3},"ConnectionStrings":{"DefaultConnection":"Server=103.184.112.82;Database=PlatformRelease2;Trusted_Connection=False;User Id=sa;password=EcaOicT35K%EC1"},"Cors":{"WithOrigin":"http://localhost:60099/"},"Logging":{"IncludeScopes":false,"LogLevel":{"Default":"Debug","System":"Information","Microsoft":"Information"}},"Tokens":{"Key":"0123456789ABCDEF","Issuer":"https://janhome.vn/"},"EmailSender":{"Host":"mail247.vn","Port":465,"CustomerService":{"Email":"cs@joytime.vn","Password":"D2A9HnvGMJYW3BeKQw5f4F"},"SupplierService":{"Email":"partner@joytime.vn","Password":"SL9QgKGtjCNUcbr7uXdWPY"},"HelpDesk":{"Email":"helpdesk@joytime.vn","Password":"jaR548durV2tpFCkX6qENx"},"BookingService":{"Email":"booking@joytime.vn","Password":"zydcpPBfEHeM7u9DU6XLVT"}}}
 
 /***/ })
 

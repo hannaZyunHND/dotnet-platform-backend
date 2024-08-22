@@ -214,7 +214,7 @@ var setToStringTag = __webpack_require__(112);
 var uid = __webpack_require__(109);
 var wks = __webpack_require__(17);
 var wksExt = __webpack_require__(996);
-var wksDefine = __webpack_require__(811);
+var wksDefine = __webpack_require__(946);
 var enumKeys = __webpack_require__(1010);
 var isArray = __webpack_require__(187);
 var anObject = __webpack_require__(36);
@@ -225,7 +225,7 @@ var toPrimitive = __webpack_require__(380);
 var createDesc = __webpack_require__(108);
 var _create = __webpack_require__(388);
 var gOPNExt = __webpack_require__(1009);
-var $GOPD = __webpack_require__(997);
+var $GOPD = __webpack_require__(998);
 var $GOPS = __webpack_require__(968);
 var $DP = __webpack_require__(55);
 var $keys = __webpack_require__(183);
@@ -453,7 +453,7 @@ setToStringTag(global.JSON, 'JSON', true);
 /***/ 1012:
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(811)('asyncIterator');
+__webpack_require__(946)('asyncIterator');
 
 
 /***/ }),
@@ -461,7 +461,7 @@ __webpack_require__(811)('asyncIterator');
 /***/ 1013:
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(811)('observable');
+__webpack_require__(946)('observable');
 
 
 /***/ }),
@@ -480,7 +480,7 @@ var _from = __webpack_require__(954);
 
 var _from2 = _interopRequireDefault(_from);
 
-var _extends2 = __webpack_require__(7);
+var _extends2 = __webpack_require__(8);
 
 var _extends3 = _interopRequireDefault(_extends2);
 
@@ -11940,7 +11940,7 @@ if(true) {
 
 /***/ }),
 
-/***/ 1116:
+/***/ 1082:
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(53)();
@@ -11948,14 +11948,14 @@ exports = module.exports = __webpack_require__(53)();
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", "", {"version":3,"sources":[],"names":[],"mappings":"","file":"edit.vue","sourceRoot":""}]);
+exports.push([module.i, "\n.productedit .form-control {\n    height: 35px;\n}\n.panel-body ul li .thumb {\n    float: left;\n    height: 30px;\n    margin-right: 10px;\n    overflow: hidden;\n    width: 30px;\n    border: 1px solid #ddd;\n}\n.panel-body ul li p.text-muted {\n    font-size: 11px;\n    line-height: 15px;\n}\n.panel-body ul li p {\n    margin-bottom: 0px;\n}\n.panel-body ul li {\n    border-bottom: 1px solid #e6e6fa;\n    cursor: pointer;\n    list-style-type: none;\n    padding: 4px 0;\n    padding-left: 10px;\n}\n/* width */\n::-webkit-scrollbar {\n    width: 10px;\n}\n\n/* Track */\n::-webkit-scrollbar-track {\n    background: #f1f1f1;\n}\n\n/* Handle */\n::-webkit-scrollbar-thumb {\n    background: #888;\n}\n\n    /* Handle on hover */\n::-webkit-scrollbar-thumb:hover {\n        background: #555;\n}\n.row ul li.active, #rlist .row ul li.active {\n    background: #f1f7fd;\n}\n.pagination .page-item .page-link {\n    font-size: 12px;\n}\n.pagination {\n    margin-top: 10px\n}\n", "", {"version":3,"sources":["D:/Code/WORKING/dotnet-platform-backend/Web/Platform/CMS/PlatformCMS/ClientApp/pages/product/zone.vue?725811be"],"names":[],"mappings":";AA4PA;IACA,aAAA;CACA;AAGA;IACA,YAAA;IACA,aAAA;IACA,mBAAA;IACA,iBAAA;IACA,YAAA;IACA,uBAAA;CACA;AAIA;IACA,gBAAA;IACA,kBAAA;CACA;AAEA;IACA,mBAAA;CACA;AAEA;IACA,iCAAA;IACA,gBAAA;IACA,sBAAA;IACA,eAAA;IACA,mBAAA;CACA;AACA,WAAA;AACA;IACA,YAAA;CACA;;AAEA,WAAA;AACA;IACA,oBAAA;CACA;;AAEA,YAAA;AACA;IACA,iBAAA;CACA;;IAEA,qBAAA;AACA;QACA,iBAAA;CACA;AAEA;IACA,oBAAA;CACA;AAGA;IACA,gBAAA;CACA;AAEA;IACA,gBAAA;CACA","file":"zone.vue","sourcesContent":["<template>\r\n    <div class=\"row productedit\">\r\n        <div class=\"col-sm-12 col-md-12\">\r\n            <div class=\"card\">\r\n                <div class=\"card-header\">\r\n                    Sản phẩm sắp xếp trong danh mục\r\n                </div>\r\n                <div class=\"card-body\">\r\n                    <div class=\"row\">\r\n                        <div class=\"col-md-12\">\r\n                            <div class=\"panel panel-white\">\r\n                                <div class=\"panel-heading\">\r\n                                    <div style=\"display:flex;width:100%\">\r\n                                        <div class=\"col-md-7\" style=\"padding-left:0px\">\r\n                                            <treeselect :multiple=\"false\"\r\n                                                        :options=\"unflattenBase(ListZone)\"\r\n                                                        placeholder=\"Xin mời bạn lựa chọn danh mục\"\r\n                                                        v-model=\"SearchZoneId\"\r\n                                                        :default-expand-level=\"Infinity\" />\r\n                                        </div>\r\n                                        <div class=\"input-group\" style=\"display:flex;width:40%\">\r\n                                            <input type=\"text\" autocomplete=\"off\" v-model=\"keyword\" placeholder=\"Tìm kiếm sản phẩm\" v-on:keyup.enter=\"onLoadProduct()\" class=\"form-control\"> <span @click=\"onLoadProduct()\" class=\"input-group-addon bg-primary\" style=\"cursor: pointer; width: 45px;\"><i class=\"fa fa-search\" style=\"padding-top: 10px; padding-left: 15px;\"></i></span>\r\n                                        </div>\r\n                                    </div>\r\n                                </div>\r\n                                <div class=\"panel-body\">\r\n                                    <div class=\"slimScrollDiv\">\r\n                                        <div class=\"row\">\r\n                                            <ul style=\"padding:20px;padding-left:10px ;width:100%\">\r\n                                                <li v-for=\"(item,index) in ListProduct\" class=\"row\">\r\n                                                    <div class=\"col-md-5\">\r\n                                                        <a class=\"thumb\"><img :src=\"pathImgs(item.avatar)\" width=\"30\"></a>\r\n                                                        <p style=\"font-size:13px;overflow:hidden\">Mã: {{item.code}}</p>\r\n                                                        <p class=\"text-muted\">Tên: {{item.name}}</p>\r\n                                                    </div>\r\n                                                    <div class=\"col-md-2\">\r\n                                                        <b-form-group label=\"Sắp xếp sản phẩm\">\r\n                                                            <b-form-input v-model=\"item.isHot\" placeholder=\"Sắp xếp trong danh mục\" type=\"number\"></b-form-input>\r\n                                                        </b-form-group>\r\n                                                    </div>\r\n                                                    <div class=\"col-md-2\">\r\n                                                        <img @click=\"openImg(item.productId)\" v-if=\"item.bigThumb != null && item.bigThumb.length >0\" style=\"width:50px;height:20px\" :src=\"pathImgs(item.bigThumb)\" alt=\"Ảnh lỗi\" />\r\n                                                        <i @click=\"openImg(item.productId)\" v-else style=\"font-size:30px\" class=\"fa fa-picture-o\"></i>\r\n                                                    </div>\r\n                                                    <div class=\"col-md-2\">\r\n                                                        <a class=\"btn btn-success\" @click=\"SaveProductHot(item)\"><i style=\"color:#fff\" class=\"fa fa-save\"></i></a>\r\n                                                    </div>\r\n                                                </li>\r\n                                            </ul>\r\n                                        </div>\r\n                                    </div>\r\n                                </div>\r\n                                <div class=\"panel-footer\">\r\n                                    <b-pagination v-model=\"currentPage\"\r\n                                                  :total-rows=\"total\"\r\n                                                  :per-page=\"pageSize\"></b-pagination>\r\n                                </div>\r\n                            </div>\r\n                        </div>\r\n\r\n                    </div>\r\n                </div>\r\n            </div>\r\n        </div>\r\n        <FileManager v-on:handleAttackFile=\"DoAttackFile\" :miKey=\"mikey1\" />\r\n    </div>\r\n</template>\r\n\r\n<script>\r\n\r\n    import { mapActions } from \"vuex\";\r\n    import Treeselect from '@riophae/vue-treeselect';\r\n    import { unflatten, pathImg } from '../../plugins/helper';\r\n    import '@riophae/vue-treeselect/dist/vue-treeselect.css'\r\n\r\n    import FileManager from './../../components/fileManager/list'\r\n    import EventBus from \"./../../common/eventBus\";\r\n\r\n    export default {\r\n        name: \"productinzone\",\r\n        components: {\r\n            Treeselect,\r\n            FileManager\r\n        },\r\n        props: {\r\n            productId: {\r\n                type: Number,\r\n                required: false,\r\n                default: 0\r\n            },\r\n            actions: {\r\n                type: Boolean,\r\n                required: false,\r\n                default: false\r\n            }\r\n        },\r\n        data() {\r\n            return {\r\n                mikey1: 'mikey1',\r\n\r\n                SelectedRegion: \"\",\r\n\r\n                SearchZoneId: 0,\r\n                ChoseZoneId: 0,\r\n                ListZone: [],\r\n                ListProduct: [],\r\n                ListValue: [],\r\n\r\n                ListRegion: [],\r\n\r\n                ListZoneRight: [],\r\n\r\n\r\n                keyword: \"\",\r\n                activeLeft: [],\r\n                activeRight: [],\r\n\r\n                pageSize: 20,\r\n                currentPage: 1,\r\n                total: 0,\r\n                choseImg: 0,\r\n            };\r\n        },\r\n        mounted: function () {\r\n\r\n\r\n        },\r\n        methods: {\r\n            ...mapActions([\"getProductByZone\", \"getZones\", \"addProductHotInZone\"]),\r\n            pathImgs(path) {\r\n                return pathImg(path);\r\n            },\r\n\r\n            openImg(img) {\r\n                this.choseImg = img;\r\n                EventBus.$emit(this.mikey1, '');\r\n            },\r\n\r\n            DoAttackFile(value) {\r\n                let vm = this;\r\n                for (let i = 0; i < vm.ListProduct.length; i++) {\r\n                    if (vm.ListProduct[i].productId == this.choseImg) {\r\n                        vm.ListProduct[i].bigThumb = value[0].path;\r\n                    }\r\n                }\r\n            },\r\n            toggleActive(item) {\r\n                if (this.activeItem[item.id]) {\r\n                    this.removeActiveItem(item);\r\n                    return;\r\n                }\r\n\r\n                this.addActiveItem(item);\r\n            },\r\n\r\n            addActiveItem(item) {\r\n                this.activeItem = Object.assign({},\r\n                    this.activeItem ? [item.id] : item,\r\n                );\r\n            },\r\n            removeActiveItem(item) {\r\n                delete this.activeItem[item.id];\r\n                this.activeItem = Object.assign({}, this.activeItem);\r\n            },\r\n            onLoadProduct() {\r\n                this.activeLeft = [];\r\n                this.activeRight = [];\r\n                let initial = this.$route.query.initial;\r\n                initial = typeof initial != \"undefined\" ? initial.toLowerCase() : \"\";\r\n                this.getProductByZone({\r\n                    keyword: this.keyword,\r\n                    idZone: this.SearchZoneId || 0,\r\n                    pageSize: this.pageSize,\r\n                    pageIndex: this.currentPage,\r\n                }).then(respose => {\r\n                    this.ListProduct = respose.listData.map(item => ({\r\n                        ...item,\r\n                        active: false\r\n                    }));\r\n                    console.log(this.ListProduct);\r\n                    this.total = respose.total;\r\n                })\r\n            },\r\n\r\n\r\n            SaveProductHot: function (item) {\r\n                //debugger-\r\n\r\n                this.addProductHotInZone(item).then(response => {\r\n                    //debugger\r\n                    if (response.success == true) {\r\n                        this.$toast.success(response.message, {});\r\n\r\n                    } else {\r\n                        this.$toast.error(response.message, {});\r\n                    }\r\n                }).catch(e => {\r\n                    this.$toast.error(\"Lỗi hệ thống\");\r\n\r\n                });\r\n\r\n            },\r\n\r\n\r\n            unflattenBase(data) {\r\n                return unflatten(data);\r\n            },\r\n        },\r\n        created() {\r\n            var vm = this;\r\n            EventBus.$on('FileSelected', value => {\r\n                for (let i = 0; i < vm.ListProduct.length; i++) {\r\n                    if (vm.ListProduct[i].productId == this.choseImg) {\r\n                        vm.ListProduct[i].bigThumb = value[0].path;\r\n                    }\r\n                }\r\n            })\r\n\r\n\r\n\r\n            this.getZones(1).then(respose => {\r\n                try {\r\n                    //debugger-\r\n                    respose.listData.push({ id: 0, label: \"Chọn danh mục cha\", parentId: 0 });\r\n                    var data = respose.listData;\r\n                    this.ListZone = data;\r\n\r\n                }\r\n                catch (ex) {\r\n\r\n                }\r\n            });\r\n\r\n        },\r\n        destroyed() {\r\n            EventBus.$off('FileSelected');\r\n        },\r\n        watch: {\r\n            currentPage: function (newVal) {\r\n                this.currentPage = newVal;\r\n                this.onLoadProduct();\r\n            },\r\n\r\n            SearchZoneId: function (newVal) {\r\n                this.currentPage = 1;\r\n                this.onLoadProduct();\r\n            },\r\n        }\r\n    };\r\n</script>\r\n\r\n<style>\r\n    .productedit .form-control {\r\n        height: 35px;\r\n    }\r\n\r\n\r\n    .panel-body ul li .thumb {\r\n        float: left;\r\n        height: 30px;\r\n        margin-right: 10px;\r\n        overflow: hidden;\r\n        width: 30px;\r\n        border: 1px solid #ddd;\r\n    }\r\n\r\n\r\n\r\n    .panel-body ul li p.text-muted {\r\n        font-size: 11px;\r\n        line-height: 15px;\r\n    }\r\n\r\n    .panel-body ul li p {\r\n        margin-bottom: 0px;\r\n    }\r\n\r\n    .panel-body ul li {\r\n        border-bottom: 1px solid #e6e6fa;\r\n        cursor: pointer;\r\n        list-style-type: none;\r\n        padding: 4px 0;\r\n        padding-left: 10px;\r\n    }\r\n    /* width */\r\n    ::-webkit-scrollbar {\r\n        width: 10px;\r\n    }\r\n\r\n    /* Track */\r\n    ::-webkit-scrollbar-track {\r\n        background: #f1f1f1;\r\n    }\r\n\r\n    /* Handle */\r\n    ::-webkit-scrollbar-thumb {\r\n        background: #888;\r\n    }\r\n\r\n        /* Handle on hover */\r\n        ::-webkit-scrollbar-thumb:hover {\r\n            background: #555;\r\n        }\r\n\r\n    .row ul li.active, #rlist .row ul li.active {\r\n        background: #f1f7fd;\r\n    }\r\n\r\n\r\n    .pagination .page-item .page-link {\r\n        font-size: 12px;\r\n    }\r\n\r\n    .pagination {\r\n        margin-top: 10px\r\n    }\r\n</style>\r\n"],"sourceRoot":""}]);
 
 // exports
 
 
 /***/ }),
 
-/***/ 1232:
+/***/ 1246:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -11965,27 +11965,23 @@ Object.defineProperty(exports, "__esModule", {
     value: true
 });
 
-var _stringify = __webpack_require__(393);
+var _assign = __webpack_require__(377);
 
-var _stringify2 = _interopRequireDefault(_stringify);
+var _assign2 = _interopRequireDefault(_assign);
 
-var _extends2 = __webpack_require__(7);
+var _extends2 = __webpack_require__(8);
 
 var _extends3 = _interopRequireDefault(_extends2);
 
-__webpack_require__(796);
-
-var _constant = __webpack_require__(797);
-
-var _constant2 = _interopRequireDefault(_constant);
-
 var _vuex = __webpack_require__(180);
 
-var _vueLoadingOverlay = __webpack_require__(376);
+var _vueTreeselect = __webpack_require__(951);
 
-var _vueLoadingOverlay2 = _interopRequireDefault(_vueLoadingOverlay);
+var _vueTreeselect2 = _interopRequireDefault(_vueTreeselect);
 
 var _helper = __webpack_require__(950);
+
+__webpack_require__(953);
 
 var _list = __webpack_require__(1008);
 
@@ -11995,268 +11991,171 @@ var _eventBus = __webpack_require__(957);
 
 var _eventBus2 = _interopRequireDefault(_eventBus);
 
-__webpack_require__(953);
-
-var _vueTreeselect = __webpack_require__(951);
-
-var _vueTreeselect2 = _interopRequireDefault(_vueTreeselect);
-
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 exports.default = {
-    name: "configaddedit",
-    data: function data() {
-        return {
-
-            mikey1: 'mikey1',
-            isLoading: false,
-            fullPage: false,
-            searchLanguageCode: "vi-VN",
-            searchKeyCode: "",
-            color: "#007bff",
-            currentSort: "Id",
-            currentSortDir: "asc",
-            loading: true,
-            configId: "",
-            objRequest: {
-                type: 3,
-                languageCode: 'vi-VN',
-                code: ""
-
-            },
-
-            editorConfig: {
-                allowedContent: true,
-                extraPlugins: ""
-            },
-
-            IsChose: false,
-
-            IsDisabled: false,
-
-            objRequestDetail: {
-                Order: 255,
-                Image: "",
-                Title: "",
-                Url: "",
-                Description: ""
-            },
-            objRequestDetails: [],
-            langSelected: "",
-            Languages: [],
-            ConfigValueTypes: [],
-            KeyImg: -1,
-            ListCodeBanger: []
-        };
-    },
-    created: function created() {
-        var _this = this;
-
-        var vm = this;
-        _eventBus2.default.$on('FileSelected', function (value) {
-            if (_this.KeyImg == 99999) {
-                debugger;
-                vm.objRequestDetail.Image = value[0].path;
-            } else {
-                if (_this.KeyImg >= 0) {
-                    vm.objRequestDetails[_this.KeyImg].Image = value[0].path;
-                }
-            }
-        });
-
-        this.getAllLanguages().then(function (respose) {
-            var lang = respose.listData;
-            _this.Languages = lang.map(function (item) {
-                return {
-                    value: item.languageCode.trim(),
-                    text: item.name
-                };
-            });
-        });
-    },
-
+    name: "productinzone",
     components: {
-        Loading: _vueLoadingOverlay2.default,
         Treeselect: _vueTreeselect2.default,
         FileManager: _list2.default
     },
-    mounted: function mounted() {
-        var _this2 = this;
+    props: {
+        productId: {
+            type: Number,
+            required: false,
+            default: 0
+        },
+        actions: {
+            type: Boolean,
+            required: false,
+            default: false
+        }
+    },
+    data: function data() {
+        return {
+            mikey1: 'mikey1',
 
-        if (this.$route.params.code != null && this.$route.params.code.length > 0) {
-            this.IsDisabled = true;
-            this.objRequest.code = this.$route.params.code;
-            this.onChange();
+            SelectedRegion: "",
+
+            SearchZoneId: 0,
+            ChoseZoneId: 0,
+            ListZone: [],
+            ListProduct: [],
+            ListValue: [],
+
+            ListRegion: [],
+
+            ListZoneRight: [],
+
+            keyword: "",
+            activeLeft: [],
+            activeRight: [],
+
+            pageSize: 20,
+            currentPage: 1,
+            total: 0,
+            choseImg: 0
         };
-
-        this.getAllLanguages().then(function (respose) {
-            var lang = respose.listData;
-            _this2.Languages = lang.map(function (item) {
-                return {
-                    value: item.languageCode.trim(),
-                    text: item.name.trim()
-                };
-            });
-        });
     },
 
-
-    computed: (0, _extends3.default)({}, (0, _vuex.mapGetters)(["config"])),
-
-    methods: (0, _extends3.default)({}, (0, _vuex.mapActions)(["getBannerAds", "createBannerAds", "getAllLanguages", "getBannerByCode"]), {
-        removeSlide: function removeSlide(index) {
-            debugger;
-            this.objRequestDetails.splice(index, 1);
-        },
-        DoAdd: function DoAdd() {
-            this.objRequestDetails.push({
-                Order: 255,
-                Image: ""
-            });
-        },
+    mounted: function mounted() {},
+    methods: (0, _extends3.default)({}, (0, _vuex.mapActions)(["getProductByZone", "getZones", "addProductHotInZone"]), {
         pathImgs: function pathImgs(path) {
             return (0, _helper.pathImg)(path);
         },
         openImg: function openImg(img) {
-            this.KeyImg = img;
+            this.choseImg = img;
             _eventBus2.default.$emit(this.mikey1, '');
         },
         DoAttackFile: function DoAttackFile(value) {
             var vm = this;
-            if (this.KeyImg == 99999) {
-                debugger;
-                vm.objRequestDetail.Image = value[0].path;
-            } else {
-                if (this.KeyImg >= 0) {
-                    vm.objRequestDetails[this.KeyImg].Image = value[0].path;
+            for (var i = 0; i < vm.ListProduct.length; i++) {
+                if (vm.ListProduct[i].productId == this.choseImg) {
+                    vm.ListProduct[i].bigThumb = value[0].path;
                 }
             }
         },
-        onChange: function onChange() {
-            var _this3 = this;
+        toggleActive: function toggleActive(item) {
+            if (this.activeItem[item.id]) {
+                this.removeActiveItem(item);
+                return;
+            }
 
-            debugger;
-            var key = this.objRequest.languageCode + "_" + this.objRequest.code;
-            this.getBannerAds(key).then(function (response) {
-                var data = response;
-                data.languageCode = _this3.objRequest.languageCode;
-                data.code = _this3.objRequest.code;
+            this.addActiveItem(item);
+        },
+        addActiveItem: function addActiveItem(item) {
+            this.activeItem = (0, _assign2.default)({}, this.activeItem ? [item.id] : item);
+        },
+        removeActiveItem: function removeActiveItem(item) {
+            delete this.activeItem[item.id];
+            this.activeItem = (0, _assign2.default)({}, this.activeItem);
+        },
+        onLoadProduct: function onLoadProduct() {
+            var _this = this;
 
-                _this3.objRequestDetails = JSON.parse(data.metaData);
-
-                _this3.objRequest = data;
+            this.activeLeft = [];
+            this.activeRight = [];
+            var initial = this.$route.query.initial;
+            initial = typeof initial != "undefined" ? initial.toLowerCase() : "";
+            this.getProductByZone({
+                keyword: this.keyword,
+                idZone: this.SearchZoneId || 0,
+                pageSize: this.pageSize,
+                pageIndex: this.currentPage
+            }).then(function (respose) {
+                _this.ListProduct = respose.listData.map(function (item) {
+                    return (0, _extends3.default)({}, item, {
+                        active: false
+                    });
+                });
+                console.log(_this.ListProduct);
+                _this.total = respose.total;
             });
         },
-        DoAddEdit: function DoAddEdit() {
-            var _this4 = this;
 
-            this.isLoading = true;
-            if (this.objRequest.type > 0) {
-                if (this.objRequest.type > 1) {
-                    this.objRequest.metaData = (0, _stringify2.default)(this.objRequestDetails);
-                } else {
-                    this.objRequest.metaData = (0, _stringify2.default)(this.objRequestDetail);
-                }
-                this.createBannerAds(this.objRequest).then(function (response) {
-                    debugger;
-                    if (response.key == true) {
-                        if (_this4.IsChose) {
-                            if (_this4.ListCodeBanger.some(function (x) {
-                                return x.key != _this4.objRequest.code;
-                            })) {
-                                _this4.ListCodeBanger.push({
-                                    key: _this4.objRequest.code,
-                                    value: _this4.objRequest.code
-                                });
-                            }
-                        }
 
-                        _this4.$toast.success(response.value, {});
-                        _this4.isLoading = false;
-                    } else {
-                        _this4.$toast.error(response.value, {});
-                        _this4.isLoading = false;
-                    }
-                }).catch(function (e) {
-                    _this4.$toast.error(_constant2.default.error + ". Error:" + e, {});
-                    _this4.isLoading = false;
-                });
-            } else {
-                this.$toast.error("Bạn chưa chọn loại", {});
-                this.isLoading = false;
-            }
-        },
-        onChangeSelectd: function onChangeSelectd() {
-            if (this.objRequestDetails != null && this.objRequestDetails.length > 0) {
-                var lang = this.langSelected || "vi-VN";
-                var lstObjLang = this.objRequestDetails.filter(function (item) {
-                    return item.languageCode.trim() === lang.trim();
-                });
-                if (lstObjLang != null && lstObjLang != undefined && lstObjLang.length > 0) {
-                    this.objRequestDetail = lstObjLang[0];
-                } else {
-                    this.objRequestDetail = {};
-                    this.objRequestDetail.languageCode = lang;
-                }
-            } else {
-                var _lang = this.langSelected;
-                this.objRequestDetail = {};
-                this.objRequestDetail.languageCode = _lang;
-            }
-        },
-        DoAddDetail: function DoAddDetail() {
-            var _this5 = this;
+        SaveProductHot: function SaveProductHot(item) {
+            var _this2 = this;
 
-            this.objRequestDetail.ConfigGroupKey = this.configId;
-            this.addConfigInLanguage(this.objRequestDetail).then(function (response) {
+            this.addProductHotInZone(item).then(function (response) {
                 if (response.success == true) {
-
-                    if (!_this5.objRequestDetails.some(function (x) {
-                        return x.languageCode == _this5.objRequestDetail.languageCode;
-                    })) {
-                        _this5.objRequestDetails.push(_this5.objRequestDetail);
-                    }
-                    _this5.$toast.success(response.message, {});
+                    _this2.$toast.success(response.message, {});
                 } else {
-                    _this5.$toast.error(response.message, {});
+                    _this2.$toast.error(response.message, {});
                 }
             }).catch(function (e) {
-                _this5.$toast.error(_constant2.default.error + ". Error:" + e, {});
-                _this5.isLoading = false;
+                _this2.$toast.error("Lỗi hệ thống");
             });
+        },
+
+        unflattenBase: function unflattenBase(data) {
+            return (0, _helper.unflatten)(data);
         }
     }),
+    created: function created() {
+        var _this3 = this;
+
+        var vm = this;
+        _eventBus2.default.$on('FileSelected', function (value) {
+            for (var i = 0; i < vm.ListProduct.length; i++) {
+                if (vm.ListProduct[i].productId == _this3.choseImg) {
+                    vm.ListProduct[i].bigThumb = value[0].path;
+                }
+            }
+        });
+
+        this.getZones(1).then(function (respose) {
+            try {
+                respose.listData.push({ id: 0, label: "Chọn danh mục cha", parentId: 0 });
+                var data = respose.listData;
+                _this3.ListZone = data;
+            } catch (ex) {}
+        });
+    },
+    destroyed: function destroyed() {
+        _eventBus2.default.$off('FileSelected');
+    },
 
     watch: {
-        'objRequest.languageCode': function objRequestLanguageCode(newVal) {
-            this.onChange();
-        }
+        currentPage: function currentPage(newVal) {
+            this.currentPage = newVal;
+            this.onLoadProduct();
+        },
 
+        SearchZoneId: function SearchZoneId(newVal) {
+            this.currentPage = 1;
+            this.onLoadProduct();
+        }
     }
 };
 
 /***/ }),
 
-/***/ 1583:
+/***/ 1511:
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
   return _c('div', {
-    staticClass: "productadd"
-  }, [_c('loading', {
-    attrs: {
-      "active": _vm.isLoading,
-      "height": 35,
-      "width": 35,
-      "color": _vm.color,
-      "is-full-page": _vm.fullPage
-    },
-    on: {
-      "update:active": function($event) {
-        _vm.isLoading = $event
-      }
-    }
-  }), _vm._v(" "), _c('div', {
     staticClass: "row productedit"
   }, [_c('div', {
     staticClass: "col-sm-12 col-md-12"
@@ -12264,237 +12163,194 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "card"
   }, [_c('div', {
     staticClass: "card-header"
-  }, [_vm._v("\n                    Thông tin cấu hình Banner\n                ")]), _vm._v(" "), _c('div', {
+  }, [_vm._v("\n                Sản phẩm sắp xếp trong danh mục\n            ")]), _vm._v(" "), _c('div', {
     staticClass: "card-body"
-  }, [_c('b-form', {
-    staticClass: "form-horizontal"
   }, [_c('div', {
     staticClass: "row"
   }, [_c('div', {
-    staticClass: "col-md-3 col-xs-12"
-  }, [_c('b-form-group', {
-    attrs: {
-      "label": "Ngôn ngữ"
+    staticClass: "col-md-12"
+  }, [_c('div', {
+    staticClass: "panel panel-white"
+  }, [_c('div', {
+    staticClass: "panel-heading"
+  }, [_c('div', {
+    staticStyle: {
+      "display": "flex",
+      "width": "100%"
     }
-  }, [_c('b-form-select', {
+  }, [_c('div', {
+    staticClass: "col-md-7",
+    staticStyle: {
+      "padding-left": "0px"
+    }
+  }, [_c('treeselect', {
     attrs: {
-      "options": _vm.Languages
+      "multiple": false,
+      "options": _vm.unflattenBase(_vm.ListZone),
+      "placeholder": "Xin mời bạn lựa chọn danh mục",
+      "default-expand-level": Infinity
     },
     model: {
-      value: (_vm.objRequest.languageCode),
+      value: (_vm.SearchZoneId),
       callback: function($$v) {
-        _vm.$set(_vm.objRequest, "languageCode", $$v)
+        _vm.SearchZoneId = $$v
       },
-      expression: "objRequest.languageCode"
+      expression: "SearchZoneId"
     }
-  })], 1)], 1), _vm._v(" "), _c('div', {
-    staticClass: "col-md-7"
-  }, [_c('div', {
-    staticClass: "form-group"
-  }, [_c('label', [_vm._v("Nhập mã chinh sách (Có định dạng chữ không dấu)")]), _vm._v(" "), _c('input', {
+  })], 1), _vm._v(" "), _c('div', {
+    staticClass: "input-group",
+    staticStyle: {
+      "display": "flex",
+      "width": "40%"
+    }
+  }, [_c('input', {
     directives: [{
       name: "model",
       rawName: "v-model",
-      value: (_vm.objRequest.code),
-      expression: "objRequest.code"
+      value: (_vm.keyword),
+      expression: "keyword"
     }],
     staticClass: "form-control",
     attrs: {
-      "disabled": _vm.IsDisabled,
-      "placeholder": "Nhập mã code không dấu"
+      "type": "text",
+      "autocomplete": "off",
+      "placeholder": "Tìm kiếm sản phẩm"
     },
     domProps: {
-      "value": (_vm.objRequest.code)
+      "value": (_vm.keyword)
     },
     on: {
+      "keyup": function($event) {
+        if (!$event.type.indexOf('key') && _vm._k($event.keyCode, "enter", 13, $event.key, "Enter")) { return null; }
+        return _vm.onLoadProduct()
+      },
       "input": function($event) {
         if ($event.target.composing) { return; }
-        _vm.$set(_vm.objRequest, "code", $event.target.value)
+        _vm.keyword = $event.target.value
       }
     }
-  })])]), _vm._v(" "), _c('div', {
-    staticClass: "col-md-2 col-xs-12"
-  }, [_c('button', {
-    staticClass: "btn btn-info btn-submit-form",
+  }), _vm._v(" "), _c('span', {
+    staticClass: "input-group-addon bg-primary",
     staticStyle: {
-      "margin-top": "32px"
-    },
-    attrs: {
-      "type": "button"
+      "cursor": "pointer",
+      "width": "45px"
     },
     on: {
       "click": function($event) {
-        return _vm.DoAddEdit()
+        return _vm.onLoadProduct()
       }
     }
   }, [_c('i', {
-    staticClass: "fa fa-save"
-  }), _vm._v(" Cập nhật\n                                ")])])]), _vm._v(" "), _c('div', {
-    staticClass: "row",
+    staticClass: "fa fa-search",
     staticStyle: {
-      "margin-bottom": "20px"
+      "padding-top": "10px",
+      "padding-left": "15px"
     }
+  })])])])]), _vm._v(" "), _c('div', {
+    staticClass: "panel-body"
   }, [_c('div', {
-    staticClass: "col-md-12"
-  }, [_c('button', {
-    staticClass: "btn btn-success",
-    attrs: {
-      "type": "button"
-    },
-    on: {
-      "click": function($event) {
-        return _vm.DoAdd()
-      }
+    staticClass: "slimScrollDiv"
+  }, [_c('div', {
+    staticClass: "row"
+  }, [_c('ul', {
+    staticStyle: {
+      "padding": "20px",
+      "padding-left": "10px",
+      "width": "100%"
     }
-  }, [_vm._v("\n                                    Thêm mới\n                                ")])])]), _vm._v(" "), _vm._l((_vm.objRequestDetails), function(item, index) {
-    return _c('div', {
-      staticClass: "row",
-      staticStyle: {
-        "position": "relative",
-        "border": "2px dashed #dcd6d6",
-        "padding": "20px",
-        "margin": "0"
-      }
-    }, [_c('i', {
-      staticClass: "fa fa-remove",
-      staticStyle: {
-        "cursor": "pointer",
-        "font-size": "30px",
-        "color": "red",
-        "position": "absolute",
-        "top": "0",
-        "left": "5px"
-      },
-      on: {
-        "click": function($event) {
-          return _vm.removeSlide(index)
-        }
-      }
-    }), _vm._v(" "), _c('div', {
-      staticClass: "col-md-9"
-    }, [_c('b-form-group', {
-      attrs: {
-        "label": "Mô tả ngắn"
-      }
-    }, [_c('ckeditor', {
-      attrs: {
-        "tag-name": "textarea",
-        "config": _vm.editorConfig
-      },
-      model: {
-        value: (item.Description),
-        callback: function($$v) {
-          _vm.$set(item, "Description", $$v)
-        },
-        expression: "item.Description"
-      }
-    })], 1)], 1), _vm._v(" "), _c('div', {
-      staticClass: "col-md-3"
+  }, _vm._l((_vm.ListProduct), function(item, index) {
+    return _c('li', {
+      staticClass: "row"
     }, [_c('div', {
-      staticClass: "col-md-12"
+      staticClass: "col-md-5"
+    }, [_c('a', {
+      staticClass: "thumb"
+    }, [_c('img', {
+      attrs: {
+        "src": _vm.pathImgs(item.avatar),
+        "width": "30"
+      }
+    })]), _vm._v(" "), _c('p', {
+      staticStyle: {
+        "font-size": "13px",
+        "overflow": "hidden"
+      }
+    }, [_vm._v("Mã: " + _vm._s(item.code))]), _vm._v(" "), _c('p', {
+      staticClass: "text-muted"
+    }, [_vm._v("Tên: " + _vm._s(item.name))])]), _vm._v(" "), _c('div', {
+      staticClass: "col-md-2"
     }, [_c('b-form-group', {
       attrs: {
-        "label": "Thứ tự"
+        "label": "Sắp xếp sản phẩm"
       }
     }, [_c('b-form-input', {
       attrs: {
-        "type": "number",
-        "placeholder": "Thứ tự"
+        "placeholder": "Sắp xếp trong danh mục",
+        "type": "number"
       },
       model: {
-        value: (item.Order),
+        value: (item.isHot),
         callback: function($$v) {
-          _vm.$set(item, "Order", $$v)
+          _vm.$set(item, "isHot", $$v)
         },
-        expression: "item.Order"
+        expression: "item.isHot"
       }
     })], 1)], 1), _vm._v(" "), _c('div', {
-      staticClass: "col-md-12"
-    }, [_c('div', {
+      staticClass: "col-md-2"
+    }, [(item.bigThumb != null && item.bigThumb.length > 0) ? _c('img', {
       staticStyle: {
-        "cursor": "pointer"
+        "width": "50px",
+        "height": "20px"
+      },
+      attrs: {
+        "src": _vm.pathImgs(item.bigThumb),
+        "alt": "Ảnh lỗi"
       },
       on: {
         "click": function($event) {
-          return _vm.openImg(index)
+          return _vm.openImg(item.productId)
         }
       }
-    }, [_c('div', {
-      staticClass: "gallery-upload-file ui-sortable",
+    }) : _c('i', {
+      staticClass: "fa fa-picture-o",
       staticStyle: {
-        "width": "100%",
-        "display": "flex"
-      }
-    }, [_c('div', {
-      staticClass: " r-queue-item ui-sortable-handle",
-      staticStyle: {
-        "width": "100%",
-        "height": "auto",
-        "margin": "0"
-      }
-    }, [(item.Image != null && item.Image != undefined && item.Image.length > 0) ? _c('div', {
-      staticStyle: {
-        "width": "100%"
-      }
-    }, [_c('img', {
-      staticStyle: {
-        "height": "100px",
-        "width": "100%"
-      },
-      attrs: {
-        "alt": "Ảnh lỗi",
-        "src": _vm.pathImgs(item.Image)
-      }
-    })]) : _c('div', [_c('i', {
-      staticClass: "fa fa-picture-o"
-    }), _vm._v(" "), _c('p', [_vm._v("[Chọn ảnh]")])])])])])]), _vm._v(" "), _c('div', {
-      staticClass: "col-md-12"
-    }, [_c('label', [_vm._v("Hiển thị")]), _vm._v(" "), _c('label', {
-      staticClass: "switch switch-outline-primary-alt ",
-      staticStyle: {
-        "padding-top": "15px",
-        "padding-left": "10px"
-      }
-    }, [_c('input', {
-      directives: [{
-        name: "model",
-        rawName: "v-model",
-        value: (item.Show),
-        expression: "item.Show"
-      }],
-      staticClass: "switch-input",
-      attrs: {
-        "type": "checkbox",
-        "checked": ""
-      },
-      domProps: {
-        "checked": Array.isArray(item.Show) ? _vm._i(item.Show, null) > -1 : (item.Show)
+        "font-size": "30px"
       },
       on: {
-        "change": function($event) {
-          var $$a = item.Show,
-            $$el = $event.target,
-            $$c = $$el.checked ? (true) : (false);
-          if (Array.isArray($$a)) {
-            var $$v = null,
-              $$i = _vm._i($$a, $$v);
-            if ($$el.checked) {
-              $$i < 0 && (_vm.$set(item, "Show", $$a.concat([$$v])))
-            } else {
-              $$i > -1 && (_vm.$set(item, "Show", $$a.slice(0, $$i).concat($$a.slice($$i + 1))))
-            }
-          } else {
-            _vm.$set(item, "Show", $$c)
-          }
+        "click": function($event) {
+          return _vm.openImg(item.productId)
         }
       }
-    }), _vm._v(" "), _c('span', {
-      staticClass: "switch-slider",
-      staticStyle: {
-        "width": "40px"
+    })]), _vm._v(" "), _c('div', {
+      staticClass: "col-md-2"
+    }, [_c('a', {
+      staticClass: "btn btn-success",
+      on: {
+        "click": function($event) {
+          return _vm.SaveProductHot(item)
+        }
       }
-    })])])])])
-  })], 2), _vm._v(" "), _vm._m(0)], 1)])])]), _vm._v(" "), _c('FileManager', {
+    }, [_c('i', {
+      staticClass: "fa fa-save",
+      staticStyle: {
+        "color": "#fff"
+      }
+    })])])])
+  }), 0)])])]), _vm._v(" "), _c('div', {
+    staticClass: "panel-footer"
+  }, [_c('b-pagination', {
+    attrs: {
+      "total-rows": _vm.total,
+      "per-page": _vm.pageSize
+    },
+    model: {
+      value: (_vm.currentPage),
+      callback: function($$v) {
+        _vm.currentPage = $$v
+      },
+      expression: "currentPage"
+    }
+  })], 1)])])])])])]), _vm._v(" "), _c('FileManager', {
     attrs: {
       "miKey": _vm.mikey1
     },
@@ -12502,42 +12358,34 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       "handleAttackFile": _vm.DoAttackFile
     }
   })], 1)
-},staticRenderFns: [function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _c('div', {
-    staticClass: "row"
-  }, [_c('div', {
-    staticClass: "col-md-3"
-  }), _vm._v(" "), _c('div', {
-    staticClass: "col-md-3"
-  })])
-}]}
+},staticRenderFns: []}
 module.exports.render._withStripped = true
 if (true) {
   module.hot.accept()
   if (module.hot.data) {
-     __webpack_require__(178).rerender("data-v-ce8ed728", module.exports)
+     __webpack_require__(178).rerender("data-v-06dd6312", module.exports)
   }
 }
 
 /***/ }),
 
-/***/ 1628:
+/***/ 1594:
 /***/ (function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
-var content = __webpack_require__(1116);
+var content = __webpack_require__(1082);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
-var update = __webpack_require__(801)("4f69d2ac", content, false);
+var update = __webpack_require__(801)("8ca348e8", content, false);
 // Hot Module Replacement
 if(true) {
  // When the styles change, update the <style> tags
  if(!content.locals) {
-   module.hot.accept(1116, function() {
-     var newContent = __webpack_require__(1116);
+   module.hot.accept(1082, function() {
+     var newContent = __webpack_require__(1082);
      if(typeof newContent === 'string') newContent = [[module.i, newContent, '']];
      update(newContent);
    });
@@ -12548,26 +12396,26 @@ if(true) {
 
 /***/ }),
 
-/***/ 760:
+/***/ 773:
 /***/ (function(module, exports, __webpack_require__) {
 
 
 /* styles */
-__webpack_require__(1628)
+__webpack_require__(1594)
 
 var Component = __webpack_require__(374)(
   /* script */
-  __webpack_require__(1232),
+  __webpack_require__(1246),
   /* template */
-  __webpack_require__(1583),
+  __webpack_require__(1511),
   /* scopeId */
   null,
   /* cssModules */
   null
 )
-Component.options.__file = "D:\\Code\\WORKING\\dotnet-platform-backend\\Web\\Platform\\CMS\\PlatformCMS\\ClientApp\\pages\\policy\\edit.vue"
+Component.options.__file = "D:\\Code\\WORKING\\dotnet-platform-backend\\Web\\Platform\\CMS\\PlatformCMS\\ClientApp\\pages\\product\\zone.vue"
 if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
-if (Component.options.functional) {console.error("[vue-loader] edit.vue: functional components are not supported with templates, they should use render functions.")}
+if (Component.options.functional) {console.error("[vue-loader] zone.vue: functional components are not supported with templates, they should use render functions.")}
 
 /* hot reload */
 if (true) {(function () {
@@ -12576,9 +12424,9 @@ if (true) {(function () {
   if (!hotAPI.compatible) return
   module.hot.accept()
   if (!module.hot.data) {
-    hotAPI.createRecord("data-v-ce8ed728", Component.options)
+    hotAPI.createRecord("data-v-06dd6312", Component.options)
   } else {
-    hotAPI.reload("data-v-ce8ed728", Component.options)
+    hotAPI.reload("data-v-06dd6312", Component.options)
   }
 })()}
 
@@ -13087,7 +12935,7 @@ exports.f = {}.propertyIsEnumerable;
 
 /***/ }),
 
-/***/ 811:
+/***/ 946:
 /***/ (function(module, exports, __webpack_require__) {
 
 var global = __webpack_require__(22);
@@ -19092,7 +18940,7 @@ exports.f = __webpack_require__(17);
 
 /***/ }),
 
-/***/ 997:
+/***/ 998:
 /***/ (function(module, exports, __webpack_require__) {
 
 var pIE = __webpack_require__(810);
@@ -19118,7 +18966,7 @@ exports.f = __webpack_require__(59) ? gOPD : function getOwnPropertyDescriptor(O
 /***/ 999:
 /***/ (function(module, exports) {
 
-module.exports = {"AppSettings":{"Debug":true,"Version":"1.0.0.0","Domain":"http://demo.way2go.vn","UploadFolder":"uploads","FileUploadMaxSize":5000,"FileUploadSubFix":false,"ImageScaleWidth":300,"ImageScaleHeight":0,"ImageAllowUpload":".jpg,.jpeg,.png,.gif,.bit,.webp,.svg","DocumentAllowUpload":".doc,.docx,.pdf,.xls,.xlsx,.zip,.rar","FoderImg":"https://platformcms.hndedu.com","BaseDomain":"https://demo.way2go.vn","CacheEnable":"0","ESEnable":true,"NodeES":"http://127.0.0.1:9200","IndexES":"product_suggest"},"Redis":{"ConnectionString":"127.0.0.1:6379","DefaultDatabase":1,"InstanceName":"PLM_","CachingExpireMinute":3},"ConnectionStrings":{"DefaultConnection":"Server=103.184.112.82;Database=JT_DEV_2;Trusted_Connection=False;User Id=sa;password=EcaOicT35K%EC1"},"Cors":{"WithOrigin":"http://localhost:60099/"},"Logging":{"IncludeScopes":false,"LogLevel":{"Default":"Debug","System":"Information","Microsoft":"Information"}},"Tokens":{"Key":"0123456789ABCDEF","Issuer":"https://janhome.vn/"},"EmailSender":{"Host":"mail247.vn","Port":465,"CustomerService":{"Email":"cs@joytime.vn","Password":"D2A9HnvGMJYW3BeKQw5f4F"},"SupplierService":{"Email":"partner@joytime.vn","Password":"SL9QgKGtjCNUcbr7uXdWPY"},"HelpDesk":{"Email":"helpdesk@joytime.vn","Password":"jaR548durV2tpFCkX6qENx"},"BookingService":{"Email":"booking@joytime.vn","Password":"zydcpPBfEHeM7u9DU6XLVT"}}}
+module.exports = {"AppSettings":{"Debug":true,"Version":"1.0.0.0","Domain":"http://demo.way2go.vn","UploadFolder":"uploads","FileUploadMaxSize":5000,"FileUploadSubFix":false,"ImageScaleWidth":300,"ImageScaleHeight":0,"ImageAllowUpload":".jpg,.jpeg,.png,.gif,.bit,.webp,.svg","DocumentAllowUpload":".doc,.docx,.pdf,.xls,.xlsx,.zip,.rar","FoderImg":"https://platformcms.hndedu.com","BaseDomain":"https://demo.way2go.vn","CacheEnable":"0","ESEnable":true,"NodeES":"http://127.0.0.1:9200","IndexES":"product_suggest"},"Redis":{"ConnectionString":"127.0.0.1:6379","DefaultDatabase":1,"InstanceName":"PLM_","CachingExpireMinute":3},"ConnectionStrings":{"DefaultConnection":"Server=103.184.112.82;Database=PlatformRelease2;Trusted_Connection=False;User Id=sa;password=EcaOicT35K%EC1"},"Cors":{"WithOrigin":"http://localhost:60099/"},"Logging":{"IncludeScopes":false,"LogLevel":{"Default":"Debug","System":"Information","Microsoft":"Information"}},"Tokens":{"Key":"0123456789ABCDEF","Issuer":"https://janhome.vn/"},"EmailSender":{"Host":"mail247.vn","Port":465,"CustomerService":{"Email":"cs@joytime.vn","Password":"D2A9HnvGMJYW3BeKQw5f4F"},"SupplierService":{"Email":"partner@joytime.vn","Password":"SL9QgKGtjCNUcbr7uXdWPY"},"HelpDesk":{"Email":"helpdesk@joytime.vn","Password":"jaR548durV2tpFCkX6qENx"},"BookingService":{"Email":"booking@joytime.vn","Password":"zydcpPBfEHeM7u9DU6XLVT"}}}
 
 /***/ })
 

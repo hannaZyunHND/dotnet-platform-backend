@@ -1,6 +1,6 @@
 webpackJsonp([45],{
 
-/***/ 1026:
+/***/ 1023:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -24,8 +24,8 @@ var _http2 = _interopRequireDefault(_http);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-var productSpecificationTemplateRepository = {
-    getProductSpecificationTemplate: function getProductSpecificationTemplate(data) {
+var manufacturersRepository = {
+    getPageManufacturers: function getPageManufacturers(data) {
         var _this = this;
 
         return (0, _asyncToGenerator3.default)(_regenerator2.default.mark(function _callee() {
@@ -35,7 +35,7 @@ var productSpecificationTemplateRepository = {
                     switch (_context.prev = _context.next) {
                         case 0:
                             _context.next = 2;
-                            return _http2.default.get('/api/productspecificationtemplate/get?pageIndex=' + data.pageIndex + '&pageSize=' + data.pageSize + '&keyword=' + data.title, {}).catch(function (e) {
+                            return _http2.default.get('/api/Manufacturer/Get?pageIndex=' + data.pageIndex + '&pageSize=' + data.pageSize + '&keyword=' + data.title, {}).catch(function (e) {
                                 alert('ex found:' + e);
                             });
 
@@ -53,7 +53,7 @@ var productSpecificationTemplateRepository = {
             }, _callee, _this);
         }))();
     },
-    addProductSpecificationTemplate: function addProductSpecificationTemplate(data) {
+    addManufacturers: function addManufacturers(data) {
         var _this2 = this;
 
         return (0, _asyncToGenerator3.default)(_regenerator2.default.mark(function _callee2() {
@@ -63,7 +63,7 @@ var productSpecificationTemplateRepository = {
                     switch (_context2.prev = _context2.next) {
                         case 0:
                             _context2.next = 2;
-                            return _http2.default.post('/api/productspecificationtemplate/Add', data).catch(function (e) {
+                            return _http2.default.post('/api/Manufacturer/Add', data).catch(function (e) {
                                 alert('ex found:' + e);
                             });
 
@@ -81,7 +81,7 @@ var productSpecificationTemplateRepository = {
             }, _callee2, _this2);
         }))();
     },
-    updateProductSpecificationTemplate: function updateProductSpecificationTemplate(data) {
+    updateManufacturers: function updateManufacturers(data) {
         var _this3 = this;
 
         return (0, _asyncToGenerator3.default)(_regenerator2.default.mark(function _callee3() {
@@ -91,7 +91,7 @@ var productSpecificationTemplateRepository = {
                     switch (_context3.prev = _context3.next) {
                         case 0:
                             _context3.next = 2;
-                            return _http2.default.put('/api/productspecificationtemplate/Update', data).catch(function (e) {
+                            return _http2.default.put('/api/Manufacturer/Update', data).catch(function (e) {
                                 alert('ex found:' + e);
                             });
 
@@ -109,7 +109,7 @@ var productSpecificationTemplateRepository = {
             }, _callee3, _this3);
         }))();
     },
-    getProductSpecificationTemplateById: function getProductSpecificationTemplateById(id) {
+    getManufacturersById: function getManufacturersById(id) {
         var _this4 = this;
 
         return (0, _asyncToGenerator3.default)(_regenerator2.default.mark(function _callee4() {
@@ -119,7 +119,7 @@ var productSpecificationTemplateRepository = {
                     switch (_context4.prev = _context4.next) {
                         case 0:
                             _context4.next = 2;
-                            return _http2.default.get('/api/productspecificationtemplate/GetById?id=' + id).catch(function (e) {
+                            return _http2.default.get('/api/Manufacturer/GetById?id=' + id).catch(function (e) {
                                 alert('ex found:' + e);
                             });
 
@@ -135,8 +135,8 @@ var productSpecificationTemplateRepository = {
             }, _callee4, _this4);
         }))();
     },
-    deleteProductSpecificationTemplate: function deleteProductSpecificationTemplate(data) {
-        return _http2.default.post('/api/ProductSpecificationTemplate/unpublish?id=' + data).then(function (response) {
+    deleteManufacturers: function deleteManufacturers(data) {
+        return _http2.default.post('/api/Manufacturer/UnPublish?id=' + data).then(function (response) {
             console.log(response.data);
             return response.data;
         }).catch(function (e) {
@@ -168,40 +168,126 @@ var productSpecificationTemplateRepository = {
                 }
             }, _callee5, _this5);
         }))();
-    },
-    getZoneArticle: function getZoneArticle() {
-        var _this6 = this;
-
-        return (0, _asyncToGenerator3.default)(_regenerator2.default.mark(function _callee6() {
-            var response;
-            return _regenerator2.default.wrap(function _callee6$(_context6) {
-                while (1) {
-                    switch (_context6.prev = _context6.next) {
-                        case 0:
-                            _context6.next = 2;
-                            return _http2.default.get('/api/Article/GetZoneArticle').catch(function (e) {
-                                alert('ex found:' + e);
-                            });
-
-                        case 2:
-                            response = _context6.sent;
-                            return _context6.abrupt('return', response.data);
-
-                        case 4:
-                        case 'end':
-                            return _context6.stop();
-                    }
-                }
-            }, _callee6, _this6);
-        }))();
     }
 };
 
-exports.default = productSpecificationTemplateRepository;
+exports.default = manufacturersRepository;
 
 /***/ }),
 
-/***/ 1238:
+/***/ 1035:
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports = { "default": __webpack_require__(1044), __esModule: true };
+
+/***/ }),
+
+/***/ 1037:
+/***/ (function(module, exports, __webpack_require__) {
+
+// most Object methods by ES6 should accept primitives
+var $export = __webpack_require__(32);
+var core = __webpack_require__(20);
+var fails = __webpack_require__(104);
+module.exports = function (KEY, exec) {
+  var fn = (core.Object || {})[KEY] || Object[KEY];
+  var exp = {};
+  exp[KEY] = exec(fn);
+  $export($export.S + $export.F * fails(function () { fn(1); }), 'Object', exp);
+};
+
+
+/***/ }),
+
+/***/ 1041:
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _freeze = __webpack_require__(1035);
+
+var _freeze2 = _interopRequireDefault(_freeze);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+exports.default = (0, _freeze2.default)({
+    CREATE: "CREATE",
+    UPDATE: "UPDATE",
+    DELETE: "DELETE",
+    VIEW: "VIEW",
+    IMPORT: "IMPORT",
+    EXPORT: "EXPORT",
+    APPROVE: "APPROVE",
+    PUBLISH: "PUBLISH",
+    UNPUBLISH: "UNPUBLISH"
+});
+
+/***/ }),
+
+/***/ 1042:
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _freeze = __webpack_require__(1035);
+
+var _freeze2 = _interopRequireDefault(_freeze);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+exports.default = (0, _freeze2.default)({
+    SYSTEM_USER: "SYSTEM.USER",
+    SYSTEM_ROLE: "SYSTEM.ROLE",
+    ARTICLE: "ARTICLE",
+    CONFIG_LIST: "CONFIG.LIST",
+    CONFIG_ZONE: "CONFIG.ZONE",
+    PRODUCT_LIST: "PRODUCT.LIST",
+    PRODUCT_MANUFACTURERS: "PRODUCT.MANUFACTURERS",
+    PRODUCT_PRODUCTSPECIFICATIONTEMPLATE: "PRODUCT.PRODUCTSPECIFICATIONTEMPLATE",
+    PRODUCT_PROMOTION: "PRODUCT.PROMOTION",
+    PRODUCT_PROPERTY: "PRODUCT.PROPERTY",
+    PRODUCT_REGION: "PRODUCT.REGION"
+
+});
+
+/***/ }),
+
+/***/ 1044:
+/***/ (function(module, exports, __webpack_require__) {
+
+__webpack_require__(1045);
+module.exports = __webpack_require__(20).Object.freeze;
+
+
+/***/ }),
+
+/***/ 1045:
+/***/ (function(module, exports, __webpack_require__) {
+
+// 19.1.2.5 Object.freeze(O)
+var isObject = __webpack_require__(56);
+var meta = __webpack_require__(952).onFreeze;
+
+__webpack_require__(1037)('freeze', function ($freeze) {
+  return function freeze(it) {
+    return $freeze && isObject(it) ? $freeze(meta(it)) : it;
+  };
+});
+
+
+/***/ }),
+
+/***/ 1265:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -223,11 +309,17 @@ var _asyncToGenerator2 = __webpack_require__(74);
 
 var _asyncToGenerator3 = _interopRequireDefault(_asyncToGenerator2);
 
+var _extends2 = __webpack_require__(8);
+
+var _extends3 = _interopRequireDefault(_extends2);
+
 __webpack_require__(796);
 
 var _vueLoadingOverlay = __webpack_require__(376);
 
 var _vueLoadingOverlay2 = _interopRequireDefault(_vueLoadingOverlay);
+
+var _vuex = __webpack_require__(180);
 
 var _vueTreeselect = __webpack_require__(951);
 
@@ -235,19 +327,29 @@ var _vueTreeselect2 = _interopRequireDefault(_vueTreeselect);
 
 __webpack_require__(953);
 
-var _productSpecificationTemplateRepository = __webpack_require__(1026);
+var _manufacturerRepository = __webpack_require__(1023);
 
-var _productSpecificationTemplateRepository2 = _interopRequireDefault(_productSpecificationTemplateRepository);
+var _manufacturerRepository2 = _interopRequireDefault(_manufacturerRepository);
 
 var _constant = __webpack_require__(797);
 
 var _constant2 = _interopRequireDefault(_constant);
 
+var _authenticationRepository = __webpack_require__(114);
+
+var _functionsConstant = __webpack_require__(1042);
+
+var _functionsConstant2 = _interopRequireDefault(_functionsConstant);
+
+var _actionsConstant = __webpack_require__(1041);
+
+var _actionsConstant2 = _interopRequireDefault(_actionsConstant);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-var fields = [{ key: "Check", label: "" }, { key: "STT", label: "Mã" }, { key: "Name", label: "Tên", sortable: true }, { key: "Value", label: "Giá trị", sortable: true }, { key: "Action", label: "Thao tác" }];
+var fields = [{ key: "Name", label: "Tên nhóm người dùng", sortable: true }, { key: "Action", label: "Thao tác" }];
 exports.default = (0, _defineProperty3.default)({
-    name: "Manufacturers",
+    name: "Role",
     components: {
         Loading: _vueLoadingOverlay2.default
     },
@@ -278,12 +380,15 @@ exports.default = (0, _defineProperty3.default)({
                 next: "Next",
                 last: "Last"
             },
-            listProductSpecificationTemplate: null,
-            items: null
+            listRole: null,
+            items: null,
+            currentUser: null,
+            permissionAdd: false,
+            permissionDelete: false
         };
     },
 
-    methods: {
+    methods: (0, _extends3.default)({}, (0, _vuex.mapActions)(["getPageRole", "deleteRole"]), {
         onChangePaging: function onChangePaging() {
             var _this = this;
 
@@ -298,7 +403,7 @@ exports.default = (0, _defineProperty3.default)({
 
                                 initial = typeof initial != "undefined" ? initial.toLowerCase() : "";
                                 _context.next = 5;
-                                return _productSpecificationTemplateRepository2.default.getProductSpecificationTemplate({
+                                return _this.getPageRole({
                                     initial: initial,
                                     pageIndex: _this.currentPage,
                                     pageSize: _this.pageSize,
@@ -306,11 +411,11 @@ exports.default = (0, _defineProperty3.default)({
                                 });
 
                             case 5:
-                                _this.listProductSpecificationTemplate = _context.sent;
+                                _this.listRole = _context.sent;
 
-                                console.log(_this.listProductSpecificationTemplate);
-                                _this.totalRow = _this.listProductSpecificationTemplate.totalRow;
-                                _this.items = _this.listProductSpecificationTemplate.items;
+                                console.log(_this.listRole);
+                                _this.totalRow = _this.listRole.totalRow;
+                                _this.items = _this.listRole.items;
                                 _this.isLoading = false;
 
                             case 10:
@@ -325,7 +430,8 @@ exports.default = (0, _defineProperty3.default)({
             var _this2 = this;
 
             if (confirm("Bạn có thực sự muốn xoá?")) {
-                _productSpecificationTemplateRepository2.default.deleteProductSpecificationTemplate(item).then(function (response) {
+                this.deleteRole(item).then(function (response) {
+                    console.log(response);
                     if (response.success == true) {
                         _this2.$toast.success(response.message, {});
                         _this2.isLoading = false;
@@ -338,8 +444,63 @@ exports.default = (0, _defineProperty3.default)({
                     _this2.$toast.error(_constant2.default.error + ". Error:" + e, {});
                 });
             }
+        },
+        checkPermissionAdd: function checkPermissionAdd() {
+            var _this3 = this;
+
+            return (0, _asyncToGenerator3.default)(_regenerator2.default.mark(function _callee2() {
+                var permissions;
+                return _regenerator2.default.wrap(function _callee2$(_context2) {
+                    while (1) {
+                        switch (_context2.prev = _context2.next) {
+                            case 0:
+                                _context2.next = 2;
+                                return _authenticationRepository.authenticationRepository.getCurrentUser();
+
+                            case 2:
+                                _this3.currentUser = _context2.sent;
+                                permissions = _functionsConstant2.default.SYSTEM_ROLE + '_' + _actionsConstant2.default.CREATE;
+
+                                if (_this3.currentUser.permissions.includes(permissions)) {
+                                    _this3.permissionAdd = true;
+                                }
+
+                            case 5:
+                            case "end":
+                                return _context2.stop();
+                        }
+                    }
+                }, _callee2, _this3);
+            }))();
+        },
+        checkRole: function checkRole() {
+            var _this4 = this;
+
+            return (0, _asyncToGenerator3.default)(_regenerator2.default.mark(function _callee3() {
+                return _regenerator2.default.wrap(function _callee3$(_context3) {
+                    while (1) {
+                        switch (_context3.prev = _context3.next) {
+                            case 0:
+                                _context3.next = 2;
+                                return _authenticationRepository.authenticationRepository.getCurrentUser();
+
+                            case 2:
+                                _this4.currentUser = _context3.sent;
+
+                                if (_this4.currentUser.roles.includes("Admin")) {
+                                    _this4.permissionDelete = true;
+                                    _this4.permissionAdd = true;
+                                }
+
+                            case 4:
+                            case "end":
+                                return _context3.stop();
+                        }
+                    }
+                }, _callee3, _this4);
+            }))();
         }
-    },
+    }),
     watch: {
         currentPage: function currentPage(val) {
             this.onChangePaging();
@@ -354,7 +515,7 @@ exports.default = (0, _defineProperty3.default)({
 
 /***/ }),
 
-/***/ 1570:
+/***/ 1557:
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
@@ -432,26 +593,11 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }],
     staticClass: "btn btn-success",
     attrs: {
-      "title": "Thêm mới thông số kỹ thuật"
+      "title": "Thêm mới nhóm người dùng"
     }
   }, [_c('i', {
     staticClass: "fa fa-plus"
-  }), _vm._v(" Thêm mới\n                    ")])], 1), _vm._v(" "), _c('button', {
-    staticClass: "btn btn-danger",
-    attrs: {
-      "type": "button"
-    }
-  }, [_c('i', {
-    staticClass: "fa fa-trash-o"
-  }), _vm._v(" Xóa")])], 1), _vm._v(" "), _c('b-dropdown', {
-    staticClass: "mx-1",
-    attrs: {
-      "variant": "info",
-      "right": "",
-      "text": "Hành động",
-      "icon": ""
-    }
-  }, [_c('b-dropdown-item', [_vm._v("Kích hoạt")]), _vm._v(" "), _c('b-dropdown-item', [_vm._v("Không kích hoạt")])], 1), _vm._v(" "), _c('div', {
+  }), _vm._v(" Thêm mới\n                    ")])], 1)], 1), _vm._v(" "), _c('div', {
     staticClass: "mx-1 btn-group mi-paging"
   }, [_c('b-pagination', {
     staticClass: "pagination b-pagination pagination-md",
@@ -466,10 +612,10 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       },
       expression: "currentPage"
     }
-  })], 1)], 1), _vm._v(" "), _c('div', {
+  })], 1)]), _vm._v(" "), _c('div', {
     staticClass: "table-responsive"
   }, [_c('table', {
-    staticClass: "table table-centered table-nowrap data-thumb-view dataTable no-footer"
+    staticClass: "table table-centered data-thumb-view dataTable no-footer table-nowrap"
   }, [_c('thead', {
     staticClass: "thead-dark table table-centered table-nowrap"
   }, [_c('tr', _vm._l((_vm.fields), function(field) {
@@ -486,26 +632,19 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
           field.sortable ? _vm.sortor(field.key) : null
         }
       }
-    }, [_vm._v("\n                            " + _vm._s(field.label) + "\n                        ")])
-  }), 0)]), _vm._v(" "), _c('tbody', _vm._l((this.items), function(item, index) {
-    return _c('tr', [_c('td', [_c('b-form-checkbox')], 1), _vm._v(" "), _c('td', {
-      staticClass: "text-center",
-      attrs: {
-        "scope": "row"
-      }
-    }, [_vm._v(_vm._s(index + 1))]), _vm._v(" "), _c('td', {
+    }, [_vm._v(_vm._s(field.label) + "\n                    ")])
+  }), 0)]), _vm._v(" "), _c('tbody', _vm._l((this.items), function(item) {
+    return _c('tr', [_c('td', {
       staticClass: "text-center"
     }, [_vm._v(_vm._s(item.name))]), _vm._v(" "), _c('td', {
       staticClass: "text-center"
-    }, [_vm._v(_vm._s(item.unit))]), _vm._v(" "), _c('td', {
-      staticClass: "text-center"
-    }, [_c('router-link', {
+    }, [(item.name != 'Admin') ? _c('router-link', {
       attrs: {
         "to": {
           path: 'edit/' + item.id
         }
       }
-    }, [_c('a', {
+    }, [_c('span', {
       directives: [{
         name: "b-tooltip",
         rawName: "v-b-tooltip.hover",
@@ -514,11 +653,20 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         }
       }],
       attrs: {
-        "title": "Sửa thông số kỹ thuật"
+        "title": "Sửa nhóm người dùng"
       }
     }, [_c('i', {
-      staticClass: "fa fa-edit"
-    })])]), _vm._v(" "), _c('a', {
+      staticClass: "fa fa-edit",
+      staticStyle: {
+        "color": "gold"
+      }
+    })])]) : _vm._e(), _vm._v(" "), (item.name != 'Admin') ? _c('router-link', {
+      attrs: {
+        "to": {
+          path: 'assignPermissionRole/' + item.id
+        }
+      }
+    }, [_c('span', {
       directives: [{
         name: "b-tooltip",
         rawName: "v-b-tooltip.hover",
@@ -527,7 +675,23 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         }
       }],
       attrs: {
-        "title": "Hạ thông số kỹ thuật"
+        "title": "Thêm quyền nhóm người dùng"
+      }
+    }, [_c('i', {
+      staticClass: "fa fa-users",
+      staticStyle: {
+        "color": "green"
+      }
+    })])]) : _vm._e(), _vm._v(" "), (item.name != 'Admin') ? _c('a', {
+      directives: [{
+        name: "b-tooltip",
+        rawName: "v-b-tooltip.hover",
+        modifiers: {
+          "hover": true
+        }
+      }],
+      attrs: {
+        "title": "Hạ nhóm người dùng"
       },
       on: {
         "click": function($event) {
@@ -539,33 +703,33 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       staticStyle: {
         "color": "red"
       }
-    })])], 1)])
+    })]) : _vm._e()], 1)])
   }), 0)])])])], 1)
 },staticRenderFns: []}
 module.exports.render._withStripped = true
 if (true) {
   module.hot.accept()
   if (module.hot.data) {
-     __webpack_require__(178).rerender("data-v-826d1df8", module.exports)
+     __webpack_require__(178).rerender("data-v-59f6bd7c", module.exports)
   }
 }
 
 /***/ }),
 
-/***/ 765:
+/***/ 785:
 /***/ (function(module, exports, __webpack_require__) {
 
 var Component = __webpack_require__(374)(
   /* script */
-  __webpack_require__(1238),
+  __webpack_require__(1265),
   /* template */
-  __webpack_require__(1570),
+  __webpack_require__(1557),
   /* scopeId */
   null,
   /* cssModules */
   null
 )
-Component.options.__file = "D:\\Code\\WORKING\\dotnet-platform-backend\\Web\\Platform\\CMS\\PlatformCMS\\ClientApp\\pages\\productSpecificationTemplate\\list.vue"
+Component.options.__file = "D:\\Code\\WORKING\\dotnet-platform-backend\\Web\\Platform\\CMS\\PlatformCMS\\ClientApp\\pages\\role\\list.vue"
 if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
 if (Component.options.functional) {console.error("[vue-loader] list.vue: functional components are not supported with templates, they should use render functions.")}
 
@@ -576,9 +740,9 @@ if (true) {(function () {
   if (!hotAPI.compatible) return
   module.hot.accept()
   if (!module.hot.data) {
-    hotAPI.createRecord("data-v-826d1df8", Component.options)
+    hotAPI.createRecord("data-v-59f6bd7c", Component.options)
   } else {
-    hotAPI.reload("data-v-826d1df8", Component.options)
+    hotAPI.reload("data-v-59f6bd7c", Component.options)
   }
 })()}
 
@@ -4701,6 +4865,66 @@ var VERSION = "0.4.0";
 /******/ ]);
 //# sourceMappingURL=vue-treeselect.cjs.js.map
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(27)))
+
+/***/ }),
+
+/***/ 952:
+/***/ (function(module, exports, __webpack_require__) {
+
+var META = __webpack_require__(182)('meta');
+var isObject = __webpack_require__(56);
+var has = __webpack_require__(72);
+var setDesc = __webpack_require__(54).f;
+var id = 0;
+var isExtensible = Object.isExtensible || function () {
+  return true;
+};
+var FREEZE = !__webpack_require__(104)(function () {
+  return isExtensible(Object.preventExtensions({}));
+});
+var setMeta = function (it) {
+  setDesc(it, META, { value: {
+    i: 'O' + ++id, // object ID
+    w: {}          // weak collections IDs
+  } });
+};
+var fastKey = function (it, create) {
+  // return primitive with prefix
+  if (!isObject(it)) return typeof it == 'symbol' ? it : (typeof it == 'string' ? 'S' : 'P') + it;
+  if (!has(it, META)) {
+    // can't set metadata to uncaught frozen object
+    if (!isExtensible(it)) return 'F';
+    // not necessary to add metadata
+    if (!create) return 'E';
+    // add missing metadata
+    setMeta(it);
+  // return object ID
+  } return it[META].i;
+};
+var getWeak = function (it, create) {
+  if (!has(it, META)) {
+    // can't set metadata to uncaught frozen object
+    if (!isExtensible(it)) return true;
+    // not necessary to add metadata
+    if (!create) return false;
+    // add missing metadata
+    setMeta(it);
+  // return hash weak collections IDs
+  } return it[META].w;
+};
+// add metadata on freeze-family methods calling
+var onFreeze = function (it) {
+  if (FREEZE && meta.NEED && isExtensible(it) && !has(it, META)) setMeta(it);
+  return it;
+};
+var meta = module.exports = {
+  KEY: META,
+  NEED: false,
+  fastKey: fastKey,
+  getWeak: getWeak,
+  onFreeze: onFreeze
+};
+
 
 /***/ }),
 
