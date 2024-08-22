@@ -214,7 +214,7 @@ var setToStringTag = __webpack_require__(112);
 var uid = __webpack_require__(109);
 var wks = __webpack_require__(17);
 var wksExt = __webpack_require__(996);
-var wksDefine = __webpack_require__(811);
+var wksDefine = __webpack_require__(946);
 var enumKeys = __webpack_require__(1010);
 var isArray = __webpack_require__(187);
 var anObject = __webpack_require__(36);
@@ -225,7 +225,7 @@ var toPrimitive = __webpack_require__(380);
 var createDesc = __webpack_require__(108);
 var _create = __webpack_require__(388);
 var gOPNExt = __webpack_require__(1009);
-var $GOPD = __webpack_require__(997);
+var $GOPD = __webpack_require__(998);
 var $GOPS = __webpack_require__(968);
 var $DP = __webpack_require__(55);
 var $keys = __webpack_require__(183);
@@ -453,7 +453,7 @@ setToStringTag(global.JSON, 'JSON', true);
 /***/ 1012:
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(811)('asyncIterator');
+__webpack_require__(946)('asyncIterator');
 
 
 /***/ }),
@@ -461,7 +461,7 @@ __webpack_require__(811)('asyncIterator');
 /***/ 1013:
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(811)('observable');
+__webpack_require__(946)('observable');
 
 
 /***/ }),
@@ -480,7 +480,7 @@ var _from = __webpack_require__(954);
 
 var _from2 = _interopRequireDefault(_from);
 
-var _extends2 = __webpack_require__(7);
+var _extends2 = __webpack_require__(8);
 
 var _extends3 = _interopRequireDefault(_extends2);
 
@@ -18139,7 +18139,7 @@ if (typeof window !== "undefined" && "Vue" in window) {
 
 /***/ }),
 
-/***/ 1088:
+/***/ 1094:
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(53)();
@@ -18147,14 +18147,14 @@ exports = module.exports = __webpack_require__(53)();
 
 
 // module
-exports.push([module.i, "\n.productedit .form-control {\n    height: 35px;\n}\n.panel-body ul li .thumb {\n    float: left;\n    height: 30px;\n    margin-right: 10px;\n    overflow: hidden;\n    width: 30px;\n    border: 1px solid #ddd;\n}\n.panel-body ul li p.text-muted {\n    font-size: 11px;\n    line-height: 15px;\n}\n.panel-body ul li p {\n    margin-bottom: 0px;\n}\n.panel-body ul li {\n    border-bottom: 1px solid #e6e6fa;\n    cursor: pointer;\n    list-style-type: none;\n    padding: 4px 0;\n    padding-left: 10px;\n}\n/* width */\n::-webkit-scrollbar {\n    width: 10px;\n}\n\n/* Track */\n::-webkit-scrollbar-track {\n    background: #f1f1f1;\n}\n\n/* Handle */\n::-webkit-scrollbar-thumb {\n    background: #888;\n}\n\n    /* Handle on hover */\n::-webkit-scrollbar-thumb:hover {\n        background: #555;\n}\n.row ul li.active, #rlist .row ul li.active {\n    background: #f1f7fd;\n}\n.pagination .page-item .page-link {\n    font-size: 15px;\n}\n.pagination {\n    margin-top: 10px\n}\n", "", {"version":3,"sources":["D:/Code/WORKING/dotnet-platform-backend/Web/Platform/CMS/PlatformCMS/ClientApp/pages/product/fakecomment.vue?a1bbfe3e"],"names":[],"mappings":";AAmeA;IACA,aAAA;CACA;AAGA;IACA,YAAA;IACA,aAAA;IACA,mBAAA;IACA,iBAAA;IACA,YAAA;IACA,uBAAA;CACA;AAIA;IACA,gBAAA;IACA,kBAAA;CACA;AAEA;IACA,mBAAA;CACA;AAEA;IACA,iCAAA;IACA,gBAAA;IACA,sBAAA;IACA,eAAA;IACA,mBAAA;CACA;AACA,WAAA;AACA;IACA,YAAA;CACA;;AAEA,WAAA;AACA;IACA,oBAAA;CACA;;AAEA,YAAA;AACA;IACA,iBAAA;CACA;;IAEA,qBAAA;AACA;QACA,iBAAA;CACA;AAEA;IACA,oBAAA;CACA;AAGA;IACA,gBAAA;CACA;AAEA;IACA,gBAAA;CACA","file":"fakecomment.vue","sourcesContent":["<template>\r\n    <div class=\"row productedit\">\r\n        <div class=\"col-sm-12 col-md-12\">\r\n            <div class=\"card\">\r\n                <div class=\"card-header\">\r\n                    Chọn bài viết hoặc sản phẩm để Fake Comment\r\n                </div>\r\n                <div class=\"card-body\">\r\n                    <div class=\"row\">\r\n                        <div class=\"col-md-5\">\r\n                            <div class=\"panel panel-white\">\r\n                                <div class=\"panel-heading\">\r\n                                    <div style=\"display:flex;width:100%\">\r\n                                        <div class=\"col-md-7\" style=\"padding-left:0px\">\r\n                                            <treeselect :multiple=\"false\"\r\n                                                        :options=\"unflattenBase(ListZone)\"\r\n                                                        placeholder=\"Xin mời bạn lựa chọn danh mục\"\r\n                                                        v-model=\"SearchZoneId\"\r\n                                                        :default-expanded-level=\"Infinity\" />\r\n                                        </div>\r\n                                        <div class=\"input-group\" style=\"display:flex;width:40%\">\r\n                                            <input type=\"text\" autocomplete=\"off\" v-model=\"keyword\" placeholder=\"Tìm kiếm sản phẩm\" v-on:keyup.enter=\"onLoadProduct()\" class=\"form-control\"> <span @click=\"onLoadProduct()\" class=\"input-group-addon bg-primary\" style=\"cursor: pointer; width: 45px;\"><i class=\"fa fa-search\" style=\"padding-top: 10px; padding-left: 15px;\"></i></span>\r\n                                        </div>\r\n                                    </div>\r\n                                </div>\r\n                                <div class=\"panel-body\">\r\n                                    <div class=\"slimScrollDiv\" style=\"position: relative; overflow-x: scroll; width: auto; height: 300px;margin-top:10px\">\r\n                                        <div class=\"row\" style=\"width: auto; height: 300px;\">\r\n                                            <ul style=\"padding:20px;padding-left:10px ;width:100%\">\r\n                                                <li v-for=\"(item,index) in ListProduct\" @click=\"changeValueLeft(index)\" :class=\"{'active':item.active==true}\">\r\n                                                    <a class=\"thumb\"><img :src=\"pathImgs(item.avatar)\" width=\"30\"></a>\r\n                                                    <p style=\"font-size:13px;overflow:hidden\">Mã: {{item.code}}</p>\r\n                                                    <p class=\"text-muted\">Tên: {{item.name}}</p>\r\n                                                </li>\r\n                                            </ul>\r\n                                        </div>\r\n                                    </div>\r\n                                </div>\r\n                                <div class=\"panel-footer\">\r\n                                    <b-pagination v-model=\"currentPage\"\r\n                                                  :total-rows=\"total\"\r\n                                                  :per-page=\"pageSize\"></b-pagination>\r\n                                </div>\r\n                            </div>\r\n                        </div>\r\n                        <div class=\"col-md-1\" style=\"padding-top:30px\">\r\n                            <button class=\"btn btn-primary btn-block mb-2\" title=\"Thêm sản phẩm\" @click=\"onetoRight\"><i class=\"fa fa-angle-right\" aria-hidden=\"true\"></i></button>\r\n                            <button class=\"btn btn-danger btn-block mb-2\" title=\"Xóa sản phẩm\" @click=\"onetoRemove\"><i class=\"fa fa-trash\" aria-hidden=\"true\"></i></button>\r\n                        </div>\r\n                        <div class=\"col-md-6\">\r\n                            <div class=\"panel panel-white\">\r\n                                <div class=\"panel-heading\">\r\n                                    <div style=\"display:flex\">\r\n                                        <!--<div style=\"display:flex;width:30%\">\r\n                                            <select v-model=\"SelectedRegion\" class=\"form-control\">\r\n                                                <option v-for=\"item in ListRegion\" :value=\"item.key\">\r\n                                                    {{item.value}}\r\n                                                </option>\r\n                                            </select>\r\n                                        </div>-->\r\n                                        <div style=\"display:none;width:40%;padding-left:2%\">\r\n                                            <treeselect :multiple=\"false\"\r\n                                                        :options=\"unflattenBase(ListZoneRight)\"\r\n                                                        placeholder=\"Xin mời bạn lựa chọn danh mục\"\r\n                                                        v-model=\"ChoseZoneId\"\r\n                                                        :default-expanded-level=\"Infinity\" />\r\n                                        </div>\r\n                                        <div style=\"display:flex;width:15%;padding-left:2%\">\r\n                                            <button class=\"btn btn-info btn-submit-form col-md-12 btncus\" type=\"submit\" v-on:click=\"AddFakeComment()\">\r\n                                                <i class=\"fa fa-save\"></i> Lưu\r\n                                            </button>\r\n                                        </div>\r\n                                        <div style=\"display:none;width:10%;padding-left:2%\">\r\n                                            <button title=\"Chọn ảnh\" class=\"btn btn-danger btn-submit-form col-md-12 btncus\" @click=\"openImg('img')\" type=\"submit\">\r\n                                                <i class=\"fa fa-picture-o\"></i>\r\n                                            </button>\r\n                                        </div>\r\n                                    </div>\r\n                                </div>\r\n                                <div class=\"panel-body\">\r\n                                    <div class=\"slimScrollDiv\" style=\"position: relative; overflow-x: scroll; width: auto; height: 300px;margin-top:10px\">\r\n                                        <div class=\"row\" style=\"width: auto; height: 300px;\">\r\n\r\n                                            <ul style=\"padding:20px;padding-left:10px ;width:100%\">\r\n                                                <draggable v-model=\"ListValue\" group=\"people\" @start=\"drag=true\" @end=\"drag=false\">\r\n                                                    <li v-for=\"(item,index) in ListValue\" @click=\"changeValueRight(index)\" style=\"padding-bottom:10px\" :class=\"{'active':item.active==true}\">\r\n                                                        <div style=\"display:flex;width:100%\">\r\n                                                            <div style=\"display:flex;width:10%\">\r\n                                                                <a class=\"thumb\"><img :src=\"pathImgs(item.avatar)\" width=\"30\"></a>\r\n                                                            </div>\r\n                                                            <div style=\"display:flex;width:70%;flex-wrap:wrap\">\r\n                                                                <span style=\"font-size:13px\">  {{item.productName}}</span><p v-if=\"item.zoneId > 0\" style=\"color:#0026ff;font-size:13px;padding-right:10px\"> / {{item.zoneName}}</p>\r\n                                                                <p style=\"font-size:13px\"> <b-form-checkbox style=\"display:none\" v-model=\"item.isHot\">Sản phẩm Hot</b-form-checkbox></p>\r\n                                                            </div>\r\n                                                            <div style=\"display:flex;width:20%\">\r\n                                                                <div class=\"col-md-6\">\r\n                                                                    <!--<input type=\"button\" v-model=\"item.bigThumb\"  />-->\r\n                                                                    <img v-if=\"(item.bigThumb !=null && item.bigThumb.length>0)\" style=\"width:100px;height:40px\" :src=\"pathImgs(item.bigThumb)\" />\r\n                                                                </div>\r\n                                                            </div>\r\n                                                        </div>\r\n\r\n                                                    </li>\r\n                                                </draggable>\r\n\r\n                                            </ul>\r\n                                        </div>\r\n                                    </div>\r\n                                </div>\r\n                            </div>\r\n                        </div>\r\n                    </div>\r\n                </div>\r\n            </div>\r\n        </div>\r\n        <div class=\"col-sm-12 col-md-12\">\r\n            <div class=\"card\">\r\n                <div class=\"card-header\">\r\n                    <div class=\"row\">\r\n                        <div class=\"col-10\">\r\n                            Chi tiết của Comment\r\n                        </div>\r\n                        <div class=\"col-2\">\r\n                            <button type=\"button\" class=\"btn btn-success\" v-on:click=\"addNewCommentItem\">+</button>\r\n                        </div>\r\n                    </div>\r\n                    \r\n                </div>\r\n                <div class=\"card-body\">\r\n                    <div class=\"row\" v-for=\"(it, index) in CommentFakes\" style=\"margin-bottom:5px\">    \r\n                        <div class=\"col-md-2\">\r\n                            <b-form-select v-model=\"it.Type\" :options=\"CommentType\"></b-form-select>\r\n                        </div>\r\n                        <div class=\"col-md-4\">\r\n                            <b-form-input v-model=\"it.Name\" placeholder=\"Nhập tên comment\"></b-form-input>\r\n                        </div>\r\n                        <div class=\"col-md-5\">\r\n                            <b-form-textarea id=\"textarea\"\r\n                                             v-model=\"it.Description\"\r\n                                             placeholder=\"Enter something...\"   \r\n                                             rows=\"3\"\r\n                                             max-rows=\"6\"></b-form-textarea>\r\n                        </div>\r\n                        <div class=\"col-md-1\">\r\n                            <b-form-input>\r\n                                <b-form-input v-model=\"it.Rating\" typeof=\"number\" min=\"0\" max=\"5\"  placeholder=\"Nhập Rating\"></b-form-input>\r\n                            </b-form-input>\r\n                        </div>\r\n\r\n                    </div>\r\n                </div>\r\n            </div>\r\n        </div>\r\n        <FileManager v-on:handleAttackFile=\"DoAttackFile\" :miKey=\"mikey1\" />\r\n    </div>\r\n</template>\r\n\r\n<script>\r\n\r\n    import { mapActions } from \"vuex\";\r\n    import Treeselect from '@riophae/vue-treeselect';\r\n    import { unflatten, pathImg } from '../../plugins/helper';\r\n    import '@riophae/vue-treeselect/dist/vue-treeselect.css'\r\n    import FileManager from './../../components/fileManager/list'\r\n\r\n    import EventBus from \"./../../common/eventBus\";\r\n    import draggable from 'vuedraggable';\r\n\r\n    export default {\r\n        name: \"productinregion\",\r\n        components: {\r\n            Treeselect,\r\n            FileManager,\r\n            draggable,\r\n        },\r\n        props: {\r\n            productId: {\r\n                type: Number,\r\n                required: false,\r\n                default: 0\r\n            },\r\n            actions: {\r\n                type: Boolean,\r\n                required: false,\r\n                default: false\r\n            }\r\n        },\r\n        data() {\r\n            return {\r\n\r\n                mikey1: 'mikey1',\r\n                SelectedRegion: \"\",\r\n\r\n                SearchZoneId: 0,\r\n                ChoseZoneId: 0,\r\n                ListZone: [],\r\n                ListProduct: [],\r\n                ListValue: [],\r\n\r\n                ListRegion: [],\r\n\r\n                ListZoneRight: [],\r\n                TransferObject: [],\r\n\r\n\r\n                \r\n\r\n                keyword: \"\",\r\n                activeLeft: [],\r\n                activeRight: [],\r\n                CommentFakes: [],\r\n                ItemCommnet: {\r\n                    Type: \"\",\r\n                    Name: \"\",\r\n                    Description: \"\",\r\n                    Rating:0\r\n                },\r\n                CommentTypeSelected : null,\r\n\r\n                CommentType: [\r\n                    \r\n                    { value: null, text: \"Chọn loại Comment\" },\r\n                    { value: 'comment', text: \"comment\" },\r\n                    { value: 'rating', text: \"rating\" }\r\n                ],\r\n\r\n                pageSize: 20,\r\n                currentPage: 1,\r\n                total: 0,\r\n            };\r\n        },\r\n        mounted: function () {\r\n            this.CommentFakes.push(this.ItemCommnet);\r\n\r\n        },\r\n        methods: {\r\n            ...mapActions([\"getProductForCombo\", \"getAllRegion\", \"getProductByRegion\", \"getZones\", \"addProductByRegion\", \"getItemAllForCombo\",\"createCommentFake\"]),\r\n            pathImgs(path) {\r\n                return pathImg(path);\r\n            },\r\n            AddFakeComment() {\r\n                var listObject = this.ListValue;\r\n                console.log(listObject);\r\n                var obj = [];\r\n                for (let i = 0; i < listObject.length; i++) {\r\n                    var p = { id: listObject[i].productId, type: listObject[i].type }\r\n                    obj.push(p)\r\n                }\r\n                var cmd = this.CommentFakes;\r\n                var data = {\r\n                    objs: listObject,\r\n                    comments: cmd\r\n                }\r\n                console.log(data);\r\n                this.createCommentFake(data).then(function (el) {\r\n                    alert(el);\r\n                })\r\n\r\n\r\n            },\r\n            addNewCommentItem() {\r\n                var a = {\r\n                    Type: \"\",\r\n                    Name: \"\",\r\n                    Description: \"\",\r\n                    Rating: 0\r\n                }\r\n                this.CommentFakes.push(a);\r\n            },\r\n            openImg(img) {\r\n                this.choseImg = img;\r\n                EventBus.$emit(this.mikey1, '');\r\n            },\r\n\r\n            DoAttackFile(value) {\r\n                let vm = this;\r\n                for (let i = 0; i < vm.ListValue.length; i++) {\r\n                    if (vm.ListValue[i].active == true) {\r\n                        vm.ListValue[i].bigThumb = value[0].path;\r\n                    }\r\n                }\r\n            },\r\n            toggleActive(item) {\r\n                if (this.activeItem[item.id]) {\r\n                    this.removeActiveItem(item);\r\n                    return;\r\n                }\r\n\r\n                this.addActiveItem(item);\r\n            },\r\n            \r\n            addActiveItem(item) {\r\n                this.activeItem = Object.assign({},\r\n                    this.activeItem ? [item.id] : item,\r\n                );\r\n            },\r\n            removeActiveItem(item) {\r\n                delete this.activeItem[item.id];\r\n                this.activeItem = Object.assign({}, this.activeItem);\r\n            },\r\n            onLoadProduct() {\r\n                this.activeLeft = [];\r\n                this.activeRight = [];\r\n                let initial = this.$route.query.initial;\r\n                initial = typeof initial != \"undefined\" ? initial.toLowerCase() : \"\";\r\n                this.getItemAllForCombo({\r\n                    keyword: this.keyword,\r\n                    idZone: this.SearchZoneId || 0,\r\n                    pageSize: this.pageSize,\r\n                    pageIndex: this.currentPage,\r\n\r\n                }).then(respose => {\r\n                    this.ListProduct = respose.listData.map(item => ({\r\n                        ...item,\r\n                        active: false\r\n                    }));\r\n                    console.log(this.ListProduct);\r\n                    this.total = respose.total;\r\n                })\r\n            },\r\n            onLoadProductByRegion() {\r\n                //debugger-\r\n                this.getProductByRegion(\r\n                    {\r\n                        zoneId: this.ChoseZoneId || 0\r\n                    }).then(respose => {\r\n                        this.ListValue = respose.map(item => ({\r\n                            ...item,\r\n                            active: false\r\n                        }));\r\n                        console.log(this.ListValue);\r\n                    })\r\n            },\r\n            onLoadProductCombo() {\r\n                this.activeLeft = [];\r\n                this.activeRight = [];\r\n                let initial = this.$route.query.initial;\r\n                initial = typeof initial != \"undefined\" ? initial.toLowerCase() : \"\";\r\n                this.getComboById(this.productId).then(respose => {\r\n                    this.ListValue = respose.listData.map(item => ({\r\n                        ...item,\r\n                        active: false\r\n                    }));\r\n\r\n                })\r\n            },\r\n            AddProductByRegion: function () {\r\n                //debugger-\r\n                if (this.ChoseZoneId > 0) {\r\n                    this.addProductByRegion({\r\n                        zoneId: this.ChoseZoneId || 0,\r\n                        Regions: this.ListValue,\r\n                    }).then(response => {\r\n                        if (response.success == true) {\r\n                            this.$toast.success(response.message, {});\r\n\r\n                        } else {\r\n                            this.$toast.error(response.message, {});\r\n                        }\r\n                    }).catch(e => {\r\n                        this.$toast.error(\"Lỗi hệ thống\");\r\n\r\n                    });\r\n                } else {\r\n                    this.$toast.error(\"Chưa chọn vùng\");\r\n                }\r\n\r\n            },\r\n\r\n            onetoRight: function () {\r\n                var vm = this;\r\n                var data = vm.ListZone;\r\n                var lstChose = this.ListProduct.filter(x => x.active == true).map(item => ({\r\n                    productId: item.id,\r\n                    isHot: false,\r\n                    productName: item.name,\r\n                    avatar: item.avatar,\r\n                    zoneId: vm.ChoseZoneId,\r\n                    bigThumb: \"\",\r\n                    active: false,\r\n                    type: item.type,\r\n                    zoneName: vm.ListZoneRight.filter(x => x.id == vm.ChoseZoneId)[0].label\r\n                }));\r\n\r\n                this.ListProduct = this.ListProduct.map(item => ({\r\n                    ...item,\r\n                    active: false\r\n                }))\r\n\r\n                this.ListValue = [...this.ListValue, ...lstChose];\r\n\r\n\r\n\r\n                //if (this.ChoseZoneId > 0) {\r\n                    \r\n\r\n                //} else {\r\n                //    this.$toast.error(\"Chưa chọn vùng\", {});\r\n                //}\r\n\r\n            },\r\n            onetoRemove: function () {\r\n                //debugger-\r\n                this.ListValue = this.ListValue.filter(x => x.active != true);\r\n            },\r\n\r\n            changeValueLeft: function (id) {\r\n                if (this.ListProduct[id].active == true) {\r\n                    this.ListProduct[id].active = false;\r\n                } else {\r\n                    this.ListProduct[id].active = true;\r\n                }\r\n            },\r\n            changeValueRight: function (id) {\r\n                if (this.ListValue[id].active == true) {\r\n                    this.ListValue[id].active = false;\r\n                } else {\r\n                    this.ListValue[id].active = true;\r\n                }\r\n            },\r\n            ExistId(id) {\r\n\r\n            },\r\n            unflattenBase(data) {\r\n                return unflatten(data);\r\n            },\r\n        },\r\n        created() {\r\n            var vm = this;\r\n            EventBus.$on('FileSelected', value => {\r\n                //debugger-\r\n\r\n\r\n                console.log(vm.ListValue);\r\n            })\r\n\r\n            this.getAllRegion().then(respose => {\r\n                this.ListRegion = respose;\r\n            });\r\n\r\n            this.getZones(0).then(respose => {\r\n                try {\r\n                    //debugger-\r\n                    respose.listData.push({ id: 0, label: \"Chọn danh mục cha\", parentId: 0 });\r\n                    var data = respose.listData;\r\n                    var dataRight = data.filter(x => x.type == 7 || x.id == 0);\r\n                    var bv = data.filter(x => x.type != 1 || x.type != 7);\r\n\r\n                    var dataLeft = data.filter(x => x.type == 1 || x.id == 0);\r\n                    dataLeft.push(...bv);\r\n                    this.ListZone = dataLeft;\r\n                    this.ListZoneRight = dataRight;\r\n                }\r\n                catch (ex) {\r\n\r\n                }\r\n\r\n            });\r\n            this.onLoadProduct();\r\n        },\r\n        destroyed() {\r\n            EventBus.$off('FileSelected');\r\n        },\r\n        watch: {\r\n            currentPage: function (newVal) {\r\n                this.currentPage = newVal;\r\n                this.onLoadProduct();\r\n            },\r\n\r\n            ChoseZoneId: function (newVal) {\r\n\r\n                //debugger-\r\n\r\n                this.onLoadProductByRegion();\r\n            },\r\n            SearchZoneId: function (newVal) {\r\n                this.onLoadProduct();\r\n            },\r\n        }\r\n    };\r\n</script>\r\n\r\n<style>\r\n    .productedit .form-control {\r\n        height: 35px;\r\n    }\r\n\r\n\r\n    .panel-body ul li .thumb {\r\n        float: left;\r\n        height: 30px;\r\n        margin-right: 10px;\r\n        overflow: hidden;\r\n        width: 30px;\r\n        border: 1px solid #ddd;\r\n    }\r\n\r\n\r\n\r\n    .panel-body ul li p.text-muted {\r\n        font-size: 11px;\r\n        line-height: 15px;\r\n    }\r\n\r\n    .panel-body ul li p {\r\n        margin-bottom: 0px;\r\n    }\r\n\r\n    .panel-body ul li {\r\n        border-bottom: 1px solid #e6e6fa;\r\n        cursor: pointer;\r\n        list-style-type: none;\r\n        padding: 4px 0;\r\n        padding-left: 10px;\r\n    }\r\n    /* width */\r\n    ::-webkit-scrollbar {\r\n        width: 10px;\r\n    }\r\n\r\n    /* Track */\r\n    ::-webkit-scrollbar-track {\r\n        background: #f1f1f1;\r\n    }\r\n\r\n    /* Handle */\r\n    ::-webkit-scrollbar-thumb {\r\n        background: #888;\r\n    }\r\n\r\n        /* Handle on hover */\r\n        ::-webkit-scrollbar-thumb:hover {\r\n            background: #555;\r\n        }\r\n\r\n    .row ul li.active, #rlist .row ul li.active {\r\n        background: #f1f7fd;\r\n    }\r\n\r\n\r\n    .pagination .page-item .page-link {\r\n        font-size: 15px;\r\n    }\r\n\r\n    .pagination {\r\n        margin-top: 10px\r\n    }\r\n</style>\r\n"],"sourceRoot":""}]);
+exports.push([module.i, "\n.productedit .form-control {\n    height: 35px;\n}\n.panel-body ul li .thumb {\n    float: left;\n    height: 30px;\n    margin-right: 10px;\n    overflow: hidden;\n    width: 30px;\n    border: 1px solid #ddd;\n}\n.panel-body ul li p.text-muted {\n    font-size: 11px;\n    line-height: 15px;\n}\n.panel-body ul li p {\n    margin-bottom: 0px;\n}\n.panel-body ul li {\n    border-bottom: 1px solid #e6e6fa;\n    cursor: pointer;\n    list-style-type: none;\n    padding: 4px 0;\n    padding-left: 10px;\n}\n/* width */\n::-webkit-scrollbar {\n    width: 10px;\n}\n\n/* Track */\n::-webkit-scrollbar-track {\n    background: #f1f1f1;\n}\n\n/* Handle */\n::-webkit-scrollbar-thumb {\n    background: #888;\n}\n\n    /* Handle on hover */\n::-webkit-scrollbar-thumb:hover {\n        background: #555;\n}\n.row ul li.active, #rlist .row ul li.active {\n    background: #f1f7fd;\n}\n.pagination .page-item .page-link {\n    font-size: 15px;\n}\n.pagination {\n    margin-top: 10px\n}\n", "", {"version":3,"sources":["D:/Code/WORKING/dotnet-platform-backend/Web/Platform/CMS/PlatformCMS/ClientApp/pages/product/region.vue?432ba76c"],"names":[],"mappings":";AAyYA;IACA,aAAA;CACA;AAGA;IACA,YAAA;IACA,aAAA;IACA,mBAAA;IACA,iBAAA;IACA,YAAA;IACA,uBAAA;CACA;AAIA;IACA,gBAAA;IACA,kBAAA;CACA;AAEA;IACA,mBAAA;CACA;AAEA;IACA,iCAAA;IACA,gBAAA;IACA,sBAAA;IACA,eAAA;IACA,mBAAA;CACA;AACA,WAAA;AACA;IACA,YAAA;CACA;;AAEA,WAAA;AACA;IACA,oBAAA;CACA;;AAEA,YAAA;AACA;IACA,iBAAA;CACA;;IAEA,qBAAA;AACA;QACA,iBAAA;CACA;AAEA;IACA,oBAAA;CACA;AAGA;IACA,gBAAA;CACA;AAEA;IACA,gBAAA;CACA","file":"region.vue","sourcesContent":["<template>\r\n    <div class=\"row productedit\">\r\n        <div class=\"col-sm-12 col-md-12\">\r\n            <div class=\"card\">\r\n                <div class=\"card-header\">\r\n                    Vùng hiển thị trên Website\r\n                </div>\r\n                <div class=\"card-body\">\r\n                    <div class=\"row\">\r\n                        <div class=\"col-md-5\">\r\n                            <div class=\"panel panel-white\">\r\n                                <div class=\"panel-heading\">\r\n                                    <div style=\"display:flex;width:100%\">\r\n                                        <div class=\"col-md-7\" style=\"padding-left:0px\">\r\n                                            <treeselect :multiple=\"false\"\r\n                                                        :options=\"unflattenBase(ListZone)\"\r\n                                                        placeholder=\"Xin mời bạn lựa chọn danh mục\"\r\n                                                        v-model=\"SearchZoneId\"\r\n                                                        :default-expanded-level=\"Infinity\" />\r\n                                        </div>\r\n                                        <div class=\"input-group\" style=\"display:flex;width:40%\">\r\n                                            <input type=\"text\" autocomplete=\"off\" v-model=\"keyword\" placeholder=\"Tìm kiếm sản phẩm\" v-on:keyup.enter=\"onLoadProduct()\" class=\"form-control\"> <span @click=\"onLoadProduct()\" class=\"input-group-addon bg-primary\" style=\"cursor: pointer; width: 45px;\"><i class=\"fa fa-search\" style=\"padding-top: 10px; padding-left: 15px;\"></i></span>\r\n                                        </div>\r\n                                    </div>\r\n                                </div>\r\n                                <div class=\"panel-body\">\r\n                                    <div class=\"slimScrollDiv\" style=\"position: relative; overflow-x: scroll; width: auto; height: 300px;margin-top:10px\">\r\n                                        <div class=\"row\" style=\"width: auto; height: 300px;\">\r\n                                            <ul style=\"padding:20px;padding-left:10px ;width:100%\">\r\n                                                <li v-for=\"(item,index) in ListProduct\" @click=\"changeValueLeft(index)\" :class=\"{'active':item.active==true}\">\r\n                                                    <a class=\"thumb\"><img :src=\"pathImgs(item.avatar)\" width=\"30\"></a>\r\n                                                    <p style=\"font-size:13px;overflow:hidden\">Mã: {{item.code}}</p>\r\n                                                    <p class=\"text-muted\">Tên: {{item.name}}</p>\r\n                                                </li>\r\n                                            </ul>\r\n                                        </div>\r\n                                    </div>\r\n                                </div>\r\n                                <div class=\"panel-footer\">\r\n                                    <b-pagination v-model=\"currentPage\"\r\n                                                  :total-rows=\"total\"\r\n                                                  :per-page=\"pageSize\"></b-pagination>\r\n                                </div>\r\n                            </div>\r\n                        </div>\r\n                        <div class=\"col-md-1\" style=\"padding-top:30px\">\r\n                            <button class=\"btn btn-primary btn-block mb-2\" title=\"Thêm sản phẩm\" @click=\"onetoRight\"><i class=\"fa fa-angle-right\" aria-hidden=\"true\"></i></button>\r\n                            <button class=\"btn btn-danger btn-block mb-2\" title=\"Xóa sản phẩm\" @click=\"onetoRemove\"><i class=\"fa fa-trash\" aria-hidden=\"true\"></i></button>\r\n                        </div>\r\n                        <div class=\"col-md-6\">\r\n                            <div class=\"panel panel-white\">\r\n                                <div class=\"panel-heading\">\r\n                                    <div style=\"display:flex\">\r\n                                        <!--<div style=\"display:flex;width:30%\">\r\n                                        <select v-model=\"SelectedRegion\" class=\"form-control\">\r\n                                            <option v-for=\"item in ListRegion\" :value=\"item.key\">\r\n                                                {{item.value}}\r\n                                            </option>\r\n                                        </select>\r\n                                    </div>-->\r\n                                        <div style=\"display:flex;width:40%;padding-left:2%\">\r\n                                            <treeselect :multiple=\"false\"\r\n                                                        :options=\"unflattenBase(ListZoneRight)\"\r\n                                                        placeholder=\"Xin mời bạn lựa chọn danh mục\"\r\n                                                        v-model=\"ChoseZoneId\"\r\n                                                        :default-expanded-level=\"Infinity\" />\r\n                                        </div>\r\n                                        <div style=\"display:flex;width:15%;padding-left:2%\">\r\n                                            <button class=\"btn btn-info btn-submit-form col-md-12 btncus\" type=\"submit\" @click=\"AddProductByRegion()\">\r\n                                                <i class=\"fa fa-save\"></i> Lưu\r\n                                            </button>\r\n                                        </div>\r\n                                        <div style=\"display:flex;width:10%;padding-left:2%\">\r\n                                            <button title=\"Chọn ảnh\" class=\"btn btn-danger btn-submit-form col-md-12 btncus\" @click=\"openImg('img')\" type=\"submit\">\r\n                                                <i class=\"fa fa-picture-o\"></i>\r\n                                            </button>\r\n                                        </div>\r\n                                    </div>\r\n                                </div>\r\n                                <div class=\"panel-body\">\r\n                                    <div class=\"slimScrollDiv\" style=\"position: relative; overflow-x: scroll; width: auto; height: 300px;margin-top:10px\">\r\n                                        <div class=\"row\" style=\"width: auto; height: 300px;\">\r\n\r\n                                            <ul style=\"padding:20px;padding-left:10px ;width:100%\">\r\n                                                <draggable v-model=\"ListValue\" group=\"people\" @start=\"drag=true\" @end=\"drag=false\">\r\n                                                    <li v-for=\"(item,index) in ListValue\" @click=\"changeValueRight(index)\" style=\"padding-bottom:10px\" :class=\"{'active':item.active==true}\">\r\n                                                        <div style=\"display:flex;width:100%\">\r\n                                                            <div style=\"display:flex;width:10%\">\r\n                                                                <a class=\"thumb\"><img :src=\"pathImgs(item.avatar)\" width=\"30\"></a>\r\n                                                            </div>\r\n                                                            <div style=\"display:flex;width:70%;flex-wrap:wrap\">\r\n                                                                <span style=\"font-size:13px\">  {{item.productName}}</span><p v-if=\"item.zoneId > 0\" style=\"color:#0026ff;font-size:13px;padding-right:10px\"> / {{item.zoneName}}</p>\r\n                                                                <p style=\"font-size:13px\"> <b-form-checkbox v-model=\"item.isHot\">Sản phẩm Hot</b-form-checkbox></p>\r\n                                                            </div>\r\n                                                            <div style=\"display:flex;width:20%\">\r\n                                                                <div class=\"col-md-6\">\r\n                                                                    <!--<input type=\"button\" v-model=\"item.bigThumb\"  />-->\r\n                                                                    <img v-if=\"(item.bigThumb !=null && item.bigThumb.length>0)\" style=\"width:100px;height:40px\" :src=\"pathImgs(item.bigThumb)\" />\r\n                                                                </div>\r\n                                                            </div>\r\n                                                        </div>\r\n\r\n                                                    </li>\r\n                                                </draggable>\r\n                                                \r\n                                            </ul>\r\n                                        </div>\r\n                                    </div>\r\n                                </div>\r\n                            </div>\r\n                        </div>\r\n                    </div>\r\n                </div>\r\n            </div>\r\n        </div>\r\n        <FileManager v-on:handleAttackFile=\"DoAttackFile\" :miKey=\"mikey1\" />\r\n    </div>\r\n</template>\r\n\r\n<script>\r\n\r\n    import { mapActions } from \"vuex\";\r\n    import Treeselect from '@riophae/vue-treeselect';\r\n    import { unflatten, pathImg } from '../../plugins/helper';\r\n    import '@riophae/vue-treeselect/dist/vue-treeselect.css'\r\n    import FileManager from './../../components/fileManager/list'\r\n   \r\n    import EventBus from \"./../../common/eventBus\";\r\n    import draggable from 'vuedraggable';\r\n\r\n    export default {\r\n        name: \"productinregion\",\r\n        components: {\r\n            Treeselect,\r\n            FileManager,\r\n            draggable,\r\n        },\r\n        props: {\r\n            productId: {\r\n                type: Number,\r\n                required: false,\r\n                default: 0\r\n            },\r\n            actions: {\r\n                type: Boolean,\r\n                required: false,\r\n                default: false\r\n            }\r\n        },\r\n        data() {\r\n            return {\r\n\r\n                mikey1: 'mikey1',\r\n                SelectedRegion: \"\",\r\n\r\n                SearchZoneId: 0,\r\n                ChoseZoneId: 0,\r\n                ListZone: [],\r\n                ListProduct: [],\r\n                ListValue: [],\r\n\r\n                ListRegion: [],\r\n\r\n                ListZoneRight: [],\r\n\r\n\r\n                keyword: \"\",\r\n                activeLeft: [],\r\n                activeRight: [],\r\n\r\n                pageSize: 20,\r\n                currentPage: 1,\r\n                total: 0,\r\n            };\r\n        },\r\n        mounted: function () {\r\n\r\n\r\n        },\r\n        methods: {\r\n            ...mapActions([\"getProductForCombo\", \"getAllRegion\", \"getProductByRegion\", \"getZones\", \"addProductByRegion\"]),\r\n            pathImgs(path) {\r\n                return pathImg(path);\r\n            },\r\n\r\n            openImg(img) {\r\n                this.choseImg = img;\r\n                EventBus.$emit(this.mikey1, '');\r\n            },\r\n\r\n            DoAttackFile(value) {\r\n                let vm = this;\r\n                for (let i = 0; i < vm.ListValue.length; i++) {\r\n                    if (vm.ListValue[i].active == true) {\r\n                        vm.ListValue[i].bigThumb = value[0].path;\r\n                    }\r\n                }\r\n            },\r\n            toggleActive(item) {\r\n                if (this.activeItem[item.id]) {\r\n                    this.removeActiveItem(item);\r\n                    return;\r\n                }\r\n\r\n                this.addActiveItem(item);\r\n            },\r\n\r\n            addActiveItem(item) {\r\n                this.activeItem = Object.assign({},\r\n                    this.activeItem ? [item.id] : item,\r\n                );\r\n            },\r\n            removeActiveItem(item) {\r\n                delete this.activeItem[item.id];\r\n                this.activeItem = Object.assign({}, this.activeItem);\r\n            },\r\n            onLoadProduct() {\r\n                this.activeLeft = [];\r\n                this.activeRight = [];\r\n                let initial = this.$route.query.initial;\r\n                initial = typeof initial != \"undefined\" ? initial.toLowerCase() : \"\";\r\n                this.getProductForCombo({\r\n                    keyword: this.keyword,\r\n                    idZone: this.SearchZoneId || 0,\r\n                    pageSize: this.pageSize,\r\n                    pageIndex: this.currentPage,\r\n\r\n                }).then(respose => {\r\n                    this.ListProduct = respose.listData.map(item => ({\r\n                        ...item,\r\n                        active: false\r\n                    }));\r\n                    console.log(this.ListProduct);\r\n                    this.total = respose.total;\r\n                })\r\n            },\r\n            onLoadProductByRegion() {\r\n                //debugger-\r\n                this.getProductByRegion(\r\n                    {\r\n                        zoneId: this.ChoseZoneId || 0\r\n                    }).then(respose => {\r\n                        this.ListValue = respose.map(item => ({\r\n                            ...item,\r\n                            active: false\r\n                        }));\r\n                        console.log(this.ListValue);\r\n                    })\r\n            },\r\n            onLoadProductCombo() {\r\n                this.activeLeft = [];\r\n                this.activeRight = [];\r\n                let initial = this.$route.query.initial;\r\n                initial = typeof initial != \"undefined\" ? initial.toLowerCase() : \"\";\r\n                this.getComboById(this.productId).then(respose => {\r\n                    this.ListValue = respose.listData.map(item => ({\r\n                        ...item,\r\n                        active: false\r\n                    }));\r\n\r\n                })\r\n            },\r\n            AddProductByRegion: function () {\r\n                //debugger-\r\n                if (this.ChoseZoneId > 0) {\r\n                    console.log(this.ListValue);\r\n                    this.addProductByRegion({\r\n                        zoneId: this.ChoseZoneId || 0,\r\n                        Regions: this.ListValue,\r\n                    }).then(response => {\r\n                        if (response.success == true) {\r\n                            this.$toast.success(response.message, {});\r\n\r\n                        } else {\r\n                            this.$toast.error(response.message, {});\r\n                        }\r\n                    }).catch(e => {\r\n                        this.$toast.error(\"Lỗi hệ thống\");\r\n\r\n                    });\r\n                } else {\r\n                    this.$toast.error(\"Chưa chọn vùng\");\r\n                }\r\n\r\n            },\r\n\r\n            onetoRight: function () {\r\n\r\n                if (this.ChoseZoneId > 0) {\r\n                    var vm = this;\r\n                    var data = vm.ListZone;\r\n                    var lstChose = this.ListProduct.filter(x => x.active == true).map(item => ({\r\n                        productId: item.id,\r\n                        isHot: false,\r\n                        productName: item.name,\r\n                        avatar: item.avatar,\r\n                        zoneId: vm.ChoseZoneId,\r\n                        bigThumb: \"\",\r\n                        active: false,\r\n                        zoneName: vm.ListZoneRight.filter(x => x.id == vm.ChoseZoneId)[0].label\r\n                    }));\r\n\r\n                    this.ListProduct = this.ListProduct.map(item => ({\r\n                        ...item,\r\n                        active: false\r\n                    }))\r\n\r\n                    this.ListValue = [...this.ListValue, ...lstChose];\r\n\r\n                } else {\r\n                    this.$toast.error(\"Chưa chọn vùng\", {});\r\n                }\r\n\r\n            },\r\n            onetoRemove: function () {\r\n                //debugger-\r\n                this.ListValue = this.ListValue.filter(x => x.active != true);\r\n            },\r\n\r\n            changeValueLeft: function (id) {\r\n                if (this.ListProduct[id].active == true) {\r\n                    this.ListProduct[id].active = false;\r\n                } else {\r\n                    this.ListProduct[id].active = true;\r\n                }\r\n            },\r\n            changeValueRight: function (id) {\r\n                if (this.ListValue[id].active == true) {\r\n                    this.ListValue[id].active = false;\r\n                } else {\r\n                    this.ListValue[id].active = true;\r\n                }\r\n            },\r\n            ExistId(id) {\r\n\r\n            },\r\n            unflattenBase(data) {\r\n                return unflatten(data);\r\n            },\r\n        },\r\n        created() {\r\n            var vm = this;\r\n            EventBus.$on('FileSelected', value => {\r\n                //debugger-\r\n                \r\n\r\n                console.log(vm.ListValue);\r\n            })\r\n\r\n            this.getAllRegion().then(respose => {\r\n                this.ListRegion = respose;\r\n            });\r\n\r\n            this.getZones(0).then(respose => {\r\n                try {\r\n                    //debugger-\r\n                    respose.listData.push({ id: 0, label: \"Chọn danh mục cha\", parentId: 0 });\r\n                    var data = respose.listData;\r\n                    var dataRight = data.filter(x => x.type == 7 || x.id == 0);\r\n                    var dataLeft = data.filter(x => x.type == 1 || x.id == 0);\r\n                    this.ListZone = dataLeft;\r\n                    this.ListZoneRight = dataRight;\r\n                }\r\n                catch (ex) {\r\n\r\n                }\r\n\r\n            });\r\n            this.onLoadProduct();\r\n        },\r\n        destroyed() {\r\n            EventBus.$off('FileSelected');\r\n        },\r\n        watch: {\r\n            currentPage: function (newVal) {\r\n                this.currentPage = newVal;\r\n                this.onLoadProduct();\r\n            },\r\n\r\n            ChoseZoneId: function (newVal) {\r\n\r\n                //debugger-\r\n\r\n                this.onLoadProductByRegion();\r\n            },\r\n            SearchZoneId: function (newVal) {\r\n                this.onLoadProduct();\r\n            },\r\n        }\r\n    };\r\n</script>\r\n\r\n<style>\r\n    .productedit .form-control {\r\n        height: 35px;\r\n    }\r\n\r\n\r\n    .panel-body ul li .thumb {\r\n        float: left;\r\n        height: 30px;\r\n        margin-right: 10px;\r\n        overflow: hidden;\r\n        width: 30px;\r\n        border: 1px solid #ddd;\r\n    }\r\n\r\n\r\n\r\n    .panel-body ul li p.text-muted {\r\n        font-size: 11px;\r\n        line-height: 15px;\r\n    }\r\n\r\n    .panel-body ul li p {\r\n        margin-bottom: 0px;\r\n    }\r\n\r\n    .panel-body ul li {\r\n        border-bottom: 1px solid #e6e6fa;\r\n        cursor: pointer;\r\n        list-style-type: none;\r\n        padding: 4px 0;\r\n        padding-left: 10px;\r\n    }\r\n    /* width */\r\n    ::-webkit-scrollbar {\r\n        width: 10px;\r\n    }\r\n\r\n    /* Track */\r\n    ::-webkit-scrollbar-track {\r\n        background: #f1f1f1;\r\n    }\r\n\r\n    /* Handle */\r\n    ::-webkit-scrollbar-thumb {\r\n        background: #888;\r\n    }\r\n\r\n        /* Handle on hover */\r\n        ::-webkit-scrollbar-thumb:hover {\r\n            background: #555;\r\n        }\r\n\r\n    .row ul li.active, #rlist .row ul li.active {\r\n        background: #f1f7fd;\r\n    }\r\n\r\n\r\n    .pagination .page-item .page-link {\r\n        font-size: 15px;\r\n    }\r\n\r\n    .pagination {\r\n        margin-top: 10px\r\n    }\r\n</style>\r\n"],"sourceRoot":""}]);
 
 // exports
 
 
 /***/ }),
 
-/***/ 1241:
+/***/ 1245:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -18172,7 +18172,7 @@ var _assign = __webpack_require__(377);
 
 var _assign2 = _interopRequireDefault(_assign);
 
-var _extends2 = __webpack_require__(7);
+var _extends2 = __webpack_require__(8);
 
 var _extends3 = _interopRequireDefault(_extends2);
 
@@ -18234,21 +18234,10 @@ exports.default = {
             ListRegion: [],
 
             ListZoneRight: [],
-            TransferObject: [],
 
             keyword: "",
             activeLeft: [],
             activeRight: [],
-            CommentFakes: [],
-            ItemCommnet: {
-                Type: "",
-                Name: "",
-                Description: "",
-                Rating: 0
-            },
-            CommentTypeSelected: null,
-
-            CommentType: [{ value: null, text: "Chọn loại Comment" }, { value: 'comment', text: "comment" }, { value: 'rating', text: "rating" }],
 
             pageSize: 20,
             currentPage: 1,
@@ -18256,39 +18245,10 @@ exports.default = {
         };
     },
 
-    mounted: function mounted() {
-        this.CommentFakes.push(this.ItemCommnet);
-    },
-    methods: (0, _extends3.default)({}, (0, _vuex.mapActions)(["getProductForCombo", "getAllRegion", "getProductByRegion", "getZones", "addProductByRegion", "getItemAllForCombo", "createCommentFake"]), {
+    mounted: function mounted() {},
+    methods: (0, _extends3.default)({}, (0, _vuex.mapActions)(["getProductForCombo", "getAllRegion", "getProductByRegion", "getZones", "addProductByRegion"]), {
         pathImgs: function pathImgs(path) {
             return (0, _helper.pathImg)(path);
-        },
-        AddFakeComment: function AddFakeComment() {
-            var listObject = this.ListValue;
-            console.log(listObject);
-            var obj = [];
-            for (var i = 0; i < listObject.length; i++) {
-                var p = { id: listObject[i].productId, type: listObject[i].type };
-                obj.push(p);
-            }
-            var cmd = this.CommentFakes;
-            var data = {
-                objs: listObject,
-                comments: cmd
-            };
-            console.log(data);
-            this.createCommentFake(data).then(function (el) {
-                alert(el);
-            });
-        },
-        addNewCommentItem: function addNewCommentItem() {
-            var a = {
-                Type: "",
-                Name: "",
-                Description: "",
-                Rating: 0
-            };
-            this.CommentFakes.push(a);
         },
         openImg: function openImg(img) {
             this.choseImg = img;
@@ -18324,7 +18284,7 @@ exports.default = {
             this.activeRight = [];
             var initial = this.$route.query.initial;
             initial = typeof initial != "undefined" ? initial.toLowerCase() : "";
-            this.getItemAllForCombo({
+            this.getProductForCombo({
                 keyword: this.keyword,
                 idZone: this.SearchZoneId || 0,
                 pageSize: this.pageSize,
@@ -18374,6 +18334,7 @@ exports.default = {
             var _this4 = this;
 
             if (this.ChoseZoneId > 0) {
+                console.log(this.ListValue);
                 this.addProductByRegion({
                     zoneId: this.ChoseZoneId || 0,
                     Regions: this.ListValue
@@ -18392,33 +18353,37 @@ exports.default = {
         },
 
         onetoRight: function onetoRight() {
-            var vm = this;
-            var data = vm.ListZone;
-            var lstChose = this.ListProduct.filter(function (x) {
-                return x.active == true;
-            }).map(function (item) {
-                return {
-                    productId: item.id,
-                    isHot: false,
-                    productName: item.name,
-                    avatar: item.avatar,
-                    zoneId: vm.ChoseZoneId,
-                    bigThumb: "",
-                    active: false,
-                    type: item.type,
-                    zoneName: vm.ListZoneRight.filter(function (x) {
-                        return x.id == vm.ChoseZoneId;
-                    })[0].label
-                };
-            });
 
-            this.ListProduct = this.ListProduct.map(function (item) {
-                return (0, _extends3.default)({}, item, {
-                    active: false
+            if (this.ChoseZoneId > 0) {
+                var vm = this;
+                var data = vm.ListZone;
+                var lstChose = this.ListProduct.filter(function (x) {
+                    return x.active == true;
+                }).map(function (item) {
+                    return {
+                        productId: item.id,
+                        isHot: false,
+                        productName: item.name,
+                        avatar: item.avatar,
+                        zoneId: vm.ChoseZoneId,
+                        bigThumb: "",
+                        active: false,
+                        zoneName: vm.ListZoneRight.filter(function (x) {
+                            return x.id == vm.ChoseZoneId;
+                        })[0].label
+                    };
                 });
-            });
 
-            this.ListValue = [].concat((0, _toConsumableArray3.default)(this.ListValue), (0, _toConsumableArray3.default)(lstChose));
+                this.ListProduct = this.ListProduct.map(function (item) {
+                    return (0, _extends3.default)({}, item, {
+                        active: false
+                    });
+                });
+
+                this.ListValue = [].concat((0, _toConsumableArray3.default)(this.ListValue), (0, _toConsumableArray3.default)(lstChose));
+            } else {
+                this.$toast.error("Chưa chọn vùng", {});
+            }
         },
         onetoRemove: function onetoRemove() {
             this.ListValue = this.ListValue.filter(function (x) {
@@ -18465,14 +18430,9 @@ exports.default = {
                 var dataRight = data.filter(function (x) {
                     return x.type == 7 || x.id == 0;
                 });
-                var bv = data.filter(function (x) {
-                    return x.type != 1 || x.type != 7;
-                });
-
                 var dataLeft = data.filter(function (x) {
                     return x.type == 1 || x.id == 0;
                 });
-                dataLeft.push.apply(dataLeft, (0, _toConsumableArray3.default)(bv));
                 _this5.ListZone = dataLeft;
                 _this5.ListZoneRight = dataRight;
             } catch (ex) {}
@@ -18501,7 +18461,7 @@ exports.default = {
 
 /***/ }),
 
-/***/ 1517:
+/***/ 1528:
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
@@ -18513,7 +18473,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "card"
   }, [_c('div', {
     staticClass: "card-header"
-  }, [_vm._v("\n                Chọn bài viết hoặc sản phẩm để Fake Comment\n            ")]), _vm._v(" "), _c('div', {
+  }, [_vm._v("\n                Vùng hiển thị trên Website\n            ")]), _vm._v(" "), _c('div', {
     staticClass: "card-body"
   }, [_c('div', {
     staticClass: "row"
@@ -18701,7 +18661,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }
   }, [_c('div', {
     staticStyle: {
-      "display": "none",
+      "display": "flex",
       "width": "40%",
       "padding-left": "2%"
     }
@@ -18732,14 +18692,14 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     },
     on: {
       "click": function($event) {
-        return _vm.AddFakeComment()
+        return _vm.AddProductByRegion()
       }
     }
   }, [_c('i', {
     staticClass: "fa fa-save"
   }), _vm._v(" Lưu\n                                        ")])]), _vm._v(" "), _c('div', {
     staticStyle: {
-      "display": "none",
+      "display": "flex",
       "width": "10%",
       "padding-left": "2%"
     }
@@ -18849,9 +18809,6 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         "font-size": "13px"
       }
     }, [_c('b-form-checkbox', {
-      staticStyle: {
-        "display": "none"
-      },
       model: {
         value: (item.isHot),
         callback: function($$v) {
@@ -18875,94 +18832,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         "src": _vm.pathImgs(item.bigThumb)
       }
     }) : _vm._e()])])])])
-  }), 0)], 1)])])])])])])])])]), _vm._v(" "), _c('div', {
-    staticClass: "col-sm-12 col-md-12"
-  }, [_c('div', {
-    staticClass: "card"
-  }, [_c('div', {
-    staticClass: "card-header"
-  }, [_c('div', {
-    staticClass: "row"
-  }, [_c('div', {
-    staticClass: "col-10"
-  }, [_vm._v("\n                        Chi tiết của Comment\n                    ")]), _vm._v(" "), _c('div', {
-    staticClass: "col-2"
-  }, [_c('button', {
-    staticClass: "btn btn-success",
-    attrs: {
-      "type": "button"
-    },
-    on: {
-      "click": _vm.addNewCommentItem
-    }
-  }, [_vm._v("+")])])])]), _vm._v(" "), _c('div', {
-    staticClass: "card-body"
-  }, _vm._l((_vm.CommentFakes), function(it, index) {
-    return _c('div', {
-      staticClass: "row",
-      staticStyle: {
-        "margin-bottom": "5px"
-      }
-    }, [_c('div', {
-      staticClass: "col-md-2"
-    }, [_c('b-form-select', {
-      attrs: {
-        "options": _vm.CommentType
-      },
-      model: {
-        value: (it.Type),
-        callback: function($$v) {
-          _vm.$set(it, "Type", $$v)
-        },
-        expression: "it.Type"
-      }
-    })], 1), _vm._v(" "), _c('div', {
-      staticClass: "col-md-4"
-    }, [_c('b-form-input', {
-      attrs: {
-        "placeholder": "Nhập tên comment"
-      },
-      model: {
-        value: (it.Name),
-        callback: function($$v) {
-          _vm.$set(it, "Name", $$v)
-        },
-        expression: "it.Name"
-      }
-    })], 1), _vm._v(" "), _c('div', {
-      staticClass: "col-md-5"
-    }, [_c('b-form-textarea', {
-      attrs: {
-        "id": "textarea",
-        "placeholder": "Enter something...",
-        "rows": "3",
-        "max-rows": "6"
-      },
-      model: {
-        value: (it.Description),
-        callback: function($$v) {
-          _vm.$set(it, "Description", $$v)
-        },
-        expression: "it.Description"
-      }
-    })], 1), _vm._v(" "), _c('div', {
-      staticClass: "col-md-1"
-    }, [_c('b-form-input', [_c('b-form-input', {
-      attrs: {
-        "typeof": "number",
-        "min": "0",
-        "max": "5",
-        "placeholder": "Nhập Rating"
-      },
-      model: {
-        value: (it.Rating),
-        callback: function($$v) {
-          _vm.$set(it, "Rating", $$v)
-        },
-        expression: "it.Rating"
-      }
-    })], 1)], 1)])
-  }), 0)])]), _vm._v(" "), _c('FileManager', {
+  }), 0)], 1)])])])])])])])])]), _vm._v(" "), _c('FileManager', {
     attrs: {
       "miKey": _vm.mikey1
     },
@@ -18975,29 +18845,29 @@ module.exports.render._withStripped = true
 if (true) {
   module.hot.accept()
   if (module.hot.data) {
-     __webpack_require__(178).rerender("data-v-0c190d6f", module.exports)
+     __webpack_require__(178).rerender("data-v-1b4aacff", module.exports)
   }
 }
 
 /***/ }),
 
-/***/ 1600:
+/***/ 1606:
 /***/ (function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
-var content = __webpack_require__(1088);
+var content = __webpack_require__(1094);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
-var update = __webpack_require__(801)("0863280d", content, false);
+var update = __webpack_require__(801)("bc436c70", content, false);
 // Hot Module Replacement
 if(true) {
  // When the styles change, update the <style> tags
  if(!content.locals) {
-   module.hot.accept(1088, function() {
-     var newContent = __webpack_require__(1088);
+   module.hot.accept(1094, function() {
+     var newContent = __webpack_require__(1094);
      if(typeof newContent === 'string') newContent = [[module.i, newContent, '']];
      update(newContent);
    });
@@ -19008,26 +18878,26 @@ if(true) {
 
 /***/ }),
 
-/***/ 768:
+/***/ 772:
 /***/ (function(module, exports, __webpack_require__) {
 
 
 /* styles */
-__webpack_require__(1600)
+__webpack_require__(1606)
 
 var Component = __webpack_require__(374)(
   /* script */
-  __webpack_require__(1241),
+  __webpack_require__(1245),
   /* template */
-  __webpack_require__(1517),
+  __webpack_require__(1528),
   /* scopeId */
   null,
   /* cssModules */
   null
 )
-Component.options.__file = "D:\\Code\\WORKING\\dotnet-platform-backend\\Web\\Platform\\CMS\\PlatformCMS\\ClientApp\\pages\\product\\fakecomment.vue"
+Component.options.__file = "D:\\Code\\WORKING\\dotnet-platform-backend\\Web\\Platform\\CMS\\PlatformCMS\\ClientApp\\pages\\product\\region.vue"
 if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
-if (Component.options.functional) {console.error("[vue-loader] fakecomment.vue: functional components are not supported with templates, they should use render functions.")}
+if (Component.options.functional) {console.error("[vue-loader] region.vue: functional components are not supported with templates, they should use render functions.")}
 
 /* hot reload */
 if (true) {(function () {
@@ -19036,9 +18906,9 @@ if (true) {(function () {
   if (!hotAPI.compatible) return
   module.hot.accept()
   if (!module.hot.data) {
-    hotAPI.createRecord("data-v-0c190d6f", Component.options)
+    hotAPI.createRecord("data-v-1b4aacff", Component.options)
   } else {
-    hotAPI.reload("data-v-0c190d6f", Component.options)
+    hotAPI.reload("data-v-1b4aacff", Component.options)
   }
 })()}
 
@@ -19547,7 +19417,7 @@ exports.f = {}.propertyIsEnumerable;
 
 /***/ }),
 
-/***/ 811:
+/***/ 946:
 /***/ (function(module, exports, __webpack_require__) {
 
 var global = __webpack_require__(22);
@@ -25552,7 +25422,7 @@ exports.f = __webpack_require__(17);
 
 /***/ }),
 
-/***/ 997:
+/***/ 998:
 /***/ (function(module, exports, __webpack_require__) {
 
 var pIE = __webpack_require__(810);
@@ -25578,7 +25448,7 @@ exports.f = __webpack_require__(59) ? gOPD : function getOwnPropertyDescriptor(O
 /***/ 999:
 /***/ (function(module, exports) {
 
-module.exports = {"AppSettings":{"Debug":true,"Version":"1.0.0.0","Domain":"http://demo.way2go.vn","UploadFolder":"uploads","FileUploadMaxSize":5000,"FileUploadSubFix":false,"ImageScaleWidth":300,"ImageScaleHeight":0,"ImageAllowUpload":".jpg,.jpeg,.png,.gif,.bit,.webp,.svg","DocumentAllowUpload":".doc,.docx,.pdf,.xls,.xlsx,.zip,.rar","FoderImg":"https://platformcms.hndedu.com","BaseDomain":"https://demo.way2go.vn","CacheEnable":"0","ESEnable":true,"NodeES":"http://127.0.0.1:9200","IndexES":"product_suggest"},"Redis":{"ConnectionString":"127.0.0.1:6379","DefaultDatabase":1,"InstanceName":"PLM_","CachingExpireMinute":3},"ConnectionStrings":{"DefaultConnection":"Server=103.184.112.82;Database=JT_DEV_2;Trusted_Connection=False;User Id=sa;password=EcaOicT35K%EC1"},"Cors":{"WithOrigin":"http://localhost:60099/"},"Logging":{"IncludeScopes":false,"LogLevel":{"Default":"Debug","System":"Information","Microsoft":"Information"}},"Tokens":{"Key":"0123456789ABCDEF","Issuer":"https://janhome.vn/"},"EmailSender":{"Host":"mail247.vn","Port":465,"CustomerService":{"Email":"cs@joytime.vn","Password":"D2A9HnvGMJYW3BeKQw5f4F"},"SupplierService":{"Email":"partner@joytime.vn","Password":"SL9QgKGtjCNUcbr7uXdWPY"},"HelpDesk":{"Email":"helpdesk@joytime.vn","Password":"jaR548durV2tpFCkX6qENx"},"BookingService":{"Email":"booking@joytime.vn","Password":"zydcpPBfEHeM7u9DU6XLVT"}}}
+module.exports = {"AppSettings":{"Debug":true,"Version":"1.0.0.0","Domain":"http://demo.way2go.vn","UploadFolder":"uploads","FileUploadMaxSize":5000,"FileUploadSubFix":false,"ImageScaleWidth":300,"ImageScaleHeight":0,"ImageAllowUpload":".jpg,.jpeg,.png,.gif,.bit,.webp,.svg","DocumentAllowUpload":".doc,.docx,.pdf,.xls,.xlsx,.zip,.rar","FoderImg":"https://platformcms.hndedu.com","BaseDomain":"https://demo.way2go.vn","CacheEnable":"0","ESEnable":true,"NodeES":"http://127.0.0.1:9200","IndexES":"product_suggest"},"Redis":{"ConnectionString":"127.0.0.1:6379","DefaultDatabase":1,"InstanceName":"PLM_","CachingExpireMinute":3},"ConnectionStrings":{"DefaultConnection":"Server=103.184.112.82;Database=PlatformRelease2;Trusted_Connection=False;User Id=sa;password=EcaOicT35K%EC1"},"Cors":{"WithOrigin":"http://localhost:60099/"},"Logging":{"IncludeScopes":false,"LogLevel":{"Default":"Debug","System":"Information","Microsoft":"Information"}},"Tokens":{"Key":"0123456789ABCDEF","Issuer":"https://janhome.vn/"},"EmailSender":{"Host":"mail247.vn","Port":465,"CustomerService":{"Email":"cs@joytime.vn","Password":"D2A9HnvGMJYW3BeKQw5f4F"},"SupplierService":{"Email":"partner@joytime.vn","Password":"SL9QgKGtjCNUcbr7uXdWPY"},"HelpDesk":{"Email":"helpdesk@joytime.vn","Password":"jaR548durV2tpFCkX6qENx"},"BookingService":{"Email":"booking@joytime.vn","Password":"zydcpPBfEHeM7u9DU6XLVT"}}}
 
 /***/ })
 

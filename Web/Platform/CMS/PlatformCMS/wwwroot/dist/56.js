@@ -1,6 +1,6 @@
 webpackJsonp([56],{
 
-/***/ 1086:
+/***/ 1085:
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(53)();
@@ -8,14 +8,14 @@ exports = module.exports = __webpack_require__(53)();
 
 
 // module
-exports.push([module.i, "\n[v-cloak] {\n    display: none;\n}\n.edit {\n    display: none;\n}\n.editing .edit {\n    display: block\n}\n.editing .view {\n    display: none;\n}\n", "", {"version":3,"sources":["D:/Code/WORKING/dotnet-platform-backend/Web/Platform/CMS/PlatformCMS/ClientApp/pages/department/list.vue?68306476"],"names":[],"mappings":";AAqRA;IACA,cAAA;CACA;AAEA;IACA,cAAA;CACA;AAEA;IACA,cAAA;CACA;AAEA;IACA,cAAA;CACA","file":"list.vue","sourcesContent":["\r\n<template>\r\n    <div class=\"list-data\">\r\n        <b-card header-tag=\"header\" class=\"card-filter\"\r\n                footer-tag=\"footer\">\r\n            <div>\r\n                <b-col md=\"12\">\r\n                    <b-row class=\"form-group\">\r\n                        <b-col md=\"4\">\r\n                            <b-form-input @keyup.13=\"onChangePaging()\" v-model=\"SearchKeyword\" type=\"text\" placeholder=\"Tìm kiếm theo tên\"></b-form-input>\r\n                        </b-col>\r\n                        <!--<b-col md=\"2\">\r\n                            <b-select :options=\"Language\" v-model=\"SearchLanguageCode\"></b-select>\r\n                        </b-col>-->\r\n                        <b-col md=\"2\">\r\n                            <select class=\"form-control\" v-model=\"SearchLocation\">\r\n                                <option value=\"0\">Chọn khu vực</option>\r\n                                <option :value=\"item.value\" v-for=\"item in Location\">{{item.text}}</option>\r\n                            </select>\r\n                            <!--<b-select :options=\"Location\"></b-select>-->\r\n                        </b-col>\r\n                        <b-col md=\"1\">\r\n                            <b-btn variant=\"info\" class=\"col-lg-12\"><i class=\"fa fa-search\" aria-hidden=\"true\"></i></b-btn>\r\n                        </b-col>\r\n                        <b-col md=\"1\">\r\n                            <b-btn variant=\"primary\" class=\"col-lg-12\"><i class=\"fa fa-refresh\" aria-hidden=\"true\"></i></b-btn>\r\n                        </b-col>\r\n                        <b-col md=\"2\">\r\n                            <b-btn v-b-toggle.collapse1 variant=\"primary\"><i class=\"fa fa-angle-double-down\" aria-hidden=\"true\"></i></b-btn>\r\n                        </b-col>\r\n                    </b-row>\r\n                </b-col>\r\n                <b-collapse id=\"collapse1\" class=\"mt-2\">\r\n                    <b-card>\r\n                        <p class=\"card-text\">Collapse contents Here</p>\r\n                        <b-btn v-b-toggle.collapse1_inner size=\"sm\">Toggle Inner Collapse</b-btn>\r\n                        <b-collapse id=collapse1_inner class=\"mt-2\">\r\n                            <b-card>Hello!</b-card>\r\n                        </b-collapse>\r\n                    </b-card>\r\n                </b-collapse>\r\n            </div>\r\n        </b-card>\r\n        <div class=\"card card-data\">\r\n            <div class=\"card-body\">\r\n                <div role=\"toolbar\" class=\" mb-2\" aria-label=\"Toolbar with button groups and dropdown menu\">\r\n                    <div role=\"group\" class=\"mx-1 btn-group\">\r\n                        <router-link class=\"btn btn-success\" :to=\"{ path: 'add' }\"><i class=\"fa fa-plus\"></i> Thêm mới</router-link>\r\n                        <button type=\"button\" class=\"btn btn-danger\"><i class=\"fa fa-trash-o\"></i> Xóa</button>\r\n                    </div>\r\n                    <b-dropdown class=\"mx-1\" variant=\"info\" right text=\"Hành động\" icon>\r\n                        <b-dropdown-item>Kích hoạt</b-dropdown-item>\r\n                        <b-dropdown-item>Không kích hoạt</b-dropdown-item>\r\n                    </b-dropdown>\r\n\r\n                    <div class=\"mx-1 btn-group mi-paging\">\r\n                        <b-pagination v-model=\"currentPage\"\r\n                                      :total-rows=\"departments.total\"\r\n                                      :per-page=\"pageSize\"\r\n                                      aria-controls=\"_product\"></b-pagination>\r\n                    </div>\r\n                </div>\r\n\r\n                <div class=\"table-responsive\">\r\n                    <div class=\"dataTables_wrapper dt-bootstrap4 no-footer\">\r\n                        <div class=\"clear\"></div>\r\n                        <table class=\"table data-thumb-view dataTable no-footer\" role=\"grid\">\r\n                            <thead class=\"table table-centered table-nowrap\">\r\n                                <tr role=\"row\">\r\n                                    <th><!--<input type=\"checkbox\">--></th>\r\n                                    <th>STT</th>\r\n                                    <th>Tên chi nhánh</th>\r\n                                    <th>Kinh độ</th>\r\n                                    <th>Vĩ độ</th>\r\n                                    <th>Ngôn ngữ</th>\r\n                                    <th>Thao tác</th>\r\n                                </tr>\r\n                            </thead>\r\n                            <tbody>\r\n                                <tr v-for=\"(item,index) in departments.listData\" :class=\"{editing: item == editedItem}\" v-cloak>\r\n                                    <td class=\"dt-checkboxes-cell\"><input type=\"checkbox\" class=\"dt-checkboxes\"></td>\r\n                                    <td>{{index+1}}</td>\r\n                                    <td>\r\n                                        {{item.name}}\r\n                                    </td>\r\n                                    <td>\r\n                                        <input style=\"width:100px\" type=\"number\" class=\"form-control text-center\" v-model=\"item.longitude\" />\r\n                                    </td>\r\n                                    <td>\r\n                                        <input style=\"width:100px\" type=\"number\" class=\"form-control text-center\" v-model=\"item.latitude\" />\r\n                                    </td>\r\n                                    <td>\r\n                                        <p>Ngôn ngữ: {{item.langCount}}</p>\r\n                                    </td>\r\n                                    <td class=\"product-action\">\r\n                                        <b-row>\r\n                                            <div style=\"padding:5px\">\r\n                                                <span class=\"action-save\"><a @click=\"saveData(item)\"><i style=\"color:green\" class=\"fa fa-save\"></i></a></span>\r\n                                            </div>\r\n                                            <div style=\"padding:5px\">\r\n                                                <router-link :to=\"{path: 'edit/'+ item.id}\">\r\n                                                    <span class=\"action-edit\"><i class=\"fa fa-edit\"></i></span>\r\n                                                </router-link>\r\n                                            </div>\r\n                                            <div style=\"padding:5px\">\r\n                                                <span class=\"action-delete\"><a @click=\"remove(item)\"><i style=\"color:red\" class=\"fa fa-trash\"></i></a></span>\r\n                                            </div>\r\n                                        </b-row>\r\n                                    </td>\r\n                                </tr>\r\n                            </tbody>\r\n                        </table>\r\n                    </div>\r\n                </div>\r\n\r\n            </div>\r\n        </div>\r\n    </div>\r\n</template>\r\n<script>\r\n    import \"vue-loading-overlay/dist/vue-loading.css\";\r\n    import msgNotify from \"./../../common/constant\";\r\n    import { mapGetters, mapActions } from \"vuex\";\r\n    import Loading from \"vue-loading-overlay\";\r\n\r\n    export default {\r\n        name: \"department\",\r\n        components: {\r\n            Loading\r\n        },\r\n        data() {\r\n            return {\r\n                editedItem: null,\r\n                editMode: false,\r\n                isLoading: false,\r\n                _product: {\r\n\r\n                },\r\n                messeger: \"\",\r\n                currentSort: \"Id\",\r\n                currentSortDir: \"asc\",\r\n                SearchKeyword: \"\",\r\n                SearchLanguageCode: \"vi-VN     \",\r\n                SearchLocation: 0,\r\n                currentPage: 1,\r\n                pageSize: 10,\r\n                loading: true,\r\n                item: {},\r\n                Language: [],\r\n                Location: [],\r\n\r\n                bootstrapPaginationClasses: {\r\n                    ul: \"pagination\",\r\n                    li: \"page-item\",\r\n                    liActive: \"active\",\r\n                    liDisable: \"disabled\",\r\n                    button: \"page-link\"\r\n                },\r\n                customLabels: {\r\n                    first: \"First\",\r\n                    prev: \"Previous\",\r\n                    next: \"Next\",\r\n                    last: \"Last\"\r\n                }\r\n            };\r\n        },\r\n        methods: {\r\n            ...mapActions([\"getDepartments\", \"deleteDepartment\", \"getAllLanguages\", \"getLocationAll\", \"updateDepartment\"]),\r\n            onChangePaging() {\r\n                this.isLoading = true;\r\n                let initial = this.$route.query.initial;\r\n                initial = typeof initial != \"undefined\" ? initial.toLowerCase() : \"\";\r\n                this.getDepartments({\r\n                    keyword: this.SearchKeyword,\r\n                    languageCode: this.SearchLanguageCode || \"vi-VN\",\r\n                    locationId: this.SearchLocation,\r\n                    pageIndex: this.currentPage,\r\n                    pageSize: this.pageSize,\r\n                    sortBy: this.currentSort,\r\n                    sortDir: this.currentSortDir\r\n                });\r\n                this.isLoading = false;\r\n            },\r\n            sortor: function (s) {\r\n                if (s === this.currentSort) {\r\n                    this.currentSortDir = this.currentSortDir === \"asc\" ? \"desc\" : \"asc\";\r\n                }\r\n                this.currentSort = s;\r\n                this.onChangePaging();\r\n            },\r\n            remove: function (item) {\r\n                if (confirm(\"Bạn có thực sự muốn xoá?\")) {\r\n                    let initial = this.$route.query.initial;\r\n                    initial = typeof initial != \"undefined\" ? initial.toLowerCase() : \"\";\r\n                    this.deleteDepartment(item)\r\n                        .then(response => {\r\n                            if (response.success == true) {\r\n                                this.$toast.success(response.message, {});\r\n                                this.onChangePaging();\r\n                                this.isLoading = false;\r\n                            } else {\r\n                                this.$toast.error(response.message, {});\r\n                                this.isLoading = false;\r\n                            }\r\n                        })\r\n                        .catch(e => {\r\n                            this.$toast.error(msgNotify.error + \". Error:\" + e, {});\r\n                        });\r\n                }\r\n            },\r\n            saveData(item) {\r\n                debugger;\r\n                if (item.id > 0) {\r\n                    this.updateDepartment(item)\r\n                        .then(response => {\r\n                            if (response.success == true) {\r\n                                this.$toast.success(response.message, {});\r\n                                this.isLoading = false;\r\n                                this.editedItem = null;\r\n                            }\r\n                            else {\r\n                                this.$toast.error(response.message, {});\r\n                                this.isLoading = false;\r\n                            }\r\n\r\n                        })\r\n                        .catch(e => {\r\n                            this.$toast.error(msgNotify.error + \". Error:\" + e, {});\r\n                            this.isLoading = false;\r\n                        });\r\n                }\r\n            },\r\n            editData(item) {\r\n                this.beforEditCache = item\r\n                this.editedItem = item\r\n            }\r\n        },\r\n        computed: {\r\n            ...mapGetters([\"departments\"])\r\n        },\r\n        mounted() {\r\n            this.onChangePaging();\r\n            //this.getAllLanguages().then(respose => {\r\n            //    this.Language = respose.listData.map(function (item) {\r\n            //        return {\r\n            //            value: item.languageCode,\r\n            //            text: item.name\r\n            //        };\r\n            //    });\r\n            //});\r\n            this.getLocationAll().then(respose => {\r\n                this.Location = respose.listData.map(function (item) {\r\n                    return {\r\n                        value: item.id,\r\n                        text: item.name\r\n                    };\r\n                });\r\n            });\r\n\r\n        },\r\n        watch: {\r\n            currentPage: function (newVal) {\r\n                this.currentPage = newVal;\r\n                this.onChangePaging();\r\n            },\r\n            SearchLanguageCode: function () {\r\n                this.currentPage = 1;\r\n                this.onChangePaging();\r\n            },\r\n            SearchLocation: function () {\r\n                this.currentPage = 1;\r\n                this.onChangePaging();\r\n            }\r\n        }\r\n    };\r\n</script>\r\n<style>\r\n    [v-cloak] {\r\n        display: none;\r\n    }\r\n\r\n    .edit {\r\n        display: none;\r\n    }\r\n\r\n    .editing .edit {\r\n        display: block\r\n    }\r\n\r\n    .editing .view {\r\n        display: none;\r\n    }\r\n</style>\r\n\r\n"],"sourceRoot":""}]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", "", {"version":3,"sources":[],"names":[],"mappings":"","file":"edit.vue","sourceRoot":""}]);
 
 // exports
 
 
 /***/ }),
 
-/***/ 1221:
+/***/ 1224:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -25,7 +25,7 @@ Object.defineProperty(exports, "__esModule", {
     value: true
 });
 
-var _extends2 = __webpack_require__(7);
+var _extends2 = __webpack_require__(8);
 
 var _extends3 = _interopRequireDefault(_extends2);
 
@@ -44,507 +44,212 @@ var _vueLoadingOverlay2 = _interopRequireDefault(_vueLoadingOverlay);
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 exports.default = {
-    name: "department",
-    components: {
-        Loading: _vueLoadingOverlay2.default
-    },
+    name: "languagedit",
     data: function data() {
         return {
-            editedItem: null,
-            editMode: false,
             isLoading: false,
-            _product: {},
-            messeger: "",
-            currentSort: "Id",
-            currentSortDir: "asc",
-            SearchKeyword: "",
-            SearchLanguageCode: "vi-VN     ",
-            SearchLocation: 0,
-            currentPage: 1,
-            pageSize: 10,
-            loading: true,
-            item: {},
-            Language: [],
-            Location: [],
-
-            bootstrapPaginationClasses: {
-                ul: "pagination",
-                li: "page-item",
-                liActive: "active",
-                liDisable: "disabled",
-                button: "page-link"
-            },
-            customLabels: {
-                first: "First",
-                prev: "Previous",
-                next: "Next",
-                last: "Last"
+            fullPage: false,
+            color: "#007bff",
+            objRequest: {
+                SetDefault: false
             }
         };
     },
 
-    methods: (0, _extends3.default)({}, (0, _vuex.mapActions)(["getDepartments", "deleteDepartment", "getAllLanguages", "getLocationAll", "updateDepartment"]), {
-        onChangePaging: function onChangePaging() {
+    created: {},
+    components: {
+        Loading: _vueLoadingOverlay2.default
+    },
+
+    mounted: function mounted() {
+        var _this = this;
+
+        if (this.$route.params.id.length > 0) {
             this.isLoading = true;
             var initial = this.$route.query.initial;
             initial = typeof initial != "undefined" ? initial.toLowerCase() : "";
-            this.getDepartments({
-                keyword: this.SearchKeyword,
-                languageCode: this.SearchLanguageCode || "vi-VN",
-                locationId: this.SearchLocation,
-                pageIndex: this.currentPage,
-                pageSize: this.pageSize,
-                sortBy: this.currentSort,
-                sortDir: this.currentSortDir
+            this.getLanguage(this.$route.params.id).then(function (respose) {
+                _this.objRequest = respose.Data;
             });
             this.isLoading = false;
-        },
-
-        sortor: function sortor(s) {
-            if (s === this.currentSort) {
-                this.currentSortDir = this.currentSortDir === "asc" ? "desc" : "asc";
-            }
-            this.currentSort = s;
-            this.onChangePaging();
-        },
-        remove: function remove(item) {
-            var _this = this;
-
-            if (confirm("Bạn có thực sự muốn xoá?")) {
-                var initial = this.$route.query.initial;
-                initial = typeof initial != "undefined" ? initial.toLowerCase() : "";
-                this.deleteDepartment(item).then(function (response) {
-                    if (response.success == true) {
-                        _this.$toast.success(response.message, {});
-                        _this.onChangePaging();
-                        _this.isLoading = false;
-                    } else {
-                        _this.$toast.error(response.message, {});
-                        _this.isLoading = false;
-                    }
-                }).catch(function (e) {
-                    _this.$toast.error(_constant2.default.error + ". Error:" + e, {});
-                });
-            }
-        },
-        saveData: function saveData(item) {
-            var _this2 = this;
-
-            debugger;
-            if (item.id > 0) {
-                this.updateDepartment(item).then(function (response) {
-                    if (response.success == true) {
-                        _this2.$toast.success(response.message, {});
-                        _this2.isLoading = false;
-                        _this2.editedItem = null;
-                    } else {
-                        _this2.$toast.error(response.message, {});
-                        _this2.isLoading = false;
-                    }
-                }).catch(function (e) {
-                    _this2.$toast.error(_constant2.default.error + ". Error:" + e, {});
-                    _this2.isLoading = false;
-                });
-            }
-        },
-        editData: function editData(item) {
-            this.beforEditCache = item;
-            this.editedItem = item;
         }
-    }),
-    computed: (0, _extends3.default)({}, (0, _vuex.mapGetters)(["departments"])),
-    mounted: function mounted() {
-        var _this3 = this;
-
-        this.onChangePaging();
-
-        this.getLocationAll().then(function (respose) {
-            _this3.Location = respose.listData.map(function (item) {
-                return {
-                    value: item.id,
-                    text: item.name
-                };
-            });
-        });
     },
 
-    watch: {
-        currentPage: function currentPage(newVal) {
-            this.currentPage = newVal;
-            this.onChangePaging();
-        },
-        SearchLanguageCode: function SearchLanguageCode() {
-            this.currentPage = 1;
-            this.onChangePaging();
-        },
-        SearchLocation: function SearchLocation() {
-            this.currentPage = 1;
-            this.onChangePaging();
+
+    computed: (0, _extends3.default)({}, (0, _vuex.mapGetters)(["language"])),
+
+    methods: (0, _extends3.default)({}, (0, _vuex.mapActions)(["updateLanguage", "addLanguage", "getLanguage"]), {
+        DoAddEdit: function DoAddEdit() {
+            var _this2 = this;
+
+            this.isLoading = true;
+            this.addLanguage(this.objRequest).then(function (response) {
+                if (response.Success == true) {
+                    _this2.$toast.success(response.Message, {});
+                    _this2.isLoading = false;
+                } else {
+                    _this2.$toast.error(response.Message, {});
+                    _this2.isLoading = false;
+                }
+            }).catch(function (e) {
+                _this2.$toast.error(_constant2.default.error + ". Error:" + e, {});
+                _this2.isLoading = false;
+            });
         }
-    }
+    })
 };
 
 /***/ }),
 
-/***/ 1515:
+/***/ 1514:
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
   return _c('div', {
-    staticClass: "list-data"
+    staticStyle: {
+      "display": "flex",
+      "width": "100%"
+    }
+  }, [_c('div', {
+    staticClass: "col-md-8"
   }, [_c('b-card', {
-    staticClass: "card-filter",
+    staticClass: "mt-3",
     attrs: {
-      "header-tag": "header",
-      "footer-tag": "footer"
+      "header": "Thêm / Sửa ngôn ngữ"
     }
-  }, [_c('div', [_c('b-col', {
+  }, [_c('loading', {
     attrs: {
-      "md": "12"
+      "active": _vm.isLoading,
+      "height": 35,
+      "width": 35,
+      "color": _vm.color,
+      "is-full-page": _vm.fullPage
+    },
+    on: {
+      "update:active": function($event) {
+        _vm.isLoading = $event
+      }
     }
-  }, [_c('b-row', {
-    staticClass: "form-group"
-  }, [_c('b-col', {
+  }), _vm._v(" "), _c('b-form', {
+    staticClass: "form-horizontal"
+  }, [_c('b-form-group', {
     attrs: {
-      "md": "4"
+      "label": "Mã ngôn ngữ",
+      "label-for": "input-1"
     }
   }, [_c('b-form-input', {
     attrs: {
+      "id": "input-1",
       "type": "text",
-      "placeholder": "Tìm kiếm theo tên"
-    },
-    on: {
-      "keyup": function($event) {
-        if (!$event.type.indexOf('key') && $event.keyCode !== 13) { return null; }
-        return _vm.onChangePaging()
-      }
+      "required": "",
+      "placeholder": "Mã ngôn ngữ"
     },
     model: {
-      value: (_vm.SearchKeyword),
+      value: (_vm.objRequest.LanguageCode),
       callback: function($$v) {
-        _vm.SearchKeyword = $$v
+        _vm.$set(_vm.objRequest, "LanguageCode", $$v)
       },
-      expression: "SearchKeyword"
+      expression: "objRequest.LanguageCode"
     }
-  })], 1), _vm._v(" "), _c('b-col', {
+  })], 1), _vm._v(" "), _c('b-form-group', {
     attrs: {
-      "md": "2"
+      "label": "Tên"
     }
-  }, [_c('select', {
-    directives: [{
-      name: "model",
-      rawName: "v-model",
-      value: (_vm.SearchLocation),
-      expression: "SearchLocation"
-    }],
-    staticClass: "form-control",
-    on: {
-      "change": function($event) {
-        var $$selectedVal = Array.prototype.filter.call($event.target.options, function(o) {
-          return o.selected
-        }).map(function(o) {
-          var val = "_value" in o ? o._value : o.value;
-          return val
-        });
-        _vm.SearchLocation = $event.target.multiple ? $$selectedVal : $$selectedVal[0]
-      }
-    }
-  }, [_c('option', {
+  }, [_c('b-form-input', {
     attrs: {
-      "value": "0"
-    }
-  }, [_vm._v("Chọn khu vực")]), _vm._v(" "), _vm._l((_vm.Location), function(item) {
-    return _c('option', {
-      domProps: {
-        "value": item.value
-      }
-    }, [_vm._v(_vm._s(item.text))])
-  })], 2)]), _vm._v(" "), _c('b-col', {
-    attrs: {
-      "md": "1"
-    }
-  }, [_c('b-btn', {
-    staticClass: "col-lg-12",
-    attrs: {
-      "variant": "info"
-    }
-  }, [_c('i', {
-    staticClass: "fa fa-search",
-    attrs: {
-      "aria-hidden": "true"
-    }
-  })])], 1), _vm._v(" "), _c('b-col', {
-    attrs: {
-      "md": "1"
-    }
-  }, [_c('b-btn', {
-    staticClass: "col-lg-12",
-    attrs: {
-      "variant": "primary"
-    }
-  }, [_c('i', {
-    staticClass: "fa fa-refresh",
-    attrs: {
-      "aria-hidden": "true"
-    }
-  })])], 1), _vm._v(" "), _c('b-col', {
-    attrs: {
-      "md": "2"
-    }
-  }, [_c('b-btn', {
-    directives: [{
-      name: "b-toggle",
-      rawName: "v-b-toggle.collapse1",
-      modifiers: {
-        "collapse1": true
-      }
-    }],
-    attrs: {
-      "variant": "primary"
-    }
-  }, [_c('i', {
-    staticClass: "fa fa-angle-double-down",
-    attrs: {
-      "aria-hidden": "true"
-    }
-  })])], 1)], 1)], 1), _vm._v(" "), _c('b-collapse', {
-    staticClass: "mt-2",
-    attrs: {
-      "id": "collapse1"
-    }
-  }, [_c('b-card', [_c('p', {
-    staticClass: "card-text"
-  }, [_vm._v("Collapse contents Here")]), _vm._v(" "), _c('b-btn', {
-    directives: [{
-      name: "b-toggle",
-      rawName: "v-b-toggle.collapse1_inner",
-      modifiers: {
-        "collapse1_inner": true
-      }
-    }],
-    attrs: {
-      "size": "sm"
-    }
-  }, [_vm._v("Toggle Inner Collapse")]), _vm._v(" "), _c('b-collapse', {
-    staticClass: "mt-2",
-    attrs: {
-      "id": "collapse1_inner"
-    }
-  }, [_c('b-card', [_vm._v("Hello!")])], 1)], 1)], 1)], 1)]), _vm._v(" "), _c('div', {
-    staticClass: "card card-data"
-  }, [_c('div', {
-    staticClass: "card-body"
-  }, [_c('div', {
-    staticClass: " mb-2",
-    attrs: {
-      "role": "toolbar",
-      "aria-label": "Toolbar with button groups and dropdown menu"
-    }
-  }, [_c('div', {
-    staticClass: "mx-1 btn-group",
-    attrs: {
-      "role": "group"
-    }
-  }, [_c('router-link', {
-    staticClass: "btn btn-success",
-    attrs: {
-      "to": {
-        path: 'add'
-      }
-    }
-  }, [_c('i', {
-    staticClass: "fa fa-plus"
-  }), _vm._v(" Thêm mới")]), _vm._v(" "), _vm._m(0)], 1), _vm._v(" "), _c('b-dropdown', {
-    staticClass: "mx-1",
-    attrs: {
-      "variant": "info",
-      "right": "",
-      "text": "Hành động",
-      "icon": ""
-    }
-  }, [_c('b-dropdown-item', [_vm._v("Kích hoạt")]), _vm._v(" "), _c('b-dropdown-item', [_vm._v("Không kích hoạt")])], 1), _vm._v(" "), _c('div', {
-    staticClass: "mx-1 btn-group mi-paging"
-  }, [_c('b-pagination', {
-    attrs: {
-      "total-rows": _vm.departments.total,
-      "per-page": _vm.pageSize,
-      "aria-controls": "_product"
+      "placeholder": "Name",
+      "required": ""
     },
     model: {
-      value: (_vm.currentPage),
+      value: (_vm.objRequest.Name),
       callback: function($$v) {
-        _vm.currentPage = $$v
+        _vm.$set(_vm.objRequest, "Name", $$v)
       },
-      expression: "currentPage"
+      expression: "objRequest.Name"
     }
-  })], 1)], 1), _vm._v(" "), _c('div', {
-    staticClass: "table-responsive"
+  })], 1)], 1)], 1)], 1), _vm._v(" "), _c('div', {
+    staticClass: "col-md-4"
   }, [_c('div', {
-    staticClass: "dataTables_wrapper dt-bootstrap4 no-footer"
-  }, [_c('div', {
-    staticClass: "clear"
-  }), _vm._v(" "), _c('table', {
-    staticClass: "table data-thumb-view dataTable no-footer",
+    staticClass: "mt-3",
+    staticStyle: {
+      "position": "fixed",
+      "width": "25%"
+    }
+  }, [_c('b-card', {
     attrs: {
-      "role": "grid"
+      "header": "Thao tác"
     }
-  }, [_vm._m(1), _vm._v(" "), _c('tbody', _vm._l((_vm.departments.listData), function(item, index) {
-    return _c('tr', {
-      class: {
-        editing: item == _vm.editedItem
+  }, [_c('div', {
+    staticClass: "row"
+  }, [_c('div', {
+    staticClass: "col-md-6"
+  }, [_c('button', {
+    staticClass: "btn btn-info btn-submit-form col-md-12 btncus",
+    attrs: {
+      "type": "submit"
+    },
+    on: {
+      "click": function($event) {
+        return _vm.DoAddEdit()
       }
-    }, [_vm._m(2, true), _vm._v(" "), _c('td', [_vm._v(_vm._s(index + 1))]), _vm._v(" "), _c('td', [_vm._v("\n                                    " + _vm._s(item.name) + "\n                                ")]), _vm._v(" "), _c('td', [_c('input', {
-      directives: [{
-        name: "model",
-        rawName: "v-model",
-        value: (item.longitude),
-        expression: "item.longitude"
-      }],
-      staticClass: "form-control text-center",
-      staticStyle: {
-        "width": "100px"
-      },
-      attrs: {
-        "type": "number"
-      },
-      domProps: {
-        "value": (item.longitude)
-      },
-      on: {
-        "input": function($event) {
-          if ($event.target.composing) { return; }
-          _vm.$set(item, "longitude", $event.target.value)
-        }
-      }
-    })]), _vm._v(" "), _c('td', [_c('input', {
-      directives: [{
-        name: "model",
-        rawName: "v-model",
-        value: (item.latitude),
-        expression: "item.latitude"
-      }],
-      staticClass: "form-control text-center",
-      staticStyle: {
-        "width": "100px"
-      },
-      attrs: {
-        "type": "number"
-      },
-      domProps: {
-        "value": (item.latitude)
-      },
-      on: {
-        "input": function($event) {
-          if ($event.target.composing) { return; }
-          _vm.$set(item, "latitude", $event.target.value)
-        }
-      }
-    })]), _vm._v(" "), _c('td', [_c('p', [_vm._v("Ngôn ngữ: " + _vm._s(item.langCount))])]), _vm._v(" "), _c('td', {
-      staticClass: "product-action"
-    }, [_c('b-row', [_c('div', {
-      staticStyle: {
-        "padding": "5px"
-      }
-    }, [_c('span', {
-      staticClass: "action-save"
-    }, [_c('a', {
-      on: {
-        "click": function($event) {
-          return _vm.saveData(item)
-        }
-      }
-    }, [_c('i', {
-      staticClass: "fa fa-save",
-      staticStyle: {
-        "color": "green"
-      }
-    })])])]), _vm._v(" "), _c('div', {
-      staticStyle: {
-        "padding": "5px"
-      }
-    }, [_c('router-link', {
-      attrs: {
-        "to": {
-          path: 'edit/' + item.id
-        }
-      }
-    }, [_c('span', {
-      staticClass: "action-edit"
-    }, [_c('i', {
-      staticClass: "fa fa-edit"
-    })])])], 1), _vm._v(" "), _c('div', {
-      staticStyle: {
-        "padding": "5px"
-      }
-    }, [_c('span', {
-      staticClass: "action-delete"
-    }, [_c('a', {
-      on: {
-        "click": function($event) {
-          return _vm.remove(item)
-        }
-      }
-    }, [_c('i', {
-      staticClass: "fa fa-trash",
-      staticStyle: {
-        "color": "red"
-      }
-    })])])])])], 1)])
-  }), 0)])])])])])], 1)
-},staticRenderFns: [function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _c('button', {
-    staticClass: "btn btn-danger",
+    }
+  }, [_c('i', {
+    staticClass: "fa fa-save"
+  }), _vm._v(" Cập nhật\n                        ")])]), _vm._v(" "), _c('div', {
+    staticClass: "col-md-6"
+  }, [_c('button', {
+    staticClass: "btn btn-success col-md-12 btncus",
     attrs: {
       "type": "button"
+    },
+    on: {
+      "click": function($event) {
+        return _vm.DoRefesh()
+      }
     }
   }, [_c('i', {
-    staticClass: "fa fa-trash-o"
-  }), _vm._v(" Xóa")])
-},function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _c('thead', {
-    staticClass: "table table-centered table-nowrap"
-  }, [_c('tr', {
-    attrs: {
-      "role": "row"
+    staticClass: "fa fa-refresh"
+  }), _vm._v(" Làm mới\n                        ")])])]), _vm._v(" "), _c('b-form-group', {
+    staticStyle: {
+      "margin-top": "10px"
     }
-  }, [_c('th'), _vm._v(" "), _c('th', [_vm._v("STT")]), _vm._v(" "), _c('th', [_vm._v("Tên chi nhánh")]), _vm._v(" "), _c('th', [_vm._v("Kinh độ")]), _vm._v(" "), _c('th', [_vm._v("Vĩ độ")]), _vm._v(" "), _c('th', [_vm._v("Ngôn ngữ")]), _vm._v(" "), _c('th', [_vm._v("Thao tác")])])])
-},function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _c('td', {
-    staticClass: "dt-checkboxes-cell"
-  }, [_c('input', {
-    staticClass: "dt-checkboxes",
-    attrs: {
-      "type": "checkbox"
+  }, [_c('b-form-checkbox', {
+    model: {
+      value: (_vm.objRequest.SetDefault),
+      callback: function($$v) {
+        _vm.$set(_vm.objRequest, "SetDefault", $$v)
+      },
+      expression: "objRequest.SetDefault"
     }
-  })])
-}]}
+  }, [_vm._v("Kích hoạt")])], 1)], 1)], 1)])])
+},staticRenderFns: []}
 module.exports.render._withStripped = true
 if (true) {
   module.hot.accept()
   if (module.hot.data) {
-     __webpack_require__(178).rerender("data-v-0a2eb740", module.exports)
+     __webpack_require__(178).rerender("data-v-073341c6", module.exports)
   }
 }
 
 /***/ }),
 
-/***/ 1598:
+/***/ 1597:
 /***/ (function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
-var content = __webpack_require__(1086);
+var content = __webpack_require__(1085);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
-var update = __webpack_require__(801)("4a02542e", content, false);
+var update = __webpack_require__(801)("fb81054a", content, false);
 // Hot Module Replacement
 if(true) {
  // When the styles change, update the <style> tags
  if(!content.locals) {
-   module.hot.accept(1086, function() {
-     var newContent = __webpack_require__(1086);
+   module.hot.accept(1085, function() {
+     var newContent = __webpack_require__(1085);
      if(typeof newContent === 'string') newContent = [[module.i, newContent, '']];
      update(newContent);
    });
@@ -555,26 +260,26 @@ if(true) {
 
 /***/ }),
 
-/***/ 749:
+/***/ 752:
 /***/ (function(module, exports, __webpack_require__) {
 
 
 /* styles */
-__webpack_require__(1598)
+__webpack_require__(1597)
 
 var Component = __webpack_require__(374)(
   /* script */
-  __webpack_require__(1221),
+  __webpack_require__(1224),
   /* template */
-  __webpack_require__(1515),
+  __webpack_require__(1514),
   /* scopeId */
   null,
   /* cssModules */
   null
 )
-Component.options.__file = "D:\\Code\\WORKING\\dotnet-platform-backend\\Web\\Platform\\CMS\\PlatformCMS\\ClientApp\\pages\\department\\list.vue"
+Component.options.__file = "D:\\Code\\WORKING\\dotnet-platform-backend\\Web\\Platform\\CMS\\PlatformCMS\\ClientApp\\pages\\language\\edit.vue"
 if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
-if (Component.options.functional) {console.error("[vue-loader] list.vue: functional components are not supported with templates, they should use render functions.")}
+if (Component.options.functional) {console.error("[vue-loader] edit.vue: functional components are not supported with templates, they should use render functions.")}
 
 /* hot reload */
 if (true) {(function () {
@@ -583,9 +288,9 @@ if (true) {(function () {
   if (!hotAPI.compatible) return
   module.hot.accept()
   if (!module.hot.data) {
-    hotAPI.createRecord("data-v-0a2eb740", Component.options)
+    hotAPI.createRecord("data-v-073341c6", Component.options)
   } else {
-    hotAPI.reload("data-v-0a2eb740", Component.options)
+    hotAPI.reload("data-v-073341c6", Component.options)
   }
 })()}
 

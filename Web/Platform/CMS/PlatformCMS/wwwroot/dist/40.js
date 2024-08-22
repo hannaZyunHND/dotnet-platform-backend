@@ -214,7 +214,7 @@ var setToStringTag = __webpack_require__(112);
 var uid = __webpack_require__(109);
 var wks = __webpack_require__(17);
 var wksExt = __webpack_require__(996);
-var wksDefine = __webpack_require__(811);
+var wksDefine = __webpack_require__(946);
 var enumKeys = __webpack_require__(1010);
 var isArray = __webpack_require__(187);
 var anObject = __webpack_require__(36);
@@ -225,7 +225,7 @@ var toPrimitive = __webpack_require__(380);
 var createDesc = __webpack_require__(108);
 var _create = __webpack_require__(388);
 var gOPNExt = __webpack_require__(1009);
-var $GOPD = __webpack_require__(997);
+var $GOPD = __webpack_require__(998);
 var $GOPS = __webpack_require__(968);
 var $DP = __webpack_require__(55);
 var $keys = __webpack_require__(183);
@@ -453,7 +453,7 @@ setToStringTag(global.JSON, 'JSON', true);
 /***/ 1012:
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(811)('asyncIterator');
+__webpack_require__(946)('asyncIterator');
 
 
 /***/ }),
@@ -461,7 +461,7 @@ __webpack_require__(811)('asyncIterator');
 /***/ 1013:
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(811)('observable');
+__webpack_require__(946)('observable');
 
 
 /***/ }),
@@ -480,7 +480,7 @@ var _from = __webpack_require__(954);
 
 var _from2 = _interopRequireDefault(_from);
 
-var _extends2 = __webpack_require__(7);
+var _extends2 = __webpack_require__(8);
 
 var _extends3 = _interopRequireDefault(_extends2);
 
@@ -17841,7 +17841,7 @@ module.exports = global.Promise;
 
 /***/ }),
 
-/***/ 1117:
+/***/ 1106:
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(53)();
@@ -17849,14 +17849,14 @@ exports = module.exports = __webpack_require__(53)();
 
 
 // module
-exports.push([module.i, "\n.productadd .nav.nav-pills .nav-item .nav-link { padding:10px 15px !important\n}\n@media (min-width: 768px) {\n.form-horizontal .control-label {\n        text-align: right;\n        margin-bottom: 0;\n        padding-top: 7px;\n}\n}\n.ace-file-input .ace-file-container {\n    display: block;\n    position: absolute;\n    top: 0;\n    left: 0;\n    right: 0;\n    height: 30px;\n    background-color: #fff;\n    border: 1px solid #d5d5d5;\n    cursor: pointer;\n    -webkit-box-shadow: none;\n    box-shadow: none;\n    -webkit-transition: all .15s;\n    -o-transition: all .15s;\n    transition: all .15s;\n}\n", "", {"version":3,"sources":["D:/Code/WORKING/dotnet-platform-backend/Web/Platform/CMS/PlatformCMS/ClientApp/pages/configs/list.vue?ffe4f1c4"],"names":[],"mappings":";AAuRA,iDAAA,4BAAA;CAAA;AAEA;AACA;QACA,kBAAA;QACA,iBAAA;QACA,iBAAA;CACA;CACA;AAEA;IACA,eAAA;IACA,mBAAA;IACA,OAAA;IACA,QAAA;IACA,SAAA;IACA,aAAA;IACA,uBAAA;IACA,0BAAA;IACA,gBAAA;IACA,yBAAA;IACA,iBAAA;IACA,6BAAA;IACA,wBAAA;IACA,qBAAA;CACA","file":"list.vue","sourcesContent":["\r\n<template>\r\n    <div class=\"productadd\">\r\n\r\n        <b-card header-tag=\"header\" class=\"card-filter\"\r\n                footer-tag=\"footer\">\r\n            <b-col md=\"2\">\r\n                <b-select :options=\"Language\" v-model=\"SearchLanguageCode\"></b-select>\r\n            </b-col>\r\n        </b-card>\r\n        <b-card header-tag=\"header\" class=\"card-filter\" footer-tag=\"footer\">\r\n            <form class=\"form-horizontal\">\r\n                <b-tabs class=\"col-md-12\" pills>\r\n                    <b-tab v-for=\"group,page in ListConfigs\" :title=\"page\">\r\n                        <div style=\"display:flex;width:100%\" v-for=\"(item,index) in group\">\r\n                            <div class=\"form-group\" style=\"width:100%;display:flex\">\r\n                                <label class=\"col-md-2 col-sm-2 control-label\"> {{item.configLabel}} </label>\r\n                                <div v-if=\"item.configValueType == 1\" class=\"col-md-8 col-sm-8\">\r\n                                    <div class=\"row\">\r\n                                        <div class=\"col-md-8\">\r\n                                            <div class=\"input-group\">\r\n                                                <input type=\"text\" :value=\"item.content\" disabled autocomplete=\"off\" class=\"form-control\" placeholder=\"Chọn hình ảnh\">\r\n                                                <span @click=\"openImg(page,index)\" class=\"input-group-addon bg-primary\" style=\"cursor: pointer;width:45px\"><i style=\"padding-top:10px;padding-left:15px\" class=\"fa fa-picture-o\"></i></span>\r\n                                            </div>\r\n                                        </div>\r\n                                        <div @click=\"openImg(page,index)\" class=\"col-md-4 gallery-upload-file ui-sortable\">\r\n                                            <div style=\"padding:0;margin:0;width:auto;height:auto\" class=\"col-md-12 col-xs-12  r-queue-item ui-sortable-handle\">\r\n                                                <div v-if=\"item.content != null && item.content != undefined &&  item.content.length > 0\">\r\n                                                    <img alt=\"Ảnh lỗi\" style=\"max-height:100px;width:100%\" :src=\"pathImgs(item.content)\" class=\"preview-image img-thumbnail\">\r\n                                                </div>\r\n                                                <div v-else>\r\n                                                    <i class=\"fa fa-picture-o\"></i>\r\n                                                    <p>[Chọn ảnh]</p>\r\n                                                </div>\r\n                                            </div>\r\n                                        </div>\r\n                                    </div>\r\n                                </div>\r\n                                <div v-if=\"item.configValueType == 2\" class=\"col-md-8 col-sm-8\">\r\n                                    <input placeholder=\"Nhập thông tin\" type=\"text\" class=\"col-xs-10 col-sm-12 form-control\" v-model=\"item.content\"\r\n                                           aria-invalid=\"false\">\r\n                                </div>\r\n                                <div v-if=\"item.configValueType ==  3\" class=\"col-md-8 col-sm-8\">\r\n                                    <ckeditor tag-name=\"textarea\"\r\n                                              v-model=\"item.content\" :rows=\"3\" :config=\"editorConfig\">\r\n                                    </ckeditor>\r\n                                </div>\r\n                                <div v-if=\"item.configValueType ==  4\" class=\"col-md-8 col-sm-8\">\r\n                                    <textarea placeholder=\"Nhập thông tin\" :rows=\"3\" :max-rows=\"6\" type=\"text\" class=\"col-xs-10 col-sm-12 form-control\" v-model=\"item.content\"></textarea>\r\n                                </div>\r\n                                <div v-if=\"item.configValueType ==  5\" class=\"col-md-3 col-sm-3\">\r\n                                    <input placeholder=\"Nhập thông tin kiểu number\" type=\"number\" class=\"col-xs-10 col-sm-12 form-control\" v-model=\"item.content\">\r\n                                </div>\r\n                                <div v-if=\"item.configValueType ==  6\" class=\"col-md-8 col-sm-8\">\r\n                                    <b-form-file id=\"file-field\" size=\"sm\"\r\n                                                 v-on:change=\"updatePreview($event,page,index)\"></b-form-file>\r\n                                    <a target=\"_blank\" v-if=\"item.content != null &&  item.content.length > 0\" :href=\"/uploads/+ item.content\"><i class=\"fa fa-file-o\"></i> Xem file mới up lên</a>\r\n                                </div>\r\n                                <div v-if=\"item.configValueType ==  7\" class=\"col-md-4 col-sm-8\">\r\n                                    <input placeholder=\"Nhập thông tin ngày tháng\" type=\"time\" class=\"col-xs-10 col-sm-12 form-control\" v-model=\"item.content\">\r\n                                </div>\r\n                            </div>\r\n                        </div>\r\n                        <div style=\"display:flex;width:100%\">\r\n                            <div class=\"col-md-2\">\r\n                            </div>\r\n                            <div class=\"col-md-6\">\r\n                                <button type=\"button\" class=\"btn btn-success\" @click=\"updateByKey(page)\">Lưu thông tin</button>\r\n                            </div>\r\n                        </div>\r\n                    </b-tab>\r\n                </b-tabs>\r\n            </form>\r\n        </b-card>\r\n        <FileManager v-on:handleAttackFile=\"DoAttackFile\" :miKey=\"mikey1\" />\r\n    </div>\r\n</template>\r\n<script>\r\n    import \"vue-loading-overlay/dist/vue-loading.css\";\r\n    import msgNotify from \"./../../common/constant\";\r\n    import { mapGetters, mapActions } from \"vuex\";\r\n    import Loading from \"vue-loading-overlay\";\r\n\r\n    import FileManager from './../../components/fileManager/list'\r\n    import EventBus from \"./../../common/eventBus\";\r\n    import InputTag from 'vue-input-tag'\r\n    import { unflatten, slug, pathImg } from \"../../plugins/helper\";\r\n\r\n    export default {\r\n        name: \"configs\",\r\n        components: {\r\n            Loading,\r\n            FileManager\r\n        },\r\n        data() {\r\n            return {\r\n                isLoading: false,\r\n                editorConfig: {\r\n                    allowedContent: true,\r\n                    extraPlugins: \"\",\r\n\r\n                },\r\n                mikey1: 'mikey1',\r\n                vmkey: \"\",\r\n                vmindex: 0,\r\n                SearchLanguageCode: \"vi-VN     \",\r\n                messeger: \"\",\r\n                currentSort: \"ConfigName\",\r\n                currentSortDir: \"asc\",\r\n\r\n                ListConfigs: [],\r\n                Language: [],\r\n                currentPage: 1,\r\n                pageSize: 10,\r\n                loading: true,\r\n                bootstrapPaginationClasses: {\r\n                    ul: \"pagination\",\r\n                    li: \"page-item\",\r\n                    liActive: \"active\",\r\n                    liDisable: \"disabled\",\r\n                    button: \"page-link\"\r\n                },\r\n                customLabels: {\r\n                    first: \"First\",\r\n                    prev: \"Previous\",\r\n                    next: \"Next\",\r\n                    last: \"Last\"\r\n                }\r\n            };\r\n        },\r\n        methods: {\r\n            ...mapActions([\"getConfigs\", \"deleteConfig\", \"getAllLanguages\", \"editConfigInLanguages\", \"fmFileUpload_2\"]),\r\n            openImg(key, index) {\r\n\r\n                this.vmkey = key;\r\n                this.vmindex = index;\r\n                EventBus.$emit(this.mikey1, ''); // '': select one, 'multi': select multi file\r\n            },\r\n            DoAttackFile(value) {\r\n                let vm = this;\r\n                vm.ListConfigs[vm.vmkey][vm.vmindex].content = value[0].path;\r\n            },\r\n\r\n            pathImgs(path) {\r\n                return pathImg(path);\r\n            },\r\n            onChangePaging() {\r\n                this.isLoading = true;\r\n                let initial = this.$route.query.initial;\r\n                initial = typeof initial != \"undefined\" ? initial.toLowerCase() : \"\";\r\n                this.getConfigs({\r\n                    languageCode: this.SearchLanguageCode || \"vi-VN\",\r\n                }).then(response => {\r\n                    var data = response.listData;\r\n                    this.ListConfigs = data.reduce((r, a) => {\r\n                        r[a.page] = [...r[a.page] || [], a];\r\n                        return r;\r\n                    }, {});\r\n                });\r\n                this.isLoading = false;\r\n            },\r\n            sortor: function (s) {\r\n                if (s === this.currentSort) {\r\n                    this.currentSortDir = this.currentSortDir === \"asc\" ? \"desc\" : \"asc\";\r\n                }\r\n                this.currentSort = s;\r\n                this.onChangePaging();\r\n            },\r\n            remove: function (item) {\r\n                let initial = this.$route.query.initial;\r\n                initial = typeof initial != \"undefined\" ? initial.toLowerCase() : \"\";\r\n                this.deleteConfig(item)\r\n                    .then(response => {\r\n                        if (response.success == true) {\r\n                            this.$toast.success(response.message, {});\r\n                            this.onChangePaging();\r\n                            this.isLoading = false;\r\n                        } else {\r\n                            this.$toast.error(response.message, {});\r\n                            this.isLoading = false;\r\n                        }\r\n                    })\r\n                    .catch(e => {\r\n                        this.$toast.error(msgNotify.error + \". Error:\" + e, {});\r\n                    });\r\n            },\r\n            updateByKey(key) {\r\n                try {\r\n                    let lstValue = this.ListConfigs[key];\r\n                    if (lstValue != null && lstValue != undefined && lstValue.length > 0) {\r\n                        var slt = lstValue.map(x => {\r\n                            return {\r\n                                content: x.content,\r\n                                languageCode: x.languageCode,\r\n                                configName: x.configName\r\n                            }\r\n                        });\r\n                        this.editConfigInLanguages(slt).then(response => {\r\n                            if (response.success == true) {\r\n                                this.$toast.success(response.message, {});\r\n                                this.isLoading = false;\r\n                            }\r\n                            else {\r\n                                this.$toast.error(response.message, {});\r\n                                this.isLoading = false;\r\n                            }\r\n                        });\r\n                    } else {\r\n                        this.$toast.error(\"Không tìm thấy dữ liệu\", {});\r\n                    }\r\n                }\r\n                catch (ex) {\r\n                    this.$toast.error(\"Không tìm thấy dữ liệu\", {});\r\n                }\r\n            },\r\n\r\n            updatePreview(e, key, index) {\r\n                var reader, files = e.target.files;\r\n                if (files.length === 0) {\r\n                    console.log('Empty')\r\n                }\r\n                this.selectedFile = files[0];\r\n                reader = new FileReader();\r\n                var data = new FormData();\r\n                for (var x = 0; x < files.length; x++) {\r\n                    data.append(\"files\" + x, files[x]);\r\n                }\r\n                this.fmFileUpload_2(data).then(response => {\r\n                    if (response.success == true) {\r\n                        this.ListConfigs[key][index].content = response.data[0].path;\r\n                        this.$toast.success(\"Thành công\", {});\r\n                    } else {\r\n                        this.$toast.error(msgNotify.error + \". Error:\", {});\r\n                        this.isLoading = false;\r\n                    }\r\n                }).catch(e => {\r\n                    this.$toast.error(msgNotify.error + \". Error:\", {});\r\n                    this.isLoading = false;\r\n                });\r\n            },\r\n        },\r\n\r\n        created() {\r\n            let vm = this;\r\n            EventBus.$on('FileSelected', value => {\r\n\r\n                vm.ListConfigs[vm.vmkey][vm.vmindex].content = value[0].path;\r\n\r\n            });\r\n            this.getAllLanguages().then(respose => {\r\n                this.Language = respose.listData.map(function (item) {\r\n                    return {\r\n                        value: item.languageCode,\r\n                        text: item.name\r\n                    };\r\n                });\r\n            });\r\n        },\r\n        destroyed() {\r\n            EventBus.$off('FileSelected');\r\n        },\r\n        computed: {\r\n            ...mapGetters([\"configs\"])\r\n        },\r\n        mounted() {\r\n            this.onChangePaging();\r\n        },\r\n        watch: {\r\n            currentPage: function (newVal) {\r\n                this.currentPage = newVal;\r\n                this.onChangePaging();\r\n            },\r\n            SearchLanguageCode: function () {\r\n                this.onChangePaging();\r\n            },\r\n        }\r\n    };\r\n</script>\r\n<style>\r\n    .productadd .nav.nav-pills .nav-item .nav-link { padding:10px 15px !important }\r\n\r\n    @media (min-width: 768px) {\r\n        .form-horizontal .control-label {\r\n            text-align: right;\r\n            margin-bottom: 0;\r\n            padding-top: 7px;\r\n        }\r\n    }\r\n\r\n    .ace-file-input .ace-file-container {\r\n        display: block;\r\n        position: absolute;\r\n        top: 0;\r\n        left: 0;\r\n        right: 0;\r\n        height: 30px;\r\n        background-color: #fff;\r\n        border: 1px solid #d5d5d5;\r\n        cursor: pointer;\r\n        -webkit-box-shadow: none;\r\n        box-shadow: none;\r\n        -webkit-transition: all .15s;\r\n        -o-transition: all .15s;\r\n        transition: all .15s;\r\n    }\r\n</style>\r\n"],"sourceRoot":""}]);
+exports.push([module.i, "\n.productadd .nav.nav-pills .nav-item .nav-link {\n    padding: 10px 15px !important\n}\n@media (min-width: 768px) {\n.form-horizontal .control-label {\n        text-align: right;\n        margin-bottom: 0;\n        padding-top: 7px;\n}\n}\n.ace-file-input .ace-file-container {\n    display: block;\n    position: absolute;\n    top: 0;\n    left: 0;\n    right: 0;\n    height: 30px;\n    background-color: #fff;\n    border: 1px solid #d5d5d5;\n    cursor: pointer;\n    -webkit-box-shadow: none;\n    box-shadow: none;\n    -webkit-transition: all .15s;\n    -o-transition: all .15s;\n    transition: all .15s;\n}\n", "", {"version":3,"sources":["D:/Code/WORKING/dotnet-platform-backend/Web/Platform/CMS/PlatformCMS/ClientApp/pages/product/importExport.vue?bd8893ae"],"names":[],"mappings":";AAmSA;IACA,6BAAA;CACA;AAEA;AACA;QACA,kBAAA;QACA,iBAAA;QACA,iBAAA;CACA;CACA;AAEA;IACA,eAAA;IACA,mBAAA;IACA,OAAA;IACA,QAAA;IACA,SAAA;IACA,aAAA;IACA,uBAAA;IACA,0BAAA;IACA,gBAAA;IACA,yBAAA;IACA,iBAAA;IACA,6BAAA;IACA,wBAAA;IACA,qBAAA;CACA","file":"importExport.vue","sourcesContent":["\r\n<template>\r\n    <div class=\"productadd\">\r\n\r\n        <b-card header-tag=\"header\" class=\"card-filter\"\r\n                footer-tag=\"footer\">\r\n            <b-col md=\"2\">\r\n                <b-select :options=\"Language\" v-model=\"SearchLanguageCode\"></b-select>\r\n            </b-col>\r\n        </b-card>\r\n        <b-card header-tag=\"header\" class=\"card-filter\" footer-tag=\"footer\">\r\n            <b-row>\r\n                <b-col md=\"2\">\r\n                    Import Excel Giá theo tỉnh thành\r\n                </b-col>\r\n                <b-col md=\"10\">\r\n                    <b-form-file id=\"file-field-productlocation\" size=\"sm\"\r\n                                 v-on:change=\"uploadExcelPriceLocation($event)\"></b-form-file>\r\n                </b-col>\r\n            </b-row>\r\n            <b-row>\r\n                <b-col md=\"2\">\r\n                    Import Excel Chi tiết kỹ thuật\r\n                </b-col>\r\n                <b-col md=\"10\">\r\n                    <b-form-file id=\"file-field-productspectification\" size=\"sm\"\r\n                                 v-on:change=\"uploadExcelSpectification($event)\"></b-form-file>\r\n                </b-col>\r\n            </b-row>\r\n        </b-card>\r\n        <FileManager v-on:handleAttackFile=\"DoAttackFile\" :miKey=\"mikey1\" />\r\n    </div>\r\n</template>\r\n<script>\r\n    import \"vue-loading-overlay/dist/vue-loading.css\";\r\n    import msgNotify from \"./../../common/constant\";\r\n    import { mapGetters, mapActions } from \"vuex\";\r\n    import Loading from \"vue-loading-overlay\";\r\n\r\n    import FileManager from './../../components/fileManager/list'\r\n    import EventBus from \"./../../common/eventBus\";\r\n    import InputTag from 'vue-input-tag'\r\n    import { unflatten, slug, pathImg } from \"../../plugins/helper\";\r\n\r\n    export default {\r\n        name: \"configs\",\r\n        components: {\r\n            Loading,\r\n            FileManager\r\n        },\r\n        data() {\r\n            return {\r\n                isLoading: false,\r\n                editorConfig: {\r\n                    allowedContent: true,\r\n                    extraPlugins: \"\",\r\n\r\n                },\r\n                mikey1: 'mikey1',\r\n                vmkey: \"\",\r\n                vmindex: 0,\r\n                SearchLanguageCode: \"vi-VN     \",\r\n                messeger: \"\",\r\n                currentSort: \"ConfigName\",\r\n                currentSortDir: \"asc\",\r\n\r\n                ListConfigs: [],\r\n                Language: [],\r\n                currentPage: 1,\r\n                pageSize: 10,\r\n                loading: true,\r\n                bootstrapPaginationClasses: {\r\n                    ul: \"pagination\",\r\n                    li: \"page-item\",\r\n                    liActive: \"active\",\r\n                    liDisable: \"disabled\",\r\n                    button: \"page-link\"\r\n                },\r\n                customLabels: {\r\n                    first: \"First\",\r\n                    prev: \"Previous\",\r\n                    next: \"Next\",\r\n                    last: \"Last\"\r\n                }\r\n            };\r\n        },\r\n        methods: {\r\n            ...mapActions([\"getConfigs\", \"deleteConfig\", \"getAllLanguages\", \"editConfigInLanguages\", \"fmFileUpload\", \"fmFileUploadExcel\",\"fmFileUploadExcel_Spectification\"]),\r\n            openImg(key, index) {\r\n\r\n                this.vmkey = key;\r\n                this.vmindex = index;\r\n                EventBus.$emit(this.mikey1, ''); // '': select one, 'multi': select multi file\r\n            },\r\n            DoAttackFile(value) {\r\n                let vm = this;\r\n                vm.ListConfigs[vm.vmkey][vm.vmindex].content = value[0].path;\r\n            },\r\n\r\n            pathImgs(path) {\r\n                return pathImg(path);\r\n            },\r\n            onChangePaging() {\r\n                this.isLoading = true;\r\n                let initial = this.$route.query.initial;\r\n                initial = typeof initial != \"undefined\" ? initial.toLowerCase() : \"\";\r\n                this.getConfigs({\r\n                    languageCode: this.SearchLanguageCode || \"vi-VN\",\r\n                }).then(response => {\r\n                    var data = response.listData;\r\n                    this.ListConfigs = data.reduce((r, a) => {\r\n                        r[a.page] = [...r[a.page] || [], a];\r\n                        return r;\r\n                    }, {});\r\n                });\r\n                this.isLoading = false;\r\n            },\r\n            sortor: function (s) {\r\n                if (s === this.currentSort) {\r\n                    this.currentSortDir = this.currentSortDir === \"asc\" ? \"desc\" : \"asc\";\r\n                }\r\n                this.currentSort = s;\r\n                this.onChangePaging();\r\n            },\r\n            remove: function (item) {\r\n                let initial = this.$route.query.initial;\r\n                initial = typeof initial != \"undefined\" ? initial.toLowerCase() : \"\";\r\n                this.deleteConfig(item)\r\n                    .then(response => {\r\n                        if (response.success == true) {\r\n                            this.$toast.success(response.message, {});\r\n                            this.onChangePaging();\r\n                            this.isLoading = false;\r\n                        } else {\r\n                            this.$toast.error(response.message, {});\r\n                            this.isLoading = false;\r\n                        }\r\n                    })\r\n                    .catch(e => {\r\n                        this.$toast.error(msgNotify.error + \". Error:\" + e, {});\r\n                    });\r\n            },\r\n            updateByKey(key) {\r\n                try {\r\n                    let lstValue = this.ListConfigs[key];\r\n                    if (lstValue != null && lstValue != undefined && lstValue.length > 0) {\r\n                        var slt = lstValue.map(x => {\r\n                            return {\r\n                                content: x.content,\r\n                                languageCode: x.languageCode,\r\n                                configName: x.configName\r\n                            }\r\n                        });\r\n                        this.editConfigInLanguages(slt).then(response => {\r\n                            if (response.success == true) {\r\n                                this.$toast.success(response.message, {});\r\n                                this.isLoading = false;\r\n                            }\r\n                            else {\r\n                                this.$toast.error(response.message, {});\r\n                                this.isLoading = false;\r\n                            }\r\n                        });\r\n                    } else {\r\n                        this.$toast.error(\"Không tìm thấy dữ liệu\", {});\r\n                    }\r\n                }\r\n                catch (ex) {\r\n                    this.$toast.error(\"Không tìm thấy dữ liệu\", {});\r\n                }\r\n            },\r\n\r\n            updatePreview(e, key, index) {\r\n                var reader, files = e.target.files;\r\n                if (files.length === 0) {\r\n                    console.log('Empty')\r\n                }\r\n                this.selectedFile = files[0];\r\n                reader = new FileReader();\r\n                var data = new FormData();\r\n                for (var x = 0; x < files.length; x++) {\r\n                    data.append(\"files\" + x, files[x]);\r\n                }\r\n                this.fmFileUpload(data).then(response => {\r\n                    if (response.success == true) {\r\n                        this.ListConfigs[key][index].content = response.data[0].path;\r\n                        this.$toast.success(\"Thành công\", {});\r\n                    } else {\r\n                        this.$toast.error(msgNotify.error + \". Error:\", {});\r\n                        this.isLoading = false;\r\n                    }\r\n                }).catch(e => {\r\n                    this.$toast.error(msgNotify.error + \". Error:\", {});\r\n                    this.isLoading = false;\r\n                });\r\n            },\r\n\r\n            //uploadExcelSpectification\r\n            uploadExcelPriceLocation(e) {\r\n               \r\n                this.isLoading = true;\r\n                var reader, files = e.target.files;\r\n                if (files.length === 0) {\r\n                    console.log('Empty')\r\n                }\r\n                this.selectedFile = files[0];\r\n                reader = new FileReader();\r\n                var data = new FormData();\r\n                for (var x = 0; x < files.length; x++) {\r\n                    data.append(\"files\", files[x]);\r\n                }\r\n             \r\n                this.fmFileUploadExcel(data).then(response => {\r\n                    if (response.success == true) {\r\n                        this.$toast.success(\"Thành công\", {})\r\n                        this.isLoading = false;\r\n                    } else {\r\n                        this.$toast.error(msgNotify.error + \". Error:\", {});\r\n                        this.isLoading = false;\r\n                    }\r\n                }).catch(e => {\r\n                    this.$toast.error(msgNotify.error + \". Error:\", {});\r\n                    this.isLoading = false;\r\n                });\r\n            },\r\n            uploadExcelSpectification(e) {\r\n\r\n                this.isLoading = true;\r\n                var reader, files = e.target.files;\r\n                if (files.length === 0) {\r\n                    console.log('Empty')\r\n                }\r\n                this.selectedFile = files[0];\r\n                reader = new FileReader();\r\n                var data = new FormData();\r\n                for (var x = 0; x < files.length; x++) {\r\n                    data.append(\"files\", files[x]);\r\n                }\r\n\r\n                this.fmFileUploadExcel_Spectification(data).then(response => {\r\n                    if (response.success == true) {\r\n                        this.$toast.success(\"Thành công\", {})\r\n                        this.isLoading = false;\r\n                    } else {\r\n                        this.$toast.error(msgNotify.error + \". Error:\", {});\r\n                        this.isLoading = false;\r\n                    }\r\n                }).catch(e => {\r\n                    this.$toast.error(msgNotify.error + \". Error:\", {});\r\n                    this.isLoading = false;\r\n                });\r\n            },\r\n        },\r\n\r\n        created() {\r\n            let vm = this;\r\n            EventBus.$on('FileSelected', value => {\r\n\r\n                vm.ListConfigs[vm.vmkey][vm.vmindex].content = value[0].path;\r\n\r\n            });\r\n            this.getAllLanguages().then(respose => {\r\n                this.Language = respose.listData.map(function (item) {\r\n                    return {\r\n                        value: item.languageCode,\r\n                        text: item.name\r\n                    };\r\n                });\r\n            });\r\n        },\r\n        destroyed() {\r\n            EventBus.$off('FileSelected');\r\n        },\r\n        computed: {\r\n            ...mapGetters([\"configs\"])\r\n        },\r\n        mounted() {\r\n            this.onChangePaging();\r\n        },\r\n        watch: {\r\n            currentPage: function (newVal) {\r\n                this.currentPage = newVal;\r\n                this.onChangePaging();\r\n            },\r\n            SearchLanguageCode: function () {\r\n                this.onChangePaging();\r\n            },\r\n        }\r\n    };\r\n</script>\r\n<style>\r\n    .productadd .nav.nav-pills .nav-item .nav-link {\r\n        padding: 10px 15px !important\r\n    }\r\n\r\n    @media (min-width: 768px) {\r\n        .form-horizontal .control-label {\r\n            text-align: right;\r\n            margin-bottom: 0;\r\n            padding-top: 7px;\r\n        }\r\n    }\r\n\r\n    .ace-file-input .ace-file-container {\r\n        display: block;\r\n        position: absolute;\r\n        top: 0;\r\n        left: 0;\r\n        right: 0;\r\n        height: 30px;\r\n        background-color: #fff;\r\n        border: 1px solid #d5d5d5;\r\n        cursor: pointer;\r\n        -webkit-box-shadow: none;\r\n        box-shadow: none;\r\n        -webkit-transition: all .15s;\r\n        -o-transition: all .15s;\r\n        transition: all .15s;\r\n    }\r\n</style>\r\n"],"sourceRoot":""}]);
 
 // exports
 
 
 /***/ }),
 
-/***/ 1212:
+/***/ 1242:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -17870,7 +17870,7 @@ var _toConsumableArray2 = __webpack_require__(1019);
 
 var _toConsumableArray3 = _interopRequireDefault(_toConsumableArray2);
 
-var _extends2 = __webpack_require__(7);
+var _extends2 = __webpack_require__(8);
 
 var _extends3 = _interopRequireDefault(_extends2);
 
@@ -17945,7 +17945,7 @@ exports.default = {
         };
     },
 
-    methods: (0, _extends3.default)({}, (0, _vuex.mapActions)(["getConfigs", "deleteConfig", "getAllLanguages", "editConfigInLanguages", "fmFileUpload_2"]), {
+    methods: (0, _extends3.default)({}, (0, _vuex.mapActions)(["getConfigs", "deleteConfig", "getAllLanguages", "editConfigInLanguages", "fmFileUpload", "fmFileUploadExcel", "fmFileUploadExcel_Spectification"]), {
         openImg: function openImg(key, index) {
 
             this.vmkey = key;
@@ -18045,7 +18045,7 @@ exports.default = {
             for (var x = 0; x < files.length; x++) {
                 data.append("files" + x, files[x]);
             }
-            this.fmFileUpload_2(data).then(function (response) {
+            this.fmFileUpload(data).then(function (response) {
                 if (response.success == true) {
                     _this4.ListConfigs[key][index].content = response.data[0].path;
                     _this4.$toast.success("Thành công", {});
@@ -18057,11 +18057,69 @@ exports.default = {
                 _this4.$toast.error(_constant2.default.error + ". Error:", {});
                 _this4.isLoading = false;
             });
+        },
+        uploadExcelPriceLocation: function uploadExcelPriceLocation(e) {
+            var _this5 = this;
+
+            this.isLoading = true;
+            var reader,
+                files = e.target.files;
+            if (files.length === 0) {
+                console.log('Empty');
+            }
+            this.selectedFile = files[0];
+            reader = new FileReader();
+            var data = new FormData();
+            for (var x = 0; x < files.length; x++) {
+                data.append("files", files[x]);
+            }
+
+            this.fmFileUploadExcel(data).then(function (response) {
+                if (response.success == true) {
+                    _this5.$toast.success("Thành công", {});
+                    _this5.isLoading = false;
+                } else {
+                    _this5.$toast.error(_constant2.default.error + ". Error:", {});
+                    _this5.isLoading = false;
+                }
+            }).catch(function (e) {
+                _this5.$toast.error(_constant2.default.error + ". Error:", {});
+                _this5.isLoading = false;
+            });
+        },
+        uploadExcelSpectification: function uploadExcelSpectification(e) {
+            var _this6 = this;
+
+            this.isLoading = true;
+            var reader,
+                files = e.target.files;
+            if (files.length === 0) {
+                console.log('Empty');
+            }
+            this.selectedFile = files[0];
+            reader = new FileReader();
+            var data = new FormData();
+            for (var x = 0; x < files.length; x++) {
+                data.append("files", files[x]);
+            }
+
+            this.fmFileUploadExcel_Spectification(data).then(function (response) {
+                if (response.success == true) {
+                    _this6.$toast.success("Thành công", {});
+                    _this6.isLoading = false;
+                } else {
+                    _this6.$toast.error(_constant2.default.error + ". Error:", {});
+                    _this6.isLoading = false;
+                }
+            }).catch(function (e) {
+                _this6.$toast.error(_constant2.default.error + ". Error:", {});
+                _this6.isLoading = false;
+            });
         }
     }),
 
     created: function created() {
-        var _this5 = this;
+        var _this7 = this;
 
         var vm = this;
         _eventBus2.default.$on('FileSelected', function (value) {
@@ -18069,7 +18127,7 @@ exports.default = {
             vm.ListConfigs[vm.vmkey][vm.vmindex].content = value[0].path;
         });
         this.getAllLanguages().then(function (respose) {
-            _this5.Language = respose.listData.map(function (item) {
+            _this7.Language = respose.listData.map(function (item) {
                 return {
                     value: item.languageCode,
                     text: item.name
@@ -18099,7 +18157,7 @@ exports.default = {
 
 /***/ }),
 
-/***/ 1584:
+/***/ 1551:
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
@@ -18132,246 +18190,43 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       "header-tag": "header",
       "footer-tag": "footer"
     }
-  }, [_c('form', {
-    staticClass: "form-horizontal"
-  }, [_c('b-tabs', {
-    staticClass: "col-md-12",
+  }, [_c('b-row', [_c('b-col', {
     attrs: {
-      "pills": ""
+      "md": "2"
     }
-  }, _vm._l((_vm.ListConfigs), function(group, page) {
-    return _c('b-tab', {
-      attrs: {
-        "title": page
+  }, [_vm._v("\n                Import Excel Giá theo tỉnh thành\n            ")]), _vm._v(" "), _c('b-col', {
+    attrs: {
+      "md": "10"
+    }
+  }, [_c('b-form-file', {
+    attrs: {
+      "id": "file-field-productlocation",
+      "size": "sm"
+    },
+    on: {
+      "change": function($event) {
+        return _vm.uploadExcelPriceLocation($event)
       }
-    }, [_vm._l((group), function(item, index) {
-      return _c('div', {
-        staticStyle: {
-          "display": "flex",
-          "width": "100%"
-        }
-      }, [_c('div', {
-        staticClass: "form-group",
-        staticStyle: {
-          "width": "100%",
-          "display": "flex"
-        }
-      }, [_c('label', {
-        staticClass: "col-md-2 col-sm-2 control-label"
-      }, [_vm._v(" " + _vm._s(item.configLabel) + " ")]), _vm._v(" "), (item.configValueType == 1) ? _c('div', {
-        staticClass: "col-md-8 col-sm-8"
-      }, [_c('div', {
-        staticClass: "row"
-      }, [_c('div', {
-        staticClass: "col-md-8"
-      }, [_c('div', {
-        staticClass: "input-group"
-      }, [_c('input', {
-        staticClass: "form-control",
-        attrs: {
-          "type": "text",
-          "disabled": "",
-          "autocomplete": "off",
-          "placeholder": "Chọn hình ảnh"
-        },
-        domProps: {
-          "value": item.content
-        }
-      }), _vm._v(" "), _c('span', {
-        staticClass: "input-group-addon bg-primary",
-        staticStyle: {
-          "cursor": "pointer",
-          "width": "45px"
-        },
-        on: {
-          "click": function($event) {
-            return _vm.openImg(page, index)
-          }
-        }
-      }, [_c('i', {
-        staticClass: "fa fa-picture-o",
-        staticStyle: {
-          "padding-top": "10px",
-          "padding-left": "15px"
-        }
-      })])])]), _vm._v(" "), _c('div', {
-        staticClass: "col-md-4 gallery-upload-file ui-sortable",
-        on: {
-          "click": function($event) {
-            return _vm.openImg(page, index)
-          }
-        }
-      }, [_c('div', {
-        staticClass: "col-md-12 col-xs-12  r-queue-item ui-sortable-handle",
-        staticStyle: {
-          "padding": "0",
-          "margin": "0",
-          "width": "auto",
-          "height": "auto"
-        }
-      }, [(item.content != null && item.content != undefined && item.content.length > 0) ? _c('div', [_c('img', {
-        staticClass: "preview-image img-thumbnail",
-        staticStyle: {
-          "max-height": "100px",
-          "width": "100%"
-        },
-        attrs: {
-          "alt": "Ảnh lỗi",
-          "src": _vm.pathImgs(item.content)
-        }
-      })]) : _c('div', [_c('i', {
-        staticClass: "fa fa-picture-o"
-      }), _vm._v(" "), _c('p', [_vm._v("[Chọn ảnh]")])])])])])]) : _vm._e(), _vm._v(" "), (item.configValueType == 2) ? _c('div', {
-        staticClass: "col-md-8 col-sm-8"
-      }, [_c('input', {
-        directives: [{
-          name: "model",
-          rawName: "v-model",
-          value: (item.content),
-          expression: "item.content"
-        }],
-        staticClass: "col-xs-10 col-sm-12 form-control",
-        attrs: {
-          "placeholder": "Nhập thông tin",
-          "type": "text",
-          "aria-invalid": "false"
-        },
-        domProps: {
-          "value": (item.content)
-        },
-        on: {
-          "input": function($event) {
-            if ($event.target.composing) { return; }
-            _vm.$set(item, "content", $event.target.value)
-          }
-        }
-      })]) : _vm._e(), _vm._v(" "), (item.configValueType == 3) ? _c('div', {
-        staticClass: "col-md-8 col-sm-8"
-      }, [_c('ckeditor', {
-        attrs: {
-          "tag-name": "textarea",
-          "rows": 3,
-          "config": _vm.editorConfig
-        },
-        model: {
-          value: (item.content),
-          callback: function($$v) {
-            _vm.$set(item, "content", $$v)
-          },
-          expression: "item.content"
-        }
-      })], 1) : _vm._e(), _vm._v(" "), (item.configValueType == 4) ? _c('div', {
-        staticClass: "col-md-8 col-sm-8"
-      }, [_c('textarea', {
-        directives: [{
-          name: "model",
-          rawName: "v-model",
-          value: (item.content),
-          expression: "item.content"
-        }],
-        staticClass: "col-xs-10 col-sm-12 form-control",
-        attrs: {
-          "placeholder": "Nhập thông tin",
-          "rows": 3,
-          "max-rows": 6,
-          "type": "text"
-        },
-        domProps: {
-          "value": (item.content)
-        },
-        on: {
-          "input": function($event) {
-            if ($event.target.composing) { return; }
-            _vm.$set(item, "content", $event.target.value)
-          }
-        }
-      })]) : _vm._e(), _vm._v(" "), (item.configValueType == 5) ? _c('div', {
-        staticClass: "col-md-3 col-sm-3"
-      }, [_c('input', {
-        directives: [{
-          name: "model",
-          rawName: "v-model",
-          value: (item.content),
-          expression: "item.content"
-        }],
-        staticClass: "col-xs-10 col-sm-12 form-control",
-        attrs: {
-          "placeholder": "Nhập thông tin kiểu number",
-          "type": "number"
-        },
-        domProps: {
-          "value": (item.content)
-        },
-        on: {
-          "input": function($event) {
-            if ($event.target.composing) { return; }
-            _vm.$set(item, "content", $event.target.value)
-          }
-        }
-      })]) : _vm._e(), _vm._v(" "), (item.configValueType == 6) ? _c('div', {
-        staticClass: "col-md-8 col-sm-8"
-      }, [_c('b-form-file', {
-        attrs: {
-          "id": "file-field",
-          "size": "sm"
-        },
-        on: {
-          "change": function($event) {
-            return _vm.updatePreview($event, page, index)
-          }
-        }
-      }), _vm._v(" "), (item.content != null && item.content.length > 0) ? _c('a', {
-        attrs: {
-          "target": "_blank",
-          "href": /uploads/ + item.content
-        }
-      }, [_c('i', {
-        staticClass: "fa fa-file-o"
-      }), _vm._v(" Xem file mới up lên")]) : _vm._e()], 1) : _vm._e(), _vm._v(" "), (item.configValueType == 7) ? _c('div', {
-        staticClass: "col-md-4 col-sm-8"
-      }, [_c('input', {
-        directives: [{
-          name: "model",
-          rawName: "v-model",
-          value: (item.content),
-          expression: "item.content"
-        }],
-        staticClass: "col-xs-10 col-sm-12 form-control",
-        attrs: {
-          "placeholder": "Nhập thông tin ngày tháng",
-          "type": "time"
-        },
-        domProps: {
-          "value": (item.content)
-        },
-        on: {
-          "input": function($event) {
-            if ($event.target.composing) { return; }
-            _vm.$set(item, "content", $event.target.value)
-          }
-        }
-      })]) : _vm._e()])])
-    }), _vm._v(" "), _c('div', {
-      staticStyle: {
-        "display": "flex",
-        "width": "100%"
+    }
+  })], 1)], 1), _vm._v(" "), _c('b-row', [_c('b-col', {
+    attrs: {
+      "md": "2"
+    }
+  }, [_vm._v("\n                Import Excel Chi tiết kỹ thuật\n            ")]), _vm._v(" "), _c('b-col', {
+    attrs: {
+      "md": "10"
+    }
+  }, [_c('b-form-file', {
+    attrs: {
+      "id": "file-field-productspectification",
+      "size": "sm"
+    },
+    on: {
+      "change": function($event) {
+        return _vm.uploadExcelSpectification($event)
       }
-    }, [_c('div', {
-      staticClass: "col-md-2"
-    }), _vm._v(" "), _c('div', {
-      staticClass: "col-md-6"
-    }, [_c('button', {
-      staticClass: "btn btn-success",
-      attrs: {
-        "type": "button"
-      },
-      on: {
-        "click": function($event) {
-          return _vm.updateByKey(page)
-        }
-      }
-    }, [_vm._v("Lưu thông tin")])])])], 2)
-  }), 1)], 1)]), _vm._v(" "), _c('FileManager', {
+    }
+  })], 1)], 1)], 1), _vm._v(" "), _c('FileManager', {
     attrs: {
       "miKey": _vm.mikey1
     },
@@ -18384,29 +18239,29 @@ module.exports.render._withStripped = true
 if (true) {
   module.hot.accept()
   if (module.hot.data) {
-     __webpack_require__(178).rerender("data-v-d34b27b2", module.exports)
+     __webpack_require__(178).rerender("data-v-47b4dd04", module.exports)
   }
 }
 
 /***/ }),
 
-/***/ 1629:
+/***/ 1618:
 /***/ (function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
-var content = __webpack_require__(1117);
+var content = __webpack_require__(1106);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
-var update = __webpack_require__(801)("eca2f528", content, false);
+var update = __webpack_require__(801)("2ce1b50a", content, false);
 // Hot Module Replacement
 if(true) {
  // When the styles change, update the <style> tags
  if(!content.locals) {
-   module.hot.accept(1117, function() {
-     var newContent = __webpack_require__(1117);
+   module.hot.accept(1106, function() {
+     var newContent = __webpack_require__(1106);
      if(typeof newContent === 'string') newContent = [[module.i, newContent, '']];
      update(newContent);
    });
@@ -18417,26 +18272,26 @@ if(true) {
 
 /***/ }),
 
-/***/ 740:
+/***/ 769:
 /***/ (function(module, exports, __webpack_require__) {
 
 
 /* styles */
-__webpack_require__(1629)
+__webpack_require__(1618)
 
 var Component = __webpack_require__(374)(
   /* script */
-  __webpack_require__(1212),
+  __webpack_require__(1242),
   /* template */
-  __webpack_require__(1584),
+  __webpack_require__(1551),
   /* scopeId */
   null,
   /* cssModules */
   null
 )
-Component.options.__file = "D:\\Code\\WORKING\\dotnet-platform-backend\\Web\\Platform\\CMS\\PlatformCMS\\ClientApp\\pages\\configs\\list.vue"
+Component.options.__file = "D:\\Code\\WORKING\\dotnet-platform-backend\\Web\\Platform\\CMS\\PlatformCMS\\ClientApp\\pages\\product\\importExport.vue"
 if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
-if (Component.options.functional) {console.error("[vue-loader] list.vue: functional components are not supported with templates, they should use render functions.")}
+if (Component.options.functional) {console.error("[vue-loader] importExport.vue: functional components are not supported with templates, they should use render functions.")}
 
 /* hot reload */
 if (true) {(function () {
@@ -18445,9 +18300,9 @@ if (true) {(function () {
   if (!hotAPI.compatible) return
   module.hot.accept()
   if (!module.hot.data) {
-    hotAPI.createRecord("data-v-d34b27b2", Component.options)
+    hotAPI.createRecord("data-v-47b4dd04", Component.options)
   } else {
-    hotAPI.reload("data-v-d34b27b2", Component.options)
+    hotAPI.reload("data-v-47b4dd04", Component.options)
   }
 })()}
 
@@ -18835,7 +18690,7 @@ exports.f = {}.propertyIsEnumerable;
 
 /***/ }),
 
-/***/ 811:
+/***/ 946:
 /***/ (function(module, exports, __webpack_require__) {
 
 var global = __webpack_require__(22);
@@ -19962,7 +19817,7 @@ exports.f = __webpack_require__(17);
 
 /***/ }),
 
-/***/ 997:
+/***/ 998:
 /***/ (function(module, exports, __webpack_require__) {
 
 var pIE = __webpack_require__(810);
@@ -19988,7 +19843,7 @@ exports.f = __webpack_require__(59) ? gOPD : function getOwnPropertyDescriptor(O
 /***/ 999:
 /***/ (function(module, exports) {
 
-module.exports = {"AppSettings":{"Debug":true,"Version":"1.0.0.0","Domain":"http://demo.way2go.vn","UploadFolder":"uploads","FileUploadMaxSize":5000,"FileUploadSubFix":false,"ImageScaleWidth":300,"ImageScaleHeight":0,"ImageAllowUpload":".jpg,.jpeg,.png,.gif,.bit,.webp,.svg","DocumentAllowUpload":".doc,.docx,.pdf,.xls,.xlsx,.zip,.rar","FoderImg":"https://platformcms.hndedu.com","BaseDomain":"https://demo.way2go.vn","CacheEnable":"0","ESEnable":true,"NodeES":"http://127.0.0.1:9200","IndexES":"product_suggest"},"Redis":{"ConnectionString":"127.0.0.1:6379","DefaultDatabase":1,"InstanceName":"PLM_","CachingExpireMinute":3},"ConnectionStrings":{"DefaultConnection":"Server=103.184.112.82;Database=JT_DEV_2;Trusted_Connection=False;User Id=sa;password=EcaOicT35K%EC1"},"Cors":{"WithOrigin":"http://localhost:60099/"},"Logging":{"IncludeScopes":false,"LogLevel":{"Default":"Debug","System":"Information","Microsoft":"Information"}},"Tokens":{"Key":"0123456789ABCDEF","Issuer":"https://janhome.vn/"},"EmailSender":{"Host":"mail247.vn","Port":465,"CustomerService":{"Email":"cs@joytime.vn","Password":"D2A9HnvGMJYW3BeKQw5f4F"},"SupplierService":{"Email":"partner@joytime.vn","Password":"SL9QgKGtjCNUcbr7uXdWPY"},"HelpDesk":{"Email":"helpdesk@joytime.vn","Password":"jaR548durV2tpFCkX6qENx"},"BookingService":{"Email":"booking@joytime.vn","Password":"zydcpPBfEHeM7u9DU6XLVT"}}}
+module.exports = {"AppSettings":{"Debug":true,"Version":"1.0.0.0","Domain":"http://demo.way2go.vn","UploadFolder":"uploads","FileUploadMaxSize":5000,"FileUploadSubFix":false,"ImageScaleWidth":300,"ImageScaleHeight":0,"ImageAllowUpload":".jpg,.jpeg,.png,.gif,.bit,.webp,.svg","DocumentAllowUpload":".doc,.docx,.pdf,.xls,.xlsx,.zip,.rar","FoderImg":"https://platformcms.hndedu.com","BaseDomain":"https://demo.way2go.vn","CacheEnable":"0","ESEnable":true,"NodeES":"http://127.0.0.1:9200","IndexES":"product_suggest"},"Redis":{"ConnectionString":"127.0.0.1:6379","DefaultDatabase":1,"InstanceName":"PLM_","CachingExpireMinute":3},"ConnectionStrings":{"DefaultConnection":"Server=103.184.112.82;Database=PlatformRelease2;Trusted_Connection=False;User Id=sa;password=EcaOicT35K%EC1"},"Cors":{"WithOrigin":"http://localhost:60099/"},"Logging":{"IncludeScopes":false,"LogLevel":{"Default":"Debug","System":"Information","Microsoft":"Information"}},"Tokens":{"Key":"0123456789ABCDEF","Issuer":"https://janhome.vn/"},"EmailSender":{"Host":"mail247.vn","Port":465,"CustomerService":{"Email":"cs@joytime.vn","Password":"D2A9HnvGMJYW3BeKQw5f4F"},"SupplierService":{"Email":"partner@joytime.vn","Password":"SL9QgKGtjCNUcbr7uXdWPY"},"HelpDesk":{"Email":"helpdesk@joytime.vn","Password":"jaR548durV2tpFCkX6qENx"},"BookingService":{"Email":"booking@joytime.vn","Password":"zydcpPBfEHeM7u9DU6XLVT"}}}
 
 /***/ })
 

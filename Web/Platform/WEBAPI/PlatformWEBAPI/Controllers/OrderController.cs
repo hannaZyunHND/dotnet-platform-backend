@@ -82,7 +82,7 @@ namespace Way2GoWEB.Controllers
             return BadRequest();
         }
         [HttpPost]
-        public async Task<IActionResult> CreateOrder(OrderViewModel order)
+        public async Task<IActionResult> CreateOrder(OrderViewMode order)
         {
             var result = _orderRepository.CreateOrderInWebsite(order);
 
@@ -203,11 +203,11 @@ namespace Way2GoWEB.Controllers
         public IActionResult CreateOrderVersionMinify(OrderVersionMinifyRequest request)
         {
 
-            
+
             var response = _orderRepository.CreateOrderVersionMinify(request);
-            if(response.customerId > 0)
+            if (response.customerId > 0)
             {
-                
+
                 //Send mail confirm;
                 try
                 {
@@ -227,8 +227,8 @@ namespace Way2GoWEB.Controllers
                 catch (Exception ex)
                 {
 
-                    Console.WriteLine(ex.Message); 
-                   
+                    Console.WriteLine(ex.Message);
+
                 }
 
                 return Ok(response.customerId);
@@ -249,9 +249,9 @@ namespace Way2GoWEB.Controllers
                 if (!string.IsNullOrEmpty(request.discountCode))
                 {
                     bool isActiveDiscount = false;
-                    if(request.productsInfo != null)
+                    if (request.productsInfo != null)
                     {
-                        foreach(var item in request.productsInfo)
+                        foreach (var item in request.productsInfo)
                         {
                             if (!isActiveDiscount)
                             {
@@ -261,10 +261,10 @@ namespace Way2GoWEB.Controllers
                                     isActiveDiscount = true;
                                 }
                             }
-                            
+
                         }
                     }
-                    
+
                 }
                 //Send mail confirm;
                 try
@@ -322,7 +322,7 @@ namespace Way2GoWEB.Controllers
                                 if (productDetail != null)
                                 {
                                     var affected = orderDetails.Where(r => r.Type.Equals("ESIM") && string.IsNullOrEmpty(r.JoyTelOrderTid) && r.ProductId == item.productId).FirstOrDefault();
-                                    if(affected != null)
+                                    if (affected != null)
                                     {
                                         var esimSubmitResponse = await _apiJoyTelRepository.SendEsimRequestSubmit(request.email, productDetail.joytelProductCode, item.quantity);
                                         if (esimSubmitResponse != null)
@@ -336,16 +336,16 @@ namespace Way2GoWEB.Controllers
                                                 var esimQueryResponse = await _apiJoyTelRepository.SendEsimQueryRequest(orderCode, orderTid);
                                                 if (esimQueryResponse != null)
                                                 {
-                                                    if(esimQueryResponse.code == 0)
+                                                    if (esimQueryResponse.code == 0)
                                                     {
-                                                        if(esimQueryResponse.data != null)
+                                                        if (esimQueryResponse.data != null)
                                                         {
                                                             //Lay ra snPin
                                                             var itemList = esimQueryResponse.data.itemList.FirstOrDefault();
                                                             if (itemList != null)
                                                             {
                                                                 var sn = itemList.snList.FirstOrDefault();
-                                                                if(sn != null)
+                                                                if (sn != null)
                                                                 {
                                                                     var snPin = sn.snPin;
                                                                     var snSerial = sn.snCode;
@@ -356,23 +356,23 @@ namespace Way2GoWEB.Controllers
                                                                         //Thread.Sleep(10000);
                                                                         var esimGetQrResponse = await _apiJoyTelRepository.SendEsimGetQrCode(snPin);
                                                                     }
-                                                                    
+
                                                                 }
 
                                                             }
                                                         }
-                                                        
+
                                                     }
                                                 }
 
                                             }
                                         }
                                     }
-                                    
+
 
                                 }
                             }
-                        } 
+                        }
                     }
                     return Ok(response.customerId);
                 }
@@ -424,10 +424,10 @@ namespace Way2GoWEB.Controllers
 
                         }
                     }
-                    
+
                 }
             }
-            
+
 
             if (!string.IsNullOrEmpty(rq.serialNumber))
             {
@@ -438,7 +438,7 @@ namespace Way2GoWEB.Controllers
                     totalPrice = totalPrice - 15000;
                 }
             }
-            var usdCulture = Math.Round((totalPrice / 25200),2);
+            var usdCulture = Math.Round((totalPrice / 25200), 2);
             // Tạo đơn hàng
             var order = new OrderRequest()
             {
@@ -534,12 +534,12 @@ namespace Way2GoWEB.Controllers
                 }
             }
 
-            
+
             if (!string.IsNullOrEmpty(rq.serialNumber))
             {
                 //Kiem tra serial number
                 var serial = _orderRepository.CheckSerialNumber(rq.serialNumber);
-                if(serial != null)
+                if (serial != null)
                 {
                     totalPrice = totalPrice - 15000;
                 }
@@ -553,7 +553,7 @@ namespace Way2GoWEB.Controllers
         public IActionResult ConfirmOnepay(RequestConfirmOnepay request)
         {
             var response = false;
-            if(request != null)
+            if (request != null)
             {
                 var decrypedCode = Onepay.Decrypt(request.encrypedCode);
                 if (decrypedCode.Equals(request.transactionId))
@@ -561,7 +561,7 @@ namespace Way2GoWEB.Controllers
                     response = true;
                 }
             }
-            
+
             return Ok(response);
         }
         // Hàm xác nhận thanh toán và hoàn tất đơn hàng
@@ -672,7 +672,7 @@ namespace Way2GoWEB.Controllers
             return Ok(result);
         }
 
-        
+
 
     }
 }

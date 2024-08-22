@@ -1,6 +1,6 @@
 webpackJsonp([54],{
 
-/***/ 1111:
+/***/ 1120:
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(53)();
@@ -8,14 +8,14 @@ exports = module.exports = __webpack_require__(53)();
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", "", {"version":3,"sources":[],"names":[],"mappings":"","file":"edit.vue","sourceRoot":""}]);
+exports.push([module.i, "\n[v-cloak] {\n    display: none;\n}\n.edit {\n    display: none;\n}\n.editing .edit {\n    display: block\n}\n.editing .view {\n    display: none;\n}\n", "", {"version":3,"sources":["D:/Code/WORKING/dotnet-platform-backend/Web/Platform/CMS/PlatformCMS/ClientApp/pages/policy/list.vue?1f3ca656"],"names":[],"mappings":";AA0NA;IACA,cAAA;CACA;AAEA;IACA,cAAA;CACA;AAEA;IACA,cAAA;CACA;AAEA;IACA,cAAA;CACA","file":"list.vue","sourcesContent":["\r\n<template>\r\n    <div class=\"list-data\">\r\n        <b-card header-tag=\"header\" class=\"card-filter\"\r\n                footer-tag=\"footer\">\r\n            <div>\r\n                <b-col md=\"12\">\r\n                    <b-row class=\"form-group\">\r\n                        <b-col md=\"4\">\r\n                            <b-form-input @keyup.13=\"onChangePaging()\" v-model=\"SearchKeyword\" type=\"text\" placeholder=\"Tìm kiếm theo tên\"></b-form-input>\r\n                        </b-col>\r\n                        <!--<b-col md=\"2\">\r\n                            <b-select :options=\"Language\" v-model=\"SearchLanguageCode\"></b-select>\r\n                        </b-col>-->\r\n                        <b-col md=\"1\">\r\n                            <b-btn variant=\"info\" class=\"col-lg-12\"><i class=\"fa fa-search\" aria-hidden=\"true\"></i></b-btn>\r\n                        </b-col>\r\n                        <b-col md=\"1\">\r\n                            <b-btn variant=\"primary\" class=\"col-lg-12\"><i class=\"fa fa-refresh\" aria-hidden=\"true\"></i></b-btn>\r\n                        </b-col>\r\n                        <b-col md=\"2\">\r\n                            <b-btn v-b-toggle.collapse1 variant=\"primary\"><i class=\"fa fa-angle-double-down\" aria-hidden=\"true\"></i></b-btn>\r\n                        </b-col>\r\n                    </b-row>\r\n                </b-col>\r\n                <b-collapse id=\"collapse1\" class=\"mt-2\">\r\n                    <b-card>\r\n                        <p class=\"card-text\">Collapse contents Here</p>\r\n                        <b-btn v-b-toggle.collapse1_inner size=\"sm\">Toggle Inner Collapse</b-btn>\r\n                        <b-collapse id=collapse1_inner class=\"mt-2\">\r\n                            <b-card>Hello!</b-card>\r\n                        </b-collapse>\r\n                    </b-card>\r\n                </b-collapse>\r\n            </div>\r\n        </b-card>\r\n        <div class=\"card card-data\">\r\n            <div class=\"card-body\">\r\n                <div role=\"toolbar\" class=\" mb-2\" aria-label=\"Toolbar with button groups and dropdown menu\">\r\n                    <div role=\"group\" class=\"mx-1 btn-group\">\r\n                        <router-link class=\"btn btn-success\" :to=\"{ path: 'add' }\"><i class=\"fa fa-plus\"></i> Thêm mới</router-link>\r\n                        <button type=\"button\" class=\"btn btn-danger\"><i class=\"fa fa-trash-o\"></i> Xóa</button>\r\n                    </div>\r\n                    <b-dropdown class=\"mx-1\" variant=\"info\" right text=\"Hành động\" icon>\r\n                        <b-dropdown-item>Kích hoạt</b-dropdown-item>\r\n                        <b-dropdown-item>Không kích hoạt</b-dropdown-item>\r\n                    </b-dropdown>\r\n                </div>\r\n\r\n                <div class=\"table-responsive\">\r\n                    <div class=\"dataTables_wrapper dt-bootstrap4 no-footer\">\r\n                        <div class=\"clear\"></div>\r\n                        <table class=\"table data-thumb-view dataTable no-footer\" role=\"grid\">\r\n                            <thead class=\"table table-centered table-nowrap\">\r\n                                <tr role=\"row\">\r\n                                    <th><!--<input type=\"checkbox\">--></th>\r\n                                    <th class=\"text-center\">STT</th>\r\n                                    <th class=\"text-center\">Mã chính sách</th>\r\n                                    <th class=\"text-center\">Ngôn ngữ</th>\r\n                                    <th>Thao tác</th>\r\n                                </tr>\r\n                            </thead>\r\n                            <tbody>\r\n                                <tr v-for=\"(item,index) in banneradss\">\r\n                                    <td class=\"dt-checkboxes-cell\"><input type=\"checkbox\" class=\"dt-checkboxes\"></td>\r\n                                    <td class=\"text-center\">{{index}}</td>\r\n                                    <td class=\"text-center\">\r\n                                        {{item.key}}\r\n                                    </td>\r\n                                    <td class=\"text-center\">\r\n                                        <p>Ngôn ngữ: {{item.value}}</p>\r\n                                    </td>\r\n                                    <td>\r\n                                        <b-row>\r\n                                            <div style=\"padding:5px\">\r\n                                                <router-link :to=\"{path: 'edit/'+ item.key}\">\r\n                                                    <span class=\"action-edit\"><i class=\"fa fa-edit\"></i></span>\r\n                                                </router-link>\r\n                                            </div>\r\n                                            <div style=\"padding:5px\">\r\n                                                <span class=\"action-delete\"><a @click=\"remove(item)\"><i style=\"color:red\" class=\"fa fa-trash\"></i></a></span>\r\n                                            </div>\r\n                                        </b-row>\r\n                                    </td>\r\n                                </tr>\r\n                            </tbody>\r\n                        </table>\r\n                    </div>\r\n                </div>\r\n\r\n            </div>\r\n        </div>\r\n    </div>\r\n</template>\r\n<script>\r\n    import \"vue-loading-overlay/dist/vue-loading.css\";\r\n    import msgNotify from \"./../../common/constant\";\r\n    import { mapGetters, mapActions } from \"vuex\";\r\n    import Loading from \"vue-loading-overlay\";\r\n\r\n    export default {\r\n        name: \"policy\",\r\n        components: {\r\n            Loading\r\n        },\r\n        data() {\r\n            return {\r\n                editedItem: null,\r\n                editMode: false,\r\n                isLoading: false,\r\n                _product: {\r\n\r\n                },\r\n                messeger: \"\",\r\n                currentSort: \"Id\",\r\n                currentSortDir: \"asc\",\r\n                SearchKeyword: \"\",\r\n                SearchLanguageCode: \"vi-VN     \",\r\n                SearchLocation: 0,\r\n                currentPage: 1,\r\n                pageSize: 10,\r\n                loading: true,\r\n                item: {},\r\n                Language: [],\r\n                Location: [],\r\n\r\n            };\r\n        },\r\n        methods: {\r\n            ...mapActions([\"getBannerAdss\", \"removeBannerAds\"]),\r\n            onChangePaging() {\r\n                this.isLoading = true;\r\n                let initial = this.$route.query.initial;\r\n                initial = typeof initial != \"undefined\" ? initial.toLowerCase() : \"\";\r\n                this.getBannerAdss({\r\n                    keyword: this.SearchKeyword,\r\n                });\r\n                this.isLoading = false;\r\n            },\r\n            sortor: function (s) {\r\n                if (s === this.currentSort) {\r\n                    this.currentSortDir = this.currentSortDir === \"asc\" ? \"desc\" : \"asc\";\r\n                }\r\n                this.currentSort = s;\r\n                this.onChangePaging();\r\n            },\r\n            remove: function (item) {\r\n                if (confirm(\"Bạn có thực sự muốn xoá?\")) {\r\n                    let initial = this.$route.query.initial;\r\n                    initial = typeof initial != \"undefined\" ? initial.toLowerCase() : \"\";\r\n                    this.removeBannerAds(item.key)\r\n                        .then(response => {\r\n                            debugger\r\n                            if (response.key == true) {\r\n                                this.$toast.success(response.value, {});\r\n                                this.onChangePaging();\r\n                                this.isLoading = false;\r\n                            } else {\r\n                                this.$toast.error(response.value, {});\r\n                                this.isLoading = false;\r\n                            }\r\n                        })\r\n                        .catch(e => {\r\n                            this.$toast.error(msgNotify.error + \". Error:\" + e, {});\r\n                        });\r\n                }\r\n            },\r\n            saveData(item) {\r\n                if (item.id > 0) {\r\n                    this.updateDepartment(item)\r\n                        .then(response => {\r\n                            if (response.success == true) {\r\n                                this.$toast.success(response.message, {});\r\n                                this.isLoading = false;\r\n                                this.editedItem = null;\r\n                            }\r\n                            else {\r\n                                this.$toast.error(response.message, {});\r\n                                this.isLoading = false;\r\n                            }\r\n\r\n                        })\r\n                        .catch(e => {\r\n                            this.$toast.error(msgNotify.error + \". Error:\" + e, {});\r\n                            this.isLoading = false;\r\n                        });\r\n                }\r\n            },\r\n            editData(item) {\r\n                this.beforEditCache = item\r\n                this.editedItem = item\r\n            }\r\n        },\r\n        computed: {\r\n            ...mapGetters([\"banneradss\"])\r\n        },\r\n        mounted() {\r\n            this.onChangePaging();\r\n\r\n\r\n        },\r\n        watch: {\r\n            currentPage: function (newVal) {\r\n                this.currentPage = newVal;\r\n                this.onChangePaging();\r\n            },\r\n            SearchLanguageCode: function () {\r\n                this.currentPage = 1;\r\n                this.onChangePaging();\r\n            },\r\n            SearchLocation: function () {\r\n                this.currentPage = 1;\r\n                this.onChangePaging();\r\n            }\r\n        }\r\n    };\r\n</script>\r\n<style>\r\n    [v-cloak] {\r\n        display: none;\r\n    }\r\n\r\n    .edit {\r\n        display: none;\r\n    }\r\n\r\n    .editing .edit {\r\n        display: block\r\n    }\r\n\r\n    .editing .view {\r\n        display: none;\r\n    }\r\n</style>\r\n\r\n"],"sourceRoot":""}]);
 
 // exports
 
 
 /***/ }),
 
-/***/ 1226:
+/***/ 1233:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -25,7 +25,7 @@ Object.defineProperty(exports, "__esModule", {
     value: true
 });
 
-var _extends2 = __webpack_require__(7);
+var _extends2 = __webpack_require__(8);
 
 var _extends3 = _interopRequireDefault(_extends2);
 
@@ -44,93 +44,80 @@ var _vueLoadingOverlay2 = _interopRequireDefault(_vueLoadingOverlay);
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 exports.default = {
-    name: "propertyaddedit",
-    data: function data() {
-        return {
-            isLoading: false,
-            fullPage: false,
-            color: "#007bff",
-            currentSort: "Id",
-            currentSortDir: "asc",
-            loading: true,
-            locationId: 0,
-            objRequest: {},
-            objRequestDetail: {},
-            objRequestDetails: [],
-            langSelected: "",
-            Languages: []
-        };
-    },
-
-    created: {},
+    name: "policy",
     components: {
         Loading: _vueLoadingOverlay2.default
     },
-    mounted: function mounted() {
-        var _this = this;
+    data: function data() {
+        return {
+            editedItem: null,
+            editMode: false,
+            isLoading: false,
+            _product: {},
+            messeger: "",
+            currentSort: "Id",
+            currentSortDir: "asc",
+            SearchKeyword: "",
+            SearchLanguageCode: "vi-VN     ",
+            SearchLocation: 0,
+            currentPage: 1,
+            pageSize: 10,
+            loading: true,
+            item: {},
+            Language: [],
+            Location: []
 
-        if (this.$route.params.id > 0) {
+        };
+    },
+
+    methods: (0, _extends3.default)({}, (0, _vuex.mapActions)(["getBannerAdss", "removeBannerAds"]), {
+        onChangePaging: function onChangePaging() {
             this.isLoading = true;
             var initial = this.$route.query.initial;
             initial = typeof initial != "undefined" ? initial.toLowerCase() : "";
-            this.getLocation(this.$route.params.id).then(function (respose) {
-                _this.locationId = respose.data.id;
-                _this.objRequest = respose.data;
-                _this.objRequestDetails = respose.listData;
-                if (respose.data.locationInLanguage != null) {
-                    _this.objRequestDetails = respose.listData;
-                    if (_this.objRequestDetails != null && _this.objRequestDetails.length > 0) {
-                        _this.objRequestDetail = _this.objRequestDetails[0];
-                    }
-                }
-                _this.langSelected = _this.objRequestDetail.languageCode.trim();
+            this.getBannerAdss({
+                keyword: this.SearchKeyword
             });
             this.isLoading = false;
-        };
+        },
 
-        this.getAllLanguages().then(function (respose) {
-            var lang = respose.listData;
-            _this.Languages = lang.map(function (item) {
-                return {
-                    value: item.languageCode.trim(),
-                    text: item.name.trim()
-                };
-            });
-        });
-    },
+        sortor: function sortor(s) {
+            if (s === this.currentSort) {
+                this.currentSortDir = this.currentSortDir === "asc" ? "desc" : "asc";
+            }
+            this.currentSort = s;
+            this.onChangePaging();
+        },
+        remove: function remove(item) {
+            var _this = this;
 
-
-    computed: (0, _extends3.default)({}, (0, _vuex.mapGetters)(["location"])),
-
-    methods: (0, _extends3.default)({}, (0, _vuex.mapActions)(["getLocation", "addLocation", "updateLocation", "getAllLanguages", "addLocationInLanguage"]), {
-        DoAddEdit: function DoAddEdit() {
+            if (confirm("Bạn có thực sự muốn xoá?")) {
+                var initial = this.$route.query.initial;
+                initial = typeof initial != "undefined" ? initial.toLowerCase() : "";
+                this.removeBannerAds(item.key).then(function (response) {
+                    debugger;
+                    if (response.key == true) {
+                        _this.$toast.success(response.value, {});
+                        _this.onChangePaging();
+                        _this.isLoading = false;
+                    } else {
+                        _this.$toast.error(response.value, {});
+                        _this.isLoading = false;
+                    }
+                }).catch(function (e) {
+                    _this.$toast.error(_constant2.default.error + ". Error:" + e, {});
+                });
+            }
+        },
+        saveData: function saveData(item) {
             var _this2 = this;
 
-            this.isLoading = true;
-            if (this.objRequest.id > 0) {
-                this.updateLocation(this.objRequest).then(function (response) {
+            if (item.id > 0) {
+                this.updateDepartment(item).then(function (response) {
                     if (response.success == true) {
                         _this2.$toast.success(response.message, {});
                         _this2.isLoading = false;
-                    } else {
-                        _this2.$toast.error(response.message, {});
-                        _this2.isLoading = false;
-                    }
-                }).catch(function (e) {
-                    _this2.$toast.error(_constant2.default.error + ". Error:" + e, {});
-                    _this2.isLoading = false;
-                });
-            } else {
-                this.objRequest.id = this.propertyId;
-                this.addLocation(this.objRequest).then(function (response) {
-                    if (response.success == true) {
-                        _this2.$toast.success(response.message, {});
-                        _this2.objRequest.id = response.data.locationId;
-                        _this2.locationId = response.data.locationId;
-                        _this2.$router.push({
-                            path: "/admin/location/edit/" + response.data.locationId
-                        });
-                        _this2.isLoading = false;
+                        _this2.editedItem = null;
                     } else {
                         _this2.$toast.error(response.message, {});
                         _this2.isLoading = false;
@@ -141,273 +128,288 @@ exports.default = {
                 });
             }
         },
-        onChangeSelectd: function onChangeSelectd() {
-            if (this.objRequestDetails != null && this.objRequestDetails.length > 0) {
-                var lang = this.langSelected || "vi-VN";
-                var lstObjLang = this.objRequestDetails.filter(function (item) {
-                    return item.languageCode.trim() === lang.trim();
-                });
-                if (lstObjLang != null && lstObjLang != undefined && lstObjLang.length > 0) {
-                    this.objRequestDetail = lstObjLang[0];
-                } else {
-                    this.objRequestDetail = {};
-                    this.objRequestDetail.languageCode = lang;
-                }
-            } else {
-                var _lang = this.langSelected;
-                this.objRequestDetail = {};
-                this.objRequestDetail.languageCode = _lang;
-            }
-        },
-        DoAddDetail: function DoAddDetail() {
-            var _this3 = this;
-
-            this.objRequestDetail.LocationId = this.locationId;
-            this.addLocationInLanguage(this.objRequestDetail).then(function (response) {
-                if (response.success == true) {
-                    if (!_this3.objRequestDetails.some(function (x) {
-                        return x.languageCode == _this3.objRequestDetail.languageCode;
-                    })) {
-                        _this3.objRequestDetails.push(_this3.objRequestDetail);
-                    }
-                    _this3.$toast.success(response.message, {});
-                } else {
-                    _this3.$toast.error(response.message, {});
-                }
-            }).catch(function (e) {
-                _this3.$toast.error(_constant2.default.error + ". Error:" + e, {});
-                _this3.isLoading = false;
-            });
+        editData: function editData(item) {
+            this.beforEditCache = item;
+            this.editedItem = item;
         }
-    })
+    }),
+    computed: (0, _extends3.default)({}, (0, _vuex.mapGetters)(["banneradss"])),
+    mounted: function mounted() {
+        this.onChangePaging();
+    },
+
+    watch: {
+        currentPage: function currentPage(newVal) {
+            this.currentPage = newVal;
+            this.onChangePaging();
+        },
+        SearchLanguageCode: function SearchLanguageCode() {
+            this.currentPage = 1;
+            this.onChangePaging();
+        },
+        SearchLocation: function SearchLocation() {
+            this.currentPage = 1;
+            this.onChangePaging();
+        }
+    }
 };
 
 /***/ }),
 
-/***/ 1566:
+/***/ 1589:
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
   return _c('div', {
-    staticClass: "productadd"
-  }, [_c('loading', {
+    staticClass: "list-data"
+  }, [_c('b-card', {
+    staticClass: "card-filter",
     attrs: {
-      "active": _vm.isLoading,
-      "height": 35,
-      "width": 35,
-      "color": _vm.color,
-      "is-full-page": _vm.fullPage
+      "header-tag": "header",
+      "footer-tag": "footer"
+    }
+  }, [_c('div', [_c('b-col', {
+    attrs: {
+      "md": "12"
+    }
+  }, [_c('b-row', {
+    staticClass: "form-group"
+  }, [_c('b-col', {
+    attrs: {
+      "md": "4"
+    }
+  }, [_c('b-form-input', {
+    attrs: {
+      "type": "text",
+      "placeholder": "Tìm kiếm theo tên"
     },
     on: {
-      "update:active": function($event) {
-        _vm.isLoading = $event
+      "keyup": function($event) {
+        if (!$event.type.indexOf('key') && $event.keyCode !== 13) { return null; }
+        return _vm.onChangePaging()
       }
+    },
+    model: {
+      value: (_vm.SearchKeyword),
+      callback: function($$v) {
+        _vm.SearchKeyword = $$v
+      },
+      expression: "SearchKeyword"
     }
-  }), _vm._v(" "), _c('div', {
-    staticClass: "row productedit"
+  })], 1), _vm._v(" "), _c('b-col', {
+    attrs: {
+      "md": "1"
+    }
+  }, [_c('b-btn', {
+    staticClass: "col-lg-12",
+    attrs: {
+      "variant": "info"
+    }
+  }, [_c('i', {
+    staticClass: "fa fa-search",
+    attrs: {
+      "aria-hidden": "true"
+    }
+  })])], 1), _vm._v(" "), _c('b-col', {
+    attrs: {
+      "md": "1"
+    }
+  }, [_c('b-btn', {
+    staticClass: "col-lg-12",
+    attrs: {
+      "variant": "primary"
+    }
+  }, [_c('i', {
+    staticClass: "fa fa-refresh",
+    attrs: {
+      "aria-hidden": "true"
+    }
+  })])], 1), _vm._v(" "), _c('b-col', {
+    attrs: {
+      "md": "2"
+    }
+  }, [_c('b-btn', {
+    directives: [{
+      name: "b-toggle",
+      rawName: "v-b-toggle.collapse1",
+      modifiers: {
+        "collapse1": true
+      }
+    }],
+    attrs: {
+      "variant": "primary"
+    }
+  }, [_c('i', {
+    staticClass: "fa fa-angle-double-down",
+    attrs: {
+      "aria-hidden": "true"
+    }
+  })])], 1)], 1)], 1), _vm._v(" "), _c('b-collapse', {
+    staticClass: "mt-2",
+    attrs: {
+      "id": "collapse1"
+    }
+  }, [_c('b-card', [_c('p', {
+    staticClass: "card-text"
+  }, [_vm._v("Collapse contents Here")]), _vm._v(" "), _c('b-btn', {
+    directives: [{
+      name: "b-toggle",
+      rawName: "v-b-toggle.collapse1_inner",
+      modifiers: {
+        "collapse1_inner": true
+      }
+    }],
+    attrs: {
+      "size": "sm"
+    }
+  }, [_vm._v("Toggle Inner Collapse")]), _vm._v(" "), _c('b-collapse', {
+    staticClass: "mt-2",
+    attrs: {
+      "id": "collapse1_inner"
+    }
+  }, [_c('b-card', [_vm._v("Hello!")])], 1)], 1)], 1)], 1)]), _vm._v(" "), _c('div', {
+    staticClass: "card card-data"
   }, [_c('div', {
-    staticClass: "col-sm-6 col-md-6"
-  }, [_c('div', {
-    staticClass: "card"
-  }, [_c('div', {
-    staticClass: "card-header"
-  }, [_vm._v("\n                    Thông tin chính\n                ")]), _vm._v(" "), _c('div', {
     staticClass: "card-body"
-  }, [_c('b-form', {
-    staticClass: "form-horizontal"
-  }, [_c('b-form-group', {
-    attrs: {
-      "label": "Mã khu vực"
-    }
-  }, [_c('b-form-input', {
-    attrs: {
-      "placeholder": "Mã khu vực",
-      "required": ""
-    },
-    model: {
-      value: (_vm.objRequest.code),
-      callback: function($$v) {
-        _vm.$set(_vm.objRequest, "code", $$v)
-      },
-      expression: "objRequest.code"
-    }
-  })], 1), _vm._v(" "), _c('b-form-group', {
-    attrs: {
-      "label": "Tên khu vực"
-    }
-  }, [_c('b-form-input', {
-    attrs: {
-      "placeholder": "Tên khu vực",
-      "required": ""
-    },
-    model: {
-      value: (_vm.objRequest.name),
-      callback: function($$v) {
-        _vm.$set(_vm.objRequest, "name", $$v)
-      },
-      expression: "objRequest.name"
-    }
-  })], 1), _vm._v(" "), _c('b-form-group', {
-    attrs: {
-      "label": "Ghi chú"
-    }
-  }, [_c('b-form-textarea', {
-    attrs: {
-      "placeholder": "Ghi chú",
-      "required": ""
-    },
-    model: {
-      value: (_vm.objRequest.note),
-      callback: function($$v) {
-        _vm.$set(_vm.objRequest, "note", $$v)
-      },
-      expression: "objRequest.note"
-    }
-  })], 1)], 1), _vm._v(" "), _c('div', {
-    staticClass: "row"
   }, [_c('div', {
-    staticClass: "col-md-3"
-  }), _vm._v(" "), _c('div', {
-    staticClass: "col-md-3"
-  }), _vm._v(" "), _c('div', {
-    staticClass: "col-md-3"
-  }, [_c('button', {
-    staticClass: "btn btn-info btn-submit-form col-md-12 btncus",
+    staticClass: " mb-2",
     attrs: {
-      "type": "submit"
-    },
-    on: {
-      "click": function($event) {
-        return _vm.DoAddEdit()
+      "role": "toolbar",
+      "aria-label": "Toolbar with button groups and dropdown menu"
+    }
+  }, [_c('div', {
+    staticClass: "mx-1 btn-group",
+    attrs: {
+      "role": "group"
+    }
+  }, [_c('router-link', {
+    staticClass: "btn btn-success",
+    attrs: {
+      "to": {
+        path: 'add'
       }
     }
   }, [_c('i', {
-    staticClass: "fa fa-save"
-  }), _vm._v(" Cập nhật\n                            ")])]), _vm._v(" "), _c('div', {
-    staticClass: "col-md-3"
-  }, [_c('button', {
-    staticClass: "btn btn-success col-md-12 btncus",
+    staticClass: "fa fa-plus"
+  }), _vm._v(" Thêm mới")]), _vm._v(" "), _vm._m(0)], 1), _vm._v(" "), _c('b-dropdown', {
+    staticClass: "mx-1",
+    attrs: {
+      "variant": "info",
+      "right": "",
+      "text": "Hành động",
+      "icon": ""
+    }
+  }, [_c('b-dropdown-item', [_vm._v("Kích hoạt")]), _vm._v(" "), _c('b-dropdown-item', [_vm._v("Không kích hoạt")])], 1)], 1), _vm._v(" "), _c('div', {
+    staticClass: "table-responsive"
+  }, [_c('div', {
+    staticClass: "dataTables_wrapper dt-bootstrap4 no-footer"
+  }, [_c('div', {
+    staticClass: "clear"
+  }), _vm._v(" "), _c('table', {
+    staticClass: "table data-thumb-view dataTable no-footer",
+    attrs: {
+      "role": "grid"
+    }
+  }, [_vm._m(1), _vm._v(" "), _c('tbody', _vm._l((_vm.banneradss), function(item, index) {
+    return _c('tr', [_vm._m(2, true), _vm._v(" "), _c('td', {
+      staticClass: "text-center"
+    }, [_vm._v(_vm._s(index))]), _vm._v(" "), _c('td', {
+      staticClass: "text-center"
+    }, [_vm._v("\n                                    " + _vm._s(item.key) + "\n                                ")]), _vm._v(" "), _c('td', {
+      staticClass: "text-center"
+    }, [_c('p', [_vm._v("Ngôn ngữ: " + _vm._s(item.value))])]), _vm._v(" "), _c('td', [_c('b-row', [_c('div', {
+      staticStyle: {
+        "padding": "5px"
+      }
+    }, [_c('router-link', {
+      attrs: {
+        "to": {
+          path: 'edit/' + item.key
+        }
+      }
+    }, [_c('span', {
+      staticClass: "action-edit"
+    }, [_c('i', {
+      staticClass: "fa fa-edit"
+    })])])], 1), _vm._v(" "), _c('div', {
+      staticStyle: {
+        "padding": "5px"
+      }
+    }, [_c('span', {
+      staticClass: "action-delete"
+    }, [_c('a', {
+      on: {
+        "click": function($event) {
+          return _vm.remove(item)
+        }
+      }
+    }, [_c('i', {
+      staticClass: "fa fa-trash",
+      staticStyle: {
+        "color": "red"
+      }
+    })])])])])], 1)])
+  }), 0)])])])])])], 1)
+},staticRenderFns: [function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('button', {
+    staticClass: "btn btn-danger",
     attrs: {
       "type": "button"
-    },
-    on: {
-      "click": function($event) {
-        return _vm.DoRefesh()
-      }
     }
   }, [_c('i', {
-    staticClass: "fa fa-refresh"
-  }), _vm._v(" Làm mới\n                            ")])])])], 1)])]), _vm._v(" "), (_vm.objRequest.id > 0) ? _c('div', {
-    staticClass: "col-sm-6 col-md-6"
-  }, [_c('div', {
-    staticClass: "card"
-  }, [_c('div', {
-    staticClass: "card-header"
-  }, [_vm._v("\n                    Thông tin bổ sung\n                ")]), _vm._v(" "), _c('div', {
-    staticClass: "card-body"
-  }, [_c('b-form', {
-    staticClass: "form-horizontal"
-  }, [_c('b-row', [_c('b-col', [_c('b-form-group', {
+    staticClass: "fa fa-trash-o"
+  }), _vm._v(" Xóa")])
+},function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('thead', {
+    staticClass: "table table-centered table-nowrap"
+  }, [_c('tr', {
     attrs: {
-      "label": "Ngôn ngữ"
+      "role": "row"
     }
-  }, [_c('b-form-select', {
+  }, [_c('th'), _vm._v(" "), _c('th', {
+    staticClass: "text-center"
+  }, [_vm._v("STT")]), _vm._v(" "), _c('th', {
+    staticClass: "text-center"
+  }, [_vm._v("Mã chính sách")]), _vm._v(" "), _c('th', {
+    staticClass: "text-center"
+  }, [_vm._v("Ngôn ngữ")]), _vm._v(" "), _c('th', [_vm._v("Thao tác")])])])
+},function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('td', {
+    staticClass: "dt-checkboxes-cell"
+  }, [_c('input', {
+    staticClass: "dt-checkboxes",
     attrs: {
-      "options": _vm.Languages
-    },
-    on: {
-      "change": _vm.onChangeSelectd
-    },
-    model: {
-      value: (_vm.langSelected),
-      callback: function($$v) {
-        _vm.langSelected = $$v
-      },
-      expression: "langSelected"
+      "type": "checkbox"
     }
-  })], 1)], 1), _vm._v(" "), _c('b-col'), _vm._v(" "), _c('b-col')], 1), _vm._v(" "), _c('b-form-group', {
-    attrs: {
-      "label": "Tên theo ngôn ngữ"
-    }
-  }, [_c('b-form-input', {
-    attrs: {
-      "placeholder": "Tên",
-      "required": ""
-    },
-    model: {
-      value: (_vm.objRequestDetail.name),
-      callback: function($$v) {
-        _vm.$set(_vm.objRequestDetail, "name", $$v)
-      },
-      expression: "objRequestDetail.name"
-    }
-  })], 1), _vm._v(" "), _c('b-form-group', {
-    attrs: {
-      "label": "Tên theo ngôn ngữ"
-    }
-  }, [_c('b-form-input', {
-    attrs: {
-      "placeholder": "Đường dẫn",
-      "required": ""
-    },
-    model: {
-      value: (_vm.objRequestDetail.url),
-      callback: function($$v) {
-        _vm.$set(_vm.objRequestDetail, "url", $$v)
-      },
-      expression: "objRequestDetail.url"
-    }
-  })], 1)], 1), _vm._v(" "), _c('div', {
-    staticClass: "row"
-  }, [_c('div', {
-    staticClass: "col-md-3"
-  }), _vm._v(" "), _c('div', {
-    staticClass: "col-md-3"
-  }), _vm._v(" "), _c('div', {
-    staticClass: "col-md-3"
-  }), _vm._v(" "), _c('div', {
-    staticClass: "col-md-3"
-  }, [_c('button', {
-    staticClass: "btn btn-info btn-submit-form col-md-12 btncus",
-    attrs: {
-      "type": "submit"
-    },
-    on: {
-      "click": function($event) {
-        return _vm.DoAddDetail()
-      }
-    }
-  }, [_c('i', {
-    staticClass: "fa fa-save"
-  }), _vm._v(" Cập nhật\n                            ")])])])], 1)])]) : _vm._e()])], 1)
-},staticRenderFns: []}
+  })])
+}]}
 module.exports.render._withStripped = true
 if (true) {
   module.hot.accept()
   if (module.hot.data) {
-     __webpack_require__(178).rerender("data-v-7b5c63ee", module.exports)
+     __webpack_require__(178).rerender("data-v-ed1f2600", module.exports)
   }
 }
 
 /***/ }),
 
-/***/ 1623:
+/***/ 1632:
 /***/ (function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
-var content = __webpack_require__(1111);
+var content = __webpack_require__(1120);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
-var update = __webpack_require__(801)("336f1f1c", content, false);
+var update = __webpack_require__(801)("94fa70f4", content, false);
 // Hot Module Replacement
 if(true) {
  // When the styles change, update the <style> tags
  if(!content.locals) {
-   module.hot.accept(1111, function() {
-     var newContent = __webpack_require__(1111);
+   module.hot.accept(1120, function() {
+     var newContent = __webpack_require__(1120);
      if(typeof newContent === 'string') newContent = [[module.i, newContent, '']];
      update(newContent);
    });
@@ -418,26 +420,26 @@ if(true) {
 
 /***/ }),
 
-/***/ 754:
+/***/ 761:
 /***/ (function(module, exports, __webpack_require__) {
 
 
 /* styles */
-__webpack_require__(1623)
+__webpack_require__(1632)
 
 var Component = __webpack_require__(374)(
   /* script */
-  __webpack_require__(1226),
+  __webpack_require__(1233),
   /* template */
-  __webpack_require__(1566),
+  __webpack_require__(1589),
   /* scopeId */
   null,
   /* cssModules */
   null
 )
-Component.options.__file = "D:\\Code\\WORKING\\dotnet-platform-backend\\Web\\Platform\\CMS\\PlatformCMS\\ClientApp\\pages\\location\\edit.vue"
+Component.options.__file = "D:\\Code\\WORKING\\dotnet-platform-backend\\Web\\Platform\\CMS\\PlatformCMS\\ClientApp\\pages\\policy\\list.vue"
 if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
-if (Component.options.functional) {console.error("[vue-loader] edit.vue: functional components are not supported with templates, they should use render functions.")}
+if (Component.options.functional) {console.error("[vue-loader] list.vue: functional components are not supported with templates, they should use render functions.")}
 
 /* hot reload */
 if (true) {(function () {
@@ -446,9 +448,9 @@ if (true) {(function () {
   if (!hotAPI.compatible) return
   module.hot.accept()
   if (!module.hot.data) {
-    hotAPI.createRecord("data-v-7b5c63ee", Component.options)
+    hotAPI.createRecord("data-v-ed1f2600", Component.options)
   } else {
-    hotAPI.reload("data-v-7b5c63ee", Component.options)
+    hotAPI.reload("data-v-ed1f2600", Component.options)
   }
 })()}
 

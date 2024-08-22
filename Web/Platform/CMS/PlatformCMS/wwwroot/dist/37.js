@@ -1,6 +1,6 @@
 webpackJsonp([37],{
 
-/***/ 1093:
+/***/ 1020:
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(53)();
@@ -8,14 +8,41 @@ exports = module.exports = __webpack_require__(53)();
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", "", {"version":3,"sources":[],"names":[],"mappings":"","file":"list.vue","sourceRoot":""}]);
+exports.push([module.i, ".v-select{position:relative;font-family:inherit}.v-select,.v-select *{box-sizing:border-box}@-webkit-keyframes vSelectSpinner{0%{transform:rotate(0deg)}to{transform:rotate(1turn)}}@keyframes vSelectSpinner{0%{transform:rotate(0deg)}to{transform:rotate(1turn)}}.vs__fade-enter-active,.vs__fade-leave-active{pointer-events:none;transition:opacity .15s cubic-bezier(1,.5,.8,1)}.vs__fade-enter,.vs__fade-leave-to{opacity:0}.vs--disabled .vs__clear,.vs--disabled .vs__dropdown-toggle,.vs--disabled .vs__open-indicator,.vs--disabled .vs__search,.vs--disabled .vs__selected{cursor:not-allowed;background-color:#f8f8f8}.v-select[dir=rtl] .vs__actions{padding:0 3px 0 6px}.v-select[dir=rtl] .vs__clear{margin-left:6px;margin-right:0}.v-select[dir=rtl] .vs__deselect{margin-left:0;margin-right:2px}.v-select[dir=rtl] .vs__dropdown-menu{text-align:right}.vs__dropdown-toggle{-webkit-appearance:none;-moz-appearance:none;appearance:none;display:flex;padding:0 0 4px;background:none;border:1px solid rgba(60,60,60,.26);border-radius:4px;white-space:normal}.vs__selected-options{display:flex;flex-basis:100%;flex-grow:1;flex-wrap:wrap;padding:0 2px;position:relative}.vs__actions{display:flex;align-items:center;padding:4px 6px 0 3px}.vs--searchable .vs__dropdown-toggle{cursor:text}.vs--unsearchable .vs__dropdown-toggle{cursor:pointer}.vs--open .vs__dropdown-toggle{border-bottom-color:transparent;border-bottom-left-radius:0;border-bottom-right-radius:0}.vs__open-indicator{fill:rgba(60,60,60,.5);transform:scale(1);transition:transform .15s cubic-bezier(1,-.115,.975,.855);transition-timing-function:cubic-bezier(1,-.115,.975,.855)}.vs--open .vs__open-indicator{transform:rotate(180deg) scale(1)}.vs--loading .vs__open-indicator{opacity:0}.vs__clear{fill:rgba(60,60,60,.5);padding:0;border:0;background-color:transparent;cursor:pointer;margin-right:8px}.vs__dropdown-menu{display:block;box-sizing:border-box;position:absolute;top:calc(100% - 1px);left:0;z-index:1000;padding:5px 0;margin:0;width:100%;max-height:350px;min-width:160px;overflow-y:auto;box-shadow:0 3px 6px 0 rgba(0,0,0,.15);border:1px solid rgba(60,60,60,.26);border-top-style:none;border-radius:0 0 4px 4px;text-align:left;list-style:none;background:#fff}.vs__no-options{text-align:center}.vs__dropdown-option{line-height:1.42857143;display:block;padding:3px 20px;clear:both;color:#333;white-space:nowrap}.vs__dropdown-option:hover{cursor:pointer}.vs__dropdown-option--highlight{background:#5897fb;color:#fff}.vs__dropdown-option--disabled{background:inherit;color:rgba(60,60,60,.5)}.vs__dropdown-option--disabled:hover{cursor:inherit}.vs__selected{display:flex;align-items:center;background-color:#f0f0f0;border:1px solid rgba(60,60,60,.26);border-radius:4px;color:#333;line-height:1.4;margin:4px 2px 0;padding:0 .25em;z-index:0}.vs__deselect{display:inline-flex;-webkit-appearance:none;-moz-appearance:none;appearance:none;margin-left:4px;padding:0;border:0;cursor:pointer;background:none;fill:rgba(60,60,60,.5);text-shadow:0 1px 0 #fff}.vs--single .vs__selected{background-color:transparent;border-color:transparent}.vs--single.vs--open .vs__selected{position:absolute;opacity:.4}.vs--single.vs--searching .vs__selected{display:none}.vs__search::-webkit-search-cancel-button{display:none}.vs__search::-ms-clear,.vs__search::-webkit-search-decoration,.vs__search::-webkit-search-results-button,.vs__search::-webkit-search-results-decoration{display:none}.vs__search,.vs__search:focus{-webkit-appearance:none;-moz-appearance:none;appearance:none;line-height:1.4;font-size:1em;border:1px solid transparent;border-left:none;outline:none;margin:4px 0 0;padding:0 7px;background:none;box-shadow:none;width:0;max-width:100%;flex-grow:1;z-index:1}.vs__search::-webkit-input-placeholder{color:inherit}.vs__search::-moz-placeholder{color:inherit}.vs__search:-ms-input-placeholder{color:inherit}.vs__search::-ms-input-placeholder{color:inherit}.vs__search::placeholder{color:inherit}.vs--unsearchable .vs__search{opacity:1}.vs--unsearchable:not(.vs--disabled) .vs__search:hover{cursor:pointer}.vs--single.vs--searching:not(.vs--open):not(.vs--loading) .vs__search{opacity:.2}.vs__spinner{align-self:center;opacity:0;font-size:5px;text-indent:-9999em;overflow:hidden;border:.9em solid hsla(0,0%,39.2%,.1);border-left-color:rgba(60,60,60,.45);transform:translateZ(0);-webkit-animation:vSelectSpinner 1.1s linear infinite;animation:vSelectSpinner 1.1s linear infinite;transition:opacity .1s}.vs__spinner,.vs__spinner:after{border-radius:50%;width:5em;height:5em}.vs--loading .vs__spinner{opacity:1}\n\n/*# sourceMappingURL=vue-select.css.map*/", ""]);
 
 // exports
 
 
 /***/ }),
 
-/***/ 1243:
+/***/ 1025:
+/***/ (function(module, exports, __webpack_require__) {
+
+// style-loader: Adds some css to the DOM by adding a <style> tag
+
+// load the styles
+var content = __webpack_require__(1020);
+if(typeof content === 'string') content = [[module.i, content, '']];
+// add the styles to the DOM
+var update = __webpack_require__(179)(content, {});
+if(content.locals) module.exports = content.locals;
+// Hot Module Replacement
+if(true) {
+	// When the styles change, update the <style> tags
+	if(!content.locals) {
+		module.hot.accept(1020, function() {
+			var newContent = __webpack_require__(1020);
+			if(typeof newContent === 'string') newContent = [[module.i, newContent, '']];
+			update(newContent);
+		});
+	}
+	// When the module is disposed, remove the <style> tags
+	module.hot.dispose(function() { update(); });
+}
+
+/***/ }),
+
+/***/ 1026:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -25,21 +52,298 @@ Object.defineProperty(exports, "__esModule", {
     value: true
 });
 
-var _assign = __webpack_require__(377);
+var _regenerator = __webpack_require__(75);
 
-var _assign2 = _interopRequireDefault(_assign);
+var _regenerator2 = _interopRequireDefault(_regenerator);
 
-var _extends2 = __webpack_require__(7);
+var _asyncToGenerator2 = __webpack_require__(74);
 
-var _extends3 = _interopRequireDefault(_extends2);
+var _asyncToGenerator3 = _interopRequireDefault(_asyncToGenerator2);
+
+var _http = __webpack_require__(4);
+
+var _http2 = _interopRequireDefault(_http);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var productSpecificationTemplateRepository = {
+    getProductSpecificationTemplate: function getProductSpecificationTemplate(data) {
+        var _this = this;
+
+        return (0, _asyncToGenerator3.default)(_regenerator2.default.mark(function _callee() {
+            var response;
+            return _regenerator2.default.wrap(function _callee$(_context) {
+                while (1) {
+                    switch (_context.prev = _context.next) {
+                        case 0:
+                            _context.next = 2;
+                            return _http2.default.get('/api/productspecificationtemplate/get?pageIndex=' + data.pageIndex + '&pageSize=' + data.pageSize + '&keyword=' + data.title, {}).catch(function (e) {
+                                alert('ex found:' + e);
+                            });
+
+                        case 2:
+                            response = _context.sent;
+
+                            console.log(response);
+                            return _context.abrupt('return', response.data);
+
+                        case 5:
+                        case 'end':
+                            return _context.stop();
+                    }
+                }
+            }, _callee, _this);
+        }))();
+    },
+    addProductSpecificationTemplate: function addProductSpecificationTemplate(data) {
+        var _this2 = this;
+
+        return (0, _asyncToGenerator3.default)(_regenerator2.default.mark(function _callee2() {
+            var response;
+            return _regenerator2.default.wrap(function _callee2$(_context2) {
+                while (1) {
+                    switch (_context2.prev = _context2.next) {
+                        case 0:
+                            _context2.next = 2;
+                            return _http2.default.post('/api/productspecificationtemplate/Add', data).catch(function (e) {
+                                alert('ex found:' + e);
+                            });
+
+                        case 2:
+                            response = _context2.sent;
+
+                            console.log(response.data);
+                            return _context2.abrupt('return', response.data);
+
+                        case 5:
+                        case 'end':
+                            return _context2.stop();
+                    }
+                }
+            }, _callee2, _this2);
+        }))();
+    },
+    updateProductSpecificationTemplate: function updateProductSpecificationTemplate(data) {
+        var _this3 = this;
+
+        return (0, _asyncToGenerator3.default)(_regenerator2.default.mark(function _callee3() {
+            var response;
+            return _regenerator2.default.wrap(function _callee3$(_context3) {
+                while (1) {
+                    switch (_context3.prev = _context3.next) {
+                        case 0:
+                            _context3.next = 2;
+                            return _http2.default.put('/api/productspecificationtemplate/Update', data).catch(function (e) {
+                                alert('ex found:' + e);
+                            });
+
+                        case 2:
+                            response = _context3.sent;
+
+                            console.log(response.data);
+                            return _context3.abrupt('return', response.data);
+
+                        case 5:
+                        case 'end':
+                            return _context3.stop();
+                    }
+                }
+            }, _callee3, _this3);
+        }))();
+    },
+    getProductSpecificationTemplateById: function getProductSpecificationTemplateById(id) {
+        var _this4 = this;
+
+        return (0, _asyncToGenerator3.default)(_regenerator2.default.mark(function _callee4() {
+            var response;
+            return _regenerator2.default.wrap(function _callee4$(_context4) {
+                while (1) {
+                    switch (_context4.prev = _context4.next) {
+                        case 0:
+                            _context4.next = 2;
+                            return _http2.default.get('/api/productspecificationtemplate/GetById?id=' + id).catch(function (e) {
+                                alert('ex found:' + e);
+                            });
+
+                        case 2:
+                            response = _context4.sent;
+                            return _context4.abrupt('return', response.data);
+
+                        case 4:
+                        case 'end':
+                            return _context4.stop();
+                    }
+                }
+            }, _callee4, _this4);
+        }))();
+    },
+    deleteProductSpecificationTemplate: function deleteProductSpecificationTemplate(data) {
+        return _http2.default.post('/api/ProductSpecificationTemplate/unpublish?id=' + data).then(function (response) {
+            console.log(response.data);
+            return response.data;
+        }).catch(function (e) {
+            alert('ex found:' + e);
+        });
+    },
+    getAllLanguageOption: function getAllLanguageOption() {
+        var _this5 = this;
+
+        return (0, _asyncToGenerator3.default)(_regenerator2.default.mark(function _callee5() {
+            var response;
+            return _regenerator2.default.wrap(function _callee5$(_context5) {
+                while (1) {
+                    switch (_context5.prev = _context5.next) {
+                        case 0:
+                            _context5.next = 2;
+                            return _http2.default.get('/api/Common/GetAllLanguageOptions').catch(function (e) {
+                                alert('ex found:' + e);
+                            });
+
+                        case 2:
+                            response = _context5.sent;
+                            return _context5.abrupt('return', response.data);
+
+                        case 4:
+                        case 'end':
+                            return _context5.stop();
+                    }
+                }
+            }, _callee5, _this5);
+        }))();
+    },
+    getZoneArticle: function getZoneArticle() {
+        var _this6 = this;
+
+        return (0, _asyncToGenerator3.default)(_regenerator2.default.mark(function _callee6() {
+            var response;
+            return _regenerator2.default.wrap(function _callee6$(_context6) {
+                while (1) {
+                    switch (_context6.prev = _context6.next) {
+                        case 0:
+                            _context6.next = 2;
+                            return _http2.default.get('/api/Article/GetZoneArticle').catch(function (e) {
+                                alert('ex found:' + e);
+                            });
+
+                        case 2:
+                            response = _context6.sent;
+                            return _context6.abrupt('return', response.data);
+
+                        case 4:
+                        case 'end':
+                            return _context6.stop();
+                    }
+                }
+            }, _callee6, _this6);
+        }))();
+    }
+};
+
+exports.default = productSpecificationTemplateRepository;
+
+/***/ }),
+
+/***/ 1062:
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports = { "default": __webpack_require__(1064), __esModule: true };
+
+/***/ }),
+
+/***/ 1064:
+/***/ (function(module, exports, __webpack_require__) {
+
+__webpack_require__(1066);
+module.exports = __webpack_require__(20).Object.values;
+
+
+/***/ }),
+
+/***/ 1065:
+/***/ (function(module, exports, __webpack_require__) {
+
+var DESCRIPTORS = __webpack_require__(44);
+var getKeys = __webpack_require__(181);
+var toIObject = __webpack_require__(103);
+var isEnum = __webpack_require__(375).f;
+module.exports = function (isEntries) {
+  return function (it) {
+    var O = toIObject(it);
+    var keys = getKeys(O);
+    var length = keys.length;
+    var i = 0;
+    var result = [];
+    var key;
+    while (length > i) {
+      key = keys[i++];
+      if (!DESCRIPTORS || isEnum.call(O, key)) {
+        result.push(isEntries ? [key, O[key]] : O[key]);
+      }
+    }
+    return result;
+  };
+};
+
+
+/***/ }),
+
+/***/ 1066:
+/***/ (function(module, exports, __webpack_require__) {
+
+// https://github.com/tc39/proposal-object-values-entries
+var $export = __webpack_require__(32);
+var $values = __webpack_require__(1065)(false);
+
+$export($export.S, 'Object', {
+  values: function values(it) {
+    return $values(it);
+  }
+});
+
+
+/***/ }),
+
+/***/ 1237:
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _defineProperty2 = __webpack_require__(956);
+
+var _defineProperty3 = _interopRequireDefault(_defineProperty2);
+
+var _values = __webpack_require__(1062);
+
+var _values2 = _interopRequireDefault(_values);
+
+var _extends3 = __webpack_require__(8);
+
+var _extends4 = _interopRequireDefault(_extends3);
+
+var _regenerator = __webpack_require__(75);
+
+var _regenerator2 = _interopRequireDefault(_regenerator);
+
+var _asyncToGenerator2 = __webpack_require__(74);
+
+var _asyncToGenerator3 = _interopRequireDefault(_asyncToGenerator2);
+
+var _extends2;
+
+var _axios = __webpack_require__(192);
+
+var _axios2 = _interopRequireDefault(_axios);
 
 __webpack_require__(796);
 
 var _constant = __webpack_require__(797);
 
 var _constant2 = _interopRequireDefault(_constant);
-
-var _helper = __webpack_require__(950);
 
 var _vuex = __webpack_require__(180);
 
@@ -53,1093 +357,458 @@ var _vueTreeselect2 = _interopRequireDefault(_vueTreeselect);
 
 __webpack_require__(953);
 
+__webpack_require__(1025);
+
+var _productSpecificationTemplateRepository = __webpack_require__(1026);
+
+var _productSpecificationTemplateRepository2 = _interopRequireDefault(_productSpecificationTemplateRepository);
+
+var _helper = __webpack_require__(950);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-var fields = [{ key: "id", label: "Id" }, { key: "avatar", label: "Hình ảnh" }, { key: "name", label: "Tên sản phẩm" }, { key: "category", label: "Danh mục" }, { key: "price", label: "Giá sản phẩm" }, { key: "Is", label: "Thao tác" }];
-
 exports.default = {
-    name: "product",
+    name: "ProductSpecificationTemplateAddEdit",
+    data: function data() {
+        return {
+            editorData: '<p>Content of the editor.</p>',
+            editorConfig: {
+                allowedContent: true,
+                extraPlugins: ""
+
+            },
+            disabled: false,
+            selectedFile: null,
+            isLoading: false,
+            fullPage: false,
+            color: "#007bff",
+            objRequest: {
+                Id: 0
+            },
+            LanguageCodes: [],
+            LanguageValues: null,
+            listProductSpecificationTemplateInLanguage: null,
+            ZoneValues: null,
+            ZoneOptions: []
+        };
+    },
+    created: function created() {
+        var _this = this;
+
+        return (0, _asyncToGenerator3.default)(_regenerator2.default.mark(function _callee() {
+            return _regenerator2.default.wrap(function _callee$(_context) {
+                while (1) {
+                    switch (_context.prev = _context.next) {
+                        case 0:
+                            _context.next = 2;
+                            return _productSpecificationTemplateRepository2.default.getAllLanguageOption();
+
+                        case 2:
+                            _this.LanguageCodes = _context.sent;
+                            _context.next = 5;
+                            return _this.getZones(1).then(function (response) {
+                                try {
+                                    var data = response.listData;
+                                    data.push({ id: 0, label: "Chọn danh mục", parentId: 0 });
+                                    _this.ZoneOptions = (0, _helper.unflatten)(data);
+                                } catch (ex) {}
+                            });
+
+                        case 5:
+                            _this.GetById();
+
+                        case 6:
+                        case "end":
+                            return _context.stop();
+                    }
+                }
+            }, _callee, _this);
+        }))();
+    },
+
     components: {
         Loading: _vueLoadingOverlay2.default,
         Treeselect: _vueTreeselect2.default
     },
-    data: function data() {
-        return {
-            valueConsistsOf: "BRANCH_PRIORITY",
-            isLoading: false,
-            fields: fields,
 
-            messeger: "",
-            currentSort: "Id",
-            currentSortDir: "desc",
-            searchKey: "",
-            searchStatus: 0,
-            SearchLanguageCode: "vi-VN     ",
-            ListStatus: [],
-            SearchZoneId: [],
-            SearchPromotionId: 0,
-            SearchParrentVoucher: 0,
-            IdTypeData: 0,
-            ListZone: [],
-            Language: [],
-            Promotions: [],
-            voucherKey: "",
+    mounted: function mounted() {},
 
-            IsInstallment: false,
 
-            ListParrentVoucher: [],
-            ListVoucher: [],
-
-            ListVoucherChecked: [],
-            ListProductChecked: [],
-
-            currentPage: 1,
-            pageSize: 10,
-            color: "#007bff",
-            bootstrapPaginationClasses: {
-                ul: "pagination",
-                li: "page-item",
-                liActive: "active",
-                liDisable: "disabled",
-                button: "page-link"
-            },
-            customLabels: {
-                first: "First",
-                prev: "Previous",
-                next: "Next",
-                last: "Last"
-            }
-        };
+    computed: (0, _extends4.default)({}, (0, _vuex.mapGetters)(["article", "isOR", "fileName"])),
+    watch: {
+        article: function article(val) {
+            this.objRequest = this.article;
+        }
     },
-
-    methods: (0, _extends3.default)({}, (0, _vuex.mapActions)(["getProducts", "addListVoucherByZone", "addListVoucherByProduct", "GetByCouponsChildParrentId", "deleteProduct", "supportsProduct", "getZones", "getAllLanguages", "getNamePromotion", "getAllCoupon", "exportPriceInLocation", "exportSpectifications", "updateSort"]), {
-        pathImgs: function pathImgs(path) {
-            return (0, _helper.pathImg)(path);
-        },
-        getAllParrentVoucher: function getAllParrentVoucher() {
-            var _this = this;
-
-            this.getAllCoupon().then(function (response) {
-                _this.ListParrentVoucher = response;
-            });
-        },
-        RemoveItem: function RemoveItem(index) {
-            this.ListProductChecked.splice(index, 1);
-        },
-        AddVoucherByZone: function AddVoucherByZone() {
+    methods: (0, _extends4.default)({}, (0, _vuex.mapActions)(["updateArticle", "addArticle", "getArticle", "uploadFile", "getZones"]), (_extends2 = {
+        GetById: function GetById() {
             var _this2 = this;
 
-            var data = {};
-            data.ListKey = this.SearchZoneId;
-            data.ListVoucher = this.ListVoucherChecked;
-            if (this.SearchZoneId.length > 0 && this.ListVoucherChecked.length > 0) {
-                this.addListVoucherByZone(data).then(function (response) {
-                    if (response.key == true) {
-                        _this2.$toast.success(response.value, {});
-                    } else {
-                        _this2.$toast.error(response.value, {});
+            return (0, _asyncToGenerator3.default)(_regenerator2.default.mark(function _callee2() {
+                var id, initial, response, i;
+                return _regenerator2.default.wrap(function _callee2$(_context2) {
+                    while (1) {
+                        switch (_context2.prev = _context2.next) {
+                            case 0:
+                                if (!(_this2.$route.params.id > 0)) {
+                                    _context2.next = 17;
+                                    break;
+                                }
+
+                                id = _this2.$route.params.id;
+
+                                console.log(id);
+                                _this2.isLoading = true;
+                                initial = _this2.$route.query.initial;
+
+                                initial = typeof initial != "undefined" ? initial.toLowerCase() : "";
+                                _context2.next = 8;
+                                return _productSpecificationTemplateRepository2.default.getProductSpecificationTemplateById(id);
+
+                            case 8:
+                                response = _context2.sent;
+
+                                console.log(response);
+                                _this2.ZoneValues = (0, _values2.default)(response.listZoneIds);
+                                _this2.objRequest.Id = response.productSpecificationTemplate.id;
+                                _this2.listProductSpecificationTemplateInLanguage = response.productSpecificationTemplateInLanguage;
+                                for (i = 0; i < _this2.listProductSpecificationTemplateInLanguage.length; i++) {
+                                    _this2.LanguageValues = _this2.listProductSpecificationTemplateInLanguage[0].languageCode;
+                                    _this2.objRequest.unit = _this2.listProductSpecificationTemplateInLanguage[0].unit;
+                                    _this2.objRequest.name = _this2.listProductSpecificationTemplateInLanguage[0].name;
+                                    _this2.objRequest.LanguageCode = _this2.listProductSpecificationTemplateInLanguage[0].languageCode;
+                                    _this2.objRequest.url = _this2.listProductSpecificationTemplateInLanguage[0].url;
+                                }
+                                _this2.objRequest.isForAllProduct = response.productSpecificationTemplates.isForAllProduct;
+                                _this2.objRequest.isFilter = response.productSpecificationTemplates.isFilter;
+                                _this2.isLoading = false;
+
+                            case 17:
+                            case "end":
+                                return _context2.stop();
+                        }
                     }
-                });
-            } else {
-                this.$toast.error("Kiểm tra lại thông tin về voucher và sản phẩm", {});
-            }
+                }, _callee2, _this2);
+            }))();
         },
-        updateSorts: function updateSorts(event, id) {
+        DoAddEdit: function DoAddEdit() {
             var _this3 = this;
 
-            debugger;
-            var sort = event.target.value;
-            var obj = {};
-            obj.id = id;
-            obj.sortNew = sort;
-            this.updateSort(obj).then(function (response) {
-                if (response.success == true) {
-                    _this3.$toast.success(response.message, {});
+            return (0, _asyncToGenerator3.default)(_regenerator2.default.mark(function _callee3() {
+                var result;
+                return _regenerator2.default.wrap(function _callee3$(_context3) {
+                    while (1) {
+                        switch (_context3.prev = _context3.next) {
+                            case 0:
+                                _this3.isLoading = true;
 
-                    _this3.isLoading = false;
+                                if (!(_this3.objRequest.Id > 0)) {
+                                    _context3.next = 11;
+                                    break;
+                                }
+
+                                console.log(_this3.ZoneValues.toString());
+                                _this3.objRequest.ZoneIds = _this3.ZoneValues.toString();
+                                _context3.next = 6;
+                                return _productSpecificationTemplateRepository2.default.updateProductSpecificationTemplate(_this3.objRequest);
+
+                            case 6:
+                                result = _context3.sent;
+
+                                console.log(result);
+                                if (result.success == true) {
+                                    _this3.$toast.success("tạo thành công", {});
+                                    _this3.isLoading = false;
+                                    _this3.$router.go(-1);
+                                } else {
+                                    _this3.$router.go(-1);
+                                    _this3.$toast.error("cập nhật thất bại", {});
+                                    _this3.isLoading = false;
+                                }
+                                _context3.next = 17;
+                                break;
+
+                            case 11:
+                                if (_this3.ZoneValues != null) {
+                                    console.log(_this3.ZoneValues.toString());
+                                    _this3.objRequest.ZoneIds = _this3.ZoneValues.toString();
+                                }
+                                _context3.next = 14;
+                                return _productSpecificationTemplateRepository2.default.addProductSpecificationTemplate(_this3.objRequest);
+
+                            case 14:
+                                result = _context3.sent;
+
+                                console.log(result);
+                                if (result.success == true) {
+                                    _this3.$toast.success("tạo thành công", {});
+                                    _this3.isLoading = false;
+                                    _this3.$router.go(-1);
+                                } else {
+                                    _this3.$router.go(-1);
+                                    _this3.$toast.error("cập nhật thất bại", {});
+                                    _this3.isLoading = false;
+                                }
+
+                            case 17:
+                            case "end":
+                                return _context3.stop();
+                        }
+                    }
+                }, _callee3, _this3);
+            }))();
+        },
+        getSelectedUser: function getSelectedUser(node, id) {
+            this.objRequest.ZoneId = node.id;
+        },
+        DoRefesh: function DoRefesh() {
+            this.objRequest.Title = "";
+        }
+    }, (0, _defineProperty3.default)(_extends2, "getSelectedUser", function getSelectedUser(node, id) {
+        this.objRequest.ZoneId = node.id;
+    }), (0, _defineProperty3.default)(_extends2, "getSelectedLanguge", function getSelectedLanguge(node, id) {
+        this.LanguageValues = node.id;
+        this.objRequest.LanguageCode = node.id;
+        if (this.listProductSpecificationTemplateInLanguage != null) {
+            for (var i = 0; i < this.listProductSpecificationTemplateInLanguage.length; i++) {
+                if (node.id == this.listProductSpecificationTemplateInLanguage[i].languageCode) {
+                    this.LanguageValues = this.listProductSpecificationTemplateInLanguage[i].languageCode;
+                    this.objRequest.name = this.listProductSpecificationTemplateInLanguage[i].name;
+                    this.objRequest.unit = this.listProductSpecificationTemplateInLanguage[i].unit;
+                    this.objRequest.LanguageCode = this.listProductSpecificationTemplateInLanguage[i].languageCode;
+                    break;
                 } else {
-                    _this3.$toast.error(response.message, {});
-                    _this3.isLoading = false;
+                    this.objRequest.name = "";
+                    this.objRequest.unit = "";
+                    this.objRequest.LanguageCode = node.id;
                 }
-            }).catch(function (e) {
-                _this3.$toast.error(_constant2.default.error + ". Error:" + e, {});
-            });
-        },
-        AddVoucherByProduct: function AddVoucherByProduct() {
-            var _this4 = this;
-
-            var lstKey = this.ListProductChecked.map(function (x) {
-                return x.id;
-            });
-
-            var data = {};
-            data.ListKey = lstKey;
-            data.ListVoucher = this.ListVoucherChecked;
-            if (lstKey.length > 0 && this.ListVoucherChecked.length > 0) {
-                this.addListVoucherByProduct(data).then(function (response) {
-                    if (response.key == true) {
-                        _this4.$toast.success(response.value, {});
-                    } else {
-                        _this4.$toast.error(response.value, {});
-                    }
-                });
-            } else {
-                this.$toast.error("Kiểm tra lại thông tin về voucher và sản phẩm", {});
-            }
-        },
-        onChangePaging: function onChangePaging() {
-            this.isLoading = true;
-            var initial = this.$route.query.initial;
-            initial = typeof initial != "undefined" ? initial.toLowerCase() : "";
-            this.getProducts({
-                languageCode: this.SearchLanguageCode || "vi-VN",
-                pageIndex: this.currentPage,
-                pageSize: this.pageSize,
-                keyword: this.searchKey,
-                trangThai: this.searchStatus,
-                idZones: this.SearchZoneId,
-                voucher: this.voucherKey,
-                idPromotion: this.SearchPromotionId,
-                isInstallment: this.IsInstallment,
-                sortDir: this.currentSortDir,
-                sortBy: this.currentSort,
-                idTypeData: this.IdTypeData
-            });
-            this.isLoading = false;
-        },
-        exportPriceLocation: function exportPriceLocation() {
-            this.isLoading = true;
-            var protocol = location.protocol;
-            var slashes = protocol.concat("//");
-            var host = slashes.concat(window.location.hostname);
-            var port = location.port;
-            if (port != 0 && port !== "") {
-                host = host.concat(":").concat(port);
-                console.log(host);
-            }
-
-            this.exportPriceInLocation({
-                languageCode: this.SearchLanguageCode || "vi-VN",
-                pageIndex: 1,
-                pageSize: 1000000,
-                keyword: this.searchKey,
-                trangThai: this.searchStatus,
-                idZones: this.SearchZoneId,
-                voucher: this.voucherKey,
-                idPromotion: this.SearchPromotionId,
-                isInstallment: this.IsInstallment
-
-            }).then(function (response) {
-
-                window.open(host + '/' + response.data, "_blank");
-            });
-            this.isLoading = false;
-        },
-        exportSpectification: function exportSpectification() {
-            var _this5 = this;
-
-            this.isLoading = true;
-            var protocol = location.protocol;
-            var slashes = protocol.concat("//");
-            var host = slashes.concat(window.location.hostname);
-            var port = location.port;
-            if (port != 0 && port !== "") {
-                host = host.concat(":").concat(port);
-                console.log(host);
-            }
-
-            this.exportSpectifications({
-                languageCode: this.SearchLanguageCode || "vi-VN",
-                pageIndex: 1,
-                pageSize: 1000000,
-                keyword: this.searchKey,
-                trangThai: this.searchStatus,
-                idZones: this.SearchZoneId,
-                voucher: this.voucherKey,
-                idPromotion: this.SearchPromotionId,
-                isInstallment: this.IsInstallment
-            }).then(function (response) {
-
-                window.open(host + '/' + response.data, "_blank");
-                _this5.isLoading = false;
-            });
-        },
-        GetDataCouponsChildParrentId: function GetDataCouponsChildParrentId() {
-            var _this6 = this;
-
-            debugger;
-            if (this.SearchParrentVoucher > 0) {
-                this.GetByCouponsChildParrentId(this.SearchParrentVoucher).then(function (response) {
-                    _this6.ListVoucher = response;
-                });
-            }
-        },
-
-        sortor: function sortor(s) {
-            if (s === this.currentSort) {
-                this.currentSortDir = this.currentSortDir === "asc" ? "desc" : "asc";
-            }
-            this.currentSort = s;
-            this.onChangePaging();
-        },
-        remove: function remove(item, status) {
-            var _this7 = this;
-
-            if (confirm("Bạn có thực sự muốn thay đổi trạng thái ?")) {
-                var obj = (0, _assign2.default)({}, item);
-                obj.status = status;
-                this.deleteProduct(obj).then(function (response) {
-                    if (response.success == true) {
-                        _this7.$toast.success(response.message, {});
-                        _this7.onChangePaging();
-                        _this7.isLoading = false;
-                    } else {
-                        _this7.$toast.error(response.message, {});
-                        _this7.isLoading = false;
-                    }
-                }).catch(function (e) {
-                    _this7.$toast.error(_constant2.default.error + ". Error:" + e, {});
-                });
             }
         }
-    }),
-    computed: (0, _extends3.default)({}, (0, _vuex.mapGetters)(["products"])),
-    created: function created() {
-        var _this8 = this;
+        console.log(this.LanguageValues);
+    }), (0, _defineProperty3.default)(_extends2, "onChangeList", function onChangeList(_ref) {
+        var source = _ref.source,
+            destination = _ref.destination;
 
-        this.getAllParrentVoucher();
-        this.getNamePromotion().then(function (response) {
-            try {
-                _this8.Promotions = response;
-            } catch (ex) {}
-        });
-
-        this.supportsProduct().then(function (response) {
-            try {
-                _this8.ListStatus = response.listStatus;
-            } catch (ex) {}
-        });
-        this.getZones(1).then(function (response) {
-            try {
-                var data = response.listData;
-                data.push({ id: 0, label: "Chọn danh mục", parentId: 0 });
-                _this8.ListZone = (0, _helper.unflatten)(data);
-            } catch (ex) {}
-        });
-        this.onChangePaging();
-    },
-
-    watch: {
-        currentPage: function currentPage(newVal) {
-            this.currentPage = newVal;
-            this.onChangePaging();
-        },
-        searchStatus: function searchStatus(newVal) {
-            this.currentPage = 1;
-            this.onChangePaging();
-        },
-        SearchZoneId: function SearchZoneId(newVal) {
-            this.currentPage = 1;
-            this.onChangePaging();
-        },
-        SearchLanguageCode: function SearchLanguageCode() {
-            this.currentPage = 1;
-            this.onChangePaging();
-        },
-        SearchPromotionId: function SearchPromotionId() {
-            this.currentPage = 1;
-            this.onChangePaging();
-        },
-        IsInstallment: function IsInstallment() {
-            this.currentPage = 1;
-            this.onChangePaging();
-        },
-        IdTypeData: function IdTypeData() {
-            this.currentPage = 1;
-            this.onChangePaging();
-        },
-        SearchParrentVoucher: function SearchParrentVoucher() {
-
-            this.GetDataCouponsChildParrentId();
-        }
-    }
+        this.ProductOptionsSource = source;
+        this.ProductOptionsDestination = destination;
+    }), _extends2))
 };
 
 /***/ }),
 
-/***/ 1527:
+/***/ 1562:
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
   return _c('div', {
-    staticClass: "list-data"
-  }, [_c('loading', {
+    staticStyle: {
+      "display": "flex",
+      "width": "100%"
+    }
+  }, [_c('div', {
+    staticClass: "row productedit"
+  }, [_c('div', {
+    staticClass: "col-md-8"
+  }, [_c('b-card', {
+    staticClass: "mt-3 ",
     attrs: {
-      "active": _vm.isLoading,
-      "height": 35,
-      "width": 35,
-      "color": _vm.color,
-      "is-full-page": false
+      "header": "Thêm / Sửa nhà cung cấp"
+    }
+  }, [_c('b-form', {
+    staticClass: "form-horizontal"
+  }, [_c('div', {
+    staticClass: "row"
+  }, [_c('div', {
+    staticClass: "col-md-6"
+  }, [_c('b-form-group', {
+    attrs: {
+      "label": "Chọn ngôn ngữ"
+    }
+  }, [_c('treeselect', {
+    attrs: {
+      "options": _vm.LanguageCodes,
+      "disable-branch-nodes": true,
+      "default-expanded-level": Infinity,
+      "disabled": _vm.disabled,
+      "placeholder": "Xin mời bạn lựa chọn ngôn ngữ"
     },
     on: {
-      "update:active": function($event) {
-        _vm.isLoading = $event
-      }
-    }
-  }), _vm._v(" "), _c('b-card', {
-    staticClass: "card-filter",
-    attrs: {
-      "header-tag": "header",
-      "footer-tag": "footer"
-    }
-  }, [_c('div', [_c('b-row', {
-    staticClass: "form-group"
-  }, [_c('b-col', {
-    attrs: {
-      "md": "3"
-    }
-  }, [_c('b-form-input', {
-    attrs: {
-      "type": "text",
-      "placeholder": "Tìm kiếm theo tên"
-    },
-    on: {
-      "keyup": function($event) {
-        if (!$event.type.indexOf('key') && _vm._k($event.keyCode, "enter", 13, $event.key, "Enter")) { return null; }
-        return _vm.onChangePaging()
-      }
+      "select": _vm.getSelectedLanguge
     },
     model: {
-      value: (_vm.searchKey),
+      value: (_vm.LanguageValues),
       callback: function($$v) {
-        _vm.searchKey = $$v
+        _vm.LanguageValues = $$v
       },
-      expression: "searchKey"
+      expression: "LanguageValues"
     }
-  })], 1), _vm._v(" "), _c('b-col', {
+  })], 1)], 1), _vm._v(" "), _c('div', {
+    staticClass: "col-md-12"
+  }, [_c('b-form-group', {
     attrs: {
-      "md": "2"
-    }
-  }, [_c('select', {
-    directives: [{
-      name: "model",
-      rawName: "v-model",
-      value: (_vm.searchStatus),
-      expression: "searchStatus"
-    }],
-    staticClass: "form-control",
-    on: {
-      "change": function($event) {
-        var $$selectedVal = Array.prototype.filter.call($event.target.options, function(o) {
-          return o.selected
-        }).map(function(o) {
-          var val = "_value" in o ? o._value : o.value;
-          return val
-        });
-        _vm.searchStatus = $event.target.multiple ? $$selectedVal : $$selectedVal[0]
-      }
-    }
-  }, _vm._l((_vm.ListStatus), function(item) {
-    return _c('option', {
-      domProps: {
-        "value": item.key
-      }
-    }, [_vm._v(_vm._s(item.value))])
-  }), 0)]), _vm._v(" "), _c('b-col', {
-    attrs: {
-      "md": "3"
-    }
-  }, [_c('b-form-input', {
-    attrs: {
-      "type": "text",
-      "placeholder": "Tìm kiếm mã voucher"
-    },
-    on: {
-      "keyup": function($event) {
-        if (!$event.type.indexOf('key') && _vm._k($event.keyCode, "enter", 13, $event.key, "Enter")) { return null; }
-        return _vm.onChangePaging()
-      }
-    },
-    model: {
-      value: (_vm.voucherKey),
-      callback: function($$v) {
-        _vm.voucherKey = $$v
-      },
-      expression: "voucherKey"
-    }
-  })], 1), _vm._v(" "), _c('b-col', {
-    attrs: {
-      "md": "3"
-    }
-  }, [_c('select', {
-    directives: [{
-      name: "model",
-      rawName: "v-model",
-      value: (_vm.SearchPromotionId),
-      expression: "SearchPromotionId"
-    }],
-    staticClass: "form-control",
-    on: {
-      "change": function($event) {
-        var $$selectedVal = Array.prototype.filter.call($event.target.options, function(o) {
-          return o.selected
-        }).map(function(o) {
-          var val = "_value" in o ? o._value : o.value;
-          return val
-        });
-        _vm.SearchPromotionId = $event.target.multiple ? $$selectedVal : $$selectedVal[0]
-      }
-    }
-  }, [_c('option', {
-    attrs: {
-      "value": "0"
-    }
-  }, [_vm._v("Chọn khuyến mại")]), _vm._v(" "), _vm._l((_vm.Promotions), function(item) {
-    return _c('option', {
-      domProps: {
-        "value": item.id
-      }
-    }, [_vm._v(_vm._s(item.name))])
-  })], 2)]), _vm._v(" "), _c('b-col', {
-    attrs: {
-      "md": "1"
-    }
-  }, [_c('b-btn', {
-    directives: [{
-      name: "b-toggle",
-      rawName: "v-b-toggle.collapse2",
-      modifiers: {
-        "collapse2": true
-      }
-    }],
-    attrs: {
-      "variant": "primary"
-    }
-  }, [_c('i', {
-    staticClass: "fa fa-angle-double-down",
-    attrs: {
-      "aria-hidden": "true"
-    }
-  })])], 1), _vm._v(" "), _c('b-collapse', {
-    staticClass: "mt-2 col-md-12",
-    attrs: {
-      "id": "collapse2"
-    }
-  }, [_c('b-card', [_c('p', {
-    staticClass: "card-text"
-  }, [_vm._v("Thêm mã Voucher cho sản phẩm")]), _vm._v(" "), _c('b-row', [_c('b-col', {
-    attrs: {
-      "md": "3"
-    }
-  }, [_c('select', {
-    directives: [{
-      name: "model",
-      rawName: "v-model",
-      value: (_vm.SearchParrentVoucher),
-      expression: "SearchParrentVoucher"
-    }],
-    staticClass: "form-control",
-    on: {
-      "change": function($event) {
-        var $$selectedVal = Array.prototype.filter.call($event.target.options, function(o) {
-          return o.selected
-        }).map(function(o) {
-          var val = "_value" in o ? o._value : o.value;
-          return val
-        });
-        _vm.SearchParrentVoucher = $event.target.multiple ? $$selectedVal : $$selectedVal[0]
-      }
-    }
-  }, [_c('option', {
-    attrs: {
-      "value": "0"
-    }
-  }, [_vm._v("Chọn nhóm Voucher")]), _vm._v(" "), _vm._l((_vm.ListParrentVoucher), function(item) {
-    return _c('option', {
-      domProps: {
-        "value": item.id
-      }
-    }, [_vm._v(_vm._s(item.code) + "-" + _vm._s(item.name))])
-  })], 2)]), _vm._v(" "), (_vm.SearchParrentVoucher != 0) ? _c('b-col', {
-    attrs: {
-      "md": "6"
+      "label": "Chọn danh mục"
     }
   }, [_c('treeselect', {
     attrs: {
       "multiple": true,
-      "options": _vm.ListVoucher,
-      "placeholder": " Chọn mã voucher",
-      "value-consists-of": _vm.LEAF_PRIORITY,
+      "flat": true,
+      "options": _vm.ZoneOptions,
+      "placeholder": "Xin mời bạn lựa chọn danh mục",
       "default-expanded-level": Infinity
     },
+    on: {
+      "select": _vm.getSelectedUser
+    },
     model: {
-      value: (_vm.ListVoucherChecked),
+      value: (_vm.ZoneValues),
       callback: function($$v) {
-        _vm.ListVoucherChecked = $$v
+        _vm.ZoneValues = $$v
       },
-      expression: "ListVoucherChecked"
+      expression: "ZoneValues"
     }
-  })], 1) : _vm._e(), _vm._v(" "), _c('b-col', {
-    staticClass: "mt-3",
+  })], 1)], 1), _vm._v(" "), _c('div', {
+    staticClass: "col-md-12"
+  }, [_c('b-form-group', {
     attrs: {
-      "md": "12"
+      "label": "Tên thông số kỹ thuật"
     }
+  }, [_c('b-form-input', {
+    attrs: {
+      "placeholder": "Tên thông số kỹ thuật",
+      "required": ""
+    },
+    model: {
+      value: (_vm.objRequest.name),
+      callback: function($$v) {
+        _vm.$set(_vm.objRequest, "name", $$v)
+      },
+      expression: "objRequest.name"
+    }
+  })], 1)], 1), _vm._v(" "), _c('div', {
+    staticClass: "col-md-4"
+  }, [_c('b-form-group', {
+    attrs: {
+      "label": "Đơn vị"
+    }
+  }, [_c('b-form-input', {
+    attrs: {
+      "placeholder": "Đơn vị",
+      "required": ""
+    },
+    model: {
+      value: (_vm.objRequest.unit),
+      callback: function($$v) {
+        _vm.$set(_vm.objRequest, "unit", $$v)
+      },
+      expression: "objRequest.unit"
+    }
+  })], 1)], 1), _vm._v(" "), _c('div', {
+    staticClass: "col-md-8"
+  }, [_c('b-form-group', {
+    attrs: {
+      "label": "Url"
+    }
+  }, [_c('b-form-input', {
+    attrs: {
+      "placeholder": "Url"
+    },
+    model: {
+      value: (_vm.objRequest.url),
+      callback: function($$v) {
+        _vm.$set(_vm.objRequest, "url", $$v)
+      },
+      expression: "objRequest.url"
+    }
+  })], 1)], 1)])])], 1)], 1), _vm._v(" "), _c('div', {
+    staticClass: "col-md-4"
+  }, [_c('b-card', {
+    staticClass: "mt-3 ",
+    attrs: {
+      "header": "Thêm / Sửa nhà cung cấp"
+    }
+  }, [_c('div', {
+    staticClass: "row"
+  }, [_c('div', {
+    staticClass: "col-md-6"
   }, [_c('button', {
-    staticClass: "btn btn-info",
+    staticClass: "btn btn-info btn-submit-form col-md-12 btncus",
+    attrs: {
+      "type": "submit"
+    },
     on: {
       "click": function($event) {
-        return _vm.AddVoucherByZone()
+        return _vm.DoAddEdit()
       }
-    }
-  }, [_vm._v("Thêm cho danh mục đã chọn")]), _vm._v(" "), _c('button', {
-    staticClass: "btn btn-info",
-    on: {
-      "click": function($event) {
-        return _vm.AddVoucherByProduct()
-      }
-    }
-  }, [_vm._v("Thêm cho sản phẩm đã chọn")])])], 1)], 1)], 1)], 1), _vm._v(" "), _c('b-row', {
-    staticClass: "form-group"
-  }, [_c('b-col', {
-    attrs: {
-      "md": "4"
-    }
-  }, [_c('treeselect', {
-    attrs: {
-      "multiple": true,
-      "options": _vm.ListZone,
-      "placeholder": " Chọn danh mục",
-      "value-consists-of": _vm.valueConsistsOf,
-      "default-expanded-level": Infinity
-    },
-    model: {
-      value: (_vm.SearchZoneId),
-      callback: function($$v) {
-        _vm.SearchZoneId = $$v
-      },
-      expression: "SearchZoneId"
-    }
-  })], 1), _vm._v(" "), _c('b-col', {
-    attrs: {
-      "md": "3"
-    }
-  }, [_c('select', {
-    directives: [{
-      name: "model",
-      rawName: "v-model",
-      value: (_vm.IdTypeData),
-      expression: "IdTypeData"
-    }],
-    staticClass: "form-control",
-    on: {
-      "change": function($event) {
-        var $$selectedVal = Array.prototype.filter.call($event.target.options, function(o) {
-          return o.selected
-        }).map(function(o) {
-          var val = "_value" in o ? o._value : o.value;
-          return val
-        });
-        _vm.IdTypeData = $event.target.multiple ? $$selectedVal : $$selectedVal[0]
-      }
-    }
-  }, [_c('option', {
-    attrs: {
-      "value": "0"
-    }
-  }, [_vm._v("Tất cả")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "1"
-    }
-  }, [_vm._v("Sản phẩm")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "2"
-    }
-  }, [_vm._v("Linh kiện")])])]), _vm._v(" "), _c('b-col', {
-    staticStyle: {
-      "padding-top": "5px"
-    },
-    attrs: {
-      "md": "3"
-    }
-  }, [_c('input', {
-    directives: [{
-      name: "model",
-      rawName: "v-model",
-      value: (_vm.valueConsistsOf),
-      expression: "valueConsistsOf"
-    }],
-    attrs: {
-      "type": "radio",
-      "value": "ALL"
-    },
-    domProps: {
-      "checked": _vm._q(_vm.valueConsistsOf, "ALL")
-    },
-    on: {
-      "change": function($event) {
-        _vm.valueConsistsOf = "ALL"
-      }
-    }
-  }), _c('label', [_vm._v("Tất cả")]), _vm._v(" "), _c('input', {
-    directives: [{
-      name: "model",
-      rawName: "v-model",
-      value: (_vm.valueConsistsOf),
-      expression: "valueConsistsOf"
-    }],
-    attrs: {
-      "type": "radio",
-      "value": "BRANCH_PRIORITY"
-    },
-    domProps: {
-      "checked": _vm._q(_vm.valueConsistsOf, "BRANCH_PRIORITY")
-    },
-    on: {
-      "change": function($event) {
-        _vm.valueConsistsOf = "BRANCH_PRIORITY"
-      }
-    }
-  }), _c('label', [_vm._v("Chỉ một")])]), _vm._v(" "), _c('b-col', {
-    staticStyle: {
-      "padding-top": "5px"
-    },
-    attrs: {
-      "md": "2"
-    }
-  }, [_c('b-form-checkbox', {
-    staticStyle: {
-      "padding-bottom": "7px"
-    },
-    model: {
-      value: (_vm.IsInstallment),
-      callback: function($$v) {
-        _vm.IsInstallment = $$v
-      },
-      expression: "IsInstallment"
-    }
-  }, [_vm._v("\n                        Trả góp\n                    ")])], 1)], 1)], 1)]), _vm._v(" "), _c('div', {
-    staticClass: "card card-data"
-  }, [_c('div', {
-    staticClass: "card-body"
-  }, [_c('div', {
-    staticClass: " mb-2",
-    attrs: {
-      "role": "toolbar",
-      "aria-label": "Toolbar with button groups and dropdown menu"
-    }
-  }, [_c('div', {
-    staticClass: "btn-group",
-    attrs: {
-      "role": "group"
-    }
-  }, [_c('router-link', {
-    staticClass: "btn btn-success",
-    attrs: {
-      "to": {
-        path: 'add'
-      },
-      "target": "_blank"
     }
   }, [_c('i', {
-    staticClass: "fa fa-plus"
-  }), _vm._v(" Thêm mới")]), _vm._v(" "), _vm._m(0)], 1), _vm._v(" "), _c('b-dropdown', {
-    staticClass: "mx-1",
-    attrs: {
-      "variant": "info",
-      "right": "",
-      "text": "Hành động",
-      "icon": ""
-    }
-  }, [_c('b-dropdown-item', [_vm._v("Kích hoạt")]), _vm._v(" "), _c('b-dropdown-item', [_vm._v("Không kích hoạt")])], 1), _vm._v(" "), _c('b-dropdown', {
-    staticClass: "mx-1",
-    attrs: {
-      "variant": "info",
-      "right": "",
-      "text": "Xuất DL",
-      "icon": ""
-    }
-  }, [_c('b-dropdown-item', {
-    on: {
-      "click": function($event) {
-        return _vm.exportPriceLocation()
-      }
-    }
-  }, [_vm._v("Giá theo tỉnh thành")]), _vm._v(" "), _c('b-dropdown-item', {
-    on: {
-      "click": function($event) {
-        return _vm.exportSpectification()
-      }
-    }
-  }, [_vm._v("Chi tiết kĩ thuật")])], 1), _vm._v(" "), _c('div', {
-    staticClass: "mx-1 btn-group mi-paging"
-  }, [_c('b-pagination', {
-    attrs: {
-      "total-rows": _vm.products.total,
-      "per-page": _vm.pageSize
-    },
-    model: {
-      value: (_vm.currentPage),
-      callback: function($$v) {
-        _vm.currentPage = $$v
-      },
-      expression: "currentPage"
-    }
-  }), _vm._v(" "), _c('div', {
-    staticClass: "mx-1",
-    staticStyle: {
-      "padding-top": "5px"
-    }
-  }, [_vm._v("Số lượng : " + _vm._s(_vm.products.total))])], 1)], 1), _vm._v(" "), _c('div', {
-    staticStyle: {
-      "margin-top": "10px",
-      "margin-bottom": "10px"
-    }
-  }, _vm._l((_vm.ListProductChecked), function(item, index) {
-    return _c('div', {
-      staticClass: "vue-treeselect__multi-value-item",
-      staticStyle: {
-        "margin-right": "3px"
-      }
-    }, [_c('span', {
-      staticClass: "vue-treeselect__multi-value-label"
-    }, [_vm._v(_vm._s(item.code))]), _vm._v(" "), _c('span', {
-      staticClass: "vue-treeselect__icon vue-treeselect__value-remove",
-      on: {
-        "click": function($event) {
-          return _vm.RemoveItem(index)
-        }
-      }
-    }, [_c('svg', {
-      attrs: {
-        "xmlns": "http://www.w3.org/2000/svg",
-        "viewBox": "0 0 348.333 348.333"
-      }
-    }, [_c('path', {
-      attrs: {
-        "d": "M336.559 68.611L231.016 174.165l105.543 105.549c15.699 15.705 15.699 41.145 0 56.85-7.844 7.844-18.128 11.769-28.407 11.769-10.296 0-20.581-3.919-28.419-11.769L174.167 231.003 68.609 336.563c-7.843 7.844-18.128 11.769-28.416 11.769-10.285 0-20.563-3.919-28.413-11.769-15.699-15.698-15.699-41.139 0-56.85l105.54-105.549L11.774 68.611c-15.699-15.699-15.699-41.145 0-56.844 15.696-15.687 41.127-15.687 56.829 0l105.563 105.554L279.721 11.767c15.705-15.687 41.139-15.687 56.832 0 15.705 15.699 15.705 41.145.006 56.844z"
-      }
-    })])])])
-  }), 0), _vm._v(" "), _c('div', {
-    staticClass: "table-responsive"
-  }, [_c('div', {
-    staticClass: "dataTables_wrapper dt-bootstrap4 no-footer"
-  }, [_c('div', {
-    staticClass: "clear"
-  }), _vm._v(" "), _c('table', {
-    staticClass: "table data-thumb-view dataTable no-footer",
-    attrs: {
-      "role": "grid"
-    }
-  }, [_c('thead', {
-    staticClass: "table table-centered table-nowrap"
-  }, [_c('tr', {
-    attrs: {
-      "role": "row"
-    }
-  }, [_c('th', {
-    staticStyle: {
-      "padding-left": "15px"
-    }
-  }, [_c('b-form-checkbox')], 1), _vm._v(" "), _c('th', {
-    staticClass: "sorting"
-  }, [_vm._v("Hình ảnh")]), _vm._v(" "), _c('th', {
-    staticClass: "sorting"
-  }, [_vm._v("Mã sản phẩm")]), _vm._v(" "), _c('th', {
-    staticClass: "sorting_desc"
-  }, [_vm._v("Tên sản phẩm")]), _vm._v(" "), _c('th', {
-    staticClass: "sorting"
-  }, [_vm._v("Danh mục")]), _vm._v(" "), _c('th', {}, [_vm._v("Ngôn ngữ")]), _vm._v(" "), _c('th', {
-    on: {
-      "click": function($event) {
-        return _vm.sortor('SortOrder')
-      }
-    }
-  }, [_vm._v("Sắp xếp "), _c('i', {
-    staticClass: "fa fa-angle-double-down"
-  })]), _vm._v(" "), _c('th', {
-    staticClass: "sorting"
-  }, [_vm._v("Trạng thái")]), _vm._v(" "), _c('th', {
-    staticClass: "sorting"
-  }, [_vm._v("Thao tác")])])]), _vm._v(" "), _c('tbody', _vm._l((_vm.products.listData), function(item) {
-    return _c('tr', {
-      staticClass: "odd",
-      attrs: {
-        "role": "row"
-      }
-    }, [_c('td', {
-      staticClass: "dt-checkboxes-cell"
-    }, [_c('b-form-checkbox', {
-      attrs: {
-        "value": item
-      },
-      model: {
-        value: (_vm.ListProductChecked),
-        callback: function($$v) {
-          _vm.ListProductChecked = $$v
-        },
-        expression: "ListProductChecked"
-      }
-    })], 1), _vm._v(" "), _c('td', {
-      staticClass: "product-img"
-    }, [_c('img', {
-      staticClass: "img-thumbnail",
-      staticStyle: {
-        "width": "100px",
-        "height": "auto"
-      },
-      attrs: {
-        "src": _vm.pathImgs(item.avatar),
-        "alt": "Ảnh lỗi"
-      }
-    })]), _vm._v(" "), _c('td', {
-      staticClass: "product-code"
-    }, [_vm._v("\n                                    " + _vm._s(item.code) + "\n                                ")]), _vm._v(" "), _c('td', {
-      staticStyle: {
-        "width": "200px",
-        "height": "auto"
-      }
-    }, [_c('p', [_vm._v(_vm._s(item.name))])]), _vm._v(" "), _c('td', {
-      staticClass: "product-category",
-      domProps: {
-        "innerHTML": _vm._s(item.category)
-      }
-    }), _vm._v(" "), _c('td', {
-      attrs: {
-        "width": "200px"
-      }
-    }, [_c('b-button', {
-      attrs: {
-        "id": ("popover-1-" + (item.id)),
-        "variant": "primary"
-      }
-    }, [_c('p', [_c('i', {
-      staticClass: "fa fa-eye"
-    }), _vm._v(" Ngôn ngữ: " + _vm._s(item.lang))])]), _vm._v(" "), _c('b-popover', {
-      attrs: {
-        "target": ("popover-1-" + (item.id)),
-        "placement": "top",
-        "title": "Xem trước",
-        "variant": "danger",
-        "triggers": "click"
-      }
-    }, _vm._l((item.baseUrl), function(urlLang) {
-      return _c('p', [_c('a', {
-        attrs: {
-          "target": "_blank",
-          "href": urlLang.value
-        }
-      }, [_vm._v(" Link: " + _vm._s(urlLang.key))])])
-    }), 0)], 1), _vm._v(" "), _c('td', {
-      staticStyle: {
-        "width": "150px"
-      }
-    }, [_c('label', {
-      staticStyle: {
-        "float": "left"
-      }
-    }, [_vm._v(_vm._s(item.sortOrder) + " => ")]), _vm._v(" "), _c('input', {
-      staticStyle: {
-        "width": "50px",
-        "float": "left"
-      },
-      domProps: {
-        "value": item.sortOrderNew
-      },
-      on: {
-        "keyup": function($event) {
-          if (!$event.type.indexOf('key') && _vm._k($event.keyCode, "enter", 13, $event.key, "Enter")) { return null; }
-          return _vm.updateSorts($event, item.id)
-        }
-      }
-    })]), _vm._v(" "), _c('td', {
-      staticClass: "text-center"
-    }, [(item.status == 2) ? _c('span', {
-      staticClass: "badge bg-warning"
-    }, [_vm._v("Chưa xuất bản")]) : _vm._e(), _vm._v(" "), (item.status == 1) ? _c('span', {
-      staticClass: "badge bg-success"
-    }, [_vm._v("Xuất bản")]) : _vm._e(), _vm._v(" "), (item.status == 3) ? _c('span', {
-      staticClass: "badge bg-danger"
-    }, [_vm._v("Đã xóa")]) : _vm._e(), _vm._v(" "), _c('p', [_vm._v("Lượt xem: " + _vm._s(item.viewCount))])]), _vm._v(" "), _c('td', {
-      staticClass: "product-action"
-    }, [(item.status == 2) ? _c('span', {
-      staticClass: "action-show"
-    }, [_c('a', {
-      directives: [{
-        name: "b-tooltip",
-        rawName: "v-b-tooltip.hover",
-        modifiers: {
-          "hover": true
-        }
-      }],
-      attrs: {
-        "title": "Xuất bản"
-      },
-      on: {
-        "click": function($event) {
-          return _vm.remove(item, 1)
-        }
-      }
-    }, [_c('i', {
-      staticClass: "fa fa-check-circle",
-      staticStyle: {
-        "color": "green"
-      }
-    })])]) : _vm._e(), _vm._v(" "), (item.status == 1) ? _c('span', {
-      staticClass: "action-hidden"
-    }, [_c('a', {
-      directives: [{
-        name: "b-tooltip",
-        rawName: "v-b-tooltip.hover",
-        modifiers: {
-          "hover": true
-        }
-      }],
-      attrs: {
-        "title": "Hạ sản phẩm"
-      },
-      on: {
-        "click": function($event) {
-          return _vm.remove(item, 2)
-        }
-      }
-    }, [_c('i', {
-      staticClass: "fa fa-circle-o",
-      staticStyle: {
-        "color": "gold"
-      }
-    })])]) : _vm._e(), _vm._v(" "), _c('router-link', {
-      directives: [{
-        name: "b-tooltip",
-        rawName: "v-b-tooltip.hover",
-        modifiers: {
-          "hover": true
-        }
-      }],
-      attrs: {
-        "title": "Sửa sản phẩm",
-        "to": {
-          path: 'edit/' + item.id
-        },
-        "target": "_blank"
-      }
-    }, [_c('span', {
-      staticClass: "action-edit"
-    }, [_c('i', {
-      staticClass: "fa fa-edit"
-    })])]), _vm._v(" "), _c('router-link', {
-      directives: [{
-        name: "b-tooltip",
-        rawName: "v-b-tooltip.hover",
-        modifiers: {
-          "hover": true
-        }
-      }],
-      attrs: {
-        "title": "Thông tin bổ xung",
-        "to": {
-          path: 'productextent/' + item.id
-        },
-        "target": "_blank"
-      }
-    }, [_c('span', {
-      staticClass: "action-edit"
-    }, [_c('i', {
-      staticClass: "fa fa-newspaper-o",
-      staticStyle: {
-        "color": "brown"
-      }
-    })])]), _vm._v(" "), _c('span', {
-      staticClass: "action-delete"
-    }, [_c('a', {
-      directives: [{
-        name: "b-tooltip",
-        rawName: "v-b-tooltip.hover",
-        modifiers: {
-          "hover": true
-        }
-      }],
-      attrs: {
-        "title": "Xóa sản phẩm"
-      },
-      on: {
-        "click": function($event) {
-          return _vm.remove(item, 3)
-        }
-      }
-    }, [_c('i', {
-      staticClass: "fa fa-trash",
-      staticStyle: {
-        "color": "red"
-      }
-    })])])], 1)])
-  }), 0)])])])])])], 1)
-},staticRenderFns: [function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _c('button', {
-    staticClass: "btn btn-danger",
+    staticClass: "fa fa-save"
+  }), _vm._v(" Cập nhật\n                        ")])]), _vm._v(" "), _c('div', {
+    staticClass: "col-md-6"
+  }, [_c('button', {
+    staticClass: "btn btn-success col-md-12 btncus",
     attrs: {
       "type": "button"
+    },
+    on: {
+      "click": function($event) {
+        return _vm.DoRefesh()
+      }
     }
   }, [_c('i', {
-    staticClass: "fa fa-trash-o"
-  }), _vm._v(" Xóa")])
-}]}
+    staticClass: "fa fa-refresh"
+  }), _vm._v(" Làm mới\n                        ")])])]), _vm._v(" "), _c('div', {
+    staticClass: "row",
+    staticStyle: {
+      "padding-top": "20px"
+    }
+  }, [_c('div', {
+    staticClass: "col-md-12"
+  }, [_c('b-form-checkbox', {
+    model: {
+      value: (_vm.objRequest.isForAllProduct),
+      callback: function($$v) {
+        _vm.$set(_vm.objRequest, "isForAllProduct", $$v)
+      },
+      expression: "objRequest.isForAllProduct"
+    }
+  }, [_vm._v("\n                            Hiển thị tất cả sản phẩm trong danh mục\n                        ")])], 1), _vm._v(" "), _c('div', {
+    staticClass: "col-md-12"
+  }, [_c('b-form-checkbox', {
+    model: {
+      value: (_vm.objRequest.isFilter),
+      callback: function($$v) {
+        _vm.$set(_vm.objRequest, "isFilter", $$v)
+      },
+      expression: "objRequest.isFilter"
+    }
+  }, [_vm._v("\n                            Cho phép tìm kiếm\n                        ")])], 1)])])], 1)])])
+},staticRenderFns: []}
 module.exports.render._withStripped = true
 if (true) {
   module.hot.accept()
   if (module.hot.data) {
-     __webpack_require__(178).rerender("data-v-1a371269", module.exports)
+     __webpack_require__(178).rerender("data-v-63dccf20", module.exports)
   }
 }
 
 /***/ }),
 
-/***/ 1605:
+/***/ 764:
 /***/ (function(module, exports, __webpack_require__) {
-
-// style-loader: Adds some css to the DOM by adding a <style> tag
-
-// load the styles
-var content = __webpack_require__(1093);
-if(typeof content === 'string') content = [[module.i, content, '']];
-if(content.locals) module.exports = content.locals;
-// add the styles to the DOM
-var update = __webpack_require__(801)("068a54a6", content, false);
-// Hot Module Replacement
-if(true) {
- // When the styles change, update the <style> tags
- if(!content.locals) {
-   module.hot.accept(1093, function() {
-     var newContent = __webpack_require__(1093);
-     if(typeof newContent === 'string') newContent = [[module.i, newContent, '']];
-     update(newContent);
-   });
- }
- // When the module is disposed, remove the <style> tags
- module.hot.dispose(function() { update(); });
-}
-
-/***/ }),
-
-/***/ 770:
-/***/ (function(module, exports, __webpack_require__) {
-
-
-/* styles */
-__webpack_require__(1605)
 
 var Component = __webpack_require__(374)(
   /* script */
-  __webpack_require__(1243),
+  __webpack_require__(1237),
   /* template */
-  __webpack_require__(1527),
+  __webpack_require__(1562),
   /* scopeId */
   null,
   /* cssModules */
   null
 )
-Component.options.__file = "D:\\Code\\WORKING\\dotnet-platform-backend\\Web\\Platform\\CMS\\PlatformCMS\\ClientApp\\pages\\product\\list.vue"
+Component.options.__file = "D:\\Code\\WORKING\\dotnet-platform-backend\\Web\\Platform\\CMS\\PlatformCMS\\ClientApp\\pages\\productSpecificationTemplate\\edit.vue"
 if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
-if (Component.options.functional) {console.error("[vue-loader] list.vue: functional components are not supported with templates, they should use render functions.")}
+if (Component.options.functional) {console.error("[vue-loader] edit.vue: functional components are not supported with templates, they should use render functions.")}
 
 /* hot reload */
 if (true) {(function () {
@@ -1148,9 +817,9 @@ if (true) {(function () {
   if (!hotAPI.compatible) return
   module.hot.accept()
   if (!module.hot.data) {
-    hotAPI.createRecord("data-v-1a371269", Component.options)
+    hotAPI.createRecord("data-v-63dccf20", Component.options)
   } else {
-    hotAPI.reload("data-v-1a371269", Component.options)
+    hotAPI.reload("data-v-63dccf20", Component.options)
   }
 })()}
 
@@ -1250,228 +919,6 @@ exports = module.exports = __webpack_require__(53)();
 exports.push([module.i, "/*!\n * vue-treeselect v0.4.0 | (c) 2017-2019 Riophae Lee\n * Released under the MIT License.\n * https://vue-treeselect.js.org/\n */\n/**\n * Dependencies\n */\n/**\n * Variables\n */\n/**\n * Mixins\n */\n/**\n * Helpers\n */\n.vue-treeselect-helper-hide {\n  display: none;\n}\n.vue-treeselect-helper-zoom-effect-off {\n  -ms-transform: none !important;\n      transform: none !important;\n}\n/**\n * Animations\n */\n@keyframes vue-treeselect-animation-fade-in {\n  0% {\n    opacity: 0;\n  }\n}\n@keyframes vue-treeselect-animation-bounce {\n  0%,\n  100% {\n    transform: scale(0);\n  }\n  50% {\n    transform: scale(1);\n  }\n}\n@keyframes vue-treeselect-animation-rotate {\n  100% {\n    transform: rotate(360deg);\n  }\n}\n/**\n * Transitions\n */\n.vue-treeselect__multi-value-item--transition-enter-active,\n.vue-treeselect__multi-value-item--transition-leave-active {\n  transition-duration: 200ms;\n  transition-property: transform, opacity;\n}\n.vue-treeselect__multi-value-item--transition-enter-active {\n  transition-timing-function: cubic-bezier(0.075, 0.82, 0.165, 1);\n}\n.vue-treeselect__multi-value-item--transition-leave-active {\n  transition-timing-function: cubic-bezier(0.215, 0.61, 0.355, 1);\n  position: absolute;\n}\n.vue-treeselect__multi-value-item--transition-enter,\n.vue-treeselect__multi-value-item--transition-leave-to {\n  -ms-transform: scale(0.7);\n      transform: scale(0.7);\n  opacity: 0;\n}\n.vue-treeselect__multi-value-item--transition-move {\n  transition: 200ms transform cubic-bezier(0.165, 0.84, 0.44, 1);\n}\n/**\n * Namespace\n */\n.vue-treeselect {\n  position: relative;\n  text-align: left;\n}\n[dir=\"rtl\"] .vue-treeselect {\n  text-align: right;\n}\n.vue-treeselect div,\n.vue-treeselect span {\n  box-sizing: border-box;\n}\n.vue-treeselect svg {\n  fill: currentColor;\n}\n/**\n * Control\n */\n.vue-treeselect__control {\n  padding-left: 5px;\n  padding-right: 5px;\n  display: table;\n  table-layout: fixed;\n  width: 100%;\n  height: 36px;\n  border: 1px solid #ddd;\n  border-radius: 5px;\n  background: #fff;\n  transition-duration: 200ms;\n  transition-property: border-color, box-shadow, width, height, background-color, opacity;\n  transition-timing-function: cubic-bezier(0.215, 0.61, 0.355, 1);\n}\n.vue-treeselect:not(.vue-treeselect--disabled):not(.vue-treeselect--focused) .vue-treeselect__control:hover {\n  border-color: #cfcfcf;\n}\n.vue-treeselect--focused:not(.vue-treeselect--open) .vue-treeselect__control {\n  border-color: #039be5;\n  box-shadow: 0 0 0 3px rgba(3, 155, 229, 0.1);\n}\n.vue-treeselect--disabled .vue-treeselect__control {\n  background-color: #f9f9f9;\n}\n.vue-treeselect--open .vue-treeselect__control {\n  border-color: #cfcfcf;\n}\n.vue-treeselect--open.vue-treeselect--open-below .vue-treeselect__control {\n  border-bottom-left-radius: 0;\n  border-bottom-right-radius: 0;\n}\n.vue-treeselect--open.vue-treeselect--open-above .vue-treeselect__control {\n  border-top-left-radius: 0;\n  border-top-right-radius: 0;\n}\n.vue-treeselect__value-container,\n.vue-treeselect__multi-value {\n  width: 100%;\n  vertical-align: middle;\n}\n.vue-treeselect__value-container {\n  display: table-cell;\n  position: relative;\n}\n.vue-treeselect--searchable:not(.vue-treeselect--disabled) .vue-treeselect__value-container {\n  cursor: text;\n}\n.vue-treeselect__multi-value {\n  display: inline-block;\n}\n.vue-treeselect--has-value .vue-treeselect__multi-value {\n  margin-bottom: 5px;\n}\n.vue-treeselect__placeholder,\n.vue-treeselect__single-value {\n  overflow: hidden;\n  text-overflow: ellipsis;\n  white-space: nowrap;\n  padding-left: 5px;\n  padding-right: 5px;\n  position: absolute;\n  top: 0;\n  right: 0;\n  bottom: 0;\n  left: 0;\n  line-height: 34px;\n  -webkit-user-select: none;\n     -moz-user-select: none;\n      -ms-user-select: none;\n          user-select: none;\n  pointer-events: none;\n}\n.vue-treeselect__placeholder {\n  color: #bdbdbd;\n}\n.vue-treeselect__single-value {\n  color: #333;\n}\n.vue-treeselect--focused.vue-treeselect--searchable .vue-treeselect__single-value {\n  color: #bdbdbd;\n}\n.vue-treeselect--disabled .vue-treeselect__single-value {\n  position: static;\n}\n.vue-treeselect__multi-value-item-container {\n  display: inline-block;\n  padding-top: 5px;\n  padding-right: 5px;\n  vertical-align: top;\n}\n[dir=\"rtl\"] .vue-treeselect__multi-value-item-container {\n  padding-right: 0;\n  padding-left: 5px;\n}\n.vue-treeselect__multi-value-item {\n  cursor: pointer;\n  display: inline-table;\n  background: #e3f2fd;\n  padding: 2px 0;\n  border: 1px solid transparent;\n  border-radius: 2px;\n  color: #039be5;\n  font-size: 12px;\n  vertical-align: top;\n}\n.vue-treeselect:not(.vue-treeselect--disabled) .vue-treeselect__multi-value-item:not(.vue-treeselect__multi-value-item-disabled):hover .vue-treeselect__multi-value-item:not(.vue-treeselect__multi-value-item-new) .vue-treeselect__multi-value-item:not(.vue-treeselect__multi-value-item-new):hover {\n  cursor: pointer;\n  background: #e3f2fd;\n  color: #039be5;\n}\n.vue-treeselect__multi-value-item.vue-treeselect__multi-value-item-disabled {\n  cursor: default;\n  background: #f5f5f5;\n  color: #757575;\n}\n.vue-treeselect--disabled .vue-treeselect__multi-value-item {\n  cursor: default;\n  background: #fff;\n  border-color: #e5e5e5;\n  color: #555;\n}\n.vue-treeselect__multi-value-item.vue-treeselect__multi-value-item-new {\n  background: #e8f5e9;\n}\n.vue-treeselect__multi-value-item.vue-treeselect__multi-value-item-new:hover {\n  background: #e8f5e9;\n}\n.vue-treeselect__value-remove,\n.vue-treeselect__multi-value-label {\n  display: table-cell;\n  padding: 0 5px;\n  vertical-align: middle;\n}\n.vue-treeselect__value-remove {\n  color: #039be5;\n  padding-left: 5px;\n  border-left: 1px solid #fff;\n  line-height: 0;\n}\n[dir=\"rtl\"] .vue-treeselect__value-remove {\n  border-left: 0 none;\n  border-right: 1px solid #fff;\n}\n.vue-treeselect__multi-value-item:hover .vue-treeselect__value-remove {\n  color: #e53935;\n}\n.vue-treeselect--disabled .vue-treeselect__value-remove,\n.vue-treeselect__multi-value-item-disabled .vue-treeselect__value-remove {\n  display: none;\n}\n.vue-treeselect__value-remove > svg {\n  width: 6px;\n  height: 6px;\n}\n.vue-treeselect__multi-value-label {\n  padding-right: 5px;\n  white-space: pre-line;\n  -webkit-user-select: none;\n     -moz-user-select: none;\n      -ms-user-select: none;\n          user-select: none;\n}\n.vue-treeselect__limit-tip {\n  display: inline-block;\n  padding-top: 5px;\n  padding-right: 5px;\n  vertical-align: top;\n}\n[dir=\"rtl\"] .vue-treeselect__limit-tip {\n  padding-right: 0;\n  padding-left: 5px;\n}\n.vue-treeselect__limit-tip-text {\n  cursor: default;\n  display: block;\n  margin: 2px 0;\n  padding: 1px 0;\n  color: #bdbdbd;\n  font-size: 12px;\n  font-weight: 600;\n}\n.vue-treeselect__input-container {\n  display: block;\n  max-width: 100%;\n  outline: none;\n}\n.vue-treeselect--single .vue-treeselect__input-container {\n  font-size: inherit;\n  height: 100%;\n}\n.vue-treeselect--multi .vue-treeselect__input-container {\n  display: inline-block;\n  font-size: 12px;\n  vertical-align: top;\n}\n.vue-treeselect--searchable .vue-treeselect__input-container {\n  padding-left: 5px;\n  padding-right: 5px;\n}\n.vue-treeselect--searchable.vue-treeselect--multi.vue-treeselect--has-value .vue-treeselect__input-container {\n  padding-top: 5px;\n  padding-left: 0;\n}\n[dir=\"rtl\"] .vue-treeselect--searchable.vue-treeselect--multi.vue-treeselect--has-value .vue-treeselect__input-container {\n  padding-left: 5px;\n  padding-right: 0;\n}\n.vue-treeselect--disabled .vue-treeselect__input-container {\n  display: none;\n}\n.vue-treeselect__input,\n.vue-treeselect__sizer {\n  margin: 0;\n  line-height: inherit;\n  font-family: inherit;\n  font-size: inherit;\n}\n.vue-treeselect__input {\n  max-width: 100%;\n  margin: 0;\n  padding: 0;\n  border: 0;\n  outline: none;\n  box-sizing: content-box;\n  box-shadow: none;\n  background: none transparent;\n  line-height: 1;\n  vertical-align: middle;\n}\n.vue-treeselect__input::-ms-clear {\n  display: none;\n}\n.vue-treeselect--single .vue-treeselect__input {\n  width: 100%;\n  height: 100%;\n}\n.vue-treeselect--multi .vue-treeselect__input {\n  padding-top: 3px;\n  padding-bottom: 3px;\n}\n.vue-treeselect--has-value .vue-treeselect__input {\n  line-height: inherit;\n  vertical-align: top;\n}\n.vue-treeselect__sizer {\n  position: absolute;\n  top: 0;\n  left: 0;\n  visibility: hidden;\n  height: 0;\n  overflow: scroll;\n  white-space: pre;\n}\n.vue-treeselect__x-container {\n  display: table-cell;\n  vertical-align: middle;\n  width: 20px;\n  text-align: center;\n  line-height: 0;\n  cursor: pointer;\n  color: #ccc;\n  animation: 200ms vue-treeselect-animation-fade-in cubic-bezier(0.075, 0.82, 0.165, 1);\n}\n.vue-treeselect__x-container:hover {\n  color: #e53935;\n}\n.vue-treeselect__x {\n  width: 8px;\n  height: 8px;\n}\n.vue-treeselect__control-arrow-container {\n  display: table-cell;\n  vertical-align: middle;\n  width: 20px;\n  text-align: center;\n  line-height: 0;\n  cursor: pointer;\n}\n.vue-treeselect--disabled .vue-treeselect__control-arrow-container {\n  cursor: default;\n}\n.vue-treeselect__control-arrow {\n  width: 9px;\n  height: 9px;\n  color: #ccc;\n}\n.vue-treeselect:not(.vue-treeselect--disabled) .vue-treeselect__control-arrow-container:hover .vue-treeselect__control-arrow {\n  color: #616161;\n}\n.vue-treeselect--disabled .vue-treeselect__control-arrow {\n  opacity: 0.35;\n}\n.vue-treeselect__control-arrow--rotated {\n  -ms-transform: rotate(180deg);\n      transform: rotateZ(180deg);\n}\n/**\n * Menu\n */\n.vue-treeselect__menu-container {\n  position: absolute;\n  left: 0;\n  width: 100%;\n  overflow: visible;\n  transition: 0s;\n}\n.vue-treeselect--open-below:not(.vue-treeselect--append-to-body) .vue-treeselect__menu-container {\n  top: 100%;\n}\n.vue-treeselect--open-above:not(.vue-treeselect--append-to-body) .vue-treeselect__menu-container {\n  bottom: 100%;\n}\n.vue-treeselect__menu {\n  cursor: default;\n  padding-top: 5px;\n  padding-bottom: 5px;\n  display: block;\n  position: absolute;\n  overflow-x: hidden;\n  overflow-y: auto;\n  width: auto;\n  border: 1px solid #cfcfcf;\n  background: #fff;\n  line-height: 180%;\n  -webkit-overflow-scrolling: touch;\n}\n.vue-treeselect--open-below .vue-treeselect__menu {\n  border-bottom-left-radius: 5px;\n  border-bottom-right-radius: 5px;\n  top: 0;\n  margin-top: -1px;\n  border-top-color: #f2f2f2;\n  box-shadow: 0 1px 0 rgba(0, 0, 0, 0.06);\n}\n.vue-treeselect--open-above .vue-treeselect__menu {\n  border-top-left-radius: 5px;\n  border-top-right-radius: 5px;\n  bottom: 0;\n  margin-bottom: -1px;\n  border-bottom-color: #f2f2f2;\n}\n.vue-treeselect__indent-level-0 .vue-treeselect__option {\n  padding-left: 5px;\n}\n[dir=\"rtl\"] .vue-treeselect__indent-level-0 .vue-treeselect__option {\n  padding-left: 5px;\n  padding-right: 5px;\n}\n.vue-treeselect__indent-level-0 .vue-treeselect__tip {\n  padding-left: 25px;\n}\n[dir=\"rtl\"] .vue-treeselect__indent-level-0 .vue-treeselect__tip {\n  padding-left: 5px;\n  padding-right: 25px;\n}\n.vue-treeselect__indent-level-1 .vue-treeselect__option {\n  padding-left: 25px;\n}\n[dir=\"rtl\"] .vue-treeselect__indent-level-1 .vue-treeselect__option {\n  padding-left: 5px;\n  padding-right: 25px;\n}\n.vue-treeselect__indent-level-1 .vue-treeselect__tip {\n  padding-left: 45px;\n}\n[dir=\"rtl\"] .vue-treeselect__indent-level-1 .vue-treeselect__tip {\n  padding-left: 5px;\n  padding-right: 45px;\n}\n.vue-treeselect__indent-level-2 .vue-treeselect__option {\n  padding-left: 45px;\n}\n[dir=\"rtl\"] .vue-treeselect__indent-level-2 .vue-treeselect__option {\n  padding-left: 5px;\n  padding-right: 45px;\n}\n.vue-treeselect__indent-level-2 .vue-treeselect__tip {\n  padding-left: 65px;\n}\n[dir=\"rtl\"] .vue-treeselect__indent-level-2 .vue-treeselect__tip {\n  padding-left: 5px;\n  padding-right: 65px;\n}\n.vue-treeselect__indent-level-3 .vue-treeselect__option {\n  padding-left: 65px;\n}\n[dir=\"rtl\"] .vue-treeselect__indent-level-3 .vue-treeselect__option {\n  padding-left: 5px;\n  padding-right: 65px;\n}\n.vue-treeselect__indent-level-3 .vue-treeselect__tip {\n  padding-left: 85px;\n}\n[dir=\"rtl\"] .vue-treeselect__indent-level-3 .vue-treeselect__tip {\n  padding-left: 5px;\n  padding-right: 85px;\n}\n.vue-treeselect__indent-level-4 .vue-treeselect__option {\n  padding-left: 85px;\n}\n[dir=\"rtl\"] .vue-treeselect__indent-level-4 .vue-treeselect__option {\n  padding-left: 5px;\n  padding-right: 85px;\n}\n.vue-treeselect__indent-level-4 .vue-treeselect__tip {\n  padding-left: 105px;\n}\n[dir=\"rtl\"] .vue-treeselect__indent-level-4 .vue-treeselect__tip {\n  padding-left: 5px;\n  padding-right: 105px;\n}\n.vue-treeselect__indent-level-5 .vue-treeselect__option {\n  padding-left: 105px;\n}\n[dir=\"rtl\"] .vue-treeselect__indent-level-5 .vue-treeselect__option {\n  padding-left: 5px;\n  padding-right: 105px;\n}\n.vue-treeselect__indent-level-5 .vue-treeselect__tip {\n  padding-left: 125px;\n}\n[dir=\"rtl\"] .vue-treeselect__indent-level-5 .vue-treeselect__tip {\n  padding-left: 5px;\n  padding-right: 125px;\n}\n.vue-treeselect__indent-level-6 .vue-treeselect__option {\n  padding-left: 125px;\n}\n[dir=\"rtl\"] .vue-treeselect__indent-level-6 .vue-treeselect__option {\n  padding-left: 5px;\n  padding-right: 125px;\n}\n.vue-treeselect__indent-level-6 .vue-treeselect__tip {\n  padding-left: 145px;\n}\n[dir=\"rtl\"] .vue-treeselect__indent-level-6 .vue-treeselect__tip {\n  padding-left: 5px;\n  padding-right: 145px;\n}\n.vue-treeselect__indent-level-7 .vue-treeselect__option {\n  padding-left: 145px;\n}\n[dir=\"rtl\"] .vue-treeselect__indent-level-7 .vue-treeselect__option {\n  padding-left: 5px;\n  padding-right: 145px;\n}\n.vue-treeselect__indent-level-7 .vue-treeselect__tip {\n  padding-left: 165px;\n}\n[dir=\"rtl\"] .vue-treeselect__indent-level-7 .vue-treeselect__tip {\n  padding-left: 5px;\n  padding-right: 165px;\n}\n.vue-treeselect__indent-level-8 .vue-treeselect__option {\n  padding-left: 165px;\n}\n[dir=\"rtl\"] .vue-treeselect__indent-level-8 .vue-treeselect__option {\n  padding-left: 5px;\n  padding-right: 165px;\n}\n.vue-treeselect__indent-level-8 .vue-treeselect__tip {\n  padding-left: 185px;\n}\n[dir=\"rtl\"] .vue-treeselect__indent-level-8 .vue-treeselect__tip {\n  padding-left: 5px;\n  padding-right: 185px;\n}\n.vue-treeselect__option {\n  padding-left: 5px;\n  padding-right: 5px;\n  display: table;\n  table-layout: fixed;\n  width: 100%;\n}\n.vue-treeselect__option--highlight {\n  background: #f5f5f5;\n}\n.vue-treeselect--single .vue-treeselect__option--selected {\n  background: #e3f2fd;\n  font-weight: 600;\n}\n.vue-treeselect--single .vue-treeselect__option--selected:hover {\n  background: #e3f2fd;\n}\n.vue-treeselect__option--hide {\n  display: none;\n}\n.vue-treeselect__option-arrow-container,\n.vue-treeselect__option-arrow-placeholder {\n  display: table-cell;\n  vertical-align: middle;\n  width: 20px;\n  text-align: center;\n  line-height: 0;\n}\n.vue-treeselect__option-arrow-container {\n  cursor: pointer;\n}\n.vue-treeselect__option-arrow {\n  display: inline-block;\n  width: 9px;\n  height: 9px;\n  color: #ccc;\n  vertical-align: middle;\n  transition: 200ms transform cubic-bezier(0.19, 1, 0.22, 1);\n  -ms-transform: rotate(-90deg);\n      transform: rotateZ(-90deg);\n}\n[dir=\"rtl\"] .vue-treeselect__option-arrow {\n  -ms-transform: rotate(90deg);\n      transform: rotateZ(90deg);\n}\n.vue-treeselect__option-arrow-container:hover .vue-treeselect__option-arrow,\n.vue-treeselect--branch-nodes-disabled .vue-treeselect__option:hover .vue-treeselect__option-arrow {\n  color: #616161;\n}\n.vue-treeselect__option-arrow--rotated {\n  -ms-transform: rotate(0);\n      transform: rotateZ(0);\n}\n[dir=\"rtl\"] .vue-treeselect__option-arrow--rotated {\n  -ms-transform: rotate(0);\n      transform: rotateZ(0);\n}\n.vue-treeselect__option-arrow--rotated.vue-treeselect__option-arrow--prepare-enter {\n  -ms-transform: rotate(-90deg) !important;\n      transform: rotateZ(-90deg) !important;\n}\n[dir=\"rtl\"] .vue-treeselect__option-arrow--rotated.vue-treeselect__option-arrow--prepare-enter {\n  -ms-transform: rotate(90deg) !important;\n      transform: rotateZ(90deg) !important;\n}\n.vue-treeselect__label-container {\n  display: table-cell;\n  vertical-align: middle;\n  cursor: pointer;\n  display: table;\n  width: 100%;\n  table-layout: fixed;\n  color: inherit;\n}\n.vue-treeselect__option--disabled .vue-treeselect__label-container {\n  cursor: not-allowed;\n  color: rgba(0, 0, 0, 0.25);\n}\n.vue-treeselect__checkbox-container {\n  display: table-cell;\n  width: 20px;\n  min-width: 20px;\n  height: 100%;\n  text-align: center;\n  vertical-align: middle;\n}\n.vue-treeselect__checkbox {\n  display: block;\n  margin: auto;\n  width: 12px;\n  height: 12px;\n  border-width: 1px;\n  border-style: solid;\n  border-radius: 2px;\n  position: relative;\n  transition: 200ms all cubic-bezier(0.075, 0.82, 0.165, 1);\n}\n.vue-treeselect__check-mark,\n.vue-treeselect__minus-mark {\n  display: block;\n  position: absolute;\n  left: 1px;\n  top: 1px;\n  background-repeat: no-repeat;\n  opacity: 0;\n  transition: 200ms all ease;\n}\n.vue-treeselect__minus-mark {\n  width: 8px;\n  height: 8px;\n  background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAgAAAAIAgMAAAC5YVYYAAAACVBMVEUAAAD///////9zeKVjAAAAAnRSTlMAuLMp9oYAAAAPSURBVAjXY4CDrJUgBAMAGaECJ9dz3BAAAAAASUVORK5CYII=);\n  background-size: 8px 8px;\n}\n@media (-webkit-min-device-pixel-ratio: 1.5), (min-resolution: 1.5dppx) {\n  .vue-treeselect__minus-mark {\n    background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQAgMAAABinRfyAAAADFBMVEUAAAD///////////84wDuoAAAAA3RSTlMAyTzPIdReAAAAGUlEQVQI12PAD+b///+Nof7//79gAsLFCwAx/w4blADeeQAAAABJRU5ErkJggg==);\n  }\n}\n@media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {\n  .vue-treeselect__minus-mark {\n    background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQAgMAAABinRfyAAAADFBMVEUAAAD///////////84wDuoAAAAA3RSTlMAyTzPIdReAAAAGUlEQVQI12PAD+b///+Nof7//79gAsLFCwAx/w4blADeeQAAAABJRU5ErkJggg==);\n  }\n}\n@media (-webkit-min-device-pixel-ratio: 3), (min-resolution: 288dpi) {\n  .vue-treeselect__minus-mark {\n    background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYBAMAAAASWSDLAAAAD1BMVEUAAAD///////////////+PQt5oAAAABHRSTlMAy2EFIuWxUgAAACRJREFUGNNjGBBgJOICBY7KDCoucODEAJSAS6FwUJShGjAQAADBPRGrK2/FhgAAAABJRU5ErkJggg==);\n  }\n}\n.vue-treeselect__checkbox--indeterminate > .vue-treeselect__minus-mark {\n  opacity: 1;\n}\n.vue-treeselect__checkbox--disabled .vue-treeselect__minus-mark {\n  background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAgAAAAIAgMAAAC5YVYYAAAACVBMVEUAAADi4uLh4eHOxeSRAAAAAnRSTlMAuLMp9oYAAAAPSURBVAjXY4CDrJUgBAMAGaECJ9dz3BAAAAAASUVORK5CYII=);\n}\n@media (-webkit-min-device-pixel-ratio: 1.5), (min-resolution: 1.5dppx) {\n  .vue-treeselect__checkbox--disabled .vue-treeselect__minus-mark {\n    background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQAgMAAABinRfyAAAADFBMVEUAAADi4uLi4uLh4eE5RQaIAAAAA3RSTlMAyTzPIdReAAAAGUlEQVQI12PAD+b///+Nof7//79gAsLFCwAx/w4blADeeQAAAABJRU5ErkJggg==);\n  }\n}\n@media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {\n  .vue-treeselect__checkbox--disabled .vue-treeselect__minus-mark {\n    background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQAgMAAABinRfyAAAADFBMVEUAAADi4uLi4uLh4eE5RQaIAAAAA3RSTlMAyTzPIdReAAAAGUlEQVQI12PAD+b///+Nof7//79gAsLFCwAx/w4blADeeQAAAABJRU5ErkJggg==);\n  }\n}\n@media (-webkit-min-device-pixel-ratio: 3), (min-resolution: 288dpi) {\n  .vue-treeselect__checkbox--disabled .vue-treeselect__minus-mark {\n    background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYBAMAAAASWSDLAAAAD1BMVEUAAADh4eHg4ODNzc3h4eEYfw2wAAAABHRSTlMAy2EFIuWxUgAAACRJREFUGNNjGBBgJOICBY7KDCoucODEAJSAS6FwUJShGjAQAADBPRGrK2/FhgAAAABJRU5ErkJggg==);\n  }\n}\n.vue-treeselect__check-mark {\n  width: 8px;\n  height: 8px;\n  background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAgAAAAICAMAAADz0U65AAAAQlBMVEUAAAD///////////////////////////////////////////////////////////////////////////////////8IX9KGAAAAFXRSTlMA8u24NxILB+Tawb6jiH1zRz0xIQIIP3GUAAAAMklEQVQI1y3FtQEAMQDDQD+EGbz/qkEVOpyEOP6PudKjZNSXn4Jm2CKRdBKzSLsFWl8fMG0Bl6Jk1rMAAAAASUVORK5CYII=);\n  background-size: 8px 8px;\n  -ms-transform: scaleY(0.125);\n      transform: scaleY(0.125);\n}\n@media (-webkit-min-device-pixel-ratio: 1.5), (min-resolution: 1.5dppx) {\n  .vue-treeselect__check-mark {\n    background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAMAAAAoLQ9TAAAAYFBMVEUAAAD///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////98JRy6AAAAH3RSTlMAzu4sDenl38fBvo1OMyIdEQrj1cSihX5hYFpHNycIcQOASAAAAF9JREFUGNN9zEcOgDAMRFHTS0LvNfe/JRmHKAIJ/mqeLJn+k9uDtaeUeFnFziGsBucUTirrprfe81RqZ3Bb6hPWeuZwDFOHyf+ig9CCzQ7INBn7bG5kF+QSt13BHNJnF7AaCT4Y+CW7AAAAAElFTkSuQmCC);\n  }\n}\n@media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {\n  .vue-treeselect__check-mark {\n    background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAMAAAAoLQ9TAAAAYFBMVEUAAAD///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////98JRy6AAAAH3RSTlMAzu4sDenl38fBvo1OMyIdEQrj1cSihX5hYFpHNycIcQOASAAAAF9JREFUGNN9zEcOgDAMRFHTS0LvNfe/JRmHKAIJ/mqeLJn+k9uDtaeUeFnFziGsBucUTirrprfe81RqZ3Bb6hPWeuZwDFOHyf+ig9CCzQ7INBn7bG5kF+QSt13BHNJnF7AaCT4Y+CW7AAAAAElFTkSuQmCC);\n  }\n}\n@media (-webkit-min-device-pixel-ratio: 3), (min-resolution: 288dpi) {\n  .vue-treeselect__check-mark {\n    background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAMAAADXqc3KAAAAWlBMVEUAAAD///////////////////////////////////////////////////////////////////////////////////////////////////////////////////9ZMre9AAAAHXRSTlMA/PiJhGNI9XlEHJB/b2ldV08+Oibk49vPp6QhAYgGBuwAAACCSURBVCjPrdHdDoIwDAXgTWAqCigo/+f9X5OwnoUwtis4V92XNWladUl+rzQPeQJAN2EHxoOnsPn7/oYk8fxBv08Rr/deOH/aZ2Nm8ZJ+s573QGfWKnNuZGzWm3+lv2V3pcU1XQ385/yjmBoM3Z+dXvlbYLLD3ujhTaOM3KaIXvNkFkuSEvYy1LqOAAAAAElFTkSuQmCC);\n  }\n}\n.vue-treeselect__checkbox--checked > .vue-treeselect__check-mark {\n  opacity: 1;\n  -ms-transform: scaleY(1);\n      transform: scaleY(1);\n}\n.vue-treeselect__checkbox--disabled .vue-treeselect__check-mark {\n  background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAgAAAAICAMAAADz0U65AAAAP1BMVEUAAADj4+Pf39/h4eHh4eHh4eHk5OTh4eHg4ODi4uLh4eHh4eHg4ODh4eHh4eHg4ODh4eHh4eHp6en////h4eFqcyvUAAAAFHRSTlMAOQfy7bgS5NrBvqOIfXNHMSELAgQ/iFsAAAA2SURBVAjXY4AANjYIzcjMAaVFuBkY+RkEWERYmRjYRXjANAOfiIgIFxNIAa8IpxBEi6AwiAQAK2MBd7xY8csAAAAASUVORK5CYII=);\n}\n@media (-webkit-min-device-pixel-ratio: 1.5), (min-resolution: 1.5dppx) {\n  .vue-treeselect__checkbox--disabled .vue-treeselect__check-mark {\n    background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAMAAAAoLQ9TAAAAXVBMVEUAAADh4eHh4eHh4eHi4uLb29vh4eHh4eHh4eHh4eHh4eHh4eHh4eHi4uLi4uLj4+Pi4uLk5OTo6Ojh4eHh4eHi4uLg4ODg4ODh4eHg4ODh4eHf39/g4OD////h4eEzIk+wAAAAHnRSTlMAzu6/LA3p5eLZx8ONTjYiHRIKooV+YWBaRzEnCANnm5rnAAAAZElEQVQY033P2wqAIAyA4VWaaWrnc/n+j5mbhBjUf7WPoTD47TJb4i5zTr/sRDRHuyFaoWX7uK/RlbctlPEuyI1f4WY9yQINEkf6rzzo8YIzmUFoCs7J1EjeIaa9bXIEmzl8dgOZEAj/+2IvzAAAAABJRU5ErkJggg==);\n  }\n}\n@media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {\n  .vue-treeselect__checkbox--disabled .vue-treeselect__check-mark {\n    background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAMAAAAoLQ9TAAAAXVBMVEUAAADh4eHh4eHh4eHi4uLb29vh4eHh4eHh4eHh4eHh4eHh4eHh4eHi4uLi4uLj4+Pi4uLk5OTo6Ojh4eHh4eHi4uLg4ODg4ODh4eHg4ODh4eHf39/g4OD////h4eEzIk+wAAAAHnRSTlMAzu6/LA3p5eLZx8ONTjYiHRIKooV+YWBaRzEnCANnm5rnAAAAZElEQVQY033P2wqAIAyA4VWaaWrnc/n+j5mbhBjUf7WPoTD47TJb4i5zTr/sRDRHuyFaoWX7uK/RlbctlPEuyI1f4WY9yQINEkf6rzzo8YIzmUFoCs7J1EjeIaa9bXIEmzl8dgOZEAj/+2IvzAAAAABJRU5ErkJggg==);\n  }\n}\n@media (-webkit-min-device-pixel-ratio: 3), (min-resolution: 288dpi) {\n  .vue-treeselect__checkbox--disabled .vue-treeselect__check-mark {\n    background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAMAAADXqc3KAAAAUVBMVEUAAADh4eHh4eHh4eHh4eHi4uLi4uLh4eHh4eHh4eHf39/j4+Ph4eHh4eHh4eHg4ODi4uLh4eHh4eHi4uLh4eHh4eHh4eHh4eHh4eH////h4eF3FMFTAAAAGnRSTlMA+/eJhGhfSHE9JBzz5KaQf3pXT0Xbz0I5AYDw8F0AAAB+SURBVCjPrdHbDoMgEEVRKAii1dZe9fz/hxplTiKIT7qfYCWTEEZdUvOwbckNAD2WHeh3brHW5f5EzGQ+iN+b1Gt6KPvtv16Dn6JX9M9ya3/A1yfu5dlyduL6Hec7mXY6ddXLPP2lpABGZ8PWXfYLTJxZekVhhl7eTX24zZPNKXoRC7zQLjUAAAAASUVORK5CYII=);\n  }\n}\n.vue-treeselect__checkbox--unchecked {\n  border-color: #e0e0e0;\n  background: #fff;\n}\n.vue-treeselect__label-container:hover .vue-treeselect__checkbox--unchecked {\n  border-color: #039be5;\n  background: #fff;\n}\n.vue-treeselect__checkbox--indeterminate {\n  border-color: #039be5;\n  background: #039be5;\n}\n.vue-treeselect__label-container:hover .vue-treeselect__checkbox--indeterminate {\n  border-color: #039be5;\n  background: #039be5;\n}\n.vue-treeselect__checkbox--checked {\n  border-color: #039be5;\n  background: #039be5;\n}\n.vue-treeselect__label-container:hover .vue-treeselect__checkbox--checked {\n  border-color: #039be5;\n  background: #039be5;\n}\n.vue-treeselect__checkbox--disabled {\n  border-color: #e0e0e0;\n  background-color: #f7f7f7;\n}\n.vue-treeselect__label-container:hover .vue-treeselect__checkbox--disabled {\n  border-color: #e0e0e0;\n  background-color: #f7f7f7;\n}\n.vue-treeselect__label {\n  overflow: hidden;\n  text-overflow: ellipsis;\n  white-space: nowrap;\n  display: table-cell;\n  padding-left: 5px;\n  max-width: 100%;\n  vertical-align: middle;\n  cursor: inherit;\n}\n[dir=\"rtl\"] .vue-treeselect__label {\n  padding-left: 0;\n  padding-right: 5px;\n}\n.vue-treeselect__count {\n  margin-left: 5px;\n  font-weight: 400;\n  opacity: 0.6;\n}\n[dir=\"rtl\"] .vue-treeselect__count {\n  margin-left: 0;\n  margin-right: 5px;\n}\n.vue-treeselect__tip {\n  padding-left: 5px;\n  padding-right: 5px;\n  display: table;\n  table-layout: fixed;\n  width: 100%;\n  color: #757575;\n}\n.vue-treeselect__tip-text {\n  display: table-cell;\n  vertical-align: middle;\n  padding-left: 5px;\n  padding-right: 5px;\n  overflow: hidden;\n  text-overflow: ellipsis;\n  white-space: nowrap;\n  width: 100%;\n  font-size: 12px;\n}\n.vue-treeselect__error-tip .vue-treeselect__retry {\n  cursor: pointer;\n  margin-left: 5px;\n  font-style: normal;\n  font-weight: 600;\n  text-decoration: none;\n  color: #039be5;\n}\n[dir=\"rtl\"] .vue-treeselect__error-tip .vue-treeselect__retry {\n  margin-left: 0;\n  margin-right: 5px;\n}\n.vue-treeselect__icon-container {\n  display: table-cell;\n  vertical-align: middle;\n  width: 20px;\n  text-align: center;\n  line-height: 0;\n}\n.vue-treeselect--single .vue-treeselect__icon-container {\n  padding-left: 5px;\n}\n[dir=\"rtl\"] .vue-treeselect--single .vue-treeselect__icon-container {\n  padding-left: 0;\n  padding-right: 5px;\n}\n.vue-treeselect__icon-warning {\n  display: block;\n  margin: auto;\n  border-radius: 50%;\n  position: relative;\n  width: 12px;\n  height: 12px;\n  background: #fb8c00;\n}\n.vue-treeselect__icon-warning::after {\n  display: block;\n  position: absolute;\n  content: \"\";\n  left: 5px;\n  top: 2.5px;\n  width: 2px;\n  height: 1px;\n  border: 0 solid #fff;\n  border-top-width: 5px;\n  border-bottom-width: 1px;\n}\n.vue-treeselect__icon-error {\n  display: block;\n  margin: auto;\n  border-radius: 50%;\n  position: relative;\n  width: 12px;\n  height: 12px;\n  background: #e53935;\n}\n.vue-treeselect__icon-error::before,\n.vue-treeselect__icon-error::after {\n  display: block;\n  position: absolute;\n  content: \"\";\n  background: #fff;\n  -ms-transform: rotate(45deg);\n      transform: rotate(45deg);\n}\n.vue-treeselect__icon-error::before {\n  width: 6px;\n  height: 2px;\n  left: 3px;\n  top: 5px;\n}\n.vue-treeselect__icon-error::after {\n  width: 2px;\n  height: 6px;\n  left: 5px;\n  top: 3px;\n}\n.vue-treeselect__icon-loader {\n  display: block;\n  margin: auto;\n  position: relative;\n  width: 12px;\n  height: 12px;\n  text-align: center;\n  animation: 1.6s vue-treeselect-animation-rotate linear infinite;\n}\n.vue-treeselect__icon-loader::before,\n.vue-treeselect__icon-loader::after {\n  border-radius: 50%;\n  position: absolute;\n  content: \"\";\n  left: 0;\n  top: 0;\n  display: block;\n  width: 100%;\n  height: 100%;\n  opacity: 0.6;\n  animation: 1.6s vue-treeselect-animation-bounce ease-in-out infinite;\n}\n.vue-treeselect__icon-loader::before {\n  background: #039be5;\n}\n.vue-treeselect__icon-loader::after {\n  background: #b3e5fc;\n  animation-delay: -0.8s;\n}\n/**\n * Menu Portal\n */\n.vue-treeselect__menu-placeholder {\n  display: none;\n}\n.vue-treeselect__portal-target {\n  position: absolute;\n  display: block;\n  left: 0;\n  top: 0;\n  height: 0;\n  width: 0;\n  padding: 0;\n  margin: 0;\n  border: 0;\n  overflow: visible;\n  box-sizing: border-box;\n}\n\n\n/*# sourceMappingURL=vue-treeselect.css.map*/", ""]);
 
 // exports
-
-
-/***/ }),
-
-/***/ 801:
-/***/ (function(module, exports, __webpack_require__) {
-
-/*
-  MIT License http://www.opensource.org/licenses/mit-license.php
-  Author Tobias Koppers @sokra
-  Modified by Evan You @yyx990803
-*/
-
-var hasDocument = typeof document !== 'undefined'
-
-if (typeof DEBUG !== 'undefined' && DEBUG) {
-  if (!hasDocument) {
-    throw new Error(
-    'vue-style-loader cannot be used in a non-browser environment. ' +
-    "Use { target: 'node' } in your Webpack config to indicate a server-rendering environment."
-  ) }
-}
-
-var listToStyles = __webpack_require__(809)
-
-/*
-type StyleObject = {
-  id: number;
-  parts: Array<StyleObjectPart>
-}
-
-type StyleObjectPart = {
-  css: string;
-  media: string;
-  sourceMap: ?string
-}
-*/
-
-var stylesInDom = {/*
-  [id: number]: {
-    id: number,
-    refs: number,
-    parts: Array<(obj?: StyleObjectPart) => void>
-  }
-*/}
-
-var head = hasDocument && (document.head || document.getElementsByTagName('head')[0])
-var singletonElement = null
-var singletonCounter = 0
-var isProduction = false
-var noop = function () {}
-
-// Force single-tag solution on IE6-9, which has a hard limit on the # of <style>
-// tags it will allow on a page
-var isOldIE = typeof navigator !== 'undefined' && /msie [6-9]\b/.test(navigator.userAgent.toLowerCase())
-
-module.exports = function (parentId, list, _isProduction) {
-  isProduction = _isProduction
-
-  var styles = listToStyles(parentId, list)
-  addStylesToDom(styles)
-
-  return function update (newList) {
-    var mayRemove = []
-    for (var i = 0; i < styles.length; i++) {
-      var item = styles[i]
-      var domStyle = stylesInDom[item.id]
-      domStyle.refs--
-      mayRemove.push(domStyle)
-    }
-    if (newList) {
-      styles = listToStyles(parentId, newList)
-      addStylesToDom(styles)
-    } else {
-      styles = []
-    }
-    for (var i = 0; i < mayRemove.length; i++) {
-      var domStyle = mayRemove[i]
-      if (domStyle.refs === 0) {
-        for (var j = 0; j < domStyle.parts.length; j++) {
-          domStyle.parts[j]()
-        }
-        delete stylesInDom[domStyle.id]
-      }
-    }
-  }
-}
-
-function addStylesToDom (styles /* Array<StyleObject> */) {
-  for (var i = 0; i < styles.length; i++) {
-    var item = styles[i]
-    var domStyle = stylesInDom[item.id]
-    if (domStyle) {
-      domStyle.refs++
-      for (var j = 0; j < domStyle.parts.length; j++) {
-        domStyle.parts[j](item.parts[j])
-      }
-      for (; j < item.parts.length; j++) {
-        domStyle.parts.push(addStyle(item.parts[j]))
-      }
-      if (domStyle.parts.length > item.parts.length) {
-        domStyle.parts.length = item.parts.length
-      }
-    } else {
-      var parts = []
-      for (var j = 0; j < item.parts.length; j++) {
-        parts.push(addStyle(item.parts[j]))
-      }
-      stylesInDom[item.id] = { id: item.id, refs: 1, parts: parts }
-    }
-  }
-}
-
-function createStyleElement () {
-  var styleElement = document.createElement('style')
-  styleElement.type = 'text/css'
-  head.appendChild(styleElement)
-  return styleElement
-}
-
-function addStyle (obj /* StyleObjectPart */) {
-  var update, remove
-  var styleElement = document.querySelector('style[data-vue-ssr-id~="' + obj.id + '"]')
-
-  if (styleElement) {
-    if (isProduction) {
-      // has SSR styles and in production mode.
-      // simply do nothing.
-      return noop
-    } else {
-      // has SSR styles but in dev mode.
-      // for some reason Chrome can't handle source map in server-rendered
-      // style tags - source maps in <style> only works if the style tag is
-      // created and inserted dynamically. So we remove the server rendered
-      // styles and inject new ones.
-      styleElement.parentNode.removeChild(styleElement)
-    }
-  }
-
-  if (isOldIE) {
-    // use singleton mode for IE9.
-    var styleIndex = singletonCounter++
-    styleElement = singletonElement || (singletonElement = createStyleElement())
-    update = applyToSingletonTag.bind(null, styleElement, styleIndex, false)
-    remove = applyToSingletonTag.bind(null, styleElement, styleIndex, true)
-  } else {
-    // use multi-style-tag mode in all other cases
-    styleElement = createStyleElement()
-    update = applyToTag.bind(null, styleElement)
-    remove = function () {
-      styleElement.parentNode.removeChild(styleElement)
-    }
-  }
-
-  update(obj)
-
-  return function updateStyle (newObj /* StyleObjectPart */) {
-    if (newObj) {
-      if (newObj.css === obj.css &&
-          newObj.media === obj.media &&
-          newObj.sourceMap === obj.sourceMap) {
-        return
-      }
-      update(obj = newObj)
-    } else {
-      remove()
-    }
-  }
-}
-
-var replaceText = (function () {
-  var textStore = []
-
-  return function (index, replacement) {
-    textStore[index] = replacement
-    return textStore.filter(Boolean).join('\n')
-  }
-})()
-
-function applyToSingletonTag (styleElement, index, remove, obj) {
-  var css = remove ? '' : obj.css
-
-  if (styleElement.styleSheet) {
-    styleElement.styleSheet.cssText = replaceText(index, css)
-  } else {
-    var cssNode = document.createTextNode(css)
-    var childNodes = styleElement.childNodes
-    if (childNodes[index]) styleElement.removeChild(childNodes[index])
-    if (childNodes.length) {
-      styleElement.insertBefore(cssNode, childNodes[index])
-    } else {
-      styleElement.appendChild(cssNode)
-    }
-  }
-}
-
-function applyToTag (styleElement, obj) {
-  var css = obj.css
-  var media = obj.media
-  var sourceMap = obj.sourceMap
-
-  if (media) {
-    styleElement.setAttribute('media', media)
-  }
-
-  if (sourceMap) {
-    // https://developer.chrome.com/devtools/docs/javascript-debugging
-    // this makes source maps inside style tags work properly in Chrome
-    css += '\n/*# sourceURL=' + sourceMap.sources[0] + ' */'
-    // http://stackoverflow.com/a/26603875
-    css += '\n/*# sourceMappingURL=data:application/json;base64,' + btoa(unescape(encodeURIComponent(JSON.stringify(sourceMap)))) + ' */'
-  }
-
-  if (styleElement.styleSheet) {
-    styleElement.styleSheet.cssText = css
-  } else {
-    while (styleElement.firstChild) {
-      styleElement.removeChild(styleElement.firstChild)
-    }
-    styleElement.appendChild(document.createTextNode(css))
-  }
-}
 
 
 /***/ }),
@@ -1613,40 +1060,6 @@ function toNumber(value) {
 }
 
 module.exports = toNumber;
-
-
-/***/ }),
-
-/***/ 809:
-/***/ (function(module, exports) {
-
-/**
- * Translates the list format produced by css-loader into something
- * easier to manipulate.
- */
-module.exports = function listToStyles (parentId, list) {
-  var styles = []
-  var newStyles = {}
-  for (var i = 0; i < list.length; i++) {
-    var item = list[i]
-    var id = item[0]
-    var css = item[1]
-    var media = item[2]
-    var sourceMap = item[3]
-    var part = {
-      id: parentId + ':' + i,
-      css: css,
-      media: media,
-      sourceMap: sourceMap
-    }
-    if (!newStyles[id]) {
-      styles.push(newStyles[id] = { id: id, parts: [part] })
-    } else {
-      newStyles[id].parts.push(part)
-    }
-  }
-  return styles
-}
 
 
 /***/ }),
@@ -5784,6 +5197,37 @@ if(true) {
 	// When the module is disposed, remove the <style> tags
 	module.hot.dispose(function() { update(); });
 }
+
+/***/ }),
+
+/***/ 956:
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+exports.__esModule = true;
+
+var _defineProperty = __webpack_require__(802);
+
+var _defineProperty2 = _interopRequireDefault(_defineProperty);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+exports.default = function (obj, key, value) {
+  if (key in obj) {
+    (0, _defineProperty2.default)(obj, key, {
+      value: value,
+      enumerable: true,
+      configurable: true,
+      writable: true
+    });
+  } else {
+    obj[key] = value;
+  }
+
+  return obj;
+};
 
 /***/ }),
 

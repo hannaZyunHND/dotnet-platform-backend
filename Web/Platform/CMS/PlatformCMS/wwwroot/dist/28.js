@@ -214,7 +214,7 @@ var setToStringTag = __webpack_require__(112);
 var uid = __webpack_require__(109);
 var wks = __webpack_require__(17);
 var wksExt = __webpack_require__(996);
-var wksDefine = __webpack_require__(811);
+var wksDefine = __webpack_require__(946);
 var enumKeys = __webpack_require__(1010);
 var isArray = __webpack_require__(187);
 var anObject = __webpack_require__(36);
@@ -225,7 +225,7 @@ var toPrimitive = __webpack_require__(380);
 var createDesc = __webpack_require__(108);
 var _create = __webpack_require__(388);
 var gOPNExt = __webpack_require__(1009);
-var $GOPD = __webpack_require__(997);
+var $GOPD = __webpack_require__(998);
 var $GOPS = __webpack_require__(968);
 var $DP = __webpack_require__(55);
 var $keys = __webpack_require__(183);
@@ -453,7 +453,7 @@ setToStringTag(global.JSON, 'JSON', true);
 /***/ 1012:
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(811)('asyncIterator');
+__webpack_require__(946)('asyncIterator');
 
 
 /***/ }),
@@ -461,7 +461,7 @@ __webpack_require__(811)('asyncIterator');
 /***/ 1013:
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(811)('observable');
+__webpack_require__(946)('observable');
 
 
 /***/ }),
@@ -480,7 +480,7 @@ var _from = __webpack_require__(954);
 
 var _from2 = _interopRequireDefault(_from);
 
-var _extends2 = __webpack_require__(7);
+var _extends2 = __webpack_require__(8);
 
 var _extends3 = _interopRequireDefault(_extends2);
 
@@ -11940,6 +11940,21 @@ if(true) {
 
 /***/ }),
 
+/***/ 1020:
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__(53)();
+// imports
+
+
+// module
+exports.push([module.i, ".v-select{position:relative;font-family:inherit}.v-select,.v-select *{box-sizing:border-box}@-webkit-keyframes vSelectSpinner{0%{transform:rotate(0deg)}to{transform:rotate(1turn)}}@keyframes vSelectSpinner{0%{transform:rotate(0deg)}to{transform:rotate(1turn)}}.vs__fade-enter-active,.vs__fade-leave-active{pointer-events:none;transition:opacity .15s cubic-bezier(1,.5,.8,1)}.vs__fade-enter,.vs__fade-leave-to{opacity:0}.vs--disabled .vs__clear,.vs--disabled .vs__dropdown-toggle,.vs--disabled .vs__open-indicator,.vs--disabled .vs__search,.vs--disabled .vs__selected{cursor:not-allowed;background-color:#f8f8f8}.v-select[dir=rtl] .vs__actions{padding:0 3px 0 6px}.v-select[dir=rtl] .vs__clear{margin-left:6px;margin-right:0}.v-select[dir=rtl] .vs__deselect{margin-left:0;margin-right:2px}.v-select[dir=rtl] .vs__dropdown-menu{text-align:right}.vs__dropdown-toggle{-webkit-appearance:none;-moz-appearance:none;appearance:none;display:flex;padding:0 0 4px;background:none;border:1px solid rgba(60,60,60,.26);border-radius:4px;white-space:normal}.vs__selected-options{display:flex;flex-basis:100%;flex-grow:1;flex-wrap:wrap;padding:0 2px;position:relative}.vs__actions{display:flex;align-items:center;padding:4px 6px 0 3px}.vs--searchable .vs__dropdown-toggle{cursor:text}.vs--unsearchable .vs__dropdown-toggle{cursor:pointer}.vs--open .vs__dropdown-toggle{border-bottom-color:transparent;border-bottom-left-radius:0;border-bottom-right-radius:0}.vs__open-indicator{fill:rgba(60,60,60,.5);transform:scale(1);transition:transform .15s cubic-bezier(1,-.115,.975,.855);transition-timing-function:cubic-bezier(1,-.115,.975,.855)}.vs--open .vs__open-indicator{transform:rotate(180deg) scale(1)}.vs--loading .vs__open-indicator{opacity:0}.vs__clear{fill:rgba(60,60,60,.5);padding:0;border:0;background-color:transparent;cursor:pointer;margin-right:8px}.vs__dropdown-menu{display:block;box-sizing:border-box;position:absolute;top:calc(100% - 1px);left:0;z-index:1000;padding:5px 0;margin:0;width:100%;max-height:350px;min-width:160px;overflow-y:auto;box-shadow:0 3px 6px 0 rgba(0,0,0,.15);border:1px solid rgba(60,60,60,.26);border-top-style:none;border-radius:0 0 4px 4px;text-align:left;list-style:none;background:#fff}.vs__no-options{text-align:center}.vs__dropdown-option{line-height:1.42857143;display:block;padding:3px 20px;clear:both;color:#333;white-space:nowrap}.vs__dropdown-option:hover{cursor:pointer}.vs__dropdown-option--highlight{background:#5897fb;color:#fff}.vs__dropdown-option--disabled{background:inherit;color:rgba(60,60,60,.5)}.vs__dropdown-option--disabled:hover{cursor:inherit}.vs__selected{display:flex;align-items:center;background-color:#f0f0f0;border:1px solid rgba(60,60,60,.26);border-radius:4px;color:#333;line-height:1.4;margin:4px 2px 0;padding:0 .25em;z-index:0}.vs__deselect{display:inline-flex;-webkit-appearance:none;-moz-appearance:none;appearance:none;margin-left:4px;padding:0;border:0;cursor:pointer;background:none;fill:rgba(60,60,60,.5);text-shadow:0 1px 0 #fff}.vs--single .vs__selected{background-color:transparent;border-color:transparent}.vs--single.vs--open .vs__selected{position:absolute;opacity:.4}.vs--single.vs--searching .vs__selected{display:none}.vs__search::-webkit-search-cancel-button{display:none}.vs__search::-ms-clear,.vs__search::-webkit-search-decoration,.vs__search::-webkit-search-results-button,.vs__search::-webkit-search-results-decoration{display:none}.vs__search,.vs__search:focus{-webkit-appearance:none;-moz-appearance:none;appearance:none;line-height:1.4;font-size:1em;border:1px solid transparent;border-left:none;outline:none;margin:4px 0 0;padding:0 7px;background:none;box-shadow:none;width:0;max-width:100%;flex-grow:1;z-index:1}.vs__search::-webkit-input-placeholder{color:inherit}.vs__search::-moz-placeholder{color:inherit}.vs__search:-ms-input-placeholder{color:inherit}.vs__search::-ms-input-placeholder{color:inherit}.vs__search::placeholder{color:inherit}.vs--unsearchable .vs__search{opacity:1}.vs--unsearchable:not(.vs--disabled) .vs__search:hover{cursor:pointer}.vs--single.vs--searching:not(.vs--open):not(.vs--loading) .vs__search{opacity:.2}.vs__spinner{align-self:center;opacity:0;font-size:5px;text-indent:-9999em;overflow:hidden;border:.9em solid hsla(0,0%,39.2%,.1);border-left-color:rgba(60,60,60,.45);transform:translateZ(0);-webkit-animation:vSelectSpinner 1.1s linear infinite;animation:vSelectSpinner 1.1s linear infinite;transition:opacity .1s}.vs__spinner,.vs__spinner:after{border-radius:50%;width:5em;height:5em}.vs--loading .vs__spinner{opacity:1}\n\n/*# sourceMappingURL=vue-select.css.map*/", ""]);
+
+// exports
+
+
+/***/ }),
+
 /***/ 1021:
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -11952,6 +11967,33 @@ exports.push([module.i, "\n.file-manager[data-v-8004295c], .fm-content-selected[
 
 // exports
 
+
+/***/ }),
+
+/***/ 1025:
+/***/ (function(module, exports, __webpack_require__) {
+
+// style-loader: Adds some css to the DOM by adding a <style> tag
+
+// load the styles
+var content = __webpack_require__(1020);
+if(typeof content === 'string') content = [[module.i, content, '']];
+// add the styles to the DOM
+var update = __webpack_require__(179)(content, {});
+if(content.locals) module.exports = content.locals;
+// Hot Module Replacement
+if(true) {
+	// When the styles change, update the <style> tags
+	if(!content.locals) {
+		module.hot.accept(1020, function() {
+			var newContent = __webpack_require__(1020);
+			if(typeof newContent === 'string') newContent = [[module.i, newContent, '']];
+			update(newContent);
+		});
+	}
+	// When the module is disposed, remove the <style> tags
+	module.hot.dispose(function() { update(); });
+}
 
 /***/ }),
 
@@ -11973,7 +12015,7 @@ var _stringify = __webpack_require__(393);
 
 var _stringify2 = _interopRequireDefault(_stringify);
 
-var _extends2 = __webpack_require__(7);
+var _extends2 = __webpack_require__(8);
 
 var _extends3 = _interopRequireDefault(_extends2);
 
@@ -12935,7 +12977,7 @@ if(true) {
 
 /***/ }),
 
-/***/ 1108:
+/***/ 1084:
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(53)();
@@ -12943,14 +12985,14 @@ exports = module.exports = __webpack_require__(53)();
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", "", {"version":3,"sources":[],"names":[],"mappings":"","file":"edit.vue","sourceRoot":""}]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", "", {"version":3,"sources":[],"names":[],"mappings":"","file":"edit.vue","sourceRoot":""}]);
 
 // exports
 
 
 /***/ }),
 
-/***/ 1209:
+/***/ 1272:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -12964,15 +13006,15 @@ var _stringify = __webpack_require__(393);
 
 var _stringify2 = _interopRequireDefault(_stringify);
 
-var _extends2 = __webpack_require__(7);
+var _assign = __webpack_require__(377);
+
+var _assign2 = _interopRequireDefault(_assign);
+
+var _extends2 = __webpack_require__(8);
 
 var _extends3 = _interopRequireDefault(_extends2);
 
 __webpack_require__(796);
-
-var _constant = __webpack_require__(797);
-
-var _constant2 = _interopRequireDefault(_constant);
 
 var _vuex = __webpack_require__(180);
 
@@ -12980,87 +13022,117 @@ var _vueLoadingOverlay = __webpack_require__(376);
 
 var _vueLoadingOverlay2 = _interopRequireDefault(_vueLoadingOverlay);
 
+var _vueTreeselect = __webpack_require__(951);
+
+var _vueTreeselect2 = _interopRequireDefault(_vueTreeselect);
+
+__webpack_require__(953);
+
+__webpack_require__(1025);
+
 var _helper = __webpack_require__(950);
 
 var _list = __webpack_require__(1008);
 
 var _list2 = _interopRequireDefault(_list);
 
-var _eventBus = __webpack_require__(957);
-
-var _eventBus2 = _interopRequireDefault(_eventBus);
-
-__webpack_require__(953);
-
-var _vueTreeselect = __webpack_require__(951);
-
-var _vueTreeselect2 = _interopRequireDefault(_vueTreeselect);
-
 var _MIEditor = __webpack_require__(1028);
 
 var _MIEditor2 = _interopRequireDefault(_MIEditor);
 
+var _eventBus = __webpack_require__(957);
+
+var _eventBus2 = _interopRequireDefault(_eventBus);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 exports.default = {
-    name: "configaddedit",
+    name: "zoneedit",
     data: function data() {
         return {
+            mikey1: 'mikey1',
             isLoading: false,
-            fullPage: false,
-            searchLanguageCode: "vi-VN",
-            searchKeyCode: "",
-            color: "#007bff",
-            currentSort: "Id",
-            currentSortDir: "asc",
-            loading: true,
-            configId: "",
+            statusNoindex: false,
+            statusCanonical: false,
+            valueCanonical: "",
+
             objRequest: {
-                type: 1,
-                languageCode: 'vi-VN',
-                code: ""
+                id: 0,
+                type: 0,
+                status: 1,
+                avatar: '',
+                background: '',
+                banner: '',
+                icon: '',
+                manufacturerId: '',
+                manufacturerIds: [],
+                zoneSearchType: 0
+
             },
+            Type: 0,
+
+            SearchTypes: [{ value: 0, text: 'Tất cả' }, { value: 1, text: 'Theo thương hiệu' }, { value: 2, text: 'Theo khoảng giá' }],
+            langSelected: "",
+            objRequestLanguage: {
+                name: "",
+                url: ""
+            },
+            objRequestLanguages: [],
+            Languages: [],
+            Types: [],
+            Status: [],
+            ZoneOptions: [],
+            ZoneByType: [],
             editorConfig: {
                 allowedContent: true,
                 extraPlugins: ""
 
             },
-            mikey1: 'mikey1',
 
-            IsChose: false,
-
-            objRequestDetail: {
-                Order: 255,
-                Image: "",
-                Title: "",
-                Url: "",
-                Description: "",
-                DateStart: null,
-                DateEnd: null
-            },
-            objRequestDetails: [],
-            langSelected: "",
-            Languages: [],
-            ConfigValueTypes: [],
-            KeyImg: -1,
-            ListCodeBanger: []
+            Manufacturer: []
         };
     },
     created: function created() {
         var _this = this;
 
-        var vm = this;
-        _eventBus2.default.$on('FileSelected', function (value) {});
-
         this.getAllLanguages().then(function (respose) {
             var lang = respose.listData;
+            debugger;
             _this.Languages = lang.map(function (item) {
                 return {
-                    value: item.languageCode,
+                    value: item.languageCode.trim(),
                     text: item.name
                 };
             });
         });
+
+        this.getAllManufacturers().then(function (response) {
+            debugger;
+            _this.Manufacturer = response.listData.map(function (x) {
+                return {
+                    id: x.id,
+                    label: x.name
+                };
+            });
+        });
+
+        this.supportsZone().then(function (respose) {
+            _this.Types = respose.listTypes.map(function (item) {
+                return {
+                    value: item.key,
+                    text: item.value
+                };
+            });
+            _this.Status = respose.listStatus.map(function (item) {
+                return {
+                    value: item.key,
+                    text: item.value
+                };
+            });
+        });
+    },
+    destroyed: function destroyed() {
+        _eventBus2.default.$off('FileSelected');
     },
 
     components: {
@@ -13069,285 +13141,566 @@ exports.default = {
         FileManager: _list2.default,
         MIEditor: _MIEditor2.default
     },
+    computed: {},
     mounted: function mounted() {
         var _this2 = this;
 
-        this.getAllLanguages().then(function (respose) {
-            var lang = respose.listData;
-            _this2.Languages = lang.map(function (item) {
-                return {
-                    value: item.languageCode.trim(),
-                    text: item.name.trim()
-                };
-            });
-        });
+        this.onChangePaging();
 
-        this.getBannerCode().then(function (response) {
-            console.log(response);
-            _this2.ListCodeBanger = response.map(function (x) {
-                return {
-                    id: x.key,
-                    label: x.value
-                };
+        if (this.$route.params.id > 0) {
+            this.isLoading = true;
+            var initial = this.$route.query.initial;
+            initial = typeof initial != "undefined" ? initial.toLowerCase() : "";
+            this.getZone(this.$route.params.id).then(function (respose) {
+                if (respose.data != null) {
+                    _this2.objRequest = respose.data;
+                    console.log(_this2.objRequest);
+                    if (_this2.objRequest != null) {
+                        _this2.Type = _this2.objRequest.type;
+                        if (_this2.objRequest.manufacturerId != "") {
+                            _this2.objRequest.manufacturerIds = _this2.objRequest.manufacturerId.split(",");
+                        }
+                    }
+                }
+                if (respose.listData != null) {
+                    _this2.objRequestLanguages = respose.listData;
+                    if (_this2.objRequestLanguages != null && _this2.objRequestLanguages.length > 0) {
+                        _this2.objRequestLanguage = _this2.objRequestLanguages[0];
+                        if (_this2.objRequestLanguage.metaNoIndex != null) {
+                            var objNoIndex = JSON.parse(_this2.objRequestLanguage.metaNoIndex);
+                            _this2.statusNoindex = objNoIndex.Status;
+                        }
+                        if (_this2.objRequestLanguage.metaCanonical != null) {
+                            var objCanonical = JSON.parse(_this2.objRequestLanguage.metaCanonical);
+                            _this2.statusCanonical = objCanonical.Status;
+                            _this2.valueCanonical = objCanonical.Value;
+                        }
+                    } else {
+                        _this2.defaultObj();
+                        _this2.statusNoindex = false;
+                        _this2.statusCanonical = false;
+                        _this2.valueCanonical = "";
+                        _this2.objRequestLanguage.languageCode = _this2.langSelected || "vi-VN";
+                    }
+                }
+                debugger;
+                _this2.langSelected = _this2.objRequestLanguage.languageCode.trim();
             });
-            if (_this2.ListCodeBanger.length > 0) {
 
-                _this2.objRequest.code = _this2.ListCodeBanger[0].id;
-                _this2.onChange();
-            }
-        });
+            this.isLoading = false;
+        }
     },
 
 
-    computed: (0, _extends3.default)({}, (0, _vuex.mapGetters)(["config"])),
-
-    methods: (0, _extends3.default)({}, (0, _vuex.mapActions)(["getBannerAds", "createBannerAds", "getAllLanguages", "getBannerCode", "getBannerByCode"]), {
-        removeSlide: function removeSlide(index) {
-            this.objRequestDetails.splice(index, 1);
-        },
-        DoAdd: function DoAdd() {
-            this.objRequestDetails.push({
-                Order: 255,
-                Image: "",
-                Description: ""
-            });
-        },
+    methods: (0, _extends3.default)({}, (0, _vuex.mapActions)(["updateZone", "getAllManufacturers", "addZone", "getZone", "getAllLanguages", "getZones", "mergeZoneLang", "supportsZone"]), {
         pathImgs: function pathImgs(path) {
             return (0, _helper.pathImg)(path);
         },
+        getOrSetData: function getOrSetData(value) {
+            this.objRequestLanguage.content = value;
+        },
         openImg: function openImg(img) {
+            this.choseImg = img;
 
-            this.KeyImg = img;
             _eventBus2.default.$emit(this.mikey1, '');
         },
         DoAttackFile: function DoAttackFile(value) {
             var vm = this;
-            if (this.KeyImg == 99999) {
-                vm.objRequestDetail.Image = value[0].path;
-            } else {
-                if (this.KeyImg >= 0) {
-                    vm.objRequestDetails[this.KeyImg].Image = value[0].path;
-                }
+            if (this.choseImg == "avatar") {
+                vm.objRequest.avatar = value[0].path;
+            } else if (this.choseImg == "icon") {
+
+                vm.objRequest.icon = value[0].path;
+            } else if (this.choseImg == "bg") {
+                vm.objRequest.background = value[0].path;
+            } else if (this.choseImg == "banner") {
+                vm.objRequest.banner = value[0].path;
             }
         },
-        onChange: function onChange() {
+
+        slugM: function slugM() {
+            if (this.objRequestLanguage != null && this.objRequestLanguage != undefined) {
+                this.objRequestLanguage.url = (0, _helper.slug)(this.objRequestLanguage.name);
+            }
+        },
+        onLoadZoneByType: function onLoadZoneByType(type) {
+            this.ZoneByType = [];
+            this.ZoneByType.push({ id: 0, label: "Chọn danh mục cha", parentId: 0 });
+            if (type != null && type != undefined && type > 0) {
+                var vm = this;
+                var data = this.ZoneOptions.filter(function (x) {
+                    return x.type == type;
+                });
+                if (data !== null && data != undefined && data.length > 0) {
+                    data.push({ id: 0, label: "Chọn danh mục cha", parentId: 0 });
+                    var utu = data.reduce(function (ListNew, obj) {
+                        ListNew.push(obj);
+                        return ListNew;
+                    }, []);
+                    vm.ZoneByType = (0, _helper.unflatten)(utu);
+                }
+            }
+            this.objRequest.type = type;
+        },
+        onChangePaging: function onChangePaging() {
             var _this3 = this;
 
-            var key = this.objRequest.languageCode + "_" + this.objRequest.code;
-            this.getBannerAds(key).then(function (response) {
-                debugger;
-                var data = response;
-                data.languageCode = _this3.objRequest.languageCode;
-                data.code = _this3.objRequest.code;
-                console.log(data.metaData);
-
-                if (data.type == 1) {
-                    _this3.objRequestDetail = JSON.parse(data.metaData);
-                } else {
-                    _this3.objRequestDetails = JSON.parse(data.metaData);
-                }
-                _this3.objRequest = data;
-            });
-        },
-        DoAddEdit: function DoAddEdit() {
-            var _this4 = this;
-
             this.isLoading = true;
-            if (this.objRequest.type > 0) {
-                if (this.objRequest.type > 1) {
-                    this.objRequest.metaData = (0, _stringify2.default)(this.objRequestDetails);
-                } else {
-                    this.objRequest.metaData = (0, _stringify2.default)(this.objRequestDetail);
-                }
-                this.createBannerAds(this.objRequest).then(function (response) {
-                    if (response.key == true) {
-                        if (_this4.IsChose) {
-                            if (_this4.ListCodeBanger.some(function (x) {
-                                return x.key != _this4.objRequest.code;
-                            })) {
-                                _this4.ListCodeBanger.push({
-                                    key: _this4.objRequest.code,
-                                    value: _this4.objRequest.code
-                                });
-                            }
-                        }
+            var initial = this.$route.query.initial;
+            initial = typeof initial != "undefined" ? initial.toLowerCase() : "";
+            this.getZones(0).then(function (respose) {
+                try {
+                    var data = respose.listData;
 
-                        _this4.$toast.success(response.value, {});
-                        _this4.onChange();
-                        _this4.isLoading = false;
-                    } else {
-                        _this4.$toast.error(response.value, {});
-                        _this4.isLoading = false;
-                    }
-                }).catch(function (e) {
-                    _this4.$toast.error(_constant2.default.error + ". Error:" + e, {});
-                    _this4.isLoading = false;
-                });
-            } else {
-                this.$toast.error("Bạn chưa chọn loại", {});
-                this.isLoading = false;
-            }
+                    _this3.ZoneOptions = data;
+                } catch (ex) {}
+            });
+
+            this.isLoading = false;
         },
         onChangeSelectd: function onChangeSelectd() {
-            if (this.objRequestDetails != null && this.objRequestDetails.length > 0) {
+
+            if (this.objRequestLanguages != null && this.objRequestLanguages.length > 0) {
                 var lang = this.langSelected || "vi-VN";
-                var lstObjLang = this.objRequestDetails.filter(function (item) {
+                var lstObjLang = this.objRequestLanguages.filter(function (item) {
                     return item.languageCode.trim() === lang.trim();
                 });
                 if (lstObjLang != null && lstObjLang != undefined && lstObjLang.length > 0) {
-                    this.objRequestDetail = lstObjLang[0];
+                    this.objRequestLanguage = lstObjLang[0];
+                    var objNoIndex = JSON.parse(this.objRequestLanguage.metaNoIndex);
+                    this.statusNoindex = objNoIndex.Status;
+                    var objCanonical = JSON.parse(this.objRequestLanguage.metaCanonical);
+                    this.statusCanonical = objCanonical.Status;
+                    this.valueCanonical = objCanonical.Value;
                 } else {
-                    this.objRequestDetail = {};
-                    this.objRequestDetail.languageCode = lang;
+                    this.defaultObj();
+                    this.statusNoindex = false;
+                    this.statusCanonical = false;
+                    this.valueCanonical = "";
                 }
-            } else {
-                var _lang = this.langSelected;
-                this.objRequestDetail = {};
-                this.objRequestDetail.languageCode = _lang;
+                this.objRequestLanguage.languageCode = lang;
             }
         },
-        DoAddDetail: function DoAddDetail() {
+
+        defaultObj: function defaultObj() {
+            this.objRequestLanguage = (0, _assign2.default)({}, this.objRequestLanguage);
+
+            this.objRequestLanguage.name = "";
+            this.objRequestLanguage.url = "";
+            this.objRequestLanguage.content = "";
+            this.objRequestLanguage.description = "";
+        },
+
+        DoAddEdit: function DoAddEdit() {
+            var _this4 = this;
+
+            this.objRequest.manufacturerId = this.objRequest.manufacturerIds.join();
+
+            if (this.objRequest.id > 0) {
+                this.updateZone(this.objRequest).then(function (response) {
+                    if (response.success == true) {
+                        _this4.$toast.success(response.message, {});
+                    } else {
+                        _this4.$toast.error(response.message, {});
+                    }
+                }).catch(function (e) {
+                    _this4.$toast.error(response.error + ". Error:" + e, {});
+                });
+            } else {
+                this.addZone(this.objRequest).then(function (response) {
+                    if (response.success == true) {
+                        _this4.$toast.success(response.message, {});
+                        _this4.objRequest.id = response.id;
+                        _this4.$router.push({
+                            path: "/admin/zone/edit/" + response.id
+                        });
+                    } else {
+                        _this4.$toast.error(response.message, {});
+                    }
+                }).catch(function (e) {
+                    _this4.$toast.error(response.error + ". Error:" + e, {});
+                });
+            }
+        },
+        DoAddEditLang: function DoAddEditLang() {
             var _this5 = this;
 
-            this.objRequestDetail.ConfigGroupKey = this.configId;
-            this.addConfigInLanguage(this.objRequestDetail).then(function (response) {
+            this.objRequestLanguage.zoneId = this.objRequest.id;
+            var objMetaNoIndex = {
+                Value: "",
+                Status: this.statusNoindex
+            };
+            var objMetaCanonical = {
+                Value: this.valueCanonical,
+                Status: this.statusCanonical
+            };
+            this.objRequestLanguage.metaNoIndex = (0, _stringify2.default)(objMetaNoIndex);
+            this.objRequestLanguage.metaCanonical = (0, _stringify2.default)(objMetaCanonical);
+            this.mergeZoneLang(this.objRequestLanguage).then(function (response) {
                 if (response.success == true) {
-
-                    if (!_this5.objRequestDetails.some(function (x) {
-                        return x.languageCode == _this5.objRequestDetail.languageCode;
-                    })) {
-                        _this5.objRequestDetails.push(_this5.objRequestDetail);
-                    }
                     _this5.$toast.success(response.message, {});
-                    _this5.onChange();
+
+                    if (!_this5.objRequestLanguages.some(function (x) {
+                        return x.languageCode.trim() == _this5.objRequestLanguage.languageCode.trim();
+                    })) {
+                        _this5.objRequestLanguages.push(_this5.objRequestLanguage);
+                    }
                 } else {
                     _this5.$toast.error(response.message, {});
                 }
             }).catch(function (e) {
-                _this5.$toast.error(_constant2.default.error + ". Error:" + e, {});
-                _this5.isLoading = false;
+                _this5.$toast.error(response.error + ". Error:" + e, {});
             });
         }
     }),
 
     watch: {
-        'objRequest.languageCode': function objRequestLanguageCode(newVal) {
-            this.onChange();
+        Type: function Type(newVal) {
+
+            this.onLoadZoneByType(newVal);
         },
-        'objRequest.code': function objRequestCode(newVal, oldVal) {
-            this.onChange();
+        ZoneOptions: function ZoneOptions() {
+            this.onLoadZoneByType(this.Type);
         }
+
     }
 };
 
 /***/ }),
 
-/***/ 1556:
+/***/ 1513:
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
   return _c('div', {
     staticClass: "productadd"
-  }, [_c('loading', {
+  }, [_c('b-tabs', {
+    staticClass: "col-md-12",
     attrs: {
-      "active": _vm.isLoading,
-      "height": 35,
-      "width": 35,
-      "color": _vm.color,
-      "is-full-page": _vm.fullPage
-    },
-    on: {
-      "update:active": function($event) {
-        _vm.isLoading = $event
-      }
+      "pills": ""
     }
-  }), _vm._v(" "), _c('div', {
-    staticClass: "row productedit"
-  }, [_c('div', {
-    staticClass: "col-sm-12 col-md-12"
-  }, [_c('div', {
-    staticClass: "card"
-  }, [_c('div', {
-    staticClass: "card-header"
-  }, [_vm._v("\n                    Thông tin cấu hình Banner\n                ")]), _vm._v(" "), _c('div', {
-    staticClass: "card-body"
-  }, [_c('b-form', {
-    staticClass: "form-horizontal"
+  }, [_c('b-tab', {
+    attrs: {
+      "title": "1. Thông tin chung",
+      "active": ""
+    }
   }, [_c('div', {
     staticClass: "row"
   }, [_c('div', {
-    staticClass: "col-md-3 col-xs-12"
+    staticClass: "col-sm-6 col-md-8"
+  }, [_c('b-card', {
+    staticClass: "mt-3",
+    attrs: {
+      "header": "Thông tin danh mục"
+    }
   }, [_c('b-form-group', {
     attrs: {
-      "label": "Ngôn ngữ"
+      "label": "Tiêu đề"
+    }
+  }, [_c('b-form-input', {
+    attrs: {
+      "placeholder": "Tiêu đề",
+      "required": ""
+    },
+    model: {
+      value: (_vm.objRequest.name),
+      callback: function($$v) {
+        _vm.$set(_vm.objRequest, "name", $$v)
+      },
+      expression: "objRequest.name"
+    }
+  })], 1), _vm._v(" "), _c('div', {
+    staticClass: "row"
+  }, [_c('div', {
+    staticClass: "col-md-6"
+  }, [_c('b-form-group', {
+    attrs: {
+      "label": "Loại"
     }
   }, [_c('b-form-select', {
     attrs: {
-      "options": _vm.Languages
+      "options": _vm.Types
     },
     model: {
-      value: (_vm.objRequest.languageCode),
+      value: (_vm.Type),
       callback: function($$v) {
-        _vm.$set(_vm.objRequest, "languageCode", $$v)
+        _vm.Type = $$v
       },
-      expression: "objRequest.languageCode"
+      expression: "Type"
     }
   })], 1)], 1), _vm._v(" "), _c('div', {
-    staticClass: "col-md-4"
-  }, [_c('div', {
-    staticClass: "form-group"
-  }, [_c('b-form-checkbox', {
-    staticStyle: {
-      "padding-bottom": "7px"
-    },
-    model: {
-      value: (_vm.IsChose),
-      callback: function($$v) {
-        _vm.IsChose = $$v
-      },
-      expression: "IsChose"
+    staticClass: "col-md-6"
+  }, [_c('b-form-group', {
+    attrs: {
+      "label": "Danh mục cha"
     }
-  }, [_vm._v("\n                                        Tên Banner (Tích chọn để thêm tên banner)\n                                    ")]), _vm._v(" "), (_vm.IsChose == false) ? [_c('treeselect', {
+  }, [_c('treeselect', {
     attrs: {
       "multiple": false,
-      "options": _vm.ListCodeBanger,
-      "placeholder": "Chọn mã banner",
-      "default-expand-level": Infinity
+      "options": _vm.ZoneByType,
+      "placeholder": "Xin mời bạn lựa chọn danh mục",
+      "default-expanded-level": Infinity
     },
     model: {
-      value: (_vm.objRequest.code),
+      value: (_vm.objRequest.parentId),
       callback: function($$v) {
-        _vm.$set(_vm.objRequest, "code", $$v)
+        _vm.$set(_vm.objRequest, "parentId", $$v)
       },
-      expression: "objRequest.code"
+      expression: "objRequest.parentId"
     }
-  })] : _vm._e(), _vm._v(" "), (_vm.IsChose == true) ? [_c('input', {
-    directives: [{
-      name: "model",
-      rawName: "v-model",
-      value: (_vm.objRequest.code),
-      expression: "objRequest.code"
-    }],
-    staticClass: "form-control",
-    domProps: {
-      "value": (_vm.objRequest.code)
-    },
+  })], 1)], 1)]), _vm._v(" "), _c('b-form-group', {
+    attrs: {
+      "label": "Hình nền"
+    }
+  }, [_c('b-form-group', [_c('a', {
     on: {
-      "input": function($event) {
-        if ($event.target.composing) { return; }
-        _vm.$set(_vm.objRequest, "code", $event.target.value)
+      "click": function($event) {
+        return _vm.openImg('bg')
       }
     }
-  })] : _vm._e()], 2)]), _vm._v(" "), _c('div', {
-    staticClass: "col-md-3"
   }, [_c('div', {
-    staticClass: "form-group"
-  }, [_c('label', [_vm._v("Loại:")]), _vm._v(" "), _c('select', {
+    staticClass: "gallery-upload-file ui-sortable",
+    staticStyle: {
+      "width": "50%",
+      "display": "flex"
+    }
+  }, [_c('div', {
+    staticClass: " r-queue-item ui-sortable-handle",
+    staticStyle: {
+      "width": "100%",
+      "display": "flex",
+      "margin": "0"
+    }
+  }, [(_vm.objRequest.background != null && _vm.objRequest.background != undefined && _vm.objRequest.background.length > 0) ? _c('div', {
+    staticStyle: {
+      "width": "100%"
+    }
+  }, [_c('img', {
+    staticClass: "preview-image img-thumbnail-full",
+    staticStyle: {
+      "height": "100px",
+      "width": "100%"
+    },
+    attrs: {
+      "alt": "Ảnh lỗi",
+      "src": _vm.pathImgs(_vm.objRequest.background)
+    }
+  })]) : _c('div', [_c('i', {
+    staticClass: "fa fa-picture-o"
+  }), _vm._v(" "), _c('p', [_vm._v("[Chọn ảnh]")])])])])])])], 1), _vm._v(" "), _c('b-form-group', {
+    attrs: {
+      "label": "Banner"
+    }
+  }, [_c('b-form-group', [_c('a', {
+    on: {
+      "click": function($event) {
+        return _vm.openImg('banner')
+      }
+    }
+  }, [_c('div', {
+    staticClass: "gallery-upload-file ui-sortable",
+    staticStyle: {
+      "width": "50%",
+      "display": "flex"
+    }
+  }, [_c('div', {
+    staticClass: " r-queue-item ui-sortable-handle",
+    staticStyle: {
+      "width": "100%",
+      "display": "flex",
+      "margin": "0"
+    }
+  }, [(_vm.objRequest.banner != null && _vm.objRequest.banner != undefined && _vm.objRequest.banner.length > 0) ? _c('div', {
+    staticStyle: {
+      "width": "100%"
+    }
+  }, [_c('img', {
+    staticClass: "preview-image img-thumbnail-full",
+    staticStyle: {
+      "height": "100px",
+      "width": "100%"
+    },
+    attrs: {
+      "alt": "Ảnh lỗi",
+      "src": _vm.pathImgs(_vm.objRequest.banner)
+    }
+  })]) : _c('div', [_c('i', {
+    staticClass: "fa fa-picture-o"
+  }), _vm._v(" "), _c('p', [_vm._v("[Chọn ảnh]")])])])])])])], 1), _vm._v(" "), _c('b-form-group', {
+    attrs: {
+      "label": "Chọn làm danh mục tìm kiếm"
+    }
+  }, [_c('b-col', {
+    attrs: {
+      "md": "2"
+    }
+  }, [_c('b-select', {
+    attrs: {
+      "options": _vm.SearchTypes
+    },
+    model: {
+      value: (_vm.objRequest.zoneSearchType),
+      callback: function($$v) {
+        _vm.$set(_vm.objRequest, "zoneSearchType", $$v)
+      },
+      expression: "objRequest.zoneSearchType"
+    }
+  })], 1)], 1), _vm._v(" "), _c('b-form-group', {
+    attrs: {
+      "label": "Tùy chọn lọc giá"
+    }
+  }, [_c('b-form-input', {
+    attrs: {
+      "placeholder": "Tạo bộ lọc giá theo định dạng : 0-10000,10000-1000000....",
+      "required": ""
+    },
+    model: {
+      value: (_vm.objRequest.fillter),
+      callback: function($$v) {
+        _vm.$set(_vm.objRequest, "fillter", $$v)
+      },
+      expression: "objRequest.fillter"
+    }
+  })], 1), _vm._v(" "), _c('b-form-group', {
+    attrs: {
+      "label": "Nhà cung cấp"
+    }
+  }, [_c('treeselect', {
+    attrs: {
+      "multiple": true,
+      "options": _vm.Manufacturer,
+      "placeholder": "Xin mời bạn lựa chọn nhãn hiệu",
+      "default-expanded-level": Infinity
+    },
+    model: {
+      value: (_vm.objRequest.manufacturerIds),
+      callback: function($$v) {
+        _vm.$set(_vm.objRequest, "manufacturerIds", $$v)
+      },
+      expression: "objRequest.manufacturerIds"
+    }
+  })], 1)], 1)], 1), _vm._v(" "), _c('div', {
+    staticClass: "col-sm-6 col-md-4"
+  }, [_c('b-card', {
+    staticClass: "mt-3",
+    attrs: {
+      "header": "Thông tin phụ"
+    }
+  }, [_c('div', {
+    staticClass: "row"
+  }, [_c('div', {
+    staticClass: "col-md-6"
+  }, [_c('button', {
+    staticClass: "btn btn-info btn-submit-form col-md-12 btncus",
+    attrs: {
+      "type": "submit"
+    },
+    on: {
+      "click": function($event) {
+        return _vm.DoAddEdit()
+      }
+    }
+  }, [_c('i', {
+    staticClass: "fa fa-save"
+  }), _vm._v(" Cập nhật\n                                ")])]), _vm._v(" "), _c('div', {
+    staticClass: "col-md-6"
+  }, [_c('button', {
+    staticClass: "btn btn-success col-md-12 btncus",
+    attrs: {
+      "type": "button"
+    },
+    on: {
+      "click": function($event) {
+        return _vm.DoRefesh()
+      }
+    }
+  }, [_c('i', {
+    staticClass: "fa fa-refresh"
+  }), _vm._v(" Làm mới\n                                ")])])])]), _vm._v(" "), _c('b-card', {
+    attrs: {
+      "header": "Cấu hình"
+    }
+  }, [_c('b-form-group', [_c('b-form-checkbox', {
+    model: {
+      value: (_vm.objRequest.isShowMenu),
+      callback: function($$v) {
+        _vm.$set(_vm.objRequest, "isShowMenu", $$v)
+      },
+      expression: "objRequest.isShowMenu"
+    }
+  }, [_vm._v("Hiển thị trên menu")])], 1), _vm._v(" "), _c('b-form-group', {
+    attrs: {
+      "label": "Thứ tự"
+    }
+  }, [_c('b-form-input', {
+    attrs: {
+      "placeholder": "Thứ tự",
+      "required": ""
+    },
+    model: {
+      value: (_vm.objRequest.sortOrder),
+      callback: function($$v) {
+        _vm.$set(_vm.objRequest, "sortOrder", $$v)
+      },
+      expression: "objRequest.sortOrder"
+    }
+  })], 1), _vm._v(" "), _c('b-form-group', {
+    attrs: {
+      "label": "Trạng thái"
+    }
+  }, [_c('b-form-select', {
+    attrs: {
+      "options": _vm.Status
+    },
+    model: {
+      value: (_vm.objRequest.status),
+      callback: function($$v) {
+        _vm.$set(_vm.objRequest, "status", $$v)
+      },
+      expression: "objRequest.status"
+    }
+  })], 1), _vm._v(" "), _c('b-form-group', {
+    attrs: {
+      "label": "Tọa độ trên bản đồ"
+    }
+  }, [_c('b-form-input', {
+    attrs: {
+      "placeholder": "(x, y, bán kính)",
+      "required": ""
+    },
+    model: {
+      value: (_vm.objRequest.mapCoords),
+      callback: function($$v) {
+        _vm.$set(_vm.objRequest, "mapCoords", $$v)
+      },
+      expression: "objRequest.mapCoords"
+    }
+  })], 1), _vm._v(" "), _c('b-form-group', {
+    attrs: {
+      "label": "Tọa độ trên Google Map"
+    }
+  }, [_c('b-form-input', {
+    attrs: {
+      "placeholder": "(lat - long)",
+      "required": ""
+    },
+    model: {
+      value: (_vm.objRequest.googleMapCrood),
+      callback: function($$v) {
+        _vm.$set(_vm.objRequest, "googleMapCrood", $$v)
+      },
+      expression: "objRequest.googleMapCrood"
+    }
+  })], 1), _vm._v(" "), _c('b-form-group', {
+    attrs: {
+      "label": "Loại note (Chỉ dành cho danh mục Booking Note)"
+    }
+  }, [_c('select', {
     directives: [{
       name: "model",
       rawName: "v-model",
-      value: (_vm.objRequest.type),
-      expression: "objRequest.type"
+      value: (_vm.objRequest.bookingNoteType),
+      expression: "objRequest.bookingNoteType"
     }],
     staticClass: "form-control",
     on: {
@@ -13358,390 +13711,240 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
           var val = "_value" in o ? o._value : o.value;
           return val
         });
-        _vm.$set(_vm.objRequest, "type", $event.target.multiple ? $$selectedVal : $$selectedVal[0])
+        _vm.$set(_vm.objRequest, "bookingNoteType", $event.target.multiple ? $$selectedVal : $$selectedVal[0])
       }
     }
   }, [_c('option', {
     attrs: {
-      "value": "1"
+      "value": ""
     }
-  }, [_vm._v("Ảnh Banner")]), _vm._v(" "), _c('option', {
+  }, [_vm._v("KHÔNG SỬ DỤNG")]), _vm._v(" "), _c('option', {
     attrs: {
-      "value": "2"
+      "value": "text"
     }
-  }, [_vm._v("Ảnh Slide")])])])]), _vm._v(" "), _c('div', {
-    staticClass: "col-md-2 col-xs-12"
-  }, [_c('button', {
-    staticClass: "btn btn-info btn-submit-form",
+  }, [_vm._v("Ô text nhập liệu")]), _vm._v(" "), _c('option', {
+    attrs: {
+      "value": "textarea"
+    }
+  }, [_vm._v("Ô textarea nhập liệu")]), _vm._v(" "), _c('option', {
+    attrs: {
+      "value": "datetime-local"
+    }
+  }, [_vm._v("Ô nhập ngày tháng - thời gian")]), _vm._v(" "), _c('option', {
+    attrs: {
+      "value": "radio"
+    }
+  }, [_vm._v("Checkbox một lựa chọn")]), _vm._v(" "), _c('option', {
+    attrs: {
+      "value": "select"
+    }
+  }, [_vm._v("Select box một lựa chọn")])]), _vm._v(" "), _c('small', {
     staticStyle: {
-      "margin-top": "32px"
-    },
+      "color": "red"
+    }
+  }, [_vm._v("(* Lưu ý: Chuyển sang vùng ngôn ngữ để cập nhật placeholder và các lựa chọn nếu có)")])]), _vm._v(" "), _c('b-form-group', {
     attrs: {
-      "type": "button"
-    },
-    on: {
-      "click": function($event) {
-        return _vm.DoAddEdit()
-      }
-    }
-  }, [_c('i', {
-    staticClass: "fa fa-save"
-  }), _vm._v(" Cập nhật\n                                ")])])]), _vm._v(" "), (_vm.objRequest.type > 1) ? [_c('div', {
-    staticClass: "row",
-    staticStyle: {
-      "margin-bottom": "20px"
-    }
-  }, [_c('div', {
-    staticClass: "col-md-12"
-  }, [_c('button', {
-    staticClass: "btn btn-success",
-    attrs: {
-      "type": "button"
-    },
-    on: {
-      "click": function($event) {
-        return _vm.DoAdd()
-      }
-    }
-  }, [_vm._v("\n                                        Thêm mới\n                                    ")])])]), _vm._v(" "), _vm._l((_vm.objRequestDetails), function(item, index) {
-    return _c('div', {
-      staticClass: "row",
-      staticStyle: {
-        "position": "relative",
-        "border": "2px dashed #dcd6d6",
-        "padding": "20px",
-        "margin": "0"
-      }
-    }, [_c('i', {
-      staticClass: "fa fa-remove",
-      staticStyle: {
-        "cursor": "pointer",
-        "font-size": "30px",
-        "color": "red",
-        "position": "absolute",
-        "top": "0",
-        "left": "5px"
-      },
-      on: {
-        "click": function($event) {
-          return _vm.removeSlide(index)
-        }
-      }
-    }), _vm._v(" "), _c('div', {
-      staticClass: "col-md-5"
-    }, [_c('b-form-group', {
-      attrs: {
-        "label": "Tiêu đề"
-      }
-    }, [_c('b-form-input', {
-      attrs: {
-        "label": "Tiêu đề",
-        "type": "text",
-        "placeholder": "Tiêu đề"
-      },
-      model: {
-        value: (item.Title),
-        callback: function($$v) {
-          _vm.$set(item, "Title", $$v)
-        },
-        expression: "item.Title"
-      }
-    })], 1)], 1), _vm._v(" "), _c('div', {
-      staticClass: "col-md-4"
-    }, [_c('b-form-group', {
-      attrs: {
-        "label": "Đường dẫn"
-      }
-    }, [_c('b-form-input', {
-      attrs: {
-        "type": "text",
-        "placeholder": "Đường dẫn"
-      },
-      model: {
-        value: (item.Url),
-        callback: function($$v) {
-          _vm.$set(item, "Url", $$v)
-        },
-        expression: "item.Url"
-      }
-    })], 1)], 1), _vm._v(" "), _c('div', {
-      staticClass: "col-md-2"
-    }, [_c('b-form-group', {
-      attrs: {
-        "label": "Thứ tự"
-      }
-    }, [_c('b-form-input', {
-      attrs: {
-        "type": "number",
-        "placeholder": "Thứ tự"
-      },
-      model: {
-        value: (item.Order),
-        callback: function($$v) {
-          _vm.$set(item, "Order", $$v)
-        },
-        expression: "item.Order"
-      }
-    })], 1)], 1), _vm._v(" "), _c('div', {
-      staticClass: "col-md-1"
-    }, [_c('label', [_vm._v("Hiển thị")]), _vm._v(" "), _c('label', {
-      staticClass: "switch switch-outline-primary-alt",
-      staticStyle: {
-        "margin-top": "5px"
-      }
-    }, [_c('input', {
-      directives: [{
-        name: "model",
-        rawName: "v-model",
-        value: (item.Show),
-        expression: "item.Show"
-      }],
-      staticClass: "switch-input",
-      attrs: {
-        "type": "checkbox",
-        "checked": ""
-      },
-      domProps: {
-        "checked": Array.isArray(item.Show) ? _vm._i(item.Show, null) > -1 : (item.Show)
-      },
-      on: {
-        "change": function($event) {
-          var $$a = item.Show,
-            $$el = $event.target,
-            $$c = $$el.checked ? (true) : (false);
-          if (Array.isArray($$a)) {
-            var $$v = null,
-              $$i = _vm._i($$a, $$v);
-            if ($$el.checked) {
-              $$i < 0 && (_vm.$set(item, "Show", $$a.concat([$$v])))
-            } else {
-              $$i > -1 && (_vm.$set(item, "Show", $$a.slice(0, $$i).concat($$a.slice($$i + 1))))
-            }
-          } else {
-            _vm.$set(item, "Show", $$c)
-          }
-        }
-      }
-    }), _vm._v(" "), _c('span', {
-      staticClass: "switch-slider"
-    })])]), _vm._v(" "), _c('div', {
-      staticClass: "col-md-10"
-    }, [_c('b-form-group', {
-      attrs: {
-        "label": "Mô tả ngắn"
-      }
-    }, [_c('ckeditor', {
-      attrs: {
-        "tag-name": "textarea",
-        "rows": 3,
-        "config": _vm.editorConfig
-      },
-      model: {
-        value: (item.Description),
-        callback: function($$v) {
-          _vm.$set(item, "Description", $$v)
-        },
-        expression: "item.Description"
-      }
-    })], 1), _vm._v(" "), _c('div', {
-      staticClass: "row"
-    }, [_c('div', {
-      staticClass: "col-md-6"
-    }, [_c('b-form-group', {
-      attrs: {
-        "label": "Thời gian bắt đầu"
-      }
-    }, [_c('b-form-input', {
-      attrs: {
-        "type": "date"
-      },
-      model: {
-        value: (item.DateStart),
-        callback: function($$v) {
-          _vm.$set(item, "DateStart", $$v)
-        },
-        expression: "item.DateStart"
-      }
-    })], 1)], 1), _vm._v(" "), _c('div', {
-      staticClass: "col-md-6"
-    }, [_c('b-form-group', {
-      attrs: {
-        "label": "Thời gian kết thúc"
-      }
-    }, [_c('b-form-input', {
-      attrs: {
-        "type": "date"
-      },
-      model: {
-        value: (item.DateEnd),
-        callback: function($$v) {
-          _vm.$set(item, "DateEnd", $$v)
-        },
-        expression: "item.DateEnd"
-      }
-    })], 1)], 1)])], 1), _vm._v(" "), _c('div', {
-      staticClass: "col-md-2"
-    }, [_c('div', {
-      staticStyle: {
-        "cursor": "pointer"
-      },
-      on: {
-        "click": function($event) {
-          return _vm.openImg(index)
-        }
-      }
-    }, [_c('div', {
-      staticClass: "gallery-upload-file ui-sortable",
-      staticStyle: {
-        "width": "100%",
-        "display": "flex"
-      }
-    }, [_c('div', {
-      staticClass: " r-queue-item ui-sortable-handle",
-      staticStyle: {
-        "width": "100%",
-        "height": "auto",
-        "margin": "0"
-      }
-    }, [(item.Image != null && item.Image != undefined && item.Image.length > 0) ? _c('div', {
-      staticStyle: {
-        "width": "100%"
-      }
-    }, [_c('img', {
-      staticStyle: {
-        "height": "100px",
-        "width": "100%"
-      },
-      attrs: {
-        "alt": "Ảnh lỗi",
-        "src": _vm.pathImgs(item.Image)
-      }
-    })]) : _c('div', [_c('i', {
-      staticClass: "fa fa-picture-o"
-    }), _vm._v(" "), _c('p', [_vm._v("[Chọn ảnh]")])])])])])])])
-  })] : _vm._e(), _vm._v(" "), (_vm.objRequest.type <= 1) ? [_c('div', {
-    staticClass: "row",
-    staticStyle: {
-      "position": "relative",
-      "border": "2px dashed #dcd6d6",
-      "padding": "20px",
-      "margin": "0"
-    }
-  }, [_c('div', {
-    staticClass: "col-md-5"
-  }, [_c('b-form-group', {
-    attrs: {
-      "label": "Tiêu đề"
-    }
-  }, [_c('b-form-input', {
-    attrs: {
-      "label": "Tiêu đề",
-      "type": "text",
-      "placeholder": "Tiêu đề"
-    },
-    model: {
-      value: (_vm.objRequestDetail.Title),
-      callback: function($$v) {
-        _vm.$set(_vm.objRequestDetail, "Title", $$v)
-      },
-      expression: "objRequestDetail.Title"
-    }
-  })], 1)], 1), _vm._v(" "), _c('div', {
-    staticClass: "col-md-4"
-  }, [_c('b-form-group', {
-    attrs: {
-      "label": "Đường dẫn"
-    }
-  }, [_c('b-form-input', {
-    attrs: {
-      "type": "text",
-      "placeholder": "Đường dẫn"
-    },
-    model: {
-      value: (_vm.objRequestDetail.Url),
-      callback: function($$v) {
-        _vm.$set(_vm.objRequestDetail, "Url", $$v)
-      },
-      expression: "objRequestDetail.Url"
-    }
-  })], 1)], 1), _vm._v(" "), _c('div', {
-    staticClass: "col-md-2"
-  }, [_c('b-form-group', {
-    attrs: {
-      "label": "Thứ tự"
-    }
-  }, [_c('b-form-input', {
-    attrs: {
-      "type": "number",
-      "placeholder": "Thứ tự"
-    },
-    model: {
-      value: (_vm.objRequestDetail.Order),
-      callback: function($$v) {
-        _vm.$set(_vm.objRequestDetail, "Order", $$v)
-      },
-      expression: "objRequestDetail.Order"
-    }
-  })], 1)], 1), _vm._v(" "), _c('div', {
-    staticClass: "col-md-1"
-  }, [_c('label', [_vm._v("Hiển thị")]), _vm._v(" "), _c('label', {
-    staticClass: "switch switch-outline-primary-alt",
-    staticStyle: {
-      "margin-top": "5px"
+      "label": "Tọa độ trên Google Map"
     }
   }, [_c('input', {
     directives: [{
       name: "model",
       rawName: "v-model",
-      value: (_vm.objRequestDetail.Show),
-      expression: "objRequestDetail.Show"
+      value: (_vm.objRequest.bookingNoteRequired),
+      expression: "objRequest.bookingNoteRequired"
     }],
-    staticClass: "switch-input",
     attrs: {
-      "type": "checkbox",
-      "checked": ""
+      "type": "checkbox"
     },
     domProps: {
-      "checked": Array.isArray(_vm.objRequestDetail.Show) ? _vm._i(_vm.objRequestDetail.Show, null) > -1 : (_vm.objRequestDetail.Show)
+      "checked": Array.isArray(_vm.objRequest.bookingNoteRequired) ? _vm._i(_vm.objRequest.bookingNoteRequired, null) > -1 : (_vm.objRequest.bookingNoteRequired)
     },
     on: {
       "change": function($event) {
-        var $$a = _vm.objRequestDetail.Show,
+        var $$a = _vm.objRequest.bookingNoteRequired,
           $$el = $event.target,
           $$c = $$el.checked ? (true) : (false);
         if (Array.isArray($$a)) {
           var $$v = null,
             $$i = _vm._i($$a, $$v);
           if ($$el.checked) {
-            $$i < 0 && (_vm.$set(_vm.objRequestDetail, "Show", $$a.concat([$$v])))
+            $$i < 0 && (_vm.$set(_vm.objRequest, "bookingNoteRequired", $$a.concat([$$v])))
           } else {
-            $$i > -1 && (_vm.$set(_vm.objRequestDetail, "Show", $$a.slice(0, $$i).concat($$a.slice($$i + 1))))
+            $$i > -1 && (_vm.$set(_vm.objRequest, "bookingNoteRequired", $$a.slice(0, $$i).concat($$a.slice($$i + 1))))
           }
         } else {
-          _vm.$set(_vm.objRequestDetail, "Show", $$c)
+          _vm.$set(_vm.objRequest, "bookingNoteRequired", $$c)
         }
       }
     }
-  }), _vm._v(" "), _c('span', {
-    staticClass: "switch-slider"
-  })])]), _vm._v(" "), _c('div', {
-    staticClass: "col-md-10"
+  }), _vm._v(" Note bắt buộc\n                        ")])], 1), _vm._v(" "), _c('b-card', {
+    attrs: {
+      "header": "Hình ảnh"
+    }
   }, [_c('b-form-group', {
     attrs: {
-      "label": "Mô tả ngắn"
+      "label": "Icon"
     }
-  }, [_c('ckeditor', {
+  }, [_c('b-form-group', [_c('a', {
+    on: {
+      "click": function($event) {
+        return _vm.openImg('icon')
+      }
+    }
+  }, [_c('div', {
+    staticClass: "gallery-upload-file ui-sortable",
+    staticStyle: {
+      "width": "80px",
+      "height": "80px",
+      "display": "flex"
+    }
+  }, [_c('div', {
+    staticClass: " r-queue-item ui-sortable-handle",
+    staticStyle: {
+      "width": "100%",
+      "height": "100%",
+      "display": "flex",
+      "margin": "0"
+    }
+  }, [(_vm.objRequest.icon != null && _vm.objRequest.icon != undefined && _vm.objRequest.icon.length > 0) ? _c('div', {
+    staticStyle: {
+      "width": "100%"
+    }
+  }, [_c('img', {
+    staticClass: "preview-image img-thumbnail-full",
+    staticStyle: {
+      "height": "100%",
+      "width": "100%"
+    },
     attrs: {
-      "tag-name": "textarea",
-      "rows": 3,
-      "config": _vm.editorConfig
+      "alt": "Ảnh lỗi",
+      "src": _vm.pathImgs(_vm.objRequest.icon)
+    }
+  })]) : _c('div', [_c('i', {
+    staticClass: "fa fa-picture-o"
+  }), _vm._v(" "), _c('p', [_vm._v("[Chọn ảnh]")])])])])])])], 1), _vm._v(" "), _c('b-form-group', {
+    attrs: {
+      "label": "Avatar"
+    }
+  }, [_c('b-form-group', [_c('a', {
+    on: {
+      "click": function($event) {
+        return _vm.openImg('avatar')
+      }
+    }
+  }, [_c('div', {
+    staticClass: "gallery-upload-file ui-sortable",
+    staticStyle: {
+      "width": "150px",
+      "display": "flex"
+    }
+  }, [_c('div', {
+    staticClass: " r-queue-item ui-sortable-handle",
+    staticStyle: {
+      "width": "100%",
+      "display": "flex",
+      "margin": "0"
+    }
+  }, [(_vm.objRequest.avatar != null && _vm.objRequest.avatar != undefined && _vm.objRequest.avatar.length > 0) ? _c('div', {
+    staticStyle: {
+      "width": "100%"
+    }
+  }, [_c('img', {
+    staticClass: "preview-image img-thumbnail-full",
+    staticStyle: {
+      "height": "150px",
+      "width": "150px"
+    },
+    attrs: {
+      "alt": "Ảnh lỗi",
+      "src": _vm.pathImgs(_vm.objRequest.avatar)
+    }
+  })]) : _c('div', [_c('i', {
+    staticClass: "fa fa-picture-o"
+  }), _vm._v(" "), _c('p', [_vm._v("[Chọn ảnh]")])])])])])])], 1)], 1)], 1)])]), _vm._v(" "), (_vm.objRequest.id > 0) ? _c('b-tab', {
+    attrs: {
+      "title": "2. Thông tin ngôn ngữ"
+    }
+  }, [_c('div', {
+    staticClass: "row"
+  }, [_c('div', {
+    staticClass: "col-sm-6 col-md-8"
+  }, [_c('b-card', {
+    staticClass: "mt-3",
+    attrs: {
+      "header": "Thông tin danh mục"
+    }
+  }, [_c('b-form-group', {
+    attrs: {
+      "label": "Ngôn ngữ"
+    }
+  }, [_c('b-form-select', {
+    attrs: {
+      "options": _vm.Languages
+    },
+    on: {
+      "change": _vm.onChangeSelectd
     },
     model: {
-      value: (_vm.objRequestDetail.Description),
+      value: (_vm.langSelected),
       callback: function($$v) {
-        _vm.$set(_vm.objRequestDetail, "Description", $$v)
+        _vm.langSelected = $$v
       },
-      expression: "objRequestDetail.Description"
+      expression: "langSelected"
+    }
+  })], 1), _vm._v(" "), _c('b-form-group', {
+    attrs: {
+      "label": "Tên theo ngôn ngữ"
+    }
+  }, [_c('b-form-input', {
+    attrs: {
+      "placeholder": "Tên danh mục",
+      "required": ""
+    },
+    on: {
+      "keyup": function($event) {
+        if (!$event.type.indexOf('key') && $event.keyCode !== 13) { return null; }
+        return _vm.slugM()
+      }
+    },
+    model: {
+      value: (_vm.objRequestLanguage.name),
+      callback: function($$v) {
+        _vm.$set(_vm.objRequestLanguage, "name", $$v)
+      },
+      expression: "objRequestLanguage.name"
+    }
+  })], 1), _vm._v(" "), _c('b-form-group', {
+    attrs: {
+      "label": "Đường dẫn"
+    }
+  }, [_c('b-form-input', {
+    attrs: {
+      "placeholder": "Đường dẫn",
+      "required": ""
+    },
+    model: {
+      value: (_vm.objRequestLanguage.url),
+      callback: function($$v) {
+        _vm.$set(_vm.objRequestLanguage, "url", $$v)
+      },
+      expression: "objRequestLanguage.url"
+    }
+  })], 1), _vm._v(" "), _c('b-form-group', {
+    attrs: {
+      "label": "Đường dẫn cũ"
+    }
+  }, [_c('b-form-input', {
+    attrs: {
+      "placeholder": "Đường dẫn cũ",
+      "required": ""
+    },
+    model: {
+      value: (_vm.objRequestLanguage.urlOld),
+      callback: function($$v) {
+        _vm.$set(_vm.objRequestLanguage, "urlOld", $$v)
+      },
+      expression: "objRequestLanguage.urlOld"
     }
   })], 1), _vm._v(" "), _c('div', {
     staticClass: "row"
@@ -13749,76 +13952,333 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "col-md-6"
   }, [_c('b-form-group', {
     attrs: {
-      "label": "Thời gian bắt đầu"
+      "label": "Breadcrumb thay thế"
     }
   }, [_c('b-form-input', {
     attrs: {
-      "type": "date"
+      "placeholder": "Dùng để thay thế text breadcrumb",
+      "required": ""
     },
     model: {
-      value: (_vm.objRequestDetail.DateStart),
+      value: (_vm.objRequestLanguage.breadcrumbFirst),
       callback: function($$v) {
-        _vm.$set(_vm.objRequestDetail, "DateStart", $$v)
+        _vm.$set(_vm.objRequestLanguage, "breadcrumbFirst", $$v)
       },
-      expression: "objRequestDetail.DateStart"
+      expression: "objRequestLanguage.breadcrumbFirst"
     }
   })], 1)], 1), _vm._v(" "), _c('div', {
     staticClass: "col-md-6"
   }, [_c('b-form-group', {
     attrs: {
-      "label": "Thời gian kết thúc"
+      "label": "Url Breadcrumb thay thế"
     }
   }, [_c('b-form-input', {
     attrs: {
-      "type": "date"
+      "placeholder": "Dùng để thay thế url breadcrumb",
+      "required": ""
     },
     model: {
-      value: (_vm.objRequestDetail.DateEnd),
+      value: (_vm.objRequestLanguage.breadcrumUrl),
       callback: function($$v) {
-        _vm.$set(_vm.objRequestDetail, "DateEnd", $$v)
+        _vm.$set(_vm.objRequestLanguage, "breadcrumUrl", $$v)
       },
-      expression: "objRequestDetail.DateEnd"
+      expression: "objRequestLanguage.breadcrumUrl"
     }
-  })], 1)], 1)])], 1), _vm._v(" "), _c('div', {
-    staticClass: "col-md-2"
-  }, [_c('div', {
+  })], 1)], 1)]), _vm._v(" "), _c('b-form-group', {
+    attrs: {
+      "label": "Mô tả"
+    }
+  }, [_c('ckeditor', {
+    attrs: {
+      "tag-name": "textarea",
+      "config": _vm.editorConfig
+    },
+    model: {
+      value: (_vm.objRequestLanguage.description),
+      callback: function($$v) {
+        _vm.$set(_vm.objRequestLanguage, "description", $$v)
+      },
+      expression: "objRequestLanguage.description"
+    }
+  })], 1), _vm._v(" "), _c('b-form-group', {
+    attrs: {
+      "label": "Nội dung"
+    }
+  }, [_c('b-form-group', {
+    attrs: {
+      "label": "Nội dung"
+    }
+  }, [_c('MIEditor', {
+    attrs: {
+      "contentEditor": _vm.objRequestLanguage.content
+    },
+    on: {
+      "handleEditorInput": _vm.getOrSetData
+    }
+  })], 1)], 1), _vm._v(" "), _c('b-form-group', {
+    attrs: {
+      "label": "Banner Link"
+    }
+  }, [_c('b-form-input', {
+    attrs: {
+      "placeholder": "Đường dẫn khi kích vào BannerLink",
+      "required": ""
+    },
+    model: {
+      value: (_vm.objRequestLanguage.bannerLink),
+      callback: function($$v) {
+        _vm.$set(_vm.objRequestLanguage, "bannerLink", $$v)
+      },
+      expression: "objRequestLanguage.bannerLink"
+    }
+  })], 1), _vm._v(" "), _c('b-form-group', {
+    attrs: {
+      "label": "Note placeholder"
+    }
+  }, [_c('b-form-input', {
+    attrs: {
+      "placeholder": "Place holder của ô nhập note",
+      "required": ""
+    },
+    model: {
+      value: (_vm.objRequestLanguage.notePlaceHolder),
+      callback: function($$v) {
+        _vm.$set(_vm.objRequestLanguage, "notePlaceHolder", $$v)
+      },
+      expression: "objRequestLanguage.notePlaceHolder"
+    }
+  })], 1), _vm._v(" "), _c('b-form-group', {
+    attrs: {
+      "label": "Danh sách lựa chọn Note"
+    }
+  }, [_c('b-form-input', {
+    attrs: {
+      "placeholder": "Đường dẫn khi kích vào BannerLink",
+      "required": ""
+    },
+    model: {
+      value: (_vm.objRequestLanguage.noteOptions),
+      callback: function($$v) {
+        _vm.$set(_vm.objRequestLanguage, "noteOptions", $$v)
+      },
+      expression: "objRequestLanguage.noteOptions"
+    }
+  }), _vm._v(" "), _c('small', {
     staticStyle: {
-      "cursor": "pointer"
+      "color": "red"
+    }
+  }, [_vm._v("(* Các lựa chọn được phân cách nhau bởi dấu ,)")])], 1), _vm._v(" "), _c('b-form-group', {
+    attrs: {
+      "label": "Mùa du lịch phổ biến"
+    }
+  }, [_c('b-form-input', {
+    attrs: {
+      "placeholder": "Mùa du lịch phổ biến",
+      "required": ""
+    },
+    model: {
+      value: (_vm.objRequestLanguage.suggestionSeason),
+      callback: function($$v) {
+        _vm.$set(_vm.objRequestLanguage, "suggestionSeason", $$v)
+      },
+      expression: "objRequestLanguage.suggestionSeason"
+    }
+  })], 1), _vm._v(" "), _c('b-form-group', {
+    attrs: {
+      "label": "Thời gian phù hợp để du lịch"
+    }
+  }, [_c('b-form-input', {
+    attrs: {
+      "placeholder": "Thời gian phù hợp để du lịch",
+      "required": ""
+    },
+    model: {
+      value: (_vm.objRequestLanguage.suggestionTraveldDate),
+      callback: function($$v) {
+        _vm.$set(_vm.objRequestLanguage, "suggestionTraveldDate", $$v)
+      },
+      expression: "objRequestLanguage.suggestionTraveldDate"
+    }
+  })], 1)], 1), _vm._v(" "), _c('div', {
+    staticClass: "card"
+  }, [_c('div', {
+    staticClass: "card-header"
+  }, [_vm._v("\n                            SEO Analysis\n                            "), _c('b-btn', {
+    directives: [{
+      name: "b-toggle",
+      rawName: "v-b-toggle.collapseSEO",
+      modifiers: {
+        "collapseSEO": true
+      }
+    }],
+    staticClass: "pull-right",
+    attrs: {
+      "variant": "primary"
+    }
+  }, [_c('i', {
+    staticClass: "fa fa-angle-double-down",
+    attrs: {
+      "aria-hidden": "true"
+    }
+  })])], 1), _vm._v(" "), _c('b-collapse', {
+    staticClass: "mt-2",
+    attrs: {
+      "id": "collapseSEO"
+    }
+  }, [_c('div', {
+    staticClass: "card-body"
+  }, [_c('b-form-group', {
+    attrs: {
+      "label": "Tiêu đề SEO"
+    }
+  }, [_c('b-form-input', {
+    attrs: {
+      "placeholder": "Tiêu đề SEO",
+      "required": ""
+    },
+    model: {
+      value: (_vm.objRequestLanguage.metaTitle),
+      callback: function($$v) {
+        _vm.$set(_vm.objRequestLanguage, "metaTitle", $$v)
+      },
+      expression: "objRequestLanguage.metaTitle"
+    }
+  })], 1), _vm._v(" "), _c('b-form-group', {
+    attrs: {
+      "label": "Từ khóa SEO"
+    }
+  }, [_c('b-form-input', {
+    attrs: {
+      "placeholder": "Từ khóa SEO",
+      "required": ""
+    },
+    model: {
+      value: (_vm.objRequestLanguage.metaKeyword),
+      callback: function($$v) {
+        _vm.$set(_vm.objRequestLanguage, "metaKeyword", $$v)
+      },
+      expression: "objRequestLanguage.metaKeyword"
+    }
+  })], 1), _vm._v(" "), _c('b-form-group', {
+    attrs: {
+      "label": "Mô tả"
+    }
+  }, [_c('b-form-textarea', {
+    attrs: {
+      "placeholder": "Mô tả",
+      "rows": "3",
+      "max-rows": "6",
+      "required": ""
+    },
+    model: {
+      value: (_vm.objRequestLanguage.metaDescription),
+      callback: function($$v) {
+        _vm.$set(_vm.objRequestLanguage, "metaDescription", $$v)
+      },
+      expression: "objRequestLanguage.metaDescription"
+    }
+  })], 1), _vm._v(" "), _c('b-form-group', {
+    attrs: {
+      "label": "Script WebPage"
+    }
+  }, [_c('b-form-textarea', {
+    attrs: {
+      "rows": "3",
+      "max-rows": "6",
+      "placeholder": "WebPage",
+      "required": ""
+    },
+    model: {
+      value: (_vm.objRequestLanguage.metaWebPage),
+      callback: function($$v) {
+        _vm.$set(_vm.objRequestLanguage, "metaWebPage", $$v)
+      },
+      expression: "objRequestLanguage.metaWebPage"
+    }
+  })], 1), _vm._v(" "), _c('b-form-group', [_c('div', {
+    staticClass: "row"
+  }, [_c('div', {
+    staticClass: "col-md-6"
+  }, [_c('b-form-checkbox', {
+    attrs: {
+      "placeholder": "Canonical",
+      "required": ""
+    },
+    model: {
+      value: (_vm.statusCanonical),
+      callback: function($$v) {
+        _vm.statusCanonical = $$v
+      },
+      expression: "statusCanonical"
+    }
+  }, [_vm._v("Chặn trùng lặp nội dung (Canonical)")])], 1), _vm._v(" "), _c('div', {
+    staticClass: "col-md-6"
+  }, [_c('b-form-checkbox', {
+    attrs: {
+      "placeholder": "NoIndex",
+      "required": ""
+    },
+    model: {
+      value: (_vm.statusNoindex),
+      callback: function($$v) {
+        _vm.statusNoindex = $$v
+      },
+      expression: "statusNoindex"
+    }
+  }, [_vm._v("Chặn lập chỉ mục (NoIndex)")])], 1)])]), _vm._v(" "), _c('b-form-group', {
+    attrs: {
+      "label": "Giá trị (Canonical)"
+    }
+  }, [_c('b-form-input', {
+    attrs: {
+      "placeholder": "Canonical",
+      "required": ""
+    },
+    model: {
+      value: (_vm.valueCanonical),
+      callback: function($$v) {
+        _vm.valueCanonical = $$v
+      },
+      expression: "valueCanonical"
+    }
+  })], 1)], 1)])], 1)], 1), _vm._v(" "), _c('div', {
+    staticClass: "col-sm-6 col-md-4"
+  }, [_c('b-card', {
+    staticClass: "mt-3",
+    attrs: {
+      "header": "Thông tin phụ"
+    }
+  }, [_c('div', {
+    staticClass: "row"
+  }, [_c('div', {
+    staticClass: "col-md-6"
+  }, [_c('button', {
+    staticClass: "btn btn-info btn-submit-form col-md-12 btncus",
+    attrs: {
+      "type": "submit"
     },
     on: {
       "click": function($event) {
-        return _vm.openImg(99999)
+        return _vm.DoAddEditLang()
       }
     }
-  }, [_c('div', {
-    staticClass: "gallery-upload-file ui-sortable",
-    staticStyle: {
-      "width": "100%",
-      "display": "flex"
-    }
-  }, [_c('div', {
-    staticClass: " r-queue-item ui-sortable-handle",
-    staticStyle: {
-      "width": "100%",
-      "height": "auto",
-      "margin": "0"
-    }
-  }, [(_vm.objRequestDetail.Image != null && _vm.objRequestDetail.Image != undefined && _vm.objRequestDetail.Image.length > 0) ? _c('div', {
-    staticStyle: {
-      "width": "100%"
-    }
-  }, [_c('img', {
-    staticStyle: {
-      "height": "100px",
-      "width": "100%"
-    },
+  }, [_c('i', {
+    staticClass: "fa fa-save"
+  }), _vm._v(" Cập nhật\n                                ")])]), _vm._v(" "), _c('div', {
+    staticClass: "col-md-6"
+  }, [_c('button', {
+    staticClass: "btn btn-success col-md-12 btncus",
     attrs: {
-      "alt": "Ảnh lỗi",
-      "src": _vm.pathImgs(_vm.objRequestDetail.Image)
+      "type": "button"
+    },
+    on: {
+      "click": function($event) {
+        return _vm.DoRefesh()
+      }
     }
-  })]) : _c('div', [_c('i', {
-    staticClass: "fa fa-picture-o"
-  }), _vm._v(" "), _c('p', [_vm._v("[Chọn ảnh]")])])])])])])])] : _vm._e()], 2), _vm._v(" "), _vm._m(0)], 1)])])]), _vm._v(" "), _c('FileManager', {
+  }, [_c('i', {
+    staticClass: "fa fa-refresh"
+  }), _vm._v(" Làm mới\n                                ")])])])])], 1)])]) : _vm._e()], 1), _vm._v(" "), _c('FileManager', {
     attrs: {
       "miKey": _vm.mikey1
     },
@@ -13826,42 +14286,34 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       "handleAttackFile": _vm.DoAttackFile
     }
   })], 1)
-},staticRenderFns: [function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _c('div', {
-    staticClass: "row"
-  }, [_c('div', {
-    staticClass: "col-md-3"
-  }), _vm._v(" "), _c('div', {
-    staticClass: "col-md-3"
-  })])
-}]}
+},staticRenderFns: []}
 module.exports.render._withStripped = true
 if (true) {
   module.hot.accept()
   if (module.hot.data) {
-     __webpack_require__(178).rerender("data-v-5845589c", module.exports)
+     __webpack_require__(178).rerender("data-v-07207e72", module.exports)
   }
 }
 
 /***/ }),
 
-/***/ 1620:
+/***/ 1596:
 /***/ (function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
-var content = __webpack_require__(1108);
+var content = __webpack_require__(1084);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
-var update = __webpack_require__(801)("535e18be", content, false);
+var update = __webpack_require__(801)("f32bfb38", content, false);
 // Hot Module Replacement
 if(true) {
  // When the styles change, update the <style> tags
  if(!content.locals) {
-   module.hot.accept(1108, function() {
-     var newContent = __webpack_require__(1108);
+   module.hot.accept(1084, function() {
+     var newContent = __webpack_require__(1084);
      if(typeof newContent === 'string') newContent = [[module.i, newContent, '']];
      update(newContent);
    });
@@ -13872,24 +14324,24 @@ if(true) {
 
 /***/ }),
 
-/***/ 737:
+/***/ 792:
 /***/ (function(module, exports, __webpack_require__) {
 
 
 /* styles */
-__webpack_require__(1620)
+__webpack_require__(1596)
 
 var Component = __webpack_require__(374)(
   /* script */
-  __webpack_require__(1209),
+  __webpack_require__(1272),
   /* template */
-  __webpack_require__(1556),
+  __webpack_require__(1513),
   /* scopeId */
   null,
   /* cssModules */
   null
 )
-Component.options.__file = "D:\\Code\\WORKING\\dotnet-platform-backend\\Web\\Platform\\CMS\\PlatformCMS\\ClientApp\\pages\\banner\\edit.vue"
+Component.options.__file = "D:\\Code\\WORKING\\dotnet-platform-backend\\Web\\Platform\\CMS\\PlatformCMS\\ClientApp\\pages\\zone\\edit.vue"
 if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
 if (Component.options.functional) {console.error("[vue-loader] edit.vue: functional components are not supported with templates, they should use render functions.")}
 
@@ -13900,9 +14352,9 @@ if (true) {(function () {
   if (!hotAPI.compatible) return
   module.hot.accept()
   if (!module.hot.data) {
-    hotAPI.createRecord("data-v-5845589c", Component.options)
+    hotAPI.createRecord("data-v-07207e72", Component.options)
   } else {
-    hotAPI.reload("data-v-5845589c", Component.options)
+    hotAPI.reload("data-v-07207e72", Component.options)
   }
 })()}
 
@@ -14411,7 +14863,7 @@ exports.f = {}.propertyIsEnumerable;
 
 /***/ }),
 
-/***/ 811:
+/***/ 946:
 /***/ (function(module, exports, __webpack_require__) {
 
 var global = __webpack_require__(22);
@@ -20416,7 +20868,7 @@ exports.f = __webpack_require__(17);
 
 /***/ }),
 
-/***/ 997:
+/***/ 998:
 /***/ (function(module, exports, __webpack_require__) {
 
 var pIE = __webpack_require__(810);
@@ -20442,7 +20894,7 @@ exports.f = __webpack_require__(59) ? gOPD : function getOwnPropertyDescriptor(O
 /***/ 999:
 /***/ (function(module, exports) {
 
-module.exports = {"AppSettings":{"Debug":true,"Version":"1.0.0.0","Domain":"http://demo.way2go.vn","UploadFolder":"uploads","FileUploadMaxSize":5000,"FileUploadSubFix":false,"ImageScaleWidth":300,"ImageScaleHeight":0,"ImageAllowUpload":".jpg,.jpeg,.png,.gif,.bit,.webp,.svg","DocumentAllowUpload":".doc,.docx,.pdf,.xls,.xlsx,.zip,.rar","FoderImg":"https://platformcms.hndedu.com","BaseDomain":"https://demo.way2go.vn","CacheEnable":"0","ESEnable":true,"NodeES":"http://127.0.0.1:9200","IndexES":"product_suggest"},"Redis":{"ConnectionString":"127.0.0.1:6379","DefaultDatabase":1,"InstanceName":"PLM_","CachingExpireMinute":3},"ConnectionStrings":{"DefaultConnection":"Server=103.184.112.82;Database=JT_DEV_2;Trusted_Connection=False;User Id=sa;password=EcaOicT35K%EC1"},"Cors":{"WithOrigin":"http://localhost:60099/"},"Logging":{"IncludeScopes":false,"LogLevel":{"Default":"Debug","System":"Information","Microsoft":"Information"}},"Tokens":{"Key":"0123456789ABCDEF","Issuer":"https://janhome.vn/"},"EmailSender":{"Host":"mail247.vn","Port":465,"CustomerService":{"Email":"cs@joytime.vn","Password":"D2A9HnvGMJYW3BeKQw5f4F"},"SupplierService":{"Email":"partner@joytime.vn","Password":"SL9QgKGtjCNUcbr7uXdWPY"},"HelpDesk":{"Email":"helpdesk@joytime.vn","Password":"jaR548durV2tpFCkX6qENx"},"BookingService":{"Email":"booking@joytime.vn","Password":"zydcpPBfEHeM7u9DU6XLVT"}}}
+module.exports = {"AppSettings":{"Debug":true,"Version":"1.0.0.0","Domain":"http://demo.way2go.vn","UploadFolder":"uploads","FileUploadMaxSize":5000,"FileUploadSubFix":false,"ImageScaleWidth":300,"ImageScaleHeight":0,"ImageAllowUpload":".jpg,.jpeg,.png,.gif,.bit,.webp,.svg","DocumentAllowUpload":".doc,.docx,.pdf,.xls,.xlsx,.zip,.rar","FoderImg":"https://platformcms.hndedu.com","BaseDomain":"https://demo.way2go.vn","CacheEnable":"0","ESEnable":true,"NodeES":"http://127.0.0.1:9200","IndexES":"product_suggest"},"Redis":{"ConnectionString":"127.0.0.1:6379","DefaultDatabase":1,"InstanceName":"PLM_","CachingExpireMinute":3},"ConnectionStrings":{"DefaultConnection":"Server=103.184.112.82;Database=PlatformRelease2;Trusted_Connection=False;User Id=sa;password=EcaOicT35K%EC1"},"Cors":{"WithOrigin":"http://localhost:60099/"},"Logging":{"IncludeScopes":false,"LogLevel":{"Default":"Debug","System":"Information","Microsoft":"Information"}},"Tokens":{"Key":"0123456789ABCDEF","Issuer":"https://janhome.vn/"},"EmailSender":{"Host":"mail247.vn","Port":465,"CustomerService":{"Email":"cs@joytime.vn","Password":"D2A9HnvGMJYW3BeKQw5f4F"},"SupplierService":{"Email":"partner@joytime.vn","Password":"SL9QgKGtjCNUcbr7uXdWPY"},"HelpDesk":{"Email":"helpdesk@joytime.vn","Password":"jaR548durV2tpFCkX6qENx"},"BookingService":{"Email":"booking@joytime.vn","Password":"zydcpPBfEHeM7u9DU6XLVT"}}}
 
 /***/ })
 

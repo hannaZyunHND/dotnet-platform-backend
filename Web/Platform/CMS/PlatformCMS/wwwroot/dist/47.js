@@ -214,7 +214,7 @@ var setToStringTag = __webpack_require__(112);
 var uid = __webpack_require__(109);
 var wks = __webpack_require__(17);
 var wksExt = __webpack_require__(996);
-var wksDefine = __webpack_require__(811);
+var wksDefine = __webpack_require__(946);
 var enumKeys = __webpack_require__(1010);
 var isArray = __webpack_require__(187);
 var anObject = __webpack_require__(36);
@@ -225,7 +225,7 @@ var toPrimitive = __webpack_require__(380);
 var createDesc = __webpack_require__(108);
 var _create = __webpack_require__(388);
 var gOPNExt = __webpack_require__(1009);
-var $GOPD = __webpack_require__(997);
+var $GOPD = __webpack_require__(998);
 var $GOPS = __webpack_require__(968);
 var $DP = __webpack_require__(55);
 var $keys = __webpack_require__(183);
@@ -453,7 +453,7 @@ setToStringTag(global.JSON, 'JSON', true);
 /***/ 1012:
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(811)('asyncIterator');
+__webpack_require__(946)('asyncIterator');
 
 
 /***/ }),
@@ -461,7 +461,7 @@ __webpack_require__(811)('asyncIterator');
 /***/ 1013:
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(811)('observable');
+__webpack_require__(946)('observable');
 
 
 /***/ }),
@@ -480,7 +480,7 @@ var _from = __webpack_require__(954);
 
 var _from2 = _interopRequireDefault(_from);
 
-var _extends2 = __webpack_require__(7);
+var _extends2 = __webpack_require__(8);
 
 var _extends3 = _interopRequireDefault(_extends2);
 
@@ -11940,7 +11940,7 @@ if(true) {
 
 /***/ }),
 
-/***/ 1100:
+/***/ 1110:
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(53)();
@@ -11948,14 +11948,36 @@ exports = module.exports = __webpack_require__(53)();
 
 
 // module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", "", {"version":3,"sources":[],"names":[],"mappings":"","file":"edit.vue","sourceRoot":""}]);
+exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", "", {"version":3,"sources":[],"names":[],"mappings":"","file":"edit.vue","sourceRoot":""}]);
 
 // exports
 
 
 /***/ }),
 
-/***/ 1205:
+/***/ 1163:
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.checkBreakpoint = checkBreakpoint;
+var sidebarCssClasses = exports.sidebarCssClasses = ['sidebar-show', 'sidebar-sm-show', 'sidebar-md-show', 'sidebar-lg-show', 'sidebar-xl-show'];
+
+var asideMenuCssClasses = exports.asideMenuCssClasses = ['aside-menu-show', 'aside-menu-sm-show', 'aside-menu-md-show', 'aside-menu-lg-show', 'aside-menu-xl-show'];
+
+var validBreakpoints = exports.validBreakpoints = ['sm', 'md', 'lg', 'xl'];
+
+function checkBreakpoint(breakpoint, list) {
+  return list.indexOf(breakpoint) > -1;
+}
+
+/***/ }),
+
+/***/ 1207:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -11965,11 +11987,7 @@ Object.defineProperty(exports, "__esModule", {
     value: true
 });
 
-var _stringify = __webpack_require__(393);
-
-var _stringify2 = _interopRequireDefault(_stringify);
-
-var _extends2 = __webpack_require__(7);
+var _extends2 = __webpack_require__(8);
 
 var _extends3 = _interopRequireDefault(_extends2);
 
@@ -11993,39 +12011,50 @@ var _eventBus = __webpack_require__(957);
 
 var _eventBus2 = _interopRequireDefault(_eventBus);
 
+var _classes = __webpack_require__(1163);
+
+var _debounce = __webpack_require__(52);
+
+var _debounce2 = _interopRequireDefault(_debounce);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 exports.default = {
-    name: "AdsEdit",
+    name: "bankinstalledit",
     data: function data() {
         return {
-            mikey1: 'mikey1',
-            mikey2: 'mikey2',
-            selectedFile: null,
-            preview: '/assets/img/unnamed.jpg',
-            preview1: '/assets/img/unnamed.jpg',
             isLoading: false,
             fullPage: false,
             color: "#007bff",
-            adsObj: {
-                Id: 0,
-                Type: 0,
-                IsEnable: false
+            currentSort: "Id",
+            currentSortDir: "asc",
+            monthNumber: "",
+            interestRate: "",
+            loading: true,
+            locationId: 0,
+            objRequest: {
+                avatar: ""
             },
-            Types: [{ value: 0, text: "Chọn loại" }, { value: 1, text: "Loại thiết bị" }, { value: 2, text: "Loại sàn gỗ" }]
+            langSelected: 1,
+            ListType: [],
+            KeyImg: -1,
+            mikey1: 'mikey1',
+            ListMonthNumber: [{ key: 3, value: 3 }, { key: 6, value: 6 }, { key: 9, value: 9 }, { key: 12, value: 12 }],
+            infoCardDataDetail: {},
+            InfoCardData: {
+                InfoCard: []
+            }
         };
     },
-    created: function created() {},
-    destroyed: function destroyed() {
-        _eventBus2.default.$off('FileSelected');
+    created: function created() {
+        var vm = this;
+        _eventBus2.default.$on('FileSelected', function (value) {});
     },
 
     components: {
         Loading: _vueLoadingOverlay2.default,
-        'FileManager': _list2.default
-
+        FileManager: _list2.default
     },
-
     mounted: function mounted() {
         var _this = this;
 
@@ -12033,108 +12062,116 @@ exports.default = {
             this.isLoading = true;
             var initial = this.$route.query.initial;
             initial = typeof initial != "undefined" ? initial.toLowerCase() : "";
-            this.getAds(this.$route.params.id).then(function (respose) {
-                _this.adsObj = respose.Data;
-                if (_this.adsObj.Thumb != null && _this.adsObj.Thumb != undefined && _this.adsObj.Thumb.length > 0) {
-                    _this.preview = _this.adsObj.Thumb;
-                }
+            this.getBankInstallment(this.$route.params.id).then(function (respose) {
+                _this.objRequest = respose;
+                _this.InfoCardData = JSON.parse(respose.infoCard);
+                console.log(_this.InfoCardData);
             });
             this.isLoading = false;
-        }
+        };
+
+        this.getCardType().then(function (respose) {
+            _this.ListType = respose;
+        });
     },
 
 
-    computed: (0, _extends3.default)({}, (0, _vuex.mapGetters)(["ads"])),
+    computed: (0, _extends3.default)({}, (0, _vuex.mapGetters)(["bankinstallment"])),
 
-    methods: (0, _extends3.default)({}, (0, _vuex.mapActions)(["addAds", "editAds", "getAds"]), {
-        FileManagerOpen1: function FileManagerOpen1() {
-            _eventBus2.default.$emit(this.mikey1, '');
-        },
-        FileManagerOpen2: function FileManagerOpen2() {
-            _eventBus2.default.$emit(this.mikey2, '');
-        },
-        DoAttackFile: function DoAttackFile(value) {
-            this.preview = '/uploads' + value[0].path;
-        },
-        DoAttackFile2: function DoAttackFile2(value) {
-            this.preview1 = '/uploads' + value[0].path;
-        },
+    methods: (0, _extends3.default)({}, (0, _vuex.mapActions)(["getBankInstallment", "createBankInstallment", "getCardType"]), {
         DoAddEdit: function DoAddEdit() {
             var _this2 = this;
 
             this.isLoading = true;
-            var fromData = new FormData();
-            fromData.append('image', this.selectedFile);
-            fromData.append('ads', (0, _stringify2.default)(this.adsObj));
-            if (this.adsObj.Id > 0) {
-                this.editAds(fromData).then(function (response) {
-                    if (response.Success == true) {
-                        _this2.$toast.success(response.Message, {});
-                        _this2.isLoading = false;
-                    } else {
-                        _this2.$toast.error(response.Message, {});
-                        _this2.isLoading = false;
-                    }
-                }).catch(function (e) {
-                    _this2.$toast.error(_constant2.default.error + ". Error:" + e, {});
+            var dataInput = this.infoCardDataDetail;
+
+            this.createBankInstallment(this.objRequest).then(function (response) {
+                if (response.key == true) {
+                    _this2.$toast.success(response.value, {});
                     _this2.isLoading = false;
+                } else {
+                    _this2.$toast.error(response.value, {});
+                    _this2.isLoading = false;
+                }
+            }).catch(function (e) {
+                _this2.$toast.error(_constant2.default.error + ". Error:" + e, {});
+                _this2.isLoading = false;
+            });
+        },
+        onChangeSelectd: function onChangeSelectd() {
+            if (this.objRequestDetails != null && this.objRequestDetails.length > 0) {
+                var lang = this.langSelected || "vi-VN";
+                var lstObjLang = this.objRequestDetails.filter(function (item) {
+                    return item.languageCode.trim() === lang.trim();
                 });
+                if (lstObjLang != null && lstObjLang != undefined && lstObjLang.length > 0) {
+                    this.objRequestDetail = lstObjLang[0];
+                } else {
+                    this.objRequestDetail = {};
+                    this.objRequestDetail.languageCode = lang;
+                }
             } else {
-                this.addAds(fromData).then(function (response) {
-                    if (response.Success == true) {
-                        _this2.$toast.success(response.Message, {});
-                        _this2.isLoading = false;
+                var _lang = this.langSelected;
+                this.objRequestDetail = {};
+                this.objRequestDetail.languageCode = _lang;
+            }
+        },
+        openImg: function openImg(img) {
+
+            this.KeyImg = img;
+            _eventBus2.default.$emit(this.mikey1, '');
+        },
+        DoAttackFile: function DoAttackFile(value) {
+            var vm = this;
+            if (this.KeyImg == 99999) {
+                vm.objRequest.avatar = value[0].path;
+            } else {
+                if (this.KeyImg >= 0) {
+                    vm.objRequest[this.KeyImg].avatar = value[0].path;
+                }
+            }
+        },
+        pathImgs: function pathImgs(path) {
+            var url = 'http://cms.didongxanh.com.vn/' + "uploads" + path;
+            return url;
+        },
+        MonthNumberChange: function MonthNumberChange() {
+            var dataInfoCard = this.InfoCardData;
+            var data = this.infoCardDataDetail;
+            var dataCheck = dataInfoCard.InfoCard;
+            if (dataCheck.length > 0) {
+                for (var index = 0; index < dataCheck.length; index++) {
+                    if (dataCheck[index].MonthNumber == data.monthNumber) {
+                        this.infoCardDataDetail.interestRate = dataCheck[index].InterestRate;
                     } else {
-                        _this2.$toast.error(response.Message, {});
-                        _this2.isLoading = false;
+                        this.infoCardDataDetail.interestRate = 0;
                     }
-                }).catch(function (e) {
-                    _this2.$toast.error(_constant2.default.error + ". Error:" + e, {});
-                    _this2.isLoading = false;
-                });
+                }
             }
-        },
-        openUpload: function openUpload() {
-            document.getElementById('file-field').click();
-        },
-        updatePreview: function updatePreview(e) {
-            var _this3 = this;
-
-            console.log('e', e);
-            var reader,
-                files = e.target.files;
-            if (files.length === 0) {
-                console.log('Empty');
-            }
-            this.selectedFile = files[0];
-            reader = new FileReader();
-            reader.onload = function (e) {
-                _this3.preview = e.target.result;
-
-                console.log(_this3.selectedFile);
-            };
-            reader.readAsDataURL(files[0]);
         }
-    })
+    }),
+    watch: {
+        'infoCardDataDetail.monthNumber': function infoCardDataDetailMonthNumber(newVal) {
+            this.MonthNumberChange();
+        }
+    }
 };
 
 /***/ }),
 
-/***/ 1540:
+/***/ 1565:
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
   return _c('div', {
-    staticClass: "row",
-    staticStyle: {
-      "display": "flex",
-      "width": "100%"
-    }
+    staticClass: "productadd"
   }, [_c('loading', {
     attrs: {
       "active": _vm.isLoading,
       "height": 35,
-      "width": 35
+      "width": 35,
+      "color": _vm.color,
+      "is-full-page": _vm.fullPage
     },
     on: {
       "update:active": function($event) {
@@ -12142,91 +12179,79 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       }
     }
   }), _vm._v(" "), _c('div', {
-    staticClass: "col-md-8"
-  }, [_c('b-card', {
-    attrs: {
-      "header": "Đăng hình ảnh"
-    }
-  }, [_c('b-form-group', [_c('img', {
-    staticClass: "preview-image img-thumbnail",
-    staticStyle: {
-      "margin-top": "10px"
-    },
-    attrs: {
-      "src": _vm.preview
-    },
-    on: {
-      "click": _vm.FileManagerOpen1
-    }
-  })]), _vm._v(" "), _c('b-form-group', [_c('img', {
-    staticClass: "preview-image img-thumbnail",
-    staticStyle: {
-      "margin-top": "10px"
-    },
-    attrs: {
-      "src": _vm.preview1
-    },
-    on: {
-      "click": _vm.FileManagerOpen2
-    }
-  })])], 1), _vm._v(" "), _c('b-card', {
-    staticClass: "mt-3",
-    attrs: {
-      "header": "Thêm / Sửa quảng cáo"
-    }
+    staticClass: "row productedit"
+  }, [_c('div', {
+    staticClass: "col-md-12 col-sd-12"
+  }, [_c('div', {
+    staticClass: "card"
+  }, [_c('div', {
+    staticClass: "card-header"
+  }, [_vm._v("\n                    Thông tin chính\n                ")]), _vm._v(" "), _c('div', {
+    staticClass: "card-body"
   }, [_c('b-form', {
     staticClass: "form-horizontal"
+  }, [_c('div', {
+    staticClass: "row"
+  }, [_c('div', {
+    staticClass: "col-md-2 col-sm-3"
   }, [_c('b-form-group', {
     attrs: {
-      "label": "Tên chiến dịch:",
-      "label-for": "input-1"
+      "label": "Hình ảnh"
+    }
+  }, [_c('div', {
+    staticStyle: {
+      "cursor": "pointer"
+    },
+    on: {
+      "click": function($event) {
+        return _vm.openImg(99999)
+      }
+    }
+  }, [_c('div', {
+    staticClass: "gallery-upload-file ui-sortable",
+    staticStyle: {
+      "width": "100%",
+      "display": "flex"
+    }
+  }, [_c('div', {
+    staticClass: " r-queue-item ui-sortable-handle",
+    staticStyle: {
+      "width": "100%",
+      "height": "auto",
+      "margin": "0"
+    }
+  }, [(_vm.objRequest.avatar != null && _vm.objRequest.avatar != undefined && _vm.objRequest.avatar.length > 0) ? _c('div', {
+    staticStyle: {
+      "width": "100%"
+    }
+  }, [_c('img', {
+    staticStyle: {
+      "height": "100px",
+      "width": "100%"
+    },
+    attrs: {
+      "alt": "Ảnh lỗi",
+      "src": _vm.pathImgs(_vm.objRequest.avatar)
+    }
+  })]) : _c('div', [_c('i', {
+    staticClass: "fa fa-picture-o"
+  }), _vm._v(" "), _c('p', [_vm._v("[Chọn ảnh]")])])])])])])], 1), _vm._v(" "), _c('div', {
+    staticClass: "col-md-10 col-sm-10"
+  }, [_c('b-form-group', {
+    attrs: {
+      "label": "Tên ngân hàng"
     }
   }, [_c('b-form-input', {
     attrs: {
-      "id": "input-1",
-      "type": "text",
-      "required": "",
-      "placeholder": "Tên chiến dịch"
-    },
-    model: {
-      value: (_vm.adsObj.Name),
-      callback: function($$v) {
-        _vm.$set(_vm.adsObj, "Name", $$v)
-      },
-      expression: "adsObj.Name"
-    }
-  })], 1), _vm._v(" "), _c('b-form-group', {
-    attrs: {
-      "label": "Loại"
-    }
-  }, [_c('b-form-select', {
-    attrs: {
-      "options": _vm.Types,
+      "placeholder": "Tên ngân hàng",
       "required": ""
     },
     model: {
-      value: (_vm.adsObj.Type),
+      value: (_vm.objRequest.name),
       callback: function($$v) {
-        _vm.$set(_vm.adsObj, "Type", $$v)
+        _vm.$set(_vm.objRequest, "name", $$v)
       },
-      expression: "adsObj.Type"
-    }
-  })], 1), _vm._v(" "), _c('b-form-group', {
-    attrs: {
-      "label": "Vị trí"
-    }
-  }, [_c('b-form-input', {
-    attrs: {
-      "type": "number",
-      "required": "",
-      "placeholder": "Vị trí"
-    },
-    model: {
-      value: (_vm.adsObj.Position),
-      callback: function($$v) {
-        _vm.$set(_vm.adsObj, "Position", $$v)
-      },
-      expression: "adsObj.Position"
+      expression: "objRequest.name"
     }
   })], 1), _vm._v(" "), _c('b-form-group', {
     attrs: {
@@ -12234,67 +12259,62 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }
   }, [_c('b-form-input', {
     attrs: {
-      "type": "text",
-      "required": "",
-      "placeholder": "Đường dẫn"
+      "placeholder": "Đường dẫn",
+      "required": ""
     },
     model: {
-      value: (_vm.adsObj.Url),
+      value: (_vm.objRequest.url),
       callback: function($$v) {
-        _vm.$set(_vm.adsObj, "Url", $$v)
+        _vm.$set(_vm.objRequest, "url", $$v)
       },
-      expression: "adsObj.Url"
+      expression: "objRequest.url"
     }
-  })], 1), _vm._v(" "), _c('b-form-group', {
+  })], 1)], 1)]), _vm._v(" "), _c('b-row', [_c('div', {
+    staticClass: "col-md-3 col-sm-3"
+  }, [_c('b-form-group', {
     attrs: {
-      "label": "Thứ tự"
+      "label": "Loại thẻ"
+    }
+  }, [_c('v-select', {
+    attrs: {
+      "options": _vm.ListType,
+      "reduce": function (x) { return x.key; },
+      "label": "value",
+      "placeholder": "Chọn loại thẻ"
+    },
+    model: {
+      value: (_vm.objRequest.type),
+      callback: function($$v) {
+        _vm.$set(_vm.objRequest, "type", $$v)
+      },
+      expression: "objRequest.type"
+    }
+  })], 1)], 1), _vm._v(" "), _c('div', {
+    staticClass: "col-md-3 col-sm-9"
+  }, [_c('b-form-group', {
+    attrs: {
+      "label": "Danh sách kỳ hạn (Ví dụ: 3,6,12,24....)"
     }
   }, [_c('b-form-input', {
     attrs: {
-      "type": "number",
-      "required": "",
-      "placeholder": "Thứ tự"
+      "placeholder": "Danh sách kỳ hạn",
+      "required": ""
     },
     model: {
-      value: (_vm.adsObj.SortOrder),
+      value: (_vm.objRequest.period),
       callback: function($$v) {
-        _vm.$set(_vm.adsObj, "SortOrder", $$v)
+        _vm.$set(_vm.objRequest, "period", $$v)
       },
-      expression: "adsObj.SortOrder"
+      expression: "objRequest.period"
     }
-  })], 1), _vm._v(" "), _c('b-form-group', {
-    attrs: {
-      "label": "Nội dung"
-    }
-  }, [_c('b-form-textarea', {
-    attrs: {
-      "placeholder": "Nội dung",
-      "rows": "3",
-      "max-rows": "6"
-    },
-    model: {
-      value: (_vm.adsObj.Content),
-      callback: function($$v) {
-        _vm.$set(_vm.adsObj, "Content", $$v)
-      },
-      expression: "adsObj.Content"
-    }
-  })], 1)], 1)], 1)], 1), _vm._v(" "), _c('div', {
-    staticClass: "col-md-4"
-  }, [_c('div', {
-    staticClass: "mt-3",
-    staticStyle: {
-      "position": "fixed",
-      "width": "25%"
-    }
-  }, [_c('b-card', {
-    attrs: {
-      "header": "Đăng bài"
-    }
-  }, [_c('div', {
+  })], 1)], 1)])], 1), _vm._v(" "), _c('div', {
     staticClass: "row"
   }, [_c('div', {
-    staticClass: "col-md-6"
+    staticClass: "col-md-5"
+  }), _vm._v(" "), _c('div', {
+    staticClass: "col-md-3"
+  }), _vm._v(" "), _c('div', {
+    staticClass: "col-md-2"
   }, [_c('button', {
     staticClass: "btn btn-info btn-submit-form col-md-12 btncus",
     attrs: {
@@ -12307,8 +12327,8 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }
   }, [_c('i', {
     staticClass: "fa fa-save"
-  }), _vm._v(" Cập nhật\n                        ")])]), _vm._v(" "), _c('div', {
-    staticClass: "col-md-6"
+  }), _vm._v(" Cập nhật\n                            ")])]), _vm._v(" "), _c('div', {
+    staticClass: "col-md-2"
   }, [_c('button', {
     staticClass: "btn btn-success col-md-12 btncus",
     attrs: {
@@ -12321,31 +12341,12 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }
   }, [_c('i', {
     staticClass: "fa fa-refresh"
-  }), _vm._v(" Làm mới\n                        ")])])]), _vm._v(" "), _c('b-form-group', {
-    staticStyle: {
-      "margin-top": "10px"
-    }
-  }, [_c('b-form-checkbox', {
-    model: {
-      value: (_vm.adsObj.IsEnable),
-      callback: function($$v) {
-        _vm.$set(_vm.adsObj, "IsEnable", $$v)
-      },
-      expression: "adsObj.IsEnable"
-    }
-  }, [_vm._v("Kích hoạt")])], 1)], 1)], 1)]), _vm._v(" "), _c('FileManager', {
+  }), _vm._v(" Làm mới\n                            ")])])])], 1)])])]), _vm._v(" "), _c('FileManager', {
     attrs: {
       "miKey": _vm.mikey1
     },
     on: {
       "handleAttackFile": _vm.DoAttackFile
-    }
-  }), _vm._v(" "), _c('FileManager', {
-    attrs: {
-      "miKey": _vm.mikey2
-    },
-    on: {
-      "handleAttackFile": _vm.DoAttackFile2
     }
   })], 1)
 },staticRenderFns: []}
@@ -12353,29 +12354,29 @@ module.exports.render._withStripped = true
 if (true) {
   module.hot.accept()
   if (module.hot.data) {
-     __webpack_require__(178).rerender("data-v-2f71b8b4", module.exports)
+     __webpack_require__(178).rerender("data-v-71b1d9c7", module.exports)
   }
 }
 
 /***/ }),
 
-/***/ 1612:
+/***/ 1622:
 /***/ (function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
-var content = __webpack_require__(1100);
+var content = __webpack_require__(1110);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
-var update = __webpack_require__(801)("dd0ae448", content, false);
+var update = __webpack_require__(801)("3ddde220", content, false);
 // Hot Module Replacement
 if(true) {
  // When the styles change, update the <style> tags
  if(!content.locals) {
-   module.hot.accept(1100, function() {
-     var newContent = __webpack_require__(1100);
+   module.hot.accept(1110, function() {
+     var newContent = __webpack_require__(1110);
      if(typeof newContent === 'string') newContent = [[module.i, newContent, '']];
      update(newContent);
    });
@@ -12386,24 +12387,24 @@ if(true) {
 
 /***/ }),
 
-/***/ 733:
+/***/ 735:
 /***/ (function(module, exports, __webpack_require__) {
 
 
 /* styles */
-__webpack_require__(1612)
+__webpack_require__(1622)
 
 var Component = __webpack_require__(374)(
   /* script */
-  __webpack_require__(1205),
+  __webpack_require__(1207),
   /* template */
-  __webpack_require__(1540),
+  __webpack_require__(1565),
   /* scopeId */
   null,
   /* cssModules */
   null
 )
-Component.options.__file = "D:\\Code\\WORKING\\dotnet-platform-backend\\Web\\Platform\\CMS\\PlatformCMS\\ClientApp\\pages\\ads\\edit.vue"
+Component.options.__file = "D:\\Code\\WORKING\\dotnet-platform-backend\\Web\\Platform\\CMS\\PlatformCMS\\ClientApp\\pages\\bankinstallment\\edit.vue"
 if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
 if (Component.options.functional) {console.error("[vue-loader] edit.vue: functional components are not supported with templates, they should use render functions.")}
 
@@ -12414,9 +12415,9 @@ if (true) {(function () {
   if (!hotAPI.compatible) return
   module.hot.accept()
   if (!module.hot.data) {
-    hotAPI.createRecord("data-v-2f71b8b4", Component.options)
+    hotAPI.createRecord("data-v-71b1d9c7", Component.options)
   } else {
-    hotAPI.reload("data-v-2f71b8b4", Component.options)
+    hotAPI.reload("data-v-71b1d9c7", Component.options)
   }
 })()}
 
@@ -12752,7 +12753,7 @@ exports.f = {}.propertyIsEnumerable;
 
 /***/ }),
 
-/***/ 811:
+/***/ 946:
 /***/ (function(module, exports, __webpack_require__) {
 
 var global = __webpack_require__(22);
@@ -12894,7 +12895,7 @@ exports.f = __webpack_require__(17);
 
 /***/ }),
 
-/***/ 997:
+/***/ 998:
 /***/ (function(module, exports, __webpack_require__) {
 
 var pIE = __webpack_require__(810);
@@ -12920,7 +12921,7 @@ exports.f = __webpack_require__(59) ? gOPD : function getOwnPropertyDescriptor(O
 /***/ 999:
 /***/ (function(module, exports) {
 
-module.exports = {"AppSettings":{"Debug":true,"Version":"1.0.0.0","Domain":"http://demo.way2go.vn","UploadFolder":"uploads","FileUploadMaxSize":5000,"FileUploadSubFix":false,"ImageScaleWidth":300,"ImageScaleHeight":0,"ImageAllowUpload":".jpg,.jpeg,.png,.gif,.bit,.webp,.svg","DocumentAllowUpload":".doc,.docx,.pdf,.xls,.xlsx,.zip,.rar","FoderImg":"https://platformcms.hndedu.com","BaseDomain":"https://demo.way2go.vn","CacheEnable":"0","ESEnable":true,"NodeES":"http://127.0.0.1:9200","IndexES":"product_suggest"},"Redis":{"ConnectionString":"127.0.0.1:6379","DefaultDatabase":1,"InstanceName":"PLM_","CachingExpireMinute":3},"ConnectionStrings":{"DefaultConnection":"Server=103.184.112.82;Database=JT_DEV_2;Trusted_Connection=False;User Id=sa;password=EcaOicT35K%EC1"},"Cors":{"WithOrigin":"http://localhost:60099/"},"Logging":{"IncludeScopes":false,"LogLevel":{"Default":"Debug","System":"Information","Microsoft":"Information"}},"Tokens":{"Key":"0123456789ABCDEF","Issuer":"https://janhome.vn/"},"EmailSender":{"Host":"mail247.vn","Port":465,"CustomerService":{"Email":"cs@joytime.vn","Password":"D2A9HnvGMJYW3BeKQw5f4F"},"SupplierService":{"Email":"partner@joytime.vn","Password":"SL9QgKGtjCNUcbr7uXdWPY"},"HelpDesk":{"Email":"helpdesk@joytime.vn","Password":"jaR548durV2tpFCkX6qENx"},"BookingService":{"Email":"booking@joytime.vn","Password":"zydcpPBfEHeM7u9DU6XLVT"}}}
+module.exports = {"AppSettings":{"Debug":true,"Version":"1.0.0.0","Domain":"http://demo.way2go.vn","UploadFolder":"uploads","FileUploadMaxSize":5000,"FileUploadSubFix":false,"ImageScaleWidth":300,"ImageScaleHeight":0,"ImageAllowUpload":".jpg,.jpeg,.png,.gif,.bit,.webp,.svg","DocumentAllowUpload":".doc,.docx,.pdf,.xls,.xlsx,.zip,.rar","FoderImg":"https://platformcms.hndedu.com","BaseDomain":"https://demo.way2go.vn","CacheEnable":"0","ESEnable":true,"NodeES":"http://127.0.0.1:9200","IndexES":"product_suggest"},"Redis":{"ConnectionString":"127.0.0.1:6379","DefaultDatabase":1,"InstanceName":"PLM_","CachingExpireMinute":3},"ConnectionStrings":{"DefaultConnection":"Server=103.184.112.82;Database=PlatformRelease2;Trusted_Connection=False;User Id=sa;password=EcaOicT35K%EC1"},"Cors":{"WithOrigin":"http://localhost:60099/"},"Logging":{"IncludeScopes":false,"LogLevel":{"Default":"Debug","System":"Information","Microsoft":"Information"}},"Tokens":{"Key":"0123456789ABCDEF","Issuer":"https://janhome.vn/"},"EmailSender":{"Host":"mail247.vn","Port":465,"CustomerService":{"Email":"cs@joytime.vn","Password":"D2A9HnvGMJYW3BeKQw5f4F"},"SupplierService":{"Email":"partner@joytime.vn","Password":"SL9QgKGtjCNUcbr7uXdWPY"},"HelpDesk":{"Email":"helpdesk@joytime.vn","Password":"jaR548durV2tpFCkX6qENx"},"BookingService":{"Email":"booking@joytime.vn","Password":"zydcpPBfEHeM7u9DU6XLVT"}}}
 
 /***/ })
 
