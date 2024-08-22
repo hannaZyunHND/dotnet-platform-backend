@@ -1,21 +1,6 @@
 webpackJsonp([60],{
 
-/***/ 1083:
-/***/ (function(module, exports, __webpack_require__) {
-
-exports = module.exports = __webpack_require__(53)();
-// imports
-
-
-// module
-exports.push([module.i, "\n.headerRow[data-v-0704ff92] {\n    padding: .75rem;\n    background-color: #000000;\n    color: #ffffff;\n    font-weight: bold;\n    vertical-align: bottom;\n    border-bottom: 2px solid #dee2e6;\n}\n.bodyRow[data-v-0704ff92] {\n    padding: .75rem;\n    border-top: 1px solid #dee2e6;\n}\n", "", {"version":3,"sources":["D:/Code/WORKING/dotnet-platform-backend/Web/Platform/CMS/PlatformCMS/ClientApp/pages/role/assignPermissionRole.vue?1aba7ce8"],"names":[],"mappings":";AA2GA;IACA,gBAAA;IACA,0BAAA;IACA,eAAA;IACA,kBAAA;IACA,uBAAA;IACA,iCAAA;CACA;AAEA;IACA,gBAAA;IACA,8BAAA;CACA","file":"assignPermissionRole.vue","sourcesContent":["<template>\r\n    <div>\r\n        <b-row>\r\n            <b-col>\r\n                <b-container class=\"col-12\">\r\n                    <div id='permissionsTable'>\r\n                        <b-row class='headerRow'>\r\n                            <b-col cols='3'>Danh mục chức năng</b-col>\r\n                            <b-col v-for=\"itemF in actionss\" v-bind:key=\"itemF.name\">{{itemF.name}}</b-col>\r\n                        </b-row>\r\n                        <b-row v-for=\"itemA in functions\" v-bind:key=\"itemA.name\" class=\"bodyRow\">\r\n                            <b-col cols='3' v-if=\"itemA.parentId==null\">{{itemA.name}}</b-col>\r\n                            <b-col cols='3' v-if=\"itemA.parentId!=null\">-- {{itemA.name}}</b-col>\r\n                            <b-col v-for=\"itemF in actionss\" v-bind:key=\"itemF.name\">\r\n                                <b-form-checkbox-group v-bind:id=\"itemF.name\"\r\n                                                       v-bind:name=\"itemF.name + 'Danh mục chức năng'\"\r\n                                                       v-model=\"itemF.functions\">\r\n                                    <b-form-checkbox v-bind:value=\"itemA.id\"></b-form-checkbox>\r\n                                </b-form-checkbox-group>\r\n                            </b-col>\r\n                        </b-row>\r\n                    </div>\r\n                    <div class=\"mt-3\">\r\n                        <div class=\"row\">\r\n                            <div class=\"col-md-12\">\r\n                                <button class=\"btn btn-info btn-submit-form btncus float-right\" type=\"button\"\r\n                                        @click=\"assignPermission()\">\r\n                                    <i class=\"fa fa-save\"></i> Cập nhật\r\n                                </button>\r\n                            </div>\r\n                        </div>\r\n                    </div>\r\n                </b-container>\r\n            </b-col>\r\n        </b-row>\r\n    </div>\r\n\r\n</template>\r\n\r\n\r\n<script>\r\n \r\n    import {mapActions} from \"vuex\";\r\n    import HttpService from \"../../plugins/http\";\r\n    import roleRepository from \"../../repository/roleRepository/roleRepository\";\r\n\r\n    export default {\r\n        name: 'assignPermissionRole',\r\n        data() {\r\n            return {\r\n                functions: [],\r\n\r\n                actionss: [],\r\n            };\r\n        },\r\n        methods: {\r\n            ...mapActions([\"getListFunctions\", \"getListActions\"]),\r\n            async getFunction() {\r\n                let response = await HttpService.get(`/api/role/getallfunctions`\r\n                ).catch(e => {\r\n                    alert('ex found:' + e)\r\n                });\r\n                console.log(response.data);\r\n                this.functions = response.data;\r\n            },\r\n            async getAction() {\r\n                if (this.$route.params.id) {\r\n                    let id = this.$route.params.id;\r\n                    let response = await HttpService.get(`/api/role/getallactions?roleid=${id}`\r\n                    ).catch(e => {\r\n                        alert('ex found:' + e)\r\n                    });\r\n                    console.log(response.data);\r\n                    this.actionss = response.data;\r\n                }\r\n\r\n            },\r\n            async assignPermission() {\r\n                if (this.$route.params.id) {\r\n                    let id = this.$route.params.id;\r\n                    let data = this.actionss;\r\n                    console.log(data);\r\n                    let result;\r\n                    result = await roleRepository.assignPermissionRole(id, data);\r\n                    console.log(result);\r\n                    if (result.success == true) {\r\n                        this.$toast.success(\"tạo thành công\", {});\r\n                        this.isLoading = false;\r\n                        this.$router.go(-1)\r\n                    } else {\r\n                        this.$router.go(-1);\r\n                        this.$toast.error(\"cập nhật thất bại\", {});\r\n                        this.isLoading = false;\r\n                    }\r\n                }\r\n            }\r\n\r\n        },\r\n        async created() {\r\n            await this.getAction();\r\n            await this.getFunction();\r\n        }\r\n    }\r\n</script>\r\n\r\n<!-- Add \"scoped\" attribute to limit CSS to this component only -->\r\n<style scoped>\r\n    .headerRow {\r\n        padding: .75rem;\r\n        background-color: #000000;\r\n        color: #ffffff;\r\n        font-weight: bold;\r\n        vertical-align: bottom;\r\n        border-bottom: 2px solid #dee2e6;\r\n    }\r\n\r\n    .bodyRow {\r\n        padding: .75rem;\r\n        border-top: 1px solid #dee2e6;\r\n    }\r\n</style>\r\n"],"sourceRoot":""}]);
-
-// exports
-
-
-/***/ }),
-
-/***/ 1176:
+/***/ 1117:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -46,7 +31,7 @@ exports.default = roleRepository;
 
 /***/ }),
 
-/***/ 1263:
+/***/ 1204:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -64,17 +49,17 @@ var _asyncToGenerator2 = __webpack_require__(74);
 
 var _asyncToGenerator3 = _interopRequireDefault(_asyncToGenerator2);
 
-var _extends2 = __webpack_require__(7);
+var _extends2 = __webpack_require__(8);
 
 var _extends3 = _interopRequireDefault(_extends2);
 
-var _vuex = __webpack_require__(180);
+var _vuex = __webpack_require__(176);
 
 var _http = __webpack_require__(4);
 
 var _http2 = _interopRequireDefault(_http);
 
-var _roleRepository = __webpack_require__(1176);
+var _roleRepository = __webpack_require__(1117);
 
 var _roleRepository2 = _interopRequireDefault(_roleRepository);
 
@@ -225,8 +210,23 @@ exports.default = {
 
 /***/ }),
 
-/***/ 1512:
+/***/ 1417:
 /***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__(53)();
+// imports
+
+
+// module
+exports.push([module.i, ".headerRow[data-v-0704ff92]{padding:.75rem;background-color:#000;color:#fff;font-weight:700;vertical-align:bottom;border-bottom:2px solid #dee2e6}.bodyRow[data-v-0704ff92]{padding:.75rem;border-top:1px solid #dee2e6}", ""]);
+
+// exports
+
+
+/***/ }),
+
+/***/ 1496:
+/***/ (function(module, exports) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
   return _c('div', [_c('b-row', [_c('b-col', [_c('b-container', {
@@ -298,83 +298,47 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "fa fa-save"
   }), _vm._v(" Cập nhật\n                            ")])])])])])], 1)], 1)], 1)
 },staticRenderFns: []}
-module.exports.render._withStripped = true
-if (true) {
-  module.hot.accept()
-  if (module.hot.data) {
-     __webpack_require__(178).rerender("data-v-0704ff92", module.exports)
-  }
-}
 
 /***/ }),
 
-/***/ 1595:
+/***/ 1579:
 /***/ (function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
-var content = __webpack_require__(1083);
+var content = __webpack_require__(1417);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
-var update = __webpack_require__(801)("124606cf", content, false);
-// Hot Module Replacement
-if(true) {
- // When the styles change, update the <style> tags
- if(!content.locals) {
-   module.hot.accept(1083, function() {
-     var newContent = __webpack_require__(1083);
-     if(typeof newContent === 'string') newContent = [[module.i, newContent, '']];
-     update(newContent);
-   });
- }
- // When the module is disposed, remove the <style> tags
- module.hot.dispose(function() { update(); });
-}
+var update = __webpack_require__(784)("671baa04", content, true);
 
 /***/ }),
 
-/***/ 783:
+/***/ 767:
 /***/ (function(module, exports, __webpack_require__) {
 
 
 /* styles */
-__webpack_require__(1595)
+__webpack_require__(1579)
 
-var Component = __webpack_require__(374)(
+var Component = __webpack_require__(371)(
   /* script */
-  __webpack_require__(1263),
+  __webpack_require__(1204),
   /* template */
-  __webpack_require__(1512),
+  __webpack_require__(1496),
   /* scopeId */
   "data-v-0704ff92",
   /* cssModules */
   null
 )
-Component.options.__file = "D:\\Code\\WORKING\\dotnet-platform-backend\\Web\\Platform\\CMS\\PlatformCMS\\ClientApp\\pages\\role\\assignPermissionRole.vue"
-if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
-if (Component.options.functional) {console.error("[vue-loader] assignPermissionRole.vue: functional components are not supported with templates, they should use render functions.")}
-
-/* hot reload */
-if (true) {(function () {
-  var hotAPI = __webpack_require__(178)
-  hotAPI.install(__webpack_require__(26), false)
-  if (!hotAPI.compatible) return
-  module.hot.accept()
-  if (!module.hot.data) {
-    hotAPI.createRecord("data-v-0704ff92", Component.options)
-  } else {
-    hotAPI.reload("data-v-0704ff92", Component.options)
-  }
-})()}
 
 module.exports = Component.exports
 
 
 /***/ }),
 
-/***/ 801:
+/***/ 784:
 /***/ (function(module, exports, __webpack_require__) {
 
 /*
@@ -393,7 +357,7 @@ if (typeof DEBUG !== 'undefined' && DEBUG) {
   ) }
 }
 
-var listToStyles = __webpack_require__(809)
+var listToStyles = __webpack_require__(792)
 
 /*
 type StyleObject = {
@@ -596,7 +560,7 @@ function applyToTag (styleElement, obj) {
 
 /***/ }),
 
-/***/ 809:
+/***/ 792:
 /***/ (function(module, exports) {
 
 /**

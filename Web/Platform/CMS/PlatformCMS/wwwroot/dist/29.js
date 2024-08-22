@@ -3,748 +3,6 @@ webpackJsonp([29],{
 /***/ 1000:
 /***/ (function(module, exports, __webpack_require__) {
 
-var META = __webpack_require__(109)('meta');
-var isObject = __webpack_require__(45);
-var has = __webpack_require__(73);
-var setDesc = __webpack_require__(55).f;
-var id = 0;
-var isExtensible = Object.isExtensible || function () {
-  return true;
-};
-var FREEZE = !__webpack_require__(46)(function () {
-  return isExtensible(Object.preventExtensions({}));
-});
-var setMeta = function (it) {
-  setDesc(it, META, { value: {
-    i: 'O' + ++id, // object ID
-    w: {}          // weak collections IDs
-  } });
-};
-var fastKey = function (it, create) {
-  // return primitive with prefix
-  if (!isObject(it)) return typeof it == 'symbol' ? it : (typeof it == 'string' ? 'S' : 'P') + it;
-  if (!has(it, META)) {
-    // can't set metadata to uncaught frozen object
-    if (!isExtensible(it)) return 'F';
-    // not necessary to add metadata
-    if (!create) return 'E';
-    // add missing metadata
-    setMeta(it);
-  // return object ID
-  } return it[META].i;
-};
-var getWeak = function (it, create) {
-  if (!has(it, META)) {
-    // can't set metadata to uncaught frozen object
-    if (!isExtensible(it)) return true;
-    // not necessary to add metadata
-    if (!create) return false;
-    // add missing metadata
-    setMeta(it);
-  // return hash weak collections IDs
-  } return it[META].w;
-};
-// add metadata on freeze-family methods calling
-var onFreeze = function (it) {
-  if (FREEZE && meta.NEED && isExtensible(it) && !has(it, META)) setMeta(it);
-  return it;
-};
-var meta = module.exports = {
-  KEY: META,
-  NEED: false,
-  fastKey: fastKey,
-  getWeak: getWeak,
-  onFreeze: onFreeze
-};
-
-
-/***/ }),
-
-/***/ 1001:
-/***/ (function(module, exports) {
-
-module.exports = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAJUlEQVQ4jWNgoBSkpaX9pwRTxwBsriJabHAYMBoGo2FAcRhQCgAhhv41B1NcjwAAAABJRU5ErkJggg=="
-
-/***/ }),
-
-/***/ 1002:
-/***/ (function(module, exports) {
-
-module.exports = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAHElEQVQ4jWNgGPogLS3tPyV41AWjLhguLqAUAABjQNJhHOFYqgAAAABJRU5ErkJggg=="
-
-/***/ }),
-
-/***/ 1003:
-/***/ (function(module, exports) {
-
-module.exports = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAg0lEQVQ4ja3QwQ3AIAgF0J6dwyVcwxUI4hZ1C6dwDZdwDs/tqYlRTKEpCRcjD/3HsakQwjX27t62xqFXYN4m7V+B9OGL53zQFds7JzYF0DigKoDKAUUBlAVAxCwFEDGzqSpekBaAiKIUIKLIAV4BeA5wCsAtAABYKQAAlgvRKEI0z9wNbkpkPnEUO00AAAAASUVORK5CYII="
-
-/***/ }),
-
-/***/ 1004:
-/***/ (function(module, exports) {
-
-module.exports = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAyJpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuMy1jMDExIDY2LjE0NTY2MSwgMjAxMi8wMi8wNi0xNDo1NjoyNyAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvIiB4bWxuczp4bXBNTT0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL21tLyIgeG1sbnM6c3RSZWY9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9zVHlwZS9SZXNvdXJjZVJlZiMiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIENTNiAoV2luZG93cykiIHhtcE1NOkluc3RhbmNlSUQ9InhtcC5paWQ6QUFFNEVGRTcyNzI5MTFFN0E4MTJDODUxMTY5OTBDRTMiIHhtcE1NOkRvY3VtZW50SUQ9InhtcC5kaWQ6QUFFNEVGRTgyNzI5MTFFN0E4MTJDODUxMTY5OTBDRTMiPiA8eG1wTU06RGVyaXZlZEZyb20gc3RSZWY6aW5zdGFuY2VJRD0ieG1wLmlpZDpBQUU0RUZFNTI3MjkxMUU3QTgxMkM4NTExNjk5MENFMyIgc3RSZWY6ZG9jdW1lbnRJRD0ieG1wLmRpZDpBQUU0RUZFNjI3MjkxMUU3QTgxMkM4NTExNjk5MENFMyIvPiA8L3JkZjpEZXNjcmlwdGlvbj4gPC9yZGY6UkRGPiA8L3g6eG1wbWV0YT4gPD94cGFja2V0IGVuZD0iciI/PoebdJQAAAEfSURBVHjalNI9SwMxGMDxXHutaEXwHZdCEaSLQ71Fuujoojg4Cv0K4ioUStd+BpcOfgGh6Obo0uLsoJNQsC6+0evL9R94DkLotXcP/LiEJM8lT+J4nqckznGFY5UgUkY7jQ2VMFwUsYQ9ZHEwZ80Qb/gOEzRQwiJW8CgTHWthIN9lXOA+TFBBBme4xmnEn8MELeTMI/Skrb//eJ1zhJ+oIrpWP07hZy7YT3qNOsZYQA3PaGJbCro+rbiuleAPR6hK/xJlfGATJ+jPShDIPX/JbnRsYUf6JSn0ICrBGt7lSgNrTG+9i1XksQvfTPCLAp70QETNMrKbOm7QNhPohYdTdmXHHW7xoGtmTtZv+yXGzfny2Doq5sOx4xOjsDMRYADeTjM37KwM6gAAAABJRU5ErkJggg=="
-
-/***/ }),
-
-/***/ 1005:
-/***/ (function(module, exports) {
-
-module.exports = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAlElEQVQ4jWNgGHCQlpb2Hw3fz8jIUKDEANIMwWEAXkwTAx4T7WdsXkhNTV2dnp6uT4ZrLjCkpaX9T09PL0pPT59AqgGpqan5MBfYp6WlvSLRgF+JiYmiDGlpad/T09PDybB9AywMjqampm4g1YD09HR/mAGL0tLSfpFowKu0tDRWmAGHybB9AnI0viHDAH2y0w06AACLVFch1Ej7rgAAAABJRU5ErkJggg=="
-
-/***/ }),
-
-/***/ 1006:
-/***/ (function(module, exports) {
-
-module.exports = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAA6UlEQVQ4ja2TUU7DQAxE/UO5SwPH2SP4TX5yFKIgisRZijhFyyXyGfHXVuVnUzmrBNGCpZFWlme0s541Kwp4lNQBn8BXxl5S5+5VOX+ppmnuJb0CJ+C8gBOwSSmtJuSU0krSxw/EEu8TEeDtCvKIjZmZ1XX9EK9tZubuFdCH4X70H3pHd68MeI7K42AQ6YtevEVrwL5oTggzgnF2Z8Aw46+PK1sgn4HhXwT+ZiGn7qZHdPencY3HW9YoaW1mZjnCVwVJUjeJsrtvf0t29+3sfwBeop0ZHHLw7hZ/paQ10AK7vOIhn9uL51DfTreZQOo3Kt0AAAAASUVORK5CYII="
-
-/***/ }),
-
-/***/ 1007:
-/***/ (function(module, exports) {
-
-module.exports = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAATUlEQVQ4jWNgoBXIyMhQSE1N3Z+RkaFAlua0tLT7aWlp/9PS0u6TZAia5v8kGYJDM2mGwACyZqI1jRpAJsARZURhsgxAtnhgXED1wAUASBXMx2KfmeMAAAAASUVORK5CYII="
-
-/***/ }),
-
-/***/ 1008:
-/***/ (function(module, exports, __webpack_require__) {
-
-
-/* styles */
-__webpack_require__(1018)
-
-var Component = __webpack_require__(374)(
-  /* script */
-  __webpack_require__(1014),
-  /* template */
-  __webpack_require__(1017),
-  /* scopeId */
-  "data-v-497df3b6",
-  /* cssModules */
-  null
-)
-Component.options.__file = "D:\\Code\\WORKING\\dotnet-platform-backend\\Web\\Platform\\CMS\\PlatformCMS\\ClientApp\\components\\fileManager\\list.vue"
-if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
-if (Component.options.functional) {console.error("[vue-loader] list.vue: functional components are not supported with templates, they should use render functions.")}
-
-/* hot reload */
-if (true) {(function () {
-  var hotAPI = __webpack_require__(178)
-  hotAPI.install(__webpack_require__(26), false)
-  if (!hotAPI.compatible) return
-  module.hot.accept()
-  if (!module.hot.data) {
-    hotAPI.createRecord("data-v-497df3b6", Component.options)
-  } else {
-    hotAPI.reload("data-v-497df3b6", Component.options)
-  }
-})()}
-
-module.exports = Component.exports
-
-
-/***/ }),
-
-/***/ 1009:
-/***/ (function(module, exports, __webpack_require__) {
-
-// fallback for IE11 buggy Object.getOwnPropertyNames with iframe and window
-var toIObject = __webpack_require__(57);
-var gOPN = __webpack_require__(955).f;
-var toString = {}.toString;
-
-var windowNames = typeof window == 'object' && window && Object.getOwnPropertyNames
-  ? Object.getOwnPropertyNames(window) : [];
-
-var getWindowNames = function (it) {
-  try {
-    return gOPN(it);
-  } catch (e) {
-    return windowNames.slice();
-  }
-};
-
-module.exports.f = function getOwnPropertyNames(it) {
-  return windowNames && toString.call(it) == '[object Window]' ? getWindowNames(it) : gOPN(toIObject(it));
-};
-
-
-/***/ }),
-
-/***/ 1010:
-/***/ (function(module, exports, __webpack_require__) {
-
-// all enumerable object keys, includes symbols
-var getKeys = __webpack_require__(183);
-var gOPS = __webpack_require__(968);
-var pIE = __webpack_require__(810);
-module.exports = function (it) {
-  var result = getKeys(it);
-  var getSymbols = gOPS.f;
-  if (getSymbols) {
-    var symbols = getSymbols(it);
-    var isEnum = pIE.f;
-    var i = 0;
-    var key;
-    while (symbols.length > i) if (isEnum.call(it, key = symbols[i++])) result.push(key);
-  } return result;
-};
-
-
-/***/ }),
-
-/***/ 1011:
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-// ECMAScript 6 symbols shim
-var global = __webpack_require__(22);
-var has = __webpack_require__(73);
-var DESCRIPTORS = __webpack_require__(59);
-var $export = __webpack_require__(12);
-var redefine = __webpack_require__(61);
-var META = __webpack_require__(1000).KEY;
-var $fails = __webpack_require__(46);
-var shared = __webpack_require__(113);
-var setToStringTag = __webpack_require__(112);
-var uid = __webpack_require__(109);
-var wks = __webpack_require__(17);
-var wksExt = __webpack_require__(996);
-var wksDefine = __webpack_require__(811);
-var enumKeys = __webpack_require__(1010);
-var isArray = __webpack_require__(187);
-var anObject = __webpack_require__(36);
-var isObject = __webpack_require__(45);
-var toObject = __webpack_require__(39);
-var toIObject = __webpack_require__(57);
-var toPrimitive = __webpack_require__(380);
-var createDesc = __webpack_require__(108);
-var _create = __webpack_require__(388);
-var gOPNExt = __webpack_require__(1009);
-var $GOPD = __webpack_require__(997);
-var $GOPS = __webpack_require__(968);
-var $DP = __webpack_require__(55);
-var $keys = __webpack_require__(183);
-var gOPD = $GOPD.f;
-var dP = $DP.f;
-var gOPN = gOPNExt.f;
-var $Symbol = global.Symbol;
-var $JSON = global.JSON;
-var _stringify = $JSON && $JSON.stringify;
-var PROTOTYPE = 'prototype';
-var HIDDEN = wks('_hidden');
-var TO_PRIMITIVE = wks('toPrimitive');
-var isEnum = {}.propertyIsEnumerable;
-var SymbolRegistry = shared('symbol-registry');
-var AllSymbols = shared('symbols');
-var OPSymbols = shared('op-symbols');
-var ObjectProto = Object[PROTOTYPE];
-var USE_NATIVE = typeof $Symbol == 'function' && !!$GOPS.f;
-var QObject = global.QObject;
-// Don't use setters in Qt Script, https://github.com/zloirock/core-js/issues/173
-var setter = !QObject || !QObject[PROTOTYPE] || !QObject[PROTOTYPE].findChild;
-
-// fallback for old Android, https://code.google.com/p/v8/issues/detail?id=687
-var setSymbolDesc = DESCRIPTORS && $fails(function () {
-  return _create(dP({}, 'a', {
-    get: function () { return dP(this, 'a', { value: 7 }).a; }
-  })).a != 7;
-}) ? function (it, key, D) {
-  var protoDesc = gOPD(ObjectProto, key);
-  if (protoDesc) delete ObjectProto[key];
-  dP(it, key, D);
-  if (protoDesc && it !== ObjectProto) dP(ObjectProto, key, protoDesc);
-} : dP;
-
-var wrap = function (tag) {
-  var sym = AllSymbols[tag] = _create($Symbol[PROTOTYPE]);
-  sym._k = tag;
-  return sym;
-};
-
-var isSymbol = USE_NATIVE && typeof $Symbol.iterator == 'symbol' ? function (it) {
-  return typeof it == 'symbol';
-} : function (it) {
-  return it instanceof $Symbol;
-};
-
-var $defineProperty = function defineProperty(it, key, D) {
-  if (it === ObjectProto) $defineProperty(OPSymbols, key, D);
-  anObject(it);
-  key = toPrimitive(key, true);
-  anObject(D);
-  if (has(AllSymbols, key)) {
-    if (!D.enumerable) {
-      if (!has(it, HIDDEN)) dP(it, HIDDEN, createDesc(1, {}));
-      it[HIDDEN][key] = true;
-    } else {
-      if (has(it, HIDDEN) && it[HIDDEN][key]) it[HIDDEN][key] = false;
-      D = _create(D, { enumerable: createDesc(0, false) });
-    } return setSymbolDesc(it, key, D);
-  } return dP(it, key, D);
-};
-var $defineProperties = function defineProperties(it, P) {
-  anObject(it);
-  var keys = enumKeys(P = toIObject(P));
-  var i = 0;
-  var l = keys.length;
-  var key;
-  while (l > i) $defineProperty(it, key = keys[i++], P[key]);
-  return it;
-};
-var $create = function create(it, P) {
-  return P === undefined ? _create(it) : $defineProperties(_create(it), P);
-};
-var $propertyIsEnumerable = function propertyIsEnumerable(key) {
-  var E = isEnum.call(this, key = toPrimitive(key, true));
-  if (this === ObjectProto && has(AllSymbols, key) && !has(OPSymbols, key)) return false;
-  return E || !has(this, key) || !has(AllSymbols, key) || has(this, HIDDEN) && this[HIDDEN][key] ? E : true;
-};
-var $getOwnPropertyDescriptor = function getOwnPropertyDescriptor(it, key) {
-  it = toIObject(it);
-  key = toPrimitive(key, true);
-  if (it === ObjectProto && has(AllSymbols, key) && !has(OPSymbols, key)) return;
-  var D = gOPD(it, key);
-  if (D && has(AllSymbols, key) && !(has(it, HIDDEN) && it[HIDDEN][key])) D.enumerable = true;
-  return D;
-};
-var $getOwnPropertyNames = function getOwnPropertyNames(it) {
-  var names = gOPN(toIObject(it));
-  var result = [];
-  var i = 0;
-  var key;
-  while (names.length > i) {
-    if (!has(AllSymbols, key = names[i++]) && key != HIDDEN && key != META) result.push(key);
-  } return result;
-};
-var $getOwnPropertySymbols = function getOwnPropertySymbols(it) {
-  var IS_OP = it === ObjectProto;
-  var names = gOPN(IS_OP ? OPSymbols : toIObject(it));
-  var result = [];
-  var i = 0;
-  var key;
-  while (names.length > i) {
-    if (has(AllSymbols, key = names[i++]) && (IS_OP ? has(ObjectProto, key) : true)) result.push(AllSymbols[key]);
-  } return result;
-};
-
-// 19.4.1.1 Symbol([description])
-if (!USE_NATIVE) {
-  $Symbol = function Symbol() {
-    if (this instanceof $Symbol) throw TypeError('Symbol is not a constructor!');
-    var tag = uid(arguments.length > 0 ? arguments[0] : undefined);
-    var $set = function (value) {
-      if (this === ObjectProto) $set.call(OPSymbols, value);
-      if (has(this, HIDDEN) && has(this[HIDDEN], tag)) this[HIDDEN][tag] = false;
-      setSymbolDesc(this, tag, createDesc(1, value));
-    };
-    if (DESCRIPTORS && setter) setSymbolDesc(ObjectProto, tag, { configurable: true, set: $set });
-    return wrap(tag);
-  };
-  redefine($Symbol[PROTOTYPE], 'toString', function toString() {
-    return this._k;
-  });
-
-  $GOPD.f = $getOwnPropertyDescriptor;
-  $DP.f = $defineProperty;
-  __webpack_require__(955).f = gOPNExt.f = $getOwnPropertyNames;
-  __webpack_require__(810).f = $propertyIsEnumerable;
-  $GOPS.f = $getOwnPropertySymbols;
-
-  if (DESCRIPTORS && !__webpack_require__(107)) {
-    redefine(ObjectProto, 'propertyIsEnumerable', $propertyIsEnumerable, true);
-  }
-
-  wksExt.f = function (name) {
-    return wrap(wks(name));
-  };
-}
-
-$export($export.G + $export.W + $export.F * !USE_NATIVE, { Symbol: $Symbol });
-
-for (var es6Symbols = (
-  // 19.4.2.2, 19.4.2.3, 19.4.2.4, 19.4.2.6, 19.4.2.8, 19.4.2.9, 19.4.2.10, 19.4.2.11, 19.4.2.12, 19.4.2.13, 19.4.2.14
-  'hasInstance,isConcatSpreadable,iterator,match,replace,search,species,split,toPrimitive,toStringTag,unscopables'
-).split(','), j = 0; es6Symbols.length > j;)wks(es6Symbols[j++]);
-
-for (var wellKnownSymbols = $keys(wks.store), k = 0; wellKnownSymbols.length > k;) wksDefine(wellKnownSymbols[k++]);
-
-$export($export.S + $export.F * !USE_NATIVE, 'Symbol', {
-  // 19.4.2.1 Symbol.for(key)
-  'for': function (key) {
-    return has(SymbolRegistry, key += '')
-      ? SymbolRegistry[key]
-      : SymbolRegistry[key] = $Symbol(key);
-  },
-  // 19.4.2.5 Symbol.keyFor(sym)
-  keyFor: function keyFor(sym) {
-    if (!isSymbol(sym)) throw TypeError(sym + ' is not a symbol!');
-    for (var key in SymbolRegistry) if (SymbolRegistry[key] === sym) return key;
-  },
-  useSetter: function () { setter = true; },
-  useSimple: function () { setter = false; }
-});
-
-$export($export.S + $export.F * !USE_NATIVE, 'Object', {
-  // 19.1.2.2 Object.create(O [, Properties])
-  create: $create,
-  // 19.1.2.4 Object.defineProperty(O, P, Attributes)
-  defineProperty: $defineProperty,
-  // 19.1.2.3 Object.defineProperties(O, Properties)
-  defineProperties: $defineProperties,
-  // 19.1.2.6 Object.getOwnPropertyDescriptor(O, P)
-  getOwnPropertyDescriptor: $getOwnPropertyDescriptor,
-  // 19.1.2.7 Object.getOwnPropertyNames(O)
-  getOwnPropertyNames: $getOwnPropertyNames,
-  // 19.1.2.8 Object.getOwnPropertySymbols(O)
-  getOwnPropertySymbols: $getOwnPropertySymbols
-});
-
-// Chrome 38 and 39 `Object.getOwnPropertySymbols` fails on primitives
-// https://bugs.chromium.org/p/v8/issues/detail?id=3443
-var FAILS_ON_PRIMITIVES = $fails(function () { $GOPS.f(1); });
-
-$export($export.S + $export.F * FAILS_ON_PRIMITIVES, 'Object', {
-  getOwnPropertySymbols: function getOwnPropertySymbols(it) {
-    return $GOPS.f(toObject(it));
-  }
-});
-
-// 24.3.2 JSON.stringify(value [, replacer [, space]])
-$JSON && $export($export.S + $export.F * (!USE_NATIVE || $fails(function () {
-  var S = $Symbol();
-  // MS Edge converts symbol values to JSON as {}
-  // WebKit converts symbol values to JSON as null
-  // V8 throws on boxed symbols
-  return _stringify([S]) != '[null]' || _stringify({ a: S }) != '{}' || _stringify(Object(S)) != '{}';
-})), 'JSON', {
-  stringify: function stringify(it) {
-    var args = [it];
-    var i = 1;
-    var replacer, $replacer;
-    while (arguments.length > i) args.push(arguments[i++]);
-    $replacer = replacer = args[1];
-    if (!isObject(replacer) && it === undefined || isSymbol(it)) return; // IE8 returns string on undefined
-    if (!isArray(replacer)) replacer = function (key, value) {
-      if (typeof $replacer == 'function') value = $replacer.call(this, key, value);
-      if (!isSymbol(value)) return value;
-    };
-    args[1] = replacer;
-    return _stringify.apply($JSON, args);
-  }
-});
-
-// 19.4.3.4 Symbol.prototype[@@toPrimitive](hint)
-$Symbol[PROTOTYPE][TO_PRIMITIVE] || __webpack_require__(48)($Symbol[PROTOTYPE], TO_PRIMITIVE, $Symbol[PROTOTYPE].valueOf);
-// 19.4.3.5 Symbol.prototype[@@toStringTag]
-setToStringTag($Symbol, 'Symbol');
-// 20.2.1.9 Math[@@toStringTag]
-setToStringTag(Math, 'Math', true);
-// 24.3.3 JSON[@@toStringTag]
-setToStringTag(global.JSON, 'JSON', true);
-
-
-/***/ }),
-
-/***/ 1012:
-/***/ (function(module, exports, __webpack_require__) {
-
-__webpack_require__(811)('asyncIterator');
-
-
-/***/ }),
-
-/***/ 1013:
-/***/ (function(module, exports, __webpack_require__) {
-
-__webpack_require__(811)('observable');
-
-
-/***/ }),
-
-/***/ 1014:
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-    value: true
-});
-
-var _from = __webpack_require__(954);
-
-var _from2 = _interopRequireDefault(_from);
-
-var _extends2 = __webpack_require__(7);
-
-var _extends3 = _interopRequireDefault(_extends2);
-
-var _defineProperty2 = __webpack_require__(956);
-
-var _defineProperty3 = _interopRequireDefault(_defineProperty2);
-
-__webpack_require__(796);
-
-var _constant = __webpack_require__(797);
-
-var _constant2 = _interopRequireDefault(_constant);
-
-var _vuex = __webpack_require__(180);
-
-var _vueLoadingOverlay = __webpack_require__(376);
-
-var _vueLoadingOverlay2 = _interopRequireDefault(_vueLoadingOverlay);
-
-var _eventBus = __webpack_require__(957);
-
-var _eventBus2 = _interopRequireDefault(_eventBus);
-
-var _symbol = __webpack_require__(1015);
-
-var _jquery = __webpack_require__(1016);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-exports.default = {
-    name: "FileManager",
-    props: {
-        miKey: {
-            type: String
-        }
-    },
-    components: {
-        Loading: _vueLoadingOverlay2.default
-    },
-    data: function data() {
-        var _ref;
-
-        return _ref = {
-            isLoading: false,
-            fullPage: false,
-            color: "#007bff",
-            isLoadLang: false,
-
-            currentPage: 1,
-            pageSize: 30
-        }, (0, _defineProperty3.default)(_ref, "isLoading", false), (0, _defineProperty3.default)(_ref, "MaxFileSize", 3000), (0, _defineProperty3.default)(_ref, "selectedFile", []), (0, _defineProperty3.default)(_ref, "extensions", []), (0, _defineProperty3.default)(_ref, "extImage", []), (0, _defineProperty3.default)(_ref, "isActive", false), (0, _defineProperty3.default)(_ref, "selectType", ''), (0, _defineProperty3.default)(_ref, "keyword", ''), _ref;
-    },
-    created: function created() {
-        var config = __webpack_require__(999);
-        this.extImage = config.AppSettings.ImageAllowUpload;
-        this.extensions = config.AppSettings.ImageAllowUpload.concat(config.AppSettings.DocumentAllowUpload);
-
-        _eventBus2.default.$on(this.miKey, this.FileManagerOpen);
-    },
-    destroyed: function destroyed() {},
-
-    computed: {
-        files: function files() {
-            return this.$store.getters.files;
-        }
-    },
-    methods: (0, _extends3.default)({}, (0, _vuex.mapActions)(["fmFileUpload", "fmFileGetAll", "fmRemove"]), {
-        mapImageUrl: function mapImageUrl(img, ext) {
-            if (this.extImage.indexOf(ext.toLowerCase()) !== -1) {
-                return '/uploads/thumb' + img;
-            }
-            return './../../ClientApp/assets/fileicons/' + ext.replace('.', '') + '.png';
-        },
-        checkImage: function checkImage(ext) {
-            if (this.extImage.indexOf(ext) == -1) {
-                return true;
-            }
-            return false;
-        },
-        DoUploadFile: function DoUploadFile(e) {
-            debugger;
-            var files = e.srcElement.files;
-
-            if (files) {
-                var filesTemp = (0, _from2.default)(files);
-
-                var msgFileAllow = '';
-                var msgLimitedSize = '';
-                for (var i = 0; i < filesTemp.length; i++) {
-
-                    var name = filesTemp[i].name;
-                    var type = name.split('.').pop().toLowerCase();
-
-                    if (this.extensions.indexOf(type) == -1) {
-                        filesTemp.splice(i, 1);
-                        if (msgFileAllow.length == 0) {
-                            msgFileAllow = name;
-                        } else {
-                            msgFileAllow += ', ' + name;
-                        }
-                    }
-                    if (msgFileAllow.length > 0) {
-                        this.$toast.error(msgFileAllow + ' không hợp lệ !', {});
-                    }
-                }
-                for (var i = 0; i < filesTemp.length; i++) {
-                    var size = filesTemp[i].size;
-                    var _name = filesTemp[i].name;
-
-                    if (this.MaxFileSize < size / 1024) {
-                        filesTemp.splice(i, 1);
-                        if (msgLimitedSize.length == 0) {
-                            msgLimitedSize = _name;
-                        } else {
-                            msgLimitedSize += ', ' + _name;
-                        }
-                    }
-                    if (msgLimitedSize.length > 0) {
-                        this.$toast.error(msgFileAllow + ' dung lượng quá lớn !', {});
-                    }
-                }
-                if (filesTemp.length) {
-                    var fd = new FormData();
-
-                    filesTemp.forEach(function (item) {
-                        fd.append('files', item);
-                    });
-                    this.UploadFileAction(fd);
-                }
-            }
-        },
-        UploadFileAction: function UploadFileAction(files) {
-            var _this = this;
-
-            this.fmFileUpload(files).then(function (response) {
-                if (response.success) {
-                    debugger;
-                    console.log(response.data);
-                    var objtoast = _this.$toast;
-                    response.data.forEach(function (item) {
-                        if (item.code == 200) {
-                            objtoast.success(item.messages, {});
-                        } else {
-                            objtoast.error(item.messages, {});
-                        }
-                    });
-
-                    _this.LoadFile();
-
-                    _this.isLoading = false;
-                } else {
-
-                    _this.$toast.error(response.message, {});
-                    _this.isLoading = false;
-                }
-            }).catch(function (e) {
-                debugger;
-                _this.$toast.error(_constant2.default.error + ". Error:" + e, {});
-                _this.isLoading = false;
-            });
-        },
-        SelectFile: function SelectFile(event, file) {
-            if (this.selectType == 'multi') {
-                if (event.currentTarget.classList.contains('_active')) {
-                    event.currentTarget.classList.remove('_active');
-
-                    this.selectedFile = this.selectedFile.filter(function (obj) {
-                        return obj.id != file.id;
-                    });
-                } else {
-                    event.currentTarget.classList.add("_active");
-                    this.selectedFile.push(file);
-                }
-            } else {
-
-                this.selectedFile = [];
-                if (event.currentTarget.classList.contains('_active')) {
-                    event.currentTarget.classList.remove('_active');
-                } else {
-                    var items = document.querySelectorAll('.item');
-                    items.forEach(function (item) {
-                        item.classList.remove('_active');
-                    });
-                    event.currentTarget.classList.add("_active");
-                    this.selectedFile.push(file);
-                }
-            }
-        },
-        LoadFile: function LoadFile() {
-            this.fmFileGetAll({
-                keyword: this.keyword,
-                pageIndex: this.currentPage,
-                pageSize: this.pageSize
-            });
-        },
-        FileManagerOpen: function FileManagerOpen(param) {
-            this.selectType = param;
-            this.$refs["file-manager-modal"].show();
-            this.LoadFile();
-        },
-        hideFileManagerModal: function hideFileManagerModal() {
-            this.$refs["file-manager-modal"].hide();
-        },
-        attackFile: function attackFile() {
-            this.$emit("handleAttackFile", this.selectedFile);
-            this.$refs["file-manager-modal"].hide();
-            this.selectedFile = [];
-        },
-        toggleFileModal: function toggleFileModal() {
-            this.$refs["file-manager-modal"].toggle("#toggle-btn");
-        },
-        removeFile: function removeFile() {
-            var result = confirm("Xác nhận?");
-            if (!result) {
-                return false;
-            }
-
-            var $this = this;
-            this.selectedFile.forEach(function (item) {
-                $this.fmRemove(item.id).then(function (response) {
-                    if (response.success) {
-
-                        $this.LoadFile();
-                        $this.$toast.success(response.message, {});
-                        $this.isLoading = false;
-                    } else {
-
-                        $this.$toast.error(response.message, {});
-                        $this.isLoading = false;
-                    }
-                }).catch(function (e) {
-
-                    $this.$toast.error(_constant2.default.error + ". Error:" + e, {});
-                    $this.isLoading = false;
-                });
-            });
-        }
-    }),
-    mounted: function mounted() {},
-
-    watch: {
-        currentPage: function currentPage() {
-            this.LoadFile();
-        }
-    }
-};
-
-/***/ }),
-
-/***/ 1015:
-/***/ (function(module, exports, __webpack_require__) {
-
-__webpack_require__(1011);
-__webpack_require__(392);
-__webpack_require__(1012);
-__webpack_require__(1013);
-module.exports = __webpack_require__(37).Symbol;
-
-
-/***/ }),
-
-/***/ 1016:
-/***/ (function(module, exports, __webpack_require__) {
-
 var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
  * jQuery JavaScript Library v3.6.0
  * https://jquery.com/
@@ -11631,8 +10889,8 @@ return jQuery;
 
 /***/ }),
 
-/***/ 1017:
-/***/ (function(module, exports, __webpack_require__) {
+/***/ 1001:
+/***/ (function(module, exports) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
   return _c('div', {
@@ -11903,6258 +11161,24 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }
   }, [_vm._v("Đóng")])])])], 1)], 1)])], 1)
 },staticRenderFns: []}
-module.exports.render._withStripped = true
-if (true) {
-  module.hot.accept()
-  if (module.hot.data) {
-     __webpack_require__(178).rerender("data-v-497df3b6", module.exports)
-  }
-}
 
 /***/ }),
 
-/***/ 1018:
+/***/ 1002:
 /***/ (function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
-var content = __webpack_require__(949);
+var content = __webpack_require__(999);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
-var update = __webpack_require__(801)("7006b314", content, false);
-// Hot Module Replacement
-if(true) {
- // When the styles change, update the <style> tags
- if(!content.locals) {
-   module.hot.accept(949, function() {
-     var newContent = __webpack_require__(949);
-     if(typeof newContent === 'string') newContent = [[module.i, newContent, '']];
-     update(newContent);
-   });
- }
- // When the module is disposed, remove the <style> tags
- module.hot.dispose(function() { update(); });
-}
+var update = __webpack_require__(784)("a805eeb6", content, true);
 
 /***/ }),
 
-/***/ 1019:
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-exports.__esModule = true;
-
-var _from = __webpack_require__(954);
-
-var _from2 = _interopRequireDefault(_from);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-exports.default = function (arr) {
-  if (Array.isArray(arr)) {
-    for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) {
-      arr2[i] = arr[i];
-    }
-
-    return arr2;
-  } else {
-    return (0, _from2.default)(arr);
-  }
-};
-
-/***/ }),
-
-/***/ 1047:
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "MultiDrag", function() { return MultiDragPlugin; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "Sortable", function() { return Sortable; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "Swap", function() { return SwapPlugin; });
-/**!
- * Sortable 1.10.2
- * @author	RubaXa   <trash@rubaxa.org>
- * @author	owenm    <owen23355@gmail.com>
- * @license MIT
- */
-function _typeof(obj) {
-  if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") {
-    _typeof = function (obj) {
-      return typeof obj;
-    };
-  } else {
-    _typeof = function (obj) {
-      return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj;
-    };
-  }
-
-  return _typeof(obj);
-}
-
-function _defineProperty(obj, key, value) {
-  if (key in obj) {
-    Object.defineProperty(obj, key, {
-      value: value,
-      enumerable: true,
-      configurable: true,
-      writable: true
-    });
-  } else {
-    obj[key] = value;
-  }
-
-  return obj;
-}
-
-function _extends() {
-  _extends = Object.assign || function (target) {
-    for (var i = 1; i < arguments.length; i++) {
-      var source = arguments[i];
-
-      for (var key in source) {
-        if (Object.prototype.hasOwnProperty.call(source, key)) {
-          target[key] = source[key];
-        }
-      }
-    }
-
-    return target;
-  };
-
-  return _extends.apply(this, arguments);
-}
-
-function _objectSpread(target) {
-  for (var i = 1; i < arguments.length; i++) {
-    var source = arguments[i] != null ? arguments[i] : {};
-    var ownKeys = Object.keys(source);
-
-    if (typeof Object.getOwnPropertySymbols === 'function') {
-      ownKeys = ownKeys.concat(Object.getOwnPropertySymbols(source).filter(function (sym) {
-        return Object.getOwnPropertyDescriptor(source, sym).enumerable;
-      }));
-    }
-
-    ownKeys.forEach(function (key) {
-      _defineProperty(target, key, source[key]);
-    });
-  }
-
-  return target;
-}
-
-function _objectWithoutPropertiesLoose(source, excluded) {
-  if (source == null) return {};
-  var target = {};
-  var sourceKeys = Object.keys(source);
-  var key, i;
-
-  for (i = 0; i < sourceKeys.length; i++) {
-    key = sourceKeys[i];
-    if (excluded.indexOf(key) >= 0) continue;
-    target[key] = source[key];
-  }
-
-  return target;
-}
-
-function _objectWithoutProperties(source, excluded) {
-  if (source == null) return {};
-
-  var target = _objectWithoutPropertiesLoose(source, excluded);
-
-  var key, i;
-
-  if (Object.getOwnPropertySymbols) {
-    var sourceSymbolKeys = Object.getOwnPropertySymbols(source);
-
-    for (i = 0; i < sourceSymbolKeys.length; i++) {
-      key = sourceSymbolKeys[i];
-      if (excluded.indexOf(key) >= 0) continue;
-      if (!Object.prototype.propertyIsEnumerable.call(source, key)) continue;
-      target[key] = source[key];
-    }
-  }
-
-  return target;
-}
-
-function _toConsumableArray(arr) {
-  return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _nonIterableSpread();
-}
-
-function _arrayWithoutHoles(arr) {
-  if (Array.isArray(arr)) {
-    for (var i = 0, arr2 = new Array(arr.length); i < arr.length; i++) arr2[i] = arr[i];
-
-    return arr2;
-  }
-}
-
-function _iterableToArray(iter) {
-  if (Symbol.iterator in Object(iter) || Object.prototype.toString.call(iter) === "[object Arguments]") return Array.from(iter);
-}
-
-function _nonIterableSpread() {
-  throw new TypeError("Invalid attempt to spread non-iterable instance");
-}
-
-var version = "1.10.2";
-
-function userAgent(pattern) {
-  if (typeof window !== 'undefined' && window.navigator) {
-    return !!
-    /*@__PURE__*/
-    navigator.userAgent.match(pattern);
-  }
-}
-
-var IE11OrLess = userAgent(/(?:Trident.*rv[ :]?11\.|msie|iemobile|Windows Phone)/i);
-var Edge = userAgent(/Edge/i);
-var FireFox = userAgent(/firefox/i);
-var Safari = userAgent(/safari/i) && !userAgent(/chrome/i) && !userAgent(/android/i);
-var IOS = userAgent(/iP(ad|od|hone)/i);
-var ChromeForAndroid = userAgent(/chrome/i) && userAgent(/android/i);
-
-var captureMode = {
-  capture: false,
-  passive: false
-};
-
-function on(el, event, fn) {
-  el.addEventListener(event, fn, !IE11OrLess && captureMode);
-}
-
-function off(el, event, fn) {
-  el.removeEventListener(event, fn, !IE11OrLess && captureMode);
-}
-
-function matches(
-/**HTMLElement*/
-el,
-/**String*/
-selector) {
-  if (!selector) return;
-  selector[0] === '>' && (selector = selector.substring(1));
-
-  if (el) {
-    try {
-      if (el.matches) {
-        return el.matches(selector);
-      } else if (el.msMatchesSelector) {
-        return el.msMatchesSelector(selector);
-      } else if (el.webkitMatchesSelector) {
-        return el.webkitMatchesSelector(selector);
-      }
-    } catch (_) {
-      return false;
-    }
-  }
-
-  return false;
-}
-
-function getParentOrHost(el) {
-  return el.host && el !== document && el.host.nodeType ? el.host : el.parentNode;
-}
-
-function closest(
-/**HTMLElement*/
-el,
-/**String*/
-selector,
-/**HTMLElement*/
-ctx, includeCTX) {
-  if (el) {
-    ctx = ctx || document;
-
-    do {
-      if (selector != null && (selector[0] === '>' ? el.parentNode === ctx && matches(el, selector) : matches(el, selector)) || includeCTX && el === ctx) {
-        return el;
-      }
-
-      if (el === ctx) break;
-      /* jshint boss:true */
-    } while (el = getParentOrHost(el));
-  }
-
-  return null;
-}
-
-var R_SPACE = /\s+/g;
-
-function toggleClass(el, name, state) {
-  if (el && name) {
-    if (el.classList) {
-      el.classList[state ? 'add' : 'remove'](name);
-    } else {
-      var className = (' ' + el.className + ' ').replace(R_SPACE, ' ').replace(' ' + name + ' ', ' ');
-      el.className = (className + (state ? ' ' + name : '')).replace(R_SPACE, ' ');
-    }
-  }
-}
-
-function css(el, prop, val) {
-  var style = el && el.style;
-
-  if (style) {
-    if (val === void 0) {
-      if (document.defaultView && document.defaultView.getComputedStyle) {
-        val = document.defaultView.getComputedStyle(el, '');
-      } else if (el.currentStyle) {
-        val = el.currentStyle;
-      }
-
-      return prop === void 0 ? val : val[prop];
-    } else {
-      if (!(prop in style) && prop.indexOf('webkit') === -1) {
-        prop = '-webkit-' + prop;
-      }
-
-      style[prop] = val + (typeof val === 'string' ? '' : 'px');
-    }
-  }
-}
-
-function matrix(el, selfOnly) {
-  var appliedTransforms = '';
-
-  if (typeof el === 'string') {
-    appliedTransforms = el;
-  } else {
-    do {
-      var transform = css(el, 'transform');
-
-      if (transform && transform !== 'none') {
-        appliedTransforms = transform + ' ' + appliedTransforms;
-      }
-      /* jshint boss:true */
-
-    } while (!selfOnly && (el = el.parentNode));
-  }
-
-  var matrixFn = window.DOMMatrix || window.WebKitCSSMatrix || window.CSSMatrix || window.MSCSSMatrix;
-  /*jshint -W056 */
-
-  return matrixFn && new matrixFn(appliedTransforms);
-}
-
-function find(ctx, tagName, iterator) {
-  if (ctx) {
-    var list = ctx.getElementsByTagName(tagName),
-        i = 0,
-        n = list.length;
-
-    if (iterator) {
-      for (; i < n; i++) {
-        iterator(list[i], i);
-      }
-    }
-
-    return list;
-  }
-
-  return [];
-}
-
-function getWindowScrollingElement() {
-  var scrollingElement = document.scrollingElement;
-
-  if (scrollingElement) {
-    return scrollingElement;
-  } else {
-    return document.documentElement;
-  }
-}
-/**
- * Returns the "bounding client rect" of given element
- * @param  {HTMLElement} el                       The element whose boundingClientRect is wanted
- * @param  {[Boolean]} relativeToContainingBlock  Whether the rect should be relative to the containing block of (including) the container
- * @param  {[Boolean]} relativeToNonStaticParent  Whether the rect should be relative to the relative parent of (including) the contaienr
- * @param  {[Boolean]} undoScale                  Whether the container's scale() should be undone
- * @param  {[HTMLElement]} container              The parent the element will be placed in
- * @return {Object}                               The boundingClientRect of el, with specified adjustments
- */
-
-
-function getRect(el, relativeToContainingBlock, relativeToNonStaticParent, undoScale, container) {
-  if (!el.getBoundingClientRect && el !== window) return;
-  var elRect, top, left, bottom, right, height, width;
-
-  if (el !== window && el !== getWindowScrollingElement()) {
-    elRect = el.getBoundingClientRect();
-    top = elRect.top;
-    left = elRect.left;
-    bottom = elRect.bottom;
-    right = elRect.right;
-    height = elRect.height;
-    width = elRect.width;
-  } else {
-    top = 0;
-    left = 0;
-    bottom = window.innerHeight;
-    right = window.innerWidth;
-    height = window.innerHeight;
-    width = window.innerWidth;
-  }
-
-  if ((relativeToContainingBlock || relativeToNonStaticParent) && el !== window) {
-    // Adjust for translate()
-    container = container || el.parentNode; // solves #1123 (see: https://stackoverflow.com/a/37953806/6088312)
-    // Not needed on <= IE11
-
-    if (!IE11OrLess) {
-      do {
-        if (container && container.getBoundingClientRect && (css(container, 'transform') !== 'none' || relativeToNonStaticParent && css(container, 'position') !== 'static')) {
-          var containerRect = container.getBoundingClientRect(); // Set relative to edges of padding box of container
-
-          top -= containerRect.top + parseInt(css(container, 'border-top-width'));
-          left -= containerRect.left + parseInt(css(container, 'border-left-width'));
-          bottom = top + elRect.height;
-          right = left + elRect.width;
-          break;
-        }
-        /* jshint boss:true */
-
-      } while (container = container.parentNode);
-    }
-  }
-
-  if (undoScale && el !== window) {
-    // Adjust for scale()
-    var elMatrix = matrix(container || el),
-        scaleX = elMatrix && elMatrix.a,
-        scaleY = elMatrix && elMatrix.d;
-
-    if (elMatrix) {
-      top /= scaleY;
-      left /= scaleX;
-      width /= scaleX;
-      height /= scaleY;
-      bottom = top + height;
-      right = left + width;
-    }
-  }
-
-  return {
-    top: top,
-    left: left,
-    bottom: bottom,
-    right: right,
-    width: width,
-    height: height
-  };
-}
-/**
- * Checks if a side of an element is scrolled past a side of its parents
- * @param  {HTMLElement}  el           The element who's side being scrolled out of view is in question
- * @param  {String}       elSide       Side of the element in question ('top', 'left', 'right', 'bottom')
- * @param  {String}       parentSide   Side of the parent in question ('top', 'left', 'right', 'bottom')
- * @return {HTMLElement}               The parent scroll element that the el's side is scrolled past, or null if there is no such element
- */
-
-
-function isScrolledPast(el, elSide, parentSide) {
-  var parent = getParentAutoScrollElement(el, true),
-      elSideVal = getRect(el)[elSide];
-  /* jshint boss:true */
-
-  while (parent) {
-    var parentSideVal = getRect(parent)[parentSide],
-        visible = void 0;
-
-    if (parentSide === 'top' || parentSide === 'left') {
-      visible = elSideVal >= parentSideVal;
-    } else {
-      visible = elSideVal <= parentSideVal;
-    }
-
-    if (!visible) return parent;
-    if (parent === getWindowScrollingElement()) break;
-    parent = getParentAutoScrollElement(parent, false);
-  }
-
-  return false;
-}
-/**
- * Gets nth child of el, ignoring hidden children, sortable's elements (does not ignore clone if it's visible)
- * and non-draggable elements
- * @param  {HTMLElement} el       The parent element
- * @param  {Number} childNum      The index of the child
- * @param  {Object} options       Parent Sortable's options
- * @return {HTMLElement}          The child at index childNum, or null if not found
- */
-
-
-function getChild(el, childNum, options) {
-  var currentChild = 0,
-      i = 0,
-      children = el.children;
-
-  while (i < children.length) {
-    if (children[i].style.display !== 'none' && children[i] !== Sortable.ghost && children[i] !== Sortable.dragged && closest(children[i], options.draggable, el, false)) {
-      if (currentChild === childNum) {
-        return children[i];
-      }
-
-      currentChild++;
-    }
-
-    i++;
-  }
-
-  return null;
-}
-/**
- * Gets the last child in the el, ignoring ghostEl or invisible elements (clones)
- * @param  {HTMLElement} el       Parent element
- * @param  {selector} selector    Any other elements that should be ignored
- * @return {HTMLElement}          The last child, ignoring ghostEl
- */
-
-
-function lastChild(el, selector) {
-  var last = el.lastElementChild;
-
-  while (last && (last === Sortable.ghost || css(last, 'display') === 'none' || selector && !matches(last, selector))) {
-    last = last.previousElementSibling;
-  }
-
-  return last || null;
-}
-/**
- * Returns the index of an element within its parent for a selected set of
- * elements
- * @param  {HTMLElement} el
- * @param  {selector} selector
- * @return {number}
- */
-
-
-function index(el, selector) {
-  var index = 0;
-
-  if (!el || !el.parentNode) {
-    return -1;
-  }
-  /* jshint boss:true */
-
-
-  while (el = el.previousElementSibling) {
-    if (el.nodeName.toUpperCase() !== 'TEMPLATE' && el !== Sortable.clone && (!selector || matches(el, selector))) {
-      index++;
-    }
-  }
-
-  return index;
-}
-/**
- * Returns the scroll offset of the given element, added with all the scroll offsets of parent elements.
- * The value is returned in real pixels.
- * @param  {HTMLElement} el
- * @return {Array}             Offsets in the format of [left, top]
- */
-
-
-function getRelativeScrollOffset(el) {
-  var offsetLeft = 0,
-      offsetTop = 0,
-      winScroller = getWindowScrollingElement();
-
-  if (el) {
-    do {
-      var elMatrix = matrix(el),
-          scaleX = elMatrix.a,
-          scaleY = elMatrix.d;
-      offsetLeft += el.scrollLeft * scaleX;
-      offsetTop += el.scrollTop * scaleY;
-    } while (el !== winScroller && (el = el.parentNode));
-  }
-
-  return [offsetLeft, offsetTop];
-}
-/**
- * Returns the index of the object within the given array
- * @param  {Array} arr   Array that may or may not hold the object
- * @param  {Object} obj  An object that has a key-value pair unique to and identical to a key-value pair in the object you want to find
- * @return {Number}      The index of the object in the array, or -1
- */
-
-
-function indexOfObject(arr, obj) {
-  for (var i in arr) {
-    if (!arr.hasOwnProperty(i)) continue;
-
-    for (var key in obj) {
-      if (obj.hasOwnProperty(key) && obj[key] === arr[i][key]) return Number(i);
-    }
-  }
-
-  return -1;
-}
-
-function getParentAutoScrollElement(el, includeSelf) {
-  // skip to window
-  if (!el || !el.getBoundingClientRect) return getWindowScrollingElement();
-  var elem = el;
-  var gotSelf = false;
-
-  do {
-    // we don't need to get elem css if it isn't even overflowing in the first place (performance)
-    if (elem.clientWidth < elem.scrollWidth || elem.clientHeight < elem.scrollHeight) {
-      var elemCSS = css(elem);
-
-      if (elem.clientWidth < elem.scrollWidth && (elemCSS.overflowX == 'auto' || elemCSS.overflowX == 'scroll') || elem.clientHeight < elem.scrollHeight && (elemCSS.overflowY == 'auto' || elemCSS.overflowY == 'scroll')) {
-        if (!elem.getBoundingClientRect || elem === document.body) return getWindowScrollingElement();
-        if (gotSelf || includeSelf) return elem;
-        gotSelf = true;
-      }
-    }
-    /* jshint boss:true */
-
-  } while (elem = elem.parentNode);
-
-  return getWindowScrollingElement();
-}
-
-function extend(dst, src) {
-  if (dst && src) {
-    for (var key in src) {
-      if (src.hasOwnProperty(key)) {
-        dst[key] = src[key];
-      }
-    }
-  }
-
-  return dst;
-}
-
-function isRectEqual(rect1, rect2) {
-  return Math.round(rect1.top) === Math.round(rect2.top) && Math.round(rect1.left) === Math.round(rect2.left) && Math.round(rect1.height) === Math.round(rect2.height) && Math.round(rect1.width) === Math.round(rect2.width);
-}
-
-var _throttleTimeout;
-
-function throttle(callback, ms) {
-  return function () {
-    if (!_throttleTimeout) {
-      var args = arguments,
-          _this = this;
-
-      if (args.length === 1) {
-        callback.call(_this, args[0]);
-      } else {
-        callback.apply(_this, args);
-      }
-
-      _throttleTimeout = setTimeout(function () {
-        _throttleTimeout = void 0;
-      }, ms);
-    }
-  };
-}
-
-function cancelThrottle() {
-  clearTimeout(_throttleTimeout);
-  _throttleTimeout = void 0;
-}
-
-function scrollBy(el, x, y) {
-  el.scrollLeft += x;
-  el.scrollTop += y;
-}
-
-function clone(el) {
-  var Polymer = window.Polymer;
-  var $ = window.jQuery || window.Zepto;
-
-  if (Polymer && Polymer.dom) {
-    return Polymer.dom(el).cloneNode(true);
-  } else if ($) {
-    return $(el).clone(true)[0];
-  } else {
-    return el.cloneNode(true);
-  }
-}
-
-function setRect(el, rect) {
-  css(el, 'position', 'absolute');
-  css(el, 'top', rect.top);
-  css(el, 'left', rect.left);
-  css(el, 'width', rect.width);
-  css(el, 'height', rect.height);
-}
-
-function unsetRect(el) {
-  css(el, 'position', '');
-  css(el, 'top', '');
-  css(el, 'left', '');
-  css(el, 'width', '');
-  css(el, 'height', '');
-}
-
-var expando = 'Sortable' + new Date().getTime();
-
-function AnimationStateManager() {
-  var animationStates = [],
-      animationCallbackId;
-  return {
-    captureAnimationState: function captureAnimationState() {
-      animationStates = [];
-      if (!this.options.animation) return;
-      var children = [].slice.call(this.el.children);
-      children.forEach(function (child) {
-        if (css(child, 'display') === 'none' || child === Sortable.ghost) return;
-        animationStates.push({
-          target: child,
-          rect: getRect(child)
-        });
-
-        var fromRect = _objectSpread({}, animationStates[animationStates.length - 1].rect); // If animating: compensate for current animation
-
-
-        if (child.thisAnimationDuration) {
-          var childMatrix = matrix(child, true);
-
-          if (childMatrix) {
-            fromRect.top -= childMatrix.f;
-            fromRect.left -= childMatrix.e;
-          }
-        }
-
-        child.fromRect = fromRect;
-      });
-    },
-    addAnimationState: function addAnimationState(state) {
-      animationStates.push(state);
-    },
-    removeAnimationState: function removeAnimationState(target) {
-      animationStates.splice(indexOfObject(animationStates, {
-        target: target
-      }), 1);
-    },
-    animateAll: function animateAll(callback) {
-      var _this = this;
-
-      if (!this.options.animation) {
-        clearTimeout(animationCallbackId);
-        if (typeof callback === 'function') callback();
-        return;
-      }
-
-      var animating = false,
-          animationTime = 0;
-      animationStates.forEach(function (state) {
-        var time = 0,
-            target = state.target,
-            fromRect = target.fromRect,
-            toRect = getRect(target),
-            prevFromRect = target.prevFromRect,
-            prevToRect = target.prevToRect,
-            animatingRect = state.rect,
-            targetMatrix = matrix(target, true);
-
-        if (targetMatrix) {
-          // Compensate for current animation
-          toRect.top -= targetMatrix.f;
-          toRect.left -= targetMatrix.e;
-        }
-
-        target.toRect = toRect;
-
-        if (target.thisAnimationDuration) {
-          // Could also check if animatingRect is between fromRect and toRect
-          if (isRectEqual(prevFromRect, toRect) && !isRectEqual(fromRect, toRect) && // Make sure animatingRect is on line between toRect & fromRect
-          (animatingRect.top - toRect.top) / (animatingRect.left - toRect.left) === (fromRect.top - toRect.top) / (fromRect.left - toRect.left)) {
-            // If returning to same place as started from animation and on same axis
-            time = calculateRealTime(animatingRect, prevFromRect, prevToRect, _this.options);
-          }
-        } // if fromRect != toRect: animate
-
-
-        if (!isRectEqual(toRect, fromRect)) {
-          target.prevFromRect = fromRect;
-          target.prevToRect = toRect;
-
-          if (!time) {
-            time = _this.options.animation;
-          }
-
-          _this.animate(target, animatingRect, toRect, time);
-        }
-
-        if (time) {
-          animating = true;
-          animationTime = Math.max(animationTime, time);
-          clearTimeout(target.animationResetTimer);
-          target.animationResetTimer = setTimeout(function () {
-            target.animationTime = 0;
-            target.prevFromRect = null;
-            target.fromRect = null;
-            target.prevToRect = null;
-            target.thisAnimationDuration = null;
-          }, time);
-          target.thisAnimationDuration = time;
-        }
-      });
-      clearTimeout(animationCallbackId);
-
-      if (!animating) {
-        if (typeof callback === 'function') callback();
-      } else {
-        animationCallbackId = setTimeout(function () {
-          if (typeof callback === 'function') callback();
-        }, animationTime);
-      }
-
-      animationStates = [];
-    },
-    animate: function animate(target, currentRect, toRect, duration) {
-      if (duration) {
-        css(target, 'transition', '');
-        css(target, 'transform', '');
-        var elMatrix = matrix(this.el),
-            scaleX = elMatrix && elMatrix.a,
-            scaleY = elMatrix && elMatrix.d,
-            translateX = (currentRect.left - toRect.left) / (scaleX || 1),
-            translateY = (currentRect.top - toRect.top) / (scaleY || 1);
-        target.animatingX = !!translateX;
-        target.animatingY = !!translateY;
-        css(target, 'transform', 'translate3d(' + translateX + 'px,' + translateY + 'px,0)');
-        repaint(target); // repaint
-
-        css(target, 'transition', 'transform ' + duration + 'ms' + (this.options.easing ? ' ' + this.options.easing : ''));
-        css(target, 'transform', 'translate3d(0,0,0)');
-        typeof target.animated === 'number' && clearTimeout(target.animated);
-        target.animated = setTimeout(function () {
-          css(target, 'transition', '');
-          css(target, 'transform', '');
-          target.animated = false;
-          target.animatingX = false;
-          target.animatingY = false;
-        }, duration);
-      }
-    }
-  };
-}
-
-function repaint(target) {
-  return target.offsetWidth;
-}
-
-function calculateRealTime(animatingRect, fromRect, toRect, options) {
-  return Math.sqrt(Math.pow(fromRect.top - animatingRect.top, 2) + Math.pow(fromRect.left - animatingRect.left, 2)) / Math.sqrt(Math.pow(fromRect.top - toRect.top, 2) + Math.pow(fromRect.left - toRect.left, 2)) * options.animation;
-}
-
-var plugins = [];
-var defaults = {
-  initializeByDefault: true
-};
-var PluginManager = {
-  mount: function mount(plugin) {
-    // Set default static properties
-    for (var option in defaults) {
-      if (defaults.hasOwnProperty(option) && !(option in plugin)) {
-        plugin[option] = defaults[option];
-      }
-    }
-
-    plugins.push(plugin);
-  },
-  pluginEvent: function pluginEvent(eventName, sortable, evt) {
-    var _this = this;
-
-    this.eventCanceled = false;
-
-    evt.cancel = function () {
-      _this.eventCanceled = true;
-    };
-
-    var eventNameGlobal = eventName + 'Global';
-    plugins.forEach(function (plugin) {
-      if (!sortable[plugin.pluginName]) return; // Fire global events if it exists in this sortable
-
-      if (sortable[plugin.pluginName][eventNameGlobal]) {
-        sortable[plugin.pluginName][eventNameGlobal](_objectSpread({
-          sortable: sortable
-        }, evt));
-      } // Only fire plugin event if plugin is enabled in this sortable,
-      // and plugin has event defined
-
-
-      if (sortable.options[plugin.pluginName] && sortable[plugin.pluginName][eventName]) {
-        sortable[plugin.pluginName][eventName](_objectSpread({
-          sortable: sortable
-        }, evt));
-      }
-    });
-  },
-  initializePlugins: function initializePlugins(sortable, el, defaults, options) {
-    plugins.forEach(function (plugin) {
-      var pluginName = plugin.pluginName;
-      if (!sortable.options[pluginName] && !plugin.initializeByDefault) return;
-      var initialized = new plugin(sortable, el, sortable.options);
-      initialized.sortable = sortable;
-      initialized.options = sortable.options;
-      sortable[pluginName] = initialized; // Add default options from plugin
-
-      _extends(defaults, initialized.defaults);
-    });
-
-    for (var option in sortable.options) {
-      if (!sortable.options.hasOwnProperty(option)) continue;
-      var modified = this.modifyOption(sortable, option, sortable.options[option]);
-
-      if (typeof modified !== 'undefined') {
-        sortable.options[option] = modified;
-      }
-    }
-  },
-  getEventProperties: function getEventProperties(name, sortable) {
-    var eventProperties = {};
-    plugins.forEach(function (plugin) {
-      if (typeof plugin.eventProperties !== 'function') return;
-
-      _extends(eventProperties, plugin.eventProperties.call(sortable[plugin.pluginName], name));
-    });
-    return eventProperties;
-  },
-  modifyOption: function modifyOption(sortable, name, value) {
-    var modifiedValue;
-    plugins.forEach(function (plugin) {
-      // Plugin must exist on the Sortable
-      if (!sortable[plugin.pluginName]) return; // If static option listener exists for this option, call in the context of the Sortable's instance of this plugin
-
-      if (plugin.optionListeners && typeof plugin.optionListeners[name] === 'function') {
-        modifiedValue = plugin.optionListeners[name].call(sortable[plugin.pluginName], value);
-      }
-    });
-    return modifiedValue;
-  }
-};
-
-function dispatchEvent(_ref) {
-  var sortable = _ref.sortable,
-      rootEl = _ref.rootEl,
-      name = _ref.name,
-      targetEl = _ref.targetEl,
-      cloneEl = _ref.cloneEl,
-      toEl = _ref.toEl,
-      fromEl = _ref.fromEl,
-      oldIndex = _ref.oldIndex,
-      newIndex = _ref.newIndex,
-      oldDraggableIndex = _ref.oldDraggableIndex,
-      newDraggableIndex = _ref.newDraggableIndex,
-      originalEvent = _ref.originalEvent,
-      putSortable = _ref.putSortable,
-      extraEventProperties = _ref.extraEventProperties;
-  sortable = sortable || rootEl && rootEl[expando];
-  if (!sortable) return;
-  var evt,
-      options = sortable.options,
-      onName = 'on' + name.charAt(0).toUpperCase() + name.substr(1); // Support for new CustomEvent feature
-
-  if (window.CustomEvent && !IE11OrLess && !Edge) {
-    evt = new CustomEvent(name, {
-      bubbles: true,
-      cancelable: true
-    });
-  } else {
-    evt = document.createEvent('Event');
-    evt.initEvent(name, true, true);
-  }
-
-  evt.to = toEl || rootEl;
-  evt.from = fromEl || rootEl;
-  evt.item = targetEl || rootEl;
-  evt.clone = cloneEl;
-  evt.oldIndex = oldIndex;
-  evt.newIndex = newIndex;
-  evt.oldDraggableIndex = oldDraggableIndex;
-  evt.newDraggableIndex = newDraggableIndex;
-  evt.originalEvent = originalEvent;
-  evt.pullMode = putSortable ? putSortable.lastPutMode : undefined;
-
-  var allEventProperties = _objectSpread({}, extraEventProperties, PluginManager.getEventProperties(name, sortable));
-
-  for (var option in allEventProperties) {
-    evt[option] = allEventProperties[option];
-  }
-
-  if (rootEl) {
-    rootEl.dispatchEvent(evt);
-  }
-
-  if (options[onName]) {
-    options[onName].call(sortable, evt);
-  }
-}
-
-var pluginEvent = function pluginEvent(eventName, sortable) {
-  var _ref = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : {},
-      originalEvent = _ref.evt,
-      data = _objectWithoutProperties(_ref, ["evt"]);
-
-  PluginManager.pluginEvent.bind(Sortable)(eventName, sortable, _objectSpread({
-    dragEl: dragEl,
-    parentEl: parentEl,
-    ghostEl: ghostEl,
-    rootEl: rootEl,
-    nextEl: nextEl,
-    lastDownEl: lastDownEl,
-    cloneEl: cloneEl,
-    cloneHidden: cloneHidden,
-    dragStarted: moved,
-    putSortable: putSortable,
-    activeSortable: Sortable.active,
-    originalEvent: originalEvent,
-    oldIndex: oldIndex,
-    oldDraggableIndex: oldDraggableIndex,
-    newIndex: newIndex,
-    newDraggableIndex: newDraggableIndex,
-    hideGhostForTarget: _hideGhostForTarget,
-    unhideGhostForTarget: _unhideGhostForTarget,
-    cloneNowHidden: function cloneNowHidden() {
-      cloneHidden = true;
-    },
-    cloneNowShown: function cloneNowShown() {
-      cloneHidden = false;
-    },
-    dispatchSortableEvent: function dispatchSortableEvent(name) {
-      _dispatchEvent({
-        sortable: sortable,
-        name: name,
-        originalEvent: originalEvent
-      });
-    }
-  }, data));
-};
-
-function _dispatchEvent(info) {
-  dispatchEvent(_objectSpread({
-    putSortable: putSortable,
-    cloneEl: cloneEl,
-    targetEl: dragEl,
-    rootEl: rootEl,
-    oldIndex: oldIndex,
-    oldDraggableIndex: oldDraggableIndex,
-    newIndex: newIndex,
-    newDraggableIndex: newDraggableIndex
-  }, info));
-}
-
-var dragEl,
-    parentEl,
-    ghostEl,
-    rootEl,
-    nextEl,
-    lastDownEl,
-    cloneEl,
-    cloneHidden,
-    oldIndex,
-    newIndex,
-    oldDraggableIndex,
-    newDraggableIndex,
-    activeGroup,
-    putSortable,
-    awaitingDragStarted = false,
-    ignoreNextClick = false,
-    sortables = [],
-    tapEvt,
-    touchEvt,
-    lastDx,
-    lastDy,
-    tapDistanceLeft,
-    tapDistanceTop,
-    moved,
-    lastTarget,
-    lastDirection,
-    pastFirstInvertThresh = false,
-    isCircumstantialInvert = false,
-    targetMoveDistance,
-    // For positioning ghost absolutely
-ghostRelativeParent,
-    ghostRelativeParentInitialScroll = [],
-    // (left, top)
-_silent = false,
-    savedInputChecked = [];
-/** @const */
-
-var documentExists = typeof document !== 'undefined',
-    PositionGhostAbsolutely = IOS,
-    CSSFloatProperty = Edge || IE11OrLess ? 'cssFloat' : 'float',
-    // This will not pass for IE9, because IE9 DnD only works on anchors
-supportDraggable = documentExists && !ChromeForAndroid && !IOS && 'draggable' in document.createElement('div'),
-    supportCssPointerEvents = function () {
-  if (!documentExists) return; // false when <= IE11
-
-  if (IE11OrLess) {
-    return false;
-  }
-
-  var el = document.createElement('x');
-  el.style.cssText = 'pointer-events:auto';
-  return el.style.pointerEvents === 'auto';
-}(),
-    _detectDirection = function _detectDirection(el, options) {
-  var elCSS = css(el),
-      elWidth = parseInt(elCSS.width) - parseInt(elCSS.paddingLeft) - parseInt(elCSS.paddingRight) - parseInt(elCSS.borderLeftWidth) - parseInt(elCSS.borderRightWidth),
-      child1 = getChild(el, 0, options),
-      child2 = getChild(el, 1, options),
-      firstChildCSS = child1 && css(child1),
-      secondChildCSS = child2 && css(child2),
-      firstChildWidth = firstChildCSS && parseInt(firstChildCSS.marginLeft) + parseInt(firstChildCSS.marginRight) + getRect(child1).width,
-      secondChildWidth = secondChildCSS && parseInt(secondChildCSS.marginLeft) + parseInt(secondChildCSS.marginRight) + getRect(child2).width;
-
-  if (elCSS.display === 'flex') {
-    return elCSS.flexDirection === 'column' || elCSS.flexDirection === 'column-reverse' ? 'vertical' : 'horizontal';
-  }
-
-  if (elCSS.display === 'grid') {
-    return elCSS.gridTemplateColumns.split(' ').length <= 1 ? 'vertical' : 'horizontal';
-  }
-
-  if (child1 && firstChildCSS["float"] && firstChildCSS["float"] !== 'none') {
-    var touchingSideChild2 = firstChildCSS["float"] === 'left' ? 'left' : 'right';
-    return child2 && (secondChildCSS.clear === 'both' || secondChildCSS.clear === touchingSideChild2) ? 'vertical' : 'horizontal';
-  }
-
-  return child1 && (firstChildCSS.display === 'block' || firstChildCSS.display === 'flex' || firstChildCSS.display === 'table' || firstChildCSS.display === 'grid' || firstChildWidth >= elWidth && elCSS[CSSFloatProperty] === 'none' || child2 && elCSS[CSSFloatProperty] === 'none' && firstChildWidth + secondChildWidth > elWidth) ? 'vertical' : 'horizontal';
-},
-    _dragElInRowColumn = function _dragElInRowColumn(dragRect, targetRect, vertical) {
-  var dragElS1Opp = vertical ? dragRect.left : dragRect.top,
-      dragElS2Opp = vertical ? dragRect.right : dragRect.bottom,
-      dragElOppLength = vertical ? dragRect.width : dragRect.height,
-      targetS1Opp = vertical ? targetRect.left : targetRect.top,
-      targetS2Opp = vertical ? targetRect.right : targetRect.bottom,
-      targetOppLength = vertical ? targetRect.width : targetRect.height;
-  return dragElS1Opp === targetS1Opp || dragElS2Opp === targetS2Opp || dragElS1Opp + dragElOppLength / 2 === targetS1Opp + targetOppLength / 2;
-},
-
-/**
- * Detects first nearest empty sortable to X and Y position using emptyInsertThreshold.
- * @param  {Number} x      X position
- * @param  {Number} y      Y position
- * @return {HTMLElement}   Element of the first found nearest Sortable
- */
-_detectNearestEmptySortable = function _detectNearestEmptySortable(x, y) {
-  var ret;
-  sortables.some(function (sortable) {
-    if (lastChild(sortable)) return;
-    var rect = getRect(sortable),
-        threshold = sortable[expando].options.emptyInsertThreshold,
-        insideHorizontally = x >= rect.left - threshold && x <= rect.right + threshold,
-        insideVertically = y >= rect.top - threshold && y <= rect.bottom + threshold;
-
-    if (threshold && insideHorizontally && insideVertically) {
-      return ret = sortable;
-    }
-  });
-  return ret;
-},
-    _prepareGroup = function _prepareGroup(options) {
-  function toFn(value, pull) {
-    return function (to, from, dragEl, evt) {
-      var sameGroup = to.options.group.name && from.options.group.name && to.options.group.name === from.options.group.name;
-
-      if (value == null && (pull || sameGroup)) {
-        // Default pull value
-        // Default pull and put value if same group
-        return true;
-      } else if (value == null || value === false) {
-        return false;
-      } else if (pull && value === 'clone') {
-        return value;
-      } else if (typeof value === 'function') {
-        return toFn(value(to, from, dragEl, evt), pull)(to, from, dragEl, evt);
-      } else {
-        var otherGroup = (pull ? to : from).options.group.name;
-        return value === true || typeof value === 'string' && value === otherGroup || value.join && value.indexOf(otherGroup) > -1;
-      }
-    };
-  }
-
-  var group = {};
-  var originalGroup = options.group;
-
-  if (!originalGroup || _typeof(originalGroup) != 'object') {
-    originalGroup = {
-      name: originalGroup
-    };
-  }
-
-  group.name = originalGroup.name;
-  group.checkPull = toFn(originalGroup.pull, true);
-  group.checkPut = toFn(originalGroup.put);
-  group.revertClone = originalGroup.revertClone;
-  options.group = group;
-},
-    _hideGhostForTarget = function _hideGhostForTarget() {
-  if (!supportCssPointerEvents && ghostEl) {
-    css(ghostEl, 'display', 'none');
-  }
-},
-    _unhideGhostForTarget = function _unhideGhostForTarget() {
-  if (!supportCssPointerEvents && ghostEl) {
-    css(ghostEl, 'display', '');
-  }
-}; // #1184 fix - Prevent click event on fallback if dragged but item not changed position
-
-
-if (documentExists) {
-  document.addEventListener('click', function (evt) {
-    if (ignoreNextClick) {
-      evt.preventDefault();
-      evt.stopPropagation && evt.stopPropagation();
-      evt.stopImmediatePropagation && evt.stopImmediatePropagation();
-      ignoreNextClick = false;
-      return false;
-    }
-  }, true);
-}
-
-var nearestEmptyInsertDetectEvent = function nearestEmptyInsertDetectEvent(evt) {
-  if (dragEl) {
-    evt = evt.touches ? evt.touches[0] : evt;
-
-    var nearest = _detectNearestEmptySortable(evt.clientX, evt.clientY);
-
-    if (nearest) {
-      // Create imitation event
-      var event = {};
-
-      for (var i in evt) {
-        if (evt.hasOwnProperty(i)) {
-          event[i] = evt[i];
-        }
-      }
-
-      event.target = event.rootEl = nearest;
-      event.preventDefault = void 0;
-      event.stopPropagation = void 0;
-
-      nearest[expando]._onDragOver(event);
-    }
-  }
-};
-
-var _checkOutsideTargetEl = function _checkOutsideTargetEl(evt) {
-  if (dragEl) {
-    dragEl.parentNode[expando]._isOutsideThisEl(evt.target);
-  }
-};
-/**
- * @class  Sortable
- * @param  {HTMLElement}  el
- * @param  {Object}       [options]
- */
-
-
-function Sortable(el, options) {
-  if (!(el && el.nodeType && el.nodeType === 1)) {
-    throw "Sortable: `el` must be an HTMLElement, not ".concat({}.toString.call(el));
-  }
-
-  this.el = el; // root element
-
-  this.options = options = _extends({}, options); // Export instance
-
-  el[expando] = this;
-  var defaults = {
-    group: null,
-    sort: true,
-    disabled: false,
-    store: null,
-    handle: null,
-    draggable: /^[uo]l$/i.test(el.nodeName) ? '>li' : '>*',
-    swapThreshold: 1,
-    // percentage; 0 <= x <= 1
-    invertSwap: false,
-    // invert always
-    invertedSwapThreshold: null,
-    // will be set to same as swapThreshold if default
-    removeCloneOnHide: true,
-    direction: function direction() {
-      return _detectDirection(el, this.options);
-    },
-    ghostClass: 'sortable-ghost',
-    chosenClass: 'sortable-chosen',
-    dragClass: 'sortable-drag',
-    ignore: 'a, img',
-    filter: null,
-    preventOnFilter: true,
-    animation: 0,
-    easing: null,
-    setData: function setData(dataTransfer, dragEl) {
-      dataTransfer.setData('Text', dragEl.textContent);
-    },
-    dropBubble: false,
-    dragoverBubble: false,
-    dataIdAttr: 'data-id',
-    delay: 0,
-    delayOnTouchOnly: false,
-    touchStartThreshold: (Number.parseInt ? Number : window).parseInt(window.devicePixelRatio, 10) || 1,
-    forceFallback: false,
-    fallbackClass: 'sortable-fallback',
-    fallbackOnBody: false,
-    fallbackTolerance: 0,
-    fallbackOffset: {
-      x: 0,
-      y: 0
-    },
-    supportPointer: Sortable.supportPointer !== false && 'PointerEvent' in window,
-    emptyInsertThreshold: 5
-  };
-  PluginManager.initializePlugins(this, el, defaults); // Set default options
-
-  for (var name in defaults) {
-    !(name in options) && (options[name] = defaults[name]);
-  }
-
-  _prepareGroup(options); // Bind all private methods
-
-
-  for (var fn in this) {
-    if (fn.charAt(0) === '_' && typeof this[fn] === 'function') {
-      this[fn] = this[fn].bind(this);
-    }
-  } // Setup drag mode
-
-
-  this.nativeDraggable = options.forceFallback ? false : supportDraggable;
-
-  if (this.nativeDraggable) {
-    // Touch start threshold cannot be greater than the native dragstart threshold
-    this.options.touchStartThreshold = 1;
-  } // Bind events
-
-
-  if (options.supportPointer) {
-    on(el, 'pointerdown', this._onTapStart);
-  } else {
-    on(el, 'mousedown', this._onTapStart);
-    on(el, 'touchstart', this._onTapStart);
-  }
-
-  if (this.nativeDraggable) {
-    on(el, 'dragover', this);
-    on(el, 'dragenter', this);
-  }
-
-  sortables.push(this.el); // Restore sorting
-
-  options.store && options.store.get && this.sort(options.store.get(this) || []); // Add animation state manager
-
-  _extends(this, AnimationStateManager());
-}
-
-Sortable.prototype =
-/** @lends Sortable.prototype */
-{
-  constructor: Sortable,
-  _isOutsideThisEl: function _isOutsideThisEl(target) {
-    if (!this.el.contains(target) && target !== this.el) {
-      lastTarget = null;
-    }
-  },
-  _getDirection: function _getDirection(evt, target) {
-    return typeof this.options.direction === 'function' ? this.options.direction.call(this, evt, target, dragEl) : this.options.direction;
-  },
-  _onTapStart: function _onTapStart(
-  /** Event|TouchEvent */
-  evt) {
-    if (!evt.cancelable) return;
-
-    var _this = this,
-        el = this.el,
-        options = this.options,
-        preventOnFilter = options.preventOnFilter,
-        type = evt.type,
-        touch = evt.touches && evt.touches[0] || evt.pointerType && evt.pointerType === 'touch' && evt,
-        target = (touch || evt).target,
-        originalTarget = evt.target.shadowRoot && (evt.path && evt.path[0] || evt.composedPath && evt.composedPath()[0]) || target,
-        filter = options.filter;
-
-    _saveInputCheckedState(el); // Don't trigger start event when an element is been dragged, otherwise the evt.oldindex always wrong when set option.group.
-
-
-    if (dragEl) {
-      return;
-    }
-
-    if (/mousedown|pointerdown/.test(type) && evt.button !== 0 || options.disabled) {
-      return; // only left button and enabled
-    } // cancel dnd if original target is content editable
-
-
-    if (originalTarget.isContentEditable) {
-      return;
-    }
-
-    target = closest(target, options.draggable, el, false);
-
-    if (target && target.animated) {
-      return;
-    }
-
-    if (lastDownEl === target) {
-      // Ignoring duplicate `down`
-      return;
-    } // Get the index of the dragged element within its parent
-
-
-    oldIndex = index(target);
-    oldDraggableIndex = index(target, options.draggable); // Check filter
-
-    if (typeof filter === 'function') {
-      if (filter.call(this, evt, target, this)) {
-        _dispatchEvent({
-          sortable: _this,
-          rootEl: originalTarget,
-          name: 'filter',
-          targetEl: target,
-          toEl: el,
-          fromEl: el
-        });
-
-        pluginEvent('filter', _this, {
-          evt: evt
-        });
-        preventOnFilter && evt.cancelable && evt.preventDefault();
-        return; // cancel dnd
-      }
-    } else if (filter) {
-      filter = filter.split(',').some(function (criteria) {
-        criteria = closest(originalTarget, criteria.trim(), el, false);
-
-        if (criteria) {
-          _dispatchEvent({
-            sortable: _this,
-            rootEl: criteria,
-            name: 'filter',
-            targetEl: target,
-            fromEl: el,
-            toEl: el
-          });
-
-          pluginEvent('filter', _this, {
-            evt: evt
-          });
-          return true;
-        }
-      });
-
-      if (filter) {
-        preventOnFilter && evt.cancelable && evt.preventDefault();
-        return; // cancel dnd
-      }
-    }
-
-    if (options.handle && !closest(originalTarget, options.handle, el, false)) {
-      return;
-    } // Prepare `dragstart`
-
-
-    this._prepareDragStart(evt, touch, target);
-  },
-  _prepareDragStart: function _prepareDragStart(
-  /** Event */
-  evt,
-  /** Touch */
-  touch,
-  /** HTMLElement */
-  target) {
-    var _this = this,
-        el = _this.el,
-        options = _this.options,
-        ownerDocument = el.ownerDocument,
-        dragStartFn;
-
-    if (target && !dragEl && target.parentNode === el) {
-      var dragRect = getRect(target);
-      rootEl = el;
-      dragEl = target;
-      parentEl = dragEl.parentNode;
-      nextEl = dragEl.nextSibling;
-      lastDownEl = target;
-      activeGroup = options.group;
-      Sortable.dragged = dragEl;
-      tapEvt = {
-        target: dragEl,
-        clientX: (touch || evt).clientX,
-        clientY: (touch || evt).clientY
-      };
-      tapDistanceLeft = tapEvt.clientX - dragRect.left;
-      tapDistanceTop = tapEvt.clientY - dragRect.top;
-      this._lastX = (touch || evt).clientX;
-      this._lastY = (touch || evt).clientY;
-      dragEl.style['will-change'] = 'all';
-
-      dragStartFn = function dragStartFn() {
-        pluginEvent('delayEnded', _this, {
-          evt: evt
-        });
-
-        if (Sortable.eventCanceled) {
-          _this._onDrop();
-
-          return;
-        } // Delayed drag has been triggered
-        // we can re-enable the events: touchmove/mousemove
-
-
-        _this._disableDelayedDragEvents();
-
-        if (!FireFox && _this.nativeDraggable) {
-          dragEl.draggable = true;
-        } // Bind the events: dragstart/dragend
-
-
-        _this._triggerDragStart(evt, touch); // Drag start event
-
-
-        _dispatchEvent({
-          sortable: _this,
-          name: 'choose',
-          originalEvent: evt
-        }); // Chosen item
-
-
-        toggleClass(dragEl, options.chosenClass, true);
-      }; // Disable "draggable"
-
-
-      options.ignore.split(',').forEach(function (criteria) {
-        find(dragEl, criteria.trim(), _disableDraggable);
-      });
-      on(ownerDocument, 'dragover', nearestEmptyInsertDetectEvent);
-      on(ownerDocument, 'mousemove', nearestEmptyInsertDetectEvent);
-      on(ownerDocument, 'touchmove', nearestEmptyInsertDetectEvent);
-      on(ownerDocument, 'mouseup', _this._onDrop);
-      on(ownerDocument, 'touchend', _this._onDrop);
-      on(ownerDocument, 'touchcancel', _this._onDrop); // Make dragEl draggable (must be before delay for FireFox)
-
-      if (FireFox && this.nativeDraggable) {
-        this.options.touchStartThreshold = 4;
-        dragEl.draggable = true;
-      }
-
-      pluginEvent('delayStart', this, {
-        evt: evt
-      }); // Delay is impossible for native DnD in Edge or IE
-
-      if (options.delay && (!options.delayOnTouchOnly || touch) && (!this.nativeDraggable || !(Edge || IE11OrLess))) {
-        if (Sortable.eventCanceled) {
-          this._onDrop();
-
-          return;
-        } // If the user moves the pointer or let go the click or touch
-        // before the delay has been reached:
-        // disable the delayed drag
-
-
-        on(ownerDocument, 'mouseup', _this._disableDelayedDrag);
-        on(ownerDocument, 'touchend', _this._disableDelayedDrag);
-        on(ownerDocument, 'touchcancel', _this._disableDelayedDrag);
-        on(ownerDocument, 'mousemove', _this._delayedDragTouchMoveHandler);
-        on(ownerDocument, 'touchmove', _this._delayedDragTouchMoveHandler);
-        options.supportPointer && on(ownerDocument, 'pointermove', _this._delayedDragTouchMoveHandler);
-        _this._dragStartTimer = setTimeout(dragStartFn, options.delay);
-      } else {
-        dragStartFn();
-      }
-    }
-  },
-  _delayedDragTouchMoveHandler: function _delayedDragTouchMoveHandler(
-  /** TouchEvent|PointerEvent **/
-  e) {
-    var touch = e.touches ? e.touches[0] : e;
-
-    if (Math.max(Math.abs(touch.clientX - this._lastX), Math.abs(touch.clientY - this._lastY)) >= Math.floor(this.options.touchStartThreshold / (this.nativeDraggable && window.devicePixelRatio || 1))) {
-      this._disableDelayedDrag();
-    }
-  },
-  _disableDelayedDrag: function _disableDelayedDrag() {
-    dragEl && _disableDraggable(dragEl);
-    clearTimeout(this._dragStartTimer);
-
-    this._disableDelayedDragEvents();
-  },
-  _disableDelayedDragEvents: function _disableDelayedDragEvents() {
-    var ownerDocument = this.el.ownerDocument;
-    off(ownerDocument, 'mouseup', this._disableDelayedDrag);
-    off(ownerDocument, 'touchend', this._disableDelayedDrag);
-    off(ownerDocument, 'touchcancel', this._disableDelayedDrag);
-    off(ownerDocument, 'mousemove', this._delayedDragTouchMoveHandler);
-    off(ownerDocument, 'touchmove', this._delayedDragTouchMoveHandler);
-    off(ownerDocument, 'pointermove', this._delayedDragTouchMoveHandler);
-  },
-  _triggerDragStart: function _triggerDragStart(
-  /** Event */
-  evt,
-  /** Touch */
-  touch) {
-    touch = touch || evt.pointerType == 'touch' && evt;
-
-    if (!this.nativeDraggable || touch) {
-      if (this.options.supportPointer) {
-        on(document, 'pointermove', this._onTouchMove);
-      } else if (touch) {
-        on(document, 'touchmove', this._onTouchMove);
-      } else {
-        on(document, 'mousemove', this._onTouchMove);
-      }
-    } else {
-      on(dragEl, 'dragend', this);
-      on(rootEl, 'dragstart', this._onDragStart);
-    }
-
-    try {
-      if (document.selection) {
-        // Timeout neccessary for IE9
-        _nextTick(function () {
-          document.selection.empty();
-        });
-      } else {
-        window.getSelection().removeAllRanges();
-      }
-    } catch (err) {}
-  },
-  _dragStarted: function _dragStarted(fallback, evt) {
-
-    awaitingDragStarted = false;
-
-    if (rootEl && dragEl) {
-      pluginEvent('dragStarted', this, {
-        evt: evt
-      });
-
-      if (this.nativeDraggable) {
-        on(document, 'dragover', _checkOutsideTargetEl);
-      }
-
-      var options = this.options; // Apply effect
-
-      !fallback && toggleClass(dragEl, options.dragClass, false);
-      toggleClass(dragEl, options.ghostClass, true);
-      Sortable.active = this;
-      fallback && this._appendGhost(); // Drag start event
-
-      _dispatchEvent({
-        sortable: this,
-        name: 'start',
-        originalEvent: evt
-      });
-    } else {
-      this._nulling();
-    }
-  },
-  _emulateDragOver: function _emulateDragOver() {
-    if (touchEvt) {
-      this._lastX = touchEvt.clientX;
-      this._lastY = touchEvt.clientY;
-
-      _hideGhostForTarget();
-
-      var target = document.elementFromPoint(touchEvt.clientX, touchEvt.clientY);
-      var parent = target;
-
-      while (target && target.shadowRoot) {
-        target = target.shadowRoot.elementFromPoint(touchEvt.clientX, touchEvt.clientY);
-        if (target === parent) break;
-        parent = target;
-      }
-
-      dragEl.parentNode[expando]._isOutsideThisEl(target);
-
-      if (parent) {
-        do {
-          if (parent[expando]) {
-            var inserted = void 0;
-            inserted = parent[expando]._onDragOver({
-              clientX: touchEvt.clientX,
-              clientY: touchEvt.clientY,
-              target: target,
-              rootEl: parent
-            });
-
-            if (inserted && !this.options.dragoverBubble) {
-              break;
-            }
-          }
-
-          target = parent; // store last element
-        }
-        /* jshint boss:true */
-        while (parent = parent.parentNode);
-      }
-
-      _unhideGhostForTarget();
-    }
-  },
-  _onTouchMove: function _onTouchMove(
-  /**TouchEvent*/
-  evt) {
-    if (tapEvt) {
-      var options = this.options,
-          fallbackTolerance = options.fallbackTolerance,
-          fallbackOffset = options.fallbackOffset,
-          touch = evt.touches ? evt.touches[0] : evt,
-          ghostMatrix = ghostEl && matrix(ghostEl, true),
-          scaleX = ghostEl && ghostMatrix && ghostMatrix.a,
-          scaleY = ghostEl && ghostMatrix && ghostMatrix.d,
-          relativeScrollOffset = PositionGhostAbsolutely && ghostRelativeParent && getRelativeScrollOffset(ghostRelativeParent),
-          dx = (touch.clientX - tapEvt.clientX + fallbackOffset.x) / (scaleX || 1) + (relativeScrollOffset ? relativeScrollOffset[0] - ghostRelativeParentInitialScroll[0] : 0) / (scaleX || 1),
-          dy = (touch.clientY - tapEvt.clientY + fallbackOffset.y) / (scaleY || 1) + (relativeScrollOffset ? relativeScrollOffset[1] - ghostRelativeParentInitialScroll[1] : 0) / (scaleY || 1); // only set the status to dragging, when we are actually dragging
-
-      if (!Sortable.active && !awaitingDragStarted) {
-        if (fallbackTolerance && Math.max(Math.abs(touch.clientX - this._lastX), Math.abs(touch.clientY - this._lastY)) < fallbackTolerance) {
-          return;
-        }
-
-        this._onDragStart(evt, true);
-      }
-
-      if (ghostEl) {
-        if (ghostMatrix) {
-          ghostMatrix.e += dx - (lastDx || 0);
-          ghostMatrix.f += dy - (lastDy || 0);
-        } else {
-          ghostMatrix = {
-            a: 1,
-            b: 0,
-            c: 0,
-            d: 1,
-            e: dx,
-            f: dy
-          };
-        }
-
-        var cssMatrix = "matrix(".concat(ghostMatrix.a, ",").concat(ghostMatrix.b, ",").concat(ghostMatrix.c, ",").concat(ghostMatrix.d, ",").concat(ghostMatrix.e, ",").concat(ghostMatrix.f, ")");
-        css(ghostEl, 'webkitTransform', cssMatrix);
-        css(ghostEl, 'mozTransform', cssMatrix);
-        css(ghostEl, 'msTransform', cssMatrix);
-        css(ghostEl, 'transform', cssMatrix);
-        lastDx = dx;
-        lastDy = dy;
-        touchEvt = touch;
-      }
-
-      evt.cancelable && evt.preventDefault();
-    }
-  },
-  _appendGhost: function _appendGhost() {
-    // Bug if using scale(): https://stackoverflow.com/questions/2637058
-    // Not being adjusted for
-    if (!ghostEl) {
-      var container = this.options.fallbackOnBody ? document.body : rootEl,
-          rect = getRect(dragEl, true, PositionGhostAbsolutely, true, container),
-          options = this.options; // Position absolutely
-
-      if (PositionGhostAbsolutely) {
-        // Get relatively positioned parent
-        ghostRelativeParent = container;
-
-        while (css(ghostRelativeParent, 'position') === 'static' && css(ghostRelativeParent, 'transform') === 'none' && ghostRelativeParent !== document) {
-          ghostRelativeParent = ghostRelativeParent.parentNode;
-        }
-
-        if (ghostRelativeParent !== document.body && ghostRelativeParent !== document.documentElement) {
-          if (ghostRelativeParent === document) ghostRelativeParent = getWindowScrollingElement();
-          rect.top += ghostRelativeParent.scrollTop;
-          rect.left += ghostRelativeParent.scrollLeft;
-        } else {
-          ghostRelativeParent = getWindowScrollingElement();
-        }
-
-        ghostRelativeParentInitialScroll = getRelativeScrollOffset(ghostRelativeParent);
-      }
-
-      ghostEl = dragEl.cloneNode(true);
-      toggleClass(ghostEl, options.ghostClass, false);
-      toggleClass(ghostEl, options.fallbackClass, true);
-      toggleClass(ghostEl, options.dragClass, true);
-      css(ghostEl, 'transition', '');
-      css(ghostEl, 'transform', '');
-      css(ghostEl, 'box-sizing', 'border-box');
-      css(ghostEl, 'margin', 0);
-      css(ghostEl, 'top', rect.top);
-      css(ghostEl, 'left', rect.left);
-      css(ghostEl, 'width', rect.width);
-      css(ghostEl, 'height', rect.height);
-      css(ghostEl, 'opacity', '0.8');
-      css(ghostEl, 'position', PositionGhostAbsolutely ? 'absolute' : 'fixed');
-      css(ghostEl, 'zIndex', '100000');
-      css(ghostEl, 'pointerEvents', 'none');
-      Sortable.ghost = ghostEl;
-      container.appendChild(ghostEl); // Set transform-origin
-
-      css(ghostEl, 'transform-origin', tapDistanceLeft / parseInt(ghostEl.style.width) * 100 + '% ' + tapDistanceTop / parseInt(ghostEl.style.height) * 100 + '%');
-    }
-  },
-  _onDragStart: function _onDragStart(
-  /**Event*/
-  evt,
-  /**boolean*/
-  fallback) {
-    var _this = this;
-
-    var dataTransfer = evt.dataTransfer;
-    var options = _this.options;
-    pluginEvent('dragStart', this, {
-      evt: evt
-    });
-
-    if (Sortable.eventCanceled) {
-      this._onDrop();
-
-      return;
-    }
-
-    pluginEvent('setupClone', this);
-
-    if (!Sortable.eventCanceled) {
-      cloneEl = clone(dragEl);
-      cloneEl.draggable = false;
-      cloneEl.style['will-change'] = '';
-
-      this._hideClone();
-
-      toggleClass(cloneEl, this.options.chosenClass, false);
-      Sortable.clone = cloneEl;
-    } // #1143: IFrame support workaround
-
-
-    _this.cloneId = _nextTick(function () {
-      pluginEvent('clone', _this);
-      if (Sortable.eventCanceled) return;
-
-      if (!_this.options.removeCloneOnHide) {
-        rootEl.insertBefore(cloneEl, dragEl);
-      }
-
-      _this._hideClone();
-
-      _dispatchEvent({
-        sortable: _this,
-        name: 'clone'
-      });
-    });
-    !fallback && toggleClass(dragEl, options.dragClass, true); // Set proper drop events
-
-    if (fallback) {
-      ignoreNextClick = true;
-      _this._loopId = setInterval(_this._emulateDragOver, 50);
-    } else {
-      // Undo what was set in _prepareDragStart before drag started
-      off(document, 'mouseup', _this._onDrop);
-      off(document, 'touchend', _this._onDrop);
-      off(document, 'touchcancel', _this._onDrop);
-
-      if (dataTransfer) {
-        dataTransfer.effectAllowed = 'move';
-        options.setData && options.setData.call(_this, dataTransfer, dragEl);
-      }
-
-      on(document, 'drop', _this); // #1276 fix:
-
-      css(dragEl, 'transform', 'translateZ(0)');
-    }
-
-    awaitingDragStarted = true;
-    _this._dragStartId = _nextTick(_this._dragStarted.bind(_this, fallback, evt));
-    on(document, 'selectstart', _this);
-    moved = true;
-
-    if (Safari) {
-      css(document.body, 'user-select', 'none');
-    }
-  },
-  // Returns true - if no further action is needed (either inserted or another condition)
-  _onDragOver: function _onDragOver(
-  /**Event*/
-  evt) {
-    var el = this.el,
-        target = evt.target,
-        dragRect,
-        targetRect,
-        revert,
-        options = this.options,
-        group = options.group,
-        activeSortable = Sortable.active,
-        isOwner = activeGroup === group,
-        canSort = options.sort,
-        fromSortable = putSortable || activeSortable,
-        vertical,
-        _this = this,
-        completedFired = false;
-
-    if (_silent) return;
-
-    function dragOverEvent(name, extra) {
-      pluginEvent(name, _this, _objectSpread({
-        evt: evt,
-        isOwner: isOwner,
-        axis: vertical ? 'vertical' : 'horizontal',
-        revert: revert,
-        dragRect: dragRect,
-        targetRect: targetRect,
-        canSort: canSort,
-        fromSortable: fromSortable,
-        target: target,
-        completed: completed,
-        onMove: function onMove(target, after) {
-          return _onMove(rootEl, el, dragEl, dragRect, target, getRect(target), evt, after);
-        },
-        changed: changed
-      }, extra));
-    } // Capture animation state
-
-
-    function capture() {
-      dragOverEvent('dragOverAnimationCapture');
-
-      _this.captureAnimationState();
-
-      if (_this !== fromSortable) {
-        fromSortable.captureAnimationState();
-      }
-    } // Return invocation when dragEl is inserted (or completed)
-
-
-    function completed(insertion) {
-      dragOverEvent('dragOverCompleted', {
-        insertion: insertion
-      });
-
-      if (insertion) {
-        // Clones must be hidden before folding animation to capture dragRectAbsolute properly
-        if (isOwner) {
-          activeSortable._hideClone();
-        } else {
-          activeSortable._showClone(_this);
-        }
-
-        if (_this !== fromSortable) {
-          // Set ghost class to new sortable's ghost class
-          toggleClass(dragEl, putSortable ? putSortable.options.ghostClass : activeSortable.options.ghostClass, false);
-          toggleClass(dragEl, options.ghostClass, true);
-        }
-
-        if (putSortable !== _this && _this !== Sortable.active) {
-          putSortable = _this;
-        } else if (_this === Sortable.active && putSortable) {
-          putSortable = null;
-        } // Animation
-
-
-        if (fromSortable === _this) {
-          _this._ignoreWhileAnimating = target;
-        }
-
-        _this.animateAll(function () {
-          dragOverEvent('dragOverAnimationComplete');
-          _this._ignoreWhileAnimating = null;
-        });
-
-        if (_this !== fromSortable) {
-          fromSortable.animateAll();
-          fromSortable._ignoreWhileAnimating = null;
-        }
-      } // Null lastTarget if it is not inside a previously swapped element
-
-
-      if (target === dragEl && !dragEl.animated || target === el && !target.animated) {
-        lastTarget = null;
-      } // no bubbling and not fallback
-
-
-      if (!options.dragoverBubble && !evt.rootEl && target !== document) {
-        dragEl.parentNode[expando]._isOutsideThisEl(evt.target); // Do not detect for empty insert if already inserted
-
-
-        !insertion && nearestEmptyInsertDetectEvent(evt);
-      }
-
-      !options.dragoverBubble && evt.stopPropagation && evt.stopPropagation();
-      return completedFired = true;
-    } // Call when dragEl has been inserted
-
-
-    function changed() {
-      newIndex = index(dragEl);
-      newDraggableIndex = index(dragEl, options.draggable);
-
-      _dispatchEvent({
-        sortable: _this,
-        name: 'change',
-        toEl: el,
-        newIndex: newIndex,
-        newDraggableIndex: newDraggableIndex,
-        originalEvent: evt
-      });
-    }
-
-    if (evt.preventDefault !== void 0) {
-      evt.cancelable && evt.preventDefault();
-    }
-
-    target = closest(target, options.draggable, el, true);
-    dragOverEvent('dragOver');
-    if (Sortable.eventCanceled) return completedFired;
-
-    if (dragEl.contains(evt.target) || target.animated && target.animatingX && target.animatingY || _this._ignoreWhileAnimating === target) {
-      return completed(false);
-    }
-
-    ignoreNextClick = false;
-
-    if (activeSortable && !options.disabled && (isOwner ? canSort || (revert = !rootEl.contains(dragEl)) // Reverting item into the original list
-    : putSortable === this || (this.lastPutMode = activeGroup.checkPull(this, activeSortable, dragEl, evt)) && group.checkPut(this, activeSortable, dragEl, evt))) {
-      vertical = this._getDirection(evt, target) === 'vertical';
-      dragRect = getRect(dragEl);
-      dragOverEvent('dragOverValid');
-      if (Sortable.eventCanceled) return completedFired;
-
-      if (revert) {
-        parentEl = rootEl; // actualization
-
-        capture();
-
-        this._hideClone();
-
-        dragOverEvent('revert');
-
-        if (!Sortable.eventCanceled) {
-          if (nextEl) {
-            rootEl.insertBefore(dragEl, nextEl);
-          } else {
-            rootEl.appendChild(dragEl);
-          }
-        }
-
-        return completed(true);
-      }
-
-      var elLastChild = lastChild(el, options.draggable);
-
-      if (!elLastChild || _ghostIsLast(evt, vertical, this) && !elLastChild.animated) {
-        // If already at end of list: Do not insert
-        if (elLastChild === dragEl) {
-          return completed(false);
-        } // assign target only if condition is true
-
-
-        if (elLastChild && el === evt.target) {
-          target = elLastChild;
-        }
-
-        if (target) {
-          targetRect = getRect(target);
-        }
-
-        if (_onMove(rootEl, el, dragEl, dragRect, target, targetRect, evt, !!target) !== false) {
-          capture();
-          el.appendChild(dragEl);
-          parentEl = el; // actualization
-
-          changed();
-          return completed(true);
-        }
-      } else if (target.parentNode === el) {
-        targetRect = getRect(target);
-        var direction = 0,
-            targetBeforeFirstSwap,
-            differentLevel = dragEl.parentNode !== el,
-            differentRowCol = !_dragElInRowColumn(dragEl.animated && dragEl.toRect || dragRect, target.animated && target.toRect || targetRect, vertical),
-            side1 = vertical ? 'top' : 'left',
-            scrolledPastTop = isScrolledPast(target, 'top', 'top') || isScrolledPast(dragEl, 'top', 'top'),
-            scrollBefore = scrolledPastTop ? scrolledPastTop.scrollTop : void 0;
-
-        if (lastTarget !== target) {
-          targetBeforeFirstSwap = targetRect[side1];
-          pastFirstInvertThresh = false;
-          isCircumstantialInvert = !differentRowCol && options.invertSwap || differentLevel;
-        }
-
-        direction = _getSwapDirection(evt, target, targetRect, vertical, differentRowCol ? 1 : options.swapThreshold, options.invertedSwapThreshold == null ? options.swapThreshold : options.invertedSwapThreshold, isCircumstantialInvert, lastTarget === target);
-        var sibling;
-
-        if (direction !== 0) {
-          // Check if target is beside dragEl in respective direction (ignoring hidden elements)
-          var dragIndex = index(dragEl);
-
-          do {
-            dragIndex -= direction;
-            sibling = parentEl.children[dragIndex];
-          } while (sibling && (css(sibling, 'display') === 'none' || sibling === ghostEl));
-        } // If dragEl is already beside target: Do not insert
-
-
-        if (direction === 0 || sibling === target) {
-          return completed(false);
-        }
-
-        lastTarget = target;
-        lastDirection = direction;
-        var nextSibling = target.nextElementSibling,
-            after = false;
-        after = direction === 1;
-
-        var moveVector = _onMove(rootEl, el, dragEl, dragRect, target, targetRect, evt, after);
-
-        if (moveVector !== false) {
-          if (moveVector === 1 || moveVector === -1) {
-            after = moveVector === 1;
-          }
-
-          _silent = true;
-          setTimeout(_unsilent, 30);
-          capture();
-
-          if (after && !nextSibling) {
-            el.appendChild(dragEl);
-          } else {
-            target.parentNode.insertBefore(dragEl, after ? nextSibling : target);
-          } // Undo chrome's scroll adjustment (has no effect on other browsers)
-
-
-          if (scrolledPastTop) {
-            scrollBy(scrolledPastTop, 0, scrollBefore - scrolledPastTop.scrollTop);
-          }
-
-          parentEl = dragEl.parentNode; // actualization
-          // must be done before animation
-
-          if (targetBeforeFirstSwap !== undefined && !isCircumstantialInvert) {
-            targetMoveDistance = Math.abs(targetBeforeFirstSwap - getRect(target)[side1]);
-          }
-
-          changed();
-          return completed(true);
-        }
-      }
-
-      if (el.contains(dragEl)) {
-        return completed(false);
-      }
-    }
-
-    return false;
-  },
-  _ignoreWhileAnimating: null,
-  _offMoveEvents: function _offMoveEvents() {
-    off(document, 'mousemove', this._onTouchMove);
-    off(document, 'touchmove', this._onTouchMove);
-    off(document, 'pointermove', this._onTouchMove);
-    off(document, 'dragover', nearestEmptyInsertDetectEvent);
-    off(document, 'mousemove', nearestEmptyInsertDetectEvent);
-    off(document, 'touchmove', nearestEmptyInsertDetectEvent);
-  },
-  _offUpEvents: function _offUpEvents() {
-    var ownerDocument = this.el.ownerDocument;
-    off(ownerDocument, 'mouseup', this._onDrop);
-    off(ownerDocument, 'touchend', this._onDrop);
-    off(ownerDocument, 'pointerup', this._onDrop);
-    off(ownerDocument, 'touchcancel', this._onDrop);
-    off(document, 'selectstart', this);
-  },
-  _onDrop: function _onDrop(
-  /**Event*/
-  evt) {
-    var el = this.el,
-        options = this.options; // Get the index of the dragged element within its parent
-
-    newIndex = index(dragEl);
-    newDraggableIndex = index(dragEl, options.draggable);
-    pluginEvent('drop', this, {
-      evt: evt
-    });
-    parentEl = dragEl && dragEl.parentNode; // Get again after plugin event
-
-    newIndex = index(dragEl);
-    newDraggableIndex = index(dragEl, options.draggable);
-
-    if (Sortable.eventCanceled) {
-      this._nulling();
-
-      return;
-    }
-
-    awaitingDragStarted = false;
-    isCircumstantialInvert = false;
-    pastFirstInvertThresh = false;
-    clearInterval(this._loopId);
-    clearTimeout(this._dragStartTimer);
-
-    _cancelNextTick(this.cloneId);
-
-    _cancelNextTick(this._dragStartId); // Unbind events
-
-
-    if (this.nativeDraggable) {
-      off(document, 'drop', this);
-      off(el, 'dragstart', this._onDragStart);
-    }
-
-    this._offMoveEvents();
-
-    this._offUpEvents();
-
-    if (Safari) {
-      css(document.body, 'user-select', '');
-    }
-
-    css(dragEl, 'transform', '');
-
-    if (evt) {
-      if (moved) {
-        evt.cancelable && evt.preventDefault();
-        !options.dropBubble && evt.stopPropagation();
-      }
-
-      ghostEl && ghostEl.parentNode && ghostEl.parentNode.removeChild(ghostEl);
-
-      if (rootEl === parentEl || putSortable && putSortable.lastPutMode !== 'clone') {
-        // Remove clone(s)
-        cloneEl && cloneEl.parentNode && cloneEl.parentNode.removeChild(cloneEl);
-      }
-
-      if (dragEl) {
-        if (this.nativeDraggable) {
-          off(dragEl, 'dragend', this);
-        }
-
-        _disableDraggable(dragEl);
-
-        dragEl.style['will-change'] = ''; // Remove classes
-        // ghostClass is added in dragStarted
-
-        if (moved && !awaitingDragStarted) {
-          toggleClass(dragEl, putSortable ? putSortable.options.ghostClass : this.options.ghostClass, false);
-        }
-
-        toggleClass(dragEl, this.options.chosenClass, false); // Drag stop event
-
-        _dispatchEvent({
-          sortable: this,
-          name: 'unchoose',
-          toEl: parentEl,
-          newIndex: null,
-          newDraggableIndex: null,
-          originalEvent: evt
-        });
-
-        if (rootEl !== parentEl) {
-          if (newIndex >= 0) {
-            // Add event
-            _dispatchEvent({
-              rootEl: parentEl,
-              name: 'add',
-              toEl: parentEl,
-              fromEl: rootEl,
-              originalEvent: evt
-            }); // Remove event
-
-
-            _dispatchEvent({
-              sortable: this,
-              name: 'remove',
-              toEl: parentEl,
-              originalEvent: evt
-            }); // drag from one list and drop into another
-
-
-            _dispatchEvent({
-              rootEl: parentEl,
-              name: 'sort',
-              toEl: parentEl,
-              fromEl: rootEl,
-              originalEvent: evt
-            });
-
-            _dispatchEvent({
-              sortable: this,
-              name: 'sort',
-              toEl: parentEl,
-              originalEvent: evt
-            });
-          }
-
-          putSortable && putSortable.save();
-        } else {
-          if (newIndex !== oldIndex) {
-            if (newIndex >= 0) {
-              // drag & drop within the same list
-              _dispatchEvent({
-                sortable: this,
-                name: 'update',
-                toEl: parentEl,
-                originalEvent: evt
-              });
-
-              _dispatchEvent({
-                sortable: this,
-                name: 'sort',
-                toEl: parentEl,
-                originalEvent: evt
-              });
-            }
-          }
-        }
-
-        if (Sortable.active) {
-          /* jshint eqnull:true */
-          if (newIndex == null || newIndex === -1) {
-            newIndex = oldIndex;
-            newDraggableIndex = oldDraggableIndex;
-          }
-
-          _dispatchEvent({
-            sortable: this,
-            name: 'end',
-            toEl: parentEl,
-            originalEvent: evt
-          }); // Save sorting
-
-
-          this.save();
-        }
-      }
-    }
-
-    this._nulling();
-  },
-  _nulling: function _nulling() {
-    pluginEvent('nulling', this);
-    rootEl = dragEl = parentEl = ghostEl = nextEl = cloneEl = lastDownEl = cloneHidden = tapEvt = touchEvt = moved = newIndex = newDraggableIndex = oldIndex = oldDraggableIndex = lastTarget = lastDirection = putSortable = activeGroup = Sortable.dragged = Sortable.ghost = Sortable.clone = Sortable.active = null;
-    savedInputChecked.forEach(function (el) {
-      el.checked = true;
-    });
-    savedInputChecked.length = lastDx = lastDy = 0;
-  },
-  handleEvent: function handleEvent(
-  /**Event*/
-  evt) {
-    switch (evt.type) {
-      case 'drop':
-      case 'dragend':
-        this._onDrop(evt);
-
-        break;
-
-      case 'dragenter':
-      case 'dragover':
-        if (dragEl) {
-          this._onDragOver(evt);
-
-          _globalDragOver(evt);
-        }
-
-        break;
-
-      case 'selectstart':
-        evt.preventDefault();
-        break;
-    }
-  },
-
-  /**
-   * Serializes the item into an array of string.
-   * @returns {String[]}
-   */
-  toArray: function toArray() {
-    var order = [],
-        el,
-        children = this.el.children,
-        i = 0,
-        n = children.length,
-        options = this.options;
-
-    for (; i < n; i++) {
-      el = children[i];
-
-      if (closest(el, options.draggable, this.el, false)) {
-        order.push(el.getAttribute(options.dataIdAttr) || _generateId(el));
-      }
-    }
-
-    return order;
-  },
-
-  /**
-   * Sorts the elements according to the array.
-   * @param  {String[]}  order  order of the items
-   */
-  sort: function sort(order) {
-    var items = {},
-        rootEl = this.el;
-    this.toArray().forEach(function (id, i) {
-      var el = rootEl.children[i];
-
-      if (closest(el, this.options.draggable, rootEl, false)) {
-        items[id] = el;
-      }
-    }, this);
-    order.forEach(function (id) {
-      if (items[id]) {
-        rootEl.removeChild(items[id]);
-        rootEl.appendChild(items[id]);
-      }
-    });
-  },
-
-  /**
-   * Save the current sorting
-   */
-  save: function save() {
-    var store = this.options.store;
-    store && store.set && store.set(this);
-  },
-
-  /**
-   * For each element in the set, get the first element that matches the selector by testing the element itself and traversing up through its ancestors in the DOM tree.
-   * @param   {HTMLElement}  el
-   * @param   {String}       [selector]  default: `options.draggable`
-   * @returns {HTMLElement|null}
-   */
-  closest: function closest$1(el, selector) {
-    return closest(el, selector || this.options.draggable, this.el, false);
-  },
-
-  /**
-   * Set/get option
-   * @param   {string} name
-   * @param   {*}      [value]
-   * @returns {*}
-   */
-  option: function option(name, value) {
-    var options = this.options;
-
-    if (value === void 0) {
-      return options[name];
-    } else {
-      var modifiedValue = PluginManager.modifyOption(this, name, value);
-
-      if (typeof modifiedValue !== 'undefined') {
-        options[name] = modifiedValue;
-      } else {
-        options[name] = value;
-      }
-
-      if (name === 'group') {
-        _prepareGroup(options);
-      }
-    }
-  },
-
-  /**
-   * Destroy
-   */
-  destroy: function destroy() {
-    pluginEvent('destroy', this);
-    var el = this.el;
-    el[expando] = null;
-    off(el, 'mousedown', this._onTapStart);
-    off(el, 'touchstart', this._onTapStart);
-    off(el, 'pointerdown', this._onTapStart);
-
-    if (this.nativeDraggable) {
-      off(el, 'dragover', this);
-      off(el, 'dragenter', this);
-    } // Remove draggable attributes
-
-
-    Array.prototype.forEach.call(el.querySelectorAll('[draggable]'), function (el) {
-      el.removeAttribute('draggable');
-    });
-
-    this._onDrop();
-
-    this._disableDelayedDragEvents();
-
-    sortables.splice(sortables.indexOf(this.el), 1);
-    this.el = el = null;
-  },
-  _hideClone: function _hideClone() {
-    if (!cloneHidden) {
-      pluginEvent('hideClone', this);
-      if (Sortable.eventCanceled) return;
-      css(cloneEl, 'display', 'none');
-
-      if (this.options.removeCloneOnHide && cloneEl.parentNode) {
-        cloneEl.parentNode.removeChild(cloneEl);
-      }
-
-      cloneHidden = true;
-    }
-  },
-  _showClone: function _showClone(putSortable) {
-    if (putSortable.lastPutMode !== 'clone') {
-      this._hideClone();
-
-      return;
-    }
-
-    if (cloneHidden) {
-      pluginEvent('showClone', this);
-      if (Sortable.eventCanceled) return; // show clone at dragEl or original position
-
-      if (rootEl.contains(dragEl) && !this.options.group.revertClone) {
-        rootEl.insertBefore(cloneEl, dragEl);
-      } else if (nextEl) {
-        rootEl.insertBefore(cloneEl, nextEl);
-      } else {
-        rootEl.appendChild(cloneEl);
-      }
-
-      if (this.options.group.revertClone) {
-        this.animate(dragEl, cloneEl);
-      }
-
-      css(cloneEl, 'display', '');
-      cloneHidden = false;
-    }
-  }
-};
-
-function _globalDragOver(
-/**Event*/
-evt) {
-  if (evt.dataTransfer) {
-    evt.dataTransfer.dropEffect = 'move';
-  }
-
-  evt.cancelable && evt.preventDefault();
-}
-
-function _onMove(fromEl, toEl, dragEl, dragRect, targetEl, targetRect, originalEvent, willInsertAfter) {
-  var evt,
-      sortable = fromEl[expando],
-      onMoveFn = sortable.options.onMove,
-      retVal; // Support for new CustomEvent feature
-
-  if (window.CustomEvent && !IE11OrLess && !Edge) {
-    evt = new CustomEvent('move', {
-      bubbles: true,
-      cancelable: true
-    });
-  } else {
-    evt = document.createEvent('Event');
-    evt.initEvent('move', true, true);
-  }
-
-  evt.to = toEl;
-  evt.from = fromEl;
-  evt.dragged = dragEl;
-  evt.draggedRect = dragRect;
-  evt.related = targetEl || toEl;
-  evt.relatedRect = targetRect || getRect(toEl);
-  evt.willInsertAfter = willInsertAfter;
-  evt.originalEvent = originalEvent;
-  fromEl.dispatchEvent(evt);
-
-  if (onMoveFn) {
-    retVal = onMoveFn.call(sortable, evt, originalEvent);
-  }
-
-  return retVal;
-}
-
-function _disableDraggable(el) {
-  el.draggable = false;
-}
-
-function _unsilent() {
-  _silent = false;
-}
-
-function _ghostIsLast(evt, vertical, sortable) {
-  var rect = getRect(lastChild(sortable.el, sortable.options.draggable));
-  var spacer = 10;
-  return vertical ? evt.clientX > rect.right + spacer || evt.clientX <= rect.right && evt.clientY > rect.bottom && evt.clientX >= rect.left : evt.clientX > rect.right && evt.clientY > rect.top || evt.clientX <= rect.right && evt.clientY > rect.bottom + spacer;
-}
-
-function _getSwapDirection(evt, target, targetRect, vertical, swapThreshold, invertedSwapThreshold, invertSwap, isLastTarget) {
-  var mouseOnAxis = vertical ? evt.clientY : evt.clientX,
-      targetLength = vertical ? targetRect.height : targetRect.width,
-      targetS1 = vertical ? targetRect.top : targetRect.left,
-      targetS2 = vertical ? targetRect.bottom : targetRect.right,
-      invert = false;
-
-  if (!invertSwap) {
-    // Never invert or create dragEl shadow when target movemenet causes mouse to move past the end of regular swapThreshold
-    if (isLastTarget && targetMoveDistance < targetLength * swapThreshold) {
-      // multiplied only by swapThreshold because mouse will already be inside target by (1 - threshold) * targetLength / 2
-      // check if past first invert threshold on side opposite of lastDirection
-      if (!pastFirstInvertThresh && (lastDirection === 1 ? mouseOnAxis > targetS1 + targetLength * invertedSwapThreshold / 2 : mouseOnAxis < targetS2 - targetLength * invertedSwapThreshold / 2)) {
-        // past first invert threshold, do not restrict inverted threshold to dragEl shadow
-        pastFirstInvertThresh = true;
-      }
-
-      if (!pastFirstInvertThresh) {
-        // dragEl shadow (target move distance shadow)
-        if (lastDirection === 1 ? mouseOnAxis < targetS1 + targetMoveDistance // over dragEl shadow
-        : mouseOnAxis > targetS2 - targetMoveDistance) {
-          return -lastDirection;
-        }
-      } else {
-        invert = true;
-      }
-    } else {
-      // Regular
-      if (mouseOnAxis > targetS1 + targetLength * (1 - swapThreshold) / 2 && mouseOnAxis < targetS2 - targetLength * (1 - swapThreshold) / 2) {
-        return _getInsertDirection(target);
-      }
-    }
-  }
-
-  invert = invert || invertSwap;
-
-  if (invert) {
-    // Invert of regular
-    if (mouseOnAxis < targetS1 + targetLength * invertedSwapThreshold / 2 || mouseOnAxis > targetS2 - targetLength * invertedSwapThreshold / 2) {
-      return mouseOnAxis > targetS1 + targetLength / 2 ? 1 : -1;
-    }
-  }
-
-  return 0;
-}
-/**
- * Gets the direction dragEl must be swapped relative to target in order to make it
- * seem that dragEl has been "inserted" into that element's position
- * @param  {HTMLElement} target       The target whose position dragEl is being inserted at
- * @return {Number}                   Direction dragEl must be swapped
- */
-
-
-function _getInsertDirection(target) {
-  if (index(dragEl) < index(target)) {
-    return 1;
-  } else {
-    return -1;
-  }
-}
-/**
- * Generate id
- * @param   {HTMLElement} el
- * @returns {String}
- * @private
- */
-
-
-function _generateId(el) {
-  var str = el.tagName + el.className + el.src + el.href + el.textContent,
-      i = str.length,
-      sum = 0;
-
-  while (i--) {
-    sum += str.charCodeAt(i);
-  }
-
-  return sum.toString(36);
-}
-
-function _saveInputCheckedState(root) {
-  savedInputChecked.length = 0;
-  var inputs = root.getElementsByTagName('input');
-  var idx = inputs.length;
-
-  while (idx--) {
-    var el = inputs[idx];
-    el.checked && savedInputChecked.push(el);
-  }
-}
-
-function _nextTick(fn) {
-  return setTimeout(fn, 0);
-}
-
-function _cancelNextTick(id) {
-  return clearTimeout(id);
-} // Fixed #973:
-
-
-if (documentExists) {
-  on(document, 'touchmove', function (evt) {
-    if ((Sortable.active || awaitingDragStarted) && evt.cancelable) {
-      evt.preventDefault();
-    }
-  });
-} // Export utils
-
-
-Sortable.utils = {
-  on: on,
-  off: off,
-  css: css,
-  find: find,
-  is: function is(el, selector) {
-    return !!closest(el, selector, el, false);
-  },
-  extend: extend,
-  throttle: throttle,
-  closest: closest,
-  toggleClass: toggleClass,
-  clone: clone,
-  index: index,
-  nextTick: _nextTick,
-  cancelNextTick: _cancelNextTick,
-  detectDirection: _detectDirection,
-  getChild: getChild
-};
-/**
- * Get the Sortable instance of an element
- * @param  {HTMLElement} element The element
- * @return {Sortable|undefined}         The instance of Sortable
- */
-
-Sortable.get = function (element) {
-  return element[expando];
-};
-/**
- * Mount a plugin to Sortable
- * @param  {...SortablePlugin|SortablePlugin[]} plugins       Plugins being mounted
- */
-
-
-Sortable.mount = function () {
-  for (var _len = arguments.length, plugins = new Array(_len), _key = 0; _key < _len; _key++) {
-    plugins[_key] = arguments[_key];
-  }
-
-  if (plugins[0].constructor === Array) plugins = plugins[0];
-  plugins.forEach(function (plugin) {
-    if (!plugin.prototype || !plugin.prototype.constructor) {
-      throw "Sortable: Mounted plugin must be a constructor function, not ".concat({}.toString.call(plugin));
-    }
-
-    if (plugin.utils) Sortable.utils = _objectSpread({}, Sortable.utils, plugin.utils);
-    PluginManager.mount(plugin);
-  });
-};
-/**
- * Create sortable instance
- * @param {HTMLElement}  el
- * @param {Object}      [options]
- */
-
-
-Sortable.create = function (el, options) {
-  return new Sortable(el, options);
-}; // Export
-
-
-Sortable.version = version;
-
-var autoScrolls = [],
-    scrollEl,
-    scrollRootEl,
-    scrolling = false,
-    lastAutoScrollX,
-    lastAutoScrollY,
-    touchEvt$1,
-    pointerElemChangedInterval;
-
-function AutoScrollPlugin() {
-  function AutoScroll() {
-    this.defaults = {
-      scroll: true,
-      scrollSensitivity: 30,
-      scrollSpeed: 10,
-      bubbleScroll: true
-    }; // Bind all private methods
-
-    for (var fn in this) {
-      if (fn.charAt(0) === '_' && typeof this[fn] === 'function') {
-        this[fn] = this[fn].bind(this);
-      }
-    }
-  }
-
-  AutoScroll.prototype = {
-    dragStarted: function dragStarted(_ref) {
-      var originalEvent = _ref.originalEvent;
-
-      if (this.sortable.nativeDraggable) {
-        on(document, 'dragover', this._handleAutoScroll);
-      } else {
-        if (this.options.supportPointer) {
-          on(document, 'pointermove', this._handleFallbackAutoScroll);
-        } else if (originalEvent.touches) {
-          on(document, 'touchmove', this._handleFallbackAutoScroll);
-        } else {
-          on(document, 'mousemove', this._handleFallbackAutoScroll);
-        }
-      }
-    },
-    dragOverCompleted: function dragOverCompleted(_ref2) {
-      var originalEvent = _ref2.originalEvent;
-
-      // For when bubbling is canceled and using fallback (fallback 'touchmove' always reached)
-      if (!this.options.dragOverBubble && !originalEvent.rootEl) {
-        this._handleAutoScroll(originalEvent);
-      }
-    },
-    drop: function drop() {
-      if (this.sortable.nativeDraggable) {
-        off(document, 'dragover', this._handleAutoScroll);
-      } else {
-        off(document, 'pointermove', this._handleFallbackAutoScroll);
-        off(document, 'touchmove', this._handleFallbackAutoScroll);
-        off(document, 'mousemove', this._handleFallbackAutoScroll);
-      }
-
-      clearPointerElemChangedInterval();
-      clearAutoScrolls();
-      cancelThrottle();
-    },
-    nulling: function nulling() {
-      touchEvt$1 = scrollRootEl = scrollEl = scrolling = pointerElemChangedInterval = lastAutoScrollX = lastAutoScrollY = null;
-      autoScrolls.length = 0;
-    },
-    _handleFallbackAutoScroll: function _handleFallbackAutoScroll(evt) {
-      this._handleAutoScroll(evt, true);
-    },
-    _handleAutoScroll: function _handleAutoScroll(evt, fallback) {
-      var _this = this;
-
-      var x = (evt.touches ? evt.touches[0] : evt).clientX,
-          y = (evt.touches ? evt.touches[0] : evt).clientY,
-          elem = document.elementFromPoint(x, y);
-      touchEvt$1 = evt; // IE does not seem to have native autoscroll,
-      // Edge's autoscroll seems too conditional,
-      // MACOS Safari does not have autoscroll,
-      // Firefox and Chrome are good
-
-      if (fallback || Edge || IE11OrLess || Safari) {
-        autoScroll(evt, this.options, elem, fallback); // Listener for pointer element change
-
-        var ogElemScroller = getParentAutoScrollElement(elem, true);
-
-        if (scrolling && (!pointerElemChangedInterval || x !== lastAutoScrollX || y !== lastAutoScrollY)) {
-          pointerElemChangedInterval && clearPointerElemChangedInterval(); // Detect for pointer elem change, emulating native DnD behaviour
-
-          pointerElemChangedInterval = setInterval(function () {
-            var newElem = getParentAutoScrollElement(document.elementFromPoint(x, y), true);
-
-            if (newElem !== ogElemScroller) {
-              ogElemScroller = newElem;
-              clearAutoScrolls();
-            }
-
-            autoScroll(evt, _this.options, newElem, fallback);
-          }, 10);
-          lastAutoScrollX = x;
-          lastAutoScrollY = y;
-        }
-      } else {
-        // if DnD is enabled (and browser has good autoscrolling), first autoscroll will already scroll, so get parent autoscroll of first autoscroll
-        if (!this.options.bubbleScroll || getParentAutoScrollElement(elem, true) === getWindowScrollingElement()) {
-          clearAutoScrolls();
-          return;
-        }
-
-        autoScroll(evt, this.options, getParentAutoScrollElement(elem, false), false);
-      }
-    }
-  };
-  return _extends(AutoScroll, {
-    pluginName: 'scroll',
-    initializeByDefault: true
-  });
-}
-
-function clearAutoScrolls() {
-  autoScrolls.forEach(function (autoScroll) {
-    clearInterval(autoScroll.pid);
-  });
-  autoScrolls = [];
-}
-
-function clearPointerElemChangedInterval() {
-  clearInterval(pointerElemChangedInterval);
-}
-
-var autoScroll = throttle(function (evt, options, rootEl, isFallback) {
-  // Bug: https://bugzilla.mozilla.org/show_bug.cgi?id=505521
-  if (!options.scroll) return;
-  var x = (evt.touches ? evt.touches[0] : evt).clientX,
-      y = (evt.touches ? evt.touches[0] : evt).clientY,
-      sens = options.scrollSensitivity,
-      speed = options.scrollSpeed,
-      winScroller = getWindowScrollingElement();
-  var scrollThisInstance = false,
-      scrollCustomFn; // New scroll root, set scrollEl
-
-  if (scrollRootEl !== rootEl) {
-    scrollRootEl = rootEl;
-    clearAutoScrolls();
-    scrollEl = options.scroll;
-    scrollCustomFn = options.scrollFn;
-
-    if (scrollEl === true) {
-      scrollEl = getParentAutoScrollElement(rootEl, true);
-    }
-  }
-
-  var layersOut = 0;
-  var currentParent = scrollEl;
-
-  do {
-    var el = currentParent,
-        rect = getRect(el),
-        top = rect.top,
-        bottom = rect.bottom,
-        left = rect.left,
-        right = rect.right,
-        width = rect.width,
-        height = rect.height,
-        canScrollX = void 0,
-        canScrollY = void 0,
-        scrollWidth = el.scrollWidth,
-        scrollHeight = el.scrollHeight,
-        elCSS = css(el),
-        scrollPosX = el.scrollLeft,
-        scrollPosY = el.scrollTop;
-
-    if (el === winScroller) {
-      canScrollX = width < scrollWidth && (elCSS.overflowX === 'auto' || elCSS.overflowX === 'scroll' || elCSS.overflowX === 'visible');
-      canScrollY = height < scrollHeight && (elCSS.overflowY === 'auto' || elCSS.overflowY === 'scroll' || elCSS.overflowY === 'visible');
-    } else {
-      canScrollX = width < scrollWidth && (elCSS.overflowX === 'auto' || elCSS.overflowX === 'scroll');
-      canScrollY = height < scrollHeight && (elCSS.overflowY === 'auto' || elCSS.overflowY === 'scroll');
-    }
-
-    var vx = canScrollX && (Math.abs(right - x) <= sens && scrollPosX + width < scrollWidth) - (Math.abs(left - x) <= sens && !!scrollPosX);
-    var vy = canScrollY && (Math.abs(bottom - y) <= sens && scrollPosY + height < scrollHeight) - (Math.abs(top - y) <= sens && !!scrollPosY);
-
-    if (!autoScrolls[layersOut]) {
-      for (var i = 0; i <= layersOut; i++) {
-        if (!autoScrolls[i]) {
-          autoScrolls[i] = {};
-        }
-      }
-    }
-
-    if (autoScrolls[layersOut].vx != vx || autoScrolls[layersOut].vy != vy || autoScrolls[layersOut].el !== el) {
-      autoScrolls[layersOut].el = el;
-      autoScrolls[layersOut].vx = vx;
-      autoScrolls[layersOut].vy = vy;
-      clearInterval(autoScrolls[layersOut].pid);
-
-      if (vx != 0 || vy != 0) {
-        scrollThisInstance = true;
-        /* jshint loopfunc:true */
-
-        autoScrolls[layersOut].pid = setInterval(function () {
-          // emulate drag over during autoscroll (fallback), emulating native DnD behaviour
-          if (isFallback && this.layer === 0) {
-            Sortable.active._onTouchMove(touchEvt$1); // To move ghost if it is positioned absolutely
-
-          }
-
-          var scrollOffsetY = autoScrolls[this.layer].vy ? autoScrolls[this.layer].vy * speed : 0;
-          var scrollOffsetX = autoScrolls[this.layer].vx ? autoScrolls[this.layer].vx * speed : 0;
-
-          if (typeof scrollCustomFn === 'function') {
-            if (scrollCustomFn.call(Sortable.dragged.parentNode[expando], scrollOffsetX, scrollOffsetY, evt, touchEvt$1, autoScrolls[this.layer].el) !== 'continue') {
-              return;
-            }
-          }
-
-          scrollBy(autoScrolls[this.layer].el, scrollOffsetX, scrollOffsetY);
-        }.bind({
-          layer: layersOut
-        }), 24);
-      }
-    }
-
-    layersOut++;
-  } while (options.bubbleScroll && currentParent !== winScroller && (currentParent = getParentAutoScrollElement(currentParent, false)));
-
-  scrolling = scrollThisInstance; // in case another function catches scrolling as false in between when it is not
-}, 30);
-
-var drop = function drop(_ref) {
-  var originalEvent = _ref.originalEvent,
-      putSortable = _ref.putSortable,
-      dragEl = _ref.dragEl,
-      activeSortable = _ref.activeSortable,
-      dispatchSortableEvent = _ref.dispatchSortableEvent,
-      hideGhostForTarget = _ref.hideGhostForTarget,
-      unhideGhostForTarget = _ref.unhideGhostForTarget;
-  if (!originalEvent) return;
-  var toSortable = putSortable || activeSortable;
-  hideGhostForTarget();
-  var touch = originalEvent.changedTouches && originalEvent.changedTouches.length ? originalEvent.changedTouches[0] : originalEvent;
-  var target = document.elementFromPoint(touch.clientX, touch.clientY);
-  unhideGhostForTarget();
-
-  if (toSortable && !toSortable.el.contains(target)) {
-    dispatchSortableEvent('spill');
-    this.onSpill({
-      dragEl: dragEl,
-      putSortable: putSortable
-    });
-  }
-};
-
-function Revert() {}
-
-Revert.prototype = {
-  startIndex: null,
-  dragStart: function dragStart(_ref2) {
-    var oldDraggableIndex = _ref2.oldDraggableIndex;
-    this.startIndex = oldDraggableIndex;
-  },
-  onSpill: function onSpill(_ref3) {
-    var dragEl = _ref3.dragEl,
-        putSortable = _ref3.putSortable;
-    this.sortable.captureAnimationState();
-
-    if (putSortable) {
-      putSortable.captureAnimationState();
-    }
-
-    var nextSibling = getChild(this.sortable.el, this.startIndex, this.options);
-
-    if (nextSibling) {
-      this.sortable.el.insertBefore(dragEl, nextSibling);
-    } else {
-      this.sortable.el.appendChild(dragEl);
-    }
-
-    this.sortable.animateAll();
-
-    if (putSortable) {
-      putSortable.animateAll();
-    }
-  },
-  drop: drop
-};
-
-_extends(Revert, {
-  pluginName: 'revertOnSpill'
-});
-
-function Remove() {}
-
-Remove.prototype = {
-  onSpill: function onSpill(_ref4) {
-    var dragEl = _ref4.dragEl,
-        putSortable = _ref4.putSortable;
-    var parentSortable = putSortable || this.sortable;
-    parentSortable.captureAnimationState();
-    dragEl.parentNode && dragEl.parentNode.removeChild(dragEl);
-    parentSortable.animateAll();
-  },
-  drop: drop
-};
-
-_extends(Remove, {
-  pluginName: 'removeOnSpill'
-});
-
-var lastSwapEl;
-
-function SwapPlugin() {
-  function Swap() {
-    this.defaults = {
-      swapClass: 'sortable-swap-highlight'
-    };
-  }
-
-  Swap.prototype = {
-    dragStart: function dragStart(_ref) {
-      var dragEl = _ref.dragEl;
-      lastSwapEl = dragEl;
-    },
-    dragOverValid: function dragOverValid(_ref2) {
-      var completed = _ref2.completed,
-          target = _ref2.target,
-          onMove = _ref2.onMove,
-          activeSortable = _ref2.activeSortable,
-          changed = _ref2.changed,
-          cancel = _ref2.cancel;
-      if (!activeSortable.options.swap) return;
-      var el = this.sortable.el,
-          options = this.options;
-
-      if (target && target !== el) {
-        var prevSwapEl = lastSwapEl;
-
-        if (onMove(target) !== false) {
-          toggleClass(target, options.swapClass, true);
-          lastSwapEl = target;
-        } else {
-          lastSwapEl = null;
-        }
-
-        if (prevSwapEl && prevSwapEl !== lastSwapEl) {
-          toggleClass(prevSwapEl, options.swapClass, false);
-        }
-      }
-
-      changed();
-      completed(true);
-      cancel();
-    },
-    drop: function drop(_ref3) {
-      var activeSortable = _ref3.activeSortable,
-          putSortable = _ref3.putSortable,
-          dragEl = _ref3.dragEl;
-      var toSortable = putSortable || this.sortable;
-      var options = this.options;
-      lastSwapEl && toggleClass(lastSwapEl, options.swapClass, false);
-
-      if (lastSwapEl && (options.swap || putSortable && putSortable.options.swap)) {
-        if (dragEl !== lastSwapEl) {
-          toSortable.captureAnimationState();
-          if (toSortable !== activeSortable) activeSortable.captureAnimationState();
-          swapNodes(dragEl, lastSwapEl);
-          toSortable.animateAll();
-          if (toSortable !== activeSortable) activeSortable.animateAll();
-        }
-      }
-    },
-    nulling: function nulling() {
-      lastSwapEl = null;
-    }
-  };
-  return _extends(Swap, {
-    pluginName: 'swap',
-    eventProperties: function eventProperties() {
-      return {
-        swapItem: lastSwapEl
-      };
-    }
-  });
-}
-
-function swapNodes(n1, n2) {
-  var p1 = n1.parentNode,
-      p2 = n2.parentNode,
-      i1,
-      i2;
-  if (!p1 || !p2 || p1.isEqualNode(n2) || p2.isEqualNode(n1)) return;
-  i1 = index(n1);
-  i2 = index(n2);
-
-  if (p1.isEqualNode(p2) && i1 < i2) {
-    i2++;
-  }
-
-  p1.insertBefore(n2, p1.children[i1]);
-  p2.insertBefore(n1, p2.children[i2]);
-}
-
-var multiDragElements = [],
-    multiDragClones = [],
-    lastMultiDragSelect,
-    // for selection with modifier key down (SHIFT)
-multiDragSortable,
-    initialFolding = false,
-    // Initial multi-drag fold when drag started
-folding = false,
-    // Folding any other time
-dragStarted = false,
-    dragEl$1,
-    clonesFromRect,
-    clonesHidden;
-
-function MultiDragPlugin() {
-  function MultiDrag(sortable) {
-    // Bind all private methods
-    for (var fn in this) {
-      if (fn.charAt(0) === '_' && typeof this[fn] === 'function') {
-        this[fn] = this[fn].bind(this);
-      }
-    }
-
-    if (sortable.options.supportPointer) {
-      on(document, 'pointerup', this._deselectMultiDrag);
-    } else {
-      on(document, 'mouseup', this._deselectMultiDrag);
-      on(document, 'touchend', this._deselectMultiDrag);
-    }
-
-    on(document, 'keydown', this._checkKeyDown);
-    on(document, 'keyup', this._checkKeyUp);
-    this.defaults = {
-      selectedClass: 'sortable-selected',
-      multiDragKey: null,
-      setData: function setData(dataTransfer, dragEl) {
-        var data = '';
-
-        if (multiDragElements.length && multiDragSortable === sortable) {
-          multiDragElements.forEach(function (multiDragElement, i) {
-            data += (!i ? '' : ', ') + multiDragElement.textContent;
-          });
-        } else {
-          data = dragEl.textContent;
-        }
-
-        dataTransfer.setData('Text', data);
-      }
-    };
-  }
-
-  MultiDrag.prototype = {
-    multiDragKeyDown: false,
-    isMultiDrag: false,
-    delayStartGlobal: function delayStartGlobal(_ref) {
-      var dragged = _ref.dragEl;
-      dragEl$1 = dragged;
-    },
-    delayEnded: function delayEnded() {
-      this.isMultiDrag = ~multiDragElements.indexOf(dragEl$1);
-    },
-    setupClone: function setupClone(_ref2) {
-      var sortable = _ref2.sortable,
-          cancel = _ref2.cancel;
-      if (!this.isMultiDrag) return;
-
-      for (var i = 0; i < multiDragElements.length; i++) {
-        multiDragClones.push(clone(multiDragElements[i]));
-        multiDragClones[i].sortableIndex = multiDragElements[i].sortableIndex;
-        multiDragClones[i].draggable = false;
-        multiDragClones[i].style['will-change'] = '';
-        toggleClass(multiDragClones[i], this.options.selectedClass, false);
-        multiDragElements[i] === dragEl$1 && toggleClass(multiDragClones[i], this.options.chosenClass, false);
-      }
-
-      sortable._hideClone();
-
-      cancel();
-    },
-    clone: function clone(_ref3) {
-      var sortable = _ref3.sortable,
-          rootEl = _ref3.rootEl,
-          dispatchSortableEvent = _ref3.dispatchSortableEvent,
-          cancel = _ref3.cancel;
-      if (!this.isMultiDrag) return;
-
-      if (!this.options.removeCloneOnHide) {
-        if (multiDragElements.length && multiDragSortable === sortable) {
-          insertMultiDragClones(true, rootEl);
-          dispatchSortableEvent('clone');
-          cancel();
-        }
-      }
-    },
-    showClone: function showClone(_ref4) {
-      var cloneNowShown = _ref4.cloneNowShown,
-          rootEl = _ref4.rootEl,
-          cancel = _ref4.cancel;
-      if (!this.isMultiDrag) return;
-      insertMultiDragClones(false, rootEl);
-      multiDragClones.forEach(function (clone) {
-        css(clone, 'display', '');
-      });
-      cloneNowShown();
-      clonesHidden = false;
-      cancel();
-    },
-    hideClone: function hideClone(_ref5) {
-      var _this = this;
-
-      var sortable = _ref5.sortable,
-          cloneNowHidden = _ref5.cloneNowHidden,
-          cancel = _ref5.cancel;
-      if (!this.isMultiDrag) return;
-      multiDragClones.forEach(function (clone) {
-        css(clone, 'display', 'none');
-
-        if (_this.options.removeCloneOnHide && clone.parentNode) {
-          clone.parentNode.removeChild(clone);
-        }
-      });
-      cloneNowHidden();
-      clonesHidden = true;
-      cancel();
-    },
-    dragStartGlobal: function dragStartGlobal(_ref6) {
-      var sortable = _ref6.sortable;
-
-      if (!this.isMultiDrag && multiDragSortable) {
-        multiDragSortable.multiDrag._deselectMultiDrag();
-      }
-
-      multiDragElements.forEach(function (multiDragElement) {
-        multiDragElement.sortableIndex = index(multiDragElement);
-      }); // Sort multi-drag elements
-
-      multiDragElements = multiDragElements.sort(function (a, b) {
-        return a.sortableIndex - b.sortableIndex;
-      });
-      dragStarted = true;
-    },
-    dragStarted: function dragStarted(_ref7) {
-      var _this2 = this;
-
-      var sortable = _ref7.sortable;
-      if (!this.isMultiDrag) return;
-
-      if (this.options.sort) {
-        // Capture rects,
-        // hide multi drag elements (by positioning them absolute),
-        // set multi drag elements rects to dragRect,
-        // show multi drag elements,
-        // animate to rects,
-        // unset rects & remove from DOM
-        sortable.captureAnimationState();
-
-        if (this.options.animation) {
-          multiDragElements.forEach(function (multiDragElement) {
-            if (multiDragElement === dragEl$1) return;
-            css(multiDragElement, 'position', 'absolute');
-          });
-          var dragRect = getRect(dragEl$1, false, true, true);
-          multiDragElements.forEach(function (multiDragElement) {
-            if (multiDragElement === dragEl$1) return;
-            setRect(multiDragElement, dragRect);
-          });
-          folding = true;
-          initialFolding = true;
-        }
-      }
-
-      sortable.animateAll(function () {
-        folding = false;
-        initialFolding = false;
-
-        if (_this2.options.animation) {
-          multiDragElements.forEach(function (multiDragElement) {
-            unsetRect(multiDragElement);
-          });
-        } // Remove all auxiliary multidrag items from el, if sorting enabled
-
-
-        if (_this2.options.sort) {
-          removeMultiDragElements();
-        }
-      });
-    },
-    dragOver: function dragOver(_ref8) {
-      var target = _ref8.target,
-          completed = _ref8.completed,
-          cancel = _ref8.cancel;
-
-      if (folding && ~multiDragElements.indexOf(target)) {
-        completed(false);
-        cancel();
-      }
-    },
-    revert: function revert(_ref9) {
-      var fromSortable = _ref9.fromSortable,
-          rootEl = _ref9.rootEl,
-          sortable = _ref9.sortable,
-          dragRect = _ref9.dragRect;
-
-      if (multiDragElements.length > 1) {
-        // Setup unfold animation
-        multiDragElements.forEach(function (multiDragElement) {
-          sortable.addAnimationState({
-            target: multiDragElement,
-            rect: folding ? getRect(multiDragElement) : dragRect
-          });
-          unsetRect(multiDragElement);
-          multiDragElement.fromRect = dragRect;
-          fromSortable.removeAnimationState(multiDragElement);
-        });
-        folding = false;
-        insertMultiDragElements(!this.options.removeCloneOnHide, rootEl);
-      }
-    },
-    dragOverCompleted: function dragOverCompleted(_ref10) {
-      var sortable = _ref10.sortable,
-          isOwner = _ref10.isOwner,
-          insertion = _ref10.insertion,
-          activeSortable = _ref10.activeSortable,
-          parentEl = _ref10.parentEl,
-          putSortable = _ref10.putSortable;
-      var options = this.options;
-
-      if (insertion) {
-        // Clones must be hidden before folding animation to capture dragRectAbsolute properly
-        if (isOwner) {
-          activeSortable._hideClone();
-        }
-
-        initialFolding = false; // If leaving sort:false root, or already folding - Fold to new location
-
-        if (options.animation && multiDragElements.length > 1 && (folding || !isOwner && !activeSortable.options.sort && !putSortable)) {
-          // Fold: Set all multi drag elements's rects to dragEl's rect when multi-drag elements are invisible
-          var dragRectAbsolute = getRect(dragEl$1, false, true, true);
-          multiDragElements.forEach(function (multiDragElement) {
-            if (multiDragElement === dragEl$1) return;
-            setRect(multiDragElement, dragRectAbsolute); // Move element(s) to end of parentEl so that it does not interfere with multi-drag clones insertion if they are inserted
-            // while folding, and so that we can capture them again because old sortable will no longer be fromSortable
-
-            parentEl.appendChild(multiDragElement);
-          });
-          folding = true;
-        } // Clones must be shown (and check to remove multi drags) after folding when interfering multiDragElements are moved out
-
-
-        if (!isOwner) {
-          // Only remove if not folding (folding will remove them anyways)
-          if (!folding) {
-            removeMultiDragElements();
-          }
-
-          if (multiDragElements.length > 1) {
-            var clonesHiddenBefore = clonesHidden;
-
-            activeSortable._showClone(sortable); // Unfold animation for clones if showing from hidden
-
-
-            if (activeSortable.options.animation && !clonesHidden && clonesHiddenBefore) {
-              multiDragClones.forEach(function (clone) {
-                activeSortable.addAnimationState({
-                  target: clone,
-                  rect: clonesFromRect
-                });
-                clone.fromRect = clonesFromRect;
-                clone.thisAnimationDuration = null;
-              });
-            }
-          } else {
-            activeSortable._showClone(sortable);
-          }
-        }
-      }
-    },
-    dragOverAnimationCapture: function dragOverAnimationCapture(_ref11) {
-      var dragRect = _ref11.dragRect,
-          isOwner = _ref11.isOwner,
-          activeSortable = _ref11.activeSortable;
-      multiDragElements.forEach(function (multiDragElement) {
-        multiDragElement.thisAnimationDuration = null;
-      });
-
-      if (activeSortable.options.animation && !isOwner && activeSortable.multiDrag.isMultiDrag) {
-        clonesFromRect = _extends({}, dragRect);
-        var dragMatrix = matrix(dragEl$1, true);
-        clonesFromRect.top -= dragMatrix.f;
-        clonesFromRect.left -= dragMatrix.e;
-      }
-    },
-    dragOverAnimationComplete: function dragOverAnimationComplete() {
-      if (folding) {
-        folding = false;
-        removeMultiDragElements();
-      }
-    },
-    drop: function drop(_ref12) {
-      var evt = _ref12.originalEvent,
-          rootEl = _ref12.rootEl,
-          parentEl = _ref12.parentEl,
-          sortable = _ref12.sortable,
-          dispatchSortableEvent = _ref12.dispatchSortableEvent,
-          oldIndex = _ref12.oldIndex,
-          putSortable = _ref12.putSortable;
-      var toSortable = putSortable || this.sortable;
-      if (!evt) return;
-      var options = this.options,
-          children = parentEl.children; // Multi-drag selection
-
-      if (!dragStarted) {
-        if (options.multiDragKey && !this.multiDragKeyDown) {
-          this._deselectMultiDrag();
-        }
-
-        toggleClass(dragEl$1, options.selectedClass, !~multiDragElements.indexOf(dragEl$1));
-
-        if (!~multiDragElements.indexOf(dragEl$1)) {
-          multiDragElements.push(dragEl$1);
-          dispatchEvent({
-            sortable: sortable,
-            rootEl: rootEl,
-            name: 'select',
-            targetEl: dragEl$1,
-            originalEvt: evt
-          }); // Modifier activated, select from last to dragEl
-
-          if (evt.shiftKey && lastMultiDragSelect && sortable.el.contains(lastMultiDragSelect)) {
-            var lastIndex = index(lastMultiDragSelect),
-                currentIndex = index(dragEl$1);
-
-            if (~lastIndex && ~currentIndex && lastIndex !== currentIndex) {
-              // Must include lastMultiDragSelect (select it), in case modified selection from no selection
-              // (but previous selection existed)
-              var n, i;
-
-              if (currentIndex > lastIndex) {
-                i = lastIndex;
-                n = currentIndex;
-              } else {
-                i = currentIndex;
-                n = lastIndex + 1;
-              }
-
-              for (; i < n; i++) {
-                if (~multiDragElements.indexOf(children[i])) continue;
-                toggleClass(children[i], options.selectedClass, true);
-                multiDragElements.push(children[i]);
-                dispatchEvent({
-                  sortable: sortable,
-                  rootEl: rootEl,
-                  name: 'select',
-                  targetEl: children[i],
-                  originalEvt: evt
-                });
-              }
-            }
-          } else {
-            lastMultiDragSelect = dragEl$1;
-          }
-
-          multiDragSortable = toSortable;
-        } else {
-          multiDragElements.splice(multiDragElements.indexOf(dragEl$1), 1);
-          lastMultiDragSelect = null;
-          dispatchEvent({
-            sortable: sortable,
-            rootEl: rootEl,
-            name: 'deselect',
-            targetEl: dragEl$1,
-            originalEvt: evt
-          });
-        }
-      } // Multi-drag drop
-
-
-      if (dragStarted && this.isMultiDrag) {
-        // Do not "unfold" after around dragEl if reverted
-        if ((parentEl[expando].options.sort || parentEl !== rootEl) && multiDragElements.length > 1) {
-          var dragRect = getRect(dragEl$1),
-              multiDragIndex = index(dragEl$1, ':not(.' + this.options.selectedClass + ')');
-          if (!initialFolding && options.animation) dragEl$1.thisAnimationDuration = null;
-          toSortable.captureAnimationState();
-
-          if (!initialFolding) {
-            if (options.animation) {
-              dragEl$1.fromRect = dragRect;
-              multiDragElements.forEach(function (multiDragElement) {
-                multiDragElement.thisAnimationDuration = null;
-
-                if (multiDragElement !== dragEl$1) {
-                  var rect = folding ? getRect(multiDragElement) : dragRect;
-                  multiDragElement.fromRect = rect; // Prepare unfold animation
-
-                  toSortable.addAnimationState({
-                    target: multiDragElement,
-                    rect: rect
-                  });
-                }
-              });
-            } // Multi drag elements are not necessarily removed from the DOM on drop, so to reinsert
-            // properly they must all be removed
-
-
-            removeMultiDragElements();
-            multiDragElements.forEach(function (multiDragElement) {
-              if (children[multiDragIndex]) {
-                parentEl.insertBefore(multiDragElement, children[multiDragIndex]);
-              } else {
-                parentEl.appendChild(multiDragElement);
-              }
-
-              multiDragIndex++;
-            }); // If initial folding is done, the elements may have changed position because they are now
-            // unfolding around dragEl, even though dragEl may not have his index changed, so update event
-            // must be fired here as Sortable will not.
-
-            if (oldIndex === index(dragEl$1)) {
-              var update = false;
-              multiDragElements.forEach(function (multiDragElement) {
-                if (multiDragElement.sortableIndex !== index(multiDragElement)) {
-                  update = true;
-                  return;
-                }
-              });
-
-              if (update) {
-                dispatchSortableEvent('update');
-              }
-            }
-          } // Must be done after capturing individual rects (scroll bar)
-
-
-          multiDragElements.forEach(function (multiDragElement) {
-            unsetRect(multiDragElement);
-          });
-          toSortable.animateAll();
-        }
-
-        multiDragSortable = toSortable;
-      } // Remove clones if necessary
-
-
-      if (rootEl === parentEl || putSortable && putSortable.lastPutMode !== 'clone') {
-        multiDragClones.forEach(function (clone) {
-          clone.parentNode && clone.parentNode.removeChild(clone);
-        });
-      }
-    },
-    nullingGlobal: function nullingGlobal() {
-      this.isMultiDrag = dragStarted = false;
-      multiDragClones.length = 0;
-    },
-    destroyGlobal: function destroyGlobal() {
-      this._deselectMultiDrag();
-
-      off(document, 'pointerup', this._deselectMultiDrag);
-      off(document, 'mouseup', this._deselectMultiDrag);
-      off(document, 'touchend', this._deselectMultiDrag);
-      off(document, 'keydown', this._checkKeyDown);
-      off(document, 'keyup', this._checkKeyUp);
-    },
-    _deselectMultiDrag: function _deselectMultiDrag(evt) {
-      if (typeof dragStarted !== "undefined" && dragStarted) return; // Only deselect if selection is in this sortable
-
-      if (multiDragSortable !== this.sortable) return; // Only deselect if target is not item in this sortable
-
-      if (evt && closest(evt.target, this.options.draggable, this.sortable.el, false)) return; // Only deselect if left click
-
-      if (evt && evt.button !== 0) return;
-
-      while (multiDragElements.length) {
-        var el = multiDragElements[0];
-        toggleClass(el, this.options.selectedClass, false);
-        multiDragElements.shift();
-        dispatchEvent({
-          sortable: this.sortable,
-          rootEl: this.sortable.el,
-          name: 'deselect',
-          targetEl: el,
-          originalEvt: evt
-        });
-      }
-    },
-    _checkKeyDown: function _checkKeyDown(evt) {
-      if (evt.key === this.options.multiDragKey) {
-        this.multiDragKeyDown = true;
-      }
-    },
-    _checkKeyUp: function _checkKeyUp(evt) {
-      if (evt.key === this.options.multiDragKey) {
-        this.multiDragKeyDown = false;
-      }
-    }
-  };
-  return _extends(MultiDrag, {
-    // Static methods & properties
-    pluginName: 'multiDrag',
-    utils: {
-      /**
-       * Selects the provided multi-drag item
-       * @param  {HTMLElement} el    The element to be selected
-       */
-      select: function select(el) {
-        var sortable = el.parentNode[expando];
-        if (!sortable || !sortable.options.multiDrag || ~multiDragElements.indexOf(el)) return;
-
-        if (multiDragSortable && multiDragSortable !== sortable) {
-          multiDragSortable.multiDrag._deselectMultiDrag();
-
-          multiDragSortable = sortable;
-        }
-
-        toggleClass(el, sortable.options.selectedClass, true);
-        multiDragElements.push(el);
-      },
-
-      /**
-       * Deselects the provided multi-drag item
-       * @param  {HTMLElement} el    The element to be deselected
-       */
-      deselect: function deselect(el) {
-        var sortable = el.parentNode[expando],
-            index = multiDragElements.indexOf(el);
-        if (!sortable || !sortable.options.multiDrag || !~index) return;
-        toggleClass(el, sortable.options.selectedClass, false);
-        multiDragElements.splice(index, 1);
-      }
-    },
-    eventProperties: function eventProperties() {
-      var _this3 = this;
-
-      var oldIndicies = [],
-          newIndicies = [];
-      multiDragElements.forEach(function (multiDragElement) {
-        oldIndicies.push({
-          multiDragElement: multiDragElement,
-          index: multiDragElement.sortableIndex
-        }); // multiDragElements will already be sorted if folding
-
-        var newIndex;
-
-        if (folding && multiDragElement !== dragEl$1) {
-          newIndex = -1;
-        } else if (folding) {
-          newIndex = index(multiDragElement, ':not(.' + _this3.options.selectedClass + ')');
-        } else {
-          newIndex = index(multiDragElement);
-        }
-
-        newIndicies.push({
-          multiDragElement: multiDragElement,
-          index: newIndex
-        });
-      });
-      return {
-        items: _toConsumableArray(multiDragElements),
-        clones: [].concat(multiDragClones),
-        oldIndicies: oldIndicies,
-        newIndicies: newIndicies
-      };
-    },
-    optionListeners: {
-      multiDragKey: function multiDragKey(key) {
-        key = key.toLowerCase();
-
-        if (key === 'ctrl') {
-          key = 'Control';
-        } else if (key.length > 1) {
-          key = key.charAt(0).toUpperCase() + key.substr(1);
-        }
-
-        return key;
-      }
-    }
-  });
-}
-
-function insertMultiDragElements(clonesInserted, rootEl) {
-  multiDragElements.forEach(function (multiDragElement, i) {
-    var target = rootEl.children[multiDragElement.sortableIndex + (clonesInserted ? Number(i) : 0)];
-
-    if (target) {
-      rootEl.insertBefore(multiDragElement, target);
-    } else {
-      rootEl.appendChild(multiDragElement);
-    }
-  });
-}
-/**
- * Insert multi-drag clones
- * @param  {[Boolean]} elementsInserted  Whether the multi-drag elements are inserted
- * @param  {HTMLElement} rootEl
- */
-
-
-function insertMultiDragClones(elementsInserted, rootEl) {
-  multiDragClones.forEach(function (clone, i) {
-    var target = rootEl.children[clone.sortableIndex + (elementsInserted ? Number(i) : 0)];
-
-    if (target) {
-      rootEl.insertBefore(clone, target);
-    } else {
-      rootEl.appendChild(clone);
-    }
-  });
-}
-
-function removeMultiDragElements() {
-  multiDragElements.forEach(function (multiDragElement) {
-    if (multiDragElement === dragEl$1) return;
-    multiDragElement.parentNode && multiDragElement.parentNode.removeChild(multiDragElement);
-  });
-}
-
-Sortable.mount(new AutoScrollPlugin());
-Sortable.mount(Remove, Revert);
-
-/* harmony default export */ __webpack_exports__["default"] = (Sortable);
-
-
-
-/***/ }),
-
-/***/ 1049:
-/***/ (function(module, exports, __webpack_require__) {
-
-module.exports =
-/******/ (function(modules) { // webpackBootstrap
-/******/ 	// The module cache
-/******/ 	var installedModules = {};
-/******/
-/******/ 	// The require function
-/******/ 	function __webpack_require__(moduleId) {
-/******/
-/******/ 		// Check if module is in cache
-/******/ 		if(installedModules[moduleId]) {
-/******/ 			return installedModules[moduleId].exports;
-/******/ 		}
-/******/ 		// Create a new module (and put it into the cache)
-/******/ 		var module = installedModules[moduleId] = {
-/******/ 			i: moduleId,
-/******/ 			l: false,
-/******/ 			exports: {}
-/******/ 		};
-/******/
-/******/ 		// Execute the module function
-/******/ 		modules[moduleId].call(module.exports, module, module.exports, __webpack_require__);
-/******/
-/******/ 		// Flag the module as loaded
-/******/ 		module.l = true;
-/******/
-/******/ 		// Return the exports of the module
-/******/ 		return module.exports;
-/******/ 	}
-/******/
-/******/
-/******/ 	// expose the modules object (__webpack_modules__)
-/******/ 	__webpack_require__.m = modules;
-/******/
-/******/ 	// expose the module cache
-/******/ 	__webpack_require__.c = installedModules;
-/******/
-/******/ 	// define getter function for harmony exports
-/******/ 	__webpack_require__.d = function(exports, name, getter) {
-/******/ 		if(!__webpack_require__.o(exports, name)) {
-/******/ 			Object.defineProperty(exports, name, { enumerable: true, get: getter });
-/******/ 		}
-/******/ 	};
-/******/
-/******/ 	// define __esModule on exports
-/******/ 	__webpack_require__.r = function(exports) {
-/******/ 		if(typeof Symbol !== 'undefined' && Symbol.toStringTag) {
-/******/ 			Object.defineProperty(exports, Symbol.toStringTag, { value: 'Module' });
-/******/ 		}
-/******/ 		Object.defineProperty(exports, '__esModule', { value: true });
-/******/ 	};
-/******/
-/******/ 	// create a fake namespace object
-/******/ 	// mode & 1: value is a module id, require it
-/******/ 	// mode & 2: merge all properties of value into the ns
-/******/ 	// mode & 4: return value when already ns object
-/******/ 	// mode & 8|1: behave like require
-/******/ 	__webpack_require__.t = function(value, mode) {
-/******/ 		if(mode & 1) value = __webpack_require__(value);
-/******/ 		if(mode & 8) return value;
-/******/ 		if((mode & 4) && typeof value === 'object' && value && value.__esModule) return value;
-/******/ 		var ns = Object.create(null);
-/******/ 		__webpack_require__.r(ns);
-/******/ 		Object.defineProperty(ns, 'default', { enumerable: true, value: value });
-/******/ 		if(mode & 2 && typeof value != 'string') for(var key in value) __webpack_require__.d(ns, key, function(key) { return value[key]; }.bind(null, key));
-/******/ 		return ns;
-/******/ 	};
-/******/
-/******/ 	// getDefaultExport function for compatibility with non-harmony modules
-/******/ 	__webpack_require__.n = function(module) {
-/******/ 		var getter = module && module.__esModule ?
-/******/ 			function getDefault() { return module['default']; } :
-/******/ 			function getModuleExports() { return module; };
-/******/ 		__webpack_require__.d(getter, 'a', getter);
-/******/ 		return getter;
-/******/ 	};
-/******/
-/******/ 	// Object.prototype.hasOwnProperty.call
-/******/ 	__webpack_require__.o = function(object, property) { return Object.prototype.hasOwnProperty.call(object, property); };
-/******/
-/******/ 	// __webpack_public_path__
-/******/ 	__webpack_require__.p = "";
-/******/
-/******/
-/******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = "fb15");
-/******/ })
-/************************************************************************/
-/******/ ({
-
-/***/ "01f9":
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-var LIBRARY = __webpack_require__("2d00");
-var $export = __webpack_require__("5ca1");
-var redefine = __webpack_require__("2aba");
-var hide = __webpack_require__("32e9");
-var Iterators = __webpack_require__("84f2");
-var $iterCreate = __webpack_require__("41a0");
-var setToStringTag = __webpack_require__("7f20");
-var getPrototypeOf = __webpack_require__("38fd");
-var ITERATOR = __webpack_require__("2b4c")('iterator');
-var BUGGY = !([].keys && 'next' in [].keys()); // Safari has buggy iterators w/o `next`
-var FF_ITERATOR = '@@iterator';
-var KEYS = 'keys';
-var VALUES = 'values';
-
-var returnThis = function () { return this; };
-
-module.exports = function (Base, NAME, Constructor, next, DEFAULT, IS_SET, FORCED) {
-  $iterCreate(Constructor, NAME, next);
-  var getMethod = function (kind) {
-    if (!BUGGY && kind in proto) return proto[kind];
-    switch (kind) {
-      case KEYS: return function keys() { return new Constructor(this, kind); };
-      case VALUES: return function values() { return new Constructor(this, kind); };
-    } return function entries() { return new Constructor(this, kind); };
-  };
-  var TAG = NAME + ' Iterator';
-  var DEF_VALUES = DEFAULT == VALUES;
-  var VALUES_BUG = false;
-  var proto = Base.prototype;
-  var $native = proto[ITERATOR] || proto[FF_ITERATOR] || DEFAULT && proto[DEFAULT];
-  var $default = $native || getMethod(DEFAULT);
-  var $entries = DEFAULT ? !DEF_VALUES ? $default : getMethod('entries') : undefined;
-  var $anyNative = NAME == 'Array' ? proto.entries || $native : $native;
-  var methods, key, IteratorPrototype;
-  // Fix native
-  if ($anyNative) {
-    IteratorPrototype = getPrototypeOf($anyNative.call(new Base()));
-    if (IteratorPrototype !== Object.prototype && IteratorPrototype.next) {
-      // Set @@toStringTag to native iterators
-      setToStringTag(IteratorPrototype, TAG, true);
-      // fix for some old engines
-      if (!LIBRARY && typeof IteratorPrototype[ITERATOR] != 'function') hide(IteratorPrototype, ITERATOR, returnThis);
-    }
-  }
-  // fix Array#{values, @@iterator}.name in V8 / FF
-  if (DEF_VALUES && $native && $native.name !== VALUES) {
-    VALUES_BUG = true;
-    $default = function values() { return $native.call(this); };
-  }
-  // Define iterator
-  if ((!LIBRARY || FORCED) && (BUGGY || VALUES_BUG || !proto[ITERATOR])) {
-    hide(proto, ITERATOR, $default);
-  }
-  // Plug for library
-  Iterators[NAME] = $default;
-  Iterators[TAG] = returnThis;
-  if (DEFAULT) {
-    methods = {
-      values: DEF_VALUES ? $default : getMethod(VALUES),
-      keys: IS_SET ? $default : getMethod(KEYS),
-      entries: $entries
-    };
-    if (FORCED) for (key in methods) {
-      if (!(key in proto)) redefine(proto, key, methods[key]);
-    } else $export($export.P + $export.F * (BUGGY || VALUES_BUG), NAME, methods);
-  }
-  return methods;
-};
-
-
-/***/ }),
-
-/***/ "02f4":
-/***/ (function(module, exports, __webpack_require__) {
-
-var toInteger = __webpack_require__("4588");
-var defined = __webpack_require__("be13");
-// true  -> String#at
-// false -> String#codePointAt
-module.exports = function (TO_STRING) {
-  return function (that, pos) {
-    var s = String(defined(that));
-    var i = toInteger(pos);
-    var l = s.length;
-    var a, b;
-    if (i < 0 || i >= l) return TO_STRING ? '' : undefined;
-    a = s.charCodeAt(i);
-    return a < 0xd800 || a > 0xdbff || i + 1 === l || (b = s.charCodeAt(i + 1)) < 0xdc00 || b > 0xdfff
-      ? TO_STRING ? s.charAt(i) : a
-      : TO_STRING ? s.slice(i, i + 2) : (a - 0xd800 << 10) + (b - 0xdc00) + 0x10000;
-  };
-};
-
-
-/***/ }),
-
-/***/ "0390":
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-var at = __webpack_require__("02f4")(true);
-
- // `AdvanceStringIndex` abstract operation
-// https://tc39.github.io/ecma262/#sec-advancestringindex
-module.exports = function (S, index, unicode) {
-  return index + (unicode ? at(S, index).length : 1);
-};
-
-
-/***/ }),
-
-/***/ "0bfb":
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-// 21.2.5.3 get RegExp.prototype.flags
-var anObject = __webpack_require__("cb7c");
-module.exports = function () {
-  var that = anObject(this);
-  var result = '';
-  if (that.global) result += 'g';
-  if (that.ignoreCase) result += 'i';
-  if (that.multiline) result += 'm';
-  if (that.unicode) result += 'u';
-  if (that.sticky) result += 'y';
-  return result;
-};
-
-
-/***/ }),
-
-/***/ "0d58":
-/***/ (function(module, exports, __webpack_require__) {
-
-// 19.1.2.14 / 15.2.3.14 Object.keys(O)
-var $keys = __webpack_require__("ce10");
-var enumBugKeys = __webpack_require__("e11e");
-
-module.exports = Object.keys || function keys(O) {
-  return $keys(O, enumBugKeys);
-};
-
-
-/***/ }),
-
-/***/ "1495":
-/***/ (function(module, exports, __webpack_require__) {
-
-var dP = __webpack_require__("86cc");
-var anObject = __webpack_require__("cb7c");
-var getKeys = __webpack_require__("0d58");
-
-module.exports = __webpack_require__("9e1e") ? Object.defineProperties : function defineProperties(O, Properties) {
-  anObject(O);
-  var keys = getKeys(Properties);
-  var length = keys.length;
-  var i = 0;
-  var P;
-  while (length > i) dP.f(O, P = keys[i++], Properties[P]);
-  return O;
-};
-
-
-/***/ }),
-
-/***/ "214f":
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-__webpack_require__("b0c5");
-var redefine = __webpack_require__("2aba");
-var hide = __webpack_require__("32e9");
-var fails = __webpack_require__("79e5");
-var defined = __webpack_require__("be13");
-var wks = __webpack_require__("2b4c");
-var regexpExec = __webpack_require__("520a");
-
-var SPECIES = wks('species');
-
-var REPLACE_SUPPORTS_NAMED_GROUPS = !fails(function () {
-  // #replace needs built-in support for named groups.
-  // #match works fine because it just return the exec results, even if it has
-  // a "grops" property.
-  var re = /./;
-  re.exec = function () {
-    var result = [];
-    result.groups = { a: '7' };
-    return result;
-  };
-  return ''.replace(re, '$<a>') !== '7';
-});
-
-var SPLIT_WORKS_WITH_OVERWRITTEN_EXEC = (function () {
-  // Chrome 51 has a buggy "split" implementation when RegExp#exec !== nativeExec
-  var re = /(?:)/;
-  var originalExec = re.exec;
-  re.exec = function () { return originalExec.apply(this, arguments); };
-  var result = 'ab'.split(re);
-  return result.length === 2 && result[0] === 'a' && result[1] === 'b';
-})();
-
-module.exports = function (KEY, length, exec) {
-  var SYMBOL = wks(KEY);
-
-  var DELEGATES_TO_SYMBOL = !fails(function () {
-    // String methods call symbol-named RegEp methods
-    var O = {};
-    O[SYMBOL] = function () { return 7; };
-    return ''[KEY](O) != 7;
-  });
-
-  var DELEGATES_TO_EXEC = DELEGATES_TO_SYMBOL ? !fails(function () {
-    // Symbol-named RegExp methods call .exec
-    var execCalled = false;
-    var re = /a/;
-    re.exec = function () { execCalled = true; return null; };
-    if (KEY === 'split') {
-      // RegExp[@@split] doesn't call the regex's exec method, but first creates
-      // a new one. We need to return the patched regex when creating the new one.
-      re.constructor = {};
-      re.constructor[SPECIES] = function () { return re; };
-    }
-    re[SYMBOL]('');
-    return !execCalled;
-  }) : undefined;
-
-  if (
-    !DELEGATES_TO_SYMBOL ||
-    !DELEGATES_TO_EXEC ||
-    (KEY === 'replace' && !REPLACE_SUPPORTS_NAMED_GROUPS) ||
-    (KEY === 'split' && !SPLIT_WORKS_WITH_OVERWRITTEN_EXEC)
-  ) {
-    var nativeRegExpMethod = /./[SYMBOL];
-    var fns = exec(
-      defined,
-      SYMBOL,
-      ''[KEY],
-      function maybeCallNative(nativeMethod, regexp, str, arg2, forceStringMethod) {
-        if (regexp.exec === regexpExec) {
-          if (DELEGATES_TO_SYMBOL && !forceStringMethod) {
-            // The native String method already delegates to @@method (this
-            // polyfilled function), leasing to infinite recursion.
-            // We avoid it by directly calling the native @@method method.
-            return { done: true, value: nativeRegExpMethod.call(regexp, str, arg2) };
-          }
-          return { done: true, value: nativeMethod.call(str, regexp, arg2) };
-        }
-        return { done: false };
-      }
-    );
-    var strfn = fns[0];
-    var rxfn = fns[1];
-
-    redefine(String.prototype, KEY, strfn);
-    hide(RegExp.prototype, SYMBOL, length == 2
-      // 21.2.5.8 RegExp.prototype[@@replace](string, replaceValue)
-      // 21.2.5.11 RegExp.prototype[@@split](string, limit)
-      ? function (string, arg) { return rxfn.call(string, this, arg); }
-      // 21.2.5.6 RegExp.prototype[@@match](string)
-      // 21.2.5.9 RegExp.prototype[@@search](string)
-      : function (string) { return rxfn.call(string, this); }
-    );
-  }
-};
-
-
-/***/ }),
-
-/***/ "230e":
-/***/ (function(module, exports, __webpack_require__) {
-
-var isObject = __webpack_require__("d3f4");
-var document = __webpack_require__("7726").document;
-// typeof document.createElement is 'object' in old IE
-var is = isObject(document) && isObject(document.createElement);
-module.exports = function (it) {
-  return is ? document.createElement(it) : {};
-};
-
-
-/***/ }),
-
-/***/ "23c6":
-/***/ (function(module, exports, __webpack_require__) {
-
-// getting tag from 19.1.3.6 Object.prototype.toString()
-var cof = __webpack_require__("2d95");
-var TAG = __webpack_require__("2b4c")('toStringTag');
-// ES3 wrong here
-var ARG = cof(function () { return arguments; }()) == 'Arguments';
-
-// fallback for IE11 Script Access Denied error
-var tryGet = function (it, key) {
-  try {
-    return it[key];
-  } catch (e) { /* empty */ }
-};
-
-module.exports = function (it) {
-  var O, T, B;
-  return it === undefined ? 'Undefined' : it === null ? 'Null'
-    // @@toStringTag case
-    : typeof (T = tryGet(O = Object(it), TAG)) == 'string' ? T
-    // builtinTag case
-    : ARG ? cof(O)
-    // ES3 arguments fallback
-    : (B = cof(O)) == 'Object' && typeof O.callee == 'function' ? 'Arguments' : B;
-};
-
-
-/***/ }),
-
-/***/ "2621":
-/***/ (function(module, exports) {
-
-exports.f = Object.getOwnPropertySymbols;
-
-
-/***/ }),
-
-/***/ "2aba":
-/***/ (function(module, exports, __webpack_require__) {
-
-var global = __webpack_require__("7726");
-var hide = __webpack_require__("32e9");
-var has = __webpack_require__("69a8");
-var SRC = __webpack_require__("ca5a")('src');
-var $toString = __webpack_require__("fa5b");
-var TO_STRING = 'toString';
-var TPL = ('' + $toString).split(TO_STRING);
-
-__webpack_require__("8378").inspectSource = function (it) {
-  return $toString.call(it);
-};
-
-(module.exports = function (O, key, val, safe) {
-  var isFunction = typeof val == 'function';
-  if (isFunction) has(val, 'name') || hide(val, 'name', key);
-  if (O[key] === val) return;
-  if (isFunction) has(val, SRC) || hide(val, SRC, O[key] ? '' + O[key] : TPL.join(String(key)));
-  if (O === global) {
-    O[key] = val;
-  } else if (!safe) {
-    delete O[key];
-    hide(O, key, val);
-  } else if (O[key]) {
-    O[key] = val;
-  } else {
-    hide(O, key, val);
-  }
-// add fake Function#toString for correct work wrapped methods / constructors with methods like LoDash isNative
-})(Function.prototype, TO_STRING, function toString() {
-  return typeof this == 'function' && this[SRC] || $toString.call(this);
-});
-
-
-/***/ }),
-
-/***/ "2aeb":
-/***/ (function(module, exports, __webpack_require__) {
-
-// 19.1.2.2 / 15.2.3.5 Object.create(O [, Properties])
-var anObject = __webpack_require__("cb7c");
-var dPs = __webpack_require__("1495");
-var enumBugKeys = __webpack_require__("e11e");
-var IE_PROTO = __webpack_require__("613b")('IE_PROTO');
-var Empty = function () { /* empty */ };
-var PROTOTYPE = 'prototype';
-
-// Create object with fake `null` prototype: use iframe Object with cleared prototype
-var createDict = function () {
-  // Thrash, waste and sodomy: IE GC bug
-  var iframe = __webpack_require__("230e")('iframe');
-  var i = enumBugKeys.length;
-  var lt = '<';
-  var gt = '>';
-  var iframeDocument;
-  iframe.style.display = 'none';
-  __webpack_require__("fab2").appendChild(iframe);
-  iframe.src = 'javascript:'; // eslint-disable-line no-script-url
-  // createDict = iframe.contentWindow.Object;
-  // html.removeChild(iframe);
-  iframeDocument = iframe.contentWindow.document;
-  iframeDocument.open();
-  iframeDocument.write(lt + 'script' + gt + 'document.F=Object' + lt + '/script' + gt);
-  iframeDocument.close();
-  createDict = iframeDocument.F;
-  while (i--) delete createDict[PROTOTYPE][enumBugKeys[i]];
-  return createDict();
-};
-
-module.exports = Object.create || function create(O, Properties) {
-  var result;
-  if (O !== null) {
-    Empty[PROTOTYPE] = anObject(O);
-    result = new Empty();
-    Empty[PROTOTYPE] = null;
-    // add "__proto__" for Object.getPrototypeOf polyfill
-    result[IE_PROTO] = O;
-  } else result = createDict();
-  return Properties === undefined ? result : dPs(result, Properties);
-};
-
-
-/***/ }),
-
-/***/ "2b4c":
-/***/ (function(module, exports, __webpack_require__) {
-
-var store = __webpack_require__("5537")('wks');
-var uid = __webpack_require__("ca5a");
-var Symbol = __webpack_require__("7726").Symbol;
-var USE_SYMBOL = typeof Symbol == 'function';
-
-var $exports = module.exports = function (name) {
-  return store[name] || (store[name] =
-    USE_SYMBOL && Symbol[name] || (USE_SYMBOL ? Symbol : uid)('Symbol.' + name));
-};
-
-$exports.store = store;
-
-
-/***/ }),
-
-/***/ "2d00":
-/***/ (function(module, exports) {
-
-module.exports = false;
-
-
-/***/ }),
-
-/***/ "2d95":
-/***/ (function(module, exports) {
-
-var toString = {}.toString;
-
-module.exports = function (it) {
-  return toString.call(it).slice(8, -1);
-};
-
-
-/***/ }),
-
-/***/ "2fdb":
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-// 21.1.3.7 String.prototype.includes(searchString, position = 0)
-
-var $export = __webpack_require__("5ca1");
-var context = __webpack_require__("d2c8");
-var INCLUDES = 'includes';
-
-$export($export.P + $export.F * __webpack_require__("5147")(INCLUDES), 'String', {
-  includes: function includes(searchString /* , position = 0 */) {
-    return !!~context(this, searchString, INCLUDES)
-      .indexOf(searchString, arguments.length > 1 ? arguments[1] : undefined);
-  }
-});
-
-
-/***/ }),
-
-/***/ "32e9":
-/***/ (function(module, exports, __webpack_require__) {
-
-var dP = __webpack_require__("86cc");
-var createDesc = __webpack_require__("4630");
-module.exports = __webpack_require__("9e1e") ? function (object, key, value) {
-  return dP.f(object, key, createDesc(1, value));
-} : function (object, key, value) {
-  object[key] = value;
-  return object;
-};
-
-
-/***/ }),
-
-/***/ "38fd":
-/***/ (function(module, exports, __webpack_require__) {
-
-// 19.1.2.9 / 15.2.3.2 Object.getPrototypeOf(O)
-var has = __webpack_require__("69a8");
-var toObject = __webpack_require__("4bf8");
-var IE_PROTO = __webpack_require__("613b")('IE_PROTO');
-var ObjectProto = Object.prototype;
-
-module.exports = Object.getPrototypeOf || function (O) {
-  O = toObject(O);
-  if (has(O, IE_PROTO)) return O[IE_PROTO];
-  if (typeof O.constructor == 'function' && O instanceof O.constructor) {
-    return O.constructor.prototype;
-  } return O instanceof Object ? ObjectProto : null;
-};
-
-
-/***/ }),
-
-/***/ "41a0":
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-var create = __webpack_require__("2aeb");
-var descriptor = __webpack_require__("4630");
-var setToStringTag = __webpack_require__("7f20");
-var IteratorPrototype = {};
-
-// 25.1.2.1.1 %IteratorPrototype%[@@iterator]()
-__webpack_require__("32e9")(IteratorPrototype, __webpack_require__("2b4c")('iterator'), function () { return this; });
-
-module.exports = function (Constructor, NAME, next) {
-  Constructor.prototype = create(IteratorPrototype, { next: descriptor(1, next) });
-  setToStringTag(Constructor, NAME + ' Iterator');
-};
-
-
-/***/ }),
-
-/***/ "456d":
-/***/ (function(module, exports, __webpack_require__) {
-
-// 19.1.2.14 Object.keys(O)
-var toObject = __webpack_require__("4bf8");
-var $keys = __webpack_require__("0d58");
-
-__webpack_require__("5eda")('keys', function () {
-  return function keys(it) {
-    return $keys(toObject(it));
-  };
-});
-
-
-/***/ }),
-
-/***/ "4588":
-/***/ (function(module, exports) {
-
-// 7.1.4 ToInteger
-var ceil = Math.ceil;
-var floor = Math.floor;
-module.exports = function (it) {
-  return isNaN(it = +it) ? 0 : (it > 0 ? floor : ceil)(it);
-};
-
-
-/***/ }),
-
-/***/ "4630":
-/***/ (function(module, exports) {
-
-module.exports = function (bitmap, value) {
-  return {
-    enumerable: !(bitmap & 1),
-    configurable: !(bitmap & 2),
-    writable: !(bitmap & 4),
-    value: value
-  };
-};
-
-
-/***/ }),
-
-/***/ "4bf8":
-/***/ (function(module, exports, __webpack_require__) {
-
-// 7.1.13 ToObject(argument)
-var defined = __webpack_require__("be13");
-module.exports = function (it) {
-  return Object(defined(it));
-};
-
-
-/***/ }),
-
-/***/ "5147":
-/***/ (function(module, exports, __webpack_require__) {
-
-var MATCH = __webpack_require__("2b4c")('match');
-module.exports = function (KEY) {
-  var re = /./;
-  try {
-    '/./'[KEY](re);
-  } catch (e) {
-    try {
-      re[MATCH] = false;
-      return !'/./'[KEY](re);
-    } catch (f) { /* empty */ }
-  } return true;
-};
-
-
-/***/ }),
-
-/***/ "520a":
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-var regexpFlags = __webpack_require__("0bfb");
-
-var nativeExec = RegExp.prototype.exec;
-// This always refers to the native implementation, because the
-// String#replace polyfill uses ./fix-regexp-well-known-symbol-logic.js,
-// which loads this file before patching the method.
-var nativeReplace = String.prototype.replace;
-
-var patchedExec = nativeExec;
-
-var LAST_INDEX = 'lastIndex';
-
-var UPDATES_LAST_INDEX_WRONG = (function () {
-  var re1 = /a/,
-      re2 = /b*/g;
-  nativeExec.call(re1, 'a');
-  nativeExec.call(re2, 'a');
-  return re1[LAST_INDEX] !== 0 || re2[LAST_INDEX] !== 0;
-})();
-
-// nonparticipating capturing group, copied from es5-shim's String#split patch.
-var NPCG_INCLUDED = /()??/.exec('')[1] !== undefined;
-
-var PATCH = UPDATES_LAST_INDEX_WRONG || NPCG_INCLUDED;
-
-if (PATCH) {
-  patchedExec = function exec(str) {
-    var re = this;
-    var lastIndex, reCopy, match, i;
-
-    if (NPCG_INCLUDED) {
-      reCopy = new RegExp('^' + re.source + '$(?!\\s)', regexpFlags.call(re));
-    }
-    if (UPDATES_LAST_INDEX_WRONG) lastIndex = re[LAST_INDEX];
-
-    match = nativeExec.call(re, str);
-
-    if (UPDATES_LAST_INDEX_WRONG && match) {
-      re[LAST_INDEX] = re.global ? match.index + match[0].length : lastIndex;
-    }
-    if (NPCG_INCLUDED && match && match.length > 1) {
-      // Fix browsers whose `exec` methods don't consistently return `undefined`
-      // for NPCG, like IE8. NOTE: This doesn' work for /(.?)?/
-      // eslint-disable-next-line no-loop-func
-      nativeReplace.call(match[0], reCopy, function () {
-        for (i = 1; i < arguments.length - 2; i++) {
-          if (arguments[i] === undefined) match[i] = undefined;
-        }
-      });
-    }
-
-    return match;
-  };
-}
-
-module.exports = patchedExec;
-
-
-/***/ }),
-
-/***/ "52a7":
-/***/ (function(module, exports) {
-
-exports.f = {}.propertyIsEnumerable;
-
-
-/***/ }),
-
-/***/ "5537":
-/***/ (function(module, exports, __webpack_require__) {
-
-var core = __webpack_require__("8378");
-var global = __webpack_require__("7726");
-var SHARED = '__core-js_shared__';
-var store = global[SHARED] || (global[SHARED] = {});
-
-(module.exports = function (key, value) {
-  return store[key] || (store[key] = value !== undefined ? value : {});
-})('versions', []).push({
-  version: core.version,
-  mode: __webpack_require__("2d00") ? 'pure' : 'global',
-  copyright: '© 2019 Denis Pushkarev (zloirock.ru)'
-});
-
-
-/***/ }),
-
-/***/ "5ca1":
-/***/ (function(module, exports, __webpack_require__) {
-
-var global = __webpack_require__("7726");
-var core = __webpack_require__("8378");
-var hide = __webpack_require__("32e9");
-var redefine = __webpack_require__("2aba");
-var ctx = __webpack_require__("9b43");
-var PROTOTYPE = 'prototype';
-
-var $export = function (type, name, source) {
-  var IS_FORCED = type & $export.F;
-  var IS_GLOBAL = type & $export.G;
-  var IS_STATIC = type & $export.S;
-  var IS_PROTO = type & $export.P;
-  var IS_BIND = type & $export.B;
-  var target = IS_GLOBAL ? global : IS_STATIC ? global[name] || (global[name] = {}) : (global[name] || {})[PROTOTYPE];
-  var exports = IS_GLOBAL ? core : core[name] || (core[name] = {});
-  var expProto = exports[PROTOTYPE] || (exports[PROTOTYPE] = {});
-  var key, own, out, exp;
-  if (IS_GLOBAL) source = name;
-  for (key in source) {
-    // contains in native
-    own = !IS_FORCED && target && target[key] !== undefined;
-    // export native or passed
-    out = (own ? target : source)[key];
-    // bind timers to global for call from export context
-    exp = IS_BIND && own ? ctx(out, global) : IS_PROTO && typeof out == 'function' ? ctx(Function.call, out) : out;
-    // extend global
-    if (target) redefine(target, key, out, type & $export.U);
-    // export
-    if (exports[key] != out) hide(exports, key, exp);
-    if (IS_PROTO && expProto[key] != out) expProto[key] = out;
-  }
-};
-global.core = core;
-// type bitmap
-$export.F = 1;   // forced
-$export.G = 2;   // global
-$export.S = 4;   // static
-$export.P = 8;   // proto
-$export.B = 16;  // bind
-$export.W = 32;  // wrap
-$export.U = 64;  // safe
-$export.R = 128; // real proto method for `library`
-module.exports = $export;
-
-
-/***/ }),
-
-/***/ "5eda":
-/***/ (function(module, exports, __webpack_require__) {
-
-// most Object methods by ES6 should accept primitives
-var $export = __webpack_require__("5ca1");
-var core = __webpack_require__("8378");
-var fails = __webpack_require__("79e5");
-module.exports = function (KEY, exec) {
-  var fn = (core.Object || {})[KEY] || Object[KEY];
-  var exp = {};
-  exp[KEY] = exec(fn);
-  $export($export.S + $export.F * fails(function () { fn(1); }), 'Object', exp);
-};
-
-
-/***/ }),
-
-/***/ "5f1b":
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-var classof = __webpack_require__("23c6");
-var builtinExec = RegExp.prototype.exec;
-
- // `RegExpExec` abstract operation
-// https://tc39.github.io/ecma262/#sec-regexpexec
-module.exports = function (R, S) {
-  var exec = R.exec;
-  if (typeof exec === 'function') {
-    var result = exec.call(R, S);
-    if (typeof result !== 'object') {
-      throw new TypeError('RegExp exec method returned something other than an Object or null');
-    }
-    return result;
-  }
-  if (classof(R) !== 'RegExp') {
-    throw new TypeError('RegExp#exec called on incompatible receiver');
-  }
-  return builtinExec.call(R, S);
-};
-
-
-/***/ }),
-
-/***/ "613b":
-/***/ (function(module, exports, __webpack_require__) {
-
-var shared = __webpack_require__("5537")('keys');
-var uid = __webpack_require__("ca5a");
-module.exports = function (key) {
-  return shared[key] || (shared[key] = uid(key));
-};
-
-
-/***/ }),
-
-/***/ "626a":
-/***/ (function(module, exports, __webpack_require__) {
-
-// fallback for non-array-like ES3 and non-enumerable old V8 strings
-var cof = __webpack_require__("2d95");
-// eslint-disable-next-line no-prototype-builtins
-module.exports = Object('z').propertyIsEnumerable(0) ? Object : function (it) {
-  return cof(it) == 'String' ? it.split('') : Object(it);
-};
-
-
-/***/ }),
-
-/***/ "6762":
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-// https://github.com/tc39/Array.prototype.includes
-var $export = __webpack_require__("5ca1");
-var $includes = __webpack_require__("c366")(true);
-
-$export($export.P, 'Array', {
-  includes: function includes(el /* , fromIndex = 0 */) {
-    return $includes(this, el, arguments.length > 1 ? arguments[1] : undefined);
-  }
-});
-
-__webpack_require__("9c6c")('includes');
-
-
-/***/ }),
-
-/***/ "6821":
-/***/ (function(module, exports, __webpack_require__) {
-
-// to indexed object, toObject with fallback for non-array-like ES3 strings
-var IObject = __webpack_require__("626a");
-var defined = __webpack_require__("be13");
-module.exports = function (it) {
-  return IObject(defined(it));
-};
-
-
-/***/ }),
-
-/***/ "69a8":
-/***/ (function(module, exports) {
-
-var hasOwnProperty = {}.hasOwnProperty;
-module.exports = function (it, key) {
-  return hasOwnProperty.call(it, key);
-};
-
-
-/***/ }),
-
-/***/ "6a99":
-/***/ (function(module, exports, __webpack_require__) {
-
-// 7.1.1 ToPrimitive(input [, PreferredType])
-var isObject = __webpack_require__("d3f4");
-// instead of the ES6 spec version, we didn't implement @@toPrimitive case
-// and the second argument - flag - preferred type is a string
-module.exports = function (it, S) {
-  if (!isObject(it)) return it;
-  var fn, val;
-  if (S && typeof (fn = it.toString) == 'function' && !isObject(val = fn.call(it))) return val;
-  if (typeof (fn = it.valueOf) == 'function' && !isObject(val = fn.call(it))) return val;
-  if (!S && typeof (fn = it.toString) == 'function' && !isObject(val = fn.call(it))) return val;
-  throw TypeError("Can't convert object to primitive value");
-};
-
-
-/***/ }),
-
-/***/ "7333":
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-// 19.1.2.1 Object.assign(target, source, ...)
-var DESCRIPTORS = __webpack_require__("9e1e");
-var getKeys = __webpack_require__("0d58");
-var gOPS = __webpack_require__("2621");
-var pIE = __webpack_require__("52a7");
-var toObject = __webpack_require__("4bf8");
-var IObject = __webpack_require__("626a");
-var $assign = Object.assign;
-
-// should work with symbols and should have deterministic property order (V8 bug)
-module.exports = !$assign || __webpack_require__("79e5")(function () {
-  var A = {};
-  var B = {};
-  // eslint-disable-next-line no-undef
-  var S = Symbol();
-  var K = 'abcdefghijklmnopqrst';
-  A[S] = 7;
-  K.split('').forEach(function (k) { B[k] = k; });
-  return $assign({}, A)[S] != 7 || Object.keys($assign({}, B)).join('') != K;
-}) ? function assign(target, source) { // eslint-disable-line no-unused-vars
-  var T = toObject(target);
-  var aLen = arguments.length;
-  var index = 1;
-  var getSymbols = gOPS.f;
-  var isEnum = pIE.f;
-  while (aLen > index) {
-    var S = IObject(arguments[index++]);
-    var keys = getSymbols ? getKeys(S).concat(getSymbols(S)) : getKeys(S);
-    var length = keys.length;
-    var j = 0;
-    var key;
-    while (length > j) {
-      key = keys[j++];
-      if (!DESCRIPTORS || isEnum.call(S, key)) T[key] = S[key];
-    }
-  } return T;
-} : $assign;
-
-
-/***/ }),
-
-/***/ "7726":
-/***/ (function(module, exports) {
-
-// https://github.com/zloirock/core-js/issues/86#issuecomment-115759028
-var global = module.exports = typeof window != 'undefined' && window.Math == Math
-  ? window : typeof self != 'undefined' && self.Math == Math ? self
-  // eslint-disable-next-line no-new-func
-  : Function('return this')();
-if (typeof __g == 'number') __g = global; // eslint-disable-line no-undef
-
-
-/***/ }),
-
-/***/ "77f1":
-/***/ (function(module, exports, __webpack_require__) {
-
-var toInteger = __webpack_require__("4588");
-var max = Math.max;
-var min = Math.min;
-module.exports = function (index, length) {
-  index = toInteger(index);
-  return index < 0 ? max(index + length, 0) : min(index, length);
-};
-
-
-/***/ }),
-
-/***/ "79e5":
-/***/ (function(module, exports) {
-
-module.exports = function (exec) {
-  try {
-    return !!exec();
-  } catch (e) {
-    return true;
-  }
-};
-
-
-/***/ }),
-
-/***/ "7f20":
-/***/ (function(module, exports, __webpack_require__) {
-
-var def = __webpack_require__("86cc").f;
-var has = __webpack_require__("69a8");
-var TAG = __webpack_require__("2b4c")('toStringTag');
-
-module.exports = function (it, tag, stat) {
-  if (it && !has(it = stat ? it : it.prototype, TAG)) def(it, TAG, { configurable: true, value: tag });
-};
-
-
-/***/ }),
-
-/***/ "8378":
-/***/ (function(module, exports) {
-
-var core = module.exports = { version: '2.6.11' };
-if (typeof __e == 'number') __e = core; // eslint-disable-line no-undef
-
-
-/***/ }),
-
-/***/ "84f2":
-/***/ (function(module, exports) {
-
-module.exports = {};
-
-
-/***/ }),
-
-/***/ "86cc":
-/***/ (function(module, exports, __webpack_require__) {
-
-var anObject = __webpack_require__("cb7c");
-var IE8_DOM_DEFINE = __webpack_require__("c69a");
-var toPrimitive = __webpack_require__("6a99");
-var dP = Object.defineProperty;
-
-exports.f = __webpack_require__("9e1e") ? Object.defineProperty : function defineProperty(O, P, Attributes) {
-  anObject(O);
-  P = toPrimitive(P, true);
-  anObject(Attributes);
-  if (IE8_DOM_DEFINE) try {
-    return dP(O, P, Attributes);
-  } catch (e) { /* empty */ }
-  if ('get' in Attributes || 'set' in Attributes) throw TypeError('Accessors not supported!');
-  if ('value' in Attributes) O[P] = Attributes.value;
-  return O;
-};
-
-
-/***/ }),
-
-/***/ "9b43":
-/***/ (function(module, exports, __webpack_require__) {
-
-// optional / simple context binding
-var aFunction = __webpack_require__("d8e8");
-module.exports = function (fn, that, length) {
-  aFunction(fn);
-  if (that === undefined) return fn;
-  switch (length) {
-    case 1: return function (a) {
-      return fn.call(that, a);
-    };
-    case 2: return function (a, b) {
-      return fn.call(that, a, b);
-    };
-    case 3: return function (a, b, c) {
-      return fn.call(that, a, b, c);
-    };
-  }
-  return function (/* ...args */) {
-    return fn.apply(that, arguments);
-  };
-};
-
-
-/***/ }),
-
-/***/ "9c6c":
-/***/ (function(module, exports, __webpack_require__) {
-
-// 22.1.3.31 Array.prototype[@@unscopables]
-var UNSCOPABLES = __webpack_require__("2b4c")('unscopables');
-var ArrayProto = Array.prototype;
-if (ArrayProto[UNSCOPABLES] == undefined) __webpack_require__("32e9")(ArrayProto, UNSCOPABLES, {});
-module.exports = function (key) {
-  ArrayProto[UNSCOPABLES][key] = true;
-};
-
-
-/***/ }),
-
-/***/ "9def":
-/***/ (function(module, exports, __webpack_require__) {
-
-// 7.1.15 ToLength
-var toInteger = __webpack_require__("4588");
-var min = Math.min;
-module.exports = function (it) {
-  return it > 0 ? min(toInteger(it), 0x1fffffffffffff) : 0; // pow(2, 53) - 1 == 9007199254740991
-};
-
-
-/***/ }),
-
-/***/ "9e1e":
-/***/ (function(module, exports, __webpack_require__) {
-
-// Thank's IE8 for his funny defineProperty
-module.exports = !__webpack_require__("79e5")(function () {
-  return Object.defineProperty({}, 'a', { get: function () { return 7; } }).a != 7;
-});
-
-
-/***/ }),
-
-/***/ "a352":
-/***/ (function(module, exports) {
-
-module.exports = __webpack_require__(1047);
-
-/***/ }),
-
-/***/ "a481":
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-var anObject = __webpack_require__("cb7c");
-var toObject = __webpack_require__("4bf8");
-var toLength = __webpack_require__("9def");
-var toInteger = __webpack_require__("4588");
-var advanceStringIndex = __webpack_require__("0390");
-var regExpExec = __webpack_require__("5f1b");
-var max = Math.max;
-var min = Math.min;
-var floor = Math.floor;
-var SUBSTITUTION_SYMBOLS = /\$([$&`']|\d\d?|<[^>]*>)/g;
-var SUBSTITUTION_SYMBOLS_NO_NAMED = /\$([$&`']|\d\d?)/g;
-
-var maybeToString = function (it) {
-  return it === undefined ? it : String(it);
-};
-
-// @@replace logic
-__webpack_require__("214f")('replace', 2, function (defined, REPLACE, $replace, maybeCallNative) {
-  return [
-    // `String.prototype.replace` method
-    // https://tc39.github.io/ecma262/#sec-string.prototype.replace
-    function replace(searchValue, replaceValue) {
-      var O = defined(this);
-      var fn = searchValue == undefined ? undefined : searchValue[REPLACE];
-      return fn !== undefined
-        ? fn.call(searchValue, O, replaceValue)
-        : $replace.call(String(O), searchValue, replaceValue);
-    },
-    // `RegExp.prototype[@@replace]` method
-    // https://tc39.github.io/ecma262/#sec-regexp.prototype-@@replace
-    function (regexp, replaceValue) {
-      var res = maybeCallNative($replace, regexp, this, replaceValue);
-      if (res.done) return res.value;
-
-      var rx = anObject(regexp);
-      var S = String(this);
-      var functionalReplace = typeof replaceValue === 'function';
-      if (!functionalReplace) replaceValue = String(replaceValue);
-      var global = rx.global;
-      if (global) {
-        var fullUnicode = rx.unicode;
-        rx.lastIndex = 0;
-      }
-      var results = [];
-      while (true) {
-        var result = regExpExec(rx, S);
-        if (result === null) break;
-        results.push(result);
-        if (!global) break;
-        var matchStr = String(result[0]);
-        if (matchStr === '') rx.lastIndex = advanceStringIndex(S, toLength(rx.lastIndex), fullUnicode);
-      }
-      var accumulatedResult = '';
-      var nextSourcePosition = 0;
-      for (var i = 0; i < results.length; i++) {
-        result = results[i];
-        var matched = String(result[0]);
-        var position = max(min(toInteger(result.index), S.length), 0);
-        var captures = [];
-        // NOTE: This is equivalent to
-        //   captures = result.slice(1).map(maybeToString)
-        // but for some reason `nativeSlice.call(result, 1, result.length)` (called in
-        // the slice polyfill when slicing native arrays) "doesn't work" in safari 9 and
-        // causes a crash (https://pastebin.com/N21QzeQA) when trying to debug it.
-        for (var j = 1; j < result.length; j++) captures.push(maybeToString(result[j]));
-        var namedCaptures = result.groups;
-        if (functionalReplace) {
-          var replacerArgs = [matched].concat(captures, position, S);
-          if (namedCaptures !== undefined) replacerArgs.push(namedCaptures);
-          var replacement = String(replaceValue.apply(undefined, replacerArgs));
-        } else {
-          replacement = getSubstitution(matched, S, position, captures, namedCaptures, replaceValue);
-        }
-        if (position >= nextSourcePosition) {
-          accumulatedResult += S.slice(nextSourcePosition, position) + replacement;
-          nextSourcePosition = position + matched.length;
-        }
-      }
-      return accumulatedResult + S.slice(nextSourcePosition);
-    }
-  ];
-
-    // https://tc39.github.io/ecma262/#sec-getsubstitution
-  function getSubstitution(matched, str, position, captures, namedCaptures, replacement) {
-    var tailPos = position + matched.length;
-    var m = captures.length;
-    var symbols = SUBSTITUTION_SYMBOLS_NO_NAMED;
-    if (namedCaptures !== undefined) {
-      namedCaptures = toObject(namedCaptures);
-      symbols = SUBSTITUTION_SYMBOLS;
-    }
-    return $replace.call(replacement, symbols, function (match, ch) {
-      var capture;
-      switch (ch.charAt(0)) {
-        case '$': return '$';
-        case '&': return matched;
-        case '`': return str.slice(0, position);
-        case "'": return str.slice(tailPos);
-        case '<':
-          capture = namedCaptures[ch.slice(1, -1)];
-          break;
-        default: // \d\d?
-          var n = +ch;
-          if (n === 0) return match;
-          if (n > m) {
-            var f = floor(n / 10);
-            if (f === 0) return match;
-            if (f <= m) return captures[f - 1] === undefined ? ch.charAt(1) : captures[f - 1] + ch.charAt(1);
-            return match;
-          }
-          capture = captures[n - 1];
-      }
-      return capture === undefined ? '' : capture;
-    });
-  }
-});
-
-
-/***/ }),
-
-/***/ "aae3":
-/***/ (function(module, exports, __webpack_require__) {
-
-// 7.2.8 IsRegExp(argument)
-var isObject = __webpack_require__("d3f4");
-var cof = __webpack_require__("2d95");
-var MATCH = __webpack_require__("2b4c")('match');
-module.exports = function (it) {
-  var isRegExp;
-  return isObject(it) && ((isRegExp = it[MATCH]) !== undefined ? !!isRegExp : cof(it) == 'RegExp');
-};
-
-
-/***/ }),
-
-/***/ "ac6a":
-/***/ (function(module, exports, __webpack_require__) {
-
-var $iterators = __webpack_require__("cadf");
-var getKeys = __webpack_require__("0d58");
-var redefine = __webpack_require__("2aba");
-var global = __webpack_require__("7726");
-var hide = __webpack_require__("32e9");
-var Iterators = __webpack_require__("84f2");
-var wks = __webpack_require__("2b4c");
-var ITERATOR = wks('iterator');
-var TO_STRING_TAG = wks('toStringTag');
-var ArrayValues = Iterators.Array;
-
-var DOMIterables = {
-  CSSRuleList: true, // TODO: Not spec compliant, should be false.
-  CSSStyleDeclaration: false,
-  CSSValueList: false,
-  ClientRectList: false,
-  DOMRectList: false,
-  DOMStringList: false,
-  DOMTokenList: true,
-  DataTransferItemList: false,
-  FileList: false,
-  HTMLAllCollection: false,
-  HTMLCollection: false,
-  HTMLFormElement: false,
-  HTMLSelectElement: false,
-  MediaList: true, // TODO: Not spec compliant, should be false.
-  MimeTypeArray: false,
-  NamedNodeMap: false,
-  NodeList: true,
-  PaintRequestList: false,
-  Plugin: false,
-  PluginArray: false,
-  SVGLengthList: false,
-  SVGNumberList: false,
-  SVGPathSegList: false,
-  SVGPointList: false,
-  SVGStringList: false,
-  SVGTransformList: false,
-  SourceBufferList: false,
-  StyleSheetList: true, // TODO: Not spec compliant, should be false.
-  TextTrackCueList: false,
-  TextTrackList: false,
-  TouchList: false
-};
-
-for (var collections = getKeys(DOMIterables), i = 0; i < collections.length; i++) {
-  var NAME = collections[i];
-  var explicit = DOMIterables[NAME];
-  var Collection = global[NAME];
-  var proto = Collection && Collection.prototype;
-  var key;
-  if (proto) {
-    if (!proto[ITERATOR]) hide(proto, ITERATOR, ArrayValues);
-    if (!proto[TO_STRING_TAG]) hide(proto, TO_STRING_TAG, NAME);
-    Iterators[NAME] = ArrayValues;
-    if (explicit) for (key in $iterators) if (!proto[key]) redefine(proto, key, $iterators[key], true);
-  }
-}
-
-
-/***/ }),
-
-/***/ "b0c5":
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-var regexpExec = __webpack_require__("520a");
-__webpack_require__("5ca1")({
-  target: 'RegExp',
-  proto: true,
-  forced: regexpExec !== /./.exec
-}, {
-  exec: regexpExec
-});
-
-
-/***/ }),
-
-/***/ "be13":
-/***/ (function(module, exports) {
-
-// 7.2.1 RequireObjectCoercible(argument)
-module.exports = function (it) {
-  if (it == undefined) throw TypeError("Can't call method on  " + it);
-  return it;
-};
-
-
-/***/ }),
-
-/***/ "c366":
-/***/ (function(module, exports, __webpack_require__) {
-
-// false -> Array#indexOf
-// true  -> Array#includes
-var toIObject = __webpack_require__("6821");
-var toLength = __webpack_require__("9def");
-var toAbsoluteIndex = __webpack_require__("77f1");
-module.exports = function (IS_INCLUDES) {
-  return function ($this, el, fromIndex) {
-    var O = toIObject($this);
-    var length = toLength(O.length);
-    var index = toAbsoluteIndex(fromIndex, length);
-    var value;
-    // Array#includes uses SameValueZero equality algorithm
-    // eslint-disable-next-line no-self-compare
-    if (IS_INCLUDES && el != el) while (length > index) {
-      value = O[index++];
-      // eslint-disable-next-line no-self-compare
-      if (value != value) return true;
-    // Array#indexOf ignores holes, Array#includes - not
-    } else for (;length > index; index++) if (IS_INCLUDES || index in O) {
-      if (O[index] === el) return IS_INCLUDES || index || 0;
-    } return !IS_INCLUDES && -1;
-  };
-};
-
-
-/***/ }),
-
-/***/ "c649":
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* WEBPACK VAR INJECTION */(function(global) {/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "c", function() { return insertNodeAt; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return camelize; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return console; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "d", function() { return removeNode; });
-/* harmony import */ var core_js_modules_es6_regexp_replace__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__("a481");
-/* harmony import */ var core_js_modules_es6_regexp_replace__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(core_js_modules_es6_regexp_replace__WEBPACK_IMPORTED_MODULE_0__);
-
-
-function getConsole() {
-  if (typeof window !== "undefined") {
-    return window.console;
-  }
-
-  return global.console;
-}
-
-var console = getConsole();
-
-function cached(fn) {
-  var cache = Object.create(null);
-  return function cachedFn(str) {
-    var hit = cache[str];
-    return hit || (cache[str] = fn(str));
-  };
-}
-
-var regex = /-(\w)/g;
-var camelize = cached(function (str) {
-  return str.replace(regex, function (_, c) {
-    return c ? c.toUpperCase() : "";
-  });
-});
-
-function removeNode(node) {
-  if (node.parentElement !== null) {
-    node.parentElement.removeChild(node);
-  }
-}
-
-function insertNodeAt(fatherNode, node, position) {
-  var refNode = position === 0 ? fatherNode.children[0] : fatherNode.children[position - 1].nextSibling;
-  fatherNode.insertBefore(node, refNode);
-}
-
-
-/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__("c8ba")))
-
-/***/ }),
-
-/***/ "c69a":
-/***/ (function(module, exports, __webpack_require__) {
-
-module.exports = !__webpack_require__("9e1e") && !__webpack_require__("79e5")(function () {
-  return Object.defineProperty(__webpack_require__("230e")('div'), 'a', { get: function () { return 7; } }).a != 7;
-});
-
-
-/***/ }),
-
-/***/ "c8ba":
-/***/ (function(module, exports) {
-
-var g;
-
-// This works in non-strict mode
-g = (function() {
-	return this;
-})();
-
-try {
-	// This works if eval is allowed (see CSP)
-	g = g || new Function("return this")();
-} catch (e) {
-	// This works if the window reference is available
-	if (typeof window === "object") g = window;
-}
-
-// g can still be undefined, but nothing to do about it...
-// We return undefined, instead of nothing here, so it's
-// easier to handle this case. if(!global) { ...}
-
-module.exports = g;
-
-
-/***/ }),
-
-/***/ "ca5a":
-/***/ (function(module, exports) {
-
-var id = 0;
-var px = Math.random();
-module.exports = function (key) {
-  return 'Symbol('.concat(key === undefined ? '' : key, ')_', (++id + px).toString(36));
-};
-
-
-/***/ }),
-
-/***/ "cadf":
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-var addToUnscopables = __webpack_require__("9c6c");
-var step = __webpack_require__("d53b");
-var Iterators = __webpack_require__("84f2");
-var toIObject = __webpack_require__("6821");
-
-// 22.1.3.4 Array.prototype.entries()
-// 22.1.3.13 Array.prototype.keys()
-// 22.1.3.29 Array.prototype.values()
-// 22.1.3.30 Array.prototype[@@iterator]()
-module.exports = __webpack_require__("01f9")(Array, 'Array', function (iterated, kind) {
-  this._t = toIObject(iterated); // target
-  this._i = 0;                   // next index
-  this._k = kind;                // kind
-// 22.1.5.2.1 %ArrayIteratorPrototype%.next()
-}, function () {
-  var O = this._t;
-  var kind = this._k;
-  var index = this._i++;
-  if (!O || index >= O.length) {
-    this._t = undefined;
-    return step(1);
-  }
-  if (kind == 'keys') return step(0, index);
-  if (kind == 'values') return step(0, O[index]);
-  return step(0, [index, O[index]]);
-}, 'values');
-
-// argumentsList[@@iterator] is %ArrayProto_values% (9.4.4.6, 9.4.4.7)
-Iterators.Arguments = Iterators.Array;
-
-addToUnscopables('keys');
-addToUnscopables('values');
-addToUnscopables('entries');
-
-
-/***/ }),
-
-/***/ "cb7c":
-/***/ (function(module, exports, __webpack_require__) {
-
-var isObject = __webpack_require__("d3f4");
-module.exports = function (it) {
-  if (!isObject(it)) throw TypeError(it + ' is not an object!');
-  return it;
-};
-
-
-/***/ }),
-
-/***/ "ce10":
-/***/ (function(module, exports, __webpack_require__) {
-
-var has = __webpack_require__("69a8");
-var toIObject = __webpack_require__("6821");
-var arrayIndexOf = __webpack_require__("c366")(false);
-var IE_PROTO = __webpack_require__("613b")('IE_PROTO');
-
-module.exports = function (object, names) {
-  var O = toIObject(object);
-  var i = 0;
-  var result = [];
-  var key;
-  for (key in O) if (key != IE_PROTO) has(O, key) && result.push(key);
-  // Don't enum bug & hidden keys
-  while (names.length > i) if (has(O, key = names[i++])) {
-    ~arrayIndexOf(result, key) || result.push(key);
-  }
-  return result;
-};
-
-
-/***/ }),
-
-/***/ "d2c8":
-/***/ (function(module, exports, __webpack_require__) {
-
-// helper for String#{startsWith, endsWith, includes}
-var isRegExp = __webpack_require__("aae3");
-var defined = __webpack_require__("be13");
-
-module.exports = function (that, searchString, NAME) {
-  if (isRegExp(searchString)) throw TypeError('String#' + NAME + " doesn't accept regex!");
-  return String(defined(that));
-};
-
-
-/***/ }),
-
-/***/ "d3f4":
-/***/ (function(module, exports) {
-
-module.exports = function (it) {
-  return typeof it === 'object' ? it !== null : typeof it === 'function';
-};
-
-
-/***/ }),
-
-/***/ "d53b":
-/***/ (function(module, exports) {
-
-module.exports = function (done, value) {
-  return { value: value, done: !!done };
-};
-
-
-/***/ }),
-
-/***/ "d8e8":
-/***/ (function(module, exports) {
-
-module.exports = function (it) {
-  if (typeof it != 'function') throw TypeError(it + ' is not a function!');
-  return it;
-};
-
-
-/***/ }),
-
-/***/ "e11e":
-/***/ (function(module, exports) {
-
-// IE 8- don't enum bug keys
-module.exports = (
-  'constructor,hasOwnProperty,isPrototypeOf,propertyIsEnumerable,toLocaleString,toString,valueOf'
-).split(',');
-
-
-/***/ }),
-
-/***/ "f559":
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-// 21.1.3.18 String.prototype.startsWith(searchString [, position ])
-
-var $export = __webpack_require__("5ca1");
-var toLength = __webpack_require__("9def");
-var context = __webpack_require__("d2c8");
-var STARTS_WITH = 'startsWith';
-var $startsWith = ''[STARTS_WITH];
-
-$export($export.P + $export.F * __webpack_require__("5147")(STARTS_WITH), 'String', {
-  startsWith: function startsWith(searchString /* , position = 0 */) {
-    var that = context(this, searchString, STARTS_WITH);
-    var index = toLength(Math.min(arguments.length > 1 ? arguments[1] : undefined, that.length));
-    var search = String(searchString);
-    return $startsWith
-      ? $startsWith.call(that, search, index)
-      : that.slice(index, index + search.length) === search;
-  }
-});
-
-
-/***/ }),
-
-/***/ "f6fd":
-/***/ (function(module, exports) {
-
-// document.currentScript polyfill by Adam Miller
-
-// MIT license
-
-(function(document){
-  var currentScript = "currentScript",
-      scripts = document.getElementsByTagName('script'); // Live NodeList collection
-
-  // If browser needs currentScript polyfill, add get currentScript() to the document object
-  if (!(currentScript in document)) {
-    Object.defineProperty(document, currentScript, {
-      get: function(){
-
-        // IE 6-10 supports script readyState
-        // IE 10+ support stack trace
-        try { throw new Error(); }
-        catch (err) {
-
-          // Find the second match for the "at" string to get file src url from stack.
-          // Specifically works with the format of stack traces in IE.
-          var i, res = ((/.*at [^\(]*\((.*):.+:.+\)$/ig).exec(err.stack) || [false])[1];
-
-          // For all scripts on the page, if src matches or if ready state is interactive, return the script tag
-          for(i in scripts){
-            if(scripts[i].src == res || scripts[i].readyState == "interactive"){
-              return scripts[i];
-            }
-          }
-
-          // If no match, return null
-          return null;
-        }
-      }
-    });
-  }
-})(document);
-
-
-/***/ }),
-
-/***/ "f751":
-/***/ (function(module, exports, __webpack_require__) {
-
-// 19.1.3.1 Object.assign(target, source)
-var $export = __webpack_require__("5ca1");
-
-$export($export.S + $export.F, 'Object', { assign: __webpack_require__("7333") });
-
-
-/***/ }),
-
-/***/ "fa5b":
-/***/ (function(module, exports, __webpack_require__) {
-
-module.exports = __webpack_require__("5537")('native-function-to-string', Function.toString);
-
-
-/***/ }),
-
-/***/ "fab2":
-/***/ (function(module, exports, __webpack_require__) {
-
-var document = __webpack_require__("7726").document;
-module.exports = document && document.documentElement;
-
-
-/***/ }),
-
-/***/ "fb15":
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-// ESM COMPAT FLAG
-__webpack_require__.r(__webpack_exports__);
-
-// CONCATENATED MODULE: ./node_modules/@vue/cli-service/lib/commands/build/setPublicPath.js
-// This file is imported into lib/wc client bundles.
-
-if (typeof window !== 'undefined') {
-  if (true) {
-    __webpack_require__("f6fd")
-  }
-
-  var setPublicPath_i
-  if ((setPublicPath_i = window.document.currentScript) && (setPublicPath_i = setPublicPath_i.src.match(/(.+\/)[^/]+\.js(\?.*)?$/))) {
-    __webpack_require__.p = setPublicPath_i[1] // eslint-disable-line
-  }
-}
-
-// Indicate to webpack that this file can be concatenated
-/* harmony default export */ var setPublicPath = (null);
-
-// EXTERNAL MODULE: ./node_modules/core-js/modules/es6.object.assign.js
-var es6_object_assign = __webpack_require__("f751");
-
-// EXTERNAL MODULE: ./node_modules/core-js/modules/es6.string.starts-with.js
-var es6_string_starts_with = __webpack_require__("f559");
-
-// EXTERNAL MODULE: ./node_modules/core-js/modules/web.dom.iterable.js
-var web_dom_iterable = __webpack_require__("ac6a");
-
-// EXTERNAL MODULE: ./node_modules/core-js/modules/es6.array.iterator.js
-var es6_array_iterator = __webpack_require__("cadf");
-
-// EXTERNAL MODULE: ./node_modules/core-js/modules/es6.object.keys.js
-var es6_object_keys = __webpack_require__("456d");
-
-// CONCATENATED MODULE: ./node_modules/@babel/runtime/helpers/esm/arrayWithHoles.js
-function _arrayWithHoles(arr) {
-  if (Array.isArray(arr)) return arr;
-}
-// CONCATENATED MODULE: ./node_modules/@babel/runtime/helpers/esm/iterableToArrayLimit.js
-function _iterableToArrayLimit(arr, i) {
-  if (typeof Symbol === "undefined" || !(Symbol.iterator in Object(arr))) return;
-  var _arr = [];
-  var _n = true;
-  var _d = false;
-  var _e = undefined;
-
-  try {
-    for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) {
-      _arr.push(_s.value);
-
-      if (i && _arr.length === i) break;
-    }
-  } catch (err) {
-    _d = true;
-    _e = err;
-  } finally {
-    try {
-      if (!_n && _i["return"] != null) _i["return"]();
-    } finally {
-      if (_d) throw _e;
-    }
-  }
-
-  return _arr;
-}
-// CONCATENATED MODULE: ./node_modules/@babel/runtime/helpers/esm/arrayLikeToArray.js
-function _arrayLikeToArray(arr, len) {
-  if (len == null || len > arr.length) len = arr.length;
-
-  for (var i = 0, arr2 = new Array(len); i < len; i++) {
-    arr2[i] = arr[i];
-  }
-
-  return arr2;
-}
-// CONCATENATED MODULE: ./node_modules/@babel/runtime/helpers/esm/unsupportedIterableToArray.js
-
-function _unsupportedIterableToArray(o, minLen) {
-  if (!o) return;
-  if (typeof o === "string") return _arrayLikeToArray(o, minLen);
-  var n = Object.prototype.toString.call(o).slice(8, -1);
-  if (n === "Object" && o.constructor) n = o.constructor.name;
-  if (n === "Map" || n === "Set") return Array.from(o);
-  if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen);
-}
-// CONCATENATED MODULE: ./node_modules/@babel/runtime/helpers/esm/nonIterableRest.js
-function _nonIterableRest() {
-  throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.");
-}
-// CONCATENATED MODULE: ./node_modules/@babel/runtime/helpers/esm/slicedToArray.js
-
-
-
-
-function _slicedToArray(arr, i) {
-  return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest();
-}
-// EXTERNAL MODULE: ./node_modules/core-js/modules/es7.array.includes.js
-var es7_array_includes = __webpack_require__("6762");
-
-// EXTERNAL MODULE: ./node_modules/core-js/modules/es6.string.includes.js
-var es6_string_includes = __webpack_require__("2fdb");
-
-// CONCATENATED MODULE: ./node_modules/@babel/runtime/helpers/esm/arrayWithoutHoles.js
-
-function _arrayWithoutHoles(arr) {
-  if (Array.isArray(arr)) return _arrayLikeToArray(arr);
-}
-// CONCATENATED MODULE: ./node_modules/@babel/runtime/helpers/esm/iterableToArray.js
-function _iterableToArray(iter) {
-  if (typeof Symbol !== "undefined" && Symbol.iterator in Object(iter)) return Array.from(iter);
-}
-// CONCATENATED MODULE: ./node_modules/@babel/runtime/helpers/esm/nonIterableSpread.js
-function _nonIterableSpread() {
-  throw new TypeError("Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.");
-}
-// CONCATENATED MODULE: ./node_modules/@babel/runtime/helpers/esm/toConsumableArray.js
-
-
-
-
-function _toConsumableArray(arr) {
-  return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _unsupportedIterableToArray(arr) || _nonIterableSpread();
-}
-// EXTERNAL MODULE: external {"commonjs":"sortablejs","commonjs2":"sortablejs","amd":"sortablejs","root":"Sortable"}
-var external_commonjs_sortablejs_commonjs2_sortablejs_amd_sortablejs_root_Sortable_ = __webpack_require__("a352");
-var external_commonjs_sortablejs_commonjs2_sortablejs_amd_sortablejs_root_Sortable_default = /*#__PURE__*/__webpack_require__.n(external_commonjs_sortablejs_commonjs2_sortablejs_amd_sortablejs_root_Sortable_);
-
-// EXTERNAL MODULE: ./src/util/helper.js
-var helper = __webpack_require__("c649");
-
-// CONCATENATED MODULE: ./src/vuedraggable.js
-
-
-
-
-
-
-
-
-
-
-
-
-function buildAttribute(object, propName, value) {
-  if (value === undefined) {
-    return object;
-  }
-
-  object = object || {};
-  object[propName] = value;
-  return object;
-}
-
-function computeVmIndex(vnodes, element) {
-  return vnodes.map(function (elt) {
-    return elt.elm;
-  }).indexOf(element);
-}
-
-function _computeIndexes(slots, children, isTransition, footerOffset) {
-  if (!slots) {
-    return [];
-  }
-
-  var elmFromNodes = slots.map(function (elt) {
-    return elt.elm;
-  });
-  var footerIndex = children.length - footerOffset;
-
-  var rawIndexes = _toConsumableArray(children).map(function (elt, idx) {
-    return idx >= footerIndex ? elmFromNodes.length : elmFromNodes.indexOf(elt);
-  });
-
-  return isTransition ? rawIndexes.filter(function (ind) {
-    return ind !== -1;
-  }) : rawIndexes;
-}
-
-function emit(evtName, evtData) {
-  var _this = this;
-
-  this.$nextTick(function () {
-    return _this.$emit(evtName.toLowerCase(), evtData);
-  });
-}
-
-function delegateAndEmit(evtName) {
-  var _this2 = this;
-
-  return function (evtData) {
-    if (_this2.realList !== null) {
-      _this2["onDrag" + evtName](evtData);
-    }
-
-    emit.call(_this2, evtName, evtData);
-  };
-}
-
-function isTransitionName(name) {
-  return ["transition-group", "TransitionGroup"].includes(name);
-}
-
-function vuedraggable_isTransition(slots) {
-  if (!slots || slots.length !== 1) {
-    return false;
-  }
-
-  var _slots = _slicedToArray(slots, 1),
-      componentOptions = _slots[0].componentOptions;
-
-  if (!componentOptions) {
-    return false;
-  }
-
-  return isTransitionName(componentOptions.tag);
-}
-
-function getSlot(slot, scopedSlot, key) {
-  return slot[key] || (scopedSlot[key] ? scopedSlot[key]() : undefined);
-}
-
-function computeChildrenAndOffsets(children, slot, scopedSlot) {
-  var headerOffset = 0;
-  var footerOffset = 0;
-  var header = getSlot(slot, scopedSlot, "header");
-
-  if (header) {
-    headerOffset = header.length;
-    children = children ? [].concat(_toConsumableArray(header), _toConsumableArray(children)) : _toConsumableArray(header);
-  }
-
-  var footer = getSlot(slot, scopedSlot, "footer");
-
-  if (footer) {
-    footerOffset = footer.length;
-    children = children ? [].concat(_toConsumableArray(children), _toConsumableArray(footer)) : _toConsumableArray(footer);
-  }
-
-  return {
-    children: children,
-    headerOffset: headerOffset,
-    footerOffset: footerOffset
-  };
-}
-
-function getComponentAttributes($attrs, componentData) {
-  var attributes = null;
-
-  var update = function update(name, value) {
-    attributes = buildAttribute(attributes, name, value);
-  };
-
-  var attrs = Object.keys($attrs).filter(function (key) {
-    return key === "id" || key.startsWith("data-");
-  }).reduce(function (res, key) {
-    res[key] = $attrs[key];
-    return res;
-  }, {});
-  update("attrs", attrs);
-
-  if (!componentData) {
-    return attributes;
-  }
-
-  var on = componentData.on,
-      props = componentData.props,
-      componentDataAttrs = componentData.attrs;
-  update("on", on);
-  update("props", props);
-  Object.assign(attributes.attrs, componentDataAttrs);
-  return attributes;
-}
-
-var eventsListened = ["Start", "Add", "Remove", "Update", "End"];
-var eventsToEmit = ["Choose", "Unchoose", "Sort", "Filter", "Clone"];
-var readonlyProperties = ["Move"].concat(eventsListened, eventsToEmit).map(function (evt) {
-  return "on" + evt;
-});
-var draggingElement = null;
-var props = {
-  options: Object,
-  list: {
-    type: Array,
-    required: false,
-    default: null
-  },
-  value: {
-    type: Array,
-    required: false,
-    default: null
-  },
-  noTransitionOnDrag: {
-    type: Boolean,
-    default: false
-  },
-  clone: {
-    type: Function,
-    default: function _default(original) {
-      return original;
-    }
-  },
-  element: {
-    type: String,
-    default: "div"
-  },
-  tag: {
-    type: String,
-    default: null
-  },
-  move: {
-    type: Function,
-    default: null
-  },
-  componentData: {
-    type: Object,
-    required: false,
-    default: null
-  }
-};
-var draggableComponent = {
-  name: "draggable",
-  inheritAttrs: false,
-  props: props,
-  data: function data() {
-    return {
-      transitionMode: false,
-      noneFunctionalComponentMode: false
-    };
-  },
-  render: function render(h) {
-    var slots = this.$slots.default;
-    this.transitionMode = vuedraggable_isTransition(slots);
-
-    var _computeChildrenAndOf = computeChildrenAndOffsets(slots, this.$slots, this.$scopedSlots),
-        children = _computeChildrenAndOf.children,
-        headerOffset = _computeChildrenAndOf.headerOffset,
-        footerOffset = _computeChildrenAndOf.footerOffset;
-
-    this.headerOffset = headerOffset;
-    this.footerOffset = footerOffset;
-    var attributes = getComponentAttributes(this.$attrs, this.componentData);
-    return h(this.getTag(), attributes, children);
-  },
-  created: function created() {
-    if (this.list !== null && this.value !== null) {
-      helper["b" /* console */].error("Value and list props are mutually exclusive! Please set one or another.");
-    }
-
-    if (this.element !== "div") {
-      helper["b" /* console */].warn("Element props is deprecated please use tag props instead. See https://github.com/SortableJS/Vue.Draggable/blob/master/documentation/migrate.md#element-props");
-    }
-
-    if (this.options !== undefined) {
-      helper["b" /* console */].warn("Options props is deprecated, add sortable options directly as vue.draggable item, or use v-bind. See https://github.com/SortableJS/Vue.Draggable/blob/master/documentation/migrate.md#options-props");
-    }
-  },
-  mounted: function mounted() {
-    var _this3 = this;
-
-    this.noneFunctionalComponentMode = this.getTag().toLowerCase() !== this.$el.nodeName.toLowerCase() && !this.getIsFunctional();
-
-    if (this.noneFunctionalComponentMode && this.transitionMode) {
-      throw new Error("Transition-group inside component is not supported. Please alter tag value or remove transition-group. Current tag value: ".concat(this.getTag()));
-    }
-
-    var optionsAdded = {};
-    eventsListened.forEach(function (elt) {
-      optionsAdded["on" + elt] = delegateAndEmit.call(_this3, elt);
-    });
-    eventsToEmit.forEach(function (elt) {
-      optionsAdded["on" + elt] = emit.bind(_this3, elt);
-    });
-    var attributes = Object.keys(this.$attrs).reduce(function (res, key) {
-      res[Object(helper["a" /* camelize */])(key)] = _this3.$attrs[key];
-      return res;
-    }, {});
-    var options = Object.assign({}, this.options, attributes, optionsAdded, {
-      onMove: function onMove(evt, originalEvent) {
-        return _this3.onDragMove(evt, originalEvent);
-      }
-    });
-    !("draggable" in options) && (options.draggable = ">*");
-    this._sortable = new external_commonjs_sortablejs_commonjs2_sortablejs_amd_sortablejs_root_Sortable_default.a(this.rootContainer, options);
-    this.computeIndexes();
-  },
-  beforeDestroy: function beforeDestroy() {
-    if (this._sortable !== undefined) this._sortable.destroy();
-  },
-  computed: {
-    rootContainer: function rootContainer() {
-      return this.transitionMode ? this.$el.children[0] : this.$el;
-    },
-    realList: function realList() {
-      return this.list ? this.list : this.value;
-    }
-  },
-  watch: {
-    options: {
-      handler: function handler(newOptionValue) {
-        this.updateOptions(newOptionValue);
-      },
-      deep: true
-    },
-    $attrs: {
-      handler: function handler(newOptionValue) {
-        this.updateOptions(newOptionValue);
-      },
-      deep: true
-    },
-    realList: function realList() {
-      this.computeIndexes();
-    }
-  },
-  methods: {
-    getIsFunctional: function getIsFunctional() {
-      var fnOptions = this._vnode.fnOptions;
-      return fnOptions && fnOptions.functional;
-    },
-    getTag: function getTag() {
-      return this.tag || this.element;
-    },
-    updateOptions: function updateOptions(newOptionValue) {
-      for (var property in newOptionValue) {
-        var value = Object(helper["a" /* camelize */])(property);
-
-        if (readonlyProperties.indexOf(value) === -1) {
-          this._sortable.option(value, newOptionValue[property]);
-        }
-      }
-    },
-    getChildrenNodes: function getChildrenNodes() {
-      if (this.noneFunctionalComponentMode) {
-        return this.$children[0].$slots.default;
-      }
-
-      var rawNodes = this.$slots.default;
-      return this.transitionMode ? rawNodes[0].child.$slots.default : rawNodes;
-    },
-    computeIndexes: function computeIndexes() {
-      var _this4 = this;
-
-      this.$nextTick(function () {
-        _this4.visibleIndexes = _computeIndexes(_this4.getChildrenNodes(), _this4.rootContainer.children, _this4.transitionMode, _this4.footerOffset);
-      });
-    },
-    getUnderlyingVm: function getUnderlyingVm(htmlElt) {
-      var index = computeVmIndex(this.getChildrenNodes() || [], htmlElt);
-
-      if (index === -1) {
-        //Edge case during move callback: related element might be
-        //an element different from collection
-        return null;
-      }
-
-      var element = this.realList[index];
-      return {
-        index: index,
-        element: element
-      };
-    },
-    getUnderlyingPotencialDraggableComponent: function getUnderlyingPotencialDraggableComponent(_ref) {
-      var vue = _ref.__vue__;
-
-      if (!vue || !vue.$options || !isTransitionName(vue.$options._componentTag)) {
-        if (!("realList" in vue) && vue.$children.length === 1 && "realList" in vue.$children[0]) return vue.$children[0];
-        return vue;
-      }
-
-      return vue.$parent;
-    },
-    emitChanges: function emitChanges(evt) {
-      var _this5 = this;
-
-      this.$nextTick(function () {
-        _this5.$emit("change", evt);
-      });
-    },
-    alterList: function alterList(onList) {
-      if (this.list) {
-        onList(this.list);
-        return;
-      }
-
-      var newList = _toConsumableArray(this.value);
-
-      onList(newList);
-      this.$emit("input", newList);
-    },
-    spliceList: function spliceList() {
-      var _arguments = arguments;
-
-      var spliceList = function spliceList(list) {
-        return list.splice.apply(list, _toConsumableArray(_arguments));
-      };
-
-      this.alterList(spliceList);
-    },
-    updatePosition: function updatePosition(oldIndex, newIndex) {
-      var updatePosition = function updatePosition(list) {
-        return list.splice(newIndex, 0, list.splice(oldIndex, 1)[0]);
-      };
-
-      this.alterList(updatePosition);
-    },
-    getRelatedContextFromMoveEvent: function getRelatedContextFromMoveEvent(_ref2) {
-      var to = _ref2.to,
-          related = _ref2.related;
-      var component = this.getUnderlyingPotencialDraggableComponent(to);
-
-      if (!component) {
-        return {
-          component: component
-        };
-      }
-
-      var list = component.realList;
-      var context = {
-        list: list,
-        component: component
-      };
-
-      if (to !== related && list && component.getUnderlyingVm) {
-        var destination = component.getUnderlyingVm(related);
-
-        if (destination) {
-          return Object.assign(destination, context);
-        }
-      }
-
-      return context;
-    },
-    getVmIndex: function getVmIndex(domIndex) {
-      var indexes = this.visibleIndexes;
-      var numberIndexes = indexes.length;
-      return domIndex > numberIndexes - 1 ? numberIndexes : indexes[domIndex];
-    },
-    getComponent: function getComponent() {
-      return this.$slots.default[0].componentInstance;
-    },
-    resetTransitionData: function resetTransitionData(index) {
-      if (!this.noTransitionOnDrag || !this.transitionMode) {
-        return;
-      }
-
-      var nodes = this.getChildrenNodes();
-      nodes[index].data = null;
-      var transitionContainer = this.getComponent();
-      transitionContainer.children = [];
-      transitionContainer.kept = undefined;
-    },
-    onDragStart: function onDragStart(evt) {
-      this.context = this.getUnderlyingVm(evt.item);
-      evt.item._underlying_vm_ = this.clone(this.context.element);
-      draggingElement = evt.item;
-    },
-    onDragAdd: function onDragAdd(evt) {
-      var element = evt.item._underlying_vm_;
-
-      if (element === undefined) {
-        return;
-      }
-
-      Object(helper["d" /* removeNode */])(evt.item);
-      var newIndex = this.getVmIndex(evt.newIndex);
-      this.spliceList(newIndex, 0, element);
-      this.computeIndexes();
-      var added = {
-        element: element,
-        newIndex: newIndex
-      };
-      this.emitChanges({
-        added: added
-      });
-    },
-    onDragRemove: function onDragRemove(evt) {
-      Object(helper["c" /* insertNodeAt */])(this.rootContainer, evt.item, evt.oldIndex);
-
-      if (evt.pullMode === "clone") {
-        Object(helper["d" /* removeNode */])(evt.clone);
-        return;
-      }
-
-      var oldIndex = this.context.index;
-      this.spliceList(oldIndex, 1);
-      var removed = {
-        element: this.context.element,
-        oldIndex: oldIndex
-      };
-      this.resetTransitionData(oldIndex);
-      this.emitChanges({
-        removed: removed
-      });
-    },
-    onDragUpdate: function onDragUpdate(evt) {
-      Object(helper["d" /* removeNode */])(evt.item);
-      Object(helper["c" /* insertNodeAt */])(evt.from, evt.item, evt.oldIndex);
-      var oldIndex = this.context.index;
-      var newIndex = this.getVmIndex(evt.newIndex);
-      this.updatePosition(oldIndex, newIndex);
-      var moved = {
-        element: this.context.element,
-        oldIndex: oldIndex,
-        newIndex: newIndex
-      };
-      this.emitChanges({
-        moved: moved
-      });
-    },
-    updateProperty: function updateProperty(evt, propertyName) {
-      evt.hasOwnProperty(propertyName) && (evt[propertyName] += this.headerOffset);
-    },
-    computeFutureIndex: function computeFutureIndex(relatedContext, evt) {
-      if (!relatedContext.element) {
-        return 0;
-      }
-
-      var domChildren = _toConsumableArray(evt.to.children).filter(function (el) {
-        return el.style["display"] !== "none";
-      });
-
-      var currentDOMIndex = domChildren.indexOf(evt.related);
-      var currentIndex = relatedContext.component.getVmIndex(currentDOMIndex);
-      var draggedInList = domChildren.indexOf(draggingElement) !== -1;
-      return draggedInList || !evt.willInsertAfter ? currentIndex : currentIndex + 1;
-    },
-    onDragMove: function onDragMove(evt, originalEvent) {
-      var onMove = this.move;
-
-      if (!onMove || !this.realList) {
-        return true;
-      }
-
-      var relatedContext = this.getRelatedContextFromMoveEvent(evt);
-      var draggedContext = this.context;
-      var futureIndex = this.computeFutureIndex(relatedContext, evt);
-      Object.assign(draggedContext, {
-        futureIndex: futureIndex
-      });
-      var sendEvt = Object.assign({}, evt, {
-        relatedContext: relatedContext,
-        draggedContext: draggedContext
-      });
-      return onMove(sendEvt, originalEvent);
-    },
-    onDragEnd: function onDragEnd() {
-      this.computeIndexes();
-      draggingElement = null;
-    }
-  }
-};
-
-if (typeof window !== "undefined" && "Vue" in window) {
-  window.Vue.component("draggable", draggableComponent);
-}
-
-/* harmony default export */ var vuedraggable = (draggableComponent);
-// CONCATENATED MODULE: ./node_modules/@vue/cli-service/lib/commands/build/entry-lib.js
-
-
-/* harmony default export */ var entry_lib = __webpack_exports__["default"] = (vuedraggable);
-
-
-
-/***/ })
-
-/******/ })["default"];
-//# sourceMappingURL=vuedraggable.common.js.map
-
-/***/ }),
-
-/***/ 1094:
-/***/ (function(module, exports, __webpack_require__) {
-
-exports = module.exports = __webpack_require__(53)();
-// imports
-
-
-// module
-exports.push([module.i, "\n.productedit .form-control {\n    height: 35px;\n}\n.panel-body ul li .thumb {\n    float: left;\n    height: 30px;\n    margin-right: 10px;\n    overflow: hidden;\n    width: 30px;\n    border: 1px solid #ddd;\n}\n.panel-body ul li p.text-muted {\n    font-size: 11px;\n    line-height: 15px;\n}\n.panel-body ul li p {\n    margin-bottom: 0px;\n}\n.panel-body ul li {\n    border-bottom: 1px solid #e6e6fa;\n    cursor: pointer;\n    list-style-type: none;\n    padding: 4px 0;\n    padding-left: 10px;\n}\n/* width */\n::-webkit-scrollbar {\n    width: 10px;\n}\n\n/* Track */\n::-webkit-scrollbar-track {\n    background: #f1f1f1;\n}\n\n/* Handle */\n::-webkit-scrollbar-thumb {\n    background: #888;\n}\n\n    /* Handle on hover */\n::-webkit-scrollbar-thumb:hover {\n        background: #555;\n}\n.row ul li.active, #rlist .row ul li.active {\n    background: #f1f7fd;\n}\n.pagination .page-item .page-link {\n    font-size: 15px;\n}\n.pagination {\n    margin-top: 10px\n}\n", "", {"version":3,"sources":["D:/Code/WORKING/dotnet-platform-backend/Web/Platform/CMS/PlatformCMS/ClientApp/pages/product/region.vue?432ba76c"],"names":[],"mappings":";AAyYA;IACA,aAAA;CACA;AAGA;IACA,YAAA;IACA,aAAA;IACA,mBAAA;IACA,iBAAA;IACA,YAAA;IACA,uBAAA;CACA;AAIA;IACA,gBAAA;IACA,kBAAA;CACA;AAEA;IACA,mBAAA;CACA;AAEA;IACA,iCAAA;IACA,gBAAA;IACA,sBAAA;IACA,eAAA;IACA,mBAAA;CACA;AACA,WAAA;AACA;IACA,YAAA;CACA;;AAEA,WAAA;AACA;IACA,oBAAA;CACA;;AAEA,YAAA;AACA;IACA,iBAAA;CACA;;IAEA,qBAAA;AACA;QACA,iBAAA;CACA;AAEA;IACA,oBAAA;CACA;AAGA;IACA,gBAAA;CACA;AAEA;IACA,gBAAA;CACA","file":"region.vue","sourcesContent":["<template>\r\n    <div class=\"row productedit\">\r\n        <div class=\"col-sm-12 col-md-12\">\r\n            <div class=\"card\">\r\n                <div class=\"card-header\">\r\n                    Vùng hiển thị trên Website\r\n                </div>\r\n                <div class=\"card-body\">\r\n                    <div class=\"row\">\r\n                        <div class=\"col-md-5\">\r\n                            <div class=\"panel panel-white\">\r\n                                <div class=\"panel-heading\">\r\n                                    <div style=\"display:flex;width:100%\">\r\n                                        <div class=\"col-md-7\" style=\"padding-left:0px\">\r\n                                            <treeselect :multiple=\"false\"\r\n                                                        :options=\"unflattenBase(ListZone)\"\r\n                                                        placeholder=\"Xin mời bạn lựa chọn danh mục\"\r\n                                                        v-model=\"SearchZoneId\"\r\n                                                        :default-expanded-level=\"Infinity\" />\r\n                                        </div>\r\n                                        <div class=\"input-group\" style=\"display:flex;width:40%\">\r\n                                            <input type=\"text\" autocomplete=\"off\" v-model=\"keyword\" placeholder=\"Tìm kiếm sản phẩm\" v-on:keyup.enter=\"onLoadProduct()\" class=\"form-control\"> <span @click=\"onLoadProduct()\" class=\"input-group-addon bg-primary\" style=\"cursor: pointer; width: 45px;\"><i class=\"fa fa-search\" style=\"padding-top: 10px; padding-left: 15px;\"></i></span>\r\n                                        </div>\r\n                                    </div>\r\n                                </div>\r\n                                <div class=\"panel-body\">\r\n                                    <div class=\"slimScrollDiv\" style=\"position: relative; overflow-x: scroll; width: auto; height: 300px;margin-top:10px\">\r\n                                        <div class=\"row\" style=\"width: auto; height: 300px;\">\r\n                                            <ul style=\"padding:20px;padding-left:10px ;width:100%\">\r\n                                                <li v-for=\"(item,index) in ListProduct\" @click=\"changeValueLeft(index)\" :class=\"{'active':item.active==true}\">\r\n                                                    <a class=\"thumb\"><img :src=\"pathImgs(item.avatar)\" width=\"30\"></a>\r\n                                                    <p style=\"font-size:13px;overflow:hidden\">Mã: {{item.code}}</p>\r\n                                                    <p class=\"text-muted\">Tên: {{item.name}}</p>\r\n                                                </li>\r\n                                            </ul>\r\n                                        </div>\r\n                                    </div>\r\n                                </div>\r\n                                <div class=\"panel-footer\">\r\n                                    <b-pagination v-model=\"currentPage\"\r\n                                                  :total-rows=\"total\"\r\n                                                  :per-page=\"pageSize\"></b-pagination>\r\n                                </div>\r\n                            </div>\r\n                        </div>\r\n                        <div class=\"col-md-1\" style=\"padding-top:30px\">\r\n                            <button class=\"btn btn-primary btn-block mb-2\" title=\"Thêm sản phẩm\" @click=\"onetoRight\"><i class=\"fa fa-angle-right\" aria-hidden=\"true\"></i></button>\r\n                            <button class=\"btn btn-danger btn-block mb-2\" title=\"Xóa sản phẩm\" @click=\"onetoRemove\"><i class=\"fa fa-trash\" aria-hidden=\"true\"></i></button>\r\n                        </div>\r\n                        <div class=\"col-md-6\">\r\n                            <div class=\"panel panel-white\">\r\n                                <div class=\"panel-heading\">\r\n                                    <div style=\"display:flex\">\r\n                                        <!--<div style=\"display:flex;width:30%\">\r\n                                        <select v-model=\"SelectedRegion\" class=\"form-control\">\r\n                                            <option v-for=\"item in ListRegion\" :value=\"item.key\">\r\n                                                {{item.value}}\r\n                                            </option>\r\n                                        </select>\r\n                                    </div>-->\r\n                                        <div style=\"display:flex;width:40%;padding-left:2%\">\r\n                                            <treeselect :multiple=\"false\"\r\n                                                        :options=\"unflattenBase(ListZoneRight)\"\r\n                                                        placeholder=\"Xin mời bạn lựa chọn danh mục\"\r\n                                                        v-model=\"ChoseZoneId\"\r\n                                                        :default-expanded-level=\"Infinity\" />\r\n                                        </div>\r\n                                        <div style=\"display:flex;width:15%;padding-left:2%\">\r\n                                            <button class=\"btn btn-info btn-submit-form col-md-12 btncus\" type=\"submit\" @click=\"AddProductByRegion()\">\r\n                                                <i class=\"fa fa-save\"></i> Lưu\r\n                                            </button>\r\n                                        </div>\r\n                                        <div style=\"display:flex;width:10%;padding-left:2%\">\r\n                                            <button title=\"Chọn ảnh\" class=\"btn btn-danger btn-submit-form col-md-12 btncus\" @click=\"openImg('img')\" type=\"submit\">\r\n                                                <i class=\"fa fa-picture-o\"></i>\r\n                                            </button>\r\n                                        </div>\r\n                                    </div>\r\n                                </div>\r\n                                <div class=\"panel-body\">\r\n                                    <div class=\"slimScrollDiv\" style=\"position: relative; overflow-x: scroll; width: auto; height: 300px;margin-top:10px\">\r\n                                        <div class=\"row\" style=\"width: auto; height: 300px;\">\r\n\r\n                                            <ul style=\"padding:20px;padding-left:10px ;width:100%\">\r\n                                                <draggable v-model=\"ListValue\" group=\"people\" @start=\"drag=true\" @end=\"drag=false\">\r\n                                                    <li v-for=\"(item,index) in ListValue\" @click=\"changeValueRight(index)\" style=\"padding-bottom:10px\" :class=\"{'active':item.active==true}\">\r\n                                                        <div style=\"display:flex;width:100%\">\r\n                                                            <div style=\"display:flex;width:10%\">\r\n                                                                <a class=\"thumb\"><img :src=\"pathImgs(item.avatar)\" width=\"30\"></a>\r\n                                                            </div>\r\n                                                            <div style=\"display:flex;width:70%;flex-wrap:wrap\">\r\n                                                                <span style=\"font-size:13px\">  {{item.productName}}</span><p v-if=\"item.zoneId > 0\" style=\"color:#0026ff;font-size:13px;padding-right:10px\"> / {{item.zoneName}}</p>\r\n                                                                <p style=\"font-size:13px\"> <b-form-checkbox v-model=\"item.isHot\">Sản phẩm Hot</b-form-checkbox></p>\r\n                                                            </div>\r\n                                                            <div style=\"display:flex;width:20%\">\r\n                                                                <div class=\"col-md-6\">\r\n                                                                    <!--<input type=\"button\" v-model=\"item.bigThumb\"  />-->\r\n                                                                    <img v-if=\"(item.bigThumb !=null && item.bigThumb.length>0)\" style=\"width:100px;height:40px\" :src=\"pathImgs(item.bigThumb)\" />\r\n                                                                </div>\r\n                                                            </div>\r\n                                                        </div>\r\n\r\n                                                    </li>\r\n                                                </draggable>\r\n                                                \r\n                                            </ul>\r\n                                        </div>\r\n                                    </div>\r\n                                </div>\r\n                            </div>\r\n                        </div>\r\n                    </div>\r\n                </div>\r\n            </div>\r\n        </div>\r\n        <FileManager v-on:handleAttackFile=\"DoAttackFile\" :miKey=\"mikey1\" />\r\n    </div>\r\n</template>\r\n\r\n<script>\r\n\r\n    import { mapActions } from \"vuex\";\r\n    import Treeselect from '@riophae/vue-treeselect';\r\n    import { unflatten, pathImg } from '../../plugins/helper';\r\n    import '@riophae/vue-treeselect/dist/vue-treeselect.css'\r\n    import FileManager from './../../components/fileManager/list'\r\n   \r\n    import EventBus from \"./../../common/eventBus\";\r\n    import draggable from 'vuedraggable';\r\n\r\n    export default {\r\n        name: \"productinregion\",\r\n        components: {\r\n            Treeselect,\r\n            FileManager,\r\n            draggable,\r\n        },\r\n        props: {\r\n            productId: {\r\n                type: Number,\r\n                required: false,\r\n                default: 0\r\n            },\r\n            actions: {\r\n                type: Boolean,\r\n                required: false,\r\n                default: false\r\n            }\r\n        },\r\n        data() {\r\n            return {\r\n\r\n                mikey1: 'mikey1',\r\n                SelectedRegion: \"\",\r\n\r\n                SearchZoneId: 0,\r\n                ChoseZoneId: 0,\r\n                ListZone: [],\r\n                ListProduct: [],\r\n                ListValue: [],\r\n\r\n                ListRegion: [],\r\n\r\n                ListZoneRight: [],\r\n\r\n\r\n                keyword: \"\",\r\n                activeLeft: [],\r\n                activeRight: [],\r\n\r\n                pageSize: 20,\r\n                currentPage: 1,\r\n                total: 0,\r\n            };\r\n        },\r\n        mounted: function () {\r\n\r\n\r\n        },\r\n        methods: {\r\n            ...mapActions([\"getProductForCombo\", \"getAllRegion\", \"getProductByRegion\", \"getZones\", \"addProductByRegion\"]),\r\n            pathImgs(path) {\r\n                return pathImg(path);\r\n            },\r\n\r\n            openImg(img) {\r\n                this.choseImg = img;\r\n                EventBus.$emit(this.mikey1, '');\r\n            },\r\n\r\n            DoAttackFile(value) {\r\n                let vm = this;\r\n                for (let i = 0; i < vm.ListValue.length; i++) {\r\n                    if (vm.ListValue[i].active == true) {\r\n                        vm.ListValue[i].bigThumb = value[0].path;\r\n                    }\r\n                }\r\n            },\r\n            toggleActive(item) {\r\n                if (this.activeItem[item.id]) {\r\n                    this.removeActiveItem(item);\r\n                    return;\r\n                }\r\n\r\n                this.addActiveItem(item);\r\n            },\r\n\r\n            addActiveItem(item) {\r\n                this.activeItem = Object.assign({},\r\n                    this.activeItem ? [item.id] : item,\r\n                );\r\n            },\r\n            removeActiveItem(item) {\r\n                delete this.activeItem[item.id];\r\n                this.activeItem = Object.assign({}, this.activeItem);\r\n            },\r\n            onLoadProduct() {\r\n                this.activeLeft = [];\r\n                this.activeRight = [];\r\n                let initial = this.$route.query.initial;\r\n                initial = typeof initial != \"undefined\" ? initial.toLowerCase() : \"\";\r\n                this.getProductForCombo({\r\n                    keyword: this.keyword,\r\n                    idZone: this.SearchZoneId || 0,\r\n                    pageSize: this.pageSize,\r\n                    pageIndex: this.currentPage,\r\n\r\n                }).then(respose => {\r\n                    this.ListProduct = respose.listData.map(item => ({\r\n                        ...item,\r\n                        active: false\r\n                    }));\r\n                    console.log(this.ListProduct);\r\n                    this.total = respose.total;\r\n                })\r\n            },\r\n            onLoadProductByRegion() {\r\n                //debugger-\r\n                this.getProductByRegion(\r\n                    {\r\n                        zoneId: this.ChoseZoneId || 0\r\n                    }).then(respose => {\r\n                        this.ListValue = respose.map(item => ({\r\n                            ...item,\r\n                            active: false\r\n                        }));\r\n                        console.log(this.ListValue);\r\n                    })\r\n            },\r\n            onLoadProductCombo() {\r\n                this.activeLeft = [];\r\n                this.activeRight = [];\r\n                let initial = this.$route.query.initial;\r\n                initial = typeof initial != \"undefined\" ? initial.toLowerCase() : \"\";\r\n                this.getComboById(this.productId).then(respose => {\r\n                    this.ListValue = respose.listData.map(item => ({\r\n                        ...item,\r\n                        active: false\r\n                    }));\r\n\r\n                })\r\n            },\r\n            AddProductByRegion: function () {\r\n                //debugger-\r\n                if (this.ChoseZoneId > 0) {\r\n                    console.log(this.ListValue);\r\n                    this.addProductByRegion({\r\n                        zoneId: this.ChoseZoneId || 0,\r\n                        Regions: this.ListValue,\r\n                    }).then(response => {\r\n                        if (response.success == true) {\r\n                            this.$toast.success(response.message, {});\r\n\r\n                        } else {\r\n                            this.$toast.error(response.message, {});\r\n                        }\r\n                    }).catch(e => {\r\n                        this.$toast.error(\"Lỗi hệ thống\");\r\n\r\n                    });\r\n                } else {\r\n                    this.$toast.error(\"Chưa chọn vùng\");\r\n                }\r\n\r\n            },\r\n\r\n            onetoRight: function () {\r\n\r\n                if (this.ChoseZoneId > 0) {\r\n                    var vm = this;\r\n                    var data = vm.ListZone;\r\n                    var lstChose = this.ListProduct.filter(x => x.active == true).map(item => ({\r\n                        productId: item.id,\r\n                        isHot: false,\r\n                        productName: item.name,\r\n                        avatar: item.avatar,\r\n                        zoneId: vm.ChoseZoneId,\r\n                        bigThumb: \"\",\r\n                        active: false,\r\n                        zoneName: vm.ListZoneRight.filter(x => x.id == vm.ChoseZoneId)[0].label\r\n                    }));\r\n\r\n                    this.ListProduct = this.ListProduct.map(item => ({\r\n                        ...item,\r\n                        active: false\r\n                    }))\r\n\r\n                    this.ListValue = [...this.ListValue, ...lstChose];\r\n\r\n                } else {\r\n                    this.$toast.error(\"Chưa chọn vùng\", {});\r\n                }\r\n\r\n            },\r\n            onetoRemove: function () {\r\n                //debugger-\r\n                this.ListValue = this.ListValue.filter(x => x.active != true);\r\n            },\r\n\r\n            changeValueLeft: function (id) {\r\n                if (this.ListProduct[id].active == true) {\r\n                    this.ListProduct[id].active = false;\r\n                } else {\r\n                    this.ListProduct[id].active = true;\r\n                }\r\n            },\r\n            changeValueRight: function (id) {\r\n                if (this.ListValue[id].active == true) {\r\n                    this.ListValue[id].active = false;\r\n                } else {\r\n                    this.ListValue[id].active = true;\r\n                }\r\n            },\r\n            ExistId(id) {\r\n\r\n            },\r\n            unflattenBase(data) {\r\n                return unflatten(data);\r\n            },\r\n        },\r\n        created() {\r\n            var vm = this;\r\n            EventBus.$on('FileSelected', value => {\r\n                //debugger-\r\n                \r\n\r\n                console.log(vm.ListValue);\r\n            })\r\n\r\n            this.getAllRegion().then(respose => {\r\n                this.ListRegion = respose;\r\n            });\r\n\r\n            this.getZones(0).then(respose => {\r\n                try {\r\n                    //debugger-\r\n                    respose.listData.push({ id: 0, label: \"Chọn danh mục cha\", parentId: 0 });\r\n                    var data = respose.listData;\r\n                    var dataRight = data.filter(x => x.type == 7 || x.id == 0);\r\n                    var dataLeft = data.filter(x => x.type == 1 || x.id == 0);\r\n                    this.ListZone = dataLeft;\r\n                    this.ListZoneRight = dataRight;\r\n                }\r\n                catch (ex) {\r\n\r\n                }\r\n\r\n            });\r\n            this.onLoadProduct();\r\n        },\r\n        destroyed() {\r\n            EventBus.$off('FileSelected');\r\n        },\r\n        watch: {\r\n            currentPage: function (newVal) {\r\n                this.currentPage = newVal;\r\n                this.onLoadProduct();\r\n            },\r\n\r\n            ChoseZoneId: function (newVal) {\r\n\r\n                //debugger-\r\n\r\n                this.onLoadProductByRegion();\r\n            },\r\n            SearchZoneId: function (newVal) {\r\n                this.onLoadProduct();\r\n            },\r\n        }\r\n    };\r\n</script>\r\n\r\n<style>\r\n    .productedit .form-control {\r\n        height: 35px;\r\n    }\r\n\r\n\r\n    .panel-body ul li .thumb {\r\n        float: left;\r\n        height: 30px;\r\n        margin-right: 10px;\r\n        overflow: hidden;\r\n        width: 30px;\r\n        border: 1px solid #ddd;\r\n    }\r\n\r\n\r\n\r\n    .panel-body ul li p.text-muted {\r\n        font-size: 11px;\r\n        line-height: 15px;\r\n    }\r\n\r\n    .panel-body ul li p {\r\n        margin-bottom: 0px;\r\n    }\r\n\r\n    .panel-body ul li {\r\n        border-bottom: 1px solid #e6e6fa;\r\n        cursor: pointer;\r\n        list-style-type: none;\r\n        padding: 4px 0;\r\n        padding-left: 10px;\r\n    }\r\n    /* width */\r\n    ::-webkit-scrollbar {\r\n        width: 10px;\r\n    }\r\n\r\n    /* Track */\r\n    ::-webkit-scrollbar-track {\r\n        background: #f1f1f1;\r\n    }\r\n\r\n    /* Handle */\r\n    ::-webkit-scrollbar-thumb {\r\n        background: #888;\r\n    }\r\n\r\n        /* Handle on hover */\r\n        ::-webkit-scrollbar-thumb:hover {\r\n            background: #555;\r\n        }\r\n\r\n    .row ul li.active, #rlist .row ul li.active {\r\n        background: #f1f7fd;\r\n    }\r\n\r\n\r\n    .pagination .page-item .page-link {\r\n        font-size: 15px;\r\n    }\r\n\r\n    .pagination {\r\n        margin-top: 10px\r\n    }\r\n</style>\r\n"],"sourceRoot":""}]);
-
-// exports
-
-
-/***/ }),
-
-/***/ 1245:
+/***/ 1010:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -18164,340 +11188,539 @@ Object.defineProperty(exports, "__esModule", {
     value: true
 });
 
-var _toConsumableArray2 = __webpack_require__(1019);
+var _from = __webpack_require__(936);
 
-var _toConsumableArray3 = _interopRequireDefault(_toConsumableArray2);
+var _from2 = _interopRequireDefault(_from);
 
-var _assign = __webpack_require__(377);
+var _stringify = __webpack_require__(390);
 
-var _assign2 = _interopRequireDefault(_assign);
+var _stringify2 = _interopRequireDefault(_stringify);
 
-var _extends2 = __webpack_require__(7);
+var _extends2 = __webpack_require__(8);
 
 var _extends3 = _interopRequireDefault(_extends2);
 
-var _vuex = __webpack_require__(180);
-
-var _vueTreeselect = __webpack_require__(951);
-
-var _vueTreeselect2 = _interopRequireDefault(_vueTreeselect);
-
-var _helper = __webpack_require__(950);
-
-__webpack_require__(953);
-
-var _list = __webpack_require__(1008);
+var _list = __webpack_require__(991);
 
 var _list2 = _interopRequireDefault(_list);
 
-var _eventBus = __webpack_require__(957);
+__webpack_require__(779);
 
-var _eventBus2 = _interopRequireDefault(_eventBus);
+var _vuex = __webpack_require__(176);
 
-var _vuedraggable = __webpack_require__(1049);
+var _vueLoadingOverlay = __webpack_require__(373);
 
-var _vuedraggable2 = _interopRequireDefault(_vuedraggable);
+var _vueLoadingOverlay2 = _interopRequireDefault(_vueLoadingOverlay);
+
+var _vueTreeselect = __webpack_require__(933);
+
+var _vueTreeselect2 = _interopRequireDefault(_vueTreeselect);
+
+__webpack_require__(935);
+
+var _helper = __webpack_require__(932);
+
+var _ckeditor4Vue = __webpack_require__(393);
+
+var _ckeditor4Vue2 = _interopRequireDefault(_ckeditor4Vue);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
+var _config = __webpack_require__(982);
+
 exports.default = {
-    name: "productinregion",
-    components: {
-        Treeselect: _vueTreeselect2.default,
-        FileManager: _list2.default,
-        draggable: _vuedraggable2.default
-    },
+    name: "App2",
     props: {
-        productId: {
-            type: Number,
-            required: false,
-            default: 0
+        contentEditor: {
+            type: String
         },
-        actions: {
-            type: Boolean,
-            required: false,
-            default: false
-        }
+        index: { type: Number },
+        mathElements: { type: Array }
     },
     data: function data() {
         return {
-
-            mikey1: 'mikey1',
-            SelectedRegion: "",
+            modalShowProduct: false,
+            modalShowFile: false,
+            imageAttacks: '',
+            content: this.contentEditor,
+            config: {
+                extraPlugins: "niw_btn,product_shortcode_btn",
+                allowedContent: true,
+                format_tags: 'p;h1;h2;h3;h4;h5;h6;pre;address;div'
+            },
 
             SearchZoneId: 0,
-            ChoseZoneId: 0,
-            ListZone: [],
-            ListProduct: [],
-            ListValue: [],
+            fullPage: false,
+            color: "#007bff",
+            isLoadLang: false,
+            currentPageProductManager: 1,
+            currentPageFileManager: 1,
+            pageSize: 24,
+            isLoading: false,
+            selectedProduct: [],
+            isActive: false,
+            selectType: '',
+            ZoneOptions: [],
+            curentEditor: '',
 
-            ListRegion: [],
-
-            ListZoneRight: [],
-
-            keyword: "",
-            activeLeft: [],
-            activeRight: [],
-
-            pageSize: 20,
-            currentPage: 1,
-            total: 0
+            MaxFileSize: 3000,
+            selectedFile: [],
+            extensions: [],
+            extImage: [],
+            keyword: '',
+            index_p: this.index
         };
     },
 
-    mounted: function mounted() {},
-    methods: (0, _extends3.default)({}, (0, _vuex.mapActions)(["getProductForCombo", "getAllRegion", "getProductByRegion", "getZones", "addProductByRegion"]), {
+    components: {
+
+        FileManager: _list2.default,
+        Treeselect: _vueTreeselect2.default,
+        Loading: _vueLoadingOverlay2.default
+    },
+    created: function created() {
+        var _config = __webpack_require__(982);
+        this.extImage = _config.AppSettings.ImageAllowUpload;
+        this.extensions = _config.AppSettings.ImageAllowUpload.concat(_config.AppSettings.DocumentAllowUpload);
+    },
+
+    computed: (0, _extends3.default)({
+        files: function files() {
+            return this.$store.getters.files;
+        }
+    }, (0, _vuex.mapGetters)(["products"])),
+    mounted: function mounted() {
+        this.CKAddCustomPlugin();
+    },
+
+    methods: (0, _extends3.default)({
+        CKAddCustomPlugin: function CKAddCustomPlugin() {
+            var $this = this;
+
+
+            var e = this.config.extraPlugins;
+            var extraConfigs = e.split(',');
+
+            this.config.extraPlugins = extraConfigs.join(',');
+
+            if (!CKEDITOR.plugins.get("niw_btn")) {
+                CKEDITOR.plugins.add("niw_btn", {
+                    init: function init(editor) {
+                        editor.ui.addButton && editor.ui.addButton("uploadImg", {
+                            label: "Tải hình ảnh",
+                            command: "filemanager",
+                            icon: "https://hoc24.vn/media/cke24/plugins/imgur/images/icon.png?t=14",
+                            toolbar: "insert"
+                        });
+                        editor.addCommand("filemanager", {
+                            exec: function exec(editor) {
+                                $this.FileManagers('multi', editor);
+                                $this.curentEditor = editor;
+                            }
+                        });
+                    }
+                });
+            }
+            if (!CKEDITOR.plugins.get("product_shortcode_btn")) {
+                CKEDITOR.plugins.add("product_shortcode_btn", {
+                    init: function init(editor) {
+
+                        editor.ui.addButton && editor.ui.addButton("InsertProduct", {
+                            label: "Chèn sản phẩm",
+                            command: "InsertProduct",
+                            icon: "https://cdn-icons-png.flaticon.com/512/81/81960.png",
+                            toolbar: "insert"
+                        });
+                        editor.addCommand("InsertProduct", {
+                            exec: function exec(editor) {
+                                $this.ProductManages('multi', editor);
+                                $this.curentEditor = editor;
+                            }
+                        });
+                    }
+                });
+            }
+        },
+        toggleEditorDisabled: function toggleEditorDisabled() {
+            this.editorDisabled = !this.editorDisabled;
+        },
+        destroyApp: function destroyApp() {},
+        onEditorInput: function onEditorInput(data, event, editor) {
+            if (this.index_p >= 0) {
+                var dt = {
+                    content: this.content,
+                    index: this.index_p
+
+                };
+
+                this.$emit("handleEditorInput", (0, _stringify2.default)(dt));
+            } else {
+                this.$emit("handleEditorInput", this.content);
+            }
+        },
+        onEditorDestroy: function onEditorDestroy(editor) {
+            console.log("Editor destroyed.", { editor: editor });
+        }
+    }, (0, _vuex.mapActions)(["getProducts", "getZones"]), {
         pathImgs: function pathImgs(path) {
             return (0, _helper.pathImg)(path);
         },
-        openImg: function openImg(img) {
-            this.choseImg = img;
-            _eventBus2.default.$emit(this.mikey1, '');
-        },
-        DoAttackFile: function DoAttackFile(value) {
-            var vm = this;
-            for (var i = 0; i < vm.ListValue.length; i++) {
-                if (vm.ListValue[i].active == true) {
-                    vm.ListValue[i].bigThumb = value[0].path;
+        SelectProduct: function SelectProduct(event, file) {
+            if (this.selectType == 'multi') {
+                if (event.currentTarget.classList.contains('_active')) {
+                    event.currentTarget.classList.remove('_active');
+                    this.selectedProduct = this.selectedProduct.filter(function (obj) {
+                        return obj.id != file.id;
+                    });
+                } else {
+                    event.currentTarget.classList.add("_active");
+                    this.selectedProduct.push(file);
+                }
+            } else {
+                this.selectedFile = [];
+                if (event.currentTarget.classList.contains('_active')) {
+                    event.currentTarget.classList.remove('_active');
+                } else {
+                    var items = document.querySelectorAll('.item');
+                    items.forEach(function (item) {
+                        item.classList.remove('_active');
+                    });
+                    event.currentTarget.classList.add("_active");
+                    this.selectedProduct.push(file);
                 }
             }
         },
-        toggleActive: function toggleActive(item) {
-            if (this.activeItem[item.id]) {
-                this.removeActiveItem(item);
-                return;
-            }
-
-            this.addActiveItem(item);
-        },
-        addActiveItem: function addActiveItem(item) {
-            this.activeItem = (0, _assign2.default)({}, this.activeItem ? [item.id] : item);
-        },
-        removeActiveItem: function removeActiveItem(item) {
-            delete this.activeItem[item.id];
-            this.activeItem = (0, _assign2.default)({}, this.activeItem);
-        },
-        onLoadProduct: function onLoadProduct() {
+        ProductManages: function ProductManages(param) {
             var _this = this;
 
-            this.activeLeft = [];
-            this.activeRight = [];
-            var initial = this.$route.query.initial;
-            initial = typeof initial != "undefined" ? initial.toLowerCase() : "";
-            this.getProductForCombo({
-                keyword: this.keyword,
-                idZone: this.SearchZoneId || 0,
-                pageSize: this.pageSize,
-                pageIndex: this.currentPage
+            this.modalShowProduct = true;
+            this.selectType = param;
 
-            }).then(function (respose) {
-                _this.ListProduct = respose.listData.map(function (item) {
-                    return (0, _extends3.default)({}, item, {
-                        active: false
-                    });
-                });
-                console.log(_this.ListProduct);
-                _this.total = respose.total;
+            this.getZones(1).then(function (respose) {
+                var data = respose.listData;
+                data.push({ id: 0, label: "Danh mục", parentId: 0 });
+                _this.ZoneOptions = (0, _helper.unflatten)(data);
+            }).then(function (res) {});
+            this.getProducts({
+                pageIndex: this.currentPageProductManager,
+                pageSize: this.pageSize,
+                idZone: this.SearchZoneId
+            }).then(function (subRes) {});
+        },
+        LoadFile: function LoadFile() {
+            this.fmFileGetAll({
+                keyword: this.keyword,
+                pageIndex: this.currentPageFileManager,
+                pageSize: this.pageSize
             });
         },
-        onLoadProductByRegion: function onLoadProductByRegion() {
+        hideProductModal: function hideProductModal() {
+            this.modalShowProduct = false;
+        },
+        attackProduct: function attackProduct() {
+            var ids = [];
+            var pros = this.selectedProduct;
+            for (var x in pros) {
+                ids.push(pros[x].id);
+            }
+            this.curentEditor.insertHtml('<p><product data-id-list="' + ids.join(',').toString() + '">[shortcode]:[' + ids.join(',').toString() + ']</product></p>');
+
+            this.modalShowProduct = false;
+            this.selectedProduct = [];
+        },
+        toggleProductModal: function toggleProductModal() {
+            this.$refs["product-manager-modal"].toggle("#toggle-btn");
+        }
+    }, (0, _vuex.mapActions)(["fmFileUpload", "fmFileGetAll"]), {
+        mapImageUrl: function mapImageUrl(img, ext) {
+            if (this.extImage.indexOf(ext) !== -1) {
+                return '/uploads/thumb' + img;
+            }
+            return './../../ClientApp/assets/fileicons/' + ext.replace('.', '') + '.png';
+        },
+        checkImage: function checkImage(ext) {
+            if (this.extImage.indexOf(ext) == -1) {
+                return true;
+            }
+            return false;
+        },
+        DoUploadFile: function DoUploadFile(e) {
+            var files = e.srcElement.files;
+
+            if (files) {
+                var filesTemp = (0, _from2.default)(files);
+
+                var msgFileAllow = '';
+                var msgLimitedSize = '';
+                for (var i = 0; i < filesTemp.length; i++) {
+
+                    var name = filesTemp[i].name;
+                    var type = name.split('.').pop();
+                    if (this.extensions.indexOf(type) == -1) {
+                        filesTemp.splice(i, 1);
+                        if (msgFileAllow.length == 0) {
+                            msgFileAllow = name;
+                        } else {
+                            msgFileAllow += ', ' + name;
+                        }
+                    }
+                    if (msgFileAllow.length > 0) {
+                        this.$toast.error(msgFileAllow + ' không hợp lệ !', {});
+                    }
+                }
+                for (var i = 0; i < filesTemp.length; i++) {
+
+                    var size = filesTemp[i].size;
+                    var _name = filesTemp[i].name;
+
+                    if (this.MaxFileSize < size / 1024) {
+                        filesTemp.splice(i, 1);
+                        if (msgLimitedSize.length == 0) {
+                            msgLimitedSize = _name;
+                        } else {
+                            msgLimitedSize += ', ' + _name;
+                        }
+                    }
+                    if (msgLimitedSize.length > 0) {
+                        this.$toast.error(msgFileAllow + ' dung lượng quá lớn !', {});
+                    }
+                }
+                if (filesTemp.length) {
+                    var fd = new FormData();
+
+                    filesTemp.forEach(function (item) {
+                        fd.append('files', item);
+                    });
+                    this.UploadFileAction(fd);
+                }
+            }
+        },
+        UploadFileAction: function UploadFileAction(files) {
             var _this2 = this;
 
-            this.getProductByRegion({
-                zoneId: this.ChoseZoneId || 0
-            }).then(function (respose) {
-                _this2.ListValue = respose.map(function (item) {
-                    return (0, _extends3.default)({}, item, {
-                        active: false
-                    });
-                });
-                console.log(_this2.ListValue);
+            this.fmFileUpload(files).then(function (response) {
+                if (response.success) {
+                    _this2.LoadFile();
+                    _this2.$toast.success(response.Message, {});
+                    _this2.isLoading = false;
+                } else {
+                    _this2.$toast.error(response.Message, {});
+                    _this2.isLoading = false;
+                }
+            }).catch(function (e) {
+                _this2.$toast.error(msgNotify.error + ". Error:" + e, {});
+                _this2.isLoading = false;
             });
         },
-        onLoadProductCombo: function onLoadProductCombo() {
-            var _this3 = this;
+        SelectFile: function SelectFile(event, file) {
+            if (this.selectType == 'multi') {
+                if (event.currentTarget.classList.contains('_active')) {
+                    event.currentTarget.classList.remove('_active');
 
-            this.activeLeft = [];
-            this.activeRight = [];
-            var initial = this.$route.query.initial;
-            initial = typeof initial != "undefined" ? initial.toLowerCase() : "";
-            this.getComboById(this.productId).then(function (respose) {
-                _this3.ListValue = respose.listData.map(function (item) {
-                    return (0, _extends3.default)({}, item, {
-                        active: false
+                    this.selectedFile = this.selectedFile.filter(function (obj) {
+                        return obj.id != file.id;
                     });
-                });
-            });
-        },
-
-        AddProductByRegion: function AddProductByRegion() {
-            var _this4 = this;
-
-            if (this.ChoseZoneId > 0) {
-                console.log(this.ListValue);
-                this.addProductByRegion({
-                    zoneId: this.ChoseZoneId || 0,
-                    Regions: this.ListValue
-                }).then(function (response) {
-                    if (response.success == true) {
-                        _this4.$toast.success(response.message, {});
-                    } else {
-                        _this4.$toast.error(response.message, {});
-                    }
-                }).catch(function (e) {
-                    _this4.$toast.error("Lỗi hệ thống");
-                });
+                } else {
+                    event.currentTarget.classList.add("_active");
+                    this.selectedFile.push(file);
+                }
             } else {
-                this.$toast.error("Chưa chọn vùng");
-            }
-        },
 
-        onetoRight: function onetoRight() {
-
-            if (this.ChoseZoneId > 0) {
-                var vm = this;
-                var data = vm.ListZone;
-                var lstChose = this.ListProduct.filter(function (x) {
-                    return x.active == true;
-                }).map(function (item) {
-                    return {
-                        productId: item.id,
-                        isHot: false,
-                        productName: item.name,
-                        avatar: item.avatar,
-                        zoneId: vm.ChoseZoneId,
-                        bigThumb: "",
-                        active: false,
-                        zoneName: vm.ListZoneRight.filter(function (x) {
-                            return x.id == vm.ChoseZoneId;
-                        })[0].label
-                    };
-                });
-
-                this.ListProduct = this.ListProduct.map(function (item) {
-                    return (0, _extends3.default)({}, item, {
-                        active: false
+                this.selectedFile = [];
+                if (event.currentTarget.classList.contains('_active')) {
+                    event.currentTarget.classList.remove('_active');
+                } else {
+                    var items = document.querySelectorAll('.item');
+                    items.forEach(function (item) {
+                        item.classList.remove('_active');
                     });
-                });
+                    event.currentTarget.classList.add("_active");
+                    this.selectedFile.push(file);
+                }
+            }
+        },
+        FileManagers: function FileManagers(param) {
 
-                this.ListValue = [].concat((0, _toConsumableArray3.default)(this.ListValue), (0, _toConsumableArray3.default)(lstChose));
-            } else {
-                this.$toast.error("Chưa chọn vùng", {});
-            }
-        },
-        onetoRemove: function onetoRemove() {
-            this.ListValue = this.ListValue.filter(function (x) {
-                return x.active != true;
-            });
-        },
+            this.selectType = param;
 
-        changeValueLeft: function changeValueLeft(id) {
-            if (this.ListProduct[id].active == true) {
-                this.ListProduct[id].active = false;
-            } else {
-                this.ListProduct[id].active = true;
-            }
+            this.modalShowFile = true;
+
+            this.LoadFile();
         },
-        changeValueRight: function changeValueRight(id) {
-            if (this.ListValue[id].active == true) {
-                this.ListValue[id].active = false;
-            } else {
-                this.ListValue[id].active = true;
-            }
+        hideFileManagerModal: function hideFileManagerModal() {
+            this.modalShowFile = false;
         },
-        ExistId: function ExistId(id) {},
-        unflattenBase: function unflattenBase(data) {
-            return (0, _helper.unflatten)(data);
+        attackFile: function attackFile() {
+            var domain = config.BASE_URLCms;
+            var images = this.selectedFile;
+            for (var x in images) {
+                this.curentEditor.insertHtml('<img style="max-width:90%" src="' + domain + 'uploads' + images[x].path + '"/>');
+            }
+
+            this.modalShowFile = false;
+            this.selectedFile = [];
+        },
+        toggleFileModal: function toggleFileModal() {
+            this.$refs["file-manager-modal"].toggle("#toggle-btn");
         }
     }),
-    created: function created() {
-        var _this5 = this;
-
-        var vm = this;
-        _eventBus2.default.$on('FileSelected', function (value) {
-
-            console.log(vm.ListValue);
-        });
-
-        this.getAllRegion().then(function (respose) {
-            _this5.ListRegion = respose;
-        });
-
-        this.getZones(0).then(function (respose) {
-            try {
-                respose.listData.push({ id: 0, label: "Chọn danh mục cha", parentId: 0 });
-                var data = respose.listData;
-                var dataRight = data.filter(function (x) {
-                    return x.type == 7 || x.id == 0;
-                });
-                var dataLeft = data.filter(function (x) {
-                    return x.type == 1 || x.id == 0;
-                });
-                _this5.ListZone = dataLeft;
-                _this5.ListZoneRight = dataRight;
-            } catch (ex) {}
-        });
-        this.onLoadProduct();
-    },
-    destroyed: function destroyed() {
-        _eventBus2.default.$off('FileSelected');
-    },
 
     watch: {
-        currentPage: function currentPage(newVal) {
-            this.currentPage = newVal;
-            this.onLoadProduct();
+        contentEditor: function contentEditor() {
+            this.content = this.contentEditor;
         },
-
-        ChoseZoneId: function ChoseZoneId(newVal) {
-
-            this.onLoadProductByRegion();
+        index: function index() {
+            this.index_p = this.index;
         },
-        SearchZoneId: function SearchZoneId(newVal) {
-            this.onLoadProduct();
+        currentPageFileManager: function currentPageFileManager() {
+            this.isLoading = true;
+
+            this.LoadFile();
+
+            this.isLoading = false;
+        },
+        currentPageProductManager: function currentPageProductManager() {
+            var _this3 = this;
+
+            this.isLoading = true;
+            this.getProducts({
+                pageIndex: this.currentPageProductManager,
+                pageSize: this.pageSize,
+                idZone: this.SearchZoneId
+            }).then(function (subRes) {
+                _this3.isLoading = false;
+            });
+        },
+        SearchZoneId: function SearchZoneId() {
+            var _this4 = this;
+
+            this.isLoading = true;
+            this.getProducts({
+                pageIndex: 1,
+                pageSize: this.pageSize,
+                idZone: this.SearchZoneId
+            }).then(function (subRes) {
+                _this4.isLoading = false;
+            });
         }
     }
 };
 
 /***/ }),
 
-/***/ 1528:
+/***/ 1011:
 /***/ (function(module, exports, __webpack_require__) {
 
+exports = module.exports = __webpack_require__(53)();
+// imports
+
+
+// module
+exports.push([module.i, ".file-manager[data-v-8004295c],.file-manager___BV_modal_body_[data-v-8004295c],.fm-content-selected[data-v-8004295c]{padding:0}.fm-content-selected ul li[data-v-8004295c]{list-style-type:none}.fm-container-dialog[data-v-8004295c]{padding:0;overflow:hidden!important}.fm-container[data-v-8004295c]{font-size:12px;font-family:sans-serif;padding:0}.fm-toolbar ul[data-v-8004295c]{float:left;margin:3.5px 0 3px 10px;padding:1px 2px;border-radius:0}.fm-toolbar ul li[data-v-8004295c]{border:1px solid .fff;cursor:pointer;float:left;line-height:26px;list-style-type:none;padding:0 8px;text-align:center}.fm-toolbar ul li.active[data-v-8004295c],.fm-toolbar ul li[data-v-8004295c]:hover{background:#eaeaea}.fm-footer[data-v-8004295c]{border-top:1px solid #eaeaea;padding-top:10px}.fm-toolbar .tool-items[data-v-8004295c]{clear:both;padding-right:6px}.fm-toolbar .tools[data-v-8004295c]{float:left}.fm-main[data-v-8004295c]{margin-top:8px;border-top:1px solid #eaeaea}.fm-sidebar .fm-header[data-v-8004295c]{height:35px;line-height:35px;background-color:#39c;overflow:hidden;font-size:17px;color:#ecf3f9;text-align:center}.fm-sidebar[data-v-8004295c]{border-right:1px solid #eaeaea}.fm-content[data-v-8004295c]{background-color:#fff;cursor:default;height:100%}.fm-data-wrapper[data-v-8004295c]{overflow:hidden}.fm-file-view[data-v-8004295c]{border-left:1px solid #eaeaea;float:right;height:100%;width:250px;padding:9px;background:.fff}.fm-file-view .file-thumb[data-v-8004295c]{text-align:center;max-height:250px;max-width:230px;overflow:hidden}.fm-file-view .header[data-v-8004295c]{font-weight:700;margin-bottom:12px;padding:2px 0;text-align:center;text-transform:uppercase}.fm-file-view .details[data-v-8004295c]{padding-top:16px}.fm-file-view .details .dimensions[data-v-8004295c],.fm-file-view .details .file-size[data-v-8004295c],.fm-file-view .details .uploaded[data-v-8004295c],.fm-file-view .details div[data-v-8004295c]{line-height:21px}.fm-file-view .file-thumb img[data-v-8004295c]{border:1px solid #eaeaea;padding:4px}.attachment-info .filename[data-v-8004295c]{font-weight:600;color:#444;word-wrap:break-word}.btn-attack[data-v-8004295c]{background:.fff none repeat scroll 0 0;padding:3px 3px 3px 0;width:230px;float:right;clear:both}.btn-attack button#btn-attack[data-v-8004295c]{color:.fff;background:#0085ba;border:0;padding:4px 6px}.btn-attack button#dl-close[data-v-8004295c]{background:#eaeaea;border:0;padding:4px 6px;float:right;clear:both}.fm-content table._list[data-v-8004295c]{width:100%}.fm-content table._list tr th[data-v-8004295c]{text-align:center;font-weight:700}.fm-content table._list tr td[data-v-8004295c]{padding:5px 4px}.fm-content table._list tr._active[data-v-8004295c]{background:#48adff}.fm-toolbar ul li i[data-v-8004295c]{background-repeat:no-repeat;display:inline-block;height:16px;vertical-align:middle;width:16px}li i.create-folder[data-v-8004295c]{background-image:url(" + __webpack_require__(988) + ")}li i.upload[data-v-8004295c]{background-image:url(" + __webpack_require__(990) + ")}li i.list[data-v-8004295c]{background-image:url(" + __webpack_require__(985) + ")}li i.grid[data-v-8004295c]{background-image:url(" + __webpack_require__(984) + ")}li i.iclose[data-v-8004295c]{background-image:url(" + __webpack_require__(989) + ")}li i.crop[data-v-8004295c]{background-image:url(" + __webpack_require__(987) + ")}li i.remove[data-v-8004295c]{background-image:url(" + __webpack_require__(986) + ")}.fm-footer[data-v-8004295c]{min-height:32px}.fm-data-wrapper[data-v-8004295c]{height:100%}.clear[data-v-8004295c]{clear:both}._list ._active[data-v-8004295c]{background:#48adff}.fm-content table._list table thead tr th[data-v-8004295c]{text-align:center}.fm-content table._list tr[data-v-8004295c]{font-size:11px}.fm-content table._list tr[data-v-8004295c]:hover{background:#c1edff;cursor:pointer}.fm-content table._list tbody tr td.name[data-v-8004295c]{display:inline-flex}.fm-content table._list tbody tr td.name .list-icon[data-v-8004295c]{display:inline-block;float:left;padding-right:20px}.fm-folder ul[data-v-8004295c],.fm-grid[data-v-8004295c],.fm-grid li .info p[data-v-8004295c]{padding:0;margin:0}.fm-grid li[data-v-8004295c]{vertical-align:middle;display:table-cell;border:1px solid #eaeaea;cursor:pointer;float:left;height:100px;min-width:114px;list-style-type:none;margin:4px;padding:2px;width:14.99%;position:relative;overflow:hidden;text-align:center}.fm-grid li .info[data-v-8004295c]{font-size:10px;background:hsla(0,2%,42%,.87);color:.fff;position:absolute;bottom:0;width:100%;height:0}.fm-grid li:hover .info[data-v-8004295c]{height:auto}.fm-list li img[data-v-8004295c]{width:100%}.fm-list li.not_img img[data-v-8004295c]{width:50%;padding-top:10px}.fm-grid li img.thumb[data-v-8004295c]{width:60%;margin:0 auto}.fm-grid li i[data-v-8004295c]{position:absolute;z-index:999;right:4px;background:.fff;border-radius:11px;color:#0085ba;padding:1px;top:3px;display:none}.fm-grid li._active i[data-v-8004295c]{display:block}.fm-grid li._active[data-v-8004295c]{border:1px solid #0085ba}.fm-folder ul li[data-v-8004295c]{list-style-type:none;padding:8px 0;cursor:pointer}.fm-folder ul li i[data-v-8004295c]{background-repeat:no-repeat;display:inline-block;height:16px;vertical-align:middle;width:16px}.plupload_filelist_header[data-v-8004295c]{height:20px}.plupload_filelist_footer[data-v-8004295c]{height:33px}.plupload_scroll .plupload_filelist[data-v-8004295c]{height:172px!important}.plupload_filelist_footer[data-v-8004295c]{padding:6px 20px}.plupload_filelist[data-v-8004295c]:empty,.plupload_filelist li.plupload_droptext[data-v-8004295c]{height:140px}.plupload_filelist[data-v-8004295c]:empty:before,.plupload_filelist li.plupload_droptext[data-v-8004295c]:before{font-size:52px;height:75px;left:49%;margin-left:-40px;padding-top:43px}.items-action[data-v-8004295c]{padding-top:20px;display:inline-block;width:100%}.items-action .file-action[data-v-8004295c]{border:0 none;color:.fff;padding:4px 10px;background:#bc8f8f;float:left;clear:both}.fm-toolbar .Mi.ipagination a[data-v-8004295c]:first-child{border:0;border-radius:0}.fm-toolbar .Mi.ipagination input[data-v-8004295c]{border:medium none;float:left;font-family:arial;font-size:11px;height:30px;margin:0;outline:medium none;padding:0;text-align:center;vertical-align:middle;width:84px}.fm-toolbar .Mi.ipagination a[data-v-8004295c]{border:0;border-radius:0;background:.fff}.fm-toolbar .ipagination.iweb[data-v-8004295c]{margin-top:3.45px}.frowInTotals[data-v-8004295c]{display:inline-block;float:left;line-height:39px;padding-right:3px;vertical-align:baseline}label#progressall[data-v-8004295c]{display:none;padding:7px}.Cdiv[data-v-8004295c]{padding-left:12px;height:17px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;width:100%;display:inline-block;font-weight:400}.btn-fm-upload label[data-v-8004295c]{margin-bottom:0!important}@media only screen and (max-width:600px){.fm-grid li[data-v-8004295c]{width:47.65%}}", ""]);
+
+// exports
+
+
+/***/ }),
+
+/***/ 1012:
+/***/ (function(module, exports, __webpack_require__) {
+
+
+/* styles */
+__webpack_require__(1014)
+
+var Component = __webpack_require__(371)(
+  /* script */
+  __webpack_require__(1010),
+  /* template */
+  __webpack_require__(1013),
+  /* scopeId */
+  "data-v-8004295c",
+  /* cssModules */
+  null
+)
+
+module.exports = Component.exports
+
+
+/***/ }),
+
+/***/ 1013:
+/***/ (function(module, exports) {
+
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _c('div', {
-    staticClass: "row productedit"
-  }, [_c('div', {
-    staticClass: "col-sm-12 col-md-12"
-  }, [_c('div', {
-    staticClass: "card"
-  }, [_c('div', {
-    staticClass: "card-header"
-  }, [_vm._v("\n                Vùng hiển thị trên Website\n            ")]), _vm._v(" "), _c('div', {
-    staticClass: "card-body"
-  }, [_c('div', {
-    staticClass: "row"
-  }, [_c('div', {
-    staticClass: "col-md-5"
-  }, [_c('div', {
-    staticClass: "panel panel-white"
-  }, [_c('div', {
-    staticClass: "panel-heading"
-  }, [_c('div', {
-    staticStyle: {
-      "display": "flex",
-      "width": "100%"
+  return _c('div', [_c('loading', {
+    attrs: {
+      "active": _vm.isLoading,
+      "height": 35,
+      "width": 35
+    },
+    on: {
+      "update:active": function($event) {
+        _vm.isLoading = $event
+      }
+    }
+  }), _vm._v(" "), _c('ckeditor', {
+    attrs: {
+      "config": _vm.config,
+      "index": _vm.index_p
+    },
+    on: {
+      "input": _vm.onEditorInput,
+      "destroy": _vm.onEditorDestroy
+    },
+    model: {
+      value: (_vm.content),
+      callback: function($$v) {
+        _vm.content = $$v
+      },
+      expression: "content"
+    }
+  }), _vm._v(" "), _c('FileManager'), _vm._v(" "), _c('b-modal', {
+    ref: "product-manager-modal",
+    staticClass: "file-manager",
+    attrs: {
+      "id": "product-manager-modal",
+      "fbody": "xxx",
+      "hide-footer": "",
+      "hide-header": "",
+      "size": "xl"
+    },
+    model: {
+      value: (_vm.modalShowProduct),
+      callback: function($$v) {
+        _vm.modalShowProduct = $$v
+      },
+      expression: "modalShowProduct"
     }
   }, [_c('div', {
-    staticClass: "col-md-7",
-    staticStyle: {
-      "padding-left": "0px"
+    staticClass: "container-fluid fm-container",
+    attrs: {
+      "id": "fm-container"
+    }
+  }, [_c('b-row', {
+    attrs: {
+      "id": "fm-toolbar"
+    }
+  }, [_c('b-col', {
+    attrs: {
+      "lg": "2",
+      "md": "2",
+      "sm": "12"
+    }
+  }, [_c('b', [_vm._v("Sản phẩm")])]), _vm._v(" "), _c('b-col', [_c('b-row', {
+    attrs: {
+      "align-h": "between"
+    }
+  }, [_c('b-col', {
+    attrs: {
+      "cols": "4"
     }
   }, [_c('treeselect', {
     attrs: {
-      "multiple": false,
-      "options": _vm.unflattenBase(_vm.ListZone),
-      "placeholder": "Xin mời bạn lựa chọn danh mục",
+      "options": _vm.ZoneOptions,
+      "placeholder": "Danh mục",
       "default-expanded-level": Infinity
     },
     model: {
@@ -18507,12 +11730,206 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       },
       expression: "SearchZoneId"
     }
-  })], 1), _vm._v(" "), _c('div', {
-    staticClass: "input-group",
-    staticStyle: {
-      "display": "flex",
-      "width": "40%"
+  })], 1), _vm._v(" "), _c('b-col', {
+    staticClass: "bd-0",
+    attrs: {
+      "cols": "4"
     }
+  }, [_c('b-pagination', {
+    attrs: {
+      "align": "right",
+      "size": "sm",
+      "limit": 4,
+      "total-rows": _vm.products.total,
+      "per-page": _vm.pageSize
+    },
+    model: {
+      value: (_vm.currentPageProductManager),
+      callback: function($$v) {
+        _vm.currentPageProductManager = $$v
+      },
+      expression: "currentPageProductManager"
+    }
+  })], 1)], 1)], 1)], 1), _vm._v(" "), _c('b-row', {
+    staticClass: "fm-main",
+    attrs: {
+      "id": "fm-main"
+    }
+  }, [_c('b-col', {
+    staticClass: "fm-content",
+    attrs: {
+      "id": "fm-content",
+      "lg": "9",
+      "dm": "12",
+      "sm": "12"
+    }
+  }, [_c('div', {
+    staticClass: "fm-data-wrapper",
+    attrs: {
+      "id": "fm-data-wrapper"
+    }
+  }, [_c('div', {
+    staticClass: "fm-list-wrapper"
+  }, [_c('div', {
+    staticClass: "fm-list"
+  }, [(_vm.products.listData) ? _c('ul', {
+    staticClass: "fm-grid",
+    attrs: {
+      "id": "fm-grid"
+    }
+  }, _vm._l((_vm.products.listData), function(item) {
+    return _c('li', {
+      key: item.id,
+      staticClass: "item",
+      class: {
+        _active: _vm.isActive
+      },
+      on: {
+        "click": function($event) {
+          return _vm.SelectProduct($event, {
+            name: item.name,
+            id: item.id,
+            avatar: item.avatar,
+            code: item.code
+          })
+        }
+      }
+    }, [_c('img', {
+      attrs: {
+        "src": _vm.pathImgs(item.avatar),
+        "alt": ""
+      }
+    }), _vm._v(" "), _c('i', {
+      staticClass: "fa fa-check"
+    }), _vm._v(" "), _c('div', {
+      staticClass: "info"
+    }, [_c('p', {
+      staticClass: "name"
+    }, [_vm._v(_vm._s(item.name))]), _vm._v(" "), _c('p', {
+      staticClass: "dimensions"
+    }, [_vm._v(_vm._s(item.code))])])])
+  }), 0) : _c('p', {
+    staticClass: "text-center"
+  }, [_vm._v("Không tìm thấy !")])])])])]), _vm._v(" "), _c('b-col', {
+    attrs: {
+      "id": "fm-content-selected",
+      "lg": "3",
+      "dm": "2",
+      "sm": "12"
+    }
+  }, [_c('p', {
+    staticClass: "text-center"
+  }, [_c('b', [_vm._v("Danh sách đã chọn")])]), _vm._v(" "), (_vm.selectedProduct) ? _c('ul', {
+    staticStyle: {
+      "padding": "0"
+    }
+  }, _vm._l((_vm.selectedProduct), function(pro) {
+    return _c('li', {
+      key: pro.id,
+      staticStyle: {
+        "border-bottom": "1px solid #ddd",
+        "padding": "4px 0",
+        "display": "inline-block",
+        "min-height": "50px"
+      }
+    }, [_c('img', {
+      staticStyle: {
+        "width": "45px",
+        "float": "left",
+        "padding-right": "4px",
+        "clear": "both"
+      },
+      attrs: {
+        "src": _vm.pathImgs(pro.avatar),
+        "alt": ""
+      }
+    }), _vm._v(_vm._s(pro.name) + "-" + _vm._s(pro.code) + "\n                        ")])
+  }), 0) : _c('p', {
+    staticClass: "text-center"
+  }, [_vm._v("trống !")])])], 1), _vm._v(" "), _c('b-row', {
+    staticClass: "fm-footer",
+    attrs: {
+      "align-h": "end",
+      "id": "fm-footer"
+    }
+  }, [_c('b-col', {
+    attrs: {
+      "cols": "4"
+    }
+  }, [_c('div', {
+    staticClass: "btn-attack"
+  }, [_c('button', {
+    attrs: {
+      "type": "button",
+      "id": "btn-attack"
+    },
+    on: {
+      "click": _vm.attackProduct
+    }
+  }, [_vm._v("Đính kèm")]), _vm._v(" "), _c('button', {
+    staticClass: "iclose",
+    attrs: {
+      "type": "button",
+      "id": "dl-close"
+    },
+    on: {
+      "click": _vm.hideProductModal
+    }
+  }, [_vm._v("Đóng")])])])], 1)], 1)]), _vm._v(" "), _c('b-modal', {
+    ref: "file-manager-modal",
+    staticClass: "file-manager",
+    attrs: {
+      "id": "file-manager-modal",
+      "fbody": "xxx",
+      "hide-footer": "",
+      "hide-header": "",
+      "size": "xl"
+    },
+    model: {
+      value: (_vm.modalShowFile),
+      callback: function($$v) {
+        _vm.modalShowFile = $$v
+      },
+      expression: "modalShowFile"
+    }
+  }, [_c('div', {
+    staticClass: "container-fluid fm-container"
+  }, [_c('b-row', {
+    staticClass: "fm-toolbar"
+  }, [_c('b-col', {
+    attrs: {
+      "lg": "2",
+      "md": "2",
+      "sm": "12"
+    }
+  }, [_c('b', [_vm._v("Thư viện")])]), _vm._v(" "), _c('b-col', [_c('b-row', {
+    attrs: {
+      "align-h": "between"
+    }
+  }, [_c('b-col', {
+    attrs: {
+      "cols": "4"
+    }
+  }, [_c('div', {
+    staticClass: "tool-items"
+  }, [_c('ul', {
+    staticClass: "tools"
+  }, [_c('li', {
+    attrs: {
+      "title": "Create folder"
+    }
+  }, [_c('i', {
+    staticClass: "create-folder"
+  })])]), _vm._v(" "), _c('ul', {
+    staticClass: "tools"
+  }, [_c('li', {
+    attrs: {
+      "title": "Remove"
+    }
+  }, [_c('i', {
+    staticClass: "remove"
+  })])]), _vm._v(" "), _c('div', {
+    staticClass: "tools"
   }, [_c('input', {
     directives: [{
       name: "model",
@@ -18522,9 +11939,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }],
     staticClass: "form-control",
     attrs: {
-      "type": "text",
-      "autocomplete": "off",
-      "placeholder": "Tìm kiếm sản phẩm"
+      "placeholder": "Gõ tên ảnh ấn enter"
     },
     domProps: {
       "value": (_vm.keyword)
@@ -18532,307 +11947,1080 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     on: {
       "keyup": function($event) {
         if (!$event.type.indexOf('key') && _vm._k($event.keyCode, "enter", 13, $event.key, "Enter")) { return null; }
-        return _vm.onLoadProduct()
+        return _vm.LoadFile()
       },
       "input": function($event) {
         if ($event.target.composing) { return; }
         _vm.keyword = $event.target.value
       }
     }
-  }), _vm._v(" "), _c('span', {
-    staticClass: "input-group-addon bg-primary",
-    staticStyle: {
-      "cursor": "pointer",
-      "width": "45px"
-    },
-    on: {
-      "click": function($event) {
-        return _vm.onLoadProduct()
-      }
+  })])])]), _vm._v(" "), _c('b-col', {
+    staticClass: "bd-0",
+    attrs: {
+      "cols": "4"
     }
-  }, [_c('i', {
-    staticClass: "fa fa-search",
-    staticStyle: {
-      "padding-top": "10px",
-      "padding-left": "15px"
-    }
-  })])])])]), _vm._v(" "), _c('div', {
-    staticClass: "panel-body"
-  }, [_c('div', {
-    staticClass: "slimScrollDiv",
-    staticStyle: {
-      "position": "relative",
-      "overflow-x": "scroll",
-      "width": "auto",
-      "height": "300px",
-      "margin-top": "10px"
-    }
-  }, [_c('div', {
-    staticClass: "row",
-    staticStyle: {
-      "width": "auto",
-      "height": "300px"
-    }
-  }, [_c('ul', {
-    staticStyle: {
-      "padding": "20px",
-      "padding-left": "10px",
-      "width": "100%"
-    }
-  }, _vm._l((_vm.ListProduct), function(item, index) {
-    return _c('li', {
-      class: {
-        'active': item.active == true
-      },
-      on: {
-        "click": function($event) {
-          return _vm.changeValueLeft(index)
-        }
-      }
-    }, [_c('a', {
-      staticClass: "thumb"
-    }, [_c('img', {
-      attrs: {
-        "src": _vm.pathImgs(item.avatar),
-        "width": "30"
-      }
-    })]), _vm._v(" "), _c('p', {
-      staticStyle: {
-        "font-size": "13px",
-        "overflow": "hidden"
-      }
-    }, [_vm._v("Mã: " + _vm._s(item.code))]), _vm._v(" "), _c('p', {
-      staticClass: "text-muted"
-    }, [_vm._v("Tên: " + _vm._s(item.name))])])
-  }), 0)])])]), _vm._v(" "), _c('div', {
-    staticClass: "panel-footer"
   }, [_c('b-pagination', {
     attrs: {
-      "total-rows": _vm.total,
+      "align": "right",
+      "size": "sm",
+      "limit": 4,
+      "total-rows": _vm.files.totals,
       "per-page": _vm.pageSize
     },
     model: {
-      value: (_vm.currentPage),
+      value: (_vm.currentPageFileManager),
       callback: function($$v) {
-        _vm.currentPage = $$v
+        _vm.currentPageFileManager = $$v
       },
-      expression: "currentPage"
+      expression: "currentPageFileManager"
     }
-  })], 1)])]), _vm._v(" "), _c('div', {
-    staticClass: "col-md-1",
+  })], 1), _vm._v(" "), _c('b-col', {
+    attrs: {
+      "cols": "4"
+    }
+  }, [_c('div', {
+    staticClass: "tool-items float-right"
+  }, [_c('ul', {
+    staticClass: "tools"
+  }, [_c('li', {
+    attrs: {
+      "title": "Create folder"
+    }
+  }, [_c('i', {
+    staticClass: "create-folder"
+  })]), _vm._v(" "), _c('li', {
+    attrs: {
+      "title": "Upload",
+      "id": "btn-fm-upload"
+    }
+  }, [_c('label', {
+    attrs: {
+      "for": "fileSingleupload"
+    }
+  }, [_c('i', {
+    staticClass: "upload"
+  })]), _vm._v(" "), _c('input', {
     staticStyle: {
-      "padding-top": "30px"
+      "display": "none"
+    },
+    attrs: {
+      "accept": "image/*,.doc,.docx,.pdf,.xls,.xlsx,.zip,.rar",
+      "id": "fileSingleupload",
+      "multiple": "",
+      "type": "file",
+      "name": "files[]"
+    },
+    on: {
+      "change": _vm.DoUploadFile
     }
+  })])]), _vm._v(" "), _c('ul', {
+    staticClass: "tools"
+  }, [_c('li', {
+    attrs: {
+      "title": "List view"
+    }
+  }, [_c('i', {
+    staticClass: "list"
+  })]), _vm._v(" "), _c('li', {
+    attrs: {
+      "title": "Grid View"
+    }
+  }, [_c('i', {
+    staticClass: "grid"
+  })])])])])], 1)], 1)], 1), _vm._v(" "), _c('b-row', {
+    staticClass: "fm-main"
+  }, [_c('b-col', {
+    staticClass: "fm-sidebar",
+    attrs: {
+      "lg": "2",
+      "md": "2",
+      "sm": "12"
+    }
+  }, [_c('div', {
+    staticClass: "fm-folder"
+  }, [_c('ul', [_c('li', [_c('i', {
+    staticClass: "create-folder"
+  }), _vm._v(" Document")]), _vm._v(" "), _c('li', [_c('i', {
+    staticClass: "create-folder"
+  }), _vm._v(" Image")]), _vm._v(" "), _c('li', [_c('i', {
+    staticClass: "create-folder"
+  }), _vm._v(" Icon")])])])]), _vm._v(" "), _c('b-col', {
+    staticClass: "fm-content",
+    attrs: {
+      "lg": "10",
+      "dm": "2",
+      "sm": "12"
+    }
+  }, [_c('div', {
+    staticClass: "fm-data-wrapper"
+  }, [_c('div', {
+    staticClass: "fm-list-wrapper"
+  }, [_c('div', {
+    staticClass: "fm-list"
+  }, [_c('ul', {
+    staticClass: "fm-grid"
+  }, _vm._l((_vm.files.files), function(file) {
+    return _c('li', {
+      key: file.id,
+      staticClass: "item",
+      class: {
+        _active: _vm.isActive, not_img: _vm.checkImage(file.fileExt)
+      },
+      on: {
+        "click": function($event) {
+          return _vm.SelectFile($event, {
+            path: file.filePath,
+            id: file.id
+          })
+        }
+      }
+    }, [_c('img', {
+      attrs: {
+        "src": _vm.mapImageUrl(file.filePath, file.fileExt),
+        "alt": ""
+      }
+    }), _vm._v(" "), _c('i', {
+      staticClass: "fa fa-check"
+    }), _vm._v(" "), _c('div', {
+      staticClass: "info"
+    }, [_c('p', {
+      staticClass: "name"
+    }, [_vm._v(_vm._s(file.name))]), _vm._v(" "), _c('p', {
+      staticClass: "dimensions"
+    }, [_vm._v(_vm._s(file.dimensions))]), _vm._v(" "), _c('p', {
+      staticClass: "size"
+    }, [_vm._v(_vm._s(file.fileSize) + "kb")])])])
+  }), 0)])])])])], 1), _vm._v(" "), _c('b-row', {
+    staticClass: "fm-footer",
+    attrs: {
+      "align-h": "end"
+    }
+  }, [_c('b-col', {
+    attrs: {
+      "cols": "4"
+    }
+  }, [_c('div', {
+    staticClass: "btn-attack"
   }, [_c('button', {
-    staticClass: "btn btn-primary btn-block mb-2",
     attrs: {
-      "title": "Thêm sản phẩm"
+      "type": "button",
+      "id": "btn-attack"
     },
     on: {
-      "click": _vm.onetoRight
+      "click": _vm.attackFile
     }
-  }, [_c('i', {
-    staticClass: "fa fa-angle-right",
+  }, [_vm._v("Đính kèm")]), _vm._v(" "), _c('button', {
+    staticClass: "iclose",
     attrs: {
-      "aria-hidden": "true"
-    }
-  })]), _vm._v(" "), _c('button', {
-    staticClass: "btn btn-danger btn-block mb-2",
-    attrs: {
-      "title": "Xóa sản phẩm"
+      "type": "button",
+      "id": "dl-close"
     },
     on: {
-      "click": _vm.onetoRemove
+      "click": _vm.hideFileManagerModal
     }
-  }, [_c('i', {
-    staticClass: "fa fa-trash",
+  }, [_vm._v("Đóng")])])])], 1)], 1)])], 1)
+},staticRenderFns: []}
+
+/***/ }),
+
+/***/ 1014:
+/***/ (function(module, exports, __webpack_require__) {
+
+// style-loader: Adds some css to the DOM by adding a <style> tag
+
+// load the styles
+var content = __webpack_require__(1011);
+if(typeof content === 'string') content = [[module.i, content, '']];
+if(content.locals) module.exports = content.locals;
+// add the styles to the DOM
+var update = __webpack_require__(784)("40d7059c", content, true);
+
+/***/ }),
+
+/***/ 1150:
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _stringify = __webpack_require__(390);
+
+var _stringify2 = _interopRequireDefault(_stringify);
+
+var _extends2 = __webpack_require__(8);
+
+var _extends3 = _interopRequireDefault(_extends2);
+
+__webpack_require__(779);
+
+var _constant = __webpack_require__(781);
+
+var _constant2 = _interopRequireDefault(_constant);
+
+var _vuex = __webpack_require__(176);
+
+var _vueLoadingOverlay = __webpack_require__(373);
+
+var _vueLoadingOverlay2 = _interopRequireDefault(_vueLoadingOverlay);
+
+var _helper = __webpack_require__(932);
+
+var _list = __webpack_require__(991);
+
+var _list2 = _interopRequireDefault(_list);
+
+var _eventBus = __webpack_require__(939);
+
+var _eventBus2 = _interopRequireDefault(_eventBus);
+
+__webpack_require__(935);
+
+var _vueTreeselect = __webpack_require__(933);
+
+var _vueTreeselect2 = _interopRequireDefault(_vueTreeselect);
+
+var _MIEditor = __webpack_require__(1012);
+
+var _MIEditor2 = _interopRequireDefault(_MIEditor);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+exports.default = {
+    name: "configaddedit",
+    data: function data() {
+        return {
+            isLoading: false,
+            fullPage: false,
+            searchLanguageCode: "vi-VN",
+            searchKeyCode: "",
+            color: "#007bff",
+            currentSort: "Id",
+            currentSortDir: "asc",
+            loading: true,
+            configId: "",
+            objRequest: {
+                type: 1,
+                languageCode: 'vi-VN',
+                code: ""
+            },
+            editorConfig: {
+                allowedContent: true,
+                extraPlugins: ""
+
+            },
+            mikey1: 'mikey1',
+
+            IsChose: false,
+
+            objRequestDetail: {
+                Order: 255,
+                Image: "",
+                Title: "",
+                Url: "",
+                Description: "",
+                DateStart: null,
+                DateEnd: null
+            },
+            objRequestDetails: [],
+            langSelected: "",
+            Languages: [],
+            ConfigValueTypes: [],
+            KeyImg: -1,
+            ListCodeBanger: []
+        };
+    },
+    created: function created() {
+        var _this = this;
+
+        var vm = this;
+        _eventBus2.default.$on('FileSelected', function (value) {});
+
+        this.getAllLanguages().then(function (respose) {
+            var lang = respose.listData;
+            _this.Languages = lang.map(function (item) {
+                return {
+                    value: item.languageCode,
+                    text: item.name
+                };
+            });
+        });
+    },
+
+    components: {
+        Loading: _vueLoadingOverlay2.default,
+        Treeselect: _vueTreeselect2.default,
+        FileManager: _list2.default,
+        MIEditor: _MIEditor2.default
+    },
+    mounted: function mounted() {
+        var _this2 = this;
+
+        this.getAllLanguages().then(function (respose) {
+            var lang = respose.listData;
+            _this2.Languages = lang.map(function (item) {
+                return {
+                    value: item.languageCode.trim(),
+                    text: item.name.trim()
+                };
+            });
+        });
+
+        this.getBannerCode().then(function (response) {
+            console.log(response);
+            _this2.ListCodeBanger = response.map(function (x) {
+                return {
+                    id: x.key,
+                    label: x.value
+                };
+            });
+            if (_this2.ListCodeBanger.length > 0) {
+
+                _this2.objRequest.code = _this2.ListCodeBanger[0].id;
+                _this2.onChange();
+            }
+        });
+    },
+
+
+    computed: (0, _extends3.default)({}, (0, _vuex.mapGetters)(["config"])),
+
+    methods: (0, _extends3.default)({}, (0, _vuex.mapActions)(["getBannerAds", "createBannerAds", "getAllLanguages", "getBannerCode", "getBannerByCode"]), {
+        removeSlide: function removeSlide(index) {
+            this.objRequestDetails.splice(index, 1);
+        },
+        DoAdd: function DoAdd() {
+            this.objRequestDetails.push({
+                Order: 255,
+                Image: "",
+                Description: ""
+            });
+        },
+        pathImgs: function pathImgs(path) {
+            return (0, _helper.pathImg)(path);
+        },
+        openImg: function openImg(img) {
+
+            this.KeyImg = img;
+            _eventBus2.default.$emit(this.mikey1, '');
+        },
+        DoAttackFile: function DoAttackFile(value) {
+            var vm = this;
+            if (this.KeyImg == 99999) {
+                vm.objRequestDetail.Image = value[0].path;
+            } else {
+                if (this.KeyImg >= 0) {
+                    vm.objRequestDetails[this.KeyImg].Image = value[0].path;
+                }
+            }
+        },
+        onChange: function onChange() {
+            var _this3 = this;
+
+            var key = this.objRequest.languageCode + "_" + this.objRequest.code;
+            this.getBannerAds(key).then(function (response) {
+                debugger;
+                var data = response;
+                data.languageCode = _this3.objRequest.languageCode;
+                data.code = _this3.objRequest.code;
+                console.log(data.metaData);
+
+                if (data.type == 1) {
+                    _this3.objRequestDetail = JSON.parse(data.metaData);
+                } else {
+                    _this3.objRequestDetails = JSON.parse(data.metaData);
+                }
+                _this3.objRequest = data;
+            });
+        },
+        DoAddEdit: function DoAddEdit() {
+            var _this4 = this;
+
+            this.isLoading = true;
+            if (this.objRequest.type > 0) {
+                if (this.objRequest.type > 1) {
+                    this.objRequest.metaData = (0, _stringify2.default)(this.objRequestDetails);
+                } else {
+                    this.objRequest.metaData = (0, _stringify2.default)(this.objRequestDetail);
+                }
+                this.createBannerAds(this.objRequest).then(function (response) {
+                    if (response.key == true) {
+                        if (_this4.IsChose) {
+                            if (_this4.ListCodeBanger.some(function (x) {
+                                return x.key != _this4.objRequest.code;
+                            })) {
+                                _this4.ListCodeBanger.push({
+                                    key: _this4.objRequest.code,
+                                    value: _this4.objRequest.code
+                                });
+                            }
+                        }
+
+                        _this4.$toast.success(response.value, {});
+                        _this4.onChange();
+                        _this4.isLoading = false;
+                    } else {
+                        _this4.$toast.error(response.value, {});
+                        _this4.isLoading = false;
+                    }
+                }).catch(function (e) {
+                    _this4.$toast.error(_constant2.default.error + ". Error:" + e, {});
+                    _this4.isLoading = false;
+                });
+            } else {
+                this.$toast.error("Bạn chưa chọn loại", {});
+                this.isLoading = false;
+            }
+        },
+        onChangeSelectd: function onChangeSelectd() {
+            if (this.objRequestDetails != null && this.objRequestDetails.length > 0) {
+                var lang = this.langSelected || "vi-VN";
+                var lstObjLang = this.objRequestDetails.filter(function (item) {
+                    return item.languageCode.trim() === lang.trim();
+                });
+                if (lstObjLang != null && lstObjLang != undefined && lstObjLang.length > 0) {
+                    this.objRequestDetail = lstObjLang[0];
+                } else {
+                    this.objRequestDetail = {};
+                    this.objRequestDetail.languageCode = lang;
+                }
+            } else {
+                var _lang = this.langSelected;
+                this.objRequestDetail = {};
+                this.objRequestDetail.languageCode = _lang;
+            }
+        },
+        DoAddDetail: function DoAddDetail() {
+            var _this5 = this;
+
+            this.objRequestDetail.ConfigGroupKey = this.configId;
+            this.addConfigInLanguage(this.objRequestDetail).then(function (response) {
+                if (response.success == true) {
+
+                    if (!_this5.objRequestDetails.some(function (x) {
+                        return x.languageCode == _this5.objRequestDetail.languageCode;
+                    })) {
+                        _this5.objRequestDetails.push(_this5.objRequestDetail);
+                    }
+                    _this5.$toast.success(response.message, {});
+                    _this5.onChange();
+                } else {
+                    _this5.$toast.error(response.message, {});
+                }
+            }).catch(function (e) {
+                _this5.$toast.error(_constant2.default.error + ". Error:" + e, {});
+                _this5.isLoading = false;
+            });
+        }
+    }),
+
+    watch: {
+        'objRequest.languageCode': function objRequestLanguageCode(newVal) {
+            this.onChange();
+        },
+        'objRequest.code': function objRequestCode(newVal, oldVal) {
+            this.onChange();
+        }
+    }
+};
+
+/***/ }),
+
+/***/ 1442:
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__(53)();
+// imports
+
+
+// module
+exports.push([module.i, "", ""]);
+
+// exports
+
+
+/***/ }),
+
+/***/ 1540:
+/***/ (function(module, exports) {
+
+module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('div', {
+    staticClass: "productadd"
+  }, [_c('loading', {
     attrs: {
-      "aria-hidden": "true"
+      "active": _vm.isLoading,
+      "height": 35,
+      "width": 35,
+      "color": _vm.color,
+      "is-full-page": _vm.fullPage
+    },
+    on: {
+      "update:active": function($event) {
+        _vm.isLoading = $event
+      }
     }
-  })])]), _vm._v(" "), _c('div', {
-    staticClass: "col-md-6"
+  }), _vm._v(" "), _c('div', {
+    staticClass: "row productedit"
   }, [_c('div', {
-    staticClass: "panel panel-white"
+    staticClass: "col-sm-12 col-md-12"
   }, [_c('div', {
-    staticClass: "panel-heading"
+    staticClass: "card"
   }, [_c('div', {
-    staticStyle: {
-      "display": "flex"
-    }
+    staticClass: "card-header"
+  }, [_vm._v("\n                    Thông tin cấu hình Banner\n                ")]), _vm._v(" "), _c('div', {
+    staticClass: "card-body"
+  }, [_c('b-form', {
+    staticClass: "form-horizontal"
   }, [_c('div', {
-    staticStyle: {
-      "display": "flex",
-      "width": "40%",
-      "padding-left": "2%"
-    }
-  }, [_c('treeselect', {
+    staticClass: "row"
+  }, [_c('div', {
+    staticClass: "col-md-3 col-xs-12"
+  }, [_c('b-form-group', {
     attrs: {
-      "multiple": false,
-      "options": _vm.unflattenBase(_vm.ListZoneRight),
-      "placeholder": "Xin mời bạn lựa chọn danh mục",
-      "default-expanded-level": Infinity
+      "label": "Ngôn ngữ"
+    }
+  }, [_c('b-form-select', {
+    attrs: {
+      "options": _vm.Languages
     },
     model: {
-      value: (_vm.ChoseZoneId),
+      value: (_vm.objRequest.languageCode),
       callback: function($$v) {
-        _vm.ChoseZoneId = $$v
+        _vm.$set(_vm.objRequest, "languageCode", $$v)
       },
-      expression: "ChoseZoneId"
+      expression: "objRequest.languageCode"
     }
-  })], 1), _vm._v(" "), _c('div', {
+  })], 1)], 1), _vm._v(" "), _c('div', {
+    staticClass: "col-md-4"
+  }, [_c('div', {
+    staticClass: "form-group"
+  }, [_c('b-form-checkbox', {
     staticStyle: {
-      "display": "flex",
-      "width": "15%",
-      "padding-left": "2%"
+      "padding-bottom": "7px"
+    },
+    model: {
+      value: (_vm.IsChose),
+      callback: function($$v) {
+        _vm.IsChose = $$v
+      },
+      expression: "IsChose"
     }
-  }, [_c('button', {
-    staticClass: "btn btn-info btn-submit-form col-md-12 btncus",
+  }, [_vm._v("\n                                        Tên Banner (Tích chọn để thêm tên banner)\n                                    ")]), _vm._v(" "), (_vm.IsChose == false) ? [_c('treeselect', {
     attrs: {
-      "type": "submit"
+      "multiple": false,
+      "options": _vm.ListCodeBanger,
+      "placeholder": "Chọn mã banner",
+      "default-expand-level": Infinity
+    },
+    model: {
+      value: (_vm.objRequest.code),
+      callback: function($$v) {
+        _vm.$set(_vm.objRequest, "code", $$v)
+      },
+      expression: "objRequest.code"
+    }
+  })] : _vm._e(), _vm._v(" "), (_vm.IsChose == true) ? [_c('input', {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: (_vm.objRequest.code),
+      expression: "objRequest.code"
+    }],
+    staticClass: "form-control",
+    domProps: {
+      "value": (_vm.objRequest.code)
+    },
+    on: {
+      "input": function($event) {
+        if ($event.target.composing) { return; }
+        _vm.$set(_vm.objRequest, "code", $event.target.value)
+      }
+    }
+  })] : _vm._e()], 2)]), _vm._v(" "), _c('div', {
+    staticClass: "col-md-3"
+  }, [_c('div', {
+    staticClass: "form-group"
+  }, [_c('label', [_vm._v("Loại:")]), _vm._v(" "), _c('select', {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: (_vm.objRequest.type),
+      expression: "objRequest.type"
+    }],
+    staticClass: "form-control",
+    on: {
+      "change": function($event) {
+        var $$selectedVal = Array.prototype.filter.call($event.target.options, function(o) {
+          return o.selected
+        }).map(function(o) {
+          var val = "_value" in o ? o._value : o.value;
+          return val
+        });
+        _vm.$set(_vm.objRequest, "type", $event.target.multiple ? $$selectedVal : $$selectedVal[0])
+      }
+    }
+  }, [_c('option', {
+    attrs: {
+      "value": "1"
+    }
+  }, [_vm._v("Ảnh Banner")]), _vm._v(" "), _c('option', {
+    attrs: {
+      "value": "2"
+    }
+  }, [_vm._v("Ảnh Slide")])])])]), _vm._v(" "), _c('div', {
+    staticClass: "col-md-2 col-xs-12"
+  }, [_c('button', {
+    staticClass: "btn btn-info btn-submit-form",
+    staticStyle: {
+      "margin-top": "32px"
+    },
+    attrs: {
+      "type": "button"
     },
     on: {
       "click": function($event) {
-        return _vm.AddProductByRegion()
+        return _vm.DoAddEdit()
       }
     }
   }, [_c('i', {
     staticClass: "fa fa-save"
-  }), _vm._v(" Lưu\n                                        ")])]), _vm._v(" "), _c('div', {
+  }), _vm._v(" Cập nhật\n                                ")])])]), _vm._v(" "), (_vm.objRequest.type > 1) ? [_c('div', {
+    staticClass: "row",
     staticStyle: {
-      "display": "flex",
-      "width": "10%",
-      "padding-left": "2%"
+      "margin-bottom": "20px"
     }
+  }, [_c('div', {
+    staticClass: "col-md-12"
   }, [_c('button', {
-    staticClass: "btn btn-danger btn-submit-form col-md-12 btncus",
+    staticClass: "btn btn-success",
     attrs: {
-      "title": "Chọn ảnh",
-      "type": "submit"
+      "type": "button"
     },
     on: {
       "click": function($event) {
-        return _vm.openImg('img')
+        return _vm.DoAdd()
       }
     }
-  }, [_c('i', {
-    staticClass: "fa fa-picture-o"
-  })])])])]), _vm._v(" "), _c('div', {
-    staticClass: "panel-body"
-  }, [_c('div', {
-    staticClass: "slimScrollDiv",
-    staticStyle: {
-      "position": "relative",
-      "overflow-x": "scroll",
-      "width": "auto",
-      "height": "300px",
-      "margin-top": "10px"
-    }
-  }, [_c('div', {
-    staticClass: "row",
-    staticStyle: {
-      "width": "auto",
-      "height": "300px"
-    }
-  }, [_c('ul', {
-    staticStyle: {
-      "padding": "20px",
-      "padding-left": "10px",
-      "width": "100%"
-    }
-  }, [_c('draggable', {
-    attrs: {
-      "group": "people"
-    },
-    on: {
-      "start": function($event) {
-        _vm.drag = true
-      },
-      "end": function($event) {
-        _vm.drag = false
-      }
-    },
-    model: {
-      value: (_vm.ListValue),
-      callback: function($$v) {
-        _vm.ListValue = $$v
-      },
-      expression: "ListValue"
-    }
-  }, _vm._l((_vm.ListValue), function(item, index) {
-    return _c('li', {
-      class: {
-        'active': item.active == true
-      },
+  }, [_vm._v("\n                                        Thêm mới\n                                    ")])])]), _vm._v(" "), _vm._l((_vm.objRequestDetails), function(item, index) {
+    return _c('div', {
+      staticClass: "row",
       staticStyle: {
-        "padding-bottom": "10px"
+        "position": "relative",
+        "border": "2px dashed #dcd6d6",
+        "padding": "20px",
+        "margin": "0"
+      }
+    }, [_c('i', {
+      staticClass: "fa fa-remove",
+      staticStyle: {
+        "cursor": "pointer",
+        "font-size": "30px",
+        "color": "red",
+        "position": "absolute",
+        "top": "0",
+        "left": "5px"
       },
       on: {
         "click": function($event) {
-          return _vm.changeValueRight(index)
+          return _vm.removeSlide(index)
+        }
+      }
+    }), _vm._v(" "), _c('div', {
+      staticClass: "col-md-5"
+    }, [_c('b-form-group', {
+      attrs: {
+        "label": "Tiêu đề"
+      }
+    }, [_c('b-form-input', {
+      attrs: {
+        "label": "Tiêu đề",
+        "type": "text",
+        "placeholder": "Tiêu đề"
+      },
+      model: {
+        value: (item.Title),
+        callback: function($$v) {
+          _vm.$set(item, "Title", $$v)
+        },
+        expression: "item.Title"
+      }
+    })], 1)], 1), _vm._v(" "), _c('div', {
+      staticClass: "col-md-4"
+    }, [_c('b-form-group', {
+      attrs: {
+        "label": "Đường dẫn"
+      }
+    }, [_c('b-form-input', {
+      attrs: {
+        "type": "text",
+        "placeholder": "Đường dẫn"
+      },
+      model: {
+        value: (item.Url),
+        callback: function($$v) {
+          _vm.$set(item, "Url", $$v)
+        },
+        expression: "item.Url"
+      }
+    })], 1)], 1), _vm._v(" "), _c('div', {
+      staticClass: "col-md-2"
+    }, [_c('b-form-group', {
+      attrs: {
+        "label": "Thứ tự"
+      }
+    }, [_c('b-form-input', {
+      attrs: {
+        "type": "number",
+        "placeholder": "Thứ tự"
+      },
+      model: {
+        value: (item.Order),
+        callback: function($$v) {
+          _vm.$set(item, "Order", $$v)
+        },
+        expression: "item.Order"
+      }
+    })], 1)], 1), _vm._v(" "), _c('div', {
+      staticClass: "col-md-1"
+    }, [_c('label', [_vm._v("Hiển thị")]), _vm._v(" "), _c('label', {
+      staticClass: "switch switch-outline-primary-alt",
+      staticStyle: {
+        "margin-top": "5px"
+      }
+    }, [_c('input', {
+      directives: [{
+        name: "model",
+        rawName: "v-model",
+        value: (item.Show),
+        expression: "item.Show"
+      }],
+      staticClass: "switch-input",
+      attrs: {
+        "type": "checkbox",
+        "checked": ""
+      },
+      domProps: {
+        "checked": Array.isArray(item.Show) ? _vm._i(item.Show, null) > -1 : (item.Show)
+      },
+      on: {
+        "change": function($event) {
+          var $$a = item.Show,
+            $$el = $event.target,
+            $$c = $$el.checked ? (true) : (false);
+          if (Array.isArray($$a)) {
+            var $$v = null,
+              $$i = _vm._i($$a, $$v);
+            if ($$el.checked) {
+              $$i < 0 && (_vm.$set(item, "Show", $$a.concat([$$v])))
+            } else {
+              $$i > -1 && (_vm.$set(item, "Show", $$a.slice(0, $$i).concat($$a.slice($$i + 1))))
+            }
+          } else {
+            _vm.$set(item, "Show", $$c)
+          }
+        }
+      }
+    }), _vm._v(" "), _c('span', {
+      staticClass: "switch-slider"
+    })])]), _vm._v(" "), _c('div', {
+      staticClass: "col-md-10"
+    }, [_c('b-form-group', {
+      attrs: {
+        "label": "Mô tả ngắn"
+      }
+    }, [_c('ckeditor', {
+      attrs: {
+        "tag-name": "textarea",
+        "rows": 3,
+        "config": _vm.editorConfig
+      },
+      model: {
+        value: (item.Description),
+        callback: function($$v) {
+          _vm.$set(item, "Description", $$v)
+        },
+        expression: "item.Description"
+      }
+    })], 1), _vm._v(" "), _c('div', {
+      staticClass: "row"
+    }, [_c('div', {
+      staticClass: "col-md-6"
+    }, [_c('b-form-group', {
+      attrs: {
+        "label": "Thời gian bắt đầu"
+      }
+    }, [_c('b-form-input', {
+      attrs: {
+        "type": "date"
+      },
+      model: {
+        value: (item.DateStart),
+        callback: function($$v) {
+          _vm.$set(item, "DateStart", $$v)
+        },
+        expression: "item.DateStart"
+      }
+    })], 1)], 1), _vm._v(" "), _c('div', {
+      staticClass: "col-md-6"
+    }, [_c('b-form-group', {
+      attrs: {
+        "label": "Thời gian kết thúc"
+      }
+    }, [_c('b-form-input', {
+      attrs: {
+        "type": "date"
+      },
+      model: {
+        value: (item.DateEnd),
+        callback: function($$v) {
+          _vm.$set(item, "DateEnd", $$v)
+        },
+        expression: "item.DateEnd"
+      }
+    })], 1)], 1)])], 1), _vm._v(" "), _c('div', {
+      staticClass: "col-md-2"
+    }, [_c('div', {
+      staticStyle: {
+        "cursor": "pointer"
+      },
+      on: {
+        "click": function($event) {
+          return _vm.openImg(index)
         }
       }
     }, [_c('div', {
+      staticClass: "gallery-upload-file ui-sortable",
       staticStyle: {
-        "display": "flex",
+        "width": "100%",
+        "display": "flex"
+      }
+    }, [_c('div', {
+      staticClass: " r-queue-item ui-sortable-handle",
+      staticStyle: {
+        "width": "100%",
+        "height": "auto",
+        "margin": "0"
+      }
+    }, [(item.Image != null && item.Image != undefined && item.Image.length > 0) ? _c('div', {
+      staticStyle: {
         "width": "100%"
       }
-    }, [_c('div', {
-      staticStyle: {
-        "display": "flex",
-        "width": "10%"
-      }
-    }, [_c('a', {
-      staticClass: "thumb"
     }, [_c('img', {
-      attrs: {
-        "src": _vm.pathImgs(item.avatar),
-        "width": "30"
-      }
-    })])]), _vm._v(" "), _c('div', {
       staticStyle: {
-        "display": "flex",
-        "width": "70%",
-        "flex-wrap": "wrap"
-      }
-    }, [_c('span', {
-      staticStyle: {
-        "font-size": "13px"
-      }
-    }, [_vm._v("  " + _vm._s(item.productName))]), (item.zoneId > 0) ? _c('p', {
-      staticStyle: {
-        "color": "#0026ff",
-        "font-size": "13px",
-        "padding-right": "10px"
-      }
-    }, [_vm._v(" / " + _vm._s(item.zoneName))]) : _vm._e(), _vm._v(" "), _c('p', {
-      staticStyle: {
-        "font-size": "13px"
-      }
-    }, [_c('b-form-checkbox', {
-      model: {
-        value: (item.isHot),
-        callback: function($$v) {
-          _vm.$set(item, "isHot", $$v)
-        },
-        expression: "item.isHot"
-      }
-    }, [_vm._v("Sản phẩm Hot")])], 1)]), _vm._v(" "), _c('div', {
-      staticStyle: {
-        "display": "flex",
-        "width": "20%"
-      }
-    }, [_c('div', {
-      staticClass: "col-md-6"
-    }, [((item.bigThumb != null && item.bigThumb.length > 0)) ? _c('img', {
-      staticStyle: {
-        "width": "100px",
-        "height": "40px"
+        "height": "100px",
+        "width": "100%"
       },
       attrs: {
-        "src": _vm.pathImgs(item.bigThumb)
+        "alt": "Ảnh lỗi",
+        "src": _vm.pathImgs(item.Image)
       }
-    }) : _vm._e()])])])])
-  }), 0)], 1)])])])])])])])])]), _vm._v(" "), _c('FileManager', {
+    })]) : _c('div', [_c('i', {
+      staticClass: "fa fa-picture-o"
+    }), _vm._v(" "), _c('p', [_vm._v("[Chọn ảnh]")])])])])])])])
+  })] : _vm._e(), _vm._v(" "), (_vm.objRequest.type <= 1) ? [_c('div', {
+    staticClass: "row",
+    staticStyle: {
+      "position": "relative",
+      "border": "2px dashed #dcd6d6",
+      "padding": "20px",
+      "margin": "0"
+    }
+  }, [_c('div', {
+    staticClass: "col-md-5"
+  }, [_c('b-form-group', {
+    attrs: {
+      "label": "Tiêu đề"
+    }
+  }, [_c('b-form-input', {
+    attrs: {
+      "label": "Tiêu đề",
+      "type": "text",
+      "placeholder": "Tiêu đề"
+    },
+    model: {
+      value: (_vm.objRequestDetail.Title),
+      callback: function($$v) {
+        _vm.$set(_vm.objRequestDetail, "Title", $$v)
+      },
+      expression: "objRequestDetail.Title"
+    }
+  })], 1)], 1), _vm._v(" "), _c('div', {
+    staticClass: "col-md-4"
+  }, [_c('b-form-group', {
+    attrs: {
+      "label": "Đường dẫn"
+    }
+  }, [_c('b-form-input', {
+    attrs: {
+      "type": "text",
+      "placeholder": "Đường dẫn"
+    },
+    model: {
+      value: (_vm.objRequestDetail.Url),
+      callback: function($$v) {
+        _vm.$set(_vm.objRequestDetail, "Url", $$v)
+      },
+      expression: "objRequestDetail.Url"
+    }
+  })], 1)], 1), _vm._v(" "), _c('div', {
+    staticClass: "col-md-2"
+  }, [_c('b-form-group', {
+    attrs: {
+      "label": "Thứ tự"
+    }
+  }, [_c('b-form-input', {
+    attrs: {
+      "type": "number",
+      "placeholder": "Thứ tự"
+    },
+    model: {
+      value: (_vm.objRequestDetail.Order),
+      callback: function($$v) {
+        _vm.$set(_vm.objRequestDetail, "Order", $$v)
+      },
+      expression: "objRequestDetail.Order"
+    }
+  })], 1)], 1), _vm._v(" "), _c('div', {
+    staticClass: "col-md-1"
+  }, [_c('label', [_vm._v("Hiển thị")]), _vm._v(" "), _c('label', {
+    staticClass: "switch switch-outline-primary-alt",
+    staticStyle: {
+      "margin-top": "5px"
+    }
+  }, [_c('input', {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: (_vm.objRequestDetail.Show),
+      expression: "objRequestDetail.Show"
+    }],
+    staticClass: "switch-input",
+    attrs: {
+      "type": "checkbox",
+      "checked": ""
+    },
+    domProps: {
+      "checked": Array.isArray(_vm.objRequestDetail.Show) ? _vm._i(_vm.objRequestDetail.Show, null) > -1 : (_vm.objRequestDetail.Show)
+    },
+    on: {
+      "change": function($event) {
+        var $$a = _vm.objRequestDetail.Show,
+          $$el = $event.target,
+          $$c = $$el.checked ? (true) : (false);
+        if (Array.isArray($$a)) {
+          var $$v = null,
+            $$i = _vm._i($$a, $$v);
+          if ($$el.checked) {
+            $$i < 0 && (_vm.$set(_vm.objRequestDetail, "Show", $$a.concat([$$v])))
+          } else {
+            $$i > -1 && (_vm.$set(_vm.objRequestDetail, "Show", $$a.slice(0, $$i).concat($$a.slice($$i + 1))))
+          }
+        } else {
+          _vm.$set(_vm.objRequestDetail, "Show", $$c)
+        }
+      }
+    }
+  }), _vm._v(" "), _c('span', {
+    staticClass: "switch-slider"
+  })])]), _vm._v(" "), _c('div', {
+    staticClass: "col-md-10"
+  }, [_c('b-form-group', {
+    attrs: {
+      "label": "Mô tả ngắn"
+    }
+  }, [_c('ckeditor', {
+    attrs: {
+      "tag-name": "textarea",
+      "rows": 3,
+      "config": _vm.editorConfig
+    },
+    model: {
+      value: (_vm.objRequestDetail.Description),
+      callback: function($$v) {
+        _vm.$set(_vm.objRequestDetail, "Description", $$v)
+      },
+      expression: "objRequestDetail.Description"
+    }
+  })], 1), _vm._v(" "), _c('div', {
+    staticClass: "row"
+  }, [_c('div', {
+    staticClass: "col-md-6"
+  }, [_c('b-form-group', {
+    attrs: {
+      "label": "Thời gian bắt đầu"
+    }
+  }, [_c('b-form-input', {
+    attrs: {
+      "type": "date"
+    },
+    model: {
+      value: (_vm.objRequestDetail.DateStart),
+      callback: function($$v) {
+        _vm.$set(_vm.objRequestDetail, "DateStart", $$v)
+      },
+      expression: "objRequestDetail.DateStart"
+    }
+  })], 1)], 1), _vm._v(" "), _c('div', {
+    staticClass: "col-md-6"
+  }, [_c('b-form-group', {
+    attrs: {
+      "label": "Thời gian kết thúc"
+    }
+  }, [_c('b-form-input', {
+    attrs: {
+      "type": "date"
+    },
+    model: {
+      value: (_vm.objRequestDetail.DateEnd),
+      callback: function($$v) {
+        _vm.$set(_vm.objRequestDetail, "DateEnd", $$v)
+      },
+      expression: "objRequestDetail.DateEnd"
+    }
+  })], 1)], 1)])], 1), _vm._v(" "), _c('div', {
+    staticClass: "col-md-2"
+  }, [_c('div', {
+    staticStyle: {
+      "cursor": "pointer"
+    },
+    on: {
+      "click": function($event) {
+        return _vm.openImg(99999)
+      }
+    }
+  }, [_c('div', {
+    staticClass: "gallery-upload-file ui-sortable",
+    staticStyle: {
+      "width": "100%",
+      "display": "flex"
+    }
+  }, [_c('div', {
+    staticClass: " r-queue-item ui-sortable-handle",
+    staticStyle: {
+      "width": "100%",
+      "height": "auto",
+      "margin": "0"
+    }
+  }, [(_vm.objRequestDetail.Image != null && _vm.objRequestDetail.Image != undefined && _vm.objRequestDetail.Image.length > 0) ? _c('div', {
+    staticStyle: {
+      "width": "100%"
+    }
+  }, [_c('img', {
+    staticStyle: {
+      "height": "100px",
+      "width": "100%"
+    },
+    attrs: {
+      "alt": "Ảnh lỗi",
+      "src": _vm.pathImgs(_vm.objRequestDetail.Image)
+    }
+  })]) : _c('div', [_c('i', {
+    staticClass: "fa fa-picture-o"
+  }), _vm._v(" "), _c('p', [_vm._v("[Chọn ảnh]")])])])])])])])] : _vm._e()], 2), _vm._v(" "), _vm._m(0)], 1)])])]), _vm._v(" "), _c('FileManager', {
     attrs: {
       "miKey": _vm.mikey1
     },
@@ -18840,84 +13028,83 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       "handleAttackFile": _vm.DoAttackFile
     }
   })], 1)
-},staticRenderFns: []}
-module.exports.render._withStripped = true
-if (true) {
-  module.hot.accept()
-  if (module.hot.data) {
-     __webpack_require__(178).rerender("data-v-1b4aacff", module.exports)
-  }
-}
+},staticRenderFns: [function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('div', {
+    staticClass: "row"
+  }, [_c('div', {
+    staticClass: "col-md-3"
+  }), _vm._v(" "), _c('div', {
+    staticClass: "col-md-3"
+  })])
+}]}
 
 /***/ }),
 
-/***/ 1606:
+/***/ 1604:
 /***/ (function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
-var content = __webpack_require__(1094);
+var content = __webpack_require__(1442);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
-var update = __webpack_require__(801)("bc436c70", content, false);
-// Hot Module Replacement
-if(true) {
- // When the styles change, update the <style> tags
- if(!content.locals) {
-   module.hot.accept(1094, function() {
-     var newContent = __webpack_require__(1094);
-     if(typeof newContent === 'string') newContent = [[module.i, newContent, '']];
-     update(newContent);
-   });
- }
- // When the module is disposed, remove the <style> tags
- module.hot.dispose(function() { update(); });
-}
+var update = __webpack_require__(784)("29a7e450", content, true);
 
 /***/ }),
 
-/***/ 772:
+/***/ 721:
 /***/ (function(module, exports, __webpack_require__) {
 
 
 /* styles */
-__webpack_require__(1606)
+__webpack_require__(1604)
 
-var Component = __webpack_require__(374)(
+var Component = __webpack_require__(371)(
   /* script */
-  __webpack_require__(1245),
+  __webpack_require__(1150),
   /* template */
-  __webpack_require__(1528),
+  __webpack_require__(1540),
   /* scopeId */
   null,
   /* cssModules */
   null
 )
-Component.options.__file = "D:\\Code\\WORKING\\dotnet-platform-backend\\Web\\Platform\\CMS\\PlatformCMS\\ClientApp\\pages\\product\\region.vue"
-if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
-if (Component.options.functional) {console.error("[vue-loader] region.vue: functional components are not supported with templates, they should use render functions.")}
-
-/* hot reload */
-if (true) {(function () {
-  var hotAPI = __webpack_require__(178)
-  hotAPI.install(__webpack_require__(26), false)
-  if (!hotAPI.compatible) return
-  module.hot.accept()
-  if (!module.hot.data) {
-    hotAPI.createRecord("data-v-1b4aacff", Component.options)
-  } else {
-    hotAPI.reload("data-v-1b4aacff", Component.options)
-  }
-})()}
 
 module.exports = Component.exports
 
 
 /***/ }),
 
-/***/ 795:
+/***/ 779:
+/***/ (function(module, exports, __webpack_require__) {
+
+// style-loader: Adds some css to the DOM by adding a <style> tag
+
+// load the styles
+var content = __webpack_require__(780);
+if(typeof content === 'string') content = [[module.i, content, '']];
+// add the styles to the DOM
+var update = __webpack_require__(175)(content, {});
+if(content.locals) module.exports = content.locals;
+// Hot Module Replacement
+if(false) {
+	// When the styles change, update the <style> tags
+	if(!content.locals) {
+		module.hot.accept("!!../../css-loader/index.js!./vue-loading.css", function() {
+			var newContent = require("!!../../css-loader/index.js!./vue-loading.css");
+			if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
+			update(newContent);
+		});
+	}
+	// When the module is disposed, remove the <style> tags
+	module.hot.dispose(function() { update(); });
+}
+
+/***/ }),
+
+/***/ 780:
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(53)();
@@ -18932,34 +13119,7 @@ exports.push([module.i, ".vld-overlay {\n  bottom: 0;\n  left: 0;\n  position: a
 
 /***/ }),
 
-/***/ 796:
-/***/ (function(module, exports, __webpack_require__) {
-
-// style-loader: Adds some css to the DOM by adding a <style> tag
-
-// load the styles
-var content = __webpack_require__(795);
-if(typeof content === 'string') content = [[module.i, content, '']];
-// add the styles to the DOM
-var update = __webpack_require__(179)(content, {});
-if(content.locals) module.exports = content.locals;
-// Hot Module Replacement
-if(true) {
-	// When the styles change, update the <style> tags
-	if(!content.locals) {
-		module.hot.accept(795, function() {
-			var newContent = __webpack_require__(795);
-			if(typeof newContent === 'string') newContent = [[module.i, newContent, '']];
-			update(newContent);
-		});
-	}
-	// When the module is disposed, remove the <style> tags
-	module.hot.dispose(function() { update(); });
-}
-
-/***/ }),
-
-/***/ 797:
+/***/ 781:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -18973,13 +13133,13 @@ exports.default = msgNotify;
 
 /***/ }),
 
-/***/ 798:
+/***/ 782:
 /***/ (function(module, exports, __webpack_require__) {
 
 var global = __webpack_require__(21);
 var core = __webpack_require__(20);
-var LIBRARY = __webpack_require__(105);
-var wksExt = __webpack_require__(799);
+var LIBRARY = __webpack_require__(104);
+var wksExt = __webpack_require__(783);
 var defineProperty = __webpack_require__(54).f;
 module.exports = function (name) {
   var $Symbol = core.Symbol || (core.Symbol = LIBRARY ? {} : global.Symbol || {});
@@ -18989,7 +13149,7 @@ module.exports = function (name) {
 
 /***/ }),
 
-/***/ 799:
+/***/ 783:
 /***/ (function(module, exports, __webpack_require__) {
 
 exports.f = __webpack_require__(23);
@@ -18997,22 +13157,7 @@ exports.f = __webpack_require__(23);
 
 /***/ }),
 
-/***/ 800:
-/***/ (function(module, exports, __webpack_require__) {
-
-exports = module.exports = __webpack_require__(53)();
-// imports
-
-
-// module
-exports.push([module.i, "/*!\n * vue-treeselect v0.4.0 | (c) 2017-2019 Riophae Lee\n * Released under the MIT License.\n * https://vue-treeselect.js.org/\n */\n/**\n * Dependencies\n */\n/**\n * Variables\n */\n/**\n * Mixins\n */\n/**\n * Helpers\n */\n.vue-treeselect-helper-hide {\n  display: none;\n}\n.vue-treeselect-helper-zoom-effect-off {\n  -ms-transform: none !important;\n      transform: none !important;\n}\n/**\n * Animations\n */\n@keyframes vue-treeselect-animation-fade-in {\n  0% {\n    opacity: 0;\n  }\n}\n@keyframes vue-treeselect-animation-bounce {\n  0%,\n  100% {\n    transform: scale(0);\n  }\n  50% {\n    transform: scale(1);\n  }\n}\n@keyframes vue-treeselect-animation-rotate {\n  100% {\n    transform: rotate(360deg);\n  }\n}\n/**\n * Transitions\n */\n.vue-treeselect__multi-value-item--transition-enter-active,\n.vue-treeselect__multi-value-item--transition-leave-active {\n  transition-duration: 200ms;\n  transition-property: transform, opacity;\n}\n.vue-treeselect__multi-value-item--transition-enter-active {\n  transition-timing-function: cubic-bezier(0.075, 0.82, 0.165, 1);\n}\n.vue-treeselect__multi-value-item--transition-leave-active {\n  transition-timing-function: cubic-bezier(0.215, 0.61, 0.355, 1);\n  position: absolute;\n}\n.vue-treeselect__multi-value-item--transition-enter,\n.vue-treeselect__multi-value-item--transition-leave-to {\n  -ms-transform: scale(0.7);\n      transform: scale(0.7);\n  opacity: 0;\n}\n.vue-treeselect__multi-value-item--transition-move {\n  transition: 200ms transform cubic-bezier(0.165, 0.84, 0.44, 1);\n}\n/**\n * Namespace\n */\n.vue-treeselect {\n  position: relative;\n  text-align: left;\n}\n[dir=\"rtl\"] .vue-treeselect {\n  text-align: right;\n}\n.vue-treeselect div,\n.vue-treeselect span {\n  box-sizing: border-box;\n}\n.vue-treeselect svg {\n  fill: currentColor;\n}\n/**\n * Control\n */\n.vue-treeselect__control {\n  padding-left: 5px;\n  padding-right: 5px;\n  display: table;\n  table-layout: fixed;\n  width: 100%;\n  height: 36px;\n  border: 1px solid #ddd;\n  border-radius: 5px;\n  background: #fff;\n  transition-duration: 200ms;\n  transition-property: border-color, box-shadow, width, height, background-color, opacity;\n  transition-timing-function: cubic-bezier(0.215, 0.61, 0.355, 1);\n}\n.vue-treeselect:not(.vue-treeselect--disabled):not(.vue-treeselect--focused) .vue-treeselect__control:hover {\n  border-color: #cfcfcf;\n}\n.vue-treeselect--focused:not(.vue-treeselect--open) .vue-treeselect__control {\n  border-color: #039be5;\n  box-shadow: 0 0 0 3px rgba(3, 155, 229, 0.1);\n}\n.vue-treeselect--disabled .vue-treeselect__control {\n  background-color: #f9f9f9;\n}\n.vue-treeselect--open .vue-treeselect__control {\n  border-color: #cfcfcf;\n}\n.vue-treeselect--open.vue-treeselect--open-below .vue-treeselect__control {\n  border-bottom-left-radius: 0;\n  border-bottom-right-radius: 0;\n}\n.vue-treeselect--open.vue-treeselect--open-above .vue-treeselect__control {\n  border-top-left-radius: 0;\n  border-top-right-radius: 0;\n}\n.vue-treeselect__value-container,\n.vue-treeselect__multi-value {\n  width: 100%;\n  vertical-align: middle;\n}\n.vue-treeselect__value-container {\n  display: table-cell;\n  position: relative;\n}\n.vue-treeselect--searchable:not(.vue-treeselect--disabled) .vue-treeselect__value-container {\n  cursor: text;\n}\n.vue-treeselect__multi-value {\n  display: inline-block;\n}\n.vue-treeselect--has-value .vue-treeselect__multi-value {\n  margin-bottom: 5px;\n}\n.vue-treeselect__placeholder,\n.vue-treeselect__single-value {\n  overflow: hidden;\n  text-overflow: ellipsis;\n  white-space: nowrap;\n  padding-left: 5px;\n  padding-right: 5px;\n  position: absolute;\n  top: 0;\n  right: 0;\n  bottom: 0;\n  left: 0;\n  line-height: 34px;\n  -webkit-user-select: none;\n     -moz-user-select: none;\n      -ms-user-select: none;\n          user-select: none;\n  pointer-events: none;\n}\n.vue-treeselect__placeholder {\n  color: #bdbdbd;\n}\n.vue-treeselect__single-value {\n  color: #333;\n}\n.vue-treeselect--focused.vue-treeselect--searchable .vue-treeselect__single-value {\n  color: #bdbdbd;\n}\n.vue-treeselect--disabled .vue-treeselect__single-value {\n  position: static;\n}\n.vue-treeselect__multi-value-item-container {\n  display: inline-block;\n  padding-top: 5px;\n  padding-right: 5px;\n  vertical-align: top;\n}\n[dir=\"rtl\"] .vue-treeselect__multi-value-item-container {\n  padding-right: 0;\n  padding-left: 5px;\n}\n.vue-treeselect__multi-value-item {\n  cursor: pointer;\n  display: inline-table;\n  background: #e3f2fd;\n  padding: 2px 0;\n  border: 1px solid transparent;\n  border-radius: 2px;\n  color: #039be5;\n  font-size: 12px;\n  vertical-align: top;\n}\n.vue-treeselect:not(.vue-treeselect--disabled) .vue-treeselect__multi-value-item:not(.vue-treeselect__multi-value-item-disabled):hover .vue-treeselect__multi-value-item:not(.vue-treeselect__multi-value-item-new) .vue-treeselect__multi-value-item:not(.vue-treeselect__multi-value-item-new):hover {\n  cursor: pointer;\n  background: #e3f2fd;\n  color: #039be5;\n}\n.vue-treeselect__multi-value-item.vue-treeselect__multi-value-item-disabled {\n  cursor: default;\n  background: #f5f5f5;\n  color: #757575;\n}\n.vue-treeselect--disabled .vue-treeselect__multi-value-item {\n  cursor: default;\n  background: #fff;\n  border-color: #e5e5e5;\n  color: #555;\n}\n.vue-treeselect__multi-value-item.vue-treeselect__multi-value-item-new {\n  background: #e8f5e9;\n}\n.vue-treeselect__multi-value-item.vue-treeselect__multi-value-item-new:hover {\n  background: #e8f5e9;\n}\n.vue-treeselect__value-remove,\n.vue-treeselect__multi-value-label {\n  display: table-cell;\n  padding: 0 5px;\n  vertical-align: middle;\n}\n.vue-treeselect__value-remove {\n  color: #039be5;\n  padding-left: 5px;\n  border-left: 1px solid #fff;\n  line-height: 0;\n}\n[dir=\"rtl\"] .vue-treeselect__value-remove {\n  border-left: 0 none;\n  border-right: 1px solid #fff;\n}\n.vue-treeselect__multi-value-item:hover .vue-treeselect__value-remove {\n  color: #e53935;\n}\n.vue-treeselect--disabled .vue-treeselect__value-remove,\n.vue-treeselect__multi-value-item-disabled .vue-treeselect__value-remove {\n  display: none;\n}\n.vue-treeselect__value-remove > svg {\n  width: 6px;\n  height: 6px;\n}\n.vue-treeselect__multi-value-label {\n  padding-right: 5px;\n  white-space: pre-line;\n  -webkit-user-select: none;\n     -moz-user-select: none;\n      -ms-user-select: none;\n          user-select: none;\n}\n.vue-treeselect__limit-tip {\n  display: inline-block;\n  padding-top: 5px;\n  padding-right: 5px;\n  vertical-align: top;\n}\n[dir=\"rtl\"] .vue-treeselect__limit-tip {\n  padding-right: 0;\n  padding-left: 5px;\n}\n.vue-treeselect__limit-tip-text {\n  cursor: default;\n  display: block;\n  margin: 2px 0;\n  padding: 1px 0;\n  color: #bdbdbd;\n  font-size: 12px;\n  font-weight: 600;\n}\n.vue-treeselect__input-container {\n  display: block;\n  max-width: 100%;\n  outline: none;\n}\n.vue-treeselect--single .vue-treeselect__input-container {\n  font-size: inherit;\n  height: 100%;\n}\n.vue-treeselect--multi .vue-treeselect__input-container {\n  display: inline-block;\n  font-size: 12px;\n  vertical-align: top;\n}\n.vue-treeselect--searchable .vue-treeselect__input-container {\n  padding-left: 5px;\n  padding-right: 5px;\n}\n.vue-treeselect--searchable.vue-treeselect--multi.vue-treeselect--has-value .vue-treeselect__input-container {\n  padding-top: 5px;\n  padding-left: 0;\n}\n[dir=\"rtl\"] .vue-treeselect--searchable.vue-treeselect--multi.vue-treeselect--has-value .vue-treeselect__input-container {\n  padding-left: 5px;\n  padding-right: 0;\n}\n.vue-treeselect--disabled .vue-treeselect__input-container {\n  display: none;\n}\n.vue-treeselect__input,\n.vue-treeselect__sizer {\n  margin: 0;\n  line-height: inherit;\n  font-family: inherit;\n  font-size: inherit;\n}\n.vue-treeselect__input {\n  max-width: 100%;\n  margin: 0;\n  padding: 0;\n  border: 0;\n  outline: none;\n  box-sizing: content-box;\n  box-shadow: none;\n  background: none transparent;\n  line-height: 1;\n  vertical-align: middle;\n}\n.vue-treeselect__input::-ms-clear {\n  display: none;\n}\n.vue-treeselect--single .vue-treeselect__input {\n  width: 100%;\n  height: 100%;\n}\n.vue-treeselect--multi .vue-treeselect__input {\n  padding-top: 3px;\n  padding-bottom: 3px;\n}\n.vue-treeselect--has-value .vue-treeselect__input {\n  line-height: inherit;\n  vertical-align: top;\n}\n.vue-treeselect__sizer {\n  position: absolute;\n  top: 0;\n  left: 0;\n  visibility: hidden;\n  height: 0;\n  overflow: scroll;\n  white-space: pre;\n}\n.vue-treeselect__x-container {\n  display: table-cell;\n  vertical-align: middle;\n  width: 20px;\n  text-align: center;\n  line-height: 0;\n  cursor: pointer;\n  color: #ccc;\n  animation: 200ms vue-treeselect-animation-fade-in cubic-bezier(0.075, 0.82, 0.165, 1);\n}\n.vue-treeselect__x-container:hover {\n  color: #e53935;\n}\n.vue-treeselect__x {\n  width: 8px;\n  height: 8px;\n}\n.vue-treeselect__control-arrow-container {\n  display: table-cell;\n  vertical-align: middle;\n  width: 20px;\n  text-align: center;\n  line-height: 0;\n  cursor: pointer;\n}\n.vue-treeselect--disabled .vue-treeselect__control-arrow-container {\n  cursor: default;\n}\n.vue-treeselect__control-arrow {\n  width: 9px;\n  height: 9px;\n  color: #ccc;\n}\n.vue-treeselect:not(.vue-treeselect--disabled) .vue-treeselect__control-arrow-container:hover .vue-treeselect__control-arrow {\n  color: #616161;\n}\n.vue-treeselect--disabled .vue-treeselect__control-arrow {\n  opacity: 0.35;\n}\n.vue-treeselect__control-arrow--rotated {\n  -ms-transform: rotate(180deg);\n      transform: rotateZ(180deg);\n}\n/**\n * Menu\n */\n.vue-treeselect__menu-container {\n  position: absolute;\n  left: 0;\n  width: 100%;\n  overflow: visible;\n  transition: 0s;\n}\n.vue-treeselect--open-below:not(.vue-treeselect--append-to-body) .vue-treeselect__menu-container {\n  top: 100%;\n}\n.vue-treeselect--open-above:not(.vue-treeselect--append-to-body) .vue-treeselect__menu-container {\n  bottom: 100%;\n}\n.vue-treeselect__menu {\n  cursor: default;\n  padding-top: 5px;\n  padding-bottom: 5px;\n  display: block;\n  position: absolute;\n  overflow-x: hidden;\n  overflow-y: auto;\n  width: auto;\n  border: 1px solid #cfcfcf;\n  background: #fff;\n  line-height: 180%;\n  -webkit-overflow-scrolling: touch;\n}\n.vue-treeselect--open-below .vue-treeselect__menu {\n  border-bottom-left-radius: 5px;\n  border-bottom-right-radius: 5px;\n  top: 0;\n  margin-top: -1px;\n  border-top-color: #f2f2f2;\n  box-shadow: 0 1px 0 rgba(0, 0, 0, 0.06);\n}\n.vue-treeselect--open-above .vue-treeselect__menu {\n  border-top-left-radius: 5px;\n  border-top-right-radius: 5px;\n  bottom: 0;\n  margin-bottom: -1px;\n  border-bottom-color: #f2f2f2;\n}\n.vue-treeselect__indent-level-0 .vue-treeselect__option {\n  padding-left: 5px;\n}\n[dir=\"rtl\"] .vue-treeselect__indent-level-0 .vue-treeselect__option {\n  padding-left: 5px;\n  padding-right: 5px;\n}\n.vue-treeselect__indent-level-0 .vue-treeselect__tip {\n  padding-left: 25px;\n}\n[dir=\"rtl\"] .vue-treeselect__indent-level-0 .vue-treeselect__tip {\n  padding-left: 5px;\n  padding-right: 25px;\n}\n.vue-treeselect__indent-level-1 .vue-treeselect__option {\n  padding-left: 25px;\n}\n[dir=\"rtl\"] .vue-treeselect__indent-level-1 .vue-treeselect__option {\n  padding-left: 5px;\n  padding-right: 25px;\n}\n.vue-treeselect__indent-level-1 .vue-treeselect__tip {\n  padding-left: 45px;\n}\n[dir=\"rtl\"] .vue-treeselect__indent-level-1 .vue-treeselect__tip {\n  padding-left: 5px;\n  padding-right: 45px;\n}\n.vue-treeselect__indent-level-2 .vue-treeselect__option {\n  padding-left: 45px;\n}\n[dir=\"rtl\"] .vue-treeselect__indent-level-2 .vue-treeselect__option {\n  padding-left: 5px;\n  padding-right: 45px;\n}\n.vue-treeselect__indent-level-2 .vue-treeselect__tip {\n  padding-left: 65px;\n}\n[dir=\"rtl\"] .vue-treeselect__indent-level-2 .vue-treeselect__tip {\n  padding-left: 5px;\n  padding-right: 65px;\n}\n.vue-treeselect__indent-level-3 .vue-treeselect__option {\n  padding-left: 65px;\n}\n[dir=\"rtl\"] .vue-treeselect__indent-level-3 .vue-treeselect__option {\n  padding-left: 5px;\n  padding-right: 65px;\n}\n.vue-treeselect__indent-level-3 .vue-treeselect__tip {\n  padding-left: 85px;\n}\n[dir=\"rtl\"] .vue-treeselect__indent-level-3 .vue-treeselect__tip {\n  padding-left: 5px;\n  padding-right: 85px;\n}\n.vue-treeselect__indent-level-4 .vue-treeselect__option {\n  padding-left: 85px;\n}\n[dir=\"rtl\"] .vue-treeselect__indent-level-4 .vue-treeselect__option {\n  padding-left: 5px;\n  padding-right: 85px;\n}\n.vue-treeselect__indent-level-4 .vue-treeselect__tip {\n  padding-left: 105px;\n}\n[dir=\"rtl\"] .vue-treeselect__indent-level-4 .vue-treeselect__tip {\n  padding-left: 5px;\n  padding-right: 105px;\n}\n.vue-treeselect__indent-level-5 .vue-treeselect__option {\n  padding-left: 105px;\n}\n[dir=\"rtl\"] .vue-treeselect__indent-level-5 .vue-treeselect__option {\n  padding-left: 5px;\n  padding-right: 105px;\n}\n.vue-treeselect__indent-level-5 .vue-treeselect__tip {\n  padding-left: 125px;\n}\n[dir=\"rtl\"] .vue-treeselect__indent-level-5 .vue-treeselect__tip {\n  padding-left: 5px;\n  padding-right: 125px;\n}\n.vue-treeselect__indent-level-6 .vue-treeselect__option {\n  padding-left: 125px;\n}\n[dir=\"rtl\"] .vue-treeselect__indent-level-6 .vue-treeselect__option {\n  padding-left: 5px;\n  padding-right: 125px;\n}\n.vue-treeselect__indent-level-6 .vue-treeselect__tip {\n  padding-left: 145px;\n}\n[dir=\"rtl\"] .vue-treeselect__indent-level-6 .vue-treeselect__tip {\n  padding-left: 5px;\n  padding-right: 145px;\n}\n.vue-treeselect__indent-level-7 .vue-treeselect__option {\n  padding-left: 145px;\n}\n[dir=\"rtl\"] .vue-treeselect__indent-level-7 .vue-treeselect__option {\n  padding-left: 5px;\n  padding-right: 145px;\n}\n.vue-treeselect__indent-level-7 .vue-treeselect__tip {\n  padding-left: 165px;\n}\n[dir=\"rtl\"] .vue-treeselect__indent-level-7 .vue-treeselect__tip {\n  padding-left: 5px;\n  padding-right: 165px;\n}\n.vue-treeselect__indent-level-8 .vue-treeselect__option {\n  padding-left: 165px;\n}\n[dir=\"rtl\"] .vue-treeselect__indent-level-8 .vue-treeselect__option {\n  padding-left: 5px;\n  padding-right: 165px;\n}\n.vue-treeselect__indent-level-8 .vue-treeselect__tip {\n  padding-left: 185px;\n}\n[dir=\"rtl\"] .vue-treeselect__indent-level-8 .vue-treeselect__tip {\n  padding-left: 5px;\n  padding-right: 185px;\n}\n.vue-treeselect__option {\n  padding-left: 5px;\n  padding-right: 5px;\n  display: table;\n  table-layout: fixed;\n  width: 100%;\n}\n.vue-treeselect__option--highlight {\n  background: #f5f5f5;\n}\n.vue-treeselect--single .vue-treeselect__option--selected {\n  background: #e3f2fd;\n  font-weight: 600;\n}\n.vue-treeselect--single .vue-treeselect__option--selected:hover {\n  background: #e3f2fd;\n}\n.vue-treeselect__option--hide {\n  display: none;\n}\n.vue-treeselect__option-arrow-container,\n.vue-treeselect__option-arrow-placeholder {\n  display: table-cell;\n  vertical-align: middle;\n  width: 20px;\n  text-align: center;\n  line-height: 0;\n}\n.vue-treeselect__option-arrow-container {\n  cursor: pointer;\n}\n.vue-treeselect__option-arrow {\n  display: inline-block;\n  width: 9px;\n  height: 9px;\n  color: #ccc;\n  vertical-align: middle;\n  transition: 200ms transform cubic-bezier(0.19, 1, 0.22, 1);\n  -ms-transform: rotate(-90deg);\n      transform: rotateZ(-90deg);\n}\n[dir=\"rtl\"] .vue-treeselect__option-arrow {\n  -ms-transform: rotate(90deg);\n      transform: rotateZ(90deg);\n}\n.vue-treeselect__option-arrow-container:hover .vue-treeselect__option-arrow,\n.vue-treeselect--branch-nodes-disabled .vue-treeselect__option:hover .vue-treeselect__option-arrow {\n  color: #616161;\n}\n.vue-treeselect__option-arrow--rotated {\n  -ms-transform: rotate(0);\n      transform: rotateZ(0);\n}\n[dir=\"rtl\"] .vue-treeselect__option-arrow--rotated {\n  -ms-transform: rotate(0);\n      transform: rotateZ(0);\n}\n.vue-treeselect__option-arrow--rotated.vue-treeselect__option-arrow--prepare-enter {\n  -ms-transform: rotate(-90deg) !important;\n      transform: rotateZ(-90deg) !important;\n}\n[dir=\"rtl\"] .vue-treeselect__option-arrow--rotated.vue-treeselect__option-arrow--prepare-enter {\n  -ms-transform: rotate(90deg) !important;\n      transform: rotateZ(90deg) !important;\n}\n.vue-treeselect__label-container {\n  display: table-cell;\n  vertical-align: middle;\n  cursor: pointer;\n  display: table;\n  width: 100%;\n  table-layout: fixed;\n  color: inherit;\n}\n.vue-treeselect__option--disabled .vue-treeselect__label-container {\n  cursor: not-allowed;\n  color: rgba(0, 0, 0, 0.25);\n}\n.vue-treeselect__checkbox-container {\n  display: table-cell;\n  width: 20px;\n  min-width: 20px;\n  height: 100%;\n  text-align: center;\n  vertical-align: middle;\n}\n.vue-treeselect__checkbox {\n  display: block;\n  margin: auto;\n  width: 12px;\n  height: 12px;\n  border-width: 1px;\n  border-style: solid;\n  border-radius: 2px;\n  position: relative;\n  transition: 200ms all cubic-bezier(0.075, 0.82, 0.165, 1);\n}\n.vue-treeselect__check-mark,\n.vue-treeselect__minus-mark {\n  display: block;\n  position: absolute;\n  left: 1px;\n  top: 1px;\n  background-repeat: no-repeat;\n  opacity: 0;\n  transition: 200ms all ease;\n}\n.vue-treeselect__minus-mark {\n  width: 8px;\n  height: 8px;\n  background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAgAAAAIAgMAAAC5YVYYAAAACVBMVEUAAAD///////9zeKVjAAAAAnRSTlMAuLMp9oYAAAAPSURBVAjXY4CDrJUgBAMAGaECJ9dz3BAAAAAASUVORK5CYII=);\n  background-size: 8px 8px;\n}\n@media (-webkit-min-device-pixel-ratio: 1.5), (min-resolution: 1.5dppx) {\n  .vue-treeselect__minus-mark {\n    background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQAgMAAABinRfyAAAADFBMVEUAAAD///////////84wDuoAAAAA3RSTlMAyTzPIdReAAAAGUlEQVQI12PAD+b///+Nof7//79gAsLFCwAx/w4blADeeQAAAABJRU5ErkJggg==);\n  }\n}\n@media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {\n  .vue-treeselect__minus-mark {\n    background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQAgMAAABinRfyAAAADFBMVEUAAAD///////////84wDuoAAAAA3RSTlMAyTzPIdReAAAAGUlEQVQI12PAD+b///+Nof7//79gAsLFCwAx/w4blADeeQAAAABJRU5ErkJggg==);\n  }\n}\n@media (-webkit-min-device-pixel-ratio: 3), (min-resolution: 288dpi) {\n  .vue-treeselect__minus-mark {\n    background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYBAMAAAASWSDLAAAAD1BMVEUAAAD///////////////+PQt5oAAAABHRSTlMAy2EFIuWxUgAAACRJREFUGNNjGBBgJOICBY7KDCoucODEAJSAS6FwUJShGjAQAADBPRGrK2/FhgAAAABJRU5ErkJggg==);\n  }\n}\n.vue-treeselect__checkbox--indeterminate > .vue-treeselect__minus-mark {\n  opacity: 1;\n}\n.vue-treeselect__checkbox--disabled .vue-treeselect__minus-mark {\n  background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAgAAAAIAgMAAAC5YVYYAAAACVBMVEUAAADi4uLh4eHOxeSRAAAAAnRSTlMAuLMp9oYAAAAPSURBVAjXY4CDrJUgBAMAGaECJ9dz3BAAAAAASUVORK5CYII=);\n}\n@media (-webkit-min-device-pixel-ratio: 1.5), (min-resolution: 1.5dppx) {\n  .vue-treeselect__checkbox--disabled .vue-treeselect__minus-mark {\n    background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQAgMAAABinRfyAAAADFBMVEUAAADi4uLi4uLh4eE5RQaIAAAAA3RSTlMAyTzPIdReAAAAGUlEQVQI12PAD+b///+Nof7//79gAsLFCwAx/w4blADeeQAAAABJRU5ErkJggg==);\n  }\n}\n@media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {\n  .vue-treeselect__checkbox--disabled .vue-treeselect__minus-mark {\n    background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQAgMAAABinRfyAAAADFBMVEUAAADi4uLi4uLh4eE5RQaIAAAAA3RSTlMAyTzPIdReAAAAGUlEQVQI12PAD+b///+Nof7//79gAsLFCwAx/w4blADeeQAAAABJRU5ErkJggg==);\n  }\n}\n@media (-webkit-min-device-pixel-ratio: 3), (min-resolution: 288dpi) {\n  .vue-treeselect__checkbox--disabled .vue-treeselect__minus-mark {\n    background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYBAMAAAASWSDLAAAAD1BMVEUAAADh4eHg4ODNzc3h4eEYfw2wAAAABHRSTlMAy2EFIuWxUgAAACRJREFUGNNjGBBgJOICBY7KDCoucODEAJSAS6FwUJShGjAQAADBPRGrK2/FhgAAAABJRU5ErkJggg==);\n  }\n}\n.vue-treeselect__check-mark {\n  width: 8px;\n  height: 8px;\n  background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAgAAAAICAMAAADz0U65AAAAQlBMVEUAAAD///////////////////////////////////////////////////////////////////////////////////8IX9KGAAAAFXRSTlMA8u24NxILB+Tawb6jiH1zRz0xIQIIP3GUAAAAMklEQVQI1y3FtQEAMQDDQD+EGbz/qkEVOpyEOP6PudKjZNSXn4Jm2CKRdBKzSLsFWl8fMG0Bl6Jk1rMAAAAASUVORK5CYII=);\n  background-size: 8px 8px;\n  -ms-transform: scaleY(0.125);\n      transform: scaleY(0.125);\n}\n@media (-webkit-min-device-pixel-ratio: 1.5), (min-resolution: 1.5dppx) {\n  .vue-treeselect__check-mark {\n    background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAMAAAAoLQ9TAAAAYFBMVEUAAAD///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////98JRy6AAAAH3RSTlMAzu4sDenl38fBvo1OMyIdEQrj1cSihX5hYFpHNycIcQOASAAAAF9JREFUGNN9zEcOgDAMRFHTS0LvNfe/JRmHKAIJ/mqeLJn+k9uDtaeUeFnFziGsBucUTirrprfe81RqZ3Bb6hPWeuZwDFOHyf+ig9CCzQ7INBn7bG5kF+QSt13BHNJnF7AaCT4Y+CW7AAAAAElFTkSuQmCC);\n  }\n}\n@media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {\n  .vue-treeselect__check-mark {\n    background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAMAAAAoLQ9TAAAAYFBMVEUAAAD///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////98JRy6AAAAH3RSTlMAzu4sDenl38fBvo1OMyIdEQrj1cSihX5hYFpHNycIcQOASAAAAF9JREFUGNN9zEcOgDAMRFHTS0LvNfe/JRmHKAIJ/mqeLJn+k9uDtaeUeFnFziGsBucUTirrprfe81RqZ3Bb6hPWeuZwDFOHyf+ig9CCzQ7INBn7bG5kF+QSt13BHNJnF7AaCT4Y+CW7AAAAAElFTkSuQmCC);\n  }\n}\n@media (-webkit-min-device-pixel-ratio: 3), (min-resolution: 288dpi) {\n  .vue-treeselect__check-mark {\n    background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAMAAADXqc3KAAAAWlBMVEUAAAD///////////////////////////////////////////////////////////////////////////////////////////////////////////////////9ZMre9AAAAHXRSTlMA/PiJhGNI9XlEHJB/b2ldV08+Oibk49vPp6QhAYgGBuwAAACCSURBVCjPrdHdDoIwDAXgTWAqCigo/+f9X5OwnoUwtis4V92XNWladUl+rzQPeQJAN2EHxoOnsPn7/oYk8fxBv08Rr/deOH/aZ2Nm8ZJ+s573QGfWKnNuZGzWm3+lv2V3pcU1XQ385/yjmBoM3Z+dXvlbYLLD3ujhTaOM3KaIXvNkFkuSEvYy1LqOAAAAAElFTkSuQmCC);\n  }\n}\n.vue-treeselect__checkbox--checked > .vue-treeselect__check-mark {\n  opacity: 1;\n  -ms-transform: scaleY(1);\n      transform: scaleY(1);\n}\n.vue-treeselect__checkbox--disabled .vue-treeselect__check-mark {\n  background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAgAAAAICAMAAADz0U65AAAAP1BMVEUAAADj4+Pf39/h4eHh4eHh4eHk5OTh4eHg4ODi4uLh4eHh4eHg4ODh4eHh4eHg4ODh4eHh4eHp6en////h4eFqcyvUAAAAFHRSTlMAOQfy7bgS5NrBvqOIfXNHMSELAgQ/iFsAAAA2SURBVAjXY4AANjYIzcjMAaVFuBkY+RkEWERYmRjYRXjANAOfiIgIFxNIAa8IpxBEi6AwiAQAK2MBd7xY8csAAAAASUVORK5CYII=);\n}\n@media (-webkit-min-device-pixel-ratio: 1.5), (min-resolution: 1.5dppx) {\n  .vue-treeselect__checkbox--disabled .vue-treeselect__check-mark {\n    background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAMAAAAoLQ9TAAAAXVBMVEUAAADh4eHh4eHh4eHi4uLb29vh4eHh4eHh4eHh4eHh4eHh4eHh4eHi4uLi4uLj4+Pi4uLk5OTo6Ojh4eHh4eHi4uLg4ODg4ODh4eHg4ODh4eHf39/g4OD////h4eEzIk+wAAAAHnRSTlMAzu6/LA3p5eLZx8ONTjYiHRIKooV+YWBaRzEnCANnm5rnAAAAZElEQVQY033P2wqAIAyA4VWaaWrnc/n+j5mbhBjUf7WPoTD47TJb4i5zTr/sRDRHuyFaoWX7uK/RlbctlPEuyI1f4WY9yQINEkf6rzzo8YIzmUFoCs7J1EjeIaa9bXIEmzl8dgOZEAj/+2IvzAAAAABJRU5ErkJggg==);\n  }\n}\n@media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {\n  .vue-treeselect__checkbox--disabled .vue-treeselect__check-mark {\n    background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAMAAAAoLQ9TAAAAXVBMVEUAAADh4eHh4eHh4eHi4uLb29vh4eHh4eHh4eHh4eHh4eHh4eHh4eHi4uLi4uLj4+Pi4uLk5OTo6Ojh4eHh4eHi4uLg4ODg4ODh4eHg4ODh4eHf39/g4OD////h4eEzIk+wAAAAHnRSTlMAzu6/LA3p5eLZx8ONTjYiHRIKooV+YWBaRzEnCANnm5rnAAAAZElEQVQY033P2wqAIAyA4VWaaWrnc/n+j5mbhBjUf7WPoTD47TJb4i5zTr/sRDRHuyFaoWX7uK/RlbctlPEuyI1f4WY9yQINEkf6rzzo8YIzmUFoCs7J1EjeIaa9bXIEmzl8dgOZEAj/+2IvzAAAAABJRU5ErkJggg==);\n  }\n}\n@media (-webkit-min-device-pixel-ratio: 3), (min-resolution: 288dpi) {\n  .vue-treeselect__checkbox--disabled .vue-treeselect__check-mark {\n    background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAMAAADXqc3KAAAAUVBMVEUAAADh4eHh4eHh4eHh4eHi4uLi4uLh4eHh4eHh4eHf39/j4+Ph4eHh4eHh4eHg4ODi4uLh4eHh4eHi4uLh4eHh4eHh4eHh4eHh4eH////h4eF3FMFTAAAAGnRSTlMA+/eJhGhfSHE9JBzz5KaQf3pXT0Xbz0I5AYDw8F0AAAB+SURBVCjPrdHbDoMgEEVRKAii1dZe9fz/hxplTiKIT7qfYCWTEEZdUvOwbckNAD2WHeh3brHW5f5EzGQ+iN+b1Gt6KPvtv16Dn6JX9M9ya3/A1yfu5dlyduL6Hec7mXY6ddXLPP2lpABGZ8PWXfYLTJxZekVhhl7eTX24zZPNKXoRC7zQLjUAAAAASUVORK5CYII=);\n  }\n}\n.vue-treeselect__checkbox--unchecked {\n  border-color: #e0e0e0;\n  background: #fff;\n}\n.vue-treeselect__label-container:hover .vue-treeselect__checkbox--unchecked {\n  border-color: #039be5;\n  background: #fff;\n}\n.vue-treeselect__checkbox--indeterminate {\n  border-color: #039be5;\n  background: #039be5;\n}\n.vue-treeselect__label-container:hover .vue-treeselect__checkbox--indeterminate {\n  border-color: #039be5;\n  background: #039be5;\n}\n.vue-treeselect__checkbox--checked {\n  border-color: #039be5;\n  background: #039be5;\n}\n.vue-treeselect__label-container:hover .vue-treeselect__checkbox--checked {\n  border-color: #039be5;\n  background: #039be5;\n}\n.vue-treeselect__checkbox--disabled {\n  border-color: #e0e0e0;\n  background-color: #f7f7f7;\n}\n.vue-treeselect__label-container:hover .vue-treeselect__checkbox--disabled {\n  border-color: #e0e0e0;\n  background-color: #f7f7f7;\n}\n.vue-treeselect__label {\n  overflow: hidden;\n  text-overflow: ellipsis;\n  white-space: nowrap;\n  display: table-cell;\n  padding-left: 5px;\n  max-width: 100%;\n  vertical-align: middle;\n  cursor: inherit;\n}\n[dir=\"rtl\"] .vue-treeselect__label {\n  padding-left: 0;\n  padding-right: 5px;\n}\n.vue-treeselect__count {\n  margin-left: 5px;\n  font-weight: 400;\n  opacity: 0.6;\n}\n[dir=\"rtl\"] .vue-treeselect__count {\n  margin-left: 0;\n  margin-right: 5px;\n}\n.vue-treeselect__tip {\n  padding-left: 5px;\n  padding-right: 5px;\n  display: table;\n  table-layout: fixed;\n  width: 100%;\n  color: #757575;\n}\n.vue-treeselect__tip-text {\n  display: table-cell;\n  vertical-align: middle;\n  padding-left: 5px;\n  padding-right: 5px;\n  overflow: hidden;\n  text-overflow: ellipsis;\n  white-space: nowrap;\n  width: 100%;\n  font-size: 12px;\n}\n.vue-treeselect__error-tip .vue-treeselect__retry {\n  cursor: pointer;\n  margin-left: 5px;\n  font-style: normal;\n  font-weight: 600;\n  text-decoration: none;\n  color: #039be5;\n}\n[dir=\"rtl\"] .vue-treeselect__error-tip .vue-treeselect__retry {\n  margin-left: 0;\n  margin-right: 5px;\n}\n.vue-treeselect__icon-container {\n  display: table-cell;\n  vertical-align: middle;\n  width: 20px;\n  text-align: center;\n  line-height: 0;\n}\n.vue-treeselect--single .vue-treeselect__icon-container {\n  padding-left: 5px;\n}\n[dir=\"rtl\"] .vue-treeselect--single .vue-treeselect__icon-container {\n  padding-left: 0;\n  padding-right: 5px;\n}\n.vue-treeselect__icon-warning {\n  display: block;\n  margin: auto;\n  border-radius: 50%;\n  position: relative;\n  width: 12px;\n  height: 12px;\n  background: #fb8c00;\n}\n.vue-treeselect__icon-warning::after {\n  display: block;\n  position: absolute;\n  content: \"\";\n  left: 5px;\n  top: 2.5px;\n  width: 2px;\n  height: 1px;\n  border: 0 solid #fff;\n  border-top-width: 5px;\n  border-bottom-width: 1px;\n}\n.vue-treeselect__icon-error {\n  display: block;\n  margin: auto;\n  border-radius: 50%;\n  position: relative;\n  width: 12px;\n  height: 12px;\n  background: #e53935;\n}\n.vue-treeselect__icon-error::before,\n.vue-treeselect__icon-error::after {\n  display: block;\n  position: absolute;\n  content: \"\";\n  background: #fff;\n  -ms-transform: rotate(45deg);\n      transform: rotate(45deg);\n}\n.vue-treeselect__icon-error::before {\n  width: 6px;\n  height: 2px;\n  left: 3px;\n  top: 5px;\n}\n.vue-treeselect__icon-error::after {\n  width: 2px;\n  height: 6px;\n  left: 5px;\n  top: 3px;\n}\n.vue-treeselect__icon-loader {\n  display: block;\n  margin: auto;\n  position: relative;\n  width: 12px;\n  height: 12px;\n  text-align: center;\n  animation: 1.6s vue-treeselect-animation-rotate linear infinite;\n}\n.vue-treeselect__icon-loader::before,\n.vue-treeselect__icon-loader::after {\n  border-radius: 50%;\n  position: absolute;\n  content: \"\";\n  left: 0;\n  top: 0;\n  display: block;\n  width: 100%;\n  height: 100%;\n  opacity: 0.6;\n  animation: 1.6s vue-treeselect-animation-bounce ease-in-out infinite;\n}\n.vue-treeselect__icon-loader::before {\n  background: #039be5;\n}\n.vue-treeselect__icon-loader::after {\n  background: #b3e5fc;\n  animation-delay: -0.8s;\n}\n/**\n * Menu Portal\n */\n.vue-treeselect__menu-placeholder {\n  display: none;\n}\n.vue-treeselect__portal-target {\n  position: absolute;\n  display: block;\n  left: 0;\n  top: 0;\n  height: 0;\n  width: 0;\n  padding: 0;\n  margin: 0;\n  border: 0;\n  overflow: visible;\n  box-sizing: border-box;\n}\n\n\n/*# sourceMappingURL=vue-treeselect.css.map*/", ""]);
-
-// exports
-
-
-/***/ }),
-
-/***/ 801:
+/***/ 784:
 /***/ (function(module, exports, __webpack_require__) {
 
 /*
@@ -19031,7 +13176,7 @@ if (typeof DEBUG !== 'undefined' && DEBUG) {
   ) }
 }
 
-var listToStyles = __webpack_require__(809)
+var listToStyles = __webpack_require__(792)
 
 /*
 type StyleObject = {
@@ -19234,33 +13379,33 @@ function applyToTag (styleElement, obj) {
 
 /***/ }),
 
-/***/ 802:
+/***/ 785:
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = { "default": __webpack_require__(947), __esModule: true };
+module.exports = { "default": __webpack_require__(930), __esModule: true };
 
 /***/ }),
 
-/***/ 803:
+/***/ 786:
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = { "default": __webpack_require__(960), __esModule: true };
+module.exports = { "default": __webpack_require__(942), __esModule: true };
 
 /***/ }),
 
-/***/ 804:
+/***/ 787:
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = { "default": __webpack_require__(961), __esModule: true };
+module.exports = { "default": __webpack_require__(943), __esModule: true };
 
 /***/ }),
 
-/***/ 805:
+/***/ 788:
 /***/ (function(module, exports, __webpack_require__) {
 
 // 19.1.2.7 / 15.2.3.4 Object.getOwnPropertyNames(O)
-var $keys = __webpack_require__(385);
-var hiddenKeys = __webpack_require__(185).concat('length', 'prototype');
+var $keys = __webpack_require__(382);
+var hiddenKeys = __webpack_require__(181).concat('length', 'prototype');
 
 exports.f = Object.getOwnPropertyNames || function getOwnPropertyNames(O) {
   return $keys(O, hiddenKeys);
@@ -19269,7 +13414,7 @@ exports.f = Object.getOwnPropertyNames || function getOwnPropertyNames(O) {
 
 /***/ }),
 
-/***/ 806:
+/***/ 789:
 /***/ (function(module, exports) {
 
 function _arrayLikeToArray(arr, len) {
@@ -19286,10 +13431,10 @@ module.exports = _arrayLikeToArray;
 
 /***/ }),
 
-/***/ 807:
+/***/ 790:
 /***/ (function(module, exports, __webpack_require__) {
 
-var arrayLikeToArray = __webpack_require__(806);
+var arrayLikeToArray = __webpack_require__(789);
 
 function _unsupportedIterableToArray(o, minLen) {
   if (!o) return;
@@ -19304,12 +13449,12 @@ module.exports = _unsupportedIterableToArray;
 
 /***/ }),
 
-/***/ 808:
+/***/ 791:
 /***/ (function(module, exports, __webpack_require__) {
 
-var baseTrim = __webpack_require__(982),
+var baseTrim = __webpack_require__(965),
     isObject = __webpack_require__(58),
-    isSymbol = __webpack_require__(988);
+    isSymbol = __webpack_require__(971);
 
 /** Used as references for various `Number` constants. */
 var NAN = 0 / 0;
@@ -19375,7 +13520,7 @@ module.exports = toNumber;
 
 /***/ }),
 
-/***/ 809:
+/***/ 792:
 /***/ (function(module, exports) {
 
 /**
@@ -19409,7 +13554,7 @@ module.exports = function listToStyles (parentId, list) {
 
 /***/ }),
 
-/***/ 810:
+/***/ 793:
 /***/ (function(module, exports) {
 
 exports.f = {}.propertyIsEnumerable;
@@ -19417,13 +13562,13 @@ exports.f = {}.propertyIsEnumerable;
 
 /***/ }),
 
-/***/ 811:
+/***/ 929:
 /***/ (function(module, exports, __webpack_require__) {
 
 var global = __webpack_require__(22);
 var core = __webpack_require__(37);
-var LIBRARY = __webpack_require__(107);
-var wksExt = __webpack_require__(996);
+var LIBRARY = __webpack_require__(106);
+var wksExt = __webpack_require__(979);
 var defineProperty = __webpack_require__(55).f;
 module.exports = function (name) {
   var $Symbol = core.Symbol || (core.Symbol = LIBRARY ? {} : global.Symbol || {});
@@ -19433,10 +13578,10 @@ module.exports = function (name) {
 
 /***/ }),
 
-/***/ 947:
+/***/ 930:
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(948);
+__webpack_require__(931);
 var $Object = __webpack_require__(20).Object;
 module.exports = function defineProperty(it, key, desc) {
   return $Object.defineProperty(it, key, desc);
@@ -19445,7 +13590,7 @@ module.exports = function defineProperty(it, key, desc) {
 
 /***/ }),
 
-/***/ 948:
+/***/ 931:
 /***/ (function(module, exports, __webpack_require__) {
 
 var $export = __webpack_require__(32);
@@ -19455,22 +13600,7 @@ $export($export.S + $export.F * !__webpack_require__(44), 'Object', { defineProp
 
 /***/ }),
 
-/***/ 949:
-/***/ (function(module, exports, __webpack_require__) {
-
-exports = module.exports = __webpack_require__(53)();
-// imports
-
-
-// module
-exports.push([module.i, "\n#file-manager[data-v-497df3b6] {\n    padding: 0;\n}\n#file-manager___BV_modal_body_[data-v-497df3b6] {\n    padding: 0;\n}\n#fm-container-dialog[data-v-497df3b6] {\n    padding: 0;\n    overflow: hidden !important;\n}\n#fm-container[data-v-497df3b6] {\n    font-size: 12px;\n    font-family: sans-serif;\n    padding: 0\n}\n#fm-toolbar ul[data-v-497df3b6] {\n    float: left;\n    margin: 3.5px 0 3px 10px;\n    padding: 1px 2px;\n    border-radius: 0\n}\n#fm-toolbar ul li[data-v-497df3b6] {\n        border: 1px solid #fff;\n        cursor: pointer;\n        float: left;\n        line-height: 26px;\n        list-style-type: none;\n        padding: 0 8px;\n        text-align: center;\n}\n#fm-toolbar ul li[data-v-497df3b6]:hover {\n            background: #eaeaea;\n}\n#fm-toolbar ul li.active[data-v-497df3b6] {\n            background: #eaeaea;\n}\n#fm-container[data-v-497df3b6] {\n}\n#fm-toolbar[data-v-497df3b6] {\n}\n#fm-footer[data-v-497df3b6] {\n    border-top: 1px solid #eaeaea;\n    padding-top: 10px\n}\n#fm-toolbar .tool-items[data-v-497df3b6] {\n    clear: both;\n    padding-right: 6px;\n}\n#fm-toolbar .tools[data-v-497df3b6] {\n    float: left;\n}\n#fm-main[data-v-497df3b6] {\n    margin-top: 8px;\n    border-top: 1px solid #eaeaea;\n}\n#fm-sidebar .fm-header[data-v-497df3b6] {\n    height: 35px;\n    line-height: 35px;\n    background-color: #39c;\n    overflow: hidden;\n    font-size: 17px;\n    color: #ecf3f9;\n    text-align: center;\n}\n#fm-sidebar[data-v-497df3b6] {\n    border-right: 1px solid #eaeaea\n}\n#fm-content[data-v-497df3b6] {\n    background-color: white;\n    cursor: default; /*z-index: 0; box-shadow: 0 2px 4px rgba(0,0,0,0.04), 0 1px 4px rgba(0,0,0,0.12);*/\n    height: 100%;\n}\n#fm-data-wrapper[data-v-497df3b6] {\n    overflow: hidden;\n}\n#fm-file-view[data-v-497df3b6] {\n    border-left: 1px solid #eaeaea;\n    float: right;\n    height: 100%;\n    width: 250px;\n    padding: 9px;\n    background: #fff;\n}\n#fm-file-view .file-thumb[data-v-497df3b6] {\n        text-align: center;\n        max-height: 250px;\n        max-width: 230px;\n        overflow: hidden;\n}\n#fm-file-view .header[data-v-497df3b6] {\n        font-weight: bold;\n        margin-bottom: 12px;\n        padding: 2px 0;\n        text-align: center;\n        text-transform: uppercase;\n}\n#fm-file-view .details[data-v-497df3b6] {\n        padding-top: 16px;\n}\n#fm-file-view .details div[data-v-497df3b6] {\n            line-height: 21px;\n}\n#fm-file-view .details .uploaded[data-v-497df3b6],\n        #fm-file-view .details .file-size[data-v-497df3b6],\n        #fm-file-view .details .dimensions[data-v-497df3b6] {\n            line-height: 21px;\n}\n#fm-file-view .file-thumb img[data-v-497df3b6] {\n        border: 1px solid #eaeaea;\n        padding: 4px; /*max-height: 220px; max-width: 228px;*/\n}\n.attachment-info .filename[data-v-497df3b6] {\n    font-weight: 600;\n    color: #444;\n    word-wrap: break-word;\n}\n.btn-attack[data-v-497df3b6] {\n    background: #fff none repeat scroll 0 0;\n    padding: 3px 3px 3px 0;\n    width: 230px;\n    float: right;\n    clear: both;\n}\n.btn-attack button#btn-attack[data-v-497df3b6] {\n        color: #fff;\n        background: #0085ba;\n        border: 0;\n        padding: 4px 6px;\n}\n.btn-attack button#dl-close[data-v-497df3b6] {\n        background: #eaeaea;\n        border: 0;\n        padding: 4px 6px;\n        float: right;\n        clear: both;\n}\n#fm-content table._list[data-v-497df3b6] {\n    width: 100%;\n}\n#fm-content table._list tr[data-v-497df3b6] {\n}\n#fm-content table._list tr th[data-v-497df3b6] {\n            text-align: center;\n            font-weight: bold;\n}\n#fm-content table._list tr td[data-v-497df3b6] {\n            padding: 5px 4px;\n}\n#fm-content table._list tr._active[data-v-497df3b6] {\n            background: #48adff;\n}\n#fm-toolbar ul li i[data-v-497df3b6] {\n    background-repeat: no-repeat;\n    display: inline-block;\n    height: 16px;\n    vertical-align: middle;\n    width: 16px;\n}\n#fm-toolbar ul li i[data-v-497df3b6] {\n}\nli i.create-folder[data-v-497df3b6] {\n    background-image: url(" + __webpack_require__(1005) + ");\n}\nli i.upload[data-v-497df3b6] {\n    background-image: url(" + __webpack_require__(1007) + ");\n}\nli i.list[data-v-497df3b6] {\n    background-image: url(" + __webpack_require__(1002) + ");\n}\nli i.grid[data-v-497df3b6] {\n    background-image: url(" + __webpack_require__(1001) + ");\n}\nli i.iclose[data-v-497df3b6] {\n    background-image: url(" + __webpack_require__(1006) + ");\n}\nli i.crop[data-v-497df3b6] {\n    background-image: url(" + __webpack_require__(1004) + ");\n}\nli i.remove[data-v-497df3b6] {\n    background-image: url(" + __webpack_require__(1003) + ");\n}\nli i.close[data-v-497df3b6]:hover {\n}\n#fm-footer[data-v-497df3b6] {\n    min-height: 32px;\n}\n#fm-data-wrapper[data-v-497df3b6] {\n    height: 100%;\n}\n.clear[data-v-497df3b6] {\n    clear: both;\n}\n#_list ._active[data-v-497df3b6] {\n    background: #48adff;\n}\n#fm-content[data-v-497df3b6] {\n}\n#fm-content table._list table thead tr th[data-v-497df3b6] {\n        text-align: center;\n}\n#fm-content table._list tr[data-v-497df3b6] {\n        font-size: 11px;\n}\n#fm-content table._list tr[data-v-497df3b6]:hover {\n            background: #c1edff;\n            cursor: pointer;\n}\n#fm-content table._list tr td[data-v-497df3b6] {\n}\n#fm-content table._list tbody tr td.name[data-v-497df3b6] {\n        display: inline-flex;\n}\n#fm-content table._list tbody tr td.name .list-icon[data-v-497df3b6] {\n            display: inline-block;\n            float: left;\n            padding-right: 20px;\n}\n/* #fm-content table._list tbody tr td.name .png, #fm-content table tbody tr td.name .jpg, #fm-content table tbody tr td.name .jpeg, #fm-content table tbody tr td.name .gif,\n#fm-content table._list tbody tr td.name .bmp { background: url(/CMS/Modules/FileManager/Libs/Images/filetree/picture.png) no-repeat; width: 16px; height: 16px; }\n#fm-content table._list tbody tr td.name .doc, #fm-content table tbody tr td.name .docx { background: url(/CMS/Modules/FileManager/Libs/Images/filetree/doc.png) no-repeat; width: 16px; height: 16px; }\n#fm-content table._list tbody tr td.name .xlsx, #fm-content table tbody tr td.name .xls { background: url(/CMS/Modules/FileManager/Libs/Images/filetree/xls.png) no-repeat; width: 16px; height: 16px; }\n#fm-content table._list tbody tr td.name .zip, #fm-content table tbody tr td.name .rar { background: url(/CMS/Modules/FileManager/Libs/Images/filetree/zip.png) no-repeat; width: 16px; height: 16px; }\n#fm-content table._list tbody tr td.name .txt { background: url(/CMS/Modules/FileManager/Libs/Images/filetree/txt.png) no-repeat; width: 16px; height: 16px; }\n#fm-content table._list tbody tr td.name .pdf { background: url(/CMS/Modules/FileManager/Libs/Images/filetree/pdf.png) no-repeat; width: 16px; height: 16px; }\n#fm-content table._list tbody tr td.name { width: 274px; display: inline-block; overflow: hidden; }\n#fm-content table._list tbody tr td.name .fname { display: inline-flex; }\n#fm-content table._list tbody tr td.type, #fm-content table tbody tr td.size, #fm-content table tbody tr td.dimensions, #fm-content table tbody tr td.date { overflow: hidden; width: 98px; }\n#fm-content table._list tbody tr td.size { width: 70px; }\n#fm-content table._list tbody tr td.dimensions { width: 80px; }\n#fm-content table._list tbody tr td.date { width: 115px; } */\n#fm-grid[data-v-497df3b6], #fm-folder ul[data-v-497df3b6], #fm-grid li .info p[data-v-497df3b6] {\n    padding: 0;\n    margin: 0;\n}\n#fm-grid li[data-v-497df3b6] {\n        position: relative;\n        vertical-align: middle;\n        display: table-cell;\n        border: 1px solid #eaeaea;\n        cursor: pointer;\n        float: left;\n        height: 100px;\n        min-width: 114px;\n        list-style-type: none;\n        margin: 4px;\n        padding: 2px;\n        width: 15.78%;\n        position: relative;\n        overflow: hidden;\n        text-align: center;\n}\n#fm-grid li .info[data-v-497df3b6] {\n            font-size: 10px;\n            background: rgba(109,105,105,0.45882);\n            position: absolute;\n            bottom: 0;\n            width: 100%;\n            height: 0\n}\n#fm-grid li:hover .info[data-v-497df3b6] {\n            height: auto\n}\n.fm-list li img[data-v-497df3b6] {\n    width: 100%\n}\n.fm-list li.not_img img[data-v-497df3b6] {\n    width: 50%;\n    padding-top: 10px\n}\n#fm-grid li img.thumb[data-v-497df3b6] {\n    width: 60%;\n    margin: 0 auto;\n}\n#fm-grid li i[data-v-497df3b6] {\n    position: absolute;\n    z-index: 999;\n    right: 4px;\n    background: #fff;\n    border-radius: 11px;\n    color: #0085ba;\n    padding: 1px;\n    top: 3px;\n    display: none;\n}\n#fm-grid li._active i[data-v-497df3b6] {\n    display: block;\n}\n#fm-grid li._active[data-v-497df3b6] {\n    border: 1px solid #0085ba;\n}\n#fm-folder ul li[data-v-497df3b6] {\n    list-style-type: none;\n    padding: 8px 0;\n    cursor: pointer\n}\n#fm-folder ul li i[data-v-497df3b6] {\n        background-repeat: no-repeat;\n        display: inline-block;\n        height: 16px;\n        vertical-align: middle;\n        width: 16px;\n}\n.plupload_filelist_header[data-v-497df3b6] {\n    height: 20px;\n}\n.plupload_filelist_footer[data-v-497df3b6] {\n    padding: 6px 20px;\n    height: 33px;\n}\n.plupload_scroll .plupload_filelist[data-v-497df3b6] {\n    height: 172px !important;\n}\n.plupload_filelist_footer[data-v-497df3b6] {\n    padding: 6px 20px;\n}\n.plupload_filelist[data-v-497df3b6]:empty,\n.plupload_filelist li.plupload_droptext[data-v-497df3b6] {\n    height: 140px;\n}\n.plupload_filelist[data-v-497df3b6]:empty::before,\n    .plupload_filelist li.plupload_droptext[data-v-497df3b6]::before {\n        font-size: 52px;\n        height: 75px;\n        left: 49%;\n        margin-left: -40px;\n        padding-top: 43px;\n}\n.items-action[data-v-497df3b6] {\n    padding-top: 20px;\n    display: inline-block;\n    width: 100%;\n}\n.items-action .file-action[data-v-497df3b6] {\n        border: 0 none;\n        color: #fff;\n        padding: 4px 10px;\n}\n.items-action .file-action[data-v-497df3b6] {\n        background: rosybrown;\n        float: left;\n        clear: both;\n}\n/*.items-action .file-action:last-child { background: #0085ba;float: right;}*/\n#fm-toolbar .Mi.ipagination a[data-v-497df3b6]:first-child {\n    border: 0;\n    border-radius: 0;\n}\n#fm-toolbar .Mi.ipagination input[data-v-497df3b6] {\n    border: medium none;\n    float: left;\n    font-family: arial;\n    font-size: 11px;\n    height: 30px;\n    margin: 0;\n    outline: medium none;\n    padding: 0;\n    text-align: center;\n    vertical-align: middle;\n    width: 84px;\n}\n#fm-toolbar .Mi.ipagination a[data-v-497df3b6] {\n    border: 0;\n    border-radius: 0;\n    background: #fff;\n}\n#fm-toolbar .ipagination.iweb[data-v-497df3b6] {\n    margin-top: 3.45px;\n}\n#frowInTotals[data-v-497df3b6] {\n    display: inline-block;\n    float: left;\n    line-height: 39px;\n    padding-right: 3px;\n    vertical-align: baseline;\n}\nlabel#progressall[data-v-497df3b6] {\n    display: none;\n    padding: 7px 7px;\n}\n.Cdiv[data-v-497df3b6] {\n    padding-left: 12px;\n    height: 17px;\n    overflow: hidden;\n    text-overflow: ellipsis;\n    white-space: nowrap;\n    width: 100%;\n    display: inline-block;\n    font-weight: normal;\n}\n#btn-fm-upload label[data-v-497df3b6] {\n    margin-bottom: 0 !important;\n}\n/* Extra small devices (phones, 600px and down) */\n@media only screen and (max-width: 600px) {\n#fm-grid li[data-v-497df3b6] {\n        width: 47.65%;\n}\n}\n\n/* Small devices (portrait tablets and large phones, 600px and up) */\n@media only screen and (min-width: 600px) {\n}\n\n/* Medium devices (landscape tablets, 768px and up) */\n@media only screen and (min-width: 768px) {\n}\n\n/* Large devices (laptops/desktops, 992px and up) */\n@media only screen and (min-width: 992px) {\n}\n\n/* Extra large devices (large laptops and desktops, 1200px and up) */\n@media only screen and (min-width: 1200px) {\n}\n", "", {"version":3,"sources":["D:/Code/WORKING/dotnet-platform-backend/Web/Platform/CMS/PlatformCMS/ClientApp/components/fileManager/list.vue?b8c85d56"],"names":[],"mappings":";AAgYA;IACA,WAAA;CACA;AAEA;IACA,WAAA;CACA;AAEA;IACA,WAAA;IACA,4BAAA;CACA;AAEA;IACA,gBAAA;IACA,wBAAA;IACA,UAAA;CACA;AAEA;IACA,YAAA;IACA,yBAAA;IACA,iBAAA;IACA,gBAAA;CACA;AAEA;QACA,uBAAA;QACA,gBAAA;QACA,YAAA;QACA,kBAAA;QACA,sBAAA;QACA,eAAA;QACA,mBAAA;CACA;AAEA;YACA,oBAAA;CACA;AAEA;YACA,oBAAA;CACA;AAEA;CACA;AAEA;CACA;AAEA;IACA,8BAAA;IACA,iBAAA;CACA;AAEA;IACA,YAAA;IACA,mBAAA;CACA;AAEA;IACA,YAAA;CACA;AAEA;IACA,gBAAA;IACA,8BAAA;CACA;AAEA;IACA,aAAA;IACA,kBAAA;IACA,uBAAA;IACA,iBAAA;IACA,gBAAA;IACA,eAAA;IACA,mBAAA;CACA;AAEA;IACA,+BAAA;CACA;AAEA;IACA,wBAAA;IACA,gBAAA,CAAA,mFAAA;IACA,aAAA;CACA;AAEA;IACA,iBAAA;CACA;AAEA;IACA,+BAAA;IACA,aAAA;IACA,aAAA;IACA,aAAA;IACA,aAAA;IACA,iBAAA;CACA;AAEA;QACA,mBAAA;QACA,kBAAA;QACA,iBAAA;QACA,iBAAA;CACA;AAEA;QACA,kBAAA;QACA,oBAAA;QACA,eAAA;QACA,mBAAA;QACA,0BAAA;CACA;AAEA;QACA,kBAAA;CACA;AAEA;YACA,kBAAA;CACA;AAEA;;;YAGA,kBAAA;CACA;AAEA;QACA,0BAAA;QACA,aAAA,CAAA,wCAAA;CACA;AAEA;IACA,iBAAA;IACA,YAAA;IACA,sBAAA;CACA;AAEA;IACA,wCAAA;IACA,uBAAA;IACA,aAAA;IACA,aAAA;IACA,YAAA;CACA;AAEA;QACA,YAAA;QACA,oBAAA;QACA,UAAA;QACA,iBAAA;CACA;AAEA;QACA,oBAAA;QACA,UAAA;QACA,iBAAA;QACA,aAAA;QACA,YAAA;CACA;AAEA;IACA,YAAA;CACA;AAEA;CACA;AAEA;YACA,mBAAA;YACA,kBAAA;CACA;AAEA;YACA,iBAAA;CACA;AAEA;YACA,oBAAA;CACA;AAEA;IACA,6BAAA;IACA,sBAAA;IACA,aAAA;IACA,uBAAA;IACA,YAAA;CACA;AAEA;CACA;AAEA;IACA,gDAAA;CACA;AAEA;IACA,gDAAA;CACA;AAEA;IACA,gDAAA;CACA;AAEA;IACA,gDAAA;CACA;AAEA;IACA,gDAAA;CACA;AAEA;IACA,gDAAA;CACA;AAEA;IACA,gDAAA;CACA;AAEA;CACA;AAEA;IACA,iBAAA;CACA;AAEA;IACA,aAAA;CACA;AAEA;IACA,YAAA;CACA;AAEA;IACA,oBAAA;CACA;AAEA;CACA;AAEA;QACA,mBAAA;CACA;AAEA;QACA,gBAAA;CACA;AAEA;YACA,oBAAA;YACA,gBAAA;CACA;AAEA;CACA;AAEA;QACA,qBAAA;CACA;AAEA;YACA,sBAAA;YACA,YAAA;YACA,oBAAA;CACA;AACA;;;;;;;;;;;;6DAYA;AAEA;IACA,WAAA;IACA,UAAA;CACA;AAEA;QACA,mBAAA;QACA,uBAAA;QACA,oBAAA;QACA,0BAAA;QACA,gBAAA;QACA,YAAA;QACA,cAAA;QACA,iBAAA;QACA,sBAAA;QACA,YAAA;QACA,aAAA;QACA,cAAA;QACA,mBAAA;QACA,iBAAA;QACA,mBAAA;CACA;AAEA;YACA,gBAAA;YACA,sCAAA;YACA,mBAAA;YACA,UAAA;YACA,YAAA;YACA,SAAA;CACA;AAEA;YACA,YAAA;CACA;AAEA;IACA,WAAA;CACA;AAEA;IACA,WAAA;IACA,iBAAA;CACA;AAEA;IACA,WAAA;IACA,eAAA;CACA;AAEA;IACA,mBAAA;IACA,aAAA;IACA,WAAA;IACA,iBAAA;IACA,oBAAA;IACA,eAAA;IACA,aAAA;IACA,SAAA;IACA,cAAA;CACA;AAEA;IACA,eAAA;CACA;AAEA;IACA,0BAAA;CACA;AAEA;IACA,sBAAA;IACA,eAAA;IACA,eAAA;CACA;AAEA;QACA,6BAAA;QACA,sBAAA;QACA,aAAA;QACA,uBAAA;QACA,YAAA;CACA;AAEA;IACA,aAAA;CACA;AAEA;IACA,kBAAA;IACA,aAAA;CACA;AAEA;IACA,yBAAA;CACA;AAEA;IACA,kBAAA;CACA;AAEA;;IAEA,cAAA;CACA;AAEA;;QAEA,gBAAA;QACA,aAAA;QACA,UAAA;QACA,mBAAA;QACA,kBAAA;CACA;AAEA;IACA,kBAAA;IACA,sBAAA;IACA,YAAA;CACA;AAEA;QACA,eAAA;QACA,YAAA;QACA,kBAAA;CACA;AAEA;QACA,sBAAA;QACA,YAAA;QACA,YAAA;CACA;AACA,8EAAA;AACA;IACA,UAAA;IACA,iBAAA;CACA;AAEA;IACA,oBAAA;IACA,YAAA;IACA,mBAAA;IACA,gBAAA;IACA,aAAA;IACA,UAAA;IACA,qBAAA;IACA,WAAA;IACA,mBAAA;IACA,uBAAA;IACA,YAAA;CACA;AAEA;IACA,UAAA;IACA,iBAAA;IACA,iBAAA;CACA;AAEA;IACA,mBAAA;CACA;AAEA;IACA,sBAAA;IACA,YAAA;IACA,kBAAA;IACA,mBAAA;IACA,yBAAA;CACA;AAEA;IACA,cAAA;IACA,iBAAA;CACA;AAEA;IACA,mBAAA;IACA,aAAA;IACA,iBAAA;IACA,wBAAA;IACA,oBAAA;IACA,YAAA;IACA,sBAAA;IACA,oBAAA;CACA;AAEA;IACA,4BAAA;CACA;AACA,kDAAA;AAEA;AACA;QACA,cAAA;CACA;CACA;;AAEA,qEAAA;AAEA;CACA;;AAEA,sDAAA;AAEA;CACA;;AAEA,oDAAA;AAEA;CACA;;AAEA,qEAAA;AAEA;CACA","file":"list.vue","sourcesContent":["<template>\r\n    <div class=\"file-manager\">\r\n        <loading :active.sync=\"isLoading\"\r\n                 :height=\"35\"\r\n                 :width=\"35\"\r\n                 :color=\"color\"\r\n                 :is-full-page=\"fullPage\"></loading>\r\n        <b-modal ref=\"file-manager-modal\" id=\"file-manager\" fbody=\"xxx\" hide-footer hide-header size=\"xl\">\r\n            <div id=\"fm-container\" class=\"container-fluid\">\r\n                <b-row id=\"fm-toolbar\">\r\n                    <b-col lg=\"2\" md=\"2\" sm=\"12\">\r\n                        <b>Thư viện</b>\r\n                    </b-col>\r\n                    <b-col>\r\n                        <b-row align-h=\"between\">\r\n                            <b-col cols=\"4\">\r\n                                <div class=\"tool-items\">\r\n                                    <ul class=\"tools\">\r\n                                        <li title=\"Create folder\">\r\n                                            <i class=\"create-folder\"></i>\r\n                                        </li>\r\n                                    </ul>\r\n                                    <ul class=\"tools\">\r\n                                        <li title=\"Remove\" @click=\"removeFile\">\r\n                                            <i class=\"remove\"></i>\r\n                                        </li>\r\n\r\n                                    </ul>\r\n                                    <div class=\"tools\">\r\n                                        <input v-model=\"keyword\" v-on:keyup.enter=\"LoadFile()\" class=\"form-control\" placeholder=\"Gõ tên ảnh ấn enter\" />\r\n                                    </div>\r\n                                </div>\r\n                            </b-col>\r\n                            <b-col cols=\"4\" class=\"bd-0\">\r\n                                <b-pagination v-model=\"currentPage\" align=\"right\" size=\"sm\" :limit=\"4\"\r\n                                              :total-rows=\"files.totals\"\r\n                                              :per-page=\"pageSize\"></b-pagination>\r\n                            </b-col>\r\n                            <b-col cols=\"4\">\r\n                                <div class=\"tool-items float-right\">\r\n\r\n                                    <ul class=\"tools\">\r\n                                        <li title=\"Create folder\">\r\n                                            <i class=\"create-folder\"></i>\r\n                                        </li>\r\n                                        <li title=\"Upload\" id=\"btn-fm-upload\">\r\n                                            <label for=\"fileSingleupload\">\r\n                                                <i class=\"upload\"></i>\r\n                                            </label>\r\n                                            <input accept=\"image/*,.doc,.docx,.pdf,.xls,.xlsx,.zip,.rar\" @change=\"DoUploadFile\" id=\"fileSingleupload\"\r\n                                                   multiple\r\n                                                   type=\"file\"\r\n                                                   name=\"files[]\"\r\n                                                   style=\"display: none\" />\r\n                                        </li>\r\n                                    </ul>\r\n                                    <ul class=\"tools\">\r\n                                        <li title=\"List view\">\r\n                                            <i class=\"list\"></i>\r\n                                        </li>\r\n                                        <li title=\"Grid View\">\r\n                                            <i class=\"grid\"></i>\r\n                                        </li>\r\n                                    </ul>\r\n                                </div>\r\n                            </b-col>\r\n                        </b-row>\r\n\r\n                    </b-col>\r\n\r\n                </b-row>\r\n                <b-row id=\"fm-main\">\r\n                    <b-col id=\"fm-sidebar\" lg=\"2\" md=\"2\" sm=\"12\">\r\n                        <div id=\"fm-folder\">\r\n                            <ul>\r\n                                <li><i class=\"create-folder\"></i> Document</li>\r\n                                <li><i class=\"create-folder\"></i> Image</li>\r\n                                <li><i class=\"create-folder\"></i> Icon</li>\r\n                            </ul>\r\n                        </div>\r\n                    </b-col>\r\n                    <b-col id=\"fm-content\" lg=\"10\" dm=\"2\" sm=\"12\">\r\n                        <div id=\"fm-data-wrapper\">\r\n                            <div class=\"fm-list-wrapper\">\r\n                                <div class=\"fm-list\">\r\n                                    <ul id=\"fm-grid\">\r\n                                        <li v-for=\"file in files.files\" :key=\"file.id\" class=\"item\" :class=\"{ _active: isActive, not_img:checkImage(file.fileExt)}\" @click=\"SelectFile($event,{path:file.filePath,id:file.id})\">\r\n                                            <img :src=\"mapImageUrl(file.filePath,file.fileExt)\" alt=\"\">\r\n                                            <i class=\"fa fa-check\"></i>\r\n                                            <div class=\"info\">\r\n                                                <p class=\"name\">{{file.name}}</p>\r\n                                                <p class=\"dimensions\">{{file.dimensions}}</p>\r\n                                                <p class=\"size\">{{file.fileSize}}kb</p>\r\n                                            </div>\r\n                                        </li>\r\n                                    </ul>\r\n                                </div>\r\n                            </div>\r\n                        </div>\r\n\r\n                    </b-col>\r\n                </b-row>\r\n                <b-row align-h=\"end\" id=\"fm-footer\">\r\n                    <b-col cols=\"4\">\r\n                        <div class=\"btn-attack\">\r\n                            <button type=\"button\" id=\"btn-attack\" @click=\"attackFile\">Đính kèm</button>\r\n                            <!--<button type=\"button\" id=\"btn-attack\" @click=\"attackFileSelected\">Đính kèm2</button>-->\r\n                            <button type=\"button\" id=\"dl-close\" @click=\"hideFileManagerModal\" class=\"iclose\">Đóng</button>\r\n                        </div>\r\n                    </b-col>\r\n                </b-row>\r\n            </div>\r\n        </b-modal>\r\n    </div>\r\n</template>\r\n\r\n<script>\r\n    import \"vue-loading-overlay/dist/vue-loading.css\";\r\n    import msgNotify from \"./../../common/constant\";\r\n    import { mapActions } from \"vuex\";\r\n    import Loading from \"vue-loading-overlay\";\r\n    import EventBus from \"./../../common/eventBus\";\r\n    import { search } from \"core-js/fn/symbol\";\r\n    import { data } from \"jquery\";\r\n\r\n\r\n    export default {\r\n        name: \"FileManager\",\r\n        props: {\r\n            miKey: {\r\n                type: String\r\n            }\r\n        },\r\n        components: {\r\n            Loading\r\n        },\r\n        data() {\r\n            return {\r\n                isLoading: false,\r\n                fullPage: false,\r\n                color: \"#007bff\",\r\n                isLoadLang: false,\r\n                //  perPage: 10,\r\n                currentPage: 1,\r\n                pageSize: 30,\r\n                isLoading: false,\r\n                MaxFileSize: 3000,//Kb\r\n                selectedFile: [],\r\n                extensions: [],\r\n                extImage: [],\r\n                isActive: false,\r\n                selectType: '',\r\n                keyword: '',\r\n\r\n            };\r\n        },\r\n        created() {\r\n            let config = require('./../../../appsettings.json');\r\n            this.extImage = config.AppSettings.ImageAllowUpload;\r\n            this.extensions = config.AppSettings.ImageAllowUpload.concat(config.AppSettings.DocumentAllowUpload);\r\n\r\n            EventBus.$on(this.miKey, this.FileManagerOpen);\r\n        },\r\n        destroyed() {\r\n\r\n        },\r\n        computed: {\r\n            files() {\r\n                return this.$store.getters.files\r\n            }\r\n        },\r\n        methods: {\r\n            ...mapActions([\"fmFileUpload\", \"fmFileGetAll\", \"fmRemove\"]),\r\n            mapImageUrl(img, ext) {\r\n                if (this.extImage.indexOf(ext.toLowerCase()) !== -1) {\r\n                    return '/uploads/thumb' + img;\r\n                }\r\n                return './../../ClientApp/assets/fileicons/' + ext.replace('.', '') + '.png';\r\n            },\r\n            checkImage(ext) {\r\n                //debugger\r\n                if (this.extImage.indexOf(ext) == -1) {\r\n                    return true\r\n                }\r\n                return false\r\n            },\r\n            DoUploadFile(e) {\r\n                debugger\r\n                let files = e.srcElement.files;\r\n\r\n                if (files) {\r\n                    let filesTemp = Array.from(files);\r\n\r\n                    let msgFileAllow = '';\r\n                    let msgLimitedSize = '';\r\n                    for (var i = 0; i < filesTemp.length; i++) {\r\n\r\n                        let name = filesTemp[i].name;\r\n                        let type = name.split('.').pop().toLowerCase();\r\n\r\n                        if (this.extensions.indexOf(type) == -1) {\r\n                            filesTemp.splice(i, 1); // xóa khỏi array\r\n                            if (msgFileAllow.length == 0) {\r\n                                msgFileAllow = name;\r\n                            } else {\r\n                                msgFileAllow += ', ' + name;\r\n                            }\r\n                        }\r\n                        if (msgFileAllow.length > 0) {\r\n                            this.$toast.error(msgFileAllow + ' không hợp lệ !', {});\r\n                        }\r\n                    }\r\n                    for (var i = 0; i < filesTemp.length; i++) {\r\n                        let size = filesTemp[i].size;\r\n                        let name = filesTemp[i].name;\r\n\r\n\r\n                        if (this.MaxFileSize < (size / 1024)) {\r\n                            filesTemp.splice(i, 1);\r\n                            if (msgLimitedSize.length == 0) {\r\n                                msgLimitedSize = name;\r\n                            } else {\r\n                                msgLimitedSize += ', ' + name;\r\n                            }\r\n                        }\r\n                        if (msgLimitedSize.length > 0) {\r\n                            this.$toast.error(msgFileAllow + ' dung lượng quá lớn !', {});\r\n                        }\r\n                    }\r\n                    if (filesTemp.length) {\r\n                        let fd = new FormData();\r\n\r\n                        filesTemp.forEach(function (item) {\r\n                            fd.append('files', item);\r\n                        });\r\n                        this.UploadFileAction(fd);\r\n                    }\r\n\r\n                }\r\n\r\n            },\r\n            UploadFileAction(files) {\r\n                \r\n                this.fmFileUpload(files)\r\n                    .then(response => {\r\n                        if (response.success) {\r\n                            debugger\r\n                            console.log(response.data);\r\n                            var objtoast = this.$toast;\r\n                            response.data.forEach(function (item) {\r\n                                if (item.code == 200) {\r\n                                    objtoast.success(item.messages, {});\r\n                                } else {\r\n                                    objtoast.error(item.messages, {});\r\n                                }\r\n                            })\r\n                            //response.data.forEach(function () {\r\n\r\n                            //    this.$toast.success(response.message, {});\r\n                            //});\r\n                            //this.$toast.success(response.message, {});\r\n                            this.LoadFile();\r\n\r\n                            this.isLoading = false;\r\n                        }\r\n                        else {\r\n                            \r\n                            this.$toast.error(response.message, {});\r\n                            this.isLoading = false;\r\n                        }\r\n                    })\r\n                    .catch(e => {\r\n                        debugger\r\n                        this.$toast.error(msgNotify.error + \". Error:\" + e, {});\r\n                        this.isLoading = false;\r\n                    });\r\n\r\n\r\n            },\r\n            SelectFile(event, file) {\r\n                if (this.selectType == 'multi') {\r\n                    if (event.currentTarget.classList.contains('_active')) {\r\n                        event.currentTarget.classList.remove('_active');\r\n\r\n                        // let objIsExist = this.selectedFile.some(obj => obj.id = file.id);\r\n                        // if (objIsExist) {\r\n                        this.selectedFile = this.selectedFile.filter(obj => obj.id != file.id)\r\n                        // }\r\n                    }\r\n                    else {\r\n                        event.currentTarget.classList.add(\"_active\");\r\n                        this.selectedFile.push(file)\r\n                    }\r\n                } else {\r\n\r\n                    this.selectedFile = [];\r\n                    if (event.currentTarget.classList.contains('_active')) {\r\n                        event.currentTarget.classList.remove('_active');\r\n\r\n                    }\r\n                    else {\r\n                        let items = document.querySelectorAll('.item');\r\n                        items.forEach(function (item) {\r\n                            item.classList.remove('_active');\r\n                        });\r\n                        event.currentTarget.classList.add(\"_active\");\r\n                        this.selectedFile.push(file)\r\n                    }\r\n                }\r\n            },\r\n            LoadFile() {\r\n                this.fmFileGetAll({\r\n                    keyword: this.keyword,\r\n                    pageIndex: this.currentPage,\r\n                    pageSize: this.pageSize\r\n                });\r\n            }\r\n\r\n            ,\r\n            FileManagerOpen(param) {\r\n                this.selectType = param;\r\n                this.$refs[\"file-manager-modal\"].show();\r\n                this.LoadFile();\r\n            },\r\n\r\n            hideFileManagerModal() {\r\n                this.$refs[\"file-manager-modal\"].hide();\r\n            },\r\n            attackFile() {\r\n                // EventBus.$emit(\"FileSelected\", this.selectedFile);\r\n                this.$emit(\"handleAttackFile\", this.selectedFile);\r\n                this.$refs[\"file-manager-modal\"].hide();\r\n                this.selectedFile = [];\r\n            },\r\n\r\n            toggleFileModal() {\r\n                // We pass the ID of the button that we want to return focus to\r\n                // when the modal has hidden\r\n                this.$refs[\"file-manager-modal\"].toggle(\"#toggle-btn\");\r\n            },\r\n            removeFile() {\r\n                var result = confirm(\"Xác nhận?\");\r\n                if (!result) {\r\n                    return false;\r\n                }\r\n\r\n                let $this = this;\r\n                this.selectedFile.forEach(function (item) {\r\n                    $this.fmRemove(item.id)\r\n                        .then(response => {\r\n                            if (response.success) {\r\n                                \r\n                                $this.LoadFile();\r\n                                $this.$toast.success(response.message, {});\r\n                                $this.isLoading = false;\r\n                            }\r\n                            else {\r\n                                \r\n                                $this.$toast.error(response.message, {});\r\n                                $this.isLoading = false;\r\n                            }\r\n                        })\r\n                        .catch(e => {\r\n                            \r\n                            $this.$toast.error(msgNotify.error + \". Error:\" + e, {});\r\n                            $this.isLoading = false;\r\n                        });\r\n                });\r\n\r\n\r\n\r\n            }\r\n        },\r\n        mounted() {\r\n            //   this.fmFileGetAll();\r\n        },\r\n        watch: {\r\n            currentPage() {\r\n                this.LoadFile();\r\n            }\r\n        }\r\n    };\r\n</script>\r\n<style scoped>\r\n    #file-manager {\r\n        padding: 0;\r\n    }\r\n\r\n    #file-manager___BV_modal_body_ {\r\n        padding: 0;\r\n    }\r\n\r\n    #fm-container-dialog {\r\n        padding: 0;\r\n        overflow: hidden !important;\r\n    }\r\n\r\n    #fm-container {\r\n        font-size: 12px;\r\n        font-family: sans-serif;\r\n        padding: 0\r\n    }\r\n\r\n    #fm-toolbar ul {\r\n        float: left;\r\n        margin: 3.5px 0 3px 10px;\r\n        padding: 1px 2px;\r\n        border-radius: 0\r\n    }\r\n\r\n        #fm-toolbar ul li {\r\n            border: 1px solid #fff;\r\n            cursor: pointer;\r\n            float: left;\r\n            line-height: 26px;\r\n            list-style-type: none;\r\n            padding: 0 8px;\r\n            text-align: center;\r\n        }\r\n\r\n            #fm-toolbar ul li:hover {\r\n                background: #eaeaea;\r\n            }\r\n\r\n            #fm-toolbar ul li.active {\r\n                background: #eaeaea;\r\n            }\r\n\r\n    #fm-container {\r\n    }\r\n\r\n    #fm-toolbar {\r\n    }\r\n\r\n    #fm-footer {\r\n        border-top: 1px solid #eaeaea;\r\n        padding-top: 10px\r\n    }\r\n\r\n    #fm-toolbar .tool-items {\r\n        clear: both;\r\n        padding-right: 6px;\r\n    }\r\n\r\n    #fm-toolbar .tools {\r\n        float: left;\r\n    }\r\n\r\n    #fm-main {\r\n        margin-top: 8px;\r\n        border-top: 1px solid #eaeaea;\r\n    }\r\n\r\n    #fm-sidebar .fm-header {\r\n        height: 35px;\r\n        line-height: 35px;\r\n        background-color: #39c;\r\n        overflow: hidden;\r\n        font-size: 17px;\r\n        color: #ecf3f9;\r\n        text-align: center;\r\n    }\r\n\r\n    #fm-sidebar {\r\n        border-right: 1px solid #eaeaea\r\n    }\r\n\r\n    #fm-content {\r\n        background-color: white;\r\n        cursor: default; /*z-index: 0; box-shadow: 0 2px 4px rgba(0,0,0,0.04), 0 1px 4px rgba(0,0,0,0.12);*/\r\n        height: 100%;\r\n    }\r\n\r\n    #fm-data-wrapper {\r\n        overflow: hidden;\r\n    }\r\n\r\n    #fm-file-view {\r\n        border-left: 1px solid #eaeaea;\r\n        float: right;\r\n        height: 100%;\r\n        width: 250px;\r\n        padding: 9px;\r\n        background: #fff;\r\n    }\r\n\r\n        #fm-file-view .file-thumb {\r\n            text-align: center;\r\n            max-height: 250px;\r\n            max-width: 230px;\r\n            overflow: hidden;\r\n        }\r\n\r\n        #fm-file-view .header {\r\n            font-weight: bold;\r\n            margin-bottom: 12px;\r\n            padding: 2px 0;\r\n            text-align: center;\r\n            text-transform: uppercase;\r\n        }\r\n\r\n        #fm-file-view .details {\r\n            padding-top: 16px;\r\n        }\r\n\r\n            #fm-file-view .details div {\r\n                line-height: 21px;\r\n            }\r\n\r\n            #fm-file-view .details .uploaded,\r\n            #fm-file-view .details .file-size,\r\n            #fm-file-view .details .dimensions {\r\n                line-height: 21px;\r\n            }\r\n\r\n        #fm-file-view .file-thumb img {\r\n            border: 1px solid #eaeaea;\r\n            padding: 4px; /*max-height: 220px; max-width: 228px;*/\r\n        }\r\n\r\n    .attachment-info .filename {\r\n        font-weight: 600;\r\n        color: #444;\r\n        word-wrap: break-word;\r\n    }\r\n\r\n    .btn-attack {\r\n        background: #fff none repeat scroll 0 0;\r\n        padding: 3px 3px 3px 0;\r\n        width: 230px;\r\n        float: right;\r\n        clear: both;\r\n    }\r\n\r\n        .btn-attack button#btn-attack {\r\n            color: #fff;\r\n            background: #0085ba;\r\n            border: 0;\r\n            padding: 4px 6px;\r\n        }\r\n\r\n        .btn-attack button#dl-close {\r\n            background: #eaeaea;\r\n            border: 0;\r\n            padding: 4px 6px;\r\n            float: right;\r\n            clear: both;\r\n        }\r\n\r\n    #fm-content table._list {\r\n        width: 100%;\r\n    }\r\n\r\n        #fm-content table._list tr {\r\n        }\r\n\r\n            #fm-content table._list tr th {\r\n                text-align: center;\r\n                font-weight: bold;\r\n            }\r\n\r\n            #fm-content table._list tr td {\r\n                padding: 5px 4px;\r\n            }\r\n\r\n            #fm-content table._list tr._active {\r\n                background: #48adff;\r\n            }\r\n\r\n    #fm-toolbar ul li i {\r\n        background-repeat: no-repeat;\r\n        display: inline-block;\r\n        height: 16px;\r\n        vertical-align: middle;\r\n        width: 16px;\r\n    }\r\n\r\n    #fm-toolbar ul li i {\r\n    }\r\n\r\n    li i.create-folder {\r\n        background-image: url(./../../assets/img/icon/folder_add.png);\r\n    }\r\n\r\n    li i.upload {\r\n        background-image: url(\"./../../assets/img/icon/upload.png\");\r\n    }\r\n\r\n    li i.list {\r\n        background-image: url(\"./../../assets/img/icon/application_view_list.png\");\r\n    }\r\n\r\n    li i.grid {\r\n        background-image: url(\"./../../assets/img/icon/application_view_icons.png\");\r\n    }\r\n\r\n    li i.iclose {\r\n        background-image: url(\"./../../assets/img/icon/reset.png\");\r\n    }\r\n\r\n    li i.crop {\r\n        background-image: url(\"./../../assets/img/icon/crop.png\");\r\n    }\r\n\r\n    li i.remove {\r\n        background-image: url(\"./../../assets/img/icon/bin_closed.png\");\r\n    }\r\n\r\n    li i.close:hover {\r\n    }\r\n\r\n    #fm-footer {\r\n        min-height: 32px;\r\n    }\r\n\r\n    #fm-data-wrapper {\r\n        height: 100%;\r\n    }\r\n\r\n    .clear {\r\n        clear: both;\r\n    }\r\n\r\n    #_list ._active {\r\n        background: #48adff;\r\n    }\r\n\r\n    #fm-content {\r\n    }\r\n\r\n        #fm-content table._list table thead tr th {\r\n            text-align: center;\r\n        }\r\n\r\n        #fm-content table._list tr {\r\n            font-size: 11px;\r\n        }\r\n\r\n            #fm-content table._list tr:hover {\r\n                background: #c1edff;\r\n                cursor: pointer;\r\n            }\r\n\r\n            #fm-content table._list tr td {\r\n            }\r\n\r\n        #fm-content table._list tbody tr td.name {\r\n            display: inline-flex;\r\n        }\r\n\r\n            #fm-content table._list tbody tr td.name .list-icon {\r\n                display: inline-block;\r\n                float: left;\r\n                padding-right: 20px;\r\n            }\r\n    /* #fm-content table._list tbody tr td.name .png, #fm-content table tbody tr td.name .jpg, #fm-content table tbody tr td.name .jpeg, #fm-content table tbody tr td.name .gif,\r\n    #fm-content table._list tbody tr td.name .bmp { background: url(/CMS/Modules/FileManager/Libs/Images/filetree/picture.png) no-repeat; width: 16px; height: 16px; }\r\n    #fm-content table._list tbody tr td.name .doc, #fm-content table tbody tr td.name .docx { background: url(/CMS/Modules/FileManager/Libs/Images/filetree/doc.png) no-repeat; width: 16px; height: 16px; }\r\n    #fm-content table._list tbody tr td.name .xlsx, #fm-content table tbody tr td.name .xls { background: url(/CMS/Modules/FileManager/Libs/Images/filetree/xls.png) no-repeat; width: 16px; height: 16px; }\r\n    #fm-content table._list tbody tr td.name .zip, #fm-content table tbody tr td.name .rar { background: url(/CMS/Modules/FileManager/Libs/Images/filetree/zip.png) no-repeat; width: 16px; height: 16px; }\r\n    #fm-content table._list tbody tr td.name .txt { background: url(/CMS/Modules/FileManager/Libs/Images/filetree/txt.png) no-repeat; width: 16px; height: 16px; }\r\n    #fm-content table._list tbody tr td.name .pdf { background: url(/CMS/Modules/FileManager/Libs/Images/filetree/pdf.png) no-repeat; width: 16px; height: 16px; }\r\n    #fm-content table._list tbody tr td.name { width: 274px; display: inline-block; overflow: hidden; }\r\n    #fm-content table._list tbody tr td.name .fname { display: inline-flex; }\r\n    #fm-content table._list tbody tr td.type, #fm-content table tbody tr td.size, #fm-content table tbody tr td.dimensions, #fm-content table tbody tr td.date { overflow: hidden; width: 98px; }\r\n    #fm-content table._list tbody tr td.size { width: 70px; }\r\n    #fm-content table._list tbody tr td.dimensions { width: 80px; }\r\n    #fm-content table._list tbody tr td.date { width: 115px; } */\r\n\r\n    #fm-grid, #fm-folder ul, #fm-grid li .info p {\r\n        padding: 0;\r\n        margin: 0;\r\n    }\r\n\r\n        #fm-grid li {\r\n            position: relative;\r\n            vertical-align: middle;\r\n            display: table-cell;\r\n            border: 1px solid #eaeaea;\r\n            cursor: pointer;\r\n            float: left;\r\n            height: 100px;\r\n            min-width: 114px;\r\n            list-style-type: none;\r\n            margin: 4px;\r\n            padding: 2px;\r\n            width: 15.78%;\r\n            position: relative;\r\n            overflow: hidden;\r\n            text-align: center;\r\n        }\r\n\r\n            #fm-grid li .info {\r\n                font-size: 10px;\r\n                background: rgba(109,105,105,0.45882);\r\n                position: absolute;\r\n                bottom: 0;\r\n                width: 100%;\r\n                height: 0\r\n            }\r\n\r\n            #fm-grid li:hover .info {\r\n                height: auto\r\n            }\r\n\r\n    .fm-list li img {\r\n        width: 100%\r\n    }\r\n\r\n    .fm-list li.not_img img {\r\n        width: 50%;\r\n        padding-top: 10px\r\n    }\r\n\r\n    #fm-grid li img.thumb {\r\n        width: 60%;\r\n        margin: 0 auto;\r\n    }\r\n\r\n    #fm-grid li i {\r\n        position: absolute;\r\n        z-index: 999;\r\n        right: 4px;\r\n        background: #fff;\r\n        border-radius: 11px;\r\n        color: #0085ba;\r\n        padding: 1px;\r\n        top: 3px;\r\n        display: none;\r\n    }\r\n\r\n    #fm-grid li._active i {\r\n        display: block;\r\n    }\r\n\r\n    #fm-grid li._active {\r\n        border: 1px solid #0085ba;\r\n    }\r\n\r\n    #fm-folder ul li {\r\n        list-style-type: none;\r\n        padding: 8px 0;\r\n        cursor: pointer\r\n    }\r\n\r\n        #fm-folder ul li i {\r\n            background-repeat: no-repeat;\r\n            display: inline-block;\r\n            height: 16px;\r\n            vertical-align: middle;\r\n            width: 16px;\r\n        }\r\n\r\n    .plupload_filelist_header {\r\n        height: 20px;\r\n    }\r\n\r\n    .plupload_filelist_footer {\r\n        padding: 6px 20px;\r\n        height: 33px;\r\n    }\r\n\r\n    .plupload_scroll .plupload_filelist {\r\n        height: 172px !important;\r\n    }\r\n\r\n    .plupload_filelist_footer {\r\n        padding: 6px 20px;\r\n    }\r\n\r\n    .plupload_filelist:empty,\r\n    .plupload_filelist li.plupload_droptext {\r\n        height: 140px;\r\n    }\r\n\r\n        .plupload_filelist:empty::before,\r\n        .plupload_filelist li.plupload_droptext::before {\r\n            font-size: 52px;\r\n            height: 75px;\r\n            left: 49%;\r\n            margin-left: -40px;\r\n            padding-top: 43px;\r\n        }\r\n\r\n    .items-action {\r\n        padding-top: 20px;\r\n        display: inline-block;\r\n        width: 100%;\r\n    }\r\n\r\n        .items-action .file-action {\r\n            border: 0 none;\r\n            color: #fff;\r\n            padding: 4px 10px;\r\n        }\r\n\r\n        .items-action .file-action {\r\n            background: rosybrown;\r\n            float: left;\r\n            clear: both;\r\n        }\r\n    /*.items-action .file-action:last-child { background: #0085ba;float: right;}*/\r\n    #fm-toolbar .Mi.ipagination a:first-child {\r\n        border: 0;\r\n        border-radius: 0;\r\n    }\r\n\r\n    #fm-toolbar .Mi.ipagination input {\r\n        border: medium none;\r\n        float: left;\r\n        font-family: arial;\r\n        font-size: 11px;\r\n        height: 30px;\r\n        margin: 0;\r\n        outline: medium none;\r\n        padding: 0;\r\n        text-align: center;\r\n        vertical-align: middle;\r\n        width: 84px;\r\n    }\r\n\r\n    #fm-toolbar .Mi.ipagination a {\r\n        border: 0;\r\n        border-radius: 0;\r\n        background: #fff;\r\n    }\r\n\r\n    #fm-toolbar .ipagination.iweb {\r\n        margin-top: 3.45px;\r\n    }\r\n\r\n    #frowInTotals {\r\n        display: inline-block;\r\n        float: left;\r\n        line-height: 39px;\r\n        padding-right: 3px;\r\n        vertical-align: baseline;\r\n    }\r\n\r\n    label#progressall {\r\n        display: none;\r\n        padding: 7px 7px;\r\n    }\r\n\r\n    .Cdiv {\r\n        padding-left: 12px;\r\n        height: 17px;\r\n        overflow: hidden;\r\n        text-overflow: ellipsis;\r\n        white-space: nowrap;\r\n        width: 100%;\r\n        display: inline-block;\r\n        font-weight: normal;\r\n    }\r\n\r\n    #btn-fm-upload label {\r\n        margin-bottom: 0 !important;\r\n    }\r\n    /* Extra small devices (phones, 600px and down) */\r\n\r\n    @media only screen and (max-width: 600px) {\r\n        #fm-grid li {\r\n            width: 47.65%;\r\n        }\r\n    }\r\n\r\n    /* Small devices (portrait tablets and large phones, 600px and up) */\r\n\r\n    @media only screen and (min-width: 600px) {\r\n    }\r\n\r\n    /* Medium devices (landscape tablets, 768px and up) */\r\n\r\n    @media only screen and (min-width: 768px) {\r\n    }\r\n\r\n    /* Large devices (laptops/desktops, 992px and up) */\r\n\r\n    @media only screen and (min-width: 992px) {\r\n    }\r\n\r\n    /* Extra large devices (large laptops and desktops, 1200px and up) */\r\n\r\n    @media only screen and (min-width: 1200px) {\r\n    }\r\n</style>\r\n"],"sourceRoot":""}]);
-
-// exports
-
-
-/***/ }),
-
-/***/ 950:
+/***/ 932:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -19485,11 +13615,11 @@ exports.slug = slug;
 exports.pathImg = pathImg;
 exports.urlBase = urlBase;
 
-var _vue = __webpack_require__(26);
+var _vue = __webpack_require__(31);
 
 var _vue2 = _interopRequireDefault(_vue);
 
-var _jsTreeList = __webpack_require__(958);
+var _jsTreeList = __webpack_require__(940);
 
 var _jsTreeList2 = _interopRequireDefault(_jsTreeList);
 
@@ -19586,7 +13716,7 @@ function urlBase(title) {
 
 /***/ }),
 
-/***/ 951:
+/***/ 933:
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(process) {/*!
@@ -19685,91 +13815,91 @@ module.exports =
 /* 0 */
 /***/ (function(module, exports) {
 
-module.exports = __webpack_require__(976);
+module.exports = __webpack_require__(958);
 
 /***/ }),
 /* 1 */
 /***/ (function(module, exports) {
 
-module.exports = __webpack_require__(977);
+module.exports = __webpack_require__(959);
 
 /***/ }),
 /* 2 */
 /***/ (function(module, exports) {
 
-module.exports = __webpack_require__(971);
+module.exports = __webpack_require__(953);
 
 /***/ }),
 /* 3 */
 /***/ (function(module, exports) {
 
-module.exports = __webpack_require__(980);
+module.exports = __webpack_require__(963);
 
 /***/ }),
 /* 4 */
 /***/ (function(module, exports) {
 
-module.exports = __webpack_require__(990);
+module.exports = __webpack_require__(973);
 
 /***/ }),
 /* 5 */
 /***/ (function(module, exports) {
 
-module.exports = __webpack_require__(986);
+module.exports = __webpack_require__(969);
 
 /***/ }),
 /* 6 */
 /***/ (function(module, exports) {
 
-module.exports = __webpack_require__(995);
+module.exports = __webpack_require__(978);
 
 /***/ }),
 /* 7 */
 /***/ (function(module, exports) {
 
-module.exports = __webpack_require__(981);
+module.exports = __webpack_require__(964);
 
 /***/ }),
 /* 8 */
 /***/ (function(module, exports) {
 
-module.exports = __webpack_require__(992);
+module.exports = __webpack_require__(975);
 
 /***/ }),
 /* 9 */
 /***/ (function(module, exports) {
 
-module.exports = __webpack_require__(987);
+module.exports = __webpack_require__(970);
 
 /***/ }),
 /* 10 */
 /***/ (function(module, exports) {
 
-module.exports = __webpack_require__(985);
+module.exports = __webpack_require__(968);
 
 /***/ }),
 /* 11 */
 /***/ (function(module, exports) {
 
-module.exports = __webpack_require__(978);
+module.exports = __webpack_require__(960);
 
 /***/ }),
 /* 12 */
 /***/ (function(module, exports) {
 
-module.exports = __webpack_require__(989);
+module.exports = __webpack_require__(972);
 
 /***/ }),
 /* 13 */
 /***/ (function(module, exports) {
 
-module.exports = __webpack_require__(979);
+module.exports = __webpack_require__(961);
 
 /***/ }),
 /* 14 */
 /***/ (function(module, exports) {
 
-module.exports = __webpack_require__(26);
+module.exports = __webpack_require__(31);
 
 /***/ }),
 /* 15 */
@@ -23493,14 +17623,14 @@ var VERSION = "0.4.0";
 /***/ })
 /******/ ]);
 //# sourceMappingURL=vue-treeselect.cjs.js.map
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(27)))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(26)))
 
 /***/ }),
 
-/***/ 952:
+/***/ 934:
 /***/ (function(module, exports, __webpack_require__) {
 
-var META = __webpack_require__(182)('meta');
+var META = __webpack_require__(178)('meta');
 var isObject = __webpack_require__(56);
 var has = __webpack_require__(72);
 var setDesc = __webpack_require__(54).f;
@@ -23508,7 +17638,7 @@ var id = 0;
 var isExtensible = Object.isExtensible || function () {
   return true;
 };
-var FREEZE = !__webpack_require__(104)(function () {
+var FREEZE = !__webpack_require__(103)(function () {
   return isExtensible(Object.preventExtensions({}));
 });
 var setMeta = function (it) {
@@ -23557,24 +17687,24 @@ var meta = module.exports = {
 
 /***/ }),
 
-/***/ 953:
+/***/ 935:
 /***/ (function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
-var content = __webpack_require__(800);
+var content = __webpack_require__(962);
 if(typeof content === 'string') content = [[module.i, content, '']];
 // add the styles to the DOM
-var update = __webpack_require__(179)(content, {});
+var update = __webpack_require__(175)(content, {});
 if(content.locals) module.exports = content.locals;
 // Hot Module Replacement
-if(true) {
+if(false) {
 	// When the styles change, update the <style> tags
 	if(!content.locals) {
-		module.hot.accept(800, function() {
-			var newContent = __webpack_require__(800);
-			if(typeof newContent === 'string') newContent = [[module.i, newContent, '']];
+		module.hot.accept("!!../../../css-loader/index.js!./vue-treeselect.css", function() {
+			var newContent = require("!!../../../css-loader/index.js!./vue-treeselect.css");
+			if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
 			update(newContent);
 		});
 	}
@@ -23584,19 +17714,19 @@ if(true) {
 
 /***/ }),
 
-/***/ 954:
+/***/ 936:
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = { "default": __webpack_require__(389), __esModule: true };
+module.exports = { "default": __webpack_require__(386), __esModule: true };
 
 /***/ }),
 
-/***/ 955:
+/***/ 937:
 /***/ (function(module, exports, __webpack_require__) {
 
 // 19.1.2.7 / 15.2.3.4 Object.getOwnPropertyNames(O)
-var $keys = __webpack_require__(391);
-var hiddenKeys = __webpack_require__(188).concat('length', 'prototype');
+var $keys = __webpack_require__(388);
+var hiddenKeys = __webpack_require__(184).concat('length', 'prototype');
 
 exports.f = Object.getOwnPropertyNames || function getOwnPropertyNames(O) {
   return $keys(O, hiddenKeys);
@@ -23605,7 +17735,7 @@ exports.f = Object.getOwnPropertyNames || function getOwnPropertyNames(O) {
 
 /***/ }),
 
-/***/ 956:
+/***/ 938:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -23613,7 +17743,7 @@ exports.f = Object.getOwnPropertyNames || function getOwnPropertyNames(O) {
 
 exports.__esModule = true;
 
-var _defineProperty = __webpack_require__(802);
+var _defineProperty = __webpack_require__(785);
 
 var _defineProperty2 = _interopRequireDefault(_defineProperty);
 
@@ -23636,7 +17766,7 @@ exports.default = function (obj, key, value) {
 
 /***/ }),
 
-/***/ 957:
+/***/ 939:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -23646,7 +17776,7 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _vue = __webpack_require__(26);
+var _vue = __webpack_require__(31);
 
 var _vue2 = _interopRequireDefault(_vue);
 
@@ -23657,29 +17787,29 @@ exports.default = EventBus;
 
 /***/ }),
 
-/***/ 958:
+/***/ 940:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_RESULT__;
 
-var _assign = __webpack_require__(377);
+var _assign = __webpack_require__(374);
 
 var _assign2 = _interopRequireDefault(_assign);
 
-var _defineProperty = __webpack_require__(802);
+var _defineProperty = __webpack_require__(785);
 
 var _defineProperty2 = _interopRequireDefault(_defineProperty);
 
-var _iterator = __webpack_require__(804);
+var _iterator = __webpack_require__(787);
 
 var _iterator2 = _interopRequireDefault(_iterator);
 
-var _symbol = __webpack_require__(803);
+var _symbol = __webpack_require__(786);
 
 var _symbol2 = _interopRequireDefault(_symbol);
 
-var _typeof3 = __webpack_require__(959);
+var _typeof3 = __webpack_require__(941);
 
 var _typeof4 = _interopRequireDefault(_typeof3);
 
@@ -24075,7 +18205,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 /***/ }),
 
-/***/ 959:
+/***/ 941:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -24083,11 +18213,11 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 exports.__esModule = true;
 
-var _iterator = __webpack_require__(804);
+var _iterator = __webpack_require__(787);
 
 var _iterator2 = _interopRequireDefault(_iterator);
 
-var _symbol = __webpack_require__(803);
+var _symbol = __webpack_require__(786);
 
 var _symbol2 = _interopRequireDefault(_symbol);
 
@@ -24103,35 +18233,35 @@ exports.default = typeof _symbol2.default === "function" && _typeof(_iterator2.d
 
 /***/ }),
 
-/***/ 960:
+/***/ 942:
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(965);
-__webpack_require__(387);
-__webpack_require__(966);
-__webpack_require__(967);
+__webpack_require__(947);
+__webpack_require__(384);
+__webpack_require__(948);
+__webpack_require__(949);
 module.exports = __webpack_require__(20).Symbol;
 
 
 /***/ }),
 
-/***/ 961:
+/***/ 943:
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(184);
-__webpack_require__(381);
-module.exports = __webpack_require__(799).f('iterator');
+__webpack_require__(180);
+__webpack_require__(378);
+module.exports = __webpack_require__(783).f('iterator');
 
 
 /***/ }),
 
-/***/ 962:
+/***/ 944:
 /***/ (function(module, exports, __webpack_require__) {
 
 // all enumerable object keys, includes symbols
-var getKeys = __webpack_require__(181);
-var gOPS = __webpack_require__(378);
-var pIE = __webpack_require__(375);
+var getKeys = __webpack_require__(177);
+var gOPS = __webpack_require__(375);
+var pIE = __webpack_require__(372);
 module.exports = function (it) {
   var result = getKeys(it);
   var getSymbols = gOPS.f;
@@ -24147,15 +18277,15 @@ module.exports = function (it) {
 
 /***/ }),
 
-/***/ 963:
+/***/ 945:
 /***/ (function(module, exports, __webpack_require__) {
 
-var pIE = __webpack_require__(375);
-var createDesc = __webpack_require__(106);
-var toIObject = __webpack_require__(103);
-var toPrimitive = __webpack_require__(379);
+var pIE = __webpack_require__(372);
+var createDesc = __webpack_require__(105);
+var toIObject = __webpack_require__(102);
+var toPrimitive = __webpack_require__(376);
 var has = __webpack_require__(72);
-var IE8_DOM_DEFINE = __webpack_require__(382);
+var IE8_DOM_DEFINE = __webpack_require__(379);
 var gOPD = Object.getOwnPropertyDescriptor;
 
 exports.f = __webpack_require__(44) ? gOPD : function getOwnPropertyDescriptor(O, P) {
@@ -24170,12 +18300,12 @@ exports.f = __webpack_require__(44) ? gOPD : function getOwnPropertyDescriptor(O
 
 /***/ }),
 
-/***/ 964:
+/***/ 946:
 /***/ (function(module, exports, __webpack_require__) {
 
 // fallback for IE11 buggy Object.getOwnPropertyNames with iframe and window
-var toIObject = __webpack_require__(103);
-var gOPN = __webpack_require__(805).f;
+var toIObject = __webpack_require__(102);
+var gOPN = __webpack_require__(788).f;
 var toString = {}.toString;
 
 var windowNames = typeof window == 'object' && window && Object.getOwnPropertyNames
@@ -24196,7 +18326,7 @@ module.exports.f = function getOwnPropertyNames(it) {
 
 /***/ }),
 
-/***/ 965:
+/***/ 947:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -24206,29 +18336,29 @@ var global = __webpack_require__(21);
 var has = __webpack_require__(72);
 var DESCRIPTORS = __webpack_require__(44);
 var $export = __webpack_require__(32);
-var redefine = __webpack_require__(386);
-var META = __webpack_require__(952).KEY;
-var $fails = __webpack_require__(104);
-var shared = __webpack_require__(186);
-var setToStringTag = __webpack_require__(111);
-var uid = __webpack_require__(182);
+var redefine = __webpack_require__(383);
+var META = __webpack_require__(934).KEY;
+var $fails = __webpack_require__(103);
+var shared = __webpack_require__(182);
+var setToStringTag = __webpack_require__(110);
+var uid = __webpack_require__(178);
 var wks = __webpack_require__(23);
-var wksExt = __webpack_require__(799);
-var wksDefine = __webpack_require__(798);
-var enumKeys = __webpack_require__(962);
-var isArray = __webpack_require__(383);
+var wksExt = __webpack_require__(783);
+var wksDefine = __webpack_require__(782);
+var enumKeys = __webpack_require__(944);
+var isArray = __webpack_require__(380);
 var anObject = __webpack_require__(38);
 var isObject = __webpack_require__(56);
-var toObject = __webpack_require__(110);
-var toIObject = __webpack_require__(103);
-var toPrimitive = __webpack_require__(379);
-var createDesc = __webpack_require__(106);
-var _create = __webpack_require__(384);
-var gOPNExt = __webpack_require__(964);
-var $GOPD = __webpack_require__(963);
-var $GOPS = __webpack_require__(378);
+var toObject = __webpack_require__(109);
+var toIObject = __webpack_require__(102);
+var toPrimitive = __webpack_require__(376);
+var createDesc = __webpack_require__(105);
+var _create = __webpack_require__(381);
+var gOPNExt = __webpack_require__(946);
+var $GOPD = __webpack_require__(945);
+var $GOPS = __webpack_require__(375);
 var $DP = __webpack_require__(54);
-var $keys = __webpack_require__(181);
+var $keys = __webpack_require__(177);
 var gOPD = $GOPD.f;
 var dP = $DP.f;
 var gOPN = gOPNExt.f;
@@ -24351,11 +18481,11 @@ if (!USE_NATIVE) {
 
   $GOPD.f = $getOwnPropertyDescriptor;
   $DP.f = $defineProperty;
-  __webpack_require__(805).f = gOPNExt.f = $getOwnPropertyNames;
-  __webpack_require__(375).f = $propertyIsEnumerable;
+  __webpack_require__(788).f = gOPNExt.f = $getOwnPropertyNames;
+  __webpack_require__(372).f = $propertyIsEnumerable;
   $GOPS.f = $getOwnPropertySymbols;
 
-  if (DESCRIPTORS && !__webpack_require__(105)) {
+  if (DESCRIPTORS && !__webpack_require__(104)) {
     redefine(ObjectProto, 'propertyIsEnumerable', $propertyIsEnumerable, true);
   }
 
@@ -24450,23 +18580,23 @@ setToStringTag(global.JSON, 'JSON', true);
 
 /***/ }),
 
-/***/ 966:
+/***/ 948:
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(798)('asyncIterator');
+__webpack_require__(782)('asyncIterator');
 
 
 /***/ }),
 
-/***/ 967:
+/***/ 949:
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(798)('observable');
+__webpack_require__(782)('observable');
 
 
 /***/ }),
 
-/***/ 968:
+/***/ 950:
 /***/ (function(module, exports) {
 
 exports.f = Object.getOwnPropertySymbols;
@@ -24474,7 +18604,7 @@ exports.f = Object.getOwnPropertySymbols;
 
 /***/ }),
 
-/***/ 969:
+/***/ 951:
 /***/ (function(module, exports) {
 
 function _arrayWithHoles(arr) {
@@ -24485,10 +18615,10 @@ module.exports = _arrayWithHoles;
 
 /***/ }),
 
-/***/ 970:
+/***/ 952:
 /***/ (function(module, exports, __webpack_require__) {
 
-var arrayLikeToArray = __webpack_require__(806);
+var arrayLikeToArray = __webpack_require__(789);
 
 function _arrayWithoutHoles(arr) {
   if (Array.isArray(arr)) return arrayLikeToArray(arr);
@@ -24498,7 +18628,7 @@ module.exports = _arrayWithoutHoles;
 
 /***/ }),
 
-/***/ 971:
+/***/ 953:
 /***/ (function(module, exports) {
 
 function _defineProperty(obj, key, value) {
@@ -24520,7 +18650,7 @@ module.exports = _defineProperty;
 
 /***/ }),
 
-/***/ 972:
+/***/ 954:
 /***/ (function(module, exports) {
 
 function _iterableToArray(iter) {
@@ -24531,7 +18661,7 @@ module.exports = _iterableToArray;
 
 /***/ }),
 
-/***/ 973:
+/***/ 955:
 /***/ (function(module, exports) {
 
 function _iterableToArrayLimit(arr, i) {
@@ -24565,7 +18695,7 @@ module.exports = _iterableToArrayLimit;
 
 /***/ }),
 
-/***/ 974:
+/***/ 956:
 /***/ (function(module, exports) {
 
 function _nonIterableRest() {
@@ -24576,7 +18706,7 @@ module.exports = _nonIterableRest;
 
 /***/ }),
 
-/***/ 975:
+/***/ 957:
 /***/ (function(module, exports) {
 
 function _nonIterableSpread() {
@@ -24587,16 +18717,16 @@ module.exports = _nonIterableSpread;
 
 /***/ }),
 
-/***/ 976:
+/***/ 958:
 /***/ (function(module, exports, __webpack_require__) {
 
-var arrayWithHoles = __webpack_require__(969);
+var arrayWithHoles = __webpack_require__(951);
 
-var iterableToArrayLimit = __webpack_require__(973);
+var iterableToArrayLimit = __webpack_require__(955);
 
-var unsupportedIterableToArray = __webpack_require__(807);
+var unsupportedIterableToArray = __webpack_require__(790);
 
-var nonIterableRest = __webpack_require__(974);
+var nonIterableRest = __webpack_require__(956);
 
 function _slicedToArray(arr, i) {
   return arrayWithHoles(arr) || iterableToArrayLimit(arr, i) || unsupportedIterableToArray(arr, i) || nonIterableRest();
@@ -24606,16 +18736,16 @@ module.exports = _slicedToArray;
 
 /***/ }),
 
-/***/ 977:
+/***/ 959:
 /***/ (function(module, exports, __webpack_require__) {
 
-var arrayWithoutHoles = __webpack_require__(970);
+var arrayWithoutHoles = __webpack_require__(952);
 
-var iterableToArray = __webpack_require__(972);
+var iterableToArray = __webpack_require__(954);
 
-var unsupportedIterableToArray = __webpack_require__(807);
+var unsupportedIterableToArray = __webpack_require__(790);
 
-var nonIterableSpread = __webpack_require__(975);
+var nonIterableSpread = __webpack_require__(957);
 
 function _toConsumableArray(arr) {
   return arrayWithoutHoles(arr) || iterableToArray(arr) || unsupportedIterableToArray(arr) || nonIterableSpread();
@@ -24625,7 +18755,7 @@ module.exports = _toConsumableArray;
 
 /***/ }),
 
-/***/ 978:
+/***/ 960:
 /***/ (function(module, exports) {
 
 function _typeof(obj) {
@@ -24648,7 +18778,7 @@ module.exports = _typeof;
 
 /***/ }),
 
-/***/ 979:
+/***/ 961:
 /***/ (function(module, exports) {
 
 var nestRE = /^(attrs|props|on|nativeOn|class|style|hook)$/
@@ -24705,7 +18835,22 @@ function mergeFn (a, b) {
 
 /***/ }),
 
-/***/ 980:
+/***/ 962:
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__(53)();
+// imports
+
+
+// module
+exports.push([module.i, "/*!\n * vue-treeselect v0.4.0 | (c) 2017-2019 Riophae Lee\n * Released under the MIT License.\n * https://vue-treeselect.js.org/\n */\n/**\n * Dependencies\n */\n/**\n * Variables\n */\n/**\n * Mixins\n */\n/**\n * Helpers\n */\n.vue-treeselect-helper-hide {\n  display: none;\n}\n.vue-treeselect-helper-zoom-effect-off {\n  -ms-transform: none !important;\n      transform: none !important;\n}\n/**\n * Animations\n */\n@keyframes vue-treeselect-animation-fade-in {\n  0% {\n    opacity: 0;\n  }\n}\n@keyframes vue-treeselect-animation-bounce {\n  0%,\n  100% {\n    transform: scale(0);\n  }\n  50% {\n    transform: scale(1);\n  }\n}\n@keyframes vue-treeselect-animation-rotate {\n  100% {\n    transform: rotate(360deg);\n  }\n}\n/**\n * Transitions\n */\n.vue-treeselect__multi-value-item--transition-enter-active,\n.vue-treeselect__multi-value-item--transition-leave-active {\n  transition-duration: 200ms;\n  transition-property: transform, opacity;\n}\n.vue-treeselect__multi-value-item--transition-enter-active {\n  transition-timing-function: cubic-bezier(0.075, 0.82, 0.165, 1);\n}\n.vue-treeselect__multi-value-item--transition-leave-active {\n  transition-timing-function: cubic-bezier(0.215, 0.61, 0.355, 1);\n  position: absolute;\n}\n.vue-treeselect__multi-value-item--transition-enter,\n.vue-treeselect__multi-value-item--transition-leave-to {\n  -ms-transform: scale(0.7);\n      transform: scale(0.7);\n  opacity: 0;\n}\n.vue-treeselect__multi-value-item--transition-move {\n  transition: 200ms transform cubic-bezier(0.165, 0.84, 0.44, 1);\n}\n/**\n * Namespace\n */\n.vue-treeselect {\n  position: relative;\n  text-align: left;\n}\n[dir=\"rtl\"] .vue-treeselect {\n  text-align: right;\n}\n.vue-treeselect div,\n.vue-treeselect span {\n  box-sizing: border-box;\n}\n.vue-treeselect svg {\n  fill: currentColor;\n}\n/**\n * Control\n */\n.vue-treeselect__control {\n  padding-left: 5px;\n  padding-right: 5px;\n  display: table;\n  table-layout: fixed;\n  width: 100%;\n  height: 36px;\n  border: 1px solid #ddd;\n  border-radius: 5px;\n  background: #fff;\n  transition-duration: 200ms;\n  transition-property: border-color, box-shadow, width, height, background-color, opacity;\n  transition-timing-function: cubic-bezier(0.215, 0.61, 0.355, 1);\n}\n.vue-treeselect:not(.vue-treeselect--disabled):not(.vue-treeselect--focused) .vue-treeselect__control:hover {\n  border-color: #cfcfcf;\n}\n.vue-treeselect--focused:not(.vue-treeselect--open) .vue-treeselect__control {\n  border-color: #039be5;\n  box-shadow: 0 0 0 3px rgba(3, 155, 229, 0.1);\n}\n.vue-treeselect--disabled .vue-treeselect__control {\n  background-color: #f9f9f9;\n}\n.vue-treeselect--open .vue-treeselect__control {\n  border-color: #cfcfcf;\n}\n.vue-treeselect--open.vue-treeselect--open-below .vue-treeselect__control {\n  border-bottom-left-radius: 0;\n  border-bottom-right-radius: 0;\n}\n.vue-treeselect--open.vue-treeselect--open-above .vue-treeselect__control {\n  border-top-left-radius: 0;\n  border-top-right-radius: 0;\n}\n.vue-treeselect__value-container,\n.vue-treeselect__multi-value {\n  width: 100%;\n  vertical-align: middle;\n}\n.vue-treeselect__value-container {\n  display: table-cell;\n  position: relative;\n}\n.vue-treeselect--searchable:not(.vue-treeselect--disabled) .vue-treeselect__value-container {\n  cursor: text;\n}\n.vue-treeselect__multi-value {\n  display: inline-block;\n}\n.vue-treeselect--has-value .vue-treeselect__multi-value {\n  margin-bottom: 5px;\n}\n.vue-treeselect__placeholder,\n.vue-treeselect__single-value {\n  overflow: hidden;\n  text-overflow: ellipsis;\n  white-space: nowrap;\n  padding-left: 5px;\n  padding-right: 5px;\n  position: absolute;\n  top: 0;\n  right: 0;\n  bottom: 0;\n  left: 0;\n  line-height: 34px;\n  -webkit-user-select: none;\n     -moz-user-select: none;\n      -ms-user-select: none;\n          user-select: none;\n  pointer-events: none;\n}\n.vue-treeselect__placeholder {\n  color: #bdbdbd;\n}\n.vue-treeselect__single-value {\n  color: #333;\n}\n.vue-treeselect--focused.vue-treeselect--searchable .vue-treeselect__single-value {\n  color: #bdbdbd;\n}\n.vue-treeselect--disabled .vue-treeselect__single-value {\n  position: static;\n}\n.vue-treeselect__multi-value-item-container {\n  display: inline-block;\n  padding-top: 5px;\n  padding-right: 5px;\n  vertical-align: top;\n}\n[dir=\"rtl\"] .vue-treeselect__multi-value-item-container {\n  padding-right: 0;\n  padding-left: 5px;\n}\n.vue-treeselect__multi-value-item {\n  cursor: pointer;\n  display: inline-table;\n  background: #e3f2fd;\n  padding: 2px 0;\n  border: 1px solid transparent;\n  border-radius: 2px;\n  color: #039be5;\n  font-size: 12px;\n  vertical-align: top;\n}\n.vue-treeselect:not(.vue-treeselect--disabled) .vue-treeselect__multi-value-item:not(.vue-treeselect__multi-value-item-disabled):hover .vue-treeselect__multi-value-item:not(.vue-treeselect__multi-value-item-new) .vue-treeselect__multi-value-item:not(.vue-treeselect__multi-value-item-new):hover {\n  cursor: pointer;\n  background: #e3f2fd;\n  color: #039be5;\n}\n.vue-treeselect__multi-value-item.vue-treeselect__multi-value-item-disabled {\n  cursor: default;\n  background: #f5f5f5;\n  color: #757575;\n}\n.vue-treeselect--disabled .vue-treeselect__multi-value-item {\n  cursor: default;\n  background: #fff;\n  border-color: #e5e5e5;\n  color: #555;\n}\n.vue-treeselect__multi-value-item.vue-treeselect__multi-value-item-new {\n  background: #e8f5e9;\n}\n.vue-treeselect__multi-value-item.vue-treeselect__multi-value-item-new:hover {\n  background: #e8f5e9;\n}\n.vue-treeselect__value-remove,\n.vue-treeselect__multi-value-label {\n  display: table-cell;\n  padding: 0 5px;\n  vertical-align: middle;\n}\n.vue-treeselect__value-remove {\n  color: #039be5;\n  padding-left: 5px;\n  border-left: 1px solid #fff;\n  line-height: 0;\n}\n[dir=\"rtl\"] .vue-treeselect__value-remove {\n  border-left: 0 none;\n  border-right: 1px solid #fff;\n}\n.vue-treeselect__multi-value-item:hover .vue-treeselect__value-remove {\n  color: #e53935;\n}\n.vue-treeselect--disabled .vue-treeselect__value-remove,\n.vue-treeselect__multi-value-item-disabled .vue-treeselect__value-remove {\n  display: none;\n}\n.vue-treeselect__value-remove > svg {\n  width: 6px;\n  height: 6px;\n}\n.vue-treeselect__multi-value-label {\n  padding-right: 5px;\n  white-space: pre-line;\n  -webkit-user-select: none;\n     -moz-user-select: none;\n      -ms-user-select: none;\n          user-select: none;\n}\n.vue-treeselect__limit-tip {\n  display: inline-block;\n  padding-top: 5px;\n  padding-right: 5px;\n  vertical-align: top;\n}\n[dir=\"rtl\"] .vue-treeselect__limit-tip {\n  padding-right: 0;\n  padding-left: 5px;\n}\n.vue-treeselect__limit-tip-text {\n  cursor: default;\n  display: block;\n  margin: 2px 0;\n  padding: 1px 0;\n  color: #bdbdbd;\n  font-size: 12px;\n  font-weight: 600;\n}\n.vue-treeselect__input-container {\n  display: block;\n  max-width: 100%;\n  outline: none;\n}\n.vue-treeselect--single .vue-treeselect__input-container {\n  font-size: inherit;\n  height: 100%;\n}\n.vue-treeselect--multi .vue-treeselect__input-container {\n  display: inline-block;\n  font-size: 12px;\n  vertical-align: top;\n}\n.vue-treeselect--searchable .vue-treeselect__input-container {\n  padding-left: 5px;\n  padding-right: 5px;\n}\n.vue-treeselect--searchable.vue-treeselect--multi.vue-treeselect--has-value .vue-treeselect__input-container {\n  padding-top: 5px;\n  padding-left: 0;\n}\n[dir=\"rtl\"] .vue-treeselect--searchable.vue-treeselect--multi.vue-treeselect--has-value .vue-treeselect__input-container {\n  padding-left: 5px;\n  padding-right: 0;\n}\n.vue-treeselect--disabled .vue-treeselect__input-container {\n  display: none;\n}\n.vue-treeselect__input,\n.vue-treeselect__sizer {\n  margin: 0;\n  line-height: inherit;\n  font-family: inherit;\n  font-size: inherit;\n}\n.vue-treeselect__input {\n  max-width: 100%;\n  margin: 0;\n  padding: 0;\n  border: 0;\n  outline: none;\n  box-sizing: content-box;\n  box-shadow: none;\n  background: none transparent;\n  line-height: 1;\n  vertical-align: middle;\n}\n.vue-treeselect__input::-ms-clear {\n  display: none;\n}\n.vue-treeselect--single .vue-treeselect__input {\n  width: 100%;\n  height: 100%;\n}\n.vue-treeselect--multi .vue-treeselect__input {\n  padding-top: 3px;\n  padding-bottom: 3px;\n}\n.vue-treeselect--has-value .vue-treeselect__input {\n  line-height: inherit;\n  vertical-align: top;\n}\n.vue-treeselect__sizer {\n  position: absolute;\n  top: 0;\n  left: 0;\n  visibility: hidden;\n  height: 0;\n  overflow: scroll;\n  white-space: pre;\n}\n.vue-treeselect__x-container {\n  display: table-cell;\n  vertical-align: middle;\n  width: 20px;\n  text-align: center;\n  line-height: 0;\n  cursor: pointer;\n  color: #ccc;\n  animation: 200ms vue-treeselect-animation-fade-in cubic-bezier(0.075, 0.82, 0.165, 1);\n}\n.vue-treeselect__x-container:hover {\n  color: #e53935;\n}\n.vue-treeselect__x {\n  width: 8px;\n  height: 8px;\n}\n.vue-treeselect__control-arrow-container {\n  display: table-cell;\n  vertical-align: middle;\n  width: 20px;\n  text-align: center;\n  line-height: 0;\n  cursor: pointer;\n}\n.vue-treeselect--disabled .vue-treeselect__control-arrow-container {\n  cursor: default;\n}\n.vue-treeselect__control-arrow {\n  width: 9px;\n  height: 9px;\n  color: #ccc;\n}\n.vue-treeselect:not(.vue-treeselect--disabled) .vue-treeselect__control-arrow-container:hover .vue-treeselect__control-arrow {\n  color: #616161;\n}\n.vue-treeselect--disabled .vue-treeselect__control-arrow {\n  opacity: 0.35;\n}\n.vue-treeselect__control-arrow--rotated {\n  -ms-transform: rotate(180deg);\n      transform: rotateZ(180deg);\n}\n/**\n * Menu\n */\n.vue-treeselect__menu-container {\n  position: absolute;\n  left: 0;\n  width: 100%;\n  overflow: visible;\n  transition: 0s;\n}\n.vue-treeselect--open-below:not(.vue-treeselect--append-to-body) .vue-treeselect__menu-container {\n  top: 100%;\n}\n.vue-treeselect--open-above:not(.vue-treeselect--append-to-body) .vue-treeselect__menu-container {\n  bottom: 100%;\n}\n.vue-treeselect__menu {\n  cursor: default;\n  padding-top: 5px;\n  padding-bottom: 5px;\n  display: block;\n  position: absolute;\n  overflow-x: hidden;\n  overflow-y: auto;\n  width: auto;\n  border: 1px solid #cfcfcf;\n  background: #fff;\n  line-height: 180%;\n  -webkit-overflow-scrolling: touch;\n}\n.vue-treeselect--open-below .vue-treeselect__menu {\n  border-bottom-left-radius: 5px;\n  border-bottom-right-radius: 5px;\n  top: 0;\n  margin-top: -1px;\n  border-top-color: #f2f2f2;\n  box-shadow: 0 1px 0 rgba(0, 0, 0, 0.06);\n}\n.vue-treeselect--open-above .vue-treeselect__menu {\n  border-top-left-radius: 5px;\n  border-top-right-radius: 5px;\n  bottom: 0;\n  margin-bottom: -1px;\n  border-bottom-color: #f2f2f2;\n}\n.vue-treeselect__indent-level-0 .vue-treeselect__option {\n  padding-left: 5px;\n}\n[dir=\"rtl\"] .vue-treeselect__indent-level-0 .vue-treeselect__option {\n  padding-left: 5px;\n  padding-right: 5px;\n}\n.vue-treeselect__indent-level-0 .vue-treeselect__tip {\n  padding-left: 25px;\n}\n[dir=\"rtl\"] .vue-treeselect__indent-level-0 .vue-treeselect__tip {\n  padding-left: 5px;\n  padding-right: 25px;\n}\n.vue-treeselect__indent-level-1 .vue-treeselect__option {\n  padding-left: 25px;\n}\n[dir=\"rtl\"] .vue-treeselect__indent-level-1 .vue-treeselect__option {\n  padding-left: 5px;\n  padding-right: 25px;\n}\n.vue-treeselect__indent-level-1 .vue-treeselect__tip {\n  padding-left: 45px;\n}\n[dir=\"rtl\"] .vue-treeselect__indent-level-1 .vue-treeselect__tip {\n  padding-left: 5px;\n  padding-right: 45px;\n}\n.vue-treeselect__indent-level-2 .vue-treeselect__option {\n  padding-left: 45px;\n}\n[dir=\"rtl\"] .vue-treeselect__indent-level-2 .vue-treeselect__option {\n  padding-left: 5px;\n  padding-right: 45px;\n}\n.vue-treeselect__indent-level-2 .vue-treeselect__tip {\n  padding-left: 65px;\n}\n[dir=\"rtl\"] .vue-treeselect__indent-level-2 .vue-treeselect__tip {\n  padding-left: 5px;\n  padding-right: 65px;\n}\n.vue-treeselect__indent-level-3 .vue-treeselect__option {\n  padding-left: 65px;\n}\n[dir=\"rtl\"] .vue-treeselect__indent-level-3 .vue-treeselect__option {\n  padding-left: 5px;\n  padding-right: 65px;\n}\n.vue-treeselect__indent-level-3 .vue-treeselect__tip {\n  padding-left: 85px;\n}\n[dir=\"rtl\"] .vue-treeselect__indent-level-3 .vue-treeselect__tip {\n  padding-left: 5px;\n  padding-right: 85px;\n}\n.vue-treeselect__indent-level-4 .vue-treeselect__option {\n  padding-left: 85px;\n}\n[dir=\"rtl\"] .vue-treeselect__indent-level-4 .vue-treeselect__option {\n  padding-left: 5px;\n  padding-right: 85px;\n}\n.vue-treeselect__indent-level-4 .vue-treeselect__tip {\n  padding-left: 105px;\n}\n[dir=\"rtl\"] .vue-treeselect__indent-level-4 .vue-treeselect__tip {\n  padding-left: 5px;\n  padding-right: 105px;\n}\n.vue-treeselect__indent-level-5 .vue-treeselect__option {\n  padding-left: 105px;\n}\n[dir=\"rtl\"] .vue-treeselect__indent-level-5 .vue-treeselect__option {\n  padding-left: 5px;\n  padding-right: 105px;\n}\n.vue-treeselect__indent-level-5 .vue-treeselect__tip {\n  padding-left: 125px;\n}\n[dir=\"rtl\"] .vue-treeselect__indent-level-5 .vue-treeselect__tip {\n  padding-left: 5px;\n  padding-right: 125px;\n}\n.vue-treeselect__indent-level-6 .vue-treeselect__option {\n  padding-left: 125px;\n}\n[dir=\"rtl\"] .vue-treeselect__indent-level-6 .vue-treeselect__option {\n  padding-left: 5px;\n  padding-right: 125px;\n}\n.vue-treeselect__indent-level-6 .vue-treeselect__tip {\n  padding-left: 145px;\n}\n[dir=\"rtl\"] .vue-treeselect__indent-level-6 .vue-treeselect__tip {\n  padding-left: 5px;\n  padding-right: 145px;\n}\n.vue-treeselect__indent-level-7 .vue-treeselect__option {\n  padding-left: 145px;\n}\n[dir=\"rtl\"] .vue-treeselect__indent-level-7 .vue-treeselect__option {\n  padding-left: 5px;\n  padding-right: 145px;\n}\n.vue-treeselect__indent-level-7 .vue-treeselect__tip {\n  padding-left: 165px;\n}\n[dir=\"rtl\"] .vue-treeselect__indent-level-7 .vue-treeselect__tip {\n  padding-left: 5px;\n  padding-right: 165px;\n}\n.vue-treeselect__indent-level-8 .vue-treeselect__option {\n  padding-left: 165px;\n}\n[dir=\"rtl\"] .vue-treeselect__indent-level-8 .vue-treeselect__option {\n  padding-left: 5px;\n  padding-right: 165px;\n}\n.vue-treeselect__indent-level-8 .vue-treeselect__tip {\n  padding-left: 185px;\n}\n[dir=\"rtl\"] .vue-treeselect__indent-level-8 .vue-treeselect__tip {\n  padding-left: 5px;\n  padding-right: 185px;\n}\n.vue-treeselect__option {\n  padding-left: 5px;\n  padding-right: 5px;\n  display: table;\n  table-layout: fixed;\n  width: 100%;\n}\n.vue-treeselect__option--highlight {\n  background: #f5f5f5;\n}\n.vue-treeselect--single .vue-treeselect__option--selected {\n  background: #e3f2fd;\n  font-weight: 600;\n}\n.vue-treeselect--single .vue-treeselect__option--selected:hover {\n  background: #e3f2fd;\n}\n.vue-treeselect__option--hide {\n  display: none;\n}\n.vue-treeselect__option-arrow-container,\n.vue-treeselect__option-arrow-placeholder {\n  display: table-cell;\n  vertical-align: middle;\n  width: 20px;\n  text-align: center;\n  line-height: 0;\n}\n.vue-treeselect__option-arrow-container {\n  cursor: pointer;\n}\n.vue-treeselect__option-arrow {\n  display: inline-block;\n  width: 9px;\n  height: 9px;\n  color: #ccc;\n  vertical-align: middle;\n  transition: 200ms transform cubic-bezier(0.19, 1, 0.22, 1);\n  -ms-transform: rotate(-90deg);\n      transform: rotateZ(-90deg);\n}\n[dir=\"rtl\"] .vue-treeselect__option-arrow {\n  -ms-transform: rotate(90deg);\n      transform: rotateZ(90deg);\n}\n.vue-treeselect__option-arrow-container:hover .vue-treeselect__option-arrow,\n.vue-treeselect--branch-nodes-disabled .vue-treeselect__option:hover .vue-treeselect__option-arrow {\n  color: #616161;\n}\n.vue-treeselect__option-arrow--rotated {\n  -ms-transform: rotate(0);\n      transform: rotateZ(0);\n}\n[dir=\"rtl\"] .vue-treeselect__option-arrow--rotated {\n  -ms-transform: rotate(0);\n      transform: rotateZ(0);\n}\n.vue-treeselect__option-arrow--rotated.vue-treeselect__option-arrow--prepare-enter {\n  -ms-transform: rotate(-90deg) !important;\n      transform: rotateZ(-90deg) !important;\n}\n[dir=\"rtl\"] .vue-treeselect__option-arrow--rotated.vue-treeselect__option-arrow--prepare-enter {\n  -ms-transform: rotate(90deg) !important;\n      transform: rotateZ(90deg) !important;\n}\n.vue-treeselect__label-container {\n  display: table-cell;\n  vertical-align: middle;\n  cursor: pointer;\n  display: table;\n  width: 100%;\n  table-layout: fixed;\n  color: inherit;\n}\n.vue-treeselect__option--disabled .vue-treeselect__label-container {\n  cursor: not-allowed;\n  color: rgba(0, 0, 0, 0.25);\n}\n.vue-treeselect__checkbox-container {\n  display: table-cell;\n  width: 20px;\n  min-width: 20px;\n  height: 100%;\n  text-align: center;\n  vertical-align: middle;\n}\n.vue-treeselect__checkbox {\n  display: block;\n  margin: auto;\n  width: 12px;\n  height: 12px;\n  border-width: 1px;\n  border-style: solid;\n  border-radius: 2px;\n  position: relative;\n  transition: 200ms all cubic-bezier(0.075, 0.82, 0.165, 1);\n}\n.vue-treeselect__check-mark,\n.vue-treeselect__minus-mark {\n  display: block;\n  position: absolute;\n  left: 1px;\n  top: 1px;\n  background-repeat: no-repeat;\n  opacity: 0;\n  transition: 200ms all ease;\n}\n.vue-treeselect__minus-mark {\n  width: 8px;\n  height: 8px;\n  background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAgAAAAIAgMAAAC5YVYYAAAACVBMVEUAAAD///////9zeKVjAAAAAnRSTlMAuLMp9oYAAAAPSURBVAjXY4CDrJUgBAMAGaECJ9dz3BAAAAAASUVORK5CYII=);\n  background-size: 8px 8px;\n}\n@media (-webkit-min-device-pixel-ratio: 1.5), (min-resolution: 1.5dppx) {\n  .vue-treeselect__minus-mark {\n    background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQAgMAAABinRfyAAAADFBMVEUAAAD///////////84wDuoAAAAA3RSTlMAyTzPIdReAAAAGUlEQVQI12PAD+b///+Nof7//79gAsLFCwAx/w4blADeeQAAAABJRU5ErkJggg==);\n  }\n}\n@media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {\n  .vue-treeselect__minus-mark {\n    background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQAgMAAABinRfyAAAADFBMVEUAAAD///////////84wDuoAAAAA3RSTlMAyTzPIdReAAAAGUlEQVQI12PAD+b///+Nof7//79gAsLFCwAx/w4blADeeQAAAABJRU5ErkJggg==);\n  }\n}\n@media (-webkit-min-device-pixel-ratio: 3), (min-resolution: 288dpi) {\n  .vue-treeselect__minus-mark {\n    background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYBAMAAAASWSDLAAAAD1BMVEUAAAD///////////////+PQt5oAAAABHRSTlMAy2EFIuWxUgAAACRJREFUGNNjGBBgJOICBY7KDCoucODEAJSAS6FwUJShGjAQAADBPRGrK2/FhgAAAABJRU5ErkJggg==);\n  }\n}\n.vue-treeselect__checkbox--indeterminate > .vue-treeselect__minus-mark {\n  opacity: 1;\n}\n.vue-treeselect__checkbox--disabled .vue-treeselect__minus-mark {\n  background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAgAAAAIAgMAAAC5YVYYAAAACVBMVEUAAADi4uLh4eHOxeSRAAAAAnRSTlMAuLMp9oYAAAAPSURBVAjXY4CDrJUgBAMAGaECJ9dz3BAAAAAASUVORK5CYII=);\n}\n@media (-webkit-min-device-pixel-ratio: 1.5), (min-resolution: 1.5dppx) {\n  .vue-treeselect__checkbox--disabled .vue-treeselect__minus-mark {\n    background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQAgMAAABinRfyAAAADFBMVEUAAADi4uLi4uLh4eE5RQaIAAAAA3RSTlMAyTzPIdReAAAAGUlEQVQI12PAD+b///+Nof7//79gAsLFCwAx/w4blADeeQAAAABJRU5ErkJggg==);\n  }\n}\n@media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {\n  .vue-treeselect__checkbox--disabled .vue-treeselect__minus-mark {\n    background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQAgMAAABinRfyAAAADFBMVEUAAADi4uLi4uLh4eE5RQaIAAAAA3RSTlMAyTzPIdReAAAAGUlEQVQI12PAD+b///+Nof7//79gAsLFCwAx/w4blADeeQAAAABJRU5ErkJggg==);\n  }\n}\n@media (-webkit-min-device-pixel-ratio: 3), (min-resolution: 288dpi) {\n  .vue-treeselect__checkbox--disabled .vue-treeselect__minus-mark {\n    background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYBAMAAAASWSDLAAAAD1BMVEUAAADh4eHg4ODNzc3h4eEYfw2wAAAABHRSTlMAy2EFIuWxUgAAACRJREFUGNNjGBBgJOICBY7KDCoucODEAJSAS6FwUJShGjAQAADBPRGrK2/FhgAAAABJRU5ErkJggg==);\n  }\n}\n.vue-treeselect__check-mark {\n  width: 8px;\n  height: 8px;\n  background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAgAAAAICAMAAADz0U65AAAAQlBMVEUAAAD///////////////////////////////////////////////////////////////////////////////////8IX9KGAAAAFXRSTlMA8u24NxILB+Tawb6jiH1zRz0xIQIIP3GUAAAAMklEQVQI1y3FtQEAMQDDQD+EGbz/qkEVOpyEOP6PudKjZNSXn4Jm2CKRdBKzSLsFWl8fMG0Bl6Jk1rMAAAAASUVORK5CYII=);\n  background-size: 8px 8px;\n  -ms-transform: scaleY(0.125);\n      transform: scaleY(0.125);\n}\n@media (-webkit-min-device-pixel-ratio: 1.5), (min-resolution: 1.5dppx) {\n  .vue-treeselect__check-mark {\n    background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAMAAAAoLQ9TAAAAYFBMVEUAAAD///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////98JRy6AAAAH3RSTlMAzu4sDenl38fBvo1OMyIdEQrj1cSihX5hYFpHNycIcQOASAAAAF9JREFUGNN9zEcOgDAMRFHTS0LvNfe/JRmHKAIJ/mqeLJn+k9uDtaeUeFnFziGsBucUTirrprfe81RqZ3Bb6hPWeuZwDFOHyf+ig9CCzQ7INBn7bG5kF+QSt13BHNJnF7AaCT4Y+CW7AAAAAElFTkSuQmCC);\n  }\n}\n@media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {\n  .vue-treeselect__check-mark {\n    background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAMAAAAoLQ9TAAAAYFBMVEUAAAD///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////98JRy6AAAAH3RSTlMAzu4sDenl38fBvo1OMyIdEQrj1cSihX5hYFpHNycIcQOASAAAAF9JREFUGNN9zEcOgDAMRFHTS0LvNfe/JRmHKAIJ/mqeLJn+k9uDtaeUeFnFziGsBucUTirrprfe81RqZ3Bb6hPWeuZwDFOHyf+ig9CCzQ7INBn7bG5kF+QSt13BHNJnF7AaCT4Y+CW7AAAAAElFTkSuQmCC);\n  }\n}\n@media (-webkit-min-device-pixel-ratio: 3), (min-resolution: 288dpi) {\n  .vue-treeselect__check-mark {\n    background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAMAAADXqc3KAAAAWlBMVEUAAAD///////////////////////////////////////////////////////////////////////////////////////////////////////////////////9ZMre9AAAAHXRSTlMA/PiJhGNI9XlEHJB/b2ldV08+Oibk49vPp6QhAYgGBuwAAACCSURBVCjPrdHdDoIwDAXgTWAqCigo/+f9X5OwnoUwtis4V92XNWladUl+rzQPeQJAN2EHxoOnsPn7/oYk8fxBv08Rr/deOH/aZ2Nm8ZJ+s573QGfWKnNuZGzWm3+lv2V3pcU1XQ385/yjmBoM3Z+dXvlbYLLD3ujhTaOM3KaIXvNkFkuSEvYy1LqOAAAAAElFTkSuQmCC);\n  }\n}\n.vue-treeselect__checkbox--checked > .vue-treeselect__check-mark {\n  opacity: 1;\n  -ms-transform: scaleY(1);\n      transform: scaleY(1);\n}\n.vue-treeselect__checkbox--disabled .vue-treeselect__check-mark {\n  background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAgAAAAICAMAAADz0U65AAAAP1BMVEUAAADj4+Pf39/h4eHh4eHh4eHk5OTh4eHg4ODi4uLh4eHh4eHg4ODh4eHh4eHg4ODh4eHh4eHp6en////h4eFqcyvUAAAAFHRSTlMAOQfy7bgS5NrBvqOIfXNHMSELAgQ/iFsAAAA2SURBVAjXY4AANjYIzcjMAaVFuBkY+RkEWERYmRjYRXjANAOfiIgIFxNIAa8IpxBEi6AwiAQAK2MBd7xY8csAAAAASUVORK5CYII=);\n}\n@media (-webkit-min-device-pixel-ratio: 1.5), (min-resolution: 1.5dppx) {\n  .vue-treeselect__checkbox--disabled .vue-treeselect__check-mark {\n    background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAMAAAAoLQ9TAAAAXVBMVEUAAADh4eHh4eHh4eHi4uLb29vh4eHh4eHh4eHh4eHh4eHh4eHh4eHi4uLi4uLj4+Pi4uLk5OTo6Ojh4eHh4eHi4uLg4ODg4ODh4eHg4ODh4eHf39/g4OD////h4eEzIk+wAAAAHnRSTlMAzu6/LA3p5eLZx8ONTjYiHRIKooV+YWBaRzEnCANnm5rnAAAAZElEQVQY033P2wqAIAyA4VWaaWrnc/n+j5mbhBjUf7WPoTD47TJb4i5zTr/sRDRHuyFaoWX7uK/RlbctlPEuyI1f4WY9yQINEkf6rzzo8YIzmUFoCs7J1EjeIaa9bXIEmzl8dgOZEAj/+2IvzAAAAABJRU5ErkJggg==);\n  }\n}\n@media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {\n  .vue-treeselect__checkbox--disabled .vue-treeselect__check-mark {\n    background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAMAAAAoLQ9TAAAAXVBMVEUAAADh4eHh4eHh4eHi4uLb29vh4eHh4eHh4eHh4eHh4eHh4eHh4eHi4uLi4uLj4+Pi4uLk5OTo6Ojh4eHh4eHi4uLg4ODg4ODh4eHg4ODh4eHf39/g4OD////h4eEzIk+wAAAAHnRSTlMAzu6/LA3p5eLZx8ONTjYiHRIKooV+YWBaRzEnCANnm5rnAAAAZElEQVQY033P2wqAIAyA4VWaaWrnc/n+j5mbhBjUf7WPoTD47TJb4i5zTr/sRDRHuyFaoWX7uK/RlbctlPEuyI1f4WY9yQINEkf6rzzo8YIzmUFoCs7J1EjeIaa9bXIEmzl8dgOZEAj/+2IvzAAAAABJRU5ErkJggg==);\n  }\n}\n@media (-webkit-min-device-pixel-ratio: 3), (min-resolution: 288dpi) {\n  .vue-treeselect__checkbox--disabled .vue-treeselect__check-mark {\n    background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAMAAADXqc3KAAAAUVBMVEUAAADh4eHh4eHh4eHh4eHi4uLi4uLh4eHh4eHh4eHf39/j4+Ph4eHh4eHh4eHg4ODi4uLh4eHh4eHi4uLh4eHh4eHh4eHh4eHh4eH////h4eF3FMFTAAAAGnRSTlMA+/eJhGhfSHE9JBzz5KaQf3pXT0Xbz0I5AYDw8F0AAAB+SURBVCjPrdHbDoMgEEVRKAii1dZe9fz/hxplTiKIT7qfYCWTEEZdUvOwbckNAD2WHeh3brHW5f5EzGQ+iN+b1Gt6KPvtv16Dn6JX9M9ya3/A1yfu5dlyduL6Hec7mXY6ddXLPP2lpABGZ8PWXfYLTJxZekVhhl7eTX24zZPNKXoRC7zQLjUAAAAASUVORK5CYII=);\n  }\n}\n.vue-treeselect__checkbox--unchecked {\n  border-color: #e0e0e0;\n  background: #fff;\n}\n.vue-treeselect__label-container:hover .vue-treeselect__checkbox--unchecked {\n  border-color: #039be5;\n  background: #fff;\n}\n.vue-treeselect__checkbox--indeterminate {\n  border-color: #039be5;\n  background: #039be5;\n}\n.vue-treeselect__label-container:hover .vue-treeselect__checkbox--indeterminate {\n  border-color: #039be5;\n  background: #039be5;\n}\n.vue-treeselect__checkbox--checked {\n  border-color: #039be5;\n  background: #039be5;\n}\n.vue-treeselect__label-container:hover .vue-treeselect__checkbox--checked {\n  border-color: #039be5;\n  background: #039be5;\n}\n.vue-treeselect__checkbox--disabled {\n  border-color: #e0e0e0;\n  background-color: #f7f7f7;\n}\n.vue-treeselect__label-container:hover .vue-treeselect__checkbox--disabled {\n  border-color: #e0e0e0;\n  background-color: #f7f7f7;\n}\n.vue-treeselect__label {\n  overflow: hidden;\n  text-overflow: ellipsis;\n  white-space: nowrap;\n  display: table-cell;\n  padding-left: 5px;\n  max-width: 100%;\n  vertical-align: middle;\n  cursor: inherit;\n}\n[dir=\"rtl\"] .vue-treeselect__label {\n  padding-left: 0;\n  padding-right: 5px;\n}\n.vue-treeselect__count {\n  margin-left: 5px;\n  font-weight: 400;\n  opacity: 0.6;\n}\n[dir=\"rtl\"] .vue-treeselect__count {\n  margin-left: 0;\n  margin-right: 5px;\n}\n.vue-treeselect__tip {\n  padding-left: 5px;\n  padding-right: 5px;\n  display: table;\n  table-layout: fixed;\n  width: 100%;\n  color: #757575;\n}\n.vue-treeselect__tip-text {\n  display: table-cell;\n  vertical-align: middle;\n  padding-left: 5px;\n  padding-right: 5px;\n  overflow: hidden;\n  text-overflow: ellipsis;\n  white-space: nowrap;\n  width: 100%;\n  font-size: 12px;\n}\n.vue-treeselect__error-tip .vue-treeselect__retry {\n  cursor: pointer;\n  margin-left: 5px;\n  font-style: normal;\n  font-weight: 600;\n  text-decoration: none;\n  color: #039be5;\n}\n[dir=\"rtl\"] .vue-treeselect__error-tip .vue-treeselect__retry {\n  margin-left: 0;\n  margin-right: 5px;\n}\n.vue-treeselect__icon-container {\n  display: table-cell;\n  vertical-align: middle;\n  width: 20px;\n  text-align: center;\n  line-height: 0;\n}\n.vue-treeselect--single .vue-treeselect__icon-container {\n  padding-left: 5px;\n}\n[dir=\"rtl\"] .vue-treeselect--single .vue-treeselect__icon-container {\n  padding-left: 0;\n  padding-right: 5px;\n}\n.vue-treeselect__icon-warning {\n  display: block;\n  margin: auto;\n  border-radius: 50%;\n  position: relative;\n  width: 12px;\n  height: 12px;\n  background: #fb8c00;\n}\n.vue-treeselect__icon-warning::after {\n  display: block;\n  position: absolute;\n  content: \"\";\n  left: 5px;\n  top: 2.5px;\n  width: 2px;\n  height: 1px;\n  border: 0 solid #fff;\n  border-top-width: 5px;\n  border-bottom-width: 1px;\n}\n.vue-treeselect__icon-error {\n  display: block;\n  margin: auto;\n  border-radius: 50%;\n  position: relative;\n  width: 12px;\n  height: 12px;\n  background: #e53935;\n}\n.vue-treeselect__icon-error::before,\n.vue-treeselect__icon-error::after {\n  display: block;\n  position: absolute;\n  content: \"\";\n  background: #fff;\n  -ms-transform: rotate(45deg);\n      transform: rotate(45deg);\n}\n.vue-treeselect__icon-error::before {\n  width: 6px;\n  height: 2px;\n  left: 3px;\n  top: 5px;\n}\n.vue-treeselect__icon-error::after {\n  width: 2px;\n  height: 6px;\n  left: 5px;\n  top: 3px;\n}\n.vue-treeselect__icon-loader {\n  display: block;\n  margin: auto;\n  position: relative;\n  width: 12px;\n  height: 12px;\n  text-align: center;\n  animation: 1.6s vue-treeselect-animation-rotate linear infinite;\n}\n.vue-treeselect__icon-loader::before,\n.vue-treeselect__icon-loader::after {\n  border-radius: 50%;\n  position: absolute;\n  content: \"\";\n  left: 0;\n  top: 0;\n  display: block;\n  width: 100%;\n  height: 100%;\n  opacity: 0.6;\n  animation: 1.6s vue-treeselect-animation-bounce ease-in-out infinite;\n}\n.vue-treeselect__icon-loader::before {\n  background: #039be5;\n}\n.vue-treeselect__icon-loader::after {\n  background: #b3e5fc;\n  animation-delay: -0.8s;\n}\n/**\n * Menu Portal\n */\n.vue-treeselect__menu-placeholder {\n  display: none;\n}\n.vue-treeselect__portal-target {\n  position: absolute;\n  display: block;\n  left: 0;\n  top: 0;\n  height: 0;\n  width: 0;\n  padding: 0;\n  margin: 0;\n  border: 0;\n  overflow: visible;\n  box-sizing: border-box;\n}\n\n\n/*# sourceMappingURL=vue-treeselect.css.map*/", ""]);
+
+// exports
+
+
+/***/ }),
+
+/***/ 963:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -24737,7 +18882,7 @@ module.exports = fuzzysearch;
 
 /***/ }),
 
-/***/ 981:
+/***/ 964:
 /***/ (function(module, exports) {
 
 module.exports = isPromise;
@@ -24749,10 +18894,10 @@ function isPromise(obj) {
 
 /***/ }),
 
-/***/ 982:
+/***/ 965:
 /***/ (function(module, exports, __webpack_require__) {
 
-var trimmedEndIndex = __webpack_require__(983);
+var trimmedEndIndex = __webpack_require__(966);
 
 /** Used to match leading whitespace. */
 var reTrimStart = /^\s+/;
@@ -24775,7 +18920,7 @@ module.exports = baseTrim;
 
 /***/ }),
 
-/***/ 983:
+/***/ 966:
 /***/ (function(module, exports) {
 
 /** Used to match a single whitespace character. */
@@ -24801,10 +18946,10 @@ module.exports = trimmedEndIndex;
 
 /***/ }),
 
-/***/ 984:
+/***/ 967:
 /***/ (function(module, exports, __webpack_require__) {
 
-var toInteger = __webpack_require__(994);
+var toInteger = __webpack_require__(977);
 
 /** Error message constants. */
 var FUNC_ERROR_TEXT = 'Expected a function';
@@ -24848,7 +18993,7 @@ module.exports = before;
 
 /***/ }),
 
-/***/ 985:
+/***/ 968:
 /***/ (function(module, exports) {
 
 /**
@@ -24881,12 +19026,12 @@ module.exports = constant;
 
 /***/ }),
 
-/***/ 986:
+/***/ 969:
 /***/ (function(module, exports, __webpack_require__) {
 
 var isObject = __webpack_require__(58),
-    now = __webpack_require__(991),
-    toNumber = __webpack_require__(808);
+    now = __webpack_require__(974),
+    toNumber = __webpack_require__(791);
 
 /** Error message constants. */
 var FUNC_ERROR_TEXT = 'Expected a function';
@@ -25079,7 +19224,7 @@ module.exports = debounce;
 
 /***/ }),
 
-/***/ 987:
+/***/ 970:
 /***/ (function(module, exports) {
 
 /**
@@ -25107,7 +19252,7 @@ module.exports = identity;
 
 /***/ }),
 
-/***/ 988:
+/***/ 971:
 /***/ (function(module, exports, __webpack_require__) {
 
 var baseGetTag = __webpack_require__(76),
@@ -25143,7 +19288,7 @@ module.exports = isSymbol;
 
 /***/ }),
 
-/***/ 989:
+/***/ 972:
 /***/ (function(module, exports) {
 
 /**
@@ -25170,7 +19315,7 @@ module.exports = last;
 
 /***/ }),
 
-/***/ 990:
+/***/ 973:
 /***/ (function(module, exports) {
 
 /**
@@ -25194,7 +19339,7 @@ module.exports = noop;
 
 /***/ }),
 
-/***/ 991:
+/***/ 974:
 /***/ (function(module, exports, __webpack_require__) {
 
 var root = __webpack_require__(25);
@@ -25224,10 +19369,10 @@ module.exports = now;
 
 /***/ }),
 
-/***/ 992:
+/***/ 975:
 /***/ (function(module, exports, __webpack_require__) {
 
-var before = __webpack_require__(984);
+var before = __webpack_require__(967);
 
 /**
  * Creates a function that is restricted to invoking `func` once. Repeat calls
@@ -25256,10 +19401,10 @@ module.exports = once;
 
 /***/ }),
 
-/***/ 993:
+/***/ 976:
 /***/ (function(module, exports, __webpack_require__) {
 
-var toNumber = __webpack_require__(808);
+var toNumber = __webpack_require__(791);
 
 /** Used as references for various `Number` constants. */
 var INFINITY = 1 / 0,
@@ -25305,10 +19450,10 @@ module.exports = toFinite;
 
 /***/ }),
 
-/***/ 994:
+/***/ 977:
 /***/ (function(module, exports, __webpack_require__) {
 
-var toFinite = __webpack_require__(993);
+var toFinite = __webpack_require__(976);
 
 /**
  * Converts `value` to an integer.
@@ -25348,7 +19493,7 @@ module.exports = toInteger;
 
 /***/ }),
 
-/***/ 995:
+/***/ 978:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -25414,7 +19559,7 @@ var index = (function (element, listener) {
 
 /***/ }),
 
-/***/ 996:
+/***/ 979:
 /***/ (function(module, exports, __webpack_require__) {
 
 exports.f = __webpack_require__(17);
@@ -25422,15 +19567,15 @@ exports.f = __webpack_require__(17);
 
 /***/ }),
 
-/***/ 997:
+/***/ 981:
 /***/ (function(module, exports, __webpack_require__) {
 
-var pIE = __webpack_require__(810);
-var createDesc = __webpack_require__(108);
+var pIE = __webpack_require__(793);
+var createDesc = __webpack_require__(107);
 var toIObject = __webpack_require__(57);
-var toPrimitive = __webpack_require__(380);
+var toPrimitive = __webpack_require__(377);
 var has = __webpack_require__(73);
-var IE8_DOM_DEFINE = __webpack_require__(390);
+var IE8_DOM_DEFINE = __webpack_require__(387);
 var gOPD = Object.getOwnPropertyDescriptor;
 
 exports.f = __webpack_require__(59) ? gOPD : function getOwnPropertyDescriptor(O, P) {
@@ -25445,10 +19590,751 @@ exports.f = __webpack_require__(59) ? gOPD : function getOwnPropertyDescriptor(O
 
 /***/ }),
 
-/***/ 999:
+/***/ 982:
 /***/ (function(module, exports) {
 
 module.exports = {"AppSettings":{"Debug":true,"Version":"1.0.0.0","Domain":"http://demo.way2go.vn","UploadFolder":"uploads","FileUploadMaxSize":5000,"FileUploadSubFix":false,"ImageScaleWidth":300,"ImageScaleHeight":0,"ImageAllowUpload":".jpg,.jpeg,.png,.gif,.bit,.webp,.svg","DocumentAllowUpload":".doc,.docx,.pdf,.xls,.xlsx,.zip,.rar","FoderImg":"https://platformcms.hndedu.com","BaseDomain":"https://demo.way2go.vn","CacheEnable":"0","ESEnable":true,"NodeES":"http://127.0.0.1:9200","IndexES":"product_suggest"},"Redis":{"ConnectionString":"127.0.0.1:6379","DefaultDatabase":1,"InstanceName":"PLM_","CachingExpireMinute":3},"ConnectionStrings":{"DefaultConnection":"Server=103.184.112.82;Database=JT_DEV_2;Trusted_Connection=False;User Id=sa;password=EcaOicT35K%EC1"},"Cors":{"WithOrigin":"http://localhost:60099/"},"Logging":{"IncludeScopes":false,"LogLevel":{"Default":"Debug","System":"Information","Microsoft":"Information"}},"Tokens":{"Key":"0123456789ABCDEF","Issuer":"https://janhome.vn/"},"EmailSender":{"Host":"mail247.vn","Port":465,"CustomerService":{"Email":"cs@joytime.vn","Password":"D2A9HnvGMJYW3BeKQw5f4F"},"SupplierService":{"Email":"partner@joytime.vn","Password":"SL9QgKGtjCNUcbr7uXdWPY"},"HelpDesk":{"Email":"helpdesk@joytime.vn","Password":"jaR548durV2tpFCkX6qENx"},"BookingService":{"Email":"booking@joytime.vn","Password":"zydcpPBfEHeM7u9DU6XLVT"}}}
+
+/***/ }),
+
+/***/ 983:
+/***/ (function(module, exports, __webpack_require__) {
+
+var META = __webpack_require__(108)('meta');
+var isObject = __webpack_require__(45);
+var has = __webpack_require__(73);
+var setDesc = __webpack_require__(55).f;
+var id = 0;
+var isExtensible = Object.isExtensible || function () {
+  return true;
+};
+var FREEZE = !__webpack_require__(46)(function () {
+  return isExtensible(Object.preventExtensions({}));
+});
+var setMeta = function (it) {
+  setDesc(it, META, { value: {
+    i: 'O' + ++id, // object ID
+    w: {}          // weak collections IDs
+  } });
+};
+var fastKey = function (it, create) {
+  // return primitive with prefix
+  if (!isObject(it)) return typeof it == 'symbol' ? it : (typeof it == 'string' ? 'S' : 'P') + it;
+  if (!has(it, META)) {
+    // can't set metadata to uncaught frozen object
+    if (!isExtensible(it)) return 'F';
+    // not necessary to add metadata
+    if (!create) return 'E';
+    // add missing metadata
+    setMeta(it);
+  // return object ID
+  } return it[META].i;
+};
+var getWeak = function (it, create) {
+  if (!has(it, META)) {
+    // can't set metadata to uncaught frozen object
+    if (!isExtensible(it)) return true;
+    // not necessary to add metadata
+    if (!create) return false;
+    // add missing metadata
+    setMeta(it);
+  // return hash weak collections IDs
+  } return it[META].w;
+};
+// add metadata on freeze-family methods calling
+var onFreeze = function (it) {
+  if (FREEZE && meta.NEED && isExtensible(it) && !has(it, META)) setMeta(it);
+  return it;
+};
+var meta = module.exports = {
+  KEY: META,
+  NEED: false,
+  fastKey: fastKey,
+  getWeak: getWeak,
+  onFreeze: onFreeze
+};
+
+
+/***/ }),
+
+/***/ 984:
+/***/ (function(module, exports) {
+
+module.exports = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAJUlEQVQ4jWNgoBSkpaX9pwRTxwBsriJabHAYMBoGo2FAcRhQCgAhhv41B1NcjwAAAABJRU5ErkJggg=="
+
+/***/ }),
+
+/***/ 985:
+/***/ (function(module, exports) {
+
+module.exports = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAHElEQVQ4jWNgGPogLS3tPyV41AWjLhguLqAUAABjQNJhHOFYqgAAAABJRU5ErkJggg=="
+
+/***/ }),
+
+/***/ 986:
+/***/ (function(module, exports) {
+
+module.exports = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAg0lEQVQ4ja3QwQ3AIAgF0J6dwyVcwxUI4hZ1C6dwDZdwDs/tqYlRTKEpCRcjD/3HsakQwjX27t62xqFXYN4m7V+B9OGL53zQFds7JzYF0DigKoDKAUUBlAVAxCwFEDGzqSpekBaAiKIUIKLIAV4BeA5wCsAtAABYKQAAlgvRKEI0z9wNbkpkPnEUO00AAAAASUVORK5CYII="
+
+/***/ }),
+
+/***/ 987:
+/***/ (function(module, exports) {
+
+module.exports = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAyJpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuMy1jMDExIDY2LjE0NTY2MSwgMjAxMi8wMi8wNi0xNDo1NjoyNyAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvIiB4bWxuczp4bXBNTT0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL21tLyIgeG1sbnM6c3RSZWY9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9zVHlwZS9SZXNvdXJjZVJlZiMiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIENTNiAoV2luZG93cykiIHhtcE1NOkluc3RhbmNlSUQ9InhtcC5paWQ6QUFFNEVGRTcyNzI5MTFFN0E4MTJDODUxMTY5OTBDRTMiIHhtcE1NOkRvY3VtZW50SUQ9InhtcC5kaWQ6QUFFNEVGRTgyNzI5MTFFN0E4MTJDODUxMTY5OTBDRTMiPiA8eG1wTU06RGVyaXZlZEZyb20gc3RSZWY6aW5zdGFuY2VJRD0ieG1wLmlpZDpBQUU0RUZFNTI3MjkxMUU3QTgxMkM4NTExNjk5MENFMyIgc3RSZWY6ZG9jdW1lbnRJRD0ieG1wLmRpZDpBQUU0RUZFNjI3MjkxMUU3QTgxMkM4NTExNjk5MENFMyIvPiA8L3JkZjpEZXNjcmlwdGlvbj4gPC9yZGY6UkRGPiA8L3g6eG1wbWV0YT4gPD94cGFja2V0IGVuZD0iciI/PoebdJQAAAEfSURBVHjalNI9SwMxGMDxXHutaEXwHZdCEaSLQ71Fuujoojg4Cv0K4ioUStd+BpcOfgGh6Obo0uLsoJNQsC6+0evL9R94DkLotXcP/LiEJM8lT+J4nqckznGFY5UgUkY7jQ2VMFwUsYQ9ZHEwZ80Qb/gOEzRQwiJW8CgTHWthIN9lXOA+TFBBBme4xmnEn8MELeTMI/Skrb//eJ1zhJ+oIrpWP07hZy7YT3qNOsZYQA3PaGJbCro+rbiuleAPR6hK/xJlfGATJ+jPShDIPX/JbnRsYUf6JSn0ICrBGt7lSgNrTG+9i1XksQvfTPCLAp70QETNMrKbOm7QNhPohYdTdmXHHW7xoGtmTtZv+yXGzfny2Doq5sOx4xOjsDMRYADeTjM37KwM6gAAAABJRU5ErkJggg=="
+
+/***/ }),
+
+/***/ 988:
+/***/ (function(module, exports) {
+
+module.exports = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAlElEQVQ4jWNgGHCQlpb2Hw3fz8jIUKDEANIMwWEAXkwTAx4T7WdsXkhNTV2dnp6uT4ZrLjCkpaX9T09PL0pPT59AqgGpqan5MBfYp6WlvSLRgF+JiYmiDGlpad/T09PDybB9AywMjqampm4g1YD09HR/mAGL0tLSfpFowKu0tDRWmAGHybB9AnI0viHDAH2y0w06AACLVFch1Ej7rgAAAABJRU5ErkJggg=="
+
+/***/ }),
+
+/***/ 989:
+/***/ (function(module, exports) {
+
+module.exports = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAA6UlEQVQ4ja2TUU7DQAxE/UO5SwPH2SP4TX5yFKIgisRZijhFyyXyGfHXVuVnUzmrBNGCpZFWlme0s541Kwp4lNQBn8BXxl5S5+5VOX+ppmnuJb0CJ+C8gBOwSSmtJuSU0krSxw/EEu8TEeDtCvKIjZmZ1XX9EK9tZubuFdCH4X70H3pHd68MeI7K42AQ6YtevEVrwL5oTggzgnF2Z8Aw46+PK1sgn4HhXwT+ZiGn7qZHdPencY3HW9YoaW1mZjnCVwVJUjeJsrtvf0t29+3sfwBeop0ZHHLw7hZ/paQ10AK7vOIhn9uL51DfTreZQOo3Kt0AAAAASUVORK5CYII="
+
+/***/ }),
+
+/***/ 990:
+/***/ (function(module, exports) {
+
+module.exports = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAATUlEQVQ4jWNgoBXIyMhQSE1N3Z+RkaFAlua0tLT7aWlp/9PS0u6TZAia5v8kGYJDM2mGwACyZqI1jRpAJsARZURhsgxAtnhgXED1wAUASBXMx2KfmeMAAAAASUVORK5CYII="
+
+/***/ }),
+
+/***/ 991:
+/***/ (function(module, exports, __webpack_require__) {
+
+
+/* styles */
+__webpack_require__(1002)
+
+var Component = __webpack_require__(371)(
+  /* script */
+  __webpack_require__(997),
+  /* template */
+  __webpack_require__(1001),
+  /* scopeId */
+  "data-v-497df3b6",
+  /* cssModules */
+  null
+)
+
+module.exports = Component.exports
+
+
+/***/ }),
+
+/***/ 992:
+/***/ (function(module, exports, __webpack_require__) {
+
+// fallback for IE11 buggy Object.getOwnPropertyNames with iframe and window
+var toIObject = __webpack_require__(57);
+var gOPN = __webpack_require__(937).f;
+var toString = {}.toString;
+
+var windowNames = typeof window == 'object' && window && Object.getOwnPropertyNames
+  ? Object.getOwnPropertyNames(window) : [];
+
+var getWindowNames = function (it) {
+  try {
+    return gOPN(it);
+  } catch (e) {
+    return windowNames.slice();
+  }
+};
+
+module.exports.f = function getOwnPropertyNames(it) {
+  return windowNames && toString.call(it) == '[object Window]' ? getWindowNames(it) : gOPN(toIObject(it));
+};
+
+
+/***/ }),
+
+/***/ 993:
+/***/ (function(module, exports, __webpack_require__) {
+
+// all enumerable object keys, includes symbols
+var getKeys = __webpack_require__(179);
+var gOPS = __webpack_require__(950);
+var pIE = __webpack_require__(793);
+module.exports = function (it) {
+  var result = getKeys(it);
+  var getSymbols = gOPS.f;
+  if (getSymbols) {
+    var symbols = getSymbols(it);
+    var isEnum = pIE.f;
+    var i = 0;
+    var key;
+    while (symbols.length > i) if (isEnum.call(it, key = symbols[i++])) result.push(key);
+  } return result;
+};
+
+
+/***/ }),
+
+/***/ 994:
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+// ECMAScript 6 symbols shim
+var global = __webpack_require__(22);
+var has = __webpack_require__(73);
+var DESCRIPTORS = __webpack_require__(59);
+var $export = __webpack_require__(12);
+var redefine = __webpack_require__(61);
+var META = __webpack_require__(983).KEY;
+var $fails = __webpack_require__(46);
+var shared = __webpack_require__(113);
+var setToStringTag = __webpack_require__(112);
+var uid = __webpack_require__(108);
+var wks = __webpack_require__(17);
+var wksExt = __webpack_require__(979);
+var wksDefine = __webpack_require__(929);
+var enumKeys = __webpack_require__(993);
+var isArray = __webpack_require__(183);
+var anObject = __webpack_require__(36);
+var isObject = __webpack_require__(45);
+var toObject = __webpack_require__(39);
+var toIObject = __webpack_require__(57);
+var toPrimitive = __webpack_require__(377);
+var createDesc = __webpack_require__(107);
+var _create = __webpack_require__(385);
+var gOPNExt = __webpack_require__(992);
+var $GOPD = __webpack_require__(981);
+var $GOPS = __webpack_require__(950);
+var $DP = __webpack_require__(55);
+var $keys = __webpack_require__(179);
+var gOPD = $GOPD.f;
+var dP = $DP.f;
+var gOPN = gOPNExt.f;
+var $Symbol = global.Symbol;
+var $JSON = global.JSON;
+var _stringify = $JSON && $JSON.stringify;
+var PROTOTYPE = 'prototype';
+var HIDDEN = wks('_hidden');
+var TO_PRIMITIVE = wks('toPrimitive');
+var isEnum = {}.propertyIsEnumerable;
+var SymbolRegistry = shared('symbol-registry');
+var AllSymbols = shared('symbols');
+var OPSymbols = shared('op-symbols');
+var ObjectProto = Object[PROTOTYPE];
+var USE_NATIVE = typeof $Symbol == 'function' && !!$GOPS.f;
+var QObject = global.QObject;
+// Don't use setters in Qt Script, https://github.com/zloirock/core-js/issues/173
+var setter = !QObject || !QObject[PROTOTYPE] || !QObject[PROTOTYPE].findChild;
+
+// fallback for old Android, https://code.google.com/p/v8/issues/detail?id=687
+var setSymbolDesc = DESCRIPTORS && $fails(function () {
+  return _create(dP({}, 'a', {
+    get: function () { return dP(this, 'a', { value: 7 }).a; }
+  })).a != 7;
+}) ? function (it, key, D) {
+  var protoDesc = gOPD(ObjectProto, key);
+  if (protoDesc) delete ObjectProto[key];
+  dP(it, key, D);
+  if (protoDesc && it !== ObjectProto) dP(ObjectProto, key, protoDesc);
+} : dP;
+
+var wrap = function (tag) {
+  var sym = AllSymbols[tag] = _create($Symbol[PROTOTYPE]);
+  sym._k = tag;
+  return sym;
+};
+
+var isSymbol = USE_NATIVE && typeof $Symbol.iterator == 'symbol' ? function (it) {
+  return typeof it == 'symbol';
+} : function (it) {
+  return it instanceof $Symbol;
+};
+
+var $defineProperty = function defineProperty(it, key, D) {
+  if (it === ObjectProto) $defineProperty(OPSymbols, key, D);
+  anObject(it);
+  key = toPrimitive(key, true);
+  anObject(D);
+  if (has(AllSymbols, key)) {
+    if (!D.enumerable) {
+      if (!has(it, HIDDEN)) dP(it, HIDDEN, createDesc(1, {}));
+      it[HIDDEN][key] = true;
+    } else {
+      if (has(it, HIDDEN) && it[HIDDEN][key]) it[HIDDEN][key] = false;
+      D = _create(D, { enumerable: createDesc(0, false) });
+    } return setSymbolDesc(it, key, D);
+  } return dP(it, key, D);
+};
+var $defineProperties = function defineProperties(it, P) {
+  anObject(it);
+  var keys = enumKeys(P = toIObject(P));
+  var i = 0;
+  var l = keys.length;
+  var key;
+  while (l > i) $defineProperty(it, key = keys[i++], P[key]);
+  return it;
+};
+var $create = function create(it, P) {
+  return P === undefined ? _create(it) : $defineProperties(_create(it), P);
+};
+var $propertyIsEnumerable = function propertyIsEnumerable(key) {
+  var E = isEnum.call(this, key = toPrimitive(key, true));
+  if (this === ObjectProto && has(AllSymbols, key) && !has(OPSymbols, key)) return false;
+  return E || !has(this, key) || !has(AllSymbols, key) || has(this, HIDDEN) && this[HIDDEN][key] ? E : true;
+};
+var $getOwnPropertyDescriptor = function getOwnPropertyDescriptor(it, key) {
+  it = toIObject(it);
+  key = toPrimitive(key, true);
+  if (it === ObjectProto && has(AllSymbols, key) && !has(OPSymbols, key)) return;
+  var D = gOPD(it, key);
+  if (D && has(AllSymbols, key) && !(has(it, HIDDEN) && it[HIDDEN][key])) D.enumerable = true;
+  return D;
+};
+var $getOwnPropertyNames = function getOwnPropertyNames(it) {
+  var names = gOPN(toIObject(it));
+  var result = [];
+  var i = 0;
+  var key;
+  while (names.length > i) {
+    if (!has(AllSymbols, key = names[i++]) && key != HIDDEN && key != META) result.push(key);
+  } return result;
+};
+var $getOwnPropertySymbols = function getOwnPropertySymbols(it) {
+  var IS_OP = it === ObjectProto;
+  var names = gOPN(IS_OP ? OPSymbols : toIObject(it));
+  var result = [];
+  var i = 0;
+  var key;
+  while (names.length > i) {
+    if (has(AllSymbols, key = names[i++]) && (IS_OP ? has(ObjectProto, key) : true)) result.push(AllSymbols[key]);
+  } return result;
+};
+
+// 19.4.1.1 Symbol([description])
+if (!USE_NATIVE) {
+  $Symbol = function Symbol() {
+    if (this instanceof $Symbol) throw TypeError('Symbol is not a constructor!');
+    var tag = uid(arguments.length > 0 ? arguments[0] : undefined);
+    var $set = function (value) {
+      if (this === ObjectProto) $set.call(OPSymbols, value);
+      if (has(this, HIDDEN) && has(this[HIDDEN], tag)) this[HIDDEN][tag] = false;
+      setSymbolDesc(this, tag, createDesc(1, value));
+    };
+    if (DESCRIPTORS && setter) setSymbolDesc(ObjectProto, tag, { configurable: true, set: $set });
+    return wrap(tag);
+  };
+  redefine($Symbol[PROTOTYPE], 'toString', function toString() {
+    return this._k;
+  });
+
+  $GOPD.f = $getOwnPropertyDescriptor;
+  $DP.f = $defineProperty;
+  __webpack_require__(937).f = gOPNExt.f = $getOwnPropertyNames;
+  __webpack_require__(793).f = $propertyIsEnumerable;
+  $GOPS.f = $getOwnPropertySymbols;
+
+  if (DESCRIPTORS && !__webpack_require__(106)) {
+    redefine(ObjectProto, 'propertyIsEnumerable', $propertyIsEnumerable, true);
+  }
+
+  wksExt.f = function (name) {
+    return wrap(wks(name));
+  };
+}
+
+$export($export.G + $export.W + $export.F * !USE_NATIVE, { Symbol: $Symbol });
+
+for (var es6Symbols = (
+  // 19.4.2.2, 19.4.2.3, 19.4.2.4, 19.4.2.6, 19.4.2.8, 19.4.2.9, 19.4.2.10, 19.4.2.11, 19.4.2.12, 19.4.2.13, 19.4.2.14
+  'hasInstance,isConcatSpreadable,iterator,match,replace,search,species,split,toPrimitive,toStringTag,unscopables'
+).split(','), j = 0; es6Symbols.length > j;)wks(es6Symbols[j++]);
+
+for (var wellKnownSymbols = $keys(wks.store), k = 0; wellKnownSymbols.length > k;) wksDefine(wellKnownSymbols[k++]);
+
+$export($export.S + $export.F * !USE_NATIVE, 'Symbol', {
+  // 19.4.2.1 Symbol.for(key)
+  'for': function (key) {
+    return has(SymbolRegistry, key += '')
+      ? SymbolRegistry[key]
+      : SymbolRegistry[key] = $Symbol(key);
+  },
+  // 19.4.2.5 Symbol.keyFor(sym)
+  keyFor: function keyFor(sym) {
+    if (!isSymbol(sym)) throw TypeError(sym + ' is not a symbol!');
+    for (var key in SymbolRegistry) if (SymbolRegistry[key] === sym) return key;
+  },
+  useSetter: function () { setter = true; },
+  useSimple: function () { setter = false; }
+});
+
+$export($export.S + $export.F * !USE_NATIVE, 'Object', {
+  // 19.1.2.2 Object.create(O [, Properties])
+  create: $create,
+  // 19.1.2.4 Object.defineProperty(O, P, Attributes)
+  defineProperty: $defineProperty,
+  // 19.1.2.3 Object.defineProperties(O, Properties)
+  defineProperties: $defineProperties,
+  // 19.1.2.6 Object.getOwnPropertyDescriptor(O, P)
+  getOwnPropertyDescriptor: $getOwnPropertyDescriptor,
+  // 19.1.2.7 Object.getOwnPropertyNames(O)
+  getOwnPropertyNames: $getOwnPropertyNames,
+  // 19.1.2.8 Object.getOwnPropertySymbols(O)
+  getOwnPropertySymbols: $getOwnPropertySymbols
+});
+
+// Chrome 38 and 39 `Object.getOwnPropertySymbols` fails on primitives
+// https://bugs.chromium.org/p/v8/issues/detail?id=3443
+var FAILS_ON_PRIMITIVES = $fails(function () { $GOPS.f(1); });
+
+$export($export.S + $export.F * FAILS_ON_PRIMITIVES, 'Object', {
+  getOwnPropertySymbols: function getOwnPropertySymbols(it) {
+    return $GOPS.f(toObject(it));
+  }
+});
+
+// 24.3.2 JSON.stringify(value [, replacer [, space]])
+$JSON && $export($export.S + $export.F * (!USE_NATIVE || $fails(function () {
+  var S = $Symbol();
+  // MS Edge converts symbol values to JSON as {}
+  // WebKit converts symbol values to JSON as null
+  // V8 throws on boxed symbols
+  return _stringify([S]) != '[null]' || _stringify({ a: S }) != '{}' || _stringify(Object(S)) != '{}';
+})), 'JSON', {
+  stringify: function stringify(it) {
+    var args = [it];
+    var i = 1;
+    var replacer, $replacer;
+    while (arguments.length > i) args.push(arguments[i++]);
+    $replacer = replacer = args[1];
+    if (!isObject(replacer) && it === undefined || isSymbol(it)) return; // IE8 returns string on undefined
+    if (!isArray(replacer)) replacer = function (key, value) {
+      if (typeof $replacer == 'function') value = $replacer.call(this, key, value);
+      if (!isSymbol(value)) return value;
+    };
+    args[1] = replacer;
+    return _stringify.apply($JSON, args);
+  }
+});
+
+// 19.4.3.4 Symbol.prototype[@@toPrimitive](hint)
+$Symbol[PROTOTYPE][TO_PRIMITIVE] || __webpack_require__(48)($Symbol[PROTOTYPE], TO_PRIMITIVE, $Symbol[PROTOTYPE].valueOf);
+// 19.4.3.5 Symbol.prototype[@@toStringTag]
+setToStringTag($Symbol, 'Symbol');
+// 20.2.1.9 Math[@@toStringTag]
+setToStringTag(Math, 'Math', true);
+// 24.3.3 JSON[@@toStringTag]
+setToStringTag(global.JSON, 'JSON', true);
+
+
+/***/ }),
+
+/***/ 995:
+/***/ (function(module, exports, __webpack_require__) {
+
+__webpack_require__(929)('asyncIterator');
+
+
+/***/ }),
+
+/***/ 996:
+/***/ (function(module, exports, __webpack_require__) {
+
+__webpack_require__(929)('observable');
+
+
+/***/ }),
+
+/***/ 997:
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _from = __webpack_require__(936);
+
+var _from2 = _interopRequireDefault(_from);
+
+var _extends2 = __webpack_require__(8);
+
+var _extends3 = _interopRequireDefault(_extends2);
+
+var _defineProperty2 = __webpack_require__(938);
+
+var _defineProperty3 = _interopRequireDefault(_defineProperty2);
+
+__webpack_require__(779);
+
+var _constant = __webpack_require__(781);
+
+var _constant2 = _interopRequireDefault(_constant);
+
+var _vuex = __webpack_require__(176);
+
+var _vueLoadingOverlay = __webpack_require__(373);
+
+var _vueLoadingOverlay2 = _interopRequireDefault(_vueLoadingOverlay);
+
+var _eventBus = __webpack_require__(939);
+
+var _eventBus2 = _interopRequireDefault(_eventBus);
+
+var _symbol = __webpack_require__(998);
+
+var _jquery = __webpack_require__(1000);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+exports.default = {
+    name: "FileManager",
+    props: {
+        miKey: {
+            type: String
+        }
+    },
+    components: {
+        Loading: _vueLoadingOverlay2.default
+    },
+    data: function data() {
+        var _ref;
+
+        return _ref = {
+            isLoading: false,
+            fullPage: false,
+            color: "#007bff",
+            isLoadLang: false,
+
+            currentPage: 1,
+            pageSize: 30
+        }, (0, _defineProperty3.default)(_ref, "isLoading", false), (0, _defineProperty3.default)(_ref, "MaxFileSize", 3000), (0, _defineProperty3.default)(_ref, "selectedFile", []), (0, _defineProperty3.default)(_ref, "extensions", []), (0, _defineProperty3.default)(_ref, "extImage", []), (0, _defineProperty3.default)(_ref, "isActive", false), (0, _defineProperty3.default)(_ref, "selectType", ''), (0, _defineProperty3.default)(_ref, "keyword", ''), _ref;
+    },
+    created: function created() {
+        var config = __webpack_require__(982);
+        this.extImage = config.AppSettings.ImageAllowUpload;
+        this.extensions = config.AppSettings.ImageAllowUpload.concat(config.AppSettings.DocumentAllowUpload);
+
+        _eventBus2.default.$on(this.miKey, this.FileManagerOpen);
+    },
+    destroyed: function destroyed() {},
+
+    computed: {
+        files: function files() {
+            return this.$store.getters.files;
+        }
+    },
+    methods: (0, _extends3.default)({}, (0, _vuex.mapActions)(["fmFileUpload", "fmFileGetAll", "fmRemove"]), {
+        mapImageUrl: function mapImageUrl(img, ext) {
+            if (this.extImage.indexOf(ext.toLowerCase()) !== -1) {
+                return '/uploads/thumb' + img;
+            }
+            return './../../ClientApp/assets/fileicons/' + ext.replace('.', '') + '.png';
+        },
+        checkImage: function checkImage(ext) {
+            if (this.extImage.indexOf(ext) == -1) {
+                return true;
+            }
+            return false;
+        },
+        DoUploadFile: function DoUploadFile(e) {
+            debugger;
+            var files = e.srcElement.files;
+
+            if (files) {
+                var filesTemp = (0, _from2.default)(files);
+
+                var msgFileAllow = '';
+                var msgLimitedSize = '';
+                for (var i = 0; i < filesTemp.length; i++) {
+
+                    var name = filesTemp[i].name;
+                    var type = name.split('.').pop().toLowerCase();
+
+                    if (this.extensions.indexOf(type) == -1) {
+                        filesTemp.splice(i, 1);
+                        if (msgFileAllow.length == 0) {
+                            msgFileAllow = name;
+                        } else {
+                            msgFileAllow += ', ' + name;
+                        }
+                    }
+                    if (msgFileAllow.length > 0) {
+                        this.$toast.error(msgFileAllow + ' không hợp lệ !', {});
+                    }
+                }
+                for (var i = 0; i < filesTemp.length; i++) {
+                    var size = filesTemp[i].size;
+                    var _name = filesTemp[i].name;
+
+                    if (this.MaxFileSize < size / 1024) {
+                        filesTemp.splice(i, 1);
+                        if (msgLimitedSize.length == 0) {
+                            msgLimitedSize = _name;
+                        } else {
+                            msgLimitedSize += ', ' + _name;
+                        }
+                    }
+                    if (msgLimitedSize.length > 0) {
+                        this.$toast.error(msgFileAllow + ' dung lượng quá lớn !', {});
+                    }
+                }
+                if (filesTemp.length) {
+                    var fd = new FormData();
+
+                    filesTemp.forEach(function (item) {
+                        fd.append('files', item);
+                    });
+                    this.UploadFileAction(fd);
+                }
+            }
+        },
+        UploadFileAction: function UploadFileAction(files) {
+            var _this = this;
+
+            this.fmFileUpload(files).then(function (response) {
+                if (response.success) {
+                    debugger;
+                    console.log(response.data);
+                    var objtoast = _this.$toast;
+                    response.data.forEach(function (item) {
+                        if (item.code == 200) {
+                            objtoast.success(item.messages, {});
+                        } else {
+                            objtoast.error(item.messages, {});
+                        }
+                    });
+
+                    _this.LoadFile();
+
+                    _this.isLoading = false;
+                } else {
+
+                    _this.$toast.error(response.message, {});
+                    _this.isLoading = false;
+                }
+            }).catch(function (e) {
+                debugger;
+                _this.$toast.error(_constant2.default.error + ". Error:" + e, {});
+                _this.isLoading = false;
+            });
+        },
+        SelectFile: function SelectFile(event, file) {
+            if (this.selectType == 'multi') {
+                if (event.currentTarget.classList.contains('_active')) {
+                    event.currentTarget.classList.remove('_active');
+
+                    this.selectedFile = this.selectedFile.filter(function (obj) {
+                        return obj.id != file.id;
+                    });
+                } else {
+                    event.currentTarget.classList.add("_active");
+                    this.selectedFile.push(file);
+                }
+            } else {
+
+                this.selectedFile = [];
+                if (event.currentTarget.classList.contains('_active')) {
+                    event.currentTarget.classList.remove('_active');
+                } else {
+                    var items = document.querySelectorAll('.item');
+                    items.forEach(function (item) {
+                        item.classList.remove('_active');
+                    });
+                    event.currentTarget.classList.add("_active");
+                    this.selectedFile.push(file);
+                }
+            }
+        },
+        LoadFile: function LoadFile() {
+            this.fmFileGetAll({
+                keyword: this.keyword,
+                pageIndex: this.currentPage,
+                pageSize: this.pageSize
+            });
+        },
+        FileManagerOpen: function FileManagerOpen(param) {
+            this.selectType = param;
+            this.$refs["file-manager-modal"].show();
+            this.LoadFile();
+        },
+        hideFileManagerModal: function hideFileManagerModal() {
+            this.$refs["file-manager-modal"].hide();
+        },
+        attackFile: function attackFile() {
+            this.$emit("handleAttackFile", this.selectedFile);
+            this.$refs["file-manager-modal"].hide();
+            this.selectedFile = [];
+        },
+        toggleFileModal: function toggleFileModal() {
+            this.$refs["file-manager-modal"].toggle("#toggle-btn");
+        },
+        removeFile: function removeFile() {
+            var result = confirm("Xác nhận?");
+            if (!result) {
+                return false;
+            }
+
+            var $this = this;
+            this.selectedFile.forEach(function (item) {
+                $this.fmRemove(item.id).then(function (response) {
+                    if (response.success) {
+
+                        $this.LoadFile();
+                        $this.$toast.success(response.message, {});
+                        $this.isLoading = false;
+                    } else {
+
+                        $this.$toast.error(response.message, {});
+                        $this.isLoading = false;
+                    }
+                }).catch(function (e) {
+
+                    $this.$toast.error(_constant2.default.error + ". Error:" + e, {});
+                    $this.isLoading = false;
+                });
+            });
+        }
+    }),
+    mounted: function mounted() {},
+
+    watch: {
+        currentPage: function currentPage() {
+            this.LoadFile();
+        }
+    }
+};
+
+/***/ }),
+
+/***/ 998:
+/***/ (function(module, exports, __webpack_require__) {
+
+__webpack_require__(994);
+__webpack_require__(389);
+__webpack_require__(995);
+__webpack_require__(996);
+module.exports = __webpack_require__(37).Symbol;
+
+
+/***/ }),
+
+/***/ 999:
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__(53)();
+// imports
+
+
+// module
+exports.push([module.i, "#file-manager[data-v-497df3b6],#file-manager___BV_modal_body_[data-v-497df3b6]{padding:0}#fm-container-dialog[data-v-497df3b6]{padding:0;overflow:hidden!important}#fm-container[data-v-497df3b6]{font-size:12px;font-family:sans-serif;padding:0}#fm-toolbar ul[data-v-497df3b6]{float:left;margin:3.5px 0 3px 10px;padding:1px 2px;border-radius:0}#fm-toolbar ul li[data-v-497df3b6]{border:1px solid #fff;cursor:pointer;float:left;line-height:26px;list-style-type:none;padding:0 8px;text-align:center}#fm-toolbar ul li.active[data-v-497df3b6],#fm-toolbar ul li[data-v-497df3b6]:hover{background:#eaeaea}#fm-footer[data-v-497df3b6]{border-top:1px solid #eaeaea;padding-top:10px}#fm-toolbar .tool-items[data-v-497df3b6]{clear:both;padding-right:6px}#fm-toolbar .tools[data-v-497df3b6]{float:left}#fm-main[data-v-497df3b6]{margin-top:8px;border-top:1px solid #eaeaea}#fm-sidebar .fm-header[data-v-497df3b6]{height:35px;line-height:35px;background-color:#39c;overflow:hidden;font-size:17px;color:#ecf3f9;text-align:center}#fm-sidebar[data-v-497df3b6]{border-right:1px solid #eaeaea}#fm-content[data-v-497df3b6]{background-color:#fff;cursor:default;height:100%}#fm-data-wrapper[data-v-497df3b6]{overflow:hidden}#fm-file-view[data-v-497df3b6]{border-left:1px solid #eaeaea;float:right;height:100%;width:250px;padding:9px;background:#fff}#fm-file-view .file-thumb[data-v-497df3b6]{text-align:center;max-height:250px;max-width:230px;overflow:hidden}#fm-file-view .header[data-v-497df3b6]{font-weight:700;margin-bottom:12px;padding:2px 0;text-align:center;text-transform:uppercase}#fm-file-view .details[data-v-497df3b6]{padding-top:16px}#fm-file-view .details .dimensions[data-v-497df3b6],#fm-file-view .details .file-size[data-v-497df3b6],#fm-file-view .details .uploaded[data-v-497df3b6],#fm-file-view .details div[data-v-497df3b6]{line-height:21px}#fm-file-view .file-thumb img[data-v-497df3b6]{border:1px solid #eaeaea;padding:4px}.attachment-info .filename[data-v-497df3b6]{font-weight:600;color:#444;word-wrap:break-word}.btn-attack[data-v-497df3b6]{background:#fff none repeat scroll 0 0;padding:3px 3px 3px 0;width:230px;float:right;clear:both}.btn-attack button#btn-attack[data-v-497df3b6]{color:#fff;background:#0085ba;border:0;padding:4px 6px}.btn-attack button#dl-close[data-v-497df3b6]{background:#eaeaea;border:0;padding:4px 6px;float:right;clear:both}#fm-content table._list[data-v-497df3b6]{width:100%}#fm-content table._list tr th[data-v-497df3b6]{text-align:center;font-weight:700}#fm-content table._list tr td[data-v-497df3b6]{padding:5px 4px}#fm-content table._list tr._active[data-v-497df3b6]{background:#48adff}#fm-toolbar ul li i[data-v-497df3b6]{background-repeat:no-repeat;display:inline-block;height:16px;vertical-align:middle;width:16px}li i.create-folder[data-v-497df3b6]{background-image:url(" + __webpack_require__(988) + ")}li i.upload[data-v-497df3b6]{background-image:url(" + __webpack_require__(990) + ")}li i.list[data-v-497df3b6]{background-image:url(" + __webpack_require__(985) + ")}li i.grid[data-v-497df3b6]{background-image:url(" + __webpack_require__(984) + ")}li i.iclose[data-v-497df3b6]{background-image:url(" + __webpack_require__(989) + ")}li i.crop[data-v-497df3b6]{background-image:url(" + __webpack_require__(987) + ")}li i.remove[data-v-497df3b6]{background-image:url(" + __webpack_require__(986) + ")}#fm-footer[data-v-497df3b6]{min-height:32px}#fm-data-wrapper[data-v-497df3b6]{height:100%}.clear[data-v-497df3b6]{clear:both}#_list ._active[data-v-497df3b6]{background:#48adff}#fm-content table._list table thead tr th[data-v-497df3b6]{text-align:center}#fm-content table._list tr[data-v-497df3b6]{font-size:11px}#fm-content table._list tr[data-v-497df3b6]:hover{background:#c1edff;cursor:pointer}#fm-content table._list tbody tr td.name[data-v-497df3b6]{display:inline-flex}#fm-content table._list tbody tr td.name .list-icon[data-v-497df3b6]{display:inline-block;float:left;padding-right:20px}#fm-folder ul[data-v-497df3b6],#fm-grid[data-v-497df3b6],#fm-grid li .info p[data-v-497df3b6]{padding:0;margin:0}#fm-grid li[data-v-497df3b6]{vertical-align:middle;display:table-cell;border:1px solid #eaeaea;cursor:pointer;float:left;height:100px;min-width:114px;list-style-type:none;margin:4px;padding:2px;width:15.78%;position:relative;overflow:hidden;text-align:center}#fm-grid li .info[data-v-497df3b6]{font-size:10px;background:hsla(0,2%,42%,.45882);position:absolute;bottom:0;width:100%;height:0}#fm-grid li:hover .info[data-v-497df3b6]{height:auto}.fm-list li img[data-v-497df3b6]{width:100%}.fm-list li.not_img img[data-v-497df3b6]{width:50%;padding-top:10px}#fm-grid li img.thumb[data-v-497df3b6]{width:60%;margin:0 auto}#fm-grid li i[data-v-497df3b6]{position:absolute;z-index:999;right:4px;background:#fff;border-radius:11px;color:#0085ba;padding:1px;top:3px;display:none}#fm-grid li._active i[data-v-497df3b6]{display:block}#fm-grid li._active[data-v-497df3b6]{border:1px solid #0085ba}#fm-folder ul li[data-v-497df3b6]{list-style-type:none;padding:8px 0;cursor:pointer}#fm-folder ul li i[data-v-497df3b6]{background-repeat:no-repeat;display:inline-block;height:16px;vertical-align:middle;width:16px}.plupload_filelist_header[data-v-497df3b6]{height:20px}.plupload_filelist_footer[data-v-497df3b6]{height:33px}.plupload_scroll .plupload_filelist[data-v-497df3b6]{height:172px!important}.plupload_filelist_footer[data-v-497df3b6]{padding:6px 20px}.plupload_filelist[data-v-497df3b6]:empty,.plupload_filelist li.plupload_droptext[data-v-497df3b6]{height:140px}.plupload_filelist[data-v-497df3b6]:empty:before,.plupload_filelist li.plupload_droptext[data-v-497df3b6]:before{font-size:52px;height:75px;left:49%;margin-left:-40px;padding-top:43px}.items-action[data-v-497df3b6]{padding-top:20px;display:inline-block;width:100%}.items-action .file-action[data-v-497df3b6]{border:0 none;color:#fff;padding:4px 10px;background:#bc8f8f;float:left;clear:both}#fm-toolbar .Mi.ipagination a[data-v-497df3b6]:first-child{border:0;border-radius:0}#fm-toolbar .Mi.ipagination input[data-v-497df3b6]{border:medium none;float:left;font-family:arial;font-size:11px;height:30px;margin:0;outline:medium none;padding:0;text-align:center;vertical-align:middle;width:84px}#fm-toolbar .Mi.ipagination a[data-v-497df3b6]{border:0;border-radius:0;background:#fff}#fm-toolbar .ipagination.iweb[data-v-497df3b6]{margin-top:3.45px}#frowInTotals[data-v-497df3b6]{display:inline-block;float:left;line-height:39px;padding-right:3px;vertical-align:baseline}label#progressall[data-v-497df3b6]{display:none;padding:7px}.Cdiv[data-v-497df3b6]{padding-left:12px;height:17px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;width:100%;display:inline-block;font-weight:400}#btn-fm-upload label[data-v-497df3b6]{margin-bottom:0!important}@media only screen and (max-width:600px){#fm-grid li[data-v-497df3b6]{width:47.65%}}", ""]);
+
+// exports
+
 
 /***/ })
 

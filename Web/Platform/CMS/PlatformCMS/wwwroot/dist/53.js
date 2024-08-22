@@ -1,21 +1,6 @@
 webpackJsonp([53],{
 
-/***/ 1120:
-/***/ (function(module, exports, __webpack_require__) {
-
-exports = module.exports = __webpack_require__(53)();
-// imports
-
-
-// module
-exports.push([module.i, "\n[v-cloak] {\n    display: none;\n}\n.edit {\n    display: none;\n}\n.editing .edit {\n    display: block\n}\n.editing .view {\n    display: none;\n}\n", "", {"version":3,"sources":["D:/Code/WORKING/dotnet-platform-backend/Web/Platform/CMS/PlatformCMS/ClientApp/pages/policy/list.vue?1f3ca656"],"names":[],"mappings":";AA0NA;IACA,cAAA;CACA;AAEA;IACA,cAAA;CACA;AAEA;IACA,cAAA;CACA;AAEA;IACA,cAAA;CACA","file":"list.vue","sourcesContent":["\r\n<template>\r\n    <div class=\"list-data\">\r\n        <b-card header-tag=\"header\" class=\"card-filter\"\r\n                footer-tag=\"footer\">\r\n            <div>\r\n                <b-col md=\"12\">\r\n                    <b-row class=\"form-group\">\r\n                        <b-col md=\"4\">\r\n                            <b-form-input @keyup.13=\"onChangePaging()\" v-model=\"SearchKeyword\" type=\"text\" placeholder=\"Tìm kiếm theo tên\"></b-form-input>\r\n                        </b-col>\r\n                        <!--<b-col md=\"2\">\r\n                            <b-select :options=\"Language\" v-model=\"SearchLanguageCode\"></b-select>\r\n                        </b-col>-->\r\n                        <b-col md=\"1\">\r\n                            <b-btn variant=\"info\" class=\"col-lg-12\"><i class=\"fa fa-search\" aria-hidden=\"true\"></i></b-btn>\r\n                        </b-col>\r\n                        <b-col md=\"1\">\r\n                            <b-btn variant=\"primary\" class=\"col-lg-12\"><i class=\"fa fa-refresh\" aria-hidden=\"true\"></i></b-btn>\r\n                        </b-col>\r\n                        <b-col md=\"2\">\r\n                            <b-btn v-b-toggle.collapse1 variant=\"primary\"><i class=\"fa fa-angle-double-down\" aria-hidden=\"true\"></i></b-btn>\r\n                        </b-col>\r\n                    </b-row>\r\n                </b-col>\r\n                <b-collapse id=\"collapse1\" class=\"mt-2\">\r\n                    <b-card>\r\n                        <p class=\"card-text\">Collapse contents Here</p>\r\n                        <b-btn v-b-toggle.collapse1_inner size=\"sm\">Toggle Inner Collapse</b-btn>\r\n                        <b-collapse id=collapse1_inner class=\"mt-2\">\r\n                            <b-card>Hello!</b-card>\r\n                        </b-collapse>\r\n                    </b-card>\r\n                </b-collapse>\r\n            </div>\r\n        </b-card>\r\n        <div class=\"card card-data\">\r\n            <div class=\"card-body\">\r\n                <div role=\"toolbar\" class=\" mb-2\" aria-label=\"Toolbar with button groups and dropdown menu\">\r\n                    <div role=\"group\" class=\"mx-1 btn-group\">\r\n                        <router-link class=\"btn btn-success\" :to=\"{ path: 'add' }\"><i class=\"fa fa-plus\"></i> Thêm mới</router-link>\r\n                        <button type=\"button\" class=\"btn btn-danger\"><i class=\"fa fa-trash-o\"></i> Xóa</button>\r\n                    </div>\r\n                    <b-dropdown class=\"mx-1\" variant=\"info\" right text=\"Hành động\" icon>\r\n                        <b-dropdown-item>Kích hoạt</b-dropdown-item>\r\n                        <b-dropdown-item>Không kích hoạt</b-dropdown-item>\r\n                    </b-dropdown>\r\n                </div>\r\n\r\n                <div class=\"table-responsive\">\r\n                    <div class=\"dataTables_wrapper dt-bootstrap4 no-footer\">\r\n                        <div class=\"clear\"></div>\r\n                        <table class=\"table data-thumb-view dataTable no-footer\" role=\"grid\">\r\n                            <thead class=\"table table-centered table-nowrap\">\r\n                                <tr role=\"row\">\r\n                                    <th><!--<input type=\"checkbox\">--></th>\r\n                                    <th class=\"text-center\">STT</th>\r\n                                    <th class=\"text-center\">Mã chính sách</th>\r\n                                    <th class=\"text-center\">Ngôn ngữ</th>\r\n                                    <th>Thao tác</th>\r\n                                </tr>\r\n                            </thead>\r\n                            <tbody>\r\n                                <tr v-for=\"(item,index) in banneradss\">\r\n                                    <td class=\"dt-checkboxes-cell\"><input type=\"checkbox\" class=\"dt-checkboxes\"></td>\r\n                                    <td class=\"text-center\">{{index}}</td>\r\n                                    <td class=\"text-center\">\r\n                                        {{item.key}}\r\n                                    </td>\r\n                                    <td class=\"text-center\">\r\n                                        <p>Ngôn ngữ: {{item.value}}</p>\r\n                                    </td>\r\n                                    <td>\r\n                                        <b-row>\r\n                                            <div style=\"padding:5px\">\r\n                                                <router-link :to=\"{path: 'edit/'+ item.key}\">\r\n                                                    <span class=\"action-edit\"><i class=\"fa fa-edit\"></i></span>\r\n                                                </router-link>\r\n                                            </div>\r\n                                            <div style=\"padding:5px\">\r\n                                                <span class=\"action-delete\"><a @click=\"remove(item)\"><i style=\"color:red\" class=\"fa fa-trash\"></i></a></span>\r\n                                            </div>\r\n                                        </b-row>\r\n                                    </td>\r\n                                </tr>\r\n                            </tbody>\r\n                        </table>\r\n                    </div>\r\n                </div>\r\n\r\n            </div>\r\n        </div>\r\n    </div>\r\n</template>\r\n<script>\r\n    import \"vue-loading-overlay/dist/vue-loading.css\";\r\n    import msgNotify from \"./../../common/constant\";\r\n    import { mapGetters, mapActions } from \"vuex\";\r\n    import Loading from \"vue-loading-overlay\";\r\n\r\n    export default {\r\n        name: \"policy\",\r\n        components: {\r\n            Loading\r\n        },\r\n        data() {\r\n            return {\r\n                editedItem: null,\r\n                editMode: false,\r\n                isLoading: false,\r\n                _product: {\r\n\r\n                },\r\n                messeger: \"\",\r\n                currentSort: \"Id\",\r\n                currentSortDir: \"asc\",\r\n                SearchKeyword: \"\",\r\n                SearchLanguageCode: \"vi-VN     \",\r\n                SearchLocation: 0,\r\n                currentPage: 1,\r\n                pageSize: 10,\r\n                loading: true,\r\n                item: {},\r\n                Language: [],\r\n                Location: [],\r\n\r\n            };\r\n        },\r\n        methods: {\r\n            ...mapActions([\"getBannerAdss\", \"removeBannerAds\"]),\r\n            onChangePaging() {\r\n                this.isLoading = true;\r\n                let initial = this.$route.query.initial;\r\n                initial = typeof initial != \"undefined\" ? initial.toLowerCase() : \"\";\r\n                this.getBannerAdss({\r\n                    keyword: this.SearchKeyword,\r\n                });\r\n                this.isLoading = false;\r\n            },\r\n            sortor: function (s) {\r\n                if (s === this.currentSort) {\r\n                    this.currentSortDir = this.currentSortDir === \"asc\" ? \"desc\" : \"asc\";\r\n                }\r\n                this.currentSort = s;\r\n                this.onChangePaging();\r\n            },\r\n            remove: function (item) {\r\n                if (confirm(\"Bạn có thực sự muốn xoá?\")) {\r\n                    let initial = this.$route.query.initial;\r\n                    initial = typeof initial != \"undefined\" ? initial.toLowerCase() : \"\";\r\n                    this.removeBannerAds(item.key)\r\n                        .then(response => {\r\n                            debugger\r\n                            if (response.key == true) {\r\n                                this.$toast.success(response.value, {});\r\n                                this.onChangePaging();\r\n                                this.isLoading = false;\r\n                            } else {\r\n                                this.$toast.error(response.value, {});\r\n                                this.isLoading = false;\r\n                            }\r\n                        })\r\n                        .catch(e => {\r\n                            this.$toast.error(msgNotify.error + \". Error:\" + e, {});\r\n                        });\r\n                }\r\n            },\r\n            saveData(item) {\r\n                if (item.id > 0) {\r\n                    this.updateDepartment(item)\r\n                        .then(response => {\r\n                            if (response.success == true) {\r\n                                this.$toast.success(response.message, {});\r\n                                this.isLoading = false;\r\n                                this.editedItem = null;\r\n                            }\r\n                            else {\r\n                                this.$toast.error(response.message, {});\r\n                                this.isLoading = false;\r\n                            }\r\n\r\n                        })\r\n                        .catch(e => {\r\n                            this.$toast.error(msgNotify.error + \". Error:\" + e, {});\r\n                            this.isLoading = false;\r\n                        });\r\n                }\r\n            },\r\n            editData(item) {\r\n                this.beforEditCache = item\r\n                this.editedItem = item\r\n            }\r\n        },\r\n        computed: {\r\n            ...mapGetters([\"banneradss\"])\r\n        },\r\n        mounted() {\r\n            this.onChangePaging();\r\n\r\n\r\n        },\r\n        watch: {\r\n            currentPage: function (newVal) {\r\n                this.currentPage = newVal;\r\n                this.onChangePaging();\r\n            },\r\n            SearchLanguageCode: function () {\r\n                this.currentPage = 1;\r\n                this.onChangePaging();\r\n            },\r\n            SearchLocation: function () {\r\n                this.currentPage = 1;\r\n                this.onChangePaging();\r\n            }\r\n        }\r\n    };\r\n</script>\r\n<style>\r\n    [v-cloak] {\r\n        display: none;\r\n    }\r\n\r\n    .edit {\r\n        display: none;\r\n    }\r\n\r\n    .editing .edit {\r\n        display: block\r\n    }\r\n\r\n    .editing .view {\r\n        display: none;\r\n    }\r\n</style>\r\n\r\n"],"sourceRoot":""}]);
-
-// exports
-
-
-/***/ }),
-
-/***/ 1233:
+/***/ 1172:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -25,441 +10,1481 @@ Object.defineProperty(exports, "__esModule", {
     value: true
 });
 
-var _extends2 = __webpack_require__(7);
+var _extends2 = __webpack_require__(8);
 
 var _extends3 = _interopRequireDefault(_extends2);
 
-__webpack_require__(796);
+__webpack_require__(779);
 
-var _constant = __webpack_require__(797);
+var _constant = __webpack_require__(781);
 
 var _constant2 = _interopRequireDefault(_constant);
 
-var _vuex = __webpack_require__(180);
+var _vuex = __webpack_require__(176);
 
-var _vueLoadingOverlay = __webpack_require__(376);
+var _vueLoadingOverlay = __webpack_require__(373);
 
 var _vueLoadingOverlay2 = _interopRequireDefault(_vueLoadingOverlay);
+
+var _qrcode = __webpack_require__(1460);
+
+var _qrcode2 = _interopRequireDefault(_qrcode);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 exports.default = {
-    name: "policy",
-    components: {
-        Loading: _vueLoadingOverlay2.default
-    },
+    name: "ordergetbyid",
     data: function data() {
         return {
-            editedItem: null,
-            editMode: false,
             isLoading: false,
-            _product: {},
-            messeger: "",
+            fullPage: false,
+            color: "#007bff",
             currentSort: "Id",
             currentSortDir: "asc",
-            SearchKeyword: "",
-            SearchLanguageCode: "vi-VN     ",
-            SearchLocation: 0,
-            currentPage: 1,
-            pageSize: 10,
             loading: true,
-            item: {},
-            Language: [],
-            Location: []
-
+            OrderId: 0,
+            TotalPrice: 0,
+            order: {},
+            orderDetail: [],
+            orderDetailPromotion: [],
+            products: [],
+            customer: {},
+            qrSize: 100
         };
     },
 
-    methods: (0, _extends3.default)({}, (0, _vuex.mapActions)(["getBannerAdss", "removeBannerAds"]), {
-        onChangePaging: function onChangePaging() {
+    created: {},
+    components: {
+        Loading: _vueLoadingOverlay2.default,
+        QrcodeVue: _qrcode2.default
+    },
+    mounted: function mounted() {
+        var _this = this;
+
+        if (this.$route.params.id > 0) {
             this.isLoading = true;
             var initial = this.$route.query.initial;
             initial = typeof initial != "undefined" ? initial.toLowerCase() : "";
-            this.getBannerAdss({
-                keyword: this.SearchKeyword
+            this.getOrder(this.$route.params.id).then(function (response) {
+                _this.order = response;
+                console.log(_this.order);
             });
             this.isLoading = false;
-        },
-
-        sortor: function sortor(s) {
-            if (s === this.currentSort) {
-                this.currentSortDir = this.currentSortDir === "asc" ? "desc" : "asc";
-            }
-            this.currentSort = s;
-            this.onChangePaging();
-        },
-        remove: function remove(item) {
-            var _this = this;
-
-            if (confirm("Bạn có thực sự muốn xoá?")) {
-                var initial = this.$route.query.initial;
-                initial = typeof initial != "undefined" ? initial.toLowerCase() : "";
-                this.removeBannerAds(item.key).then(function (response) {
-                    debugger;
-                    if (response.key == true) {
-                        _this.$toast.success(response.value, {});
-                        _this.onChangePaging();
-                        _this.isLoading = false;
-                    } else {
-                        _this.$toast.error(response.value, {});
-                        _this.isLoading = false;
-                    }
-                }).catch(function (e) {
-                    _this.$toast.error(_constant2.default.error + ". Error:" + e, {});
-                });
-            }
-        },
-        saveData: function saveData(item) {
-            var _this2 = this;
-
-            if (item.id > 0) {
-                this.updateDepartment(item).then(function (response) {
-                    if (response.success == true) {
-                        _this2.$toast.success(response.message, {});
-                        _this2.isLoading = false;
-                        _this2.editedItem = null;
-                    } else {
-                        _this2.$toast.error(response.message, {});
-                        _this2.isLoading = false;
-                    }
-                }).catch(function (e) {
-                    _this2.$toast.error(_constant2.default.error + ". Error:" + e, {});
-                    _this2.isLoading = false;
-                });
-            }
-        },
-        editData: function editData(item) {
-            this.beforEditCache = item;
-            this.editedItem = item;
-        }
-    }),
-    computed: (0, _extends3.default)({}, (0, _vuex.mapGetters)(["banneradss"])),
-    mounted: function mounted() {
-        this.onChangePaging();
+        };
     },
 
-    watch: {
-        currentPage: function currentPage(newVal) {
-            this.currentPage = newVal;
-            this.onChangePaging();
-        },
-        SearchLanguageCode: function SearchLanguageCode() {
-            this.currentPage = 1;
-            this.onChangePaging();
-        },
-        SearchLocation: function SearchLocation() {
-            this.currentPage = 1;
-            this.onChangePaging();
-        }
-    }
+
+    computed: (0, _extends3.default)({}, (0, _vuex.mapGetters)(["Order"])),
+
+    methods: (0, _extends3.default)({}, (0, _vuex.mapActions)(["getOrder"]))
 };
 
 /***/ }),
 
-/***/ 1589:
+/***/ 1456:
 /***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__(53)();
+// imports
+
+
+// module
+exports.push([module.i, "", ""]);
+
+// exports
+
+
+/***/ }),
+
+/***/ 1460:
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+/*!
+ * qrcode.vue v1.7.0
+ * A Vue component to generate QRCode.
+ * © 2017-2019 @scopewu(https://github.com/scopewu)
+ * MIT License.
+ */
+var mode = {
+  MODE_NUMBER: 1 << 0,
+  MODE_ALPHA_NUM: 1 << 1,
+  MODE_8BIT_BYTE: 1 << 2,
+  MODE_KANJI: 1 << 3
+};
+
+function QR8bitByte(data) {
+  this.mode = mode.MODE_8BIT_BYTE;
+  this.data = data;
+}
+
+QR8bitByte.prototype = {
+  getLength: function (buffer) {
+    return this.data.length;
+  },
+  write: function (buffer) {
+    for (var i = 0; i < this.data.length; i++) {
+      // not JIS ...
+      buffer.put(this.data.charCodeAt(i), 8);
+    }
+  }
+};
+var _8BitByte = QR8bitByte;
+
+var ErrorCorrectLevel = {
+  L: 1,
+  M: 0,
+  Q: 3,
+  H: 2
+};
+
+function QRRSBlock(totalCount, dataCount) {
+  this.totalCount = totalCount;
+  this.dataCount = dataCount;
+}
+
+QRRSBlock.RS_BLOCK_TABLE = [// L
+// M
+// Q
+// H
+// 1
+[1, 26, 19], [1, 26, 16], [1, 26, 13], [1, 26, 9], // 2
+[1, 44, 34], [1, 44, 28], [1, 44, 22], [1, 44, 16], // 3
+[1, 70, 55], [1, 70, 44], [2, 35, 17], [2, 35, 13], // 4		
+[1, 100, 80], [2, 50, 32], [2, 50, 24], [4, 25, 9], // 5
+[1, 134, 108], [2, 67, 43], [2, 33, 15, 2, 34, 16], [2, 33, 11, 2, 34, 12], // 6
+[2, 86, 68], [4, 43, 27], [4, 43, 19], [4, 43, 15], // 7		
+[2, 98, 78], [4, 49, 31], [2, 32, 14, 4, 33, 15], [4, 39, 13, 1, 40, 14], // 8
+[2, 121, 97], [2, 60, 38, 2, 61, 39], [4, 40, 18, 2, 41, 19], [4, 40, 14, 2, 41, 15], // 9
+[2, 146, 116], [3, 58, 36, 2, 59, 37], [4, 36, 16, 4, 37, 17], [4, 36, 12, 4, 37, 13], // 10		
+[2, 86, 68, 2, 87, 69], [4, 69, 43, 1, 70, 44], [6, 43, 19, 2, 44, 20], [6, 43, 15, 2, 44, 16], // 11
+[4, 101, 81], [1, 80, 50, 4, 81, 51], [4, 50, 22, 4, 51, 23], [3, 36, 12, 8, 37, 13], // 12
+[2, 116, 92, 2, 117, 93], [6, 58, 36, 2, 59, 37], [4, 46, 20, 6, 47, 21], [7, 42, 14, 4, 43, 15], // 13
+[4, 133, 107], [8, 59, 37, 1, 60, 38], [8, 44, 20, 4, 45, 21], [12, 33, 11, 4, 34, 12], // 14
+[3, 145, 115, 1, 146, 116], [4, 64, 40, 5, 65, 41], [11, 36, 16, 5, 37, 17], [11, 36, 12, 5, 37, 13], // 15
+[5, 109, 87, 1, 110, 88], [5, 65, 41, 5, 66, 42], [5, 54, 24, 7, 55, 25], [11, 36, 12], // 16
+[5, 122, 98, 1, 123, 99], [7, 73, 45, 3, 74, 46], [15, 43, 19, 2, 44, 20], [3, 45, 15, 13, 46, 16], // 17
+[1, 135, 107, 5, 136, 108], [10, 74, 46, 1, 75, 47], [1, 50, 22, 15, 51, 23], [2, 42, 14, 17, 43, 15], // 18
+[5, 150, 120, 1, 151, 121], [9, 69, 43, 4, 70, 44], [17, 50, 22, 1, 51, 23], [2, 42, 14, 19, 43, 15], // 19
+[3, 141, 113, 4, 142, 114], [3, 70, 44, 11, 71, 45], [17, 47, 21, 4, 48, 22], [9, 39, 13, 16, 40, 14], // 20
+[3, 135, 107, 5, 136, 108], [3, 67, 41, 13, 68, 42], [15, 54, 24, 5, 55, 25], [15, 43, 15, 10, 44, 16], // 21
+[4, 144, 116, 4, 145, 117], [17, 68, 42], [17, 50, 22, 6, 51, 23], [19, 46, 16, 6, 47, 17], // 22
+[2, 139, 111, 7, 140, 112], [17, 74, 46], [7, 54, 24, 16, 55, 25], [34, 37, 13], // 23
+[4, 151, 121, 5, 152, 122], [4, 75, 47, 14, 76, 48], [11, 54, 24, 14, 55, 25], [16, 45, 15, 14, 46, 16], // 24
+[6, 147, 117, 4, 148, 118], [6, 73, 45, 14, 74, 46], [11, 54, 24, 16, 55, 25], [30, 46, 16, 2, 47, 17], // 25
+[8, 132, 106, 4, 133, 107], [8, 75, 47, 13, 76, 48], [7, 54, 24, 22, 55, 25], [22, 45, 15, 13, 46, 16], // 26
+[10, 142, 114, 2, 143, 115], [19, 74, 46, 4, 75, 47], [28, 50, 22, 6, 51, 23], [33, 46, 16, 4, 47, 17], // 27
+[8, 152, 122, 4, 153, 123], [22, 73, 45, 3, 74, 46], [8, 53, 23, 26, 54, 24], [12, 45, 15, 28, 46, 16], // 28
+[3, 147, 117, 10, 148, 118], [3, 73, 45, 23, 74, 46], [4, 54, 24, 31, 55, 25], [11, 45, 15, 31, 46, 16], // 29
+[7, 146, 116, 7, 147, 117], [21, 73, 45, 7, 74, 46], [1, 53, 23, 37, 54, 24], [19, 45, 15, 26, 46, 16], // 30
+[5, 145, 115, 10, 146, 116], [19, 75, 47, 10, 76, 48], [15, 54, 24, 25, 55, 25], [23, 45, 15, 25, 46, 16], // 31
+[13, 145, 115, 3, 146, 116], [2, 74, 46, 29, 75, 47], [42, 54, 24, 1, 55, 25], [23, 45, 15, 28, 46, 16], // 32
+[17, 145, 115], [10, 74, 46, 23, 75, 47], [10, 54, 24, 35, 55, 25], [19, 45, 15, 35, 46, 16], // 33
+[17, 145, 115, 1, 146, 116], [14, 74, 46, 21, 75, 47], [29, 54, 24, 19, 55, 25], [11, 45, 15, 46, 46, 16], // 34
+[13, 145, 115, 6, 146, 116], [14, 74, 46, 23, 75, 47], [44, 54, 24, 7, 55, 25], [59, 46, 16, 1, 47, 17], // 35
+[12, 151, 121, 7, 152, 122], [12, 75, 47, 26, 76, 48], [39, 54, 24, 14, 55, 25], [22, 45, 15, 41, 46, 16], // 36
+[6, 151, 121, 14, 152, 122], [6, 75, 47, 34, 76, 48], [46, 54, 24, 10, 55, 25], [2, 45, 15, 64, 46, 16], // 37
+[17, 152, 122, 4, 153, 123], [29, 74, 46, 14, 75, 47], [49, 54, 24, 10, 55, 25], [24, 45, 15, 46, 46, 16], // 38
+[4, 152, 122, 18, 153, 123], [13, 74, 46, 32, 75, 47], [48, 54, 24, 14, 55, 25], [42, 45, 15, 32, 46, 16], // 39
+[20, 147, 117, 4, 148, 118], [40, 75, 47, 7, 76, 48], [43, 54, 24, 22, 55, 25], [10, 45, 15, 67, 46, 16], // 40
+[19, 148, 118, 6, 149, 119], [18, 75, 47, 31, 76, 48], [34, 54, 24, 34, 55, 25], [20, 45, 15, 61, 46, 16]];
+
+QRRSBlock.getRSBlocks = function (typeNumber, errorCorrectLevel) {
+  var rsBlock = QRRSBlock.getRsBlockTable(typeNumber, errorCorrectLevel);
+
+  if (rsBlock == undefined) {
+    throw new Error("bad rs block @ typeNumber:" + typeNumber + "/errorCorrectLevel:" + errorCorrectLevel);
+  }
+
+  var length = rsBlock.length / 3;
+  var list = new Array();
+
+  for (var i = 0; i < length; i++) {
+    var count = rsBlock[i * 3 + 0];
+    var totalCount = rsBlock[i * 3 + 1];
+    var dataCount = rsBlock[i * 3 + 2];
+
+    for (var j = 0; j < count; j++) {
+      list.push(new QRRSBlock(totalCount, dataCount));
+    }
+  }
+
+  return list;
+};
+
+QRRSBlock.getRsBlockTable = function (typeNumber, errorCorrectLevel) {
+  switch (errorCorrectLevel) {
+    case ErrorCorrectLevel.L:
+      return QRRSBlock.RS_BLOCK_TABLE[(typeNumber - 1) * 4 + 0];
+
+    case ErrorCorrectLevel.M:
+      return QRRSBlock.RS_BLOCK_TABLE[(typeNumber - 1) * 4 + 1];
+
+    case ErrorCorrectLevel.Q:
+      return QRRSBlock.RS_BLOCK_TABLE[(typeNumber - 1) * 4 + 2];
+
+    case ErrorCorrectLevel.H:
+      return QRRSBlock.RS_BLOCK_TABLE[(typeNumber - 1) * 4 + 3];
+
+    default:
+      return undefined;
+  }
+};
+
+var RSBlock = QRRSBlock;
+
+function QRBitBuffer() {
+  this.buffer = new Array();
+  this.length = 0;
+}
+
+QRBitBuffer.prototype = {
+  get: function (index) {
+    var bufIndex = Math.floor(index / 8);
+    return (this.buffer[bufIndex] >>> 7 - index % 8 & 1) == 1;
+  },
+  put: function (num, length) {
+    for (var i = 0; i < length; i++) {
+      this.putBit((num >>> length - i - 1 & 1) == 1);
+    }
+  },
+  getLengthInBits: function () {
+    return this.length;
+  },
+  putBit: function (bit) {
+    var bufIndex = Math.floor(this.length / 8);
+
+    if (this.buffer.length <= bufIndex) {
+      this.buffer.push(0);
+    }
+
+    if (bit) {
+      this.buffer[bufIndex] |= 0x80 >>> this.length % 8;
+    }
+
+    this.length++;
+  }
+};
+var BitBuffer = QRBitBuffer;
+
+var QRMath = {
+  glog: function (n) {
+    if (n < 1) {
+      throw new Error("glog(" + n + ")");
+    }
+
+    return QRMath.LOG_TABLE[n];
+  },
+  gexp: function (n) {
+    while (n < 0) {
+      n += 255;
+    }
+
+    while (n >= 256) {
+      n -= 255;
+    }
+
+    return QRMath.EXP_TABLE[n];
+  },
+  EXP_TABLE: new Array(256),
+  LOG_TABLE: new Array(256)
+};
+
+for (var i = 0; i < 8; i++) {
+  QRMath.EXP_TABLE[i] = 1 << i;
+}
+
+for (var i = 8; i < 256; i++) {
+  QRMath.EXP_TABLE[i] = QRMath.EXP_TABLE[i - 4] ^ QRMath.EXP_TABLE[i - 5] ^ QRMath.EXP_TABLE[i - 6] ^ QRMath.EXP_TABLE[i - 8];
+}
+
+for (var i = 0; i < 255; i++) {
+  QRMath.LOG_TABLE[QRMath.EXP_TABLE[i]] = i;
+}
+
+var math = QRMath;
+
+function QRPolynomial(num, shift) {
+  if (num.length == undefined) {
+    throw new Error(num.length + "/" + shift);
+  }
+
+  var offset = 0;
+
+  while (offset < num.length && num[offset] == 0) {
+    offset++;
+  }
+
+  this.num = new Array(num.length - offset + shift);
+
+  for (var i = 0; i < num.length - offset; i++) {
+    this.num[i] = num[i + offset];
+  }
+}
+
+QRPolynomial.prototype = {
+  get: function (index) {
+    return this.num[index];
+  },
+  getLength: function () {
+    return this.num.length;
+  },
+  multiply: function (e) {
+    var num = new Array(this.getLength() + e.getLength() - 1);
+
+    for (var i = 0; i < this.getLength(); i++) {
+      for (var j = 0; j < e.getLength(); j++) {
+        num[i + j] ^= math.gexp(math.glog(this.get(i)) + math.glog(e.get(j)));
+      }
+    }
+
+    return new QRPolynomial(num, 0);
+  },
+  mod: function (e) {
+    if (this.getLength() - e.getLength() < 0) {
+      return this;
+    }
+
+    var ratio = math.glog(this.get(0)) - math.glog(e.get(0));
+    var num = new Array(this.getLength());
+
+    for (var i = 0; i < this.getLength(); i++) {
+      num[i] = this.get(i);
+    }
+
+    for (var i = 0; i < e.getLength(); i++) {
+      num[i] ^= math.gexp(math.glog(e.get(i)) + ratio);
+    } // recursive call
+
+
+    return new QRPolynomial(num, 0).mod(e);
+  }
+};
+var Polynomial = QRPolynomial;
+
+var QRMaskPattern = {
+  PATTERN000: 0,
+  PATTERN001: 1,
+  PATTERN010: 2,
+  PATTERN011: 3,
+  PATTERN100: 4,
+  PATTERN101: 5,
+  PATTERN110: 6,
+  PATTERN111: 7
+};
+var QRUtil = {
+  PATTERN_POSITION_TABLE: [[], [6, 18], [6, 22], [6, 26], [6, 30], [6, 34], [6, 22, 38], [6, 24, 42], [6, 26, 46], [6, 28, 50], [6, 30, 54], [6, 32, 58], [6, 34, 62], [6, 26, 46, 66], [6, 26, 48, 70], [6, 26, 50, 74], [6, 30, 54, 78], [6, 30, 56, 82], [6, 30, 58, 86], [6, 34, 62, 90], [6, 28, 50, 72, 94], [6, 26, 50, 74, 98], [6, 30, 54, 78, 102], [6, 28, 54, 80, 106], [6, 32, 58, 84, 110], [6, 30, 58, 86, 114], [6, 34, 62, 90, 118], [6, 26, 50, 74, 98, 122], [6, 30, 54, 78, 102, 126], [6, 26, 52, 78, 104, 130], [6, 30, 56, 82, 108, 134], [6, 34, 60, 86, 112, 138], [6, 30, 58, 86, 114, 142], [6, 34, 62, 90, 118, 146], [6, 30, 54, 78, 102, 126, 150], [6, 24, 50, 76, 102, 128, 154], [6, 28, 54, 80, 106, 132, 158], [6, 32, 58, 84, 110, 136, 162], [6, 26, 54, 82, 110, 138, 166], [6, 30, 58, 86, 114, 142, 170]],
+  G15: 1 << 10 | 1 << 8 | 1 << 5 | 1 << 4 | 1 << 2 | 1 << 1 | 1 << 0,
+  G18: 1 << 12 | 1 << 11 | 1 << 10 | 1 << 9 | 1 << 8 | 1 << 5 | 1 << 2 | 1 << 0,
+  G15_MASK: 1 << 14 | 1 << 12 | 1 << 10 | 1 << 4 | 1 << 1,
+  getBCHTypeInfo: function (data) {
+    var d = data << 10;
+
+    while (QRUtil.getBCHDigit(d) - QRUtil.getBCHDigit(QRUtil.G15) >= 0) {
+      d ^= QRUtil.G15 << QRUtil.getBCHDigit(d) - QRUtil.getBCHDigit(QRUtil.G15);
+    }
+
+    return (data << 10 | d) ^ QRUtil.G15_MASK;
+  },
+  getBCHTypeNumber: function (data) {
+    var d = data << 12;
+
+    while (QRUtil.getBCHDigit(d) - QRUtil.getBCHDigit(QRUtil.G18) >= 0) {
+      d ^= QRUtil.G18 << QRUtil.getBCHDigit(d) - QRUtil.getBCHDigit(QRUtil.G18);
+    }
+
+    return data << 12 | d;
+  },
+  getBCHDigit: function (data) {
+    var digit = 0;
+
+    while (data != 0) {
+      digit++;
+      data >>>= 1;
+    }
+
+    return digit;
+  },
+  getPatternPosition: function (typeNumber) {
+    return QRUtil.PATTERN_POSITION_TABLE[typeNumber - 1];
+  },
+  getMask: function (maskPattern, i, j) {
+    switch (maskPattern) {
+      case QRMaskPattern.PATTERN000:
+        return (i + j) % 2 == 0;
+
+      case QRMaskPattern.PATTERN001:
+        return i % 2 == 0;
+
+      case QRMaskPattern.PATTERN010:
+        return j % 3 == 0;
+
+      case QRMaskPattern.PATTERN011:
+        return (i + j) % 3 == 0;
+
+      case QRMaskPattern.PATTERN100:
+        return (Math.floor(i / 2) + Math.floor(j / 3)) % 2 == 0;
+
+      case QRMaskPattern.PATTERN101:
+        return i * j % 2 + i * j % 3 == 0;
+
+      case QRMaskPattern.PATTERN110:
+        return (i * j % 2 + i * j % 3) % 2 == 0;
+
+      case QRMaskPattern.PATTERN111:
+        return (i * j % 3 + (i + j) % 2) % 2 == 0;
+
+      default:
+        throw new Error("bad maskPattern:" + maskPattern);
+    }
+  },
+  getErrorCorrectPolynomial: function (errorCorrectLength) {
+    var a = new Polynomial([1], 0);
+
+    for (var i = 0; i < errorCorrectLength; i++) {
+      a = a.multiply(new Polynomial([1, math.gexp(i)], 0));
+    }
+
+    return a;
+  },
+  getLengthInBits: function (mode$1, type) {
+    if (1 <= type && type < 10) {
+      // 1 - 9
+      switch (mode$1) {
+        case mode.MODE_NUMBER:
+          return 10;
+
+        case mode.MODE_ALPHA_NUM:
+          return 9;
+
+        case mode.MODE_8BIT_BYTE:
+          return 8;
+
+        case mode.MODE_KANJI:
+          return 8;
+
+        default:
+          throw new Error("mode:" + mode$1);
+      }
+    } else if (type < 27) {
+      // 10 - 26
+      switch (mode$1) {
+        case mode.MODE_NUMBER:
+          return 12;
+
+        case mode.MODE_ALPHA_NUM:
+          return 11;
+
+        case mode.MODE_8BIT_BYTE:
+          return 16;
+
+        case mode.MODE_KANJI:
+          return 10;
+
+        default:
+          throw new Error("mode:" + mode$1);
+      }
+    } else if (type < 41) {
+      // 27 - 40
+      switch (mode$1) {
+        case mode.MODE_NUMBER:
+          return 14;
+
+        case mode.MODE_ALPHA_NUM:
+          return 13;
+
+        case mode.MODE_8BIT_BYTE:
+          return 16;
+
+        case mode.MODE_KANJI:
+          return 12;
+
+        default:
+          throw new Error("mode:" + mode$1);
+      }
+    } else {
+      throw new Error("type:" + type);
+    }
+  },
+  getLostPoint: function (qrCode) {
+    var moduleCount = qrCode.getModuleCount();
+    var lostPoint = 0; // LEVEL1
+
+    for (var row = 0; row < moduleCount; row++) {
+      for (var col = 0; col < moduleCount; col++) {
+        var sameCount = 0;
+        var dark = qrCode.isDark(row, col);
+
+        for (var r = -1; r <= 1; r++) {
+          if (row + r < 0 || moduleCount <= row + r) {
+            continue;
+          }
+
+          for (var c = -1; c <= 1; c++) {
+            if (col + c < 0 || moduleCount <= col + c) {
+              continue;
+            }
+
+            if (r == 0 && c == 0) {
+              continue;
+            }
+
+            if (dark == qrCode.isDark(row + r, col + c)) {
+              sameCount++;
+            }
+          }
+        }
+
+        if (sameCount > 5) {
+          lostPoint += 3 + sameCount - 5;
+        }
+      }
+    } // LEVEL2
+
+
+    for (var row = 0; row < moduleCount - 1; row++) {
+      for (var col = 0; col < moduleCount - 1; col++) {
+        var count = 0;
+        if (qrCode.isDark(row, col)) count++;
+        if (qrCode.isDark(row + 1, col)) count++;
+        if (qrCode.isDark(row, col + 1)) count++;
+        if (qrCode.isDark(row + 1, col + 1)) count++;
+
+        if (count == 0 || count == 4) {
+          lostPoint += 3;
+        }
+      }
+    } // LEVEL3
+
+
+    for (var row = 0; row < moduleCount; row++) {
+      for (var col = 0; col < moduleCount - 6; col++) {
+        if (qrCode.isDark(row, col) && !qrCode.isDark(row, col + 1) && qrCode.isDark(row, col + 2) && qrCode.isDark(row, col + 3) && qrCode.isDark(row, col + 4) && !qrCode.isDark(row, col + 5) && qrCode.isDark(row, col + 6)) {
+          lostPoint += 40;
+        }
+      }
+    }
+
+    for (var col = 0; col < moduleCount; col++) {
+      for (var row = 0; row < moduleCount - 6; row++) {
+        if (qrCode.isDark(row, col) && !qrCode.isDark(row + 1, col) && qrCode.isDark(row + 2, col) && qrCode.isDark(row + 3, col) && qrCode.isDark(row + 4, col) && !qrCode.isDark(row + 5, col) && qrCode.isDark(row + 6, col)) {
+          lostPoint += 40;
+        }
+      }
+    } // LEVEL4
+
+
+    var darkCount = 0;
+
+    for (var col = 0; col < moduleCount; col++) {
+      for (var row = 0; row < moduleCount; row++) {
+        if (qrCode.isDark(row, col)) {
+          darkCount++;
+        }
+      }
+    }
+
+    var ratio = Math.abs(100 * darkCount / moduleCount / moduleCount - 50) / 5;
+    lostPoint += ratio * 10;
+    return lostPoint;
+  }
+};
+var util = QRUtil;
+
+function QRCode(typeNumber, errorCorrectLevel) {
+  this.typeNumber = typeNumber;
+  this.errorCorrectLevel = errorCorrectLevel;
+  this.modules = null;
+  this.moduleCount = 0;
+  this.dataCache = null;
+  this.dataList = [];
+} // for client side minification
+
+
+var proto = QRCode.prototype;
+
+proto.addData = function (data) {
+  var newData = new _8BitByte(data);
+  this.dataList.push(newData);
+  this.dataCache = null;
+};
+
+proto.isDark = function (row, col) {
+  if (row < 0 || this.moduleCount <= row || col < 0 || this.moduleCount <= col) {
+    throw new Error(row + "," + col);
+  }
+
+  return this.modules[row][col];
+};
+
+proto.getModuleCount = function () {
+  return this.moduleCount;
+};
+
+proto.make = function () {
+  // Calculate automatically typeNumber if provided is < 1
+  if (this.typeNumber < 1) {
+    var typeNumber = 1;
+
+    for (typeNumber = 1; typeNumber < 40; typeNumber++) {
+      var rsBlocks = RSBlock.getRSBlocks(typeNumber, this.errorCorrectLevel);
+      var buffer = new BitBuffer();
+      var totalDataCount = 0;
+
+      for (var i = 0; i < rsBlocks.length; i++) {
+        totalDataCount += rsBlocks[i].dataCount;
+      }
+
+      for (var i = 0; i < this.dataList.length; i++) {
+        var data = this.dataList[i];
+        buffer.put(data.mode, 4);
+        buffer.put(data.getLength(), util.getLengthInBits(data.mode, typeNumber));
+        data.write(buffer);
+      }
+
+      if (buffer.getLengthInBits() <= totalDataCount * 8) break;
+    }
+
+    this.typeNumber = typeNumber;
+  }
+
+  this.makeImpl(false, this.getBestMaskPattern());
+};
+
+proto.makeImpl = function (test, maskPattern) {
+  this.moduleCount = this.typeNumber * 4 + 17;
+  this.modules = new Array(this.moduleCount);
+
+  for (var row = 0; row < this.moduleCount; row++) {
+    this.modules[row] = new Array(this.moduleCount);
+
+    for (var col = 0; col < this.moduleCount; col++) {
+      this.modules[row][col] = null; //(col + row) % 3;
+    }
+  }
+
+  this.setupPositionProbePattern(0, 0);
+  this.setupPositionProbePattern(this.moduleCount - 7, 0);
+  this.setupPositionProbePattern(0, this.moduleCount - 7);
+  this.setupPositionAdjustPattern();
+  this.setupTimingPattern();
+  this.setupTypeInfo(test, maskPattern);
+
+  if (this.typeNumber >= 7) {
+    this.setupTypeNumber(test);
+  }
+
+  if (this.dataCache == null) {
+    this.dataCache = QRCode.createData(this.typeNumber, this.errorCorrectLevel, this.dataList);
+  }
+
+  this.mapData(this.dataCache, maskPattern);
+};
+
+proto.setupPositionProbePattern = function (row, col) {
+  for (var r = -1; r <= 7; r++) {
+    if (row + r <= -1 || this.moduleCount <= row + r) continue;
+
+    for (var c = -1; c <= 7; c++) {
+      if (col + c <= -1 || this.moduleCount <= col + c) continue;
+
+      if (0 <= r && r <= 6 && (c == 0 || c == 6) || 0 <= c && c <= 6 && (r == 0 || r == 6) || 2 <= r && r <= 4 && 2 <= c && c <= 4) {
+        this.modules[row + r][col + c] = true;
+      } else {
+        this.modules[row + r][col + c] = false;
+      }
+    }
+  }
+};
+
+proto.getBestMaskPattern = function () {
+  var minLostPoint = 0;
+  var pattern = 0;
+
+  for (var i = 0; i < 8; i++) {
+    this.makeImpl(true, i);
+    var lostPoint = util.getLostPoint(this);
+
+    if (i == 0 || minLostPoint > lostPoint) {
+      minLostPoint = lostPoint;
+      pattern = i;
+    }
+  }
+
+  return pattern;
+};
+
+proto.createMovieClip = function (target_mc, instance_name, depth) {
+  var qr_mc = target_mc.createEmptyMovieClip(instance_name, depth);
+  var cs = 1;
+  this.make();
+
+  for (var row = 0; row < this.modules.length; row++) {
+    var y = row * cs;
+
+    for (var col = 0; col < this.modules[row].length; col++) {
+      var x = col * cs;
+      var dark = this.modules[row][col];
+
+      if (dark) {
+        qr_mc.beginFill(0, 100);
+        qr_mc.moveTo(x, y);
+        qr_mc.lineTo(x + cs, y);
+        qr_mc.lineTo(x + cs, y + cs);
+        qr_mc.lineTo(x, y + cs);
+        qr_mc.endFill();
+      }
+    }
+  }
+
+  return qr_mc;
+};
+
+proto.setupTimingPattern = function () {
+  for (var r = 8; r < this.moduleCount - 8; r++) {
+    if (this.modules[r][6] != null) {
+      continue;
+    }
+
+    this.modules[r][6] = r % 2 == 0;
+  }
+
+  for (var c = 8; c < this.moduleCount - 8; c++) {
+    if (this.modules[6][c] != null) {
+      continue;
+    }
+
+    this.modules[6][c] = c % 2 == 0;
+  }
+};
+
+proto.setupPositionAdjustPattern = function () {
+  var pos = util.getPatternPosition(this.typeNumber);
+
+  for (var i = 0; i < pos.length; i++) {
+    for (var j = 0; j < pos.length; j++) {
+      var row = pos[i];
+      var col = pos[j];
+
+      if (this.modules[row][col] != null) {
+        continue;
+      }
+
+      for (var r = -2; r <= 2; r++) {
+        for (var c = -2; c <= 2; c++) {
+          if (r == -2 || r == 2 || c == -2 || c == 2 || r == 0 && c == 0) {
+            this.modules[row + r][col + c] = true;
+          } else {
+            this.modules[row + r][col + c] = false;
+          }
+        }
+      }
+    }
+  }
+};
+
+proto.setupTypeNumber = function (test) {
+  var bits = util.getBCHTypeNumber(this.typeNumber);
+
+  for (var i = 0; i < 18; i++) {
+    var mod = !test && (bits >> i & 1) == 1;
+    this.modules[Math.floor(i / 3)][i % 3 + this.moduleCount - 8 - 3] = mod;
+  }
+
+  for (var i = 0; i < 18; i++) {
+    var mod = !test && (bits >> i & 1) == 1;
+    this.modules[i % 3 + this.moduleCount - 8 - 3][Math.floor(i / 3)] = mod;
+  }
+};
+
+proto.setupTypeInfo = function (test, maskPattern) {
+  var data = this.errorCorrectLevel << 3 | maskPattern;
+  var bits = util.getBCHTypeInfo(data); // vertical		
+
+  for (var i = 0; i < 15; i++) {
+    var mod = !test && (bits >> i & 1) == 1;
+
+    if (i < 6) {
+      this.modules[i][8] = mod;
+    } else if (i < 8) {
+      this.modules[i + 1][8] = mod;
+    } else {
+      this.modules[this.moduleCount - 15 + i][8] = mod;
+    }
+  } // horizontal
+
+
+  for (var i = 0; i < 15; i++) {
+    var mod = !test && (bits >> i & 1) == 1;
+
+    if (i < 8) {
+      this.modules[8][this.moduleCount - i - 1] = mod;
+    } else if (i < 9) {
+      this.modules[8][15 - i - 1 + 1] = mod;
+    } else {
+      this.modules[8][15 - i - 1] = mod;
+    }
+  } // fixed module
+
+
+  this.modules[this.moduleCount - 8][8] = !test;
+};
+
+proto.mapData = function (data, maskPattern) {
+  var inc = -1;
+  var row = this.moduleCount - 1;
+  var bitIndex = 7;
+  var byteIndex = 0;
+
+  for (var col = this.moduleCount - 1; col > 0; col -= 2) {
+    if (col == 6) col--;
+
+    while (true) {
+      for (var c = 0; c < 2; c++) {
+        if (this.modules[row][col - c] == null) {
+          var dark = false;
+
+          if (byteIndex < data.length) {
+            dark = (data[byteIndex] >>> bitIndex & 1) == 1;
+          }
+
+          var mask = util.getMask(maskPattern, row, col - c);
+
+          if (mask) {
+            dark = !dark;
+          }
+
+          this.modules[row][col - c] = dark;
+          bitIndex--;
+
+          if (bitIndex == -1) {
+            byteIndex++;
+            bitIndex = 7;
+          }
+        }
+      }
+
+      row += inc;
+
+      if (row < 0 || this.moduleCount <= row) {
+        row -= inc;
+        inc = -inc;
+        break;
+      }
+    }
+  }
+};
+
+QRCode.PAD0 = 0xEC;
+QRCode.PAD1 = 0x11;
+
+QRCode.createData = function (typeNumber, errorCorrectLevel, dataList) {
+  var rsBlocks = RSBlock.getRSBlocks(typeNumber, errorCorrectLevel);
+  var buffer = new BitBuffer();
+
+  for (var i = 0; i < dataList.length; i++) {
+    var data = dataList[i];
+    buffer.put(data.mode, 4);
+    buffer.put(data.getLength(), util.getLengthInBits(data.mode, typeNumber));
+    data.write(buffer);
+  } // calc num max data.
+
+
+  var totalDataCount = 0;
+
+  for (var i = 0; i < rsBlocks.length; i++) {
+    totalDataCount += rsBlocks[i].dataCount;
+  }
+
+  if (buffer.getLengthInBits() > totalDataCount * 8) {
+    throw new Error("code length overflow. (" + buffer.getLengthInBits() + ">" + totalDataCount * 8 + ")");
+  } // end code
+
+
+  if (buffer.getLengthInBits() + 4 <= totalDataCount * 8) {
+    buffer.put(0, 4);
+  } // padding
+
+
+  while (buffer.getLengthInBits() % 8 != 0) {
+    buffer.putBit(false);
+  } // padding
+
+
+  while (true) {
+    if (buffer.getLengthInBits() >= totalDataCount * 8) {
+      break;
+    }
+
+    buffer.put(QRCode.PAD0, 8);
+
+    if (buffer.getLengthInBits() >= totalDataCount * 8) {
+      break;
+    }
+
+    buffer.put(QRCode.PAD1, 8);
+  }
+
+  return QRCode.createBytes(buffer, rsBlocks);
+};
+
+QRCode.createBytes = function (buffer, rsBlocks) {
+  var offset = 0;
+  var maxDcCount = 0;
+  var maxEcCount = 0;
+  var dcdata = new Array(rsBlocks.length);
+  var ecdata = new Array(rsBlocks.length);
+
+  for (var r = 0; r < rsBlocks.length; r++) {
+    var dcCount = rsBlocks[r].dataCount;
+    var ecCount = rsBlocks[r].totalCount - dcCount;
+    maxDcCount = Math.max(maxDcCount, dcCount);
+    maxEcCount = Math.max(maxEcCount, ecCount);
+    dcdata[r] = new Array(dcCount);
+
+    for (var i = 0; i < dcdata[r].length; i++) {
+      dcdata[r][i] = 0xff & buffer.buffer[i + offset];
+    }
+
+    offset += dcCount;
+    var rsPoly = util.getErrorCorrectPolynomial(ecCount);
+    var rawPoly = new Polynomial(dcdata[r], rsPoly.getLength() - 1);
+    var modPoly = rawPoly.mod(rsPoly);
+    ecdata[r] = new Array(rsPoly.getLength() - 1);
+
+    for (var i = 0; i < ecdata[r].length; i++) {
+      var modIndex = i + modPoly.getLength() - ecdata[r].length;
+      ecdata[r][i] = modIndex >= 0 ? modPoly.get(modIndex) : 0;
+    }
+  }
+
+  var totalCodeCount = 0;
+
+  for (var i = 0; i < rsBlocks.length; i++) {
+    totalCodeCount += rsBlocks[i].totalCount;
+  }
+
+  var data = new Array(totalCodeCount);
+  var index = 0;
+
+  for (var i = 0; i < maxDcCount; i++) {
+    for (var r = 0; r < rsBlocks.length; r++) {
+      if (i < dcdata[r].length) {
+        data[index++] = dcdata[r][i];
+      }
+    }
+  }
+
+  for (var i = 0; i < maxEcCount; i++) {
+    for (var r = 0; r < rsBlocks.length; r++) {
+      if (i < ecdata[r].length) {
+        data[index++] = ecdata[r][i];
+      }
+    }
+  }
+
+  return data;
+};
+
+var QRCode_1 = QRCode;
+
+/**
+ * Encode UTF16 to UTF8.
+ * See: http://jonisalonen.com/2012/from-utf-16-to-utf-8-in-javascript/
+ * @param str {string}
+ * @returns {string}
+ */
+
+function toUTF8String(str) {
+  var utf8Str = '';
+
+  for (var i = 0; i < str.length; i++) {
+    var charCode = str.charCodeAt(i);
+
+    if (charCode < 0x0080) {
+      utf8Str += String.fromCharCode(charCode);
+    } else if (charCode < 0x0800) {
+      utf8Str += String.fromCharCode(0xc0 | charCode >> 6);
+      utf8Str += String.fromCharCode(0x80 | charCode & 0x3f);
+    } else if (charCode < 0xd800 || charCode >= 0xe000) {
+      utf8Str += String.fromCharCode(0xe0 | charCode >> 12);
+      utf8Str += String.fromCharCode(0x80 | charCode >> 6 & 0x3f);
+      utf8Str += String.fromCharCode(0x80 | charCode & 0x3f);
+    } else {
+      // surrogate pair
+      i++; // UTF-16 encodes 0x10000-0x10FFFF by
+      // subtracting 0x10000 and splitting the
+      // 20 bits of 0x0-0xFFFFF into two halves
+
+      charCode = 0x10000 + ((charCode & 0x3ff) << 10 | str.charCodeAt(i) & 0x3ff);
+      utf8Str += String.fromCharCode(0xf0 | charCode >> 18);
+      utf8Str += String.fromCharCode(0x80 | charCode >> 12 & 0x3f);
+      utf8Str += String.fromCharCode(0x80 | charCode >> 6 & 0x3f);
+      utf8Str += String.fromCharCode(0x80 | charCode & 0x3f);
+    }
+  }
+
+  return utf8Str;
+}
+
+function generatePath(modules) {
+  var margin = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 0;
+  var ops = [];
+  modules.forEach(function (row, y) {
+    var start = null;
+    row.forEach(function (cell, x) {
+      if (!cell && start !== null) {
+        // M0 0h7v1H0z injects the space with the move and drops the comma,
+        // saving a char per operation
+        ops.push("M".concat(start + margin, " ").concat(y + margin, "h").concat(x - start, "v1H").concat(start + margin, "z"));
+        start = null;
+        return;
+      } // end of row, clean up or skip
+
+
+      if (x === row.length - 1) {
+        if (!cell) {
+          // We would have closed the op above already so this can only mean
+          // 2+ light modules in a row.
+          return;
+        }
+
+        if (start === null) {
+          // Just a single dark module.
+          ops.push("M".concat(x + margin, ",").concat(y + margin, " h1v1H").concat(x + margin, "z"));
+        } else {
+          // Otherwise finish the current line.
+          ops.push("M".concat(start + margin, ",").concat(y + margin, " h").concat(x + 1 - start, "v1H").concat(start + margin, "z"));
+        }
+
+        return;
+      }
+
+      if (cell && start === null) {
+        start = x;
+      }
+    });
+  });
+  return ops.join('');
+} // @vue/component
+
+
+var QrcodeVue = {
+  props: {
+    value: {
+      type: String,
+      required: true,
+      default: ''
+    },
+    className: {
+      type: String,
+      default: ''
+    },
+    size: {
+      type: [Number, String],
+      default: 100,
+      validator: function validator(s) {
+        return isNaN(Number(s)) !== true;
+      }
+    },
+    level: {
+      type: String,
+      default: 'L',
+      validator: function validator(l) {
+        return ['L', 'Q', 'M', 'H'].indexOf(l) > -1;
+      }
+    },
+    background: {
+      type: String,
+      default: '#fff'
+    },
+    foreground: {
+      type: String,
+      default: '#000'
+    },
+    renderAs: {
+      type: String,
+      required: false,
+      default: 'canvas',
+      validator: function validator(as) {
+        return ['canvas', 'svg'].indexOf(as) > -1;
+      }
+    }
+  },
+  data: function data() {
+    return {
+      numCells: 0,
+      fgPath: ''
+    };
+  },
+  updated: function updated() {
+    this.render();
+  },
+  mounted: function mounted() {
+    this.render();
+  },
+  methods: {
+    render: function render() {
+      var value = this.value,
+          size = this.size,
+          level = this.level,
+          background = this.background,
+          foreground = this.foreground,
+          renderAs = this.renderAs;
+
+      var _size = size >>> 0; // size to number
+      // We'll use type===-1 to force QRCode to automatically pick the best type
+
+
+      var qrCode = new QRCode_1(-1, ErrorCorrectLevel[level]);
+      qrCode.addData(toUTF8String(value));
+      qrCode.make();
+      var cells = qrCode.modules;
+      var tileW = _size / cells.length;
+      var tileH = _size / cells.length;
+      var scale = window.devicePixelRatio || 1;
+
+      if (renderAs === 'svg') {
+        this.numCells = cells.length; // Drawing strategy: instead of a rect per module, we're going to create a
+        // single path for the dark modules and layer that on top of a light rect,
+        // for a total of 2 DOM nodes. We pay a bit more in string concat but that's
+        // way faster than DOM ops.
+        // For level 1, 441 nodes -> 2
+        // For level 40, 31329 -> 2
+
+        this.fgPath = generatePath(cells);
+      } else {
+        var canvas = this.$refs['qrcode-vue'];
+        var ctx = canvas.getContext('2d');
+        canvas.height = canvas.width = _size * scale;
+        ctx.scale(scale, scale);
+        cells.forEach(function (row, rdx) {
+          row.forEach(function (cell, cdx) {
+            ctx.fillStyle = cell ? foreground : background;
+            var w = Math.ceil((cdx + 1) * tileW) - Math.floor(cdx * tileW);
+            var h = Math.ceil((rdx + 1) * tileH) - Math.floor(rdx * tileH);
+            ctx.fillRect(Math.round(cdx * tileW), Math.round(rdx * tileH), w, h);
+          });
+        });
+      }
+    }
+  },
+  render: function render(createElement) {
+    var className = this.className,
+        value = this.value,
+        level = this.level,
+        background = this.background,
+        foreground = this.foreground,
+        size = this.size,
+        renderAs = this.renderAs,
+        numCells = this.numCells,
+        fgPath = this.fgPath;
+    return createElement('div', {
+      class: this.class || className,
+      attrs: {
+        value: value,
+        level: level,
+        background: background,
+        foreground: foreground
+      }
+    }, [renderAs === 'svg' ? createElement('svg', {
+      attrs: {
+        height: size,
+        width: size,
+        shapeRendering: 'crispEdges',
+        viewBox: "0 0 ".concat(numCells, " ").concat(numCells)
+      },
+      style: {
+        width: size + 'px',
+        height: size + 'px'
+      }
+    }, [createElement('path', {
+      attrs: {
+        fill: background,
+        d: "M0,0 h".concat(numCells, "v").concat(numCells, "H0z")
+      }
+    }), createElement('path', {
+      attrs: {
+        fill: foreground,
+        d: fgPath
+      }
+    })]) : createElement('canvas', {
+      attrs: {
+        height: size,
+        width: size
+      },
+      style: {
+        width: size + 'px',
+        height: size + 'px'
+      },
+      ref: 'qrcode-vue'
+    }, [])]);
+  }
+};
+
+/* harmony default export */ __webpack_exports__["default"] = (QrcodeVue);
+
+
+/***/ }),
+
+/***/ 1575:
+/***/ (function(module, exports) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
   return _c('div', {
-    staticClass: "list-data"
-  }, [_c('b-card', {
-    staticClass: "card-filter",
+    staticClass: "productadd"
+  }, [_c('loading', {
     attrs: {
-      "header-tag": "header",
-      "footer-tag": "footer"
-    }
-  }, [_c('div', [_c('b-col', {
-    attrs: {
-      "md": "12"
-    }
-  }, [_c('b-row', {
-    staticClass: "form-group"
-  }, [_c('b-col', {
-    attrs: {
-      "md": "4"
-    }
-  }, [_c('b-form-input', {
-    attrs: {
-      "type": "text",
-      "placeholder": "Tìm kiếm theo tên"
+      "active": _vm.isLoading,
+      "height": 35,
+      "width": 35,
+      "color": _vm.color,
+      "is-full-page": _vm.fullPage
     },
     on: {
-      "keyup": function($event) {
-        if (!$event.type.indexOf('key') && $event.keyCode !== 13) { return null; }
-        return _vm.onChangePaging()
+      "update:active": function($event) {
+        _vm.isLoading = $event
       }
-    },
-    model: {
-      value: (_vm.SearchKeyword),
-      callback: function($$v) {
-        _vm.SearchKeyword = $$v
-      },
-      expression: "SearchKeyword"
     }
-  })], 1), _vm._v(" "), _c('b-col', {
-    attrs: {
-      "md": "1"
-    }
-  }, [_c('b-btn', {
-    staticClass: "col-lg-12",
-    attrs: {
-      "variant": "info"
-    }
-  }, [_c('i', {
-    staticClass: "fa fa-search",
-    attrs: {
-      "aria-hidden": "true"
-    }
-  })])], 1), _vm._v(" "), _c('b-col', {
-    attrs: {
-      "md": "1"
-    }
-  }, [_c('b-btn', {
-    staticClass: "col-lg-12",
-    attrs: {
-      "variant": "primary"
-    }
-  }, [_c('i', {
-    staticClass: "fa fa-refresh",
-    attrs: {
-      "aria-hidden": "true"
-    }
-  })])], 1), _vm._v(" "), _c('b-col', {
-    attrs: {
-      "md": "2"
-    }
-  }, [_c('b-btn', {
-    directives: [{
-      name: "b-toggle",
-      rawName: "v-b-toggle.collapse1",
-      modifiers: {
-        "collapse1": true
-      }
-    }],
-    attrs: {
-      "variant": "primary"
-    }
-  }, [_c('i', {
-    staticClass: "fa fa-angle-double-down",
-    attrs: {
-      "aria-hidden": "true"
-    }
-  })])], 1)], 1)], 1), _vm._v(" "), _c('b-collapse', {
-    staticClass: "mt-2",
-    attrs: {
-      "id": "collapse1"
-    }
-  }, [_c('b-card', [_c('p', {
-    staticClass: "card-text"
-  }, [_vm._v("Collapse contents Here")]), _vm._v(" "), _c('b-btn', {
-    directives: [{
-      name: "b-toggle",
-      rawName: "v-b-toggle.collapse1_inner",
-      modifiers: {
-        "collapse1_inner": true
-      }
-    }],
-    attrs: {
-      "size": "sm"
-    }
-  }, [_vm._v("Toggle Inner Collapse")]), _vm._v(" "), _c('b-collapse', {
-    staticClass: "mt-2",
-    attrs: {
-      "id": "collapse1_inner"
-    }
-  }, [_c('b-card', [_vm._v("Hello!")])], 1)], 1)], 1)], 1)]), _vm._v(" "), _c('div', {
-    staticClass: "card card-data"
+  }), _vm._v(" "), _c('div', {
+    staticClass: "row productedit"
   }, [_c('div', {
+    staticClass: "col-md-12"
+  }, [_c('div', {
+    staticClass: "card"
+  }, [_c('div', {
+    staticClass: "card-header"
+  }, [_vm._v("\n                    Thông tin đơn hàng\n                ")]), _vm._v(" "), _c('div', {
     staticClass: "card-body"
   }, [_c('div', {
-    staticClass: " mb-2",
-    attrs: {
-      "role": "toolbar",
-      "aria-label": "Toolbar with button groups and dropdown menu"
-    }
+    staticClass: "row"
   }, [_c('div', {
-    staticClass: "mx-1 btn-group",
-    attrs: {
-      "role": "group"
-    }
-  }, [_c('router-link', {
-    staticClass: "btn btn-success",
-    attrs: {
-      "to": {
-        path: 'add'
-      }
-    }
-  }, [_c('i', {
-    staticClass: "fa fa-plus"
-  }), _vm._v(" Thêm mới")]), _vm._v(" "), _vm._m(0)], 1), _vm._v(" "), _c('b-dropdown', {
-    staticClass: "mx-1",
-    attrs: {
-      "variant": "info",
-      "right": "",
-      "text": "Hành động",
-      "icon": ""
-    }
-  }, [_c('b-dropdown-item', [_vm._v("Kích hoạt")]), _vm._v(" "), _c('b-dropdown-item', [_vm._v("Không kích hoạt")])], 1)], 1), _vm._v(" "), _c('div', {
+    staticClass: "col-md-4"
+  }, [_c('div', {
     staticClass: "table-responsive"
   }, [_c('div', {
     staticClass: "dataTables_wrapper dt-bootstrap4 no-footer"
   }, [_c('div', {
     staticClass: "clear"
   }), _vm._v(" "), _c('table', {
-    staticClass: "table data-thumb-view dataTable no-footer",
-    attrs: {
-      "role": "grid"
-    }
-  }, [_vm._m(1), _vm._v(" "), _c('tbody', _vm._l((_vm.banneradss), function(item, index) {
-    return _c('tr', [_vm._m(2, true), _vm._v(" "), _c('td', {
-      staticClass: "text-center"
-    }, [_vm._v(_vm._s(index))]), _vm._v(" "), _c('td', {
-      staticClass: "text-center"
-    }, [_vm._v("\n                                    " + _vm._s(item.key) + "\n                                ")]), _vm._v(" "), _c('td', {
-      staticClass: "text-center"
-    }, [_c('p', [_vm._v("Ngôn ngữ: " + _vm._s(item.value))])]), _vm._v(" "), _c('td', [_c('b-row', [_c('div', {
-      staticStyle: {
-        "padding": "5px"
-      }
-    }, [_c('router-link', {
-      attrs: {
-        "to": {
-          path: 'edit/' + item.key
-        }
-      }
-    }, [_c('span', {
-      staticClass: "action-edit"
-    }, [_c('i', {
-      staticClass: "fa fa-edit"
-    })])])], 1), _vm._v(" "), _c('div', {
-      staticStyle: {
-        "padding": "5px"
-      }
-    }, [_c('span', {
-      staticClass: "action-delete"
-    }, [_c('a', {
-      on: {
-        "click": function($event) {
-          return _vm.remove(item)
-        }
-      }
-    }, [_c('i', {
-      staticClass: "fa fa-trash",
-      staticStyle: {
-        "color": "red"
-      }
-    })])])])])], 1)])
-  }), 0)])])])])])], 1)
-},staticRenderFns: [function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _c('button', {
-    staticClass: "btn btn-danger",
-    attrs: {
-      "type": "button"
-    }
-  }, [_c('i', {
-    staticClass: "fa fa-trash-o"
-  }), _vm._v(" Xóa")])
-},function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _c('thead', {
-    staticClass: "table table-centered table-nowrap"
-  }, [_c('tr', {
+    staticClass: "table table-bordered table-mini-text table-style-custom no-margin"
+  }, [_c('tbody', [_vm._m(0), _vm._v(" "), _c('tr', {
+    staticClass: "odd",
     attrs: {
       "role": "row"
     }
-  }, [_c('th'), _vm._v(" "), _c('th', {
-    staticClass: "text-center"
-  }, [_vm._v("STT")]), _vm._v(" "), _c('th', {
-    staticClass: "text-center"
-  }, [_vm._v("Mã chính sách")]), _vm._v(" "), _c('th', {
-    staticClass: "text-center"
-  }, [_vm._v("Ngôn ngữ")]), _vm._v(" "), _c('th', [_vm._v("Thao tác")])])])
-},function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _c('td', {
-    staticClass: "dt-checkboxes-cell"
-  }, [_c('input', {
-    staticClass: "dt-checkboxes",
+  }, [_c('td', [_vm._v("Mã đơn hàng")]), _vm._v(" "), _c('td', [_vm._v(_vm._s(_vm.order.code))])]), _vm._v(" "), _c('tr', {
+    staticClass: "odd",
     attrs: {
-      "type": "checkbox"
+      "role": "row"
     }
-  })])
+  }, [_c('td', [_vm._v("Trạng thái")]), _vm._v(" "), _c('td', [_vm._v(_vm._s(_vm.order.status))])]), _vm._v(" "), _c('tr', {
+    staticClass: "odd",
+    attrs: {
+      "role": "row"
+    }
+  }, [_c('td', [_vm._v("Điểm nhận hàng")]), _vm._v(" "), _c('td', [_vm._v(_vm._s(_vm.order.note))])]), _vm._v(" "), _c('tr', {
+    staticClass: "odd",
+    attrs: {
+      "role": "row"
+    }
+  }, [_c('td', [_vm._v("Ngày tạo")]), _vm._v(" "), _c('td', [_vm._v(_vm._s(_vm.order.createDate))])]), _vm._v(" "), _c('tr', {
+    staticClass: "odd",
+    attrs: {
+      "role": "row"
+    }
+  }, [_c('td', [_vm._v("Mã voucher")]), _vm._v(" "), _c('td', [_vm._v(_vm._s(_vm.order.odderDetail[0].voucher))])]), _vm._v(" "), _c('tr', {
+    staticClass: "odd",
+    attrs: {
+      "role": "row"
+    }
+  }, [_c('td', [_vm._v("Giá trị voucher")]), _vm._v(" "), _c('td', [_vm._v(_vm._s(_vm.order.odderDetail[0].voucherPrice))])]), _vm._v(" "), _c('tr', {
+    staticClass: "odd",
+    attrs: {
+      "role": "row"
+    }
+  }, [_c('td', [_vm._v("Tổng tiền")]), _vm._v(" "), _c('td', [_vm._v(_vm._s(_vm.order.odderDetail[0].oderPrice))])])])])])])]), _vm._v(" "), _c('div', {
+    staticClass: "col-md-4"
+  }, [_c('div', {
+    staticClass: "table-responsive"
+  }, [_c('div', {
+    staticClass: "dataTables_wrapper dt-bootstrap4 no-footer"
+  }, [_c('div', {
+    staticClass: "clear"
+  }), _vm._v(" "), _c('table', {
+    staticClass: "table table-bordered table-mini-text table-style-custom no-margin"
+  }, [_c('tbody', [_vm._m(1), _vm._v(" "), _c('tr', {
+    staticClass: "odd",
+    attrs: {
+      "role": "row"
+    }
+  }, [_c('td', [_vm._v("Họ và tên")]), _vm._v(" "), _c('td', [_vm._v(_vm._s(_vm.order.customer.name))])]), _vm._v(" "), _c('tr', {
+    staticClass: "odd",
+    attrs: {
+      "role": "row"
+    }
+  }, [_c('td', [_vm._v("Giới tính")]), _vm._v(" "), _c('td', [_vm._v(_vm._s(_vm.order.customer.gender))])]), _vm._v(" "), _c('tr', {
+    staticClass: "odd",
+    attrs: {
+      "role": "row"
+    }
+  }, [_c('td', [_vm._v("Số điện thoại")]), _vm._v(" "), _c('td', [_vm._v(_vm._s(_vm.order.customer.phoneNumber))])]), _vm._v(" "), _c('tr', {
+    staticClass: "odd",
+    attrs: {
+      "role": "row"
+    }
+  }, [_c('td', [_vm._v("Email")]), _vm._v(" "), _c('td', [_vm._v(_vm._s(_vm.order.customer.email))])]), _vm._v(" "), _c('tr', {
+    staticClass: "odd",
+    attrs: {
+      "role": "row"
+    }
+  }, [_c('td', [_vm._v("Địa chỉ")]), _vm._v(" "), _c('td', [_vm._v(_vm._s(_vm.order.address))])]), _vm._v(" "), _c('tr', {
+    staticClass: "odd",
+    attrs: {
+      "role": "row"
+    }
+  }, [_c('td', [_vm._v("Ghi chú")]), _vm._v(" "), _c('td', [_vm._v(_vm._s(_vm.order.customer.note))])])])])])])]), _vm._v(" "), _c('div', {
+    staticClass: "col-md-4"
+  }, [_c('div', {
+    staticClass: "qr-image-container"
+  }, [_c('qrcode-vue', {
+    attrs: {
+      "value": _vm.order.code,
+      "size": _vm.qrSize,
+      "level": "H"
+    }
+  })], 1)])])])])])]), _vm._v(" "), _c('div', {
+    staticClass: "row productedit"
+  }, [_c('div', {
+    staticClass: "col-md-12"
+  }, [_c('div', {
+    staticClass: "card"
+  }, [_c('div', {
+    staticClass: "card-header"
+  }, [_vm._v("\n                    Chi tiết đơn hàng\n                ")]), _vm._v(" "), _c('div', {
+    staticClass: "card-body"
+  }, [_c('div', {
+    staticClass: "row"
+  }, [_c('div', {
+    staticClass: "col-md-12"
+  }, [_c('div', {
+    staticClass: "table-responsive"
+  }, [_c('div', {
+    staticClass: "dataTables_wrapper dt-bootstrap4 no-footer"
+  }, [_c('div', {
+    staticClass: "clear"
+  }), _vm._v(" "), _c('table', {
+    staticClass: "table table-bordered table-mini-text table-style-custom no-margin"
+  }, [_vm._m(2), _vm._v(" "), _c('tbody', _vm._l((_vm.order.odderDetail), function(item, index) {
+    return _c('tr', {
+      staticClass: "odd",
+      attrs: {
+        "role": "row"
+      }
+    }, [_c('td', [_vm._v(_vm._s(index + 1))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(item.code))]), _vm._v(" "), _c('td', [_c('a', {
+      attrs: {
+        "href": item.url
+      }
+    }, [_vm._v(_vm._s(item.name))])]), _vm._v(" "), _c('td', [_vm._v(" " + _vm._s(item.number))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(item.price))]), _vm._v(" "), _c('td', {
+      domProps: {
+        "innerHTML": _vm._s(item.activeStatus)
+      }
+    }), _vm._v(" "), _c('td', [_vm._v(_vm._s((item.oderPrice)))])])
+  }), 0)])])])])])])])])])], 1)
+},staticRenderFns: [function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('tr', {
+    staticClass: "odd",
+    attrs: {
+      "role": "row"
+    }
+  }, [_c('td', {
+    attrs: {
+      "colspan": "2"
+    }
+  }, [_c('b', [_vm._v("Thông tin chính")])])])
+},function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('tr', {
+    staticClass: "odd",
+    attrs: {
+      "role": "row"
+    }
+  }, [_c('td', {
+    attrs: {
+      "colspan": "2"
+    }
+  }, [_c('b', [_vm._v("Thông tin khách hàng")])])])
+},function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('thead', [_c('tr', [_c('th', [_vm._v("STT")]), _vm._v(" "), _c('th', [_vm._v("Mã sản phẩm")]), _vm._v(" "), _c('th', [_vm._v("Sản phẩm")]), _vm._v(" "), _c('th', [_vm._v("SL")]), _vm._v(" "), _c('th', [_vm._v("Giá bán")]), _vm._v(" "), _c('th', [_vm._v("Trạng thái ")]), _vm._v(" "), _c('th', [_vm._v("Thành tiền")])])])
 }]}
-module.exports.render._withStripped = true
-if (true) {
-  module.hot.accept()
-  if (module.hot.data) {
-     __webpack_require__(178).rerender("data-v-ed1f2600", module.exports)
-  }
-}
 
 /***/ }),
 
-/***/ 1632:
+/***/ 1618:
 /***/ (function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
-var content = __webpack_require__(1120);
+var content = __webpack_require__(1456);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
-var update = __webpack_require__(801)("94fa70f4", content, false);
-// Hot Module Replacement
-if(true) {
- // When the styles change, update the <style> tags
- if(!content.locals) {
-   module.hot.accept(1120, function() {
-     var newContent = __webpack_require__(1120);
-     if(typeof newContent === 'string') newContent = [[module.i, newContent, '']];
-     update(newContent);
-   });
- }
- // When the module is disposed, remove the <style> tags
- module.hot.dispose(function() { update(); });
-}
+var update = __webpack_require__(784)("8f7d4f0a", content, true);
 
 /***/ }),
 
-/***/ 761:
+/***/ 743:
 /***/ (function(module, exports, __webpack_require__) {
 
 
 /* styles */
-__webpack_require__(1632)
+__webpack_require__(1618)
 
-var Component = __webpack_require__(374)(
+var Component = __webpack_require__(371)(
   /* script */
-  __webpack_require__(1233),
+  __webpack_require__(1172),
   /* template */
-  __webpack_require__(1589),
+  __webpack_require__(1575),
   /* scopeId */
   null,
   /* cssModules */
   null
 )
-Component.options.__file = "D:\\Code\\WORKING\\dotnet-platform-backend\\Web\\Platform\\CMS\\PlatformCMS\\ClientApp\\pages\\policy\\list.vue"
-if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
-if (Component.options.functional) {console.error("[vue-loader] list.vue: functional components are not supported with templates, they should use render functions.")}
-
-/* hot reload */
-if (true) {(function () {
-  var hotAPI = __webpack_require__(178)
-  hotAPI.install(__webpack_require__(26), false)
-  if (!hotAPI.compatible) return
-  module.hot.accept()
-  if (!module.hot.data) {
-    hotAPI.createRecord("data-v-ed1f2600", Component.options)
-  } else {
-    hotAPI.reload("data-v-ed1f2600", Component.options)
-  }
-})()}
 
 module.exports = Component.exports
 
 
 /***/ }),
 
-/***/ 795:
+/***/ 779:
+/***/ (function(module, exports, __webpack_require__) {
+
+// style-loader: Adds some css to the DOM by adding a <style> tag
+
+// load the styles
+var content = __webpack_require__(780);
+if(typeof content === 'string') content = [[module.i, content, '']];
+// add the styles to the DOM
+var update = __webpack_require__(175)(content, {});
+if(content.locals) module.exports = content.locals;
+// Hot Module Replacement
+if(false) {
+	// When the styles change, update the <style> tags
+	if(!content.locals) {
+		module.hot.accept("!!../../css-loader/index.js!./vue-loading.css", function() {
+			var newContent = require("!!../../css-loader/index.js!./vue-loading.css");
+			if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
+			update(newContent);
+		});
+	}
+	// When the module is disposed, remove the <style> tags
+	module.hot.dispose(function() { update(); });
+}
+
+/***/ }),
+
+/***/ 780:
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(53)();
@@ -474,34 +1499,7 @@ exports.push([module.i, ".vld-overlay {\n  bottom: 0;\n  left: 0;\n  position: a
 
 /***/ }),
 
-/***/ 796:
-/***/ (function(module, exports, __webpack_require__) {
-
-// style-loader: Adds some css to the DOM by adding a <style> tag
-
-// load the styles
-var content = __webpack_require__(795);
-if(typeof content === 'string') content = [[module.i, content, '']];
-// add the styles to the DOM
-var update = __webpack_require__(179)(content, {});
-if(content.locals) module.exports = content.locals;
-// Hot Module Replacement
-if(true) {
-	// When the styles change, update the <style> tags
-	if(!content.locals) {
-		module.hot.accept(795, function() {
-			var newContent = __webpack_require__(795);
-			if(typeof newContent === 'string') newContent = [[module.i, newContent, '']];
-			update(newContent);
-		});
-	}
-	// When the module is disposed, remove the <style> tags
-	module.hot.dispose(function() { update(); });
-}
-
-/***/ }),
-
-/***/ 797:
+/***/ 781:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -515,7 +1513,7 @@ exports.default = msgNotify;
 
 /***/ }),
 
-/***/ 801:
+/***/ 784:
 /***/ (function(module, exports, __webpack_require__) {
 
 /*
@@ -534,7 +1532,7 @@ if (typeof DEBUG !== 'undefined' && DEBUG) {
   ) }
 }
 
-var listToStyles = __webpack_require__(809)
+var listToStyles = __webpack_require__(792)
 
 /*
 type StyleObject = {
@@ -737,7 +1735,7 @@ function applyToTag (styleElement, obj) {
 
 /***/ }),
 
-/***/ 809:
+/***/ 792:
 /***/ (function(module, exports) {
 
 /**

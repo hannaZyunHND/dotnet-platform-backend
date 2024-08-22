@@ -3,748 +3,6 @@ webpackJsonp([2],{
 /***/ 1000:
 /***/ (function(module, exports, __webpack_require__) {
 
-var META = __webpack_require__(109)('meta');
-var isObject = __webpack_require__(45);
-var has = __webpack_require__(73);
-var setDesc = __webpack_require__(55).f;
-var id = 0;
-var isExtensible = Object.isExtensible || function () {
-  return true;
-};
-var FREEZE = !__webpack_require__(46)(function () {
-  return isExtensible(Object.preventExtensions({}));
-});
-var setMeta = function (it) {
-  setDesc(it, META, { value: {
-    i: 'O' + ++id, // object ID
-    w: {}          // weak collections IDs
-  } });
-};
-var fastKey = function (it, create) {
-  // return primitive with prefix
-  if (!isObject(it)) return typeof it == 'symbol' ? it : (typeof it == 'string' ? 'S' : 'P') + it;
-  if (!has(it, META)) {
-    // can't set metadata to uncaught frozen object
-    if (!isExtensible(it)) return 'F';
-    // not necessary to add metadata
-    if (!create) return 'E';
-    // add missing metadata
-    setMeta(it);
-  // return object ID
-  } return it[META].i;
-};
-var getWeak = function (it, create) {
-  if (!has(it, META)) {
-    // can't set metadata to uncaught frozen object
-    if (!isExtensible(it)) return true;
-    // not necessary to add metadata
-    if (!create) return false;
-    // add missing metadata
-    setMeta(it);
-  // return hash weak collections IDs
-  } return it[META].w;
-};
-// add metadata on freeze-family methods calling
-var onFreeze = function (it) {
-  if (FREEZE && meta.NEED && isExtensible(it) && !has(it, META)) setMeta(it);
-  return it;
-};
-var meta = module.exports = {
-  KEY: META,
-  NEED: false,
-  fastKey: fastKey,
-  getWeak: getWeak,
-  onFreeze: onFreeze
-};
-
-
-/***/ }),
-
-/***/ 1001:
-/***/ (function(module, exports) {
-
-module.exports = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAJUlEQVQ4jWNgoBSkpaX9pwRTxwBsriJabHAYMBoGo2FAcRhQCgAhhv41B1NcjwAAAABJRU5ErkJggg=="
-
-/***/ }),
-
-/***/ 1002:
-/***/ (function(module, exports) {
-
-module.exports = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAHElEQVQ4jWNgGPogLS3tPyV41AWjLhguLqAUAABjQNJhHOFYqgAAAABJRU5ErkJggg=="
-
-/***/ }),
-
-/***/ 1003:
-/***/ (function(module, exports) {
-
-module.exports = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAg0lEQVQ4ja3QwQ3AIAgF0J6dwyVcwxUI4hZ1C6dwDZdwDs/tqYlRTKEpCRcjD/3HsakQwjX27t62xqFXYN4m7V+B9OGL53zQFds7JzYF0DigKoDKAUUBlAVAxCwFEDGzqSpekBaAiKIUIKLIAV4BeA5wCsAtAABYKQAAlgvRKEI0z9wNbkpkPnEUO00AAAAASUVORK5CYII="
-
-/***/ }),
-
-/***/ 1004:
-/***/ (function(module, exports) {
-
-module.exports = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAyJpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuMy1jMDExIDY2LjE0NTY2MSwgMjAxMi8wMi8wNi0xNDo1NjoyNyAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvIiB4bWxuczp4bXBNTT0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL21tLyIgeG1sbnM6c3RSZWY9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9zVHlwZS9SZXNvdXJjZVJlZiMiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIENTNiAoV2luZG93cykiIHhtcE1NOkluc3RhbmNlSUQ9InhtcC5paWQ6QUFFNEVGRTcyNzI5MTFFN0E4MTJDODUxMTY5OTBDRTMiIHhtcE1NOkRvY3VtZW50SUQ9InhtcC5kaWQ6QUFFNEVGRTgyNzI5MTFFN0E4MTJDODUxMTY5OTBDRTMiPiA8eG1wTU06RGVyaXZlZEZyb20gc3RSZWY6aW5zdGFuY2VJRD0ieG1wLmlpZDpBQUU0RUZFNTI3MjkxMUU3QTgxMkM4NTExNjk5MENFMyIgc3RSZWY6ZG9jdW1lbnRJRD0ieG1wLmRpZDpBQUU0RUZFNjI3MjkxMUU3QTgxMkM4NTExNjk5MENFMyIvPiA8L3JkZjpEZXNjcmlwdGlvbj4gPC9yZGY6UkRGPiA8L3g6eG1wbWV0YT4gPD94cGFja2V0IGVuZD0iciI/PoebdJQAAAEfSURBVHjalNI9SwMxGMDxXHutaEXwHZdCEaSLQ71Fuujoojg4Cv0K4ioUStd+BpcOfgGh6Obo0uLsoJNQsC6+0evL9R94DkLotXcP/LiEJM8lT+J4nqckznGFY5UgUkY7jQ2VMFwUsYQ9ZHEwZ80Qb/gOEzRQwiJW8CgTHWthIN9lXOA+TFBBBme4xmnEn8MELeTMI/Skrb//eJ1zhJ+oIrpWP07hZy7YT3qNOsZYQA3PaGJbCro+rbiuleAPR6hK/xJlfGATJ+jPShDIPX/JbnRsYUf6JSn0ICrBGt7lSgNrTG+9i1XksQvfTPCLAp70QETNMrKbOm7QNhPohYdTdmXHHW7xoGtmTtZv+yXGzfny2Doq5sOx4xOjsDMRYADeTjM37KwM6gAAAABJRU5ErkJggg=="
-
-/***/ }),
-
-/***/ 1005:
-/***/ (function(module, exports) {
-
-module.exports = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAlElEQVQ4jWNgGHCQlpb2Hw3fz8jIUKDEANIMwWEAXkwTAx4T7WdsXkhNTV2dnp6uT4ZrLjCkpaX9T09PL0pPT59AqgGpqan5MBfYp6WlvSLRgF+JiYmiDGlpad/T09PDybB9AywMjqampm4g1YD09HR/mAGL0tLSfpFowKu0tDRWmAGHybB9AnI0viHDAH2y0w06AACLVFch1Ej7rgAAAABJRU5ErkJggg=="
-
-/***/ }),
-
-/***/ 1006:
-/***/ (function(module, exports) {
-
-module.exports = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAA6UlEQVQ4ja2TUU7DQAxE/UO5SwPH2SP4TX5yFKIgisRZijhFyyXyGfHXVuVnUzmrBNGCpZFWlme0s541Kwp4lNQBn8BXxl5S5+5VOX+ppmnuJb0CJ+C8gBOwSSmtJuSU0krSxw/EEu8TEeDtCvKIjZmZ1XX9EK9tZubuFdCH4X70H3pHd68MeI7K42AQ6YtevEVrwL5oTggzgnF2Z8Aw46+PK1sgn4HhXwT+ZiGn7qZHdPencY3HW9YoaW1mZjnCVwVJUjeJsrtvf0t29+3sfwBeop0ZHHLw7hZ/paQ10AK7vOIhn9uL51DfTreZQOo3Kt0AAAAASUVORK5CYII="
-
-/***/ }),
-
-/***/ 1007:
-/***/ (function(module, exports) {
-
-module.exports = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAATUlEQVQ4jWNgoBXIyMhQSE1N3Z+RkaFAlua0tLT7aWlp/9PS0u6TZAia5v8kGYJDM2mGwACyZqI1jRpAJsARZURhsgxAtnhgXED1wAUASBXMx2KfmeMAAAAASUVORK5CYII="
-
-/***/ }),
-
-/***/ 1008:
-/***/ (function(module, exports, __webpack_require__) {
-
-
-/* styles */
-__webpack_require__(1018)
-
-var Component = __webpack_require__(374)(
-  /* script */
-  __webpack_require__(1014),
-  /* template */
-  __webpack_require__(1017),
-  /* scopeId */
-  "data-v-497df3b6",
-  /* cssModules */
-  null
-)
-Component.options.__file = "D:\\Code\\WORKING\\dotnet-platform-backend\\Web\\Platform\\CMS\\PlatformCMS\\ClientApp\\components\\fileManager\\list.vue"
-if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
-if (Component.options.functional) {console.error("[vue-loader] list.vue: functional components are not supported with templates, they should use render functions.")}
-
-/* hot reload */
-if (true) {(function () {
-  var hotAPI = __webpack_require__(178)
-  hotAPI.install(__webpack_require__(26), false)
-  if (!hotAPI.compatible) return
-  module.hot.accept()
-  if (!module.hot.data) {
-    hotAPI.createRecord("data-v-497df3b6", Component.options)
-  } else {
-    hotAPI.reload("data-v-497df3b6", Component.options)
-  }
-})()}
-
-module.exports = Component.exports
-
-
-/***/ }),
-
-/***/ 1009:
-/***/ (function(module, exports, __webpack_require__) {
-
-// fallback for IE11 buggy Object.getOwnPropertyNames with iframe and window
-var toIObject = __webpack_require__(57);
-var gOPN = __webpack_require__(955).f;
-var toString = {}.toString;
-
-var windowNames = typeof window == 'object' && window && Object.getOwnPropertyNames
-  ? Object.getOwnPropertyNames(window) : [];
-
-var getWindowNames = function (it) {
-  try {
-    return gOPN(it);
-  } catch (e) {
-    return windowNames.slice();
-  }
-};
-
-module.exports.f = function getOwnPropertyNames(it) {
-  return windowNames && toString.call(it) == '[object Window]' ? getWindowNames(it) : gOPN(toIObject(it));
-};
-
-
-/***/ }),
-
-/***/ 1010:
-/***/ (function(module, exports, __webpack_require__) {
-
-// all enumerable object keys, includes symbols
-var getKeys = __webpack_require__(183);
-var gOPS = __webpack_require__(968);
-var pIE = __webpack_require__(810);
-module.exports = function (it) {
-  var result = getKeys(it);
-  var getSymbols = gOPS.f;
-  if (getSymbols) {
-    var symbols = getSymbols(it);
-    var isEnum = pIE.f;
-    var i = 0;
-    var key;
-    while (symbols.length > i) if (isEnum.call(it, key = symbols[i++])) result.push(key);
-  } return result;
-};
-
-
-/***/ }),
-
-/***/ 1011:
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-// ECMAScript 6 symbols shim
-var global = __webpack_require__(22);
-var has = __webpack_require__(73);
-var DESCRIPTORS = __webpack_require__(59);
-var $export = __webpack_require__(12);
-var redefine = __webpack_require__(61);
-var META = __webpack_require__(1000).KEY;
-var $fails = __webpack_require__(46);
-var shared = __webpack_require__(113);
-var setToStringTag = __webpack_require__(112);
-var uid = __webpack_require__(109);
-var wks = __webpack_require__(17);
-var wksExt = __webpack_require__(996);
-var wksDefine = __webpack_require__(811);
-var enumKeys = __webpack_require__(1010);
-var isArray = __webpack_require__(187);
-var anObject = __webpack_require__(36);
-var isObject = __webpack_require__(45);
-var toObject = __webpack_require__(39);
-var toIObject = __webpack_require__(57);
-var toPrimitive = __webpack_require__(380);
-var createDesc = __webpack_require__(108);
-var _create = __webpack_require__(388);
-var gOPNExt = __webpack_require__(1009);
-var $GOPD = __webpack_require__(997);
-var $GOPS = __webpack_require__(968);
-var $DP = __webpack_require__(55);
-var $keys = __webpack_require__(183);
-var gOPD = $GOPD.f;
-var dP = $DP.f;
-var gOPN = gOPNExt.f;
-var $Symbol = global.Symbol;
-var $JSON = global.JSON;
-var _stringify = $JSON && $JSON.stringify;
-var PROTOTYPE = 'prototype';
-var HIDDEN = wks('_hidden');
-var TO_PRIMITIVE = wks('toPrimitive');
-var isEnum = {}.propertyIsEnumerable;
-var SymbolRegistry = shared('symbol-registry');
-var AllSymbols = shared('symbols');
-var OPSymbols = shared('op-symbols');
-var ObjectProto = Object[PROTOTYPE];
-var USE_NATIVE = typeof $Symbol == 'function' && !!$GOPS.f;
-var QObject = global.QObject;
-// Don't use setters in Qt Script, https://github.com/zloirock/core-js/issues/173
-var setter = !QObject || !QObject[PROTOTYPE] || !QObject[PROTOTYPE].findChild;
-
-// fallback for old Android, https://code.google.com/p/v8/issues/detail?id=687
-var setSymbolDesc = DESCRIPTORS && $fails(function () {
-  return _create(dP({}, 'a', {
-    get: function () { return dP(this, 'a', { value: 7 }).a; }
-  })).a != 7;
-}) ? function (it, key, D) {
-  var protoDesc = gOPD(ObjectProto, key);
-  if (protoDesc) delete ObjectProto[key];
-  dP(it, key, D);
-  if (protoDesc && it !== ObjectProto) dP(ObjectProto, key, protoDesc);
-} : dP;
-
-var wrap = function (tag) {
-  var sym = AllSymbols[tag] = _create($Symbol[PROTOTYPE]);
-  sym._k = tag;
-  return sym;
-};
-
-var isSymbol = USE_NATIVE && typeof $Symbol.iterator == 'symbol' ? function (it) {
-  return typeof it == 'symbol';
-} : function (it) {
-  return it instanceof $Symbol;
-};
-
-var $defineProperty = function defineProperty(it, key, D) {
-  if (it === ObjectProto) $defineProperty(OPSymbols, key, D);
-  anObject(it);
-  key = toPrimitive(key, true);
-  anObject(D);
-  if (has(AllSymbols, key)) {
-    if (!D.enumerable) {
-      if (!has(it, HIDDEN)) dP(it, HIDDEN, createDesc(1, {}));
-      it[HIDDEN][key] = true;
-    } else {
-      if (has(it, HIDDEN) && it[HIDDEN][key]) it[HIDDEN][key] = false;
-      D = _create(D, { enumerable: createDesc(0, false) });
-    } return setSymbolDesc(it, key, D);
-  } return dP(it, key, D);
-};
-var $defineProperties = function defineProperties(it, P) {
-  anObject(it);
-  var keys = enumKeys(P = toIObject(P));
-  var i = 0;
-  var l = keys.length;
-  var key;
-  while (l > i) $defineProperty(it, key = keys[i++], P[key]);
-  return it;
-};
-var $create = function create(it, P) {
-  return P === undefined ? _create(it) : $defineProperties(_create(it), P);
-};
-var $propertyIsEnumerable = function propertyIsEnumerable(key) {
-  var E = isEnum.call(this, key = toPrimitive(key, true));
-  if (this === ObjectProto && has(AllSymbols, key) && !has(OPSymbols, key)) return false;
-  return E || !has(this, key) || !has(AllSymbols, key) || has(this, HIDDEN) && this[HIDDEN][key] ? E : true;
-};
-var $getOwnPropertyDescriptor = function getOwnPropertyDescriptor(it, key) {
-  it = toIObject(it);
-  key = toPrimitive(key, true);
-  if (it === ObjectProto && has(AllSymbols, key) && !has(OPSymbols, key)) return;
-  var D = gOPD(it, key);
-  if (D && has(AllSymbols, key) && !(has(it, HIDDEN) && it[HIDDEN][key])) D.enumerable = true;
-  return D;
-};
-var $getOwnPropertyNames = function getOwnPropertyNames(it) {
-  var names = gOPN(toIObject(it));
-  var result = [];
-  var i = 0;
-  var key;
-  while (names.length > i) {
-    if (!has(AllSymbols, key = names[i++]) && key != HIDDEN && key != META) result.push(key);
-  } return result;
-};
-var $getOwnPropertySymbols = function getOwnPropertySymbols(it) {
-  var IS_OP = it === ObjectProto;
-  var names = gOPN(IS_OP ? OPSymbols : toIObject(it));
-  var result = [];
-  var i = 0;
-  var key;
-  while (names.length > i) {
-    if (has(AllSymbols, key = names[i++]) && (IS_OP ? has(ObjectProto, key) : true)) result.push(AllSymbols[key]);
-  } return result;
-};
-
-// 19.4.1.1 Symbol([description])
-if (!USE_NATIVE) {
-  $Symbol = function Symbol() {
-    if (this instanceof $Symbol) throw TypeError('Symbol is not a constructor!');
-    var tag = uid(arguments.length > 0 ? arguments[0] : undefined);
-    var $set = function (value) {
-      if (this === ObjectProto) $set.call(OPSymbols, value);
-      if (has(this, HIDDEN) && has(this[HIDDEN], tag)) this[HIDDEN][tag] = false;
-      setSymbolDesc(this, tag, createDesc(1, value));
-    };
-    if (DESCRIPTORS && setter) setSymbolDesc(ObjectProto, tag, { configurable: true, set: $set });
-    return wrap(tag);
-  };
-  redefine($Symbol[PROTOTYPE], 'toString', function toString() {
-    return this._k;
-  });
-
-  $GOPD.f = $getOwnPropertyDescriptor;
-  $DP.f = $defineProperty;
-  __webpack_require__(955).f = gOPNExt.f = $getOwnPropertyNames;
-  __webpack_require__(810).f = $propertyIsEnumerable;
-  $GOPS.f = $getOwnPropertySymbols;
-
-  if (DESCRIPTORS && !__webpack_require__(107)) {
-    redefine(ObjectProto, 'propertyIsEnumerable', $propertyIsEnumerable, true);
-  }
-
-  wksExt.f = function (name) {
-    return wrap(wks(name));
-  };
-}
-
-$export($export.G + $export.W + $export.F * !USE_NATIVE, { Symbol: $Symbol });
-
-for (var es6Symbols = (
-  // 19.4.2.2, 19.4.2.3, 19.4.2.4, 19.4.2.6, 19.4.2.8, 19.4.2.9, 19.4.2.10, 19.4.2.11, 19.4.2.12, 19.4.2.13, 19.4.2.14
-  'hasInstance,isConcatSpreadable,iterator,match,replace,search,species,split,toPrimitive,toStringTag,unscopables'
-).split(','), j = 0; es6Symbols.length > j;)wks(es6Symbols[j++]);
-
-for (var wellKnownSymbols = $keys(wks.store), k = 0; wellKnownSymbols.length > k;) wksDefine(wellKnownSymbols[k++]);
-
-$export($export.S + $export.F * !USE_NATIVE, 'Symbol', {
-  // 19.4.2.1 Symbol.for(key)
-  'for': function (key) {
-    return has(SymbolRegistry, key += '')
-      ? SymbolRegistry[key]
-      : SymbolRegistry[key] = $Symbol(key);
-  },
-  // 19.4.2.5 Symbol.keyFor(sym)
-  keyFor: function keyFor(sym) {
-    if (!isSymbol(sym)) throw TypeError(sym + ' is not a symbol!');
-    for (var key in SymbolRegistry) if (SymbolRegistry[key] === sym) return key;
-  },
-  useSetter: function () { setter = true; },
-  useSimple: function () { setter = false; }
-});
-
-$export($export.S + $export.F * !USE_NATIVE, 'Object', {
-  // 19.1.2.2 Object.create(O [, Properties])
-  create: $create,
-  // 19.1.2.4 Object.defineProperty(O, P, Attributes)
-  defineProperty: $defineProperty,
-  // 19.1.2.3 Object.defineProperties(O, Properties)
-  defineProperties: $defineProperties,
-  // 19.1.2.6 Object.getOwnPropertyDescriptor(O, P)
-  getOwnPropertyDescriptor: $getOwnPropertyDescriptor,
-  // 19.1.2.7 Object.getOwnPropertyNames(O)
-  getOwnPropertyNames: $getOwnPropertyNames,
-  // 19.1.2.8 Object.getOwnPropertySymbols(O)
-  getOwnPropertySymbols: $getOwnPropertySymbols
-});
-
-// Chrome 38 and 39 `Object.getOwnPropertySymbols` fails on primitives
-// https://bugs.chromium.org/p/v8/issues/detail?id=3443
-var FAILS_ON_PRIMITIVES = $fails(function () { $GOPS.f(1); });
-
-$export($export.S + $export.F * FAILS_ON_PRIMITIVES, 'Object', {
-  getOwnPropertySymbols: function getOwnPropertySymbols(it) {
-    return $GOPS.f(toObject(it));
-  }
-});
-
-// 24.3.2 JSON.stringify(value [, replacer [, space]])
-$JSON && $export($export.S + $export.F * (!USE_NATIVE || $fails(function () {
-  var S = $Symbol();
-  // MS Edge converts symbol values to JSON as {}
-  // WebKit converts symbol values to JSON as null
-  // V8 throws on boxed symbols
-  return _stringify([S]) != '[null]' || _stringify({ a: S }) != '{}' || _stringify(Object(S)) != '{}';
-})), 'JSON', {
-  stringify: function stringify(it) {
-    var args = [it];
-    var i = 1;
-    var replacer, $replacer;
-    while (arguments.length > i) args.push(arguments[i++]);
-    $replacer = replacer = args[1];
-    if (!isObject(replacer) && it === undefined || isSymbol(it)) return; // IE8 returns string on undefined
-    if (!isArray(replacer)) replacer = function (key, value) {
-      if (typeof $replacer == 'function') value = $replacer.call(this, key, value);
-      if (!isSymbol(value)) return value;
-    };
-    args[1] = replacer;
-    return _stringify.apply($JSON, args);
-  }
-});
-
-// 19.4.3.4 Symbol.prototype[@@toPrimitive](hint)
-$Symbol[PROTOTYPE][TO_PRIMITIVE] || __webpack_require__(48)($Symbol[PROTOTYPE], TO_PRIMITIVE, $Symbol[PROTOTYPE].valueOf);
-// 19.4.3.5 Symbol.prototype[@@toStringTag]
-setToStringTag($Symbol, 'Symbol');
-// 20.2.1.9 Math[@@toStringTag]
-setToStringTag(Math, 'Math', true);
-// 24.3.3 JSON[@@toStringTag]
-setToStringTag(global.JSON, 'JSON', true);
-
-
-/***/ }),
-
-/***/ 1012:
-/***/ (function(module, exports, __webpack_require__) {
-
-__webpack_require__(811)('asyncIterator');
-
-
-/***/ }),
-
-/***/ 1013:
-/***/ (function(module, exports, __webpack_require__) {
-
-__webpack_require__(811)('observable');
-
-
-/***/ }),
-
-/***/ 1014:
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-    value: true
-});
-
-var _from = __webpack_require__(954);
-
-var _from2 = _interopRequireDefault(_from);
-
-var _extends2 = __webpack_require__(7);
-
-var _extends3 = _interopRequireDefault(_extends2);
-
-var _defineProperty2 = __webpack_require__(956);
-
-var _defineProperty3 = _interopRequireDefault(_defineProperty2);
-
-__webpack_require__(796);
-
-var _constant = __webpack_require__(797);
-
-var _constant2 = _interopRequireDefault(_constant);
-
-var _vuex = __webpack_require__(180);
-
-var _vueLoadingOverlay = __webpack_require__(376);
-
-var _vueLoadingOverlay2 = _interopRequireDefault(_vueLoadingOverlay);
-
-var _eventBus = __webpack_require__(957);
-
-var _eventBus2 = _interopRequireDefault(_eventBus);
-
-var _symbol = __webpack_require__(1015);
-
-var _jquery = __webpack_require__(1016);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-exports.default = {
-    name: "FileManager",
-    props: {
-        miKey: {
-            type: String
-        }
-    },
-    components: {
-        Loading: _vueLoadingOverlay2.default
-    },
-    data: function data() {
-        var _ref;
-
-        return _ref = {
-            isLoading: false,
-            fullPage: false,
-            color: "#007bff",
-            isLoadLang: false,
-
-            currentPage: 1,
-            pageSize: 30
-        }, (0, _defineProperty3.default)(_ref, "isLoading", false), (0, _defineProperty3.default)(_ref, "MaxFileSize", 3000), (0, _defineProperty3.default)(_ref, "selectedFile", []), (0, _defineProperty3.default)(_ref, "extensions", []), (0, _defineProperty3.default)(_ref, "extImage", []), (0, _defineProperty3.default)(_ref, "isActive", false), (0, _defineProperty3.default)(_ref, "selectType", ''), (0, _defineProperty3.default)(_ref, "keyword", ''), _ref;
-    },
-    created: function created() {
-        var config = __webpack_require__(999);
-        this.extImage = config.AppSettings.ImageAllowUpload;
-        this.extensions = config.AppSettings.ImageAllowUpload.concat(config.AppSettings.DocumentAllowUpload);
-
-        _eventBus2.default.$on(this.miKey, this.FileManagerOpen);
-    },
-    destroyed: function destroyed() {},
-
-    computed: {
-        files: function files() {
-            return this.$store.getters.files;
-        }
-    },
-    methods: (0, _extends3.default)({}, (0, _vuex.mapActions)(["fmFileUpload", "fmFileGetAll", "fmRemove"]), {
-        mapImageUrl: function mapImageUrl(img, ext) {
-            if (this.extImage.indexOf(ext.toLowerCase()) !== -1) {
-                return '/uploads/thumb' + img;
-            }
-            return './../../ClientApp/assets/fileicons/' + ext.replace('.', '') + '.png';
-        },
-        checkImage: function checkImage(ext) {
-            if (this.extImage.indexOf(ext) == -1) {
-                return true;
-            }
-            return false;
-        },
-        DoUploadFile: function DoUploadFile(e) {
-            debugger;
-            var files = e.srcElement.files;
-
-            if (files) {
-                var filesTemp = (0, _from2.default)(files);
-
-                var msgFileAllow = '';
-                var msgLimitedSize = '';
-                for (var i = 0; i < filesTemp.length; i++) {
-
-                    var name = filesTemp[i].name;
-                    var type = name.split('.').pop().toLowerCase();
-
-                    if (this.extensions.indexOf(type) == -1) {
-                        filesTemp.splice(i, 1);
-                        if (msgFileAllow.length == 0) {
-                            msgFileAllow = name;
-                        } else {
-                            msgFileAllow += ', ' + name;
-                        }
-                    }
-                    if (msgFileAllow.length > 0) {
-                        this.$toast.error(msgFileAllow + ' không hợp lệ !', {});
-                    }
-                }
-                for (var i = 0; i < filesTemp.length; i++) {
-                    var size = filesTemp[i].size;
-                    var _name = filesTemp[i].name;
-
-                    if (this.MaxFileSize < size / 1024) {
-                        filesTemp.splice(i, 1);
-                        if (msgLimitedSize.length == 0) {
-                            msgLimitedSize = _name;
-                        } else {
-                            msgLimitedSize += ', ' + _name;
-                        }
-                    }
-                    if (msgLimitedSize.length > 0) {
-                        this.$toast.error(msgFileAllow + ' dung lượng quá lớn !', {});
-                    }
-                }
-                if (filesTemp.length) {
-                    var fd = new FormData();
-
-                    filesTemp.forEach(function (item) {
-                        fd.append('files', item);
-                    });
-                    this.UploadFileAction(fd);
-                }
-            }
-        },
-        UploadFileAction: function UploadFileAction(files) {
-            var _this = this;
-
-            this.fmFileUpload(files).then(function (response) {
-                if (response.success) {
-                    debugger;
-                    console.log(response.data);
-                    var objtoast = _this.$toast;
-                    response.data.forEach(function (item) {
-                        if (item.code == 200) {
-                            objtoast.success(item.messages, {});
-                        } else {
-                            objtoast.error(item.messages, {});
-                        }
-                    });
-
-                    _this.LoadFile();
-
-                    _this.isLoading = false;
-                } else {
-
-                    _this.$toast.error(response.message, {});
-                    _this.isLoading = false;
-                }
-            }).catch(function (e) {
-                debugger;
-                _this.$toast.error(_constant2.default.error + ". Error:" + e, {});
-                _this.isLoading = false;
-            });
-        },
-        SelectFile: function SelectFile(event, file) {
-            if (this.selectType == 'multi') {
-                if (event.currentTarget.classList.contains('_active')) {
-                    event.currentTarget.classList.remove('_active');
-
-                    this.selectedFile = this.selectedFile.filter(function (obj) {
-                        return obj.id != file.id;
-                    });
-                } else {
-                    event.currentTarget.classList.add("_active");
-                    this.selectedFile.push(file);
-                }
-            } else {
-
-                this.selectedFile = [];
-                if (event.currentTarget.classList.contains('_active')) {
-                    event.currentTarget.classList.remove('_active');
-                } else {
-                    var items = document.querySelectorAll('.item');
-                    items.forEach(function (item) {
-                        item.classList.remove('_active');
-                    });
-                    event.currentTarget.classList.add("_active");
-                    this.selectedFile.push(file);
-                }
-            }
-        },
-        LoadFile: function LoadFile() {
-            this.fmFileGetAll({
-                keyword: this.keyword,
-                pageIndex: this.currentPage,
-                pageSize: this.pageSize
-            });
-        },
-        FileManagerOpen: function FileManagerOpen(param) {
-            this.selectType = param;
-            this.$refs["file-manager-modal"].show();
-            this.LoadFile();
-        },
-        hideFileManagerModal: function hideFileManagerModal() {
-            this.$refs["file-manager-modal"].hide();
-        },
-        attackFile: function attackFile() {
-            this.$emit("handleAttackFile", this.selectedFile);
-            this.$refs["file-manager-modal"].hide();
-            this.selectedFile = [];
-        },
-        toggleFileModal: function toggleFileModal() {
-            this.$refs["file-manager-modal"].toggle("#toggle-btn");
-        },
-        removeFile: function removeFile() {
-            var result = confirm("Xác nhận?");
-            if (!result) {
-                return false;
-            }
-
-            var $this = this;
-            this.selectedFile.forEach(function (item) {
-                $this.fmRemove(item.id).then(function (response) {
-                    if (response.success) {
-
-                        $this.LoadFile();
-                        $this.$toast.success(response.message, {});
-                        $this.isLoading = false;
-                    } else {
-
-                        $this.$toast.error(response.message, {});
-                        $this.isLoading = false;
-                    }
-                }).catch(function (e) {
-
-                    $this.$toast.error(_constant2.default.error + ". Error:" + e, {});
-                    $this.isLoading = false;
-                });
-            });
-        }
-    }),
-    mounted: function mounted() {},
-
-    watch: {
-        currentPage: function currentPage() {
-            this.LoadFile();
-        }
-    }
-};
-
-/***/ }),
-
-/***/ 1015:
-/***/ (function(module, exports, __webpack_require__) {
-
-__webpack_require__(1011);
-__webpack_require__(392);
-__webpack_require__(1012);
-__webpack_require__(1013);
-module.exports = __webpack_require__(37).Symbol;
-
-
-/***/ }),
-
-/***/ 1016:
-/***/ (function(module, exports, __webpack_require__) {
-
 var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
  * jQuery JavaScript Library v3.6.0
  * https://jquery.com/
@@ -11631,8 +10889,8 @@ return jQuery;
 
 /***/ }),
 
-/***/ 1017:
-/***/ (function(module, exports, __webpack_require__) {
+/***/ 1001:
+/***/ (function(module, exports) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
   return _c('div', {
@@ -11903,44 +11161,24 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }
   }, [_vm._v("Đóng")])])])], 1)], 1)])], 1)
 },staticRenderFns: []}
-module.exports.render._withStripped = true
-if (true) {
-  module.hot.accept()
-  if (module.hot.data) {
-     __webpack_require__(178).rerender("data-v-497df3b6", module.exports)
-  }
-}
 
 /***/ }),
 
-/***/ 1018:
+/***/ 1002:
 /***/ (function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
-var content = __webpack_require__(949);
+var content = __webpack_require__(999);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
-var update = __webpack_require__(801)("7006b314", content, false);
-// Hot Module Replacement
-if(true) {
- // When the styles change, update the <style> tags
- if(!content.locals) {
-   module.hot.accept(949, function() {
-     var newContent = __webpack_require__(949);
-     if(typeof newContent === 'string') newContent = [[module.i, newContent, '']];
-     update(newContent);
-   });
- }
- // When the module is disposed, remove the <style> tags
- module.hot.dispose(function() { update(); });
-}
+var update = __webpack_require__(784)("a805eeb6", content, true);
 
 /***/ }),
 
-/***/ 1020:
+/***/ 1007:
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(53)();
@@ -11955,39 +11193,24 @@ exports.push([module.i, ".v-select{position:relative;font-family:inherit}.v-sele
 
 /***/ }),
 
-/***/ 1021:
-/***/ (function(module, exports, __webpack_require__) {
-
-exports = module.exports = __webpack_require__(53)();
-// imports
-
-
-// module
-exports.push([module.i, "\n.file-manager[data-v-8004295c], .fm-content-selected[data-v-8004295c] {\n    padding: 0;\n}\n.file-manager___BV_modal_body_[data-v-8004295c] {\n    padding: 0;\n}\n.fm-content-selected ul li[data-v-8004295c] {\n    list-style-type: none\n}\n.fm-container-dialog[data-v-8004295c] {\n    padding: 0;\n    overflow: hidden !important;\n}\n.fm-container[data-v-8004295c] {\n    font-size: 12px;\n    font-family: sans-serif;\n    padding: 0\n}\n.fm-toolbar ul[data-v-8004295c] {\n    float: left;\n    margin: 3.5px 0 3px 10px;\n    padding: 1px 2px;\n    border-radius: 0\n}\n.fm-toolbar ul li[data-v-8004295c] {\n        border: 1px solid .fff;\n        cursor: pointer;\n        float: left;\n        line-height: 26px;\n        list-style-type: none;\n        padding: 0 8px;\n        text-align: center;\n}\n.fm-toolbar ul li[data-v-8004295c]:hover {\n            background: #eaeaea;\n}\n.fm-toolbar ul li.active[data-v-8004295c] {\n            background: #eaeaea;\n}\n.fm-container[data-v-8004295c] {\n}\n.fm-toolbar[data-v-8004295c] {\n}\n.fm-footer[data-v-8004295c] {\n    border-top: 1px solid #eaeaea;\n    padding-top: 10px\n}\n.fm-toolbar .tool-items[data-v-8004295c] {\n    clear: both;\n    padding-right: 6px;\n}\n.fm-toolbar .tools[data-v-8004295c] {\n    float: left;\n}\n.fm-main[data-v-8004295c] {\n    margin-top: 8px;\n    border-top: 1px solid #eaeaea;\n}\n.fm-sidebar .fm-header[data-v-8004295c] {\n    height: 35px;\n    line-height: 35px;\n    background-color: #39c;\n    overflow: hidden;\n    font-size: 17px;\n    color: #ecf3f9;\n    text-align: center;\n}\n.fm-sidebar[data-v-8004295c] {\n    border-right: 1px solid #eaeaea\n}\n.fm-content[data-v-8004295c] {\n    background-color: white;\n    cursor: default; /*z-index: 0; box-shadow: 0 2px 4px rgba(0,0,0,0.04), 0 1px 4px rgba(0,0,0,0.12);*/\n    height: 100%;\n}\n.fm-data-wrapper[data-v-8004295c] {\n    overflow: hidden;\n}\n.fm-file-view[data-v-8004295c] {\n    border-left: 1px solid #eaeaea;\n    float: right;\n    height: 100%;\n    width: 250px;\n    padding: 9px;\n    background: .fff;\n}\n.fm-file-view .file-thumb[data-v-8004295c] {\n        text-align: center;\n        max-height: 250px;\n        max-width: 230px;\n        overflow: hidden;\n}\n.fm-file-view .header[data-v-8004295c] {\n        font-weight: bold;\n        margin-bottom: 12px;\n        padding: 2px 0;\n        text-align: center;\n        text-transform: uppercase;\n}\n.fm-file-view .details[data-v-8004295c] {\n        padding-top: 16px;\n}\n.fm-file-view .details div[data-v-8004295c] {\n            line-height: 21px;\n}\n.fm-file-view .details .uploaded[data-v-8004295c],\n        .fm-file-view .details .file-size[data-v-8004295c],\n        .fm-file-view .details .dimensions[data-v-8004295c] {\n            line-height: 21px;\n}\n.fm-file-view .file-thumb img[data-v-8004295c] {\n        border: 1px solid #eaeaea;\n        padding: 4px; /*max-height: 220px; max-width: 228px;*/\n}\n.attachment-info .filename[data-v-8004295c] {\n    font-weight: 600;\n    color: #444;\n    word-wrap: break-word;\n}\n.btn-attack[data-v-8004295c] {\n    background: .fff none repeat scroll 0 0;\n    padding: 3px 3px 3px 0;\n    width: 230px;\n    float: right;\n    clear: both;\n}\n.btn-attack button#btn-attack[data-v-8004295c] {\n        color: .fff;\n        background: #0085ba;\n        border: 0;\n        padding: 4px 6px;\n}\n.btn-attack button#dl-close[data-v-8004295c] {\n        background: #eaeaea;\n        border: 0;\n        padding: 4px 6px;\n        float: right;\n        clear: both;\n}\n.fm-content table._list[data-v-8004295c] {\n    width: 100%;\n}\n.fm-content table._list tr[data-v-8004295c] {\n}\n.fm-content table._list tr th[data-v-8004295c] {\n            text-align: center;\n            font-weight: bold;\n}\n.fm-content table._list tr td[data-v-8004295c] {\n            padding: 5px 4px;\n}\n.fm-content table._list tr._active[data-v-8004295c] {\n            background: #48adff;\n}\n.fm-toolbar ul li i[data-v-8004295c] {\n    background-repeat: no-repeat;\n    display: inline-block;\n    height: 16px;\n    vertical-align: middle;\n    width: 16px;\n}\n.fm-toolbar ul li i[data-v-8004295c] {\n}\nli i.create-folder[data-v-8004295c] {\n    background-image: url(" + __webpack_require__(1005) + ");\n}\nli i.upload[data-v-8004295c] {\n    background-image: url(" + __webpack_require__(1007) + ");\n}\nli i.list[data-v-8004295c] {\n    background-image: url(" + __webpack_require__(1002) + ");\n}\nli i.grid[data-v-8004295c] {\n    background-image: url(" + __webpack_require__(1001) + ");\n}\nli i.iclose[data-v-8004295c] {\n    background-image: url(" + __webpack_require__(1006) + ");\n}\nli i.crop[data-v-8004295c] {\n    background-image: url(" + __webpack_require__(1004) + ");\n}\nli i.remove[data-v-8004295c] {\n    background-image: url(" + __webpack_require__(1003) + ");\n}\nli i.close[data-v-8004295c]:hover {\n}\n.fm-footer[data-v-8004295c] {\n    min-height: 32px;\n}\n.fm-data-wrapper[data-v-8004295c] {\n    height: 100%;\n}\n.clear[data-v-8004295c] {\n    clear: both;\n}\n._list ._active[data-v-8004295c] {\n    background: #48adff;\n}\n.fm-content[data-v-8004295c] {\n}\n.fm-content table._list table thead tr th[data-v-8004295c] {\n        text-align: center;\n}\n.fm-content table._list tr[data-v-8004295c] {\n        font-size: 11px;\n}\n.fm-content table._list tr[data-v-8004295c]:hover {\n            background: #c1edff;\n            cursor: pointer;\n}\n.fm-content table._list tr td[data-v-8004295c] {\n}\n.fm-content table._list tbody tr td.name[data-v-8004295c] {\n        display: inline-flex;\n}\n.fm-content table._list tbody tr td.name .list-icon[data-v-8004295c] {\n            display: inline-block;\n            float: left;\n            padding-right: 20px;\n}\n.fm-grid[data-v-8004295c], .fm-folder ul[data-v-8004295c], .fm-grid li .info p[data-v-8004295c] {\n    padding: 0;\n    margin: 0;\n}\n.fm-grid li[data-v-8004295c] {\n        position: relative;\n        vertical-align: middle;\n        display: table-cell;\n        border: 1px solid #eaeaea;\n        cursor: pointer;\n        float: left;\n        height: 100px;\n        min-width: 114px;\n        list-style-type: none;\n        margin: 4px;\n        padding: 2px;\n        width: 14.99%;\n        position: relative;\n        overflow: hidden;\n        text-align: center;\n}\n.fm-grid li .info[data-v-8004295c] {\n            font-size: 10px;\n            background: rgba(109, 105, 105, 0.87);\n            color: .fff;\n            position: absolute;\n            bottom: 0;\n            width: 100%;\n            height: 0\n}\n.fm-grid li:hover .info[data-v-8004295c] {\n            height: auto\n}\n.fm-list li img[data-v-8004295c] {\n    width: 100%\n}\n.fm-list li.not_img img[data-v-8004295c] {\n    width: 50%;\n    padding-top: 10px\n}\n.fm-grid li img.thumb[data-v-8004295c] {\n    width: 60%;\n    margin: 0 auto;\n}\n.fm-grid li i[data-v-8004295c] {\n    position: absolute;\n    z-index: 999;\n    right: 4px;\n    background: .fff;\n    border-radius: 11px;\n    color: #0085ba;\n    padding: 1px;\n    top: 3px;\n    display: none;\n}\n.fm-grid li._active i[data-v-8004295c] {\n    display: block;\n}\n.fm-grid li._active[data-v-8004295c] {\n    border: 1px solid #0085ba;\n}\n.fm-folder ul li[data-v-8004295c] {\n    list-style-type: none;\n    padding: 8px 0;\n    cursor: pointer\n}\n.fm-folder ul li i[data-v-8004295c] {\n        background-repeat: no-repeat;\n        display: inline-block;\n        height: 16px;\n        vertical-align: middle;\n        width: 16px;\n}\n.plupload_filelist_header[data-v-8004295c] {\n    height: 20px;\n}\n.plupload_filelist_footer[data-v-8004295c] {\n    padding: 6px 20px;\n    height: 33px;\n}\n.plupload_scroll .plupload_filelist[data-v-8004295c] {\n    height: 172px !important;\n}\n.plupload_filelist_footer[data-v-8004295c] {\n    padding: 6px 20px;\n}\n.plupload_filelist[data-v-8004295c]:empty,\n.plupload_filelist li.plupload_droptext[data-v-8004295c] {\n    height: 140px;\n}\n.plupload_filelist[data-v-8004295c]:empty::before,\n    .plupload_filelist li.plupload_droptext[data-v-8004295c]::before {\n        font-size: 52px;\n        height: 75px;\n        left: 49%;\n        margin-left: -40px;\n        padding-top: 43px;\n}\n.items-action[data-v-8004295c] {\n    padding-top: 20px;\n    display: inline-block;\n    width: 100%;\n}\n.items-action .file-action[data-v-8004295c] {\n        border: 0 none;\n        color: .fff;\n        padding: 4px 10px;\n}\n.items-action .file-action[data-v-8004295c] {\n        background: rosybrown;\n        float: left;\n        clear: both;\n}\n/*.items-action .file-action:last-child { background: #0085ba;float: right;}*/\n.fm-toolbar .Mi.ipagination a[data-v-8004295c]:first-child {\n    border: 0;\n    border-radius: 0;\n}\n.fm-toolbar .Mi.ipagination input[data-v-8004295c] {\n    border: medium none;\n    float: left;\n    font-family: arial;\n    font-size: 11px;\n    height: 30px;\n    margin: 0;\n    outline: medium none;\n    padding: 0;\n    text-align: center;\n    vertical-align: middle;\n    width: 84px;\n}\n.fm-toolbar .Mi.ipagination a[data-v-8004295c] {\n    border: 0;\n    border-radius: 0;\n    background: .fff;\n}\n.fm-toolbar .ipagination.iweb[data-v-8004295c] {\n    margin-top: 3.45px;\n}\n.frowInTotals[data-v-8004295c] {\n    display: inline-block;\n    float: left;\n    line-height: 39px;\n    padding-right: 3px;\n    vertical-align: baseline;\n}\nlabel#progressall[data-v-8004295c] {\n    display: none;\n    padding: 7px 7px;\n}\n.Cdiv[data-v-8004295c] {\n    padding-left: 12px;\n    height: 17px;\n    overflow: hidden;\n    text-overflow: ellipsis;\n    white-space: nowrap;\n    width: 100%;\n    display: inline-block;\n    font-weight: normal;\n}\n.btn-fm-upload label[data-v-8004295c] {\n    margin-bottom: 0 !important;\n}\n/* Extra small devices (phones, 600px and down) */\n@media only screen and (max-width: 600px) {\n.fm-grid li[data-v-8004295c] {\n        width: 47.65%;\n}\n}\n\n/* Small devices (portrait tablets and large phones, 600px and up) */\n@media only screen and (min-width: 600px) {\n}\n\n/* Medium devices (landscape tablets, 768px and up) */\n@media only screen and (min-width: 768px) {\n}\n\n/* Large devices (laptops/desktops, 992px and up) */\n@media only screen and (min-width: 992px) {\n}\n\n/* Extra large devices (large laptops and desktops, 1200px and up) */\n@media only screen and (min-width: 1200px) {\n}\n", "", {"version":3,"sources":["D:/Code/WORKING/dotnet-platform-backend/Web/Platform/CMS/PlatformCMS/ClientApp/components/editor/MIEditor.vue?4de04434"],"names":[],"mappings":";AAuoBA;IACA,WAAA;CACA;AAEA;IACA,WAAA;CACA;AAEA;IACA,qBAAA;CACA;AAEA;IACA,WAAA;IACA,4BAAA;CACA;AAEA;IACA,gBAAA;IACA,wBAAA;IACA,UAAA;CACA;AAEA;IACA,YAAA;IACA,yBAAA;IACA,iBAAA;IACA,gBAAA;CACA;AAEA;QACA,uBAAA;QACA,gBAAA;QACA,YAAA;QACA,kBAAA;QACA,sBAAA;QACA,eAAA;QACA,mBAAA;CACA;AAEA;YACA,oBAAA;CACA;AAEA;YACA,oBAAA;CACA;AAEA;CACA;AAEA;CACA;AAEA;IACA,8BAAA;IACA,iBAAA;CACA;AAEA;IACA,YAAA;IACA,mBAAA;CACA;AAEA;IACA,YAAA;CACA;AAEA;IACA,gBAAA;IACA,8BAAA;CACA;AAEA;IACA,aAAA;IACA,kBAAA;IACA,uBAAA;IACA,iBAAA;IACA,gBAAA;IACA,eAAA;IACA,mBAAA;CACA;AAEA;IACA,+BAAA;CACA;AAEA;IACA,wBAAA;IACA,gBAAA,CAAA,mFAAA;IACA,aAAA;CACA;AAEA;IACA,iBAAA;CACA;AAEA;IACA,+BAAA;IACA,aAAA;IACA,aAAA;IACA,aAAA;IACA,aAAA;IACA,iBAAA;CACA;AAEA;QACA,mBAAA;QACA,kBAAA;QACA,iBAAA;QACA,iBAAA;CACA;AAEA;QACA,kBAAA;QACA,oBAAA;QACA,eAAA;QACA,mBAAA;QACA,0BAAA;CACA;AAEA;QACA,kBAAA;CACA;AAEA;YACA,kBAAA;CACA;AAEA;;;YAGA,kBAAA;CACA;AAEA;QACA,0BAAA;QACA,aAAA,CAAA,wCAAA;CACA;AAEA;IACA,iBAAA;IACA,YAAA;IACA,sBAAA;CACA;AAEA;IACA,wCAAA;IACA,uBAAA;IACA,aAAA;IACA,aAAA;IACA,YAAA;CACA;AAEA;QACA,YAAA;QACA,oBAAA;QACA,UAAA;QACA,iBAAA;CACA;AAEA;QACA,oBAAA;QACA,UAAA;QACA,iBAAA;QACA,aAAA;QACA,YAAA;CACA;AAEA;IACA,YAAA;CACA;AAEA;CACA;AAEA;YACA,mBAAA;YACA,kBAAA;CACA;AAEA;YACA,iBAAA;CACA;AAEA;YACA,oBAAA;CACA;AAEA;IACA,6BAAA;IACA,sBAAA;IACA,aAAA;IACA,uBAAA;IACA,YAAA;CACA;AAEA;CACA;AAEA;IACA,gDAAA;CACA;AAEA;IACA,gDAAA;CACA;AAEA;IACA,gDAAA;CACA;AAEA;IACA,gDAAA;CACA;AAEA;IACA,gDAAA;CACA;AAEA;IACA,gDAAA;CACA;AAEA;IACA,gDAAA;CACA;AAEA;CACA;AAEA;IACA,iBAAA;CACA;AAEA;IACA,aAAA;CACA;AAEA;IACA,YAAA;CACA;AAEA;IACA,oBAAA;CACA;AAEA;CACA;AAEA;QACA,mBAAA;CACA;AAEA;QACA,gBAAA;CACA;AAEA;YACA,oBAAA;YACA,gBAAA;CACA;AAEA;CACA;AAEA;QACA,qBAAA;CACA;AAEA;YACA,sBAAA;YACA,YAAA;YACA,oBAAA;CACA;AAEA;IACA,WAAA;IACA,UAAA;CACA;AAEA;QACA,mBAAA;QACA,uBAAA;QACA,oBAAA;QACA,0BAAA;QACA,gBAAA;QACA,YAAA;QACA,cAAA;QACA,iBAAA;QACA,sBAAA;QACA,YAAA;QACA,aAAA;QACA,cAAA;QACA,mBAAA;QACA,iBAAA;QACA,mBAAA;CACA;AAEA;YACA,gBAAA;YACA,sCAAA;YACA,YAAA;YACA,mBAAA;YACA,UAAA;YACA,YAAA;YACA,SAAA;CACA;AAEA;YACA,YAAA;CACA;AAEA;IACA,WAAA;CACA;AAEA;IACA,WAAA;IACA,iBAAA;CACA;AAEA;IACA,WAAA;IACA,eAAA;CACA;AAEA;IACA,mBAAA;IACA,aAAA;IACA,WAAA;IACA,iBAAA;IACA,oBAAA;IACA,eAAA;IACA,aAAA;IACA,SAAA;IACA,cAAA;CACA;AAEA;IACA,eAAA;CACA;AAEA;IACA,0BAAA;CACA;AAEA;IACA,sBAAA;IACA,eAAA;IACA,eAAA;CACA;AAEA;QACA,6BAAA;QACA,sBAAA;QACA,aAAA;QACA,uBAAA;QACA,YAAA;CACA;AAEA;IACA,aAAA;CACA;AAEA;IACA,kBAAA;IACA,aAAA;CACA;AAEA;IACA,yBAAA;CACA;AAEA;IACA,kBAAA;CACA;AAEA;;IAEA,cAAA;CACA;AAEA;;QAEA,gBAAA;QACA,aAAA;QACA,UAAA;QACA,mBAAA;QACA,kBAAA;CACA;AAEA;IACA,kBAAA;IACA,sBAAA;IACA,YAAA;CACA;AAEA;QACA,eAAA;QACA,YAAA;QACA,kBAAA;CACA;AAEA;QACA,sBAAA;QACA,YAAA;QACA,YAAA;CACA;AACA,8EAAA;AACA;IACA,UAAA;IACA,iBAAA;CACA;AAEA;IACA,oBAAA;IACA,YAAA;IACA,mBAAA;IACA,gBAAA;IACA,aAAA;IACA,UAAA;IACA,qBAAA;IACA,WAAA;IACA,mBAAA;IACA,uBAAA;IACA,YAAA;CACA;AAEA;IACA,UAAA;IACA,iBAAA;IACA,iBAAA;CACA;AAEA;IACA,mBAAA;CACA;AAEA;IACA,sBAAA;IACA,YAAA;IACA,kBAAA;IACA,mBAAA;IACA,yBAAA;CACA;AAEA;IACA,cAAA;IACA,iBAAA;CACA;AAEA;IACA,mBAAA;IACA,aAAA;IACA,iBAAA;IACA,wBAAA;IACA,oBAAA;IACA,YAAA;IACA,sBAAA;IACA,oBAAA;CACA;AAEA;IACA,4BAAA;CACA;AACA,kDAAA;AAEA;AACA;QACA,cAAA;CACA;CACA;;AAEA,qEAAA;AAEA;CACA;;AAEA,sDAAA;AAEA;CACA;;AAEA,oDAAA;AAEA;CACA;;AAEA,qEAAA;AAEA;CACA","file":"MIEditor.vue","sourcesContent":["<template>\r\n    <div>\r\n        <loading :active.sync=\"isLoading\"\r\n                 :height=\"35\"\r\n                 :width=\"35\"></loading>\r\n        <ckeditor v-model=\"content\"\r\n                  @input=\"onEditorInput\"\r\n                  @destroy=\"onEditorDestroy\" :config=\"config\" :index=\"index_p\"></ckeditor>\r\n        <FileManager />\r\n        <!--modal product shortcode-->\r\n        <b-modal ref=\"product-manager-modal\" id=\"product-manager-modal\" v-model=\"modalShowProduct\" class=\"file-manager\" fbody=\"xxx\" hide-footer hide-header size=\"xl\">\r\n            <div id=\"fm-container\" class=\"container-fluid fm-container\">\r\n                <b-row id=\"fm-toolbar\">\r\n                    <b-col lg=\"2\" md=\"2\" sm=\"12\">\r\n                        <b>Sản phẩm</b>\r\n                    </b-col>\r\n                    <b-col>\r\n                        <b-row align-h=\"between\">\r\n                            <b-col cols=\"4\">\r\n                                <treeselect v-model=\"SearchZoneId\"\r\n                                            :options=\"ZoneOptions\"\r\n                                            placeholder=\"Danh mục\"\r\n                                            :default-expanded-level=\"Infinity\">\r\n                                </treeselect>\r\n                            </b-col>\r\n                            <b-col cols=\"4\" class=\"bd-0\">\r\n                                <b-pagination v-model=\"currentPageProductManager\" align=\"right\" size=\"sm\" :limit=\"4\"\r\n                                              :total-rows=\"products.total\"\r\n                                              :per-page=\"pageSize\"></b-pagination>\r\n                            </b-col>\r\n\r\n                        </b-row>\r\n\r\n                    </b-col>\r\n\r\n                </b-row>\r\n                <b-row id=\"fm-main\" class=\"fm-main\">\r\n                    <b-col id=\"fm-content\" class=\"fm-content\" lg=\"9\" dm=\"12\" sm=\"12\">\r\n                        <div id=\"fm-data-wrapper\" class=\"fm-data-wrapper\">\r\n                            <div class=\"fm-list-wrapper\">\r\n                                <div class=\"fm-list\">\r\n                                    <ul id=\"fm-grid\" class=\"fm-grid\" v-if=\"products.listData\">\r\n                                        <li v-for=\"item in products.listData\" :key=\"item.id\" class=\"item\" :class=\"{ _active: isActive}\" @click=\"SelectProduct($event,{name:item.name,id:item.id,avatar:item.avatar,code:item.code})\">\r\n                                            <img :src=\"pathImgs(item.avatar)\" alt=\"\">\r\n                                            <i class=\"fa fa-check\"></i>\r\n                                            <div class=\"info\">\r\n                                                <p class=\"name\">{{item.name}}</p>\r\n                                                <p class=\"dimensions\">{{item.code}}</p>\r\n                                            </div>\r\n                                        </li>\r\n                                    </ul>\r\n                                    <p v-else class=\"text-center\">Không tìm thấy !</p>\r\n                                </div>\r\n                            </div>\r\n                        </div>\r\n\r\n                    </b-col>\r\n                    <b-col id=\"fm-content-selected\" lg=\"3\" dm=\"2\" sm=\"12\">\r\n                        <p class=\"text-center\"><b>Danh sách đã chọn</b></p>\r\n                        <ul style=\"padding:0\" v-if=\"selectedProduct\">\r\n                            <li v-for=\"pro in selectedProduct\" :key=\"pro.id\" style=\"border-bottom:1px solid #ddd;padding:4px 0;display:inline-block;min-height:50px\">\r\n                                <img style=\"width:45px;float:left;padding-right:4px;clear:both\" :src=\"pathImgs(pro.avatar)\" alt=\"\">{{pro.name}}-{{pro.code}}\r\n                            </li>\r\n                        </ul>\r\n                        <p v-else class=\"text-center\">trống !</p>\r\n                    </b-col>\r\n                </b-row>\r\n                <b-row align-h=\"end\" id=\"fm-footer\" class=\"fm-footer\">\r\n                    <b-col cols=\"4\">\r\n                        <div class=\"btn-attack\">\r\n                            <button type=\"button\" id=\"btn-attack\" @click=\"attackProduct\">Đính kèm</button>\r\n                            <!--<button type=\"button\" id=\"btn-attack\" @click=\"attackFileSelected\">Đính kèm2</button>-->\r\n                            <button type=\"button\" id=\"dl-close\" @click=\"hideProductModal\" class=\"iclose\">Đóng</button>\r\n                        </div>\r\n                    </b-col>\r\n                </b-row>\r\n            </div>\r\n        </b-modal>\r\n        <!--modal product shortcode end-->\r\n        <!--modal file manager-->\r\n        <b-modal ref=\"file-manager-modal\" class=\"file-manager\" id=\"file-manager-modal\" v-model=\"modalShowFile\"  fbody=\"xxx\" hide-footer hide-header size=\"xl\">\r\n            <div class=\"container-fluid fm-container\">\r\n                <b-row class=\"fm-toolbar\">\r\n                    <b-col lg=\"2\" md=\"2\" sm=\"12\">\r\n                        <b>Thư viện</b>\r\n                    </b-col>\r\n                    <b-col>\r\n                        <b-row align-h=\"between\">\r\n                            <b-col cols=\"4\">\r\n                                <div class=\"tool-items\">\r\n                                    <ul class=\"tools\">\r\n                                        <li title=\"Create folder\">\r\n                                            <i class=\"create-folder\"></i>\r\n                                        </li>\r\n                                    </ul>\r\n                                    <ul class=\"tools\">\r\n                                        <li title=\"Remove\">\r\n                                            <i class=\"remove\"></i>\r\n                                        </li>\r\n                                    </ul>\r\n                                    <div class=\"tools\">\r\n                                        <input v-model=\"keyword\" v-on:keyup.enter=\"LoadFile()\" class=\"form-control\" placeholder=\"Gõ tên ảnh ấn enter\" />\r\n                                    </div>\r\n                                </div>\r\n                            </b-col>\r\n                            <b-col cols=\"4\" class=\"bd-0\">\r\n                                <b-pagination v-model=\"currentPageFileManager\" align=\"right\" size=\"sm\" :limit=\"4\"\r\n                                              :total-rows=\"files.totals\"\r\n                                              :per-page=\"pageSize\"></b-pagination>\r\n                            </b-col>\r\n                            <b-col cols=\"4\">\r\n                                <div class=\"tool-items float-right\">\r\n\r\n                                    <ul class=\"tools\">\r\n                                        <li title=\"Create folder\">\r\n                                            <i class=\"create-folder\"></i>\r\n                                        </li>\r\n                                        <li title=\"Upload\" id=\"btn-fm-upload\">\r\n                                            <label for=\"fileSingleupload\">\r\n                                                <i class=\"upload\"></i>\r\n                                            </label>\r\n                                            <input accept=\"image/*,.doc,.docx,.pdf,.xls,.xlsx,.zip,.rar\" @change=\"DoUploadFile\" id=\"fileSingleupload\"\r\n                                                   multiple\r\n                                                   type=\"file\"\r\n                                                   name=\"files[]\"\r\n                                                   style=\"display: none\" />\r\n                                        </li>\r\n                                    </ul>\r\n                                    <ul class=\"tools\">\r\n                                        <li title=\"List view\">\r\n                                            <i class=\"list\"></i>\r\n                                        </li>\r\n                                        <li title=\"Grid View\">\r\n                                            <i class=\"grid\"></i>\r\n                                        </li>\r\n                                    </ul>\r\n                                </div>\r\n                            </b-col>\r\n                        </b-row>\r\n\r\n                    </b-col>\r\n\r\n                </b-row>\r\n                <b-row class=\"fm-main\">\r\n                    <b-col class=\"fm-sidebar\" lg=\"2\" md=\"2\" sm=\"12\">\r\n                        <div class=\"fm-folder\">\r\n                            <ul>\r\n                                <li><i class=\"create-folder\"></i> Document</li>\r\n                                <li><i class=\"create-folder\"></i> Image</li>\r\n                                <li><i class=\"create-folder\"></i> Icon</li>\r\n                            </ul>\r\n                        </div>\r\n                    </b-col>\r\n                    <b-col class=\"fm-content\" lg=\"10\" dm=\"2\" sm=\"12\">\r\n                        <div class=\"fm-data-wrapper\">\r\n                            <div class=\"fm-list-wrapper\">\r\n                                <div class=\"fm-list\">\r\n                                    <ul class=\"fm-grid\">\r\n                                        <li v-for=\"file in files.files\" :key=\"file.id\" class=\"item\" :class=\"{ _active: isActive, not_img:checkImage(file.fileExt)}\" @click=\"SelectFile($event,{path:file.filePath,id:file.id})\">\r\n                                            <img :src=\"mapImageUrl(file.filePath,file.fileExt)\" alt=\"\">\r\n                                            <i class=\"fa fa-check\"></i>\r\n                                            <div class=\"info\">\r\n                                                <p class=\"name\">{{file.name}}</p>\r\n                                                <p class=\"dimensions\">{{file.dimensions}}</p>\r\n                                                <p class=\"size\">{{file.fileSize}}kb</p>\r\n                                            </div>\r\n                                        </li>\r\n                                    </ul>\r\n                                </div>\r\n                            </div>\r\n                        </div>\r\n\r\n                    </b-col>\r\n                </b-row>\r\n                <b-row align-h=\"end\" class=\"fm-footer\">\r\n                    <b-col cols=\"4\">\r\n                        <div class=\"btn-attack\">\r\n                            <button type=\"button\" id=\"btn-attack\" @click=\"attackFile\">Đính kèm</button>\r\n                            <!--<button type=\"button\" id=\"btn-attack\" @click=\"attackFileSelected\">Đính kèm2</button>-->\r\n                            <button type=\"button\" id=\"dl-close\" @click=\"hideFileManagerModal\" class=\"iclose\">Đóng</button>\r\n                        </div>\r\n                    </b-col>\r\n                </b-row>\r\n            </div>\r\n        </b-modal>\r\n    </div>\r\n</template>\r\n\r\n<script>\r\n\r\n    import FileManager from './../fileManager/list'\r\n    let _config = require('./../../../appsettings.json');\r\n\r\n    import \"vue-loading-overlay/dist/vue-loading.css\";\r\n    import { mapActions, mapGetters } from \"vuex\";\r\n    import Loading from \"vue-loading-overlay\";\r\n    // import the component\r\n    import Treeselect from '@riophae/vue-treeselect'\r\n    // import the styles\r\n    import '@riophae/vue-treeselect/dist/vue-treeselect.css'\r\n    import { unflatten, slug, pathImg } from \"../../plugins/helper\";\r\n    import CKEditor from 'ckeditor4-vue';\r\n\r\n\r\n    export default {\r\n        name: \"App2\",\r\n        props: {\r\n            contentEditor: {\r\n                type: String\r\n            },\r\n            index: { type: Number },\r\n            mathElements: { type: Array }\r\n        },\r\n        data() {\r\n            return {\r\n                modalShowProduct: false,\r\n                modalShowFile:false,\r\n                imageAttacks: '',\r\n                content: this.contentEditor,\r\n                config: {\r\n                    //removePlugins: 'image,pwimage',\r\n                    extraPlugins: \"niw_btn,product_shortcode_btn\",\r\n                    allowedContent: true,\r\n                    format_tags : 'p;h1;h2;h3;h4;h5;h6;pre;address;div',\r\n                    //smiley_path = 'http://www.example.com/images/smileys/',\r\n                    //font_defaultLabel: \"Arial\",\r\n                    //fontSize_defaultLabel: 16,\r\n                    //contentsCss: [\"body {font-size: 18px; font-family: 'Arial'}\"]\r\n                    //extraAllowedContent: this.mathElements.join( ' ' ) + '(*)[*]{*};img[data-mathml,data-custom-editor,role](Wirisformula)'\r\n                },\r\n                // product shortcode\r\n                SearchZoneId: 0,\r\n                fullPage: false,\r\n                color: \"#007bff\",\r\n                isLoadLang: false,\r\n                currentPageProductManager: 1,\r\n                currentPageFileManager: 1,\r\n                pageSize: 24,\r\n                isLoading: false,\r\n                selectedProduct: [],\r\n                isActive: false,\r\n                selectType: '',\r\n                ZoneOptions: [],\r\n                curentEditor: '',\r\n                //// product shortcode end\r\n                //file\r\n                MaxFileSize: 3000,//Kb\r\n                selectedFile: [],\r\n                extensions: [],\r\n                extImage: [],\r\n                keyword: '',\r\n                index_p: this.index,\r\n            };\r\n        },\r\n        components: {\r\n\r\n            FileManager,\r\n            Treeselect,\r\n            Loading\r\n        },\r\n        created() {\r\n            let _config = require('./../../../appsettings.json');\r\n            this.extImage = _config.AppSettings.ImageAllowUpload;\r\n            this.extensions = _config.AppSettings.ImageAllowUpload.concat(_config.AppSettings.DocumentAllowUpload);\r\n            \r\n        },\r\n        computed: {\r\n            files() {\r\n                return this.$store.getters.files\r\n            },\r\n            ...mapGetters([\"products\"])\r\n        },\r\n        mounted() {\r\n            this.CKAddCustomPlugin();\r\n        },\r\n        methods: {\r\n\r\n            CKAddCustomPlugin() {\r\n                let $this = this;\r\n                //console.log(this.config)\r\n                \r\n                let e = this.config.extraPlugins;\r\n                let extraConfigs = e.split(',')\r\n                \r\n                this.config.extraPlugins = extraConfigs.join(',')\r\n\r\n                if (!CKEDITOR.plugins.get(\"niw_btn\")) {\r\n                    CKEDITOR.plugins.add(\"niw_btn\", {\r\n                        init: function (editor) {\r\n                            editor.ui.addButton && editor.ui.addButton(\"uploadImg\", {\r\n                                label: \"Tải hình ảnh\",\r\n                                command: \"filemanager\",\r\n                                icon: \"https://hoc24.vn/media/cke24/plugins/imgur/images/icon.png?t=14\",\r\n                                toolbar: \"insert\"\r\n                            });\r\n                            editor.addCommand(\"filemanager\", {\r\n                                exec: function (editor) {\r\n                                    $this.FileManagers('multi', editor);\r\n                                    $this.curentEditor = editor;\r\n\r\n                                }\r\n                            });\r\n\r\n                        }\r\n                    });\r\n                }\r\n                if (!CKEDITOR.plugins.get(\"product_shortcode_btn\")) {\r\n                    CKEDITOR.plugins.add(\"product_shortcode_btn\", {\r\n                        init: function (editor) {\r\n\r\n                            editor.ui.addButton && editor.ui.addButton(\"InsertProduct\", {\r\n                                label: \"Chèn sản phẩm\",\r\n                                command: \"InsertProduct\",\r\n                                icon: \"https://cdn-icons-png.flaticon.com/512/81/81960.png\",\r\n                                toolbar: \"insert\"\r\n                            });\r\n                            editor.addCommand(\"InsertProduct\", {\r\n                                exec: function (editor) {\r\n                                    $this.ProductManages('multi', editor);\r\n                                    $this.curentEditor = editor;\r\n                                }\r\n                            });\r\n\r\n                        }\r\n                    });\r\n                }\r\n                \r\n                \r\n                \r\n            },\r\n\r\n            toggleEditorDisabled() {\r\n                this.editorDisabled = !this.editorDisabled;\r\n            },\r\n            destroyApp() {\r\n                //app.$destroy();\r\n            },\r\n\r\n            onEditorInput(data, event, editor) {\r\n                //console.log(\"Editor data input.\", { event, editor, data });\r\n                if (this.index_p >= 0) {\r\n                    var dt = {\r\n                        content: this.content,\r\n                        index: this.index_p\r\n\r\n                    }\r\n                    //console.log(dt);\r\n                    this.$emit(\"handleEditorInput\", JSON.stringify(dt));\r\n                }\r\n                else {\r\n                    this.$emit(\"handleEditorInput\", this.content);\r\n                }\r\n                //\r\n            },\r\n\r\n\r\n            onEditorDestroy(editor) {\r\n                console.log(\"Editor destroyed.\", { editor });\r\n            },\r\n\r\n\r\n\r\n            ...mapActions([\"getProducts\", \"getZones\"]),\r\n            pathImgs(path) {\r\n                return pathImg(path);\r\n            },\r\n            SelectProduct(event, file) {\r\n                if (this.selectType == 'multi') {\r\n                    if (event.currentTarget.classList.contains('_active')) {\r\n                        event.currentTarget.classList.remove('_active');\r\n                        this.selectedProduct = this.selectedProduct.filter(obj => obj.id != file.id)\r\n                    }\r\n                    else {\r\n                        event.currentTarget.classList.add(\"_active\");\r\n                        this.selectedProduct.push(file)\r\n                    }\r\n                } else {\r\n                    this.selectedFile = [];\r\n                    if (event.currentTarget.classList.contains('_active')) {\r\n                        event.currentTarget.classList.remove('_active');\r\n\r\n                    }\r\n                    else {\r\n                        let items = document.querySelectorAll('.item');\r\n                        items.forEach(function (item) {\r\n                            item.classList.remove('_active');\r\n                        });\r\n                        event.currentTarget.classList.add(\"_active\");\r\n                        this.selectedProduct.push(file)\r\n                    }\r\n                }\r\n            },\r\n\r\n            ProductManages(param) {\r\n                this.modalShowProduct = true;\r\n                this.selectType = param;\r\n              //  this.$modal.show('hello-world');\r\n                //this.$refs[\"product-manager-modal\"].show();\r\n              //  $('#file-manager-modal').modal('show')\r\n               // this.$bvModal.show('product-manager-modal')\t\r\n                this.getZones(1).then(respose => {\r\n                    var data = respose.listData;\r\n                    data.push({ id: 0, label: \"Danh mục\", parentId: 0 });\r\n                    this.ZoneOptions = unflatten(data);\r\n                }).then(res => {\r\n\r\n                });\r\n                this.getProducts({\r\n                    pageIndex: this.currentPageProductManager,\r\n                    pageSize: this.pageSize,\r\n                    idZone: this.SearchZoneId\r\n                }).then(subRes => {\r\n                    //   this.isLoading = false;\r\n                });\r\n\r\n            },\r\n            LoadFile() {\r\n                this.fmFileGetAll({\r\n                    keyword: this.keyword,\r\n                          pageIndex: this.currentPageFileManager,\r\n                    pageSize: this.pageSize\r\n                });\r\n            },\r\n            hideProductModal() {\r\n                //this.$refs[\"product-manager-modal\"].hide();\r\n                this.modalShowProduct = false;\r\n            },\r\n            attackProduct() {\r\n                let ids = [];\r\n                let pros = this.selectedProduct;\r\n                for (let x in pros) {\r\n                    ids.push(pros[x].id);\r\n                }\r\n                this.curentEditor.insertHtml(\r\n                    '<p><product data-id-list=\"' + ids.join(',').toString() + '\">[shortcode]:[' + ids.join(',').toString() + ']</product></p>'\r\n                );\r\n                //  this.$refs[\"product-manager-modal\"].hide();\r\n                this.modalShowProduct = false;\r\n                this.selectedProduct = [];\r\n            },\r\n            toggleProductModal() {\r\n                this.$refs[\"product-manager-modal\"].toggle(\"#toggle-btn\");\r\n            },\r\n            // attack file\r\n            ...mapActions([\"fmFileUpload\", \"fmFileGetAll\"]),\r\n            mapImageUrl(img, ext) {\r\n                if (this.extImage.indexOf(ext) !== -1) {\r\n                    return '/uploads/thumb' + img;\r\n                }\r\n                return './../../ClientApp/assets/fileicons/' + ext.replace('.', '') + '.png';\r\n            },\r\n            checkImage(ext) {\r\n                if (this.extImage.indexOf(ext) == -1) {\r\n                    return true\r\n                }\r\n                return false\r\n            },\r\n            DoUploadFile(e) {\r\n                let files = e.srcElement.files;\r\n\r\n                if (files) {\r\n                    let filesTemp = Array.from(files);\r\n\r\n                    let msgFileAllow = '';\r\n                    let msgLimitedSize = '';\r\n                    for (var i = 0; i < filesTemp.length; i++) {\r\n\r\n                        let name = filesTemp[i].name;\r\n                        let type = name.split('.').pop();\r\n                        if (this.extensions.indexOf(type) == -1) {\r\n                            filesTemp.splice(i, 1); // xóa khỏi array\r\n                            if (msgFileAllow.length == 0) {\r\n                                msgFileAllow = name;\r\n                            } else {\r\n                                msgFileAllow += ', ' + name;\r\n                            }\r\n                        }\r\n                        if (msgFileAllow.length > 0) {\r\n                            this.$toast.error(msgFileAllow + ' không hợp lệ !', {});\r\n                        }\r\n                    }\r\n                    for (var i = 0; i < filesTemp.length; i++) {\r\n\r\n\r\n                        let size = filesTemp[i].size;\r\n                        let name = filesTemp[i].name;\r\n\r\n\r\n                        if (this.MaxFileSize < (size / 1024)) {\r\n                            filesTemp.splice(i, 1);\r\n                            if (msgLimitedSize.length == 0) {\r\n                                msgLimitedSize = name;\r\n                            } else {\r\n                                msgLimitedSize += ', ' + name;\r\n                            }\r\n\r\n                        }\r\n                        if (msgLimitedSize.length > 0) {\r\n                            this.$toast.error(msgFileAllow + ' dung lượng quá lớn !', {});\r\n                        }\r\n\r\n\r\n                    }\r\n                    if (filesTemp.length) {\r\n                        let fd = new FormData();\r\n\r\n                        filesTemp.forEach(function (item) {\r\n                            fd.append('files', item);\r\n                        });\r\n                        this.UploadFileAction(fd);\r\n                    }\r\n\r\n                }\r\n\r\n            },\r\n            UploadFileAction(files) {\r\n                this.fmFileUpload(files)\r\n                    .then(response => {\r\n                        if (response.success) {\r\n                            this.LoadFile();\r\n                            this.$toast.success(response.Message, {});\r\n                            this.isLoading = false;\r\n                        }\r\n                        else {\r\n                            this.$toast.error(response.Message, {});\r\n                            this.isLoading = false;\r\n                        }\r\n                    })\r\n                    .catch(e => {\r\n                        this.$toast.error(msgNotify.error + \". Error:\" + e, {});\r\n                        this.isLoading = false;\r\n                    });\r\n\r\n\r\n            },\r\n            SelectFile(event, file) {\r\n                if (this.selectType == 'multi') {\r\n                    if (event.currentTarget.classList.contains('_active')) {\r\n                        event.currentTarget.classList.remove('_active');\r\n\r\n                        // let objIsExist = this.selectedFile.some(obj => obj.id = file.id);\r\n                        // if (objIsExist) {\r\n                        this.selectedFile = this.selectedFile.filter(obj => obj.id != file.id)\r\n                        // }\r\n                    }\r\n                    else {\r\n                        event.currentTarget.classList.add(\"_active\");\r\n                        this.selectedFile.push(file)\r\n                    }\r\n                } else {\r\n\r\n                    this.selectedFile = [];\r\n                    if (event.currentTarget.classList.contains('_active')) {\r\n                        event.currentTarget.classList.remove('_active');\r\n\r\n                    }\r\n                    else {\r\n                        let items = document.querySelectorAll('.item');\r\n                        items.forEach(function (item) {\r\n                            item.classList.remove('_active');\r\n                        });\r\n                        event.currentTarget.classList.add(\"_active\");\r\n                        this.selectedFile.push(file)\r\n                    }\r\n                }\r\n            },\r\n\r\n            FileManagers(param) {\r\n               \r\n                this.selectType = param;\r\n              \r\n                this.modalShowFile = true;\r\n               // this.$refs[\"file-manager-modal\"].show();\r\n                // this.$bvModal.show('file-manager-modal')\t\r\n                this.LoadFile();\r\n            },\r\n\r\n            hideFileManagerModal() {\r\n                //this.$refs[\"file-manager-modal\"].hide();\r\n                this.modalShowFile = false;\r\n            },\r\n            attackFile() {\r\n                let domain = config.BASE_URLCms;\r\n                let images = this.selectedFile;\r\n                for (let x in images) {\r\n                    this.curentEditor.insertHtml(\r\n                        '<img style=\"max-width:90%\" src=\"' + domain + 'uploads' + images[x].path + '\"/>'\r\n                    );\r\n                }\r\n               // this.$refs[\"file-manager-modal\"].hide();\r\n                this.modalShowFile = false;\r\n                this.selectedFile = [];\r\n            },\r\n\r\n            toggleFileModal() {\r\n                // We pass the ID of the button that we want to return focus to\r\n                // when the modal has hidden\r\n                this.$refs[\"file-manager-modal\"].toggle(\"#toggle-btn\");\r\n            }\r\n        },\r\n\r\n        watch: {\r\n            contentEditor() {\r\n                this.content = this.contentEditor;\r\n            },\r\n            index() {\r\n                this.index_p = this.index;\r\n                \r\n            },\r\n            currentPageFileManager() {\r\n                this.isLoading = true;\r\n\r\n                this.LoadFile();\r\n\r\n                this.isLoading = false;\r\n                //this.fmFileGetAll({\r\n                //    pageIndex: this.currentPageFileManager,\r\n                //    pageSize: this.pageSize\r\n                //}).then(subRes => {\r\n                //    this.isLoading = false;\r\n                //});\r\n            },\r\n            currentPageProductManager() {\r\n                this.isLoading = true;\r\n                this.getProducts({\r\n                    pageIndex: this.currentPageProductManager,\r\n                    pageSize: this.pageSize,\r\n                    idZone: this.SearchZoneId\r\n                }).then(subRes => {\r\n                    this.isLoading = false;\r\n                });\r\n            },\r\n            SearchZoneId() {\r\n                this.isLoading = true;\r\n                this.getProducts({\r\n                    pageIndex: 1,\r\n                    pageSize: this.pageSize,\r\n                    idZone: this.SearchZoneId\r\n                }).then(subRes => {\r\n                    this.isLoading = false;\r\n                });\r\n            }\r\n        }\r\n    };\r\n</script>\r\n\r\n<style scoped>\r\n    .file-manager, .fm-content-selected {\r\n        padding: 0;\r\n    }\r\n\r\n    .file-manager___BV_modal_body_ {\r\n        padding: 0;\r\n    }\r\n\r\n    .fm-content-selected ul li {\r\n        list-style-type: none\r\n    }\r\n\r\n    .fm-container-dialog {\r\n        padding: 0;\r\n        overflow: hidden !important;\r\n    }\r\n\r\n    .fm-container {\r\n        font-size: 12px;\r\n        font-family: sans-serif;\r\n        padding: 0\r\n    }\r\n\r\n    .fm-toolbar ul {\r\n        float: left;\r\n        margin: 3.5px 0 3px 10px;\r\n        padding: 1px 2px;\r\n        border-radius: 0\r\n    }\r\n\r\n        .fm-toolbar ul li {\r\n            border: 1px solid .fff;\r\n            cursor: pointer;\r\n            float: left;\r\n            line-height: 26px;\r\n            list-style-type: none;\r\n            padding: 0 8px;\r\n            text-align: center;\r\n        }\r\n\r\n            .fm-toolbar ul li:hover {\r\n                background: #eaeaea;\r\n            }\r\n\r\n            .fm-toolbar ul li.active {\r\n                background: #eaeaea;\r\n            }\r\n\r\n    .fm-container {\r\n    }\r\n\r\n    .fm-toolbar {\r\n    }\r\n\r\n    .fm-footer {\r\n        border-top: 1px solid #eaeaea;\r\n        padding-top: 10px\r\n    }\r\n\r\n    .fm-toolbar .tool-items {\r\n        clear: both;\r\n        padding-right: 6px;\r\n    }\r\n\r\n    .fm-toolbar .tools {\r\n        float: left;\r\n    }\r\n\r\n    .fm-main {\r\n        margin-top: 8px;\r\n        border-top: 1px solid #eaeaea;\r\n    }\r\n\r\n    .fm-sidebar .fm-header {\r\n        height: 35px;\r\n        line-height: 35px;\r\n        background-color: #39c;\r\n        overflow: hidden;\r\n        font-size: 17px;\r\n        color: #ecf3f9;\r\n        text-align: center;\r\n    }\r\n\r\n    .fm-sidebar {\r\n        border-right: 1px solid #eaeaea\r\n    }\r\n\r\n    .fm-content {\r\n        background-color: white;\r\n        cursor: default; /*z-index: 0; box-shadow: 0 2px 4px rgba(0,0,0,0.04), 0 1px 4px rgba(0,0,0,0.12);*/\r\n        height: 100%;\r\n    }\r\n\r\n    .fm-data-wrapper {\r\n        overflow: hidden;\r\n    }\r\n\r\n    .fm-file-view {\r\n        border-left: 1px solid #eaeaea;\r\n        float: right;\r\n        height: 100%;\r\n        width: 250px;\r\n        padding: 9px;\r\n        background: .fff;\r\n    }\r\n\r\n        .fm-file-view .file-thumb {\r\n            text-align: center;\r\n            max-height: 250px;\r\n            max-width: 230px;\r\n            overflow: hidden;\r\n        }\r\n\r\n        .fm-file-view .header {\r\n            font-weight: bold;\r\n            margin-bottom: 12px;\r\n            padding: 2px 0;\r\n            text-align: center;\r\n            text-transform: uppercase;\r\n        }\r\n\r\n        .fm-file-view .details {\r\n            padding-top: 16px;\r\n        }\r\n\r\n            .fm-file-view .details div {\r\n                line-height: 21px;\r\n            }\r\n\r\n            .fm-file-view .details .uploaded,\r\n            .fm-file-view .details .file-size,\r\n            .fm-file-view .details .dimensions {\r\n                line-height: 21px;\r\n            }\r\n\r\n        .fm-file-view .file-thumb img {\r\n            border: 1px solid #eaeaea;\r\n            padding: 4px; /*max-height: 220px; max-width: 228px;*/\r\n        }\r\n\r\n    .attachment-info .filename {\r\n        font-weight: 600;\r\n        color: #444;\r\n        word-wrap: break-word;\r\n    }\r\n\r\n    .btn-attack {\r\n        background: .fff none repeat scroll 0 0;\r\n        padding: 3px 3px 3px 0;\r\n        width: 230px;\r\n        float: right;\r\n        clear: both;\r\n    }\r\n\r\n        .btn-attack button#btn-attack {\r\n            color: .fff;\r\n            background: #0085ba;\r\n            border: 0;\r\n            padding: 4px 6px;\r\n        }\r\n\r\n        .btn-attack button#dl-close {\r\n            background: #eaeaea;\r\n            border: 0;\r\n            padding: 4px 6px;\r\n            float: right;\r\n            clear: both;\r\n        }\r\n\r\n    .fm-content table._list {\r\n        width: 100%;\r\n    }\r\n\r\n        .fm-content table._list tr {\r\n        }\r\n\r\n            .fm-content table._list tr th {\r\n                text-align: center;\r\n                font-weight: bold;\r\n            }\r\n\r\n            .fm-content table._list tr td {\r\n                padding: 5px 4px;\r\n            }\r\n\r\n            .fm-content table._list tr._active {\r\n                background: #48adff;\r\n            }\r\n\r\n    .fm-toolbar ul li i {\r\n        background-repeat: no-repeat;\r\n        display: inline-block;\r\n        height: 16px;\r\n        vertical-align: middle;\r\n        width: 16px;\r\n    }\r\n\r\n    .fm-toolbar ul li i {\r\n    }\r\n\r\n    li i.create-folder {\r\n        background-image: url(./../../assets/img/icon/folder_add.png);\r\n    }\r\n\r\n    li i.upload {\r\n        background-image: url(\"./../../assets/img/icon/upload.png\");\r\n    }\r\n\r\n    li i.list {\r\n        background-image: url(\"./../../assets/img/icon/application_view_list.png\");\r\n    }\r\n\r\n    li i.grid {\r\n        background-image: url(\"./../../assets/img/icon/application_view_icons.png\");\r\n    }\r\n\r\n    li i.iclose {\r\n        background-image: url(\"./../../assets/img/icon/reset.png\");\r\n    }\r\n\r\n    li i.crop {\r\n        background-image: url(\"./../../assets/img/icon/crop.png\");\r\n    }\r\n\r\n    li i.remove {\r\n        background-image: url(\"./../../assets/img/icon/bin_closed.png\");\r\n    }\r\n\r\n    li i.close:hover {\r\n    }\r\n\r\n    .fm-footer {\r\n        min-height: 32px;\r\n    }\r\n\r\n    .fm-data-wrapper {\r\n        height: 100%;\r\n    }\r\n\r\n    .clear {\r\n        clear: both;\r\n    }\r\n\r\n    ._list ._active {\r\n        background: #48adff;\r\n    }\r\n\r\n    .fm-content {\r\n    }\r\n\r\n        .fm-content table._list table thead tr th {\r\n            text-align: center;\r\n        }\r\n\r\n        .fm-content table._list tr {\r\n            font-size: 11px;\r\n        }\r\n\r\n            .fm-content table._list tr:hover {\r\n                background: #c1edff;\r\n                cursor: pointer;\r\n            }\r\n\r\n            .fm-content table._list tr td {\r\n            }\r\n\r\n        .fm-content table._list tbody tr td.name {\r\n            display: inline-flex;\r\n        }\r\n\r\n            .fm-content table._list tbody tr td.name .list-icon {\r\n                display: inline-block;\r\n                float: left;\r\n                padding-right: 20px;\r\n            }\r\n\r\n    .fm-grid, .fm-folder ul, .fm-grid li .info p {\r\n        padding: 0;\r\n        margin: 0;\r\n    }\r\n\r\n        .fm-grid li {\r\n            position: relative;\r\n            vertical-align: middle;\r\n            display: table-cell;\r\n            border: 1px solid #eaeaea;\r\n            cursor: pointer;\r\n            float: left;\r\n            height: 100px;\r\n            min-width: 114px;\r\n            list-style-type: none;\r\n            margin: 4px;\r\n            padding: 2px;\r\n            width: 14.99%;\r\n            position: relative;\r\n            overflow: hidden;\r\n            text-align: center;\r\n        }\r\n\r\n            .fm-grid li .info {\r\n                font-size: 10px;\r\n                background: rgba(109, 105, 105, 0.87);\r\n                color: .fff;\r\n                position: absolute;\r\n                bottom: 0;\r\n                width: 100%;\r\n                height: 0\r\n            }\r\n\r\n            .fm-grid li:hover .info {\r\n                height: auto\r\n            }\r\n\r\n    .fm-list li img {\r\n        width: 100%\r\n    }\r\n\r\n    .fm-list li.not_img img {\r\n        width: 50%;\r\n        padding-top: 10px\r\n    }\r\n\r\n    .fm-grid li img.thumb {\r\n        width: 60%;\r\n        margin: 0 auto;\r\n    }\r\n\r\n    .fm-grid li i {\r\n        position: absolute;\r\n        z-index: 999;\r\n        right: 4px;\r\n        background: .fff;\r\n        border-radius: 11px;\r\n        color: #0085ba;\r\n        padding: 1px;\r\n        top: 3px;\r\n        display: none;\r\n    }\r\n\r\n    .fm-grid li._active i {\r\n        display: block;\r\n    }\r\n\r\n    .fm-grid li._active {\r\n        border: 1px solid #0085ba;\r\n    }\r\n\r\n    .fm-folder ul li {\r\n        list-style-type: none;\r\n        padding: 8px 0;\r\n        cursor: pointer\r\n    }\r\n\r\n        .fm-folder ul li i {\r\n            background-repeat: no-repeat;\r\n            display: inline-block;\r\n            height: 16px;\r\n            vertical-align: middle;\r\n            width: 16px;\r\n        }\r\n\r\n    .plupload_filelist_header {\r\n        height: 20px;\r\n    }\r\n\r\n    .plupload_filelist_footer {\r\n        padding: 6px 20px;\r\n        height: 33px;\r\n    }\r\n\r\n    .plupload_scroll .plupload_filelist {\r\n        height: 172px !important;\r\n    }\r\n\r\n    .plupload_filelist_footer {\r\n        padding: 6px 20px;\r\n    }\r\n\r\n    .plupload_filelist:empty,\r\n    .plupload_filelist li.plupload_droptext {\r\n        height: 140px;\r\n    }\r\n\r\n        .plupload_filelist:empty::before,\r\n        .plupload_filelist li.plupload_droptext::before {\r\n            font-size: 52px;\r\n            height: 75px;\r\n            left: 49%;\r\n            margin-left: -40px;\r\n            padding-top: 43px;\r\n        }\r\n\r\n    .items-action {\r\n        padding-top: 20px;\r\n        display: inline-block;\r\n        width: 100%;\r\n    }\r\n\r\n        .items-action .file-action {\r\n            border: 0 none;\r\n            color: .fff;\r\n            padding: 4px 10px;\r\n        }\r\n\r\n        .items-action .file-action {\r\n            background: rosybrown;\r\n            float: left;\r\n            clear: both;\r\n        }\r\n    /*.items-action .file-action:last-child { background: #0085ba;float: right;}*/\r\n    .fm-toolbar .Mi.ipagination a:first-child {\r\n        border: 0;\r\n        border-radius: 0;\r\n    }\r\n\r\n    .fm-toolbar .Mi.ipagination input {\r\n        border: medium none;\r\n        float: left;\r\n        font-family: arial;\r\n        font-size: 11px;\r\n        height: 30px;\r\n        margin: 0;\r\n        outline: medium none;\r\n        padding: 0;\r\n        text-align: center;\r\n        vertical-align: middle;\r\n        width: 84px;\r\n    }\r\n\r\n    .fm-toolbar .Mi.ipagination a {\r\n        border: 0;\r\n        border-radius: 0;\r\n        background: .fff;\r\n    }\r\n\r\n    .fm-toolbar .ipagination.iweb {\r\n        margin-top: 3.45px;\r\n    }\r\n\r\n    .frowInTotals {\r\n        display: inline-block;\r\n        float: left;\r\n        line-height: 39px;\r\n        padding-right: 3px;\r\n        vertical-align: baseline;\r\n    }\r\n\r\n    label#progressall {\r\n        display: none;\r\n        padding: 7px 7px;\r\n    }\r\n\r\n    .Cdiv {\r\n        padding-left: 12px;\r\n        height: 17px;\r\n        overflow: hidden;\r\n        text-overflow: ellipsis;\r\n        white-space: nowrap;\r\n        width: 100%;\r\n        display: inline-block;\r\n        font-weight: normal;\r\n    }\r\n\r\n    .btn-fm-upload label {\r\n        margin-bottom: 0 !important;\r\n    }\r\n    /* Extra small devices (phones, 600px and down) */\r\n\r\n    @media only screen and (max-width: 600px) {\r\n        .fm-grid li {\r\n            width: 47.65%;\r\n        }\r\n    }\r\n\r\n    /* Small devices (portrait tablets and large phones, 600px and up) */\r\n\r\n    @media only screen and (min-width: 600px) {\r\n    }\r\n\r\n    /* Medium devices (landscape tablets, 768px and up) */\r\n\r\n    @media only screen and (min-width: 768px) {\r\n    }\r\n\r\n    /* Large devices (laptops/desktops, 992px and up) */\r\n\r\n    @media only screen and (min-width: 992px) {\r\n    }\r\n\r\n    /* Extra large devices (large laptops and desktops, 1200px and up) */\r\n\r\n    @media only screen and (min-width: 1200px) {\r\n    }\r\n</style>\r\n"],"sourceRoot":""}]);
-
-// exports
-
-
-/***/ }),
-
-/***/ 1025:
+/***/ 1008:
 /***/ (function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
-var content = __webpack_require__(1020);
+var content = __webpack_require__(1007);
 if(typeof content === 'string') content = [[module.i, content, '']];
 // add the styles to the DOM
-var update = __webpack_require__(179)(content, {});
+var update = __webpack_require__(175)(content, {});
 if(content.locals) module.exports = content.locals;
 // Hot Module Replacement
-if(true) {
+if(false) {
 	// When the styles change, update the <style> tags
 	if(!content.locals) {
-		module.hot.accept(1020, function() {
-			var newContent = __webpack_require__(1020);
-			if(typeof newContent === 'string') newContent = [[module.i, newContent, '']];
+		module.hot.accept("!!../../css-loader/index.js!./vue-select.css", function() {
+			var newContent = require("!!../../css-loader/index.js!./vue-select.css");
+			if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
 			update(newContent);
 		});
 	}
@@ -11997,7 +11220,7 @@ if(true) {
 
 /***/ }),
 
-/***/ 1027:
+/***/ 1010:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -12007,45 +11230,45 @@ Object.defineProperty(exports, "__esModule", {
     value: true
 });
 
-var _from = __webpack_require__(954);
+var _from = __webpack_require__(936);
 
 var _from2 = _interopRequireDefault(_from);
 
-var _stringify = __webpack_require__(393);
+var _stringify = __webpack_require__(390);
 
 var _stringify2 = _interopRequireDefault(_stringify);
 
-var _extends2 = __webpack_require__(7);
+var _extends2 = __webpack_require__(8);
 
 var _extends3 = _interopRequireDefault(_extends2);
 
-var _list = __webpack_require__(1008);
+var _list = __webpack_require__(991);
 
 var _list2 = _interopRequireDefault(_list);
 
-__webpack_require__(796);
+__webpack_require__(779);
 
-var _vuex = __webpack_require__(180);
+var _vuex = __webpack_require__(176);
 
-var _vueLoadingOverlay = __webpack_require__(376);
+var _vueLoadingOverlay = __webpack_require__(373);
 
 var _vueLoadingOverlay2 = _interopRequireDefault(_vueLoadingOverlay);
 
-var _vueTreeselect = __webpack_require__(951);
+var _vueTreeselect = __webpack_require__(933);
 
 var _vueTreeselect2 = _interopRequireDefault(_vueTreeselect);
 
-__webpack_require__(953);
+__webpack_require__(935);
 
-var _helper = __webpack_require__(950);
+var _helper = __webpack_require__(932);
 
-var _ckeditor4Vue = __webpack_require__(396);
+var _ckeditor4Vue = __webpack_require__(393);
 
 var _ckeditor4Vue2 = _interopRequireDefault(_ckeditor4Vue);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-var _config = __webpack_require__(999);
+var _config = __webpack_require__(982);
 
 exports.default = {
     name: "App2",
@@ -12098,7 +11321,7 @@ exports.default = {
         Loading: _vueLoadingOverlay2.default
     },
     created: function created() {
-        var _config = __webpack_require__(999);
+        var _config = __webpack_require__(982);
         this.extImage = _config.AppSettings.ImageAllowUpload;
         this.extensions = _config.AppSettings.ImageAllowUpload.concat(_config.AppSettings.DocumentAllowUpload);
     },
@@ -12427,47 +11650,46 @@ exports.default = {
 
 /***/ }),
 
-/***/ 1028:
+/***/ 1011:
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__(53)();
+// imports
+
+
+// module
+exports.push([module.i, ".file-manager[data-v-8004295c],.file-manager___BV_modal_body_[data-v-8004295c],.fm-content-selected[data-v-8004295c]{padding:0}.fm-content-selected ul li[data-v-8004295c]{list-style-type:none}.fm-container-dialog[data-v-8004295c]{padding:0;overflow:hidden!important}.fm-container[data-v-8004295c]{font-size:12px;font-family:sans-serif;padding:0}.fm-toolbar ul[data-v-8004295c]{float:left;margin:3.5px 0 3px 10px;padding:1px 2px;border-radius:0}.fm-toolbar ul li[data-v-8004295c]{border:1px solid .fff;cursor:pointer;float:left;line-height:26px;list-style-type:none;padding:0 8px;text-align:center}.fm-toolbar ul li.active[data-v-8004295c],.fm-toolbar ul li[data-v-8004295c]:hover{background:#eaeaea}.fm-footer[data-v-8004295c]{border-top:1px solid #eaeaea;padding-top:10px}.fm-toolbar .tool-items[data-v-8004295c]{clear:both;padding-right:6px}.fm-toolbar .tools[data-v-8004295c]{float:left}.fm-main[data-v-8004295c]{margin-top:8px;border-top:1px solid #eaeaea}.fm-sidebar .fm-header[data-v-8004295c]{height:35px;line-height:35px;background-color:#39c;overflow:hidden;font-size:17px;color:#ecf3f9;text-align:center}.fm-sidebar[data-v-8004295c]{border-right:1px solid #eaeaea}.fm-content[data-v-8004295c]{background-color:#fff;cursor:default;height:100%}.fm-data-wrapper[data-v-8004295c]{overflow:hidden}.fm-file-view[data-v-8004295c]{border-left:1px solid #eaeaea;float:right;height:100%;width:250px;padding:9px;background:.fff}.fm-file-view .file-thumb[data-v-8004295c]{text-align:center;max-height:250px;max-width:230px;overflow:hidden}.fm-file-view .header[data-v-8004295c]{font-weight:700;margin-bottom:12px;padding:2px 0;text-align:center;text-transform:uppercase}.fm-file-view .details[data-v-8004295c]{padding-top:16px}.fm-file-view .details .dimensions[data-v-8004295c],.fm-file-view .details .file-size[data-v-8004295c],.fm-file-view .details .uploaded[data-v-8004295c],.fm-file-view .details div[data-v-8004295c]{line-height:21px}.fm-file-view .file-thumb img[data-v-8004295c]{border:1px solid #eaeaea;padding:4px}.attachment-info .filename[data-v-8004295c]{font-weight:600;color:#444;word-wrap:break-word}.btn-attack[data-v-8004295c]{background:.fff none repeat scroll 0 0;padding:3px 3px 3px 0;width:230px;float:right;clear:both}.btn-attack button#btn-attack[data-v-8004295c]{color:.fff;background:#0085ba;border:0;padding:4px 6px}.btn-attack button#dl-close[data-v-8004295c]{background:#eaeaea;border:0;padding:4px 6px;float:right;clear:both}.fm-content table._list[data-v-8004295c]{width:100%}.fm-content table._list tr th[data-v-8004295c]{text-align:center;font-weight:700}.fm-content table._list tr td[data-v-8004295c]{padding:5px 4px}.fm-content table._list tr._active[data-v-8004295c]{background:#48adff}.fm-toolbar ul li i[data-v-8004295c]{background-repeat:no-repeat;display:inline-block;height:16px;vertical-align:middle;width:16px}li i.create-folder[data-v-8004295c]{background-image:url(" + __webpack_require__(988) + ")}li i.upload[data-v-8004295c]{background-image:url(" + __webpack_require__(990) + ")}li i.list[data-v-8004295c]{background-image:url(" + __webpack_require__(985) + ")}li i.grid[data-v-8004295c]{background-image:url(" + __webpack_require__(984) + ")}li i.iclose[data-v-8004295c]{background-image:url(" + __webpack_require__(989) + ")}li i.crop[data-v-8004295c]{background-image:url(" + __webpack_require__(987) + ")}li i.remove[data-v-8004295c]{background-image:url(" + __webpack_require__(986) + ")}.fm-footer[data-v-8004295c]{min-height:32px}.fm-data-wrapper[data-v-8004295c]{height:100%}.clear[data-v-8004295c]{clear:both}._list ._active[data-v-8004295c]{background:#48adff}.fm-content table._list table thead tr th[data-v-8004295c]{text-align:center}.fm-content table._list tr[data-v-8004295c]{font-size:11px}.fm-content table._list tr[data-v-8004295c]:hover{background:#c1edff;cursor:pointer}.fm-content table._list tbody tr td.name[data-v-8004295c]{display:inline-flex}.fm-content table._list tbody tr td.name .list-icon[data-v-8004295c]{display:inline-block;float:left;padding-right:20px}.fm-folder ul[data-v-8004295c],.fm-grid[data-v-8004295c],.fm-grid li .info p[data-v-8004295c]{padding:0;margin:0}.fm-grid li[data-v-8004295c]{vertical-align:middle;display:table-cell;border:1px solid #eaeaea;cursor:pointer;float:left;height:100px;min-width:114px;list-style-type:none;margin:4px;padding:2px;width:14.99%;position:relative;overflow:hidden;text-align:center}.fm-grid li .info[data-v-8004295c]{font-size:10px;background:hsla(0,2%,42%,.87);color:.fff;position:absolute;bottom:0;width:100%;height:0}.fm-grid li:hover .info[data-v-8004295c]{height:auto}.fm-list li img[data-v-8004295c]{width:100%}.fm-list li.not_img img[data-v-8004295c]{width:50%;padding-top:10px}.fm-grid li img.thumb[data-v-8004295c]{width:60%;margin:0 auto}.fm-grid li i[data-v-8004295c]{position:absolute;z-index:999;right:4px;background:.fff;border-radius:11px;color:#0085ba;padding:1px;top:3px;display:none}.fm-grid li._active i[data-v-8004295c]{display:block}.fm-grid li._active[data-v-8004295c]{border:1px solid #0085ba}.fm-folder ul li[data-v-8004295c]{list-style-type:none;padding:8px 0;cursor:pointer}.fm-folder ul li i[data-v-8004295c]{background-repeat:no-repeat;display:inline-block;height:16px;vertical-align:middle;width:16px}.plupload_filelist_header[data-v-8004295c]{height:20px}.plupload_filelist_footer[data-v-8004295c]{height:33px}.plupload_scroll .plupload_filelist[data-v-8004295c]{height:172px!important}.plupload_filelist_footer[data-v-8004295c]{padding:6px 20px}.plupload_filelist[data-v-8004295c]:empty,.plupload_filelist li.plupload_droptext[data-v-8004295c]{height:140px}.plupload_filelist[data-v-8004295c]:empty:before,.plupload_filelist li.plupload_droptext[data-v-8004295c]:before{font-size:52px;height:75px;left:49%;margin-left:-40px;padding-top:43px}.items-action[data-v-8004295c]{padding-top:20px;display:inline-block;width:100%}.items-action .file-action[data-v-8004295c]{border:0 none;color:.fff;padding:4px 10px;background:#bc8f8f;float:left;clear:both}.fm-toolbar .Mi.ipagination a[data-v-8004295c]:first-child{border:0;border-radius:0}.fm-toolbar .Mi.ipagination input[data-v-8004295c]{border:medium none;float:left;font-family:arial;font-size:11px;height:30px;margin:0;outline:medium none;padding:0;text-align:center;vertical-align:middle;width:84px}.fm-toolbar .Mi.ipagination a[data-v-8004295c]{border:0;border-radius:0;background:.fff}.fm-toolbar .ipagination.iweb[data-v-8004295c]{margin-top:3.45px}.frowInTotals[data-v-8004295c]{display:inline-block;float:left;line-height:39px;padding-right:3px;vertical-align:baseline}label#progressall[data-v-8004295c]{display:none;padding:7px}.Cdiv[data-v-8004295c]{padding-left:12px;height:17px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;width:100%;display:inline-block;font-weight:400}.btn-fm-upload label[data-v-8004295c]{margin-bottom:0!important}@media only screen and (max-width:600px){.fm-grid li[data-v-8004295c]{width:47.65%}}", ""]);
+
+// exports
+
+
+/***/ }),
+
+/***/ 1012:
 /***/ (function(module, exports, __webpack_require__) {
 
 
 /* styles */
-__webpack_require__(1030)
+__webpack_require__(1014)
 
-var Component = __webpack_require__(374)(
+var Component = __webpack_require__(371)(
   /* script */
-  __webpack_require__(1027),
+  __webpack_require__(1010),
   /* template */
-  __webpack_require__(1029),
+  __webpack_require__(1013),
   /* scopeId */
   "data-v-8004295c",
   /* cssModules */
   null
 )
-Component.options.__file = "D:\\Code\\WORKING\\dotnet-platform-backend\\Web\\Platform\\CMS\\PlatformCMS\\ClientApp\\components\\editor\\MIEditor.vue"
-if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
-if (Component.options.functional) {console.error("[vue-loader] MIEditor.vue: functional components are not supported with templates, they should use render functions.")}
-
-/* hot reload */
-if (true) {(function () {
-  var hotAPI = __webpack_require__(178)
-  hotAPI.install(__webpack_require__(26), false)
-  if (!hotAPI.compatible) return
-  module.hot.accept()
-  if (!module.hot.data) {
-    hotAPI.createRecord("data-v-8004295c", Component.options)
-  } else {
-    hotAPI.reload("data-v-8004295c", Component.options)
-  }
-})()}
 
 module.exports = Component.exports
 
 
 /***/ }),
 
-/***/ 1029:
-/***/ (function(module, exports, __webpack_require__) {
+/***/ 1013:
+/***/ (function(module, exports) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
   return _c('div', [_c('loading', {
@@ -12940,65 +12162,45 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }
   }, [_vm._v("Đóng")])])])], 1)], 1)])], 1)
 },staticRenderFns: []}
-module.exports.render._withStripped = true
-if (true) {
-  module.hot.accept()
-  if (module.hot.data) {
-     __webpack_require__(178).rerender("data-v-8004295c", module.exports)
-  }
-}
 
 /***/ }),
 
-/***/ 1030:
+/***/ 1014:
 /***/ (function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
-var content = __webpack_require__(1021);
+var content = __webpack_require__(1011);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
-var update = __webpack_require__(801)("157d5a26", content, false);
-// Hot Module Replacement
-if(true) {
- // When the styles change, update the <style> tags
- if(!content.locals) {
-   module.hot.accept(1021, function() {
-     var newContent = __webpack_require__(1021);
-     if(typeof newContent === 'string') newContent = [[module.i, newContent, '']];
-     update(newContent);
-   });
- }
- // When the module is disposed, remove the <style> tags
- module.hot.dispose(function() { update(); });
-}
+var update = __webpack_require__(784)("40d7059c", content, true);
 
 /***/ }),
 
-/***/ 1034:
+/***/ 1018:
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = { "default": __webpack_require__(1036), __esModule: true };
+module.exports = { "default": __webpack_require__(1020), __esModule: true };
 
 /***/ }),
 
-/***/ 1036:
+/***/ 1020:
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(381);
-__webpack_require__(184);
-module.exports = __webpack_require__(1038);
+__webpack_require__(378);
+__webpack_require__(180);
+module.exports = __webpack_require__(1022);
 
 
 /***/ }),
 
-/***/ 1038:
+/***/ 1022:
 /***/ (function(module, exports, __webpack_require__) {
 
 var anObject = __webpack_require__(38);
-var get = __webpack_require__(191);
+var get = __webpack_require__(187);
 module.exports = __webpack_require__(20).getIterator = function (it) {
   var iterFn = get(it);
   if (typeof iterFn != 'function') throw TypeError(it + ' is not iterable!');
@@ -13008,7 +12210,7 @@ module.exports = __webpack_require__(20).getIterator = function (it) {
 
 /***/ }),
 
-/***/ 1061:
+/***/ 1045:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -13018,15 +12220,15 @@ Object.defineProperty(exports, "__esModule", {
     value: true
 });
 
-var _assign = __webpack_require__(377);
+var _assign = __webpack_require__(374);
 
 var _assign2 = _interopRequireDefault(_assign);
 
-var _getIterator2 = __webpack_require__(1034);
+var _getIterator2 = __webpack_require__(1018);
 
 var _getIterator3 = _interopRequireDefault(_getIterator2);
 
-var _stringify = __webpack_require__(393);
+var _stringify = __webpack_require__(390);
 
 var _stringify2 = _interopRequireDefault(_stringify);
 
@@ -13608,58 +12810,27 @@ exports.default = {
 
 /***/ }),
 
-/***/ 1107:
+/***/ 1065:
 /***/ (function(module, exports, __webpack_require__) {
 
-exports = module.exports = __webpack_require__(53)();
-// imports
-
-
-// module
-exports.push([module.i, "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n/* The input */\n.tags-input {\n    display: flex;\n    flex-wrap: wrap;\n    align-items: center;\n}\n.tags-input input {\n        flex: 1;\n        background: transparent;\n        border: none;\n}\n.tags-input input:focus {\n            outline: none;\n}\n.tags-input input[type=\"text\"] {\n            color: #495057;\n}\n.tags-input-wrapper-default {\n    padding: .5em .25em;\n    background: #fff;\n    border: 1px solid transparent;\n    border-radius: .25em;\n    border-color: #dbdbdb;\n}\n.tags-input-wrapper-default.active {\n        border: 1px solid #8bbafe;\n        box-shadow: 0 0 0 0.2em rgba(13, 110, 253, 0.25);\n        outline: 0 none;\n}\n\n/* The tag badges & the remove icon */\n.tags-input span {\n    margin-right: 0.3em;\n}\n.tags-input-remove {\n    cursor: pointer;\n    position: absolute;\n    display: inline-block;\n    right: 0.3em;\n    top: 0.3em;\n    padding: 0.5em;\n    overflow: hidden;\n}\n.tags-input-remove:focus {\n        outline: none;\n}\n.tags-input-remove:before, .tags-input-remove:after {\n        content: '';\n        position: absolute;\n        width: 75%;\n        left: 0.15em;\n        background: #5dc282;\n        height: 2px;\n        margin-top: -1px;\n}\n.tags-input-remove:before {\n        transform: rotate(45deg);\n}\n.tags-input-remove:after {\n        transform: rotate(-45deg);\n}\n\n/* Tag badge styles */\n.tags-input-badge {\n    position: relative;\n    display: inline-block;\n    padding: 0.25em 0.4em;\n    font-size: 75%;\n    font-weight: 700;\n    line-height: 1;\n    text-align: center;\n    white-space: nowrap;\n    vertical-align: baseline;\n    border-radius: 0.25em;\n    overflow: hidden;\n    text-overflow: ellipsis;\n}\n.tags-input-badge-pill {\n    padding-right: 1.25em;\n    padding-left: 0.6em;\n    border-radius: 10em;\n}\n.tags-input-badge-selected-default {\n    color: #212529;\n    background-color: #f0f1f2;\n}\n\n/* Typeahead */\n.typeahead-hide-btn {\n    color: #999 !important;\n    font-style: italic;\n}\n\n/* Typeahead - badges */\n.typeahead-badges > span {\n    cursor: pointer;\n    margin-right: 0.3em;\n}\n\n/* Typeahead - dropdown */\n.typeahead-dropdown {\n    list-style-type: none;\n    padding: 0;\n    margin: 0;\n    position: absolute;\n    width: 100%;\n    z-index: 1000;\n}\n.typeahead-dropdown li {\n        padding: .25em 1em;\n        cursor: pointer;\n}\n\n/* Typeahead elements style/theme */\n.tags-input-typeahead-item-default {\n    color: #fff;\n    background-color: #343a40;\n}\n.tags-input-typeahead-item-highlighted-default {\n    color: #fff;\n    background-color: #007bff;\n}\n", "", {"version":3,"sources":["D:/Code/WORKING/dotnet-platform-backend/Web/Platform/CMS/PlatformCMS/ClientApp/pages/product/clone.vue?bd5ca158"],"names":[],"mappings":";;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;AAu6BA,eAAA;AACA;IACA,cAAA;IACA,gBAAA;IACA,oBAAA;CACA;AAEA;QACA,QAAA;QACA,wBAAA;QACA,aAAA;CACA;AAEA;YACA,cAAA;CACA;AAEA;YACA,eAAA;CACA;AAEA;IACA,oBAAA;IACA,iBAAA;IACA,8BAAA;IACA,qBAAA;IACA,sBAAA;CACA;AAEA;QACA,0BAAA;QACA,iDAAA;QACA,gBAAA;CACA;;AAEA,sCAAA;AACA;IACA,oBAAA;CACA;AAEA;IACA,gBAAA;IACA,mBAAA;IACA,sBAAA;IACA,aAAA;IACA,WAAA;IACA,eAAA;IACA,iBAAA;CACA;AAEA;QACA,cAAA;CACA;AAEA;QACA,YAAA;QACA,mBAAA;QACA,WAAA;QACA,aAAA;QACA,oBAAA;QACA,YAAA;QACA,iBAAA;CACA;AAEA;QACA,yBAAA;CACA;AAEA;QACA,0BAAA;CACA;;AAEA,sBAAA;AACA;IACA,mBAAA;IACA,sBAAA;IACA,sBAAA;IACA,eAAA;IACA,iBAAA;IACA,eAAA;IACA,mBAAA;IACA,oBAAA;IACA,yBAAA;IACA,sBAAA;IACA,iBAAA;IACA,wBAAA;CACA;AAEA;IACA,sBAAA;IACA,oBAAA;IACA,oBAAA;CACA;AAEA;IACA,eAAA;IACA,0BAAA;CACA;;AAEA,eAAA;AACA;IACA,uBAAA;IACA,mBAAA;CACA;;AAEA,wBAAA;AACA;IACA,gBAAA;IACA,oBAAA;CACA;;AAEA,0BAAA;AACA;IACA,sBAAA;IACA,WAAA;IACA,UAAA;IACA,mBAAA;IACA,YAAA;IACA,cAAA;CACA;AAEA;QACA,mBAAA;QACA,gBAAA;CACA;;AAEA,oCAAA;AACA;IACA,YAAA;IACA,0BAAA;CACA;AAEA;IACA,YAAA;IACA,0BAAA;CACA","file":"clone.vue","sourcesContent":["<template>\r\n    <div class=\"productadd\">\r\n        <loading :active.sync=\"isLoading\"\r\n                 :height=\"35\"\r\n                 :width=\"35\"\r\n                 :color=\"color\"\r\n                 :is-full-page=\"fullPage\"></loading>\r\n        <b-tabs class=\"col-md-12\" pills>\r\n            <b-tab title=\"1. Thông tin chung\" active>\r\n                <div class=\"row productedit\">\r\n                    <div class=\"col-sm-6 col-md-8\">\r\n                        <div class=\"card\">\r\n                            <div class=\"card-header\">\r\n                                Thông tin chính\r\n                            </div>\r\n                            <div class=\"card-body\">\r\n                                <b-form class=\"form-horizontal\">\r\n                                    <b-form-group label=\"Tiêu đề\">\r\n                                        <b-form-input v-model=\"objRequest.name\" placeholder=\"Tên sản phẩm\" required></b-form-input>\r\n                                    </b-form-group>\r\n                                    <b-form-group label=\"Chọn danh mục\">\r\n                                        <treeselect :multiple=\"true\"\r\n                                                    :flat=\"true\"\r\n                                                    :options=\"ZoneOptions\"\r\n                                                    placeholder=\"Xin mời bạn lựa chọn danh mục\"\r\n                                                    @select=\"getSelectedUser\"\r\n                                                    v-model=\"ZoneValues\"\r\n                                                    :default-expanded-level=\"Infinity\" />\r\n                                    </b-form-group>\r\n                                    <b-form-group label=\"Mã sản phẩm\">\r\n                                        <b-form-input v-model=\"objRequest.code\" placeholder=\"Mã sản phẩm\" required></b-form-input>\r\n                                    </b-form-group>\r\n                                    <b-form-group label=\"Danh sách ảnh\">\r\n                                        <div class=\"notice-upload-image\">\r\n                                            <p>\r\n                                                <b style=\"font-size: 14px;\">Đăng nhiều ảnh để công cụ tìm kiếm dễ thấy bạn hơn!</b><br><i style=\"font-size: 11px; padding-top: 5px; color: #666;\">\r\n                                                    Kéo ảnh lên vị trí đầu tiên để chọn làm\r\n                                                    Thumbnail.\r\n                                                </i>\r\n                                            </p>\r\n                                        </div>\r\n                                        <div class=\"row gallery-upload-file ui-sortable\">\r\n                                            <div style=\"padding:0\" class=\"col-md-2 col-xs-4 r-queue-item added ui-sortable-handle\" v-for=\"(itemimg,index) in ListImg\">\r\n                                                <div class=\"item\"><img style=\"width:100%;height:100px\" alt=\"Ảnh lỗi\" :src=\"pathImgs(itemimg)\"></div><i @click=\"removeImg(index)\" class=\"fa fa-times\"></i>\r\n                                            </div>\r\n\r\n                                            <div class=\"col-md-2 col-xs-4 _library ui-sortable-handle\">\r\n                                                <i class=\"fa fa-folder-open\" @click=\"openImg('ListImg')\"></i>\r\n                                                <p>[Thư viện ảnh]</p>\r\n                                            </div>\r\n                                        </div>\r\n                                    </b-form-group>\r\n                                    <b-form-group>\r\n                                        <b-form-checkbox v-model=\"IsChoseFileDowload\" style=\"padding-bottom:7px\">\r\n                                            File Dowload\r\n                                        </b-form-checkbox>\r\n\r\n                                        <b-form-input v-if=\"!IsChoseFileDowload\" v-model=\"FileMeta.FileDowload\" placeholder=\"File dowload\" required></b-form-input>\r\n                                        <template v-if=\"IsChoseFileDowload\">\r\n                                            <button @click=\"openImg('filedowload')\" type=\"button\" class=\"btn btn-success\">Chọn file</button>\r\n                                            <a v-if=\"FileMeta.FileDowload != null && FileMeta.FileDowload.length > 0\" target=\"_blank\" href=\"FileMeta.FileDowload\"><i class=\"fa fa-file-o\"></i> {{FileMeta.FileDowload}}</a>\r\n                                        </template>\r\n                                    </b-form-group>\r\n                                    <b-form-group>\r\n                                        <b-form-checkbox v-model=\"IsChoseImg360\" style=\"padding-bottom:7px\">\r\n                                            Hình 360\r\n                                        </b-form-checkbox>\r\n                                        <b-form-input v-if=\"!IsChoseImg360\" v-model=\"FileMeta.File360\" placeholder=\"Hình ảnh 360\" required></b-form-input>\r\n                                        <template v-if=\"IsChoseImg360\">\r\n                                            <button @click=\"openImg('file360')\" type=\"button\" class=\"btn btn-success\">Chọn file</button>\r\n                                            <a v-if=\"FileMeta.File360 != null && FileMeta.File360.length > 0\" target=\"_blank\" href=\"FileMeta.File360\"><i class=\"fa fa-file-o\"></i> {{FileMeta.File360}}</a>\r\n                                        </template>\r\n                                    </b-form-group>\r\n                                    <b-form-group>\r\n                                        <b-form-checkbox v-model=\"IsChoseVideo\" style=\"padding-bottom:7px\">\r\n                                            File Video\r\n                                        </b-form-checkbox>\r\n                                        <b-form-input v-if=\"!IsChoseVideo\" v-model=\"FileMeta.FileVideo\" placeholder=\"File Video\" required></b-form-input>\r\n                                        <template v-if=\"IsChoseVideo\">\r\n                                            <button @click=\"openImg('fileVideo')\" type=\"button\" class=\"btn btn-success\">Chọn file</button>\r\n                                            <a v-if=\"FileMeta.FileVideo != null && FileMeta.FileVideo.length > 0\" target=\"_blank\" href=\"FileMeta.FileVideo\"><i class=\"fa fa-file-o\"></i> {{FileMeta.FileVideo}}</a>\r\n                                        </template>\r\n                                    </b-form-group>\r\n                                </b-form>\r\n                            </div>\r\n                        </div>\r\n                        <div class=\"card\">\r\n                            <div class=\"card-header\">\r\n                                Giá và các phiên bản sản phẩm\r\n                            </div>\r\n                            <div class=\"card-body\">\r\n                                <b-row>\r\n                                    <b-col>\r\n                                        <b-form-group label=\"Giá sản phẩm\">\r\n                                            <b-form-input @change=\"sumTotal\" :min=\"0\" v-model=\"objRequest.price\" type=\"number\" placeholder=\"Giá sản phẩm\" required></b-form-input>\r\n                                        </b-form-group>\r\n                                    </b-col>\r\n                                    <b-col>\r\n                                        <b-form-group label=\"Phần trăm\">\r\n                                            <b-form-input @change=\"sumTotal\" :min=\"0\" :max=\"100\" v-model=\"objRequest.discountPercent\" type=\"number\" placeholder=\"Phần trăm\" required></b-form-input>\r\n                                        </b-form-group>\r\n                                    </b-col>\r\n                                    <b-col>\r\n                                        <b-form-group label=\"Giảm giá\">\r\n                                            <b-form-input v-model=\"objRequest.discountPrice\" :min=\"0\" type=\"number\" placeholder=\"Giảm giá\" required></b-form-input>\r\n                                        </b-form-group>\r\n                                    </b-col>\r\n\r\n                                </b-row>\r\n                                <b-form-group label=\"Bảo hành\">\r\n                                    <b-form-input v-model=\"objRequest.warranty\" placeholder=\"Bảo hành\" required></b-form-input>\r\n                                </b-form-group>\r\n                            </div>\r\n                        </div>\r\n                    </div>\r\n                    <div class=\"col-sm-6 col-md-4\">\r\n                        <div class=\"card\">\r\n                            <div class=\"card-header\">\r\n                                Đăng bài\r\n                            </div>\r\n                            <div class=\"card-body\">\r\n                                <div class=\"row\">\r\n                                    <div class=\"col-md-6\">\r\n                                        <button class=\"btn btn-info btn-submit-form col-md-12 btncus\" type=\"submit\" @click=\"DoAddEdit()\">\r\n                                            <i class=\"fa fa-save\"></i> Cập nhật\r\n                                        </button>\r\n                                    </div>\r\n                                    <div class=\"col-md-6\">\r\n                                        <button class=\"btn btn-success col-md-12 btncus\" type=\"button\" @click=\"DoRefesh()\">\r\n                                            <i class=\"fa fa-refresh\"></i> Làm mới\r\n                                        </button>\r\n                                    </div>\r\n                                </div>\r\n                            </div>\r\n                        </div>\r\n                        <div class=\"card\">\r\n                            <div class=\"card-header\">\r\n                                Phân loại sản phẩm\r\n                            </div>\r\n                            <div class=\"card-body\">\r\n                                <b-form-group label=\"Nhà cung cấp\">\r\n                                    <v-select v-model=\"objRequest.manufacturerId\" :options=\"ManufacturerIds\" :reduce=\"x=>x.id\" label=\"name\" placeholder=\"Chọn nhà cung cấp\"></v-select>\r\n                                </b-form-group>\r\n                                <b-form-group label=\"Đơn vị\">\r\n                                    <b-form-input v-model=\"objRequest.unit\" placeholder=\"Đơn vị\" required></b-form-input>\r\n                                </b-form-group>\r\n                                <b-form-group label=\"Số lượng\">\r\n                                    <b-form-input v-model=\"objRequest.quantity\" placeholder=\"Số lượng\" required type=\"number\"></b-form-input>\r\n                                </b-form-group>\r\n                                <b-form-group label=\"Mã Voucher\">\r\n                                    <b-form-input v-model=\"objRequest.voucher\" placeholder=\"Mã Voucher\" required></b-form-input>\r\n                                </b-form-group>\r\n                                <b-form-group label=\"Ngày hết hạn khuyến mại\">\r\n                                    <b-form-input type=\"date\" v-model=\"objRequest.exprirePromotion\" placeholder=\"Ngày hết hạn khuyến mại\"></b-form-input>\r\n                                </b-form-group>\r\n                                <b-form-group>\r\n                                    <b-form-checkbox v-model=\"objRequest.isInstallment\"> Trả góp</b-form-checkbox>\r\n                                </b-form-group>\r\n                                <b-form-group>\r\n                                    <label class=\"typo__label\">Chọn thuộc tính</label>\r\n                                    <treeselect :multiple=\"true\"\r\n                                                :flat=\"true\"\r\n                                                :options=\"Properties\"\r\n                                                placeholder=\"Xin mời bạn lựa chọn thuộc tính\"\r\n                                                v-model=\"ListProperty\" />\r\n                                </b-form-group>\r\n                                <b-form-group label=\"Chính sách bảo hành\">\r\n                                    <select v-model=\"objRequest.guarantee\" class=\"form-control\">\r\n                                        <option value=\"\">Chọn chính sách</option>\r\n                                        <option :value=\"item.key\" v-for=\"item in ListGuarantee\">\r\n                                            {{item.value}}\r\n                                        </option>\r\n                                    </select>\r\n                                </b-form-group>\r\n                                <b-form-group label=\"Loại vật liệu\">\r\n                                    <select v-model=\"objRequest.materialType\" class=\"form-control\">\r\n                                        <option :value=\"item.key\" v-for=\"item in ListTypeMaterial\">\r\n                                            {{item.value}}\r\n                                        </option>\r\n                                    </select>\r\n                                </b-form-group>\r\n                                <b-form-group label=\"Màu sắc\">\r\n                                    <treeselect :multiple=\"true\"\r\n                                                :flat=\"true\"\r\n                                                :options=\"Colors\"\r\n                                                placeholder=\"Xin mời bạn lựa chọn thuộc tính\"\r\n                                                v-model=\"ListColors\" />\r\n                                </b-form-group>\r\n                            </div>\r\n                        </div>\r\n                        <div class=\"card\">\r\n                            <div class=\"card-header\">\r\n                                <b-row>\r\n                                    <b-col md=\"10\">\r\n                                        Ảnh\r\n                                    </b-col>\r\n                                </b-row>\r\n                            </div>\r\n                            <div class=\"card-body\">\r\n                                <b-form-group label=\"Ảnh đại diện\">\r\n                                    <b-form-group>\r\n                                        <a @click=\"openImg('Img')\">\r\n                                            <div style=\"width:150px;display:flex\" class=\" gallery-upload-file ui-sortable\">\r\n                                                <div style=\"padding:0\" class=\"col-md-12 col-xs-12  r-queue-item ui-sortable-handle\">\r\n                                                    <div v-if=\"objRequest.avatar != null && objRequest.avatar != undefined &&  objRequest.avatar.length > 0\">\r\n                                                        <img alt=\"Ảnh lỗi\" style=\"height:150px;width:150px\" :src=\"pathImgs(objRequest.avatar)\" class=\"preview-image img-thumbnail\">\r\n                                                    </div>\r\n                                                    <div v-else>\r\n                                                        <i class=\"fa fa-picture-o\"></i>\r\n                                                        <p>[Chọn ảnh]</p>\r\n                                                    </div>\r\n                                                </div>\r\n                                            </div>\r\n                                        </a>\r\n                                    </b-form-group>\r\n                                </b-form-group>\r\n                            </div>\r\n                        </div>\r\n                    </div>\r\n                </div>\r\n            </b-tab>\r\n            <b-tab @click=\"StartLoadLang()\" title=\"2. Thông tin ngôn ngữ\">\r\n                <div>\r\n                    <div class=\"row productedit\">\r\n                        <div class=\"col-sm-6 col-md-8\">\r\n                            <div class=\"card\">\r\n                                <div class=\"card-header\">\r\n                                    Thông tin ngôn ngữ\r\n                                </div>\r\n                                <div class=\"card-body\">\r\n                                    <b-form class=\"form-horizontal\">\r\n                                        <b-row>\r\n                                            <b-col>\r\n                                                <b-form-group label=\"Ngôn ngữ\">\r\n                                                    <b-form-select v-model=\"langSelected\" @change=\"onChangeSelectd\" :options=\"Languages\"></b-form-select>\r\n                                                </b-form-group>\r\n                                            </b-col>\r\n                                            <!--<b-col title=\"Xem trên website\" style=\"margin-top:25px;font-size:30px\">\r\n                                                <a target=\"_blank\" :href=\"urlBases(objRequestDetail.url)\"><i class=\"fa fa-eye\"></i></a>\r\n                                            </b-col>-->\r\n                                            <b-col></b-col>\r\n                                        </b-row>\r\n                                        <b-form-group label=\"Tiêu đề theo ngôn ngữ\" label-for=\"input-1\">\r\n                                            <b-form-input id=\"input-1\"\r\n                                                          v-model=\"objRequestDetail.title\"\r\n                                                          type=\"text\"\r\n                                                          required\r\n                                                          v-on:keyup.13=\"slugM()\"\r\n                                                          placeholder=\"Tiêu đề\"></b-form-input>\r\n                                        </b-form-group>\r\n\r\n                                        <b-form-group label=\"Đường dẫn\">\r\n                                            <b-form-input v-model=\"objRequestDetail.url\" placeholder=\"Đường dẫn\" required></b-form-input>\r\n                                        </b-form-group>\r\n                                        <b-form-group label=\"Đường dẫn cũ\">\r\n                                            <b-form-input v-model=\"objRequestDetail.urlOld\" placeholder=\"Đường dẫn\" required></b-form-input>\r\n                                        </b-form-group>\r\n                                        <b-form-group label=\"Mô tả\">\r\n                                            <ckeditor tag-name=\"textarea\"\r\n                                                      v-model=\"objRequestDetail.description\" :rows=\"3\" :config=\"editorConfig\">\r\n                                            </ckeditor>\r\n                                        </b-form-group>\r\n                                        <b-form-group label=\"Nội dung\">\r\n                                            <MIEditor :contentEditor=\"objRequestDetail.content\" v-on:handleEditorInput=\"getOrSetData\"></MIEditor>\r\n                                        </b-form-group>\r\n                                        <b-row>\r\n                                            <b-col>\r\n                                                <b-form-group>\r\n                                                    <label class=\"typo__label\">Thêm tag</label>\r\n                                                    <v-tags-input element-id=\"tags\" v-model=\"Tags\" :typeahead=\"true\" :existingTags=\"ListAllTags\"></v-tags-input>\r\n                                                    \r\n                                                </b-form-group>\r\n                                            </b-col>\r\n                                        </b-row>\r\n                                    </b-form>\r\n                                </div>\r\n                            </div>\r\n\r\n                            <div class=\"card\">\r\n                                <div class=\"card-header\">\r\n                                    <b-row>\r\n                                        <b-col md=\"11\">\r\n                                            SEO Analysis\r\n                                        </b-col>\r\n                                        <b-col md=\"1\">\r\n                                            <b-btn v-b-toggle.collapseSEO2 variant=\"primary\" class=\"pull-right\"><i class=\"fa fa-angle-double-down\" aria-hidden=\"true\"></i></b-btn>\r\n                                        </b-col>\r\n                                    </b-row>\r\n                                </div>\r\n                                <b-collapse id=\"collapseSEO2\" class=\"mt-2\">\r\n                                    <div class=\"card-body\">\r\n                                        <b-form-group label=\"Tiêu đề SEO\">\r\n                                            <b-form-input v-model=\"objRequestDetail.metaTitle\" placeholder=\"Tiêu đề SEO\" required></b-form-input>\r\n                                        </b-form-group>\r\n                                        <b-form-group label=\"Từ khóa SEO\">\r\n                                            <b-form-input v-model=\"objRequestDetail.metaKeyword\" placeholder=\"Từ khóa SEO\" required></b-form-input>\r\n                                        </b-form-group>\r\n                                        <b-form-group label=\"Mô tả SEO\">\r\n                                            <b-form-textarea rows=\"3\" max-rows=\"6\" v-model=\"objRequestDetail.metaDescription\" placeholder=\"Mô tả\" required></b-form-textarea>\r\n                                        </b-form-group>\r\n                                        <b-form-group label=\"Script WebPage\">\r\n                                            <b-form-textarea rows=\"3\" max-rows=\"6\" v-model=\"objRequestDetail.metaWebPage\" placeholder=\"WebPage\" required></b-form-textarea>\r\n                                        </b-form-group>\r\n                                        <b-form-group label=\"\">\r\n                                            <div class=\"row\">\r\n                                                <div class=\"col-md-6\">\r\n                                                    <b-form-checkbox placeholder=\"Canonical\" v-model=\"statusCanonical\" required>Chặn trùng lặp nội dung (Canonical)</b-form-checkbox>\r\n                                                </div>\r\n                                                <div class=\"col-md-6\">\r\n                                                    <b-form-checkbox placeholder=\"NoIndex\" v-model=\"statusNoindex\" required>Chặn lập chỉ mục (NoIndex)</b-form-checkbox>\r\n                                                </div>\r\n                                            </div>\r\n                                        </b-form-group>\r\n\r\n\r\n                                        <b-form-group label=\"Giá trị (Canonical)\">\r\n                                            <b-form-input placeholder=\"Canonical\" v-model=\"valueCanonical\" required></b-form-input>\r\n                                        </b-form-group>\r\n\r\n\r\n                                    </div>\r\n\r\n                                </b-collapse>\r\n                            </div>\r\n\r\n                            <div class=\"card\">\r\n                                <div class=\"card-header\">\r\n                                    <b-row>\r\n                                        <b-col md=\"11\">\r\n                                            Social Share\r\n                                        </b-col>\r\n                                        <b-col md=\"1\">\r\n                                            <b-btn v-b-toggle.collapseSocial2 variant=\"primary\" class=\"pull-right\"><i class=\"fa fa-angle-double-down\" aria-hidden=\"true\"></i></b-btn>\r\n                                        </b-col>\r\n                                    </b-row>\r\n                                </div>\r\n                                <b-collapse id=\"collapseSocial2\" class=\"mt-2\">\r\n                                    <div class=\"card-body\">\r\n                                        <b-form-group label=\"Ảnh mô tả\">\r\n                                            <a @click=\"openImg('ImgS')\">\r\n                                                <div class=\"row gallery-upload-file ui-sortable\">\r\n                                                    <div style=\"width:200px;height:200px\" class=\"r-queue-item ui-sortable-handle\">\r\n                                                        <div v-if=\"objRequestDetail.socialImage != null && objRequestDetail.socialImage != undefined &&  objRequestDetail.socialImage.length > 0\">\r\n                                                            <img alt=\"Ảnh lỗi\" :src=\"pathImgs(objRequestDetail.socialImage)\" style=\"height:200px;width:200px\" />\r\n                                                        </div>\r\n                                                        <div v-else>\r\n                                                            <i class=\"fa fa-picture-o\"></i>\r\n                                                            <p>[Chọn ảnh]</p>\r\n                                                        </div>\r\n                                                    </div>\r\n\r\n                                                </div>\r\n                                            </a>\r\n                                        </b-form-group>\r\n                                        <b-form-group label=\"Tiêu đề\">\r\n                                            <b-form-input v-model=\"objRequestDetail.socialTitle\" placeholder=\"Tiêu đề\" required></b-form-input>\r\n                                        </b-form-group>\r\n                                        <b-form-group label=\"Mô tả\">\r\n                                            <b-form-input v-model=\"objRequestDetail.socialDescription\" placeholder=\"Mô tả\" required></b-form-input>\r\n                                        </b-form-group>\r\n                                    </div>\r\n                                </b-collapse>\r\n                            </div>\r\n                        </div>\r\n                        <div class=\"col-sm-6 col-md-4\">\r\n                            <div class=\"card\">\r\n                                <div class=\"card-header\">\r\n                                    Thao tác\r\n                                </div>\r\n                                <div class=\"card-body\">\r\n                                    <div class=\"row\">\r\n                                        <div class=\"col-md-6\">\r\n                                            <button class=\"btn btn-info btn-submit-form col-md-12 btncus\" type=\"submit\" @click=\"DoAddDetail()\">\r\n                                                <i class=\"fa fa-save\"></i> Cập nhật\r\n                                            </button>\r\n                                        </div>\r\n                                        <div class=\"col-md-6\">\r\n                                            <button class=\"btn btn-success col-md-12 btncus\" type=\"button\" @click=\"DoRefesh()\">\r\n                                                <i class=\"fa fa-refresh\"></i> Làm mới\r\n                                            </button>\r\n                                        </div>\r\n                                    </div>\r\n                                </div>\r\n                            </div>\r\n                        </div>\r\n                    </div>\r\n                </div>\r\n            </b-tab>\r\n        </b-tabs>\r\n        <FileManager v-on:handleAttackFile=\"DoAttackFile\" :miKey=\"mikey1\" />\r\n    </div>\r\n</template>\r\n\r\n<script>\r\n    import \"vue-loading-overlay/dist/vue-loading.css\";\r\n    //import ClassicEditor from '@ckeditor/ckeditor5-build-classic';\r\n    import msgNotify from \"../../common/constant\";\r\n    import { mapGetters, mapActions } from \"vuex\";\r\n    import Loading from \"vue-loading-overlay\";\r\n\r\n    // import the component\r\n    import Treeselect from '@riophae/vue-treeselect'\r\n    // import the styles\r\n    import '@riophae/vue-treeselect/dist/vue-treeselect.css'\r\n\r\n    import 'vue-select/dist/vue-select.css';\r\n    import { unflatten, slug, pathImg, urlBase } from \"../../plugins/helper\";\r\n\r\n    import EventBus from \"./../../common/eventBus\";\r\n    import moment from 'moment';\r\n    import VoerroTagsInput from './VoerroTagsInput';\r\n    import FileManager from './../../components/fileManager/list'\r\n    import MIEditor from '../../components/editor/MIEditor';\r\n    // Import component\r\n\r\n    export default {\r\n        name: \"productaddedit\",\r\n        data() {\r\n            return {\r\n\r\n                IsChoseImg360: false,\r\n                IsChoseFileDowload: false,\r\n                IsChoseVideo: false,\r\n\r\n                mikey1: 'mikey1',\r\n\r\n                content: '',\r\n                contentContent: '',\r\n\r\n                choseImg: \"\",\r\n\r\n                isLoading: false,\r\n                fullPage: false,\r\n                color: \"#007bff\",\r\n                isLoadLang: false,\r\n\r\n\r\n                preview: '/assets/img/unnamed.jpg',\r\n                previews: '/assets/img/unnamed.jpg',\r\n\r\n                //editor: ClassicEditor,\r\n                //editor1: ClassicEditor,\r\n                editorData: '<p>Content of the editor.</p>',\r\n                currentSort: \"Id\",\r\n                currentSortDir: \"asc\",\r\n                productName: \"\",\r\n                currentPage: 1,\r\n                pageSize: 10,\r\n                loading: true,\r\n                langSelected: \"\",\r\n                bootstrapPaginationClasses: {\r\n                    ul: \"pagination\",\r\n                    li: \"page-item\",\r\n                    liActive: \"active\",\r\n                    liDisable: \"disabled\",\r\n                    button: \"page-link\"\r\n                },\r\n                customLabels: {\r\n                    first: \"First\",\r\n                    prev: \"Previous\",\r\n                    next: \"Next\",\r\n                    last: \"Last\"\r\n                },\r\n                selected: [],\r\n                objLocations: {\r\n                    locationId: 0,\r\n                },\r\n                objCombo: {\r\n                    name: ''\r\n                },\r\n                Locations: [],\r\n                editorConfig: {\r\n                    allowedContent: true,\r\n                    extraPlugins: \"\",\r\n\r\n                },\r\n                statusNoindex: false,\r\n                statusCanonical: false,\r\n                valueCanonical: \"\",\r\n                objRequest: {\r\n                    avatar: \"\",\r\n                    status: 2,\r\n                    materialType: 0,\r\n                    guarantee: \"\",\r\n                    price: 0,\r\n                    discountPrice: 0,\r\n                    discountPercent: 0,\r\n                    exprirePromotion: moment(String(new Date())).format('YYYY-MM-DD'),\r\n                },\r\n                objRequestDetail: {\r\n                    url: \"\",\r\n                    title: \"\",\r\n                    content: \"\",\r\n                    description: \"\"\r\n                },\r\n\r\n                objRequestDetails: [],\r\n                Tag: \"\",\r\n                Tags: [],\r\n                ListImg: [],//Danh sách hình ảnh\r\n\r\n                Languages: [],//Danh sách ngôn ngữ\r\n                ManufacturerIds: [],//Danh sách nhà cung cấp\r\n                ZoneOptions: [],\r\n                ZoneValues: [],\r\n                ProductUnit: [],\r\n                Properties: [],\r\n                ListProperty: [],\r\n                Colors: [],\r\n                ListColors: [],\r\n\r\n                ListAllTags: [],\r\n                ListGuarantee: [],\r\n                ListTypeMaterial: [],\r\n                objUser: {},\r\n                FileMeta: {\r\n                    File360: \"\",\r\n                    FileDowload: \"\",\r\n                    FileVideo: \"\",\r\n                }\r\n            };\r\n        },\r\n        created: {},\r\n        components: {\r\n            MIEditor,\r\n            Loading,\r\n\r\n            Treeselect,\r\n\r\n            FileManager,\r\n            \"v-tags-input\": VoerroTagsInput\r\n        },\r\n        mounted() {\r\n            if (this.$route.params.id > 0) {\r\n                this.isLoading = true;\r\n                let initial = this.$route.query.initial;\r\n                initial = typeof initial != \"undefined\" ? initial.toLowerCase() : \"\";\r\n                this.getProduct(this.$route.params.id).then(respose => {\r\n                    this.objRequest = respose.data;\r\n                    //this.objRequest.id = 0;\r\n                    if (this.objRequest != null && this.objRequest.exprirePromotion != null && this.objRequest.exprirePromotion != undefined)\r\n                        this.objRequest.exprirePromotion = moment(String(this.objRequest.exprirePromotion)).format('YYYY-MM-DD');\r\n                    else\r\n                        this.objRequest.exprirePromotion = moment(String(new Date())).format('YYYY-MM-DD');\r\n                    try {\r\n                        this.FileMeta = JSON.parse(this.objRequest.metaFile);\r\n                    }\r\n                    catch (ex) {\r\n\r\n                    }\r\n                    this.ListProperty = respose.listProp;\r\n                    this.ListColors = respose.listColor;\r\n                    this.ZoneValues = respose.listCat;\r\n                    this.ListImg = this.objRequest.avatarArray.split(\",\");\r\n                });\r\n                this.isLoading = false;\r\n            }\r\n        },\r\n\r\n        computed: {\r\n            ...mapGetters([\"product\", \"fileName\"]),\r\n        },\r\n        created() {\r\n            let vm = this;\r\n            EventBus.$on('FileSelected', value => {\r\n\r\n            });\r\n\r\n            this.objUser = this.getUser();\r\n\r\n            this.getAllLanguages().then(respose => {\r\n                let lang = respose.listData;\r\n                this.Languages = lang.map(function (item) {\r\n                    return {\r\n                        value: item.languageCode,\r\n                        text: item.name\r\n                    }\r\n                });\r\n            });\r\n            this.getAllColors().then(respose => {\r\n                this.Colors = respose;\r\n            });\r\n            this.getAllManufacturers().then(response => {\r\n\r\n                this.ManufacturerIds = response.listData;\r\n            });\r\n\r\n            this.productUnitGet().then(response => {\r\n                this.ProductUnit = response.listData;\r\n            });\r\n\r\n            this.getPropertyProduct().then(response => {\r\n\r\n                this.Properties = response;\r\n            });\r\n            this.getTagAll().then(response => {\r\n                try {\r\n                    this.ListAllTags = this.convertTags(response.listData);\r\n                }\r\n                catch (ex) {\r\n                    console.log(ex);\r\n                }\r\n            });\r\n            this.getGuarantee().then(response => {\r\n                try {\r\n                    this.ListGuarantee = response;\r\n                }\r\n                catch (ex) {\r\n                    console.log(ex);\r\n                }\r\n            });\r\n            this.getAllTypeMaterial().then(response => {\r\n                try {\r\n                    this.ListTypeMaterial = response.listData;\r\n                }\r\n                catch (ex) {\r\n                    console.log(ex);\r\n                }\r\n            });\r\n            this.onChangePaging();\r\n        },\r\n        destroyed() {\r\n            EventBus.$off('FileSelected');\r\n        },\r\n        methods: {\r\n            ...mapActions([\"updateProduct\",\r\n                \"addProduct\",\r\n                \"getProduct\",\r\n                \"getAllManufacturers\",\r\n                \"getAllLanguages\",\r\n                \"addProductInLanguage\",\r\n                \"getZones\",\r\n                \"deleteProduct\",\r\n                \"productUnitGet\",\r\n                \"getPropertyProduct\",\r\n                \"getLanguageById\",\r\n                \"getTagAll\",\r\n                \"getGuarantee\",\r\n                \"getAllColors\",\r\n                \"getAllTypeMaterial\"\r\n            ]),\r\n            getOrSetData(value) {\r\n                this.objRequestDetail.content = value;\r\n            },\r\n            sumTotal() {\r\n                this.objRequest.discountPrice = this.objRequest.price - (this.objRequest.discountPercent * (this.objRequest.price / 100))\r\n            },\r\n            pathImgs(path) {\r\n                return pathImg(path);\r\n            },\r\n            urlBases(path) {\r\n                return urlBase(path);\r\n            },\r\n            getUser() {\r\n                //debugger-\r\n                var data = JSON.parse(localStorage.getItem('currentUser'));\r\n                return JSON.parse(localStorage.getItem('currentUser'));\r\n            },\r\n\r\n            onChangePaging() {\r\n                this.isLoading = true;\r\n                let initial = this.$route.query.initial;\r\n                initial = typeof initial != \"undefined\" ? initial.toLowerCase() : \"\";\r\n                this.getZones(1).then(respose => {\r\n                    var data = respose.listData;\r\n\r\n                    this.ZoneOptions = unflatten(data);\r\n                });\r\n                this.isLoading = false;\r\n            },\r\n            slugM: function () {\r\n                //debugger-\r\n                if (this.objRequestDetail != null && this.objRequestDetail != undefined) {\r\n                    //this.objRequestDetail.url = \"\";\r\n\r\n                    this.objRequestDetail.url = slug(this.objRequestDetail.title);\r\n\r\n\r\n                }\r\n\r\n            },\r\n\r\n            defaultObj: function () {\r\n                this.objRequestDetail = Object.assign({}, this.objRequestDetail);\r\n                this.objRequestDetail.id = \"00000000-0000-0000-0000-000000000000\";\r\n                this.objRequestDetail.title = \"\";\r\n                this.objRequestDetail.url = \"\";\r\n                this.objRequestDetail.content = \"\";\r\n                this.objRequestDetail.description = \"\";\r\n                this.Tags = [];\r\n            },\r\n\r\n            onLoadLang() {\r\n                //debugger-\r\n                this.isLoading = true;\r\n                this.getLanguageById(this.objRequest.id).then(respose => {\r\n                    if (respose.listData != null && respose.listData.length > 0) {\r\n                        //debugger-\r\n                        this.objRequestDetails = respose.listData;\r\n                        if (this.objRequestDetails != null && this.objRequestDetails != undefined && this.objRequestDetails.length > 0) {\r\n                            var obj = this.objRequestDetails.filter(x => x.languageCode == 'vi-VN     ');\r\n                            if (obj != null && obj.length > 0) {\r\n                                this.objRequestDetail = obj[0];\r\n                                //\r\n                                if (obj[0].metaNoIndex != null) {\r\n                                    let objNoIndex = JSON.parse(obj[0].metaNoIndex);\r\n                                    this.statusNoindex = objNoIndex.Status;\r\n                                }\r\n                                if (obj[0].metaCanonical != null) {\r\n                                    let objCanonical = JSON.parse(obj[0].metaCanonical);\r\n                                    this.statusCanonical = objCanonical.Status;\r\n                                    this.valueCanonical = objCanonical.Value;\r\n                                }\r\n                                //\r\n                            } else {\r\n                                this.objRequestDetail = this.objRequestDetails[0];\r\n                                //\r\n                                if (this.objRequestDetails[0].metaNoIndex != null) {\r\n                                    let objNoIndex = JSON.parse(this.objRequestDetails[0].metaNoIndex);\r\n                                    this.statusNoindex = objNoIndex.Status;\r\n                                }\r\n                                if (this.objRequestDetails[0].metaCanonical != null) {\r\n                                    let objCanonical = JSON.parse(this.objRequestDetails[0].metaCanonical);\r\n                                    this.statusCanonical = objCanonical.Status;\r\n                                    this.valueCanonical = objCanonical.Value;\r\n                                }\r\n                                //\r\n                            }\r\n\r\n                            this.Tags = this.convertTags(this.objRequestDetail.listTagName);\r\n                        } else {\r\n                            this.defaultObj();\r\n                            this.statusNoindex = false;\r\n                            this.statusCanonical = false;\r\n                            this.valueCanonical = \"\";\r\n                        }\r\n                    }\r\n                    this.langSelected = this.objRequestDetail.languageCode;\r\n                });\r\n                this.contentContent = this.objRequestDetail.content;\r\n\r\n                this.isLoading = false;\r\n            },\r\n            StartLoadLang() {\r\n                this.isLoadLang = true;\r\n            },\r\n            removeImg(index) {\r\n                this.ListImg.splice(index, 1);\r\n            },\r\n            DoAddEdit() {\r\n                //debugger-\r\n                this.isLoading = true;\r\n                this.objRequest.metaFile = JSON.stringify(this.FileMeta);\r\n                this.objRequest.avatarArray = this.ListImg.join();\r\n                this.objRequest.propertyId = this.ListProperty.join();\r\n                this.objRequest.color = this.ListColors.join();\r\n                this.objRequest.modifyBy = this.objUser.userName;\r\n\r\n                this.objRequest.ProductInZone = this.ZoneValues.map(x => {\r\n                    return {\r\n                        ZoneId: x,\r\n                        ProductId: this.objRequest.id,\r\n                        IsPrimary: false,\r\n                        IsHot: false,\r\n                        BigThumb: \"\"\r\n                    }\r\n                });\r\n\r\n                //this.objRequest.avatar = this.Img;\r\n                if (this.objRequest.id > 0) {\r\n                    this.updateProduct(this.objRequest)\r\n                        .then(response => {\r\n                            if (response.success == true) {\r\n                                this.$toast.success(response.message, {});\r\n                                this.isLoading = false;\r\n                            }\r\n                            else {\r\n                                this.$toast.error(response.message, {});\r\n                                this.isLoading = false;\r\n                            }\r\n\r\n                        })\r\n                        .catch(e => {\r\n                            this.$toast.error(msgNotify.error + \". Error:\" + e, {});\r\n                            this.isLoading = false;\r\n                        });\r\n                } else {\r\n\r\n                    this.addProduct(this.objRequest)\r\n                        .then(response => {\r\n                            if (response.success == true) {\r\n                                this.$toast.success(response.message, {});\r\n                                this.objRequest.id = response.id;\r\n                                this.objRequestDetail.ProductId = response.id;\r\n                                this.$router.push({\r\n                                    path: \"/admin/product/edit/\" + response.id,\r\n                                });\r\n                                this.isLoading = false;\r\n                            }\r\n                            else {\r\n                                this.$toast.error(response.message, {});\r\n                                this.isLoading = false;\r\n                            }\r\n                        })\r\n                        .catch(e => {\r\n                            this.$toast.error(msgNotify.error + \". Error:\" + e, {});\r\n                            this.isLoading = false;\r\n                        });\r\n                }\r\n            },\r\n            getSelectedUser(node, id) {\r\n                this.objRequest.ZoneId = node.id;\r\n            },\r\n            convertTags(value) {\r\n                if (value != null && value != undefined && value.length > 0) {\r\n                    return value.map(x => {\r\n                        return { key: slug(x), value: x }\r\n                    });\r\n                }\r\n                return value;\r\n            },\r\n            onChangeSelectd() {\r\n                console.log(this.objRequestDetails)\r\n                if (this.objRequestDetails != null && this.objRequestDetails.length > 0) {\r\n                    //debugger-;\r\n                    let lang = this.langSelected || \"vi-VN     \";\r\n                    let lstObjLang = this.objRequestDetails.filter(function (item) {\r\n                        return item.languageCode.trim() === lang.trim()\r\n                    });\r\n                    if (lstObjLang != null && lstObjLang != undefined && lstObjLang.length > 0) {\r\n                        this.objRequestDetail = lstObjLang[0];\r\n                        //\r\n                        if (lstObjLang[0].metaNoIndex != null) {\r\n                            let objNoIndex = JSON.parse(lstObjLang[0].metaNoIndex);\r\n                            this.statusNoindex = objNoIndex.Status;\r\n                        }\r\n                        if (lstObjLang[0].metaCanonical != null) {\r\n                            let objCanonical = JSON.parse(lstObjLang[0].metaCanonical);\r\n                            this.statusCanonical = objCanonical.Status;\r\n                            this.valueCanonical = objCanonical.Value;\r\n                        }\r\n                        //\r\n                        this.Tags = this.convertTags(this.objRequestDetail.listTagName);\r\n                    } else {\r\n                        this.defaultObj();\r\n                        this.statusNoindex = false;\r\n                        this.statusCanonical = false;\r\n                        this.valueCanonical = \"\";\r\n                    }\r\n                }\r\n                this.objRequestDetail.languageCode = this.langSelected;\r\n\r\n            },\r\n\r\n            DoAddDetail() {\r\n                this.objRequestDetail.productId = this.objRequest.id;\r\n                //\r\n                let objMetaNoIndex = {\r\n                    Value: \"\",\r\n                    Status: this.statusNoindex\r\n                }\r\n                let objMetaCanonical = {\r\n                    Value: this.valueCanonical,\r\n                    Status: this.statusCanonical\r\n                }\r\n                this.objRequestDetail.metaNoIndex = JSON.stringify(objMetaNoIndex);\r\n                this.objRequestDetail.metaCanonical = JSON.stringify(objMetaCanonical);\r\n                //\r\n                this.objRequestDetail.listTagName = this.Tags.map(x => {\r\n                    return x.value\r\n                });\r\n\r\n                this.addProductInLanguage(this.objRequestDetail)\r\n                    .then(response => {\r\n                        if (response.success == true) {\r\n                            if (response.data != null && response.data != undefined) {\r\n                                this.objRequestDetail.id = response.data.Id;\r\n                                if (!this.objRequestDetails.some(x => x.languageCode == this.objRequestDetail.languageCode)) {\r\n                                    this.objRequestDetails.push(this.objRequestDetail);\r\n                                }\r\n                            }\r\n                            this.$toast.success(response.message, {});\r\n                        }\r\n                        else {\r\n                            this.$toast.error(response.message, {});\r\n                        }\r\n                    })\r\n                    .catch(e => {\r\n                        this.$toast.error(msgNotify.error + \". Error:\" + e, {});\r\n                        this.isLoading = false;\r\n                    });\r\n            },\r\n            DoAttackFile(value) {\r\n                let vm = this;\r\n                if (this.choseImg == \"ListImg\") {\r\n                    value.map(x => {\r\n                        vm.ListImg.push(x.path)\r\n                    });\r\n                } else if (this.choseImg == \"Img\") {\r\n                    vm.objRequest.avatar = value[0].path;\r\n                }\r\n                else if (this.choseImg == \"ImgS\") {\r\n                    vm.objRequestDetail.socialImage = value[0].path;\r\n                }\r\n                else if (this.choseImg == \"fileVideo\") {\r\n                    vm.FileMeta.FileVideo = value[0].path;\r\n                }\r\n                else if (this.choseImg == \"file360\") {\r\n                    vm.FileMeta.File360 = value[0].path;\r\n                }\r\n                else if (this.choseImg == \"filedowload\") {\r\n                    vm.FileMeta.FileDowload = value[0].path;\r\n                }\r\n            },\r\n            openImg(img) {\r\n                this.choseImg = img;\r\n                if (img == \"ListImg\") {\r\n                    //EventBus.$emit(\"FileSelected\", );\r\n                    EventBus.$emit(this.mikey1, 'multi'); // '': select one, 'multi': select multi file\r\n                } else {\r\n                    //EventBus.$emit(\"FileSelected\", this.Img);\r\n                    EventBus.$emit(this.mikey1, ''); // '': select one, 'multi': select multi file\r\n                }\r\n            },\r\n\r\n        },\r\n        watch: {\r\n            isLoadLang: function (val) {\r\n                this.onLoadLang();\r\n            },\r\n\r\n        },\r\n    };\r\n</script>\r\n<style>\r\n    /* The input */\r\n    .tags-input {\r\n        display: flex;\r\n        flex-wrap: wrap;\r\n        align-items: center;\r\n    }\r\n\r\n        .tags-input input {\r\n            flex: 1;\r\n            background: transparent;\r\n            border: none;\r\n        }\r\n\r\n            .tags-input input:focus {\r\n                outline: none;\r\n            }\r\n\r\n            .tags-input input[type=\"text\"] {\r\n                color: #495057;\r\n            }\r\n\r\n    .tags-input-wrapper-default {\r\n        padding: .5em .25em;\r\n        background: #fff;\r\n        border: 1px solid transparent;\r\n        border-radius: .25em;\r\n        border-color: #dbdbdb;\r\n    }\r\n\r\n        .tags-input-wrapper-default.active {\r\n            border: 1px solid #8bbafe;\r\n            box-shadow: 0 0 0 0.2em rgba(13, 110, 253, 0.25);\r\n            outline: 0 none;\r\n        }\r\n\r\n    /* The tag badges & the remove icon */\r\n    .tags-input span {\r\n        margin-right: 0.3em;\r\n    }\r\n\r\n    .tags-input-remove {\r\n        cursor: pointer;\r\n        position: absolute;\r\n        display: inline-block;\r\n        right: 0.3em;\r\n        top: 0.3em;\r\n        padding: 0.5em;\r\n        overflow: hidden;\r\n    }\r\n\r\n        .tags-input-remove:focus {\r\n            outline: none;\r\n        }\r\n\r\n        .tags-input-remove:before, .tags-input-remove:after {\r\n            content: '';\r\n            position: absolute;\r\n            width: 75%;\r\n            left: 0.15em;\r\n            background: #5dc282;\r\n            height: 2px;\r\n            margin-top: -1px;\r\n        }\r\n\r\n        .tags-input-remove:before {\r\n            transform: rotate(45deg);\r\n        }\r\n\r\n        .tags-input-remove:after {\r\n            transform: rotate(-45deg);\r\n        }\r\n\r\n    /* Tag badge styles */\r\n    .tags-input-badge {\r\n        position: relative;\r\n        display: inline-block;\r\n        padding: 0.25em 0.4em;\r\n        font-size: 75%;\r\n        font-weight: 700;\r\n        line-height: 1;\r\n        text-align: center;\r\n        white-space: nowrap;\r\n        vertical-align: baseline;\r\n        border-radius: 0.25em;\r\n        overflow: hidden;\r\n        text-overflow: ellipsis;\r\n    }\r\n\r\n    .tags-input-badge-pill {\r\n        padding-right: 1.25em;\r\n        padding-left: 0.6em;\r\n        border-radius: 10em;\r\n    }\r\n\r\n    .tags-input-badge-selected-default {\r\n        color: #212529;\r\n        background-color: #f0f1f2;\r\n    }\r\n\r\n    /* Typeahead */\r\n    .typeahead-hide-btn {\r\n        color: #999 !important;\r\n        font-style: italic;\r\n    }\r\n\r\n    /* Typeahead - badges */\r\n    .typeahead-badges > span {\r\n        cursor: pointer;\r\n        margin-right: 0.3em;\r\n    }\r\n\r\n    /* Typeahead - dropdown */\r\n    .typeahead-dropdown {\r\n        list-style-type: none;\r\n        padding: 0;\r\n        margin: 0;\r\n        position: absolute;\r\n        width: 100%;\r\n        z-index: 1000;\r\n    }\r\n\r\n        .typeahead-dropdown li {\r\n            padding: .25em 1em;\r\n            cursor: pointer;\r\n        }\r\n\r\n    /* Typeahead elements style/theme */\r\n    .tags-input-typeahead-item-default {\r\n        color: #fff;\r\n        background-color: #343a40;\r\n    }\r\n\r\n    .tags-input-typeahead-item-highlighted-default {\r\n        color: #fff;\r\n        background-color: #007bff;\r\n    }\r\n</style>\r\n"],"sourceRoot":""}]);
-
-// exports
-
-
-/***/ }),
-
-/***/ 1124:
-/***/ (function(module, exports, __webpack_require__) {
-
-var Component = __webpack_require__(374)(
+var Component = __webpack_require__(371)(
   /* script */
-  __webpack_require__(1061),
+  __webpack_require__(1045),
   /* template */
-  __webpack_require__(1125),
+  __webpack_require__(1066),
   /* scopeId */
   null,
   /* cssModules */
   null
 )
-Component.options.__file = "D:\\Code\\WORKING\\dotnet-platform-backend\\Web\\Platform\\CMS\\PlatformCMS\\ClientApp\\pages\\product\\VoerroTagsInput.vue"
-if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
-if (Component.options.functional) {console.error("[vue-loader] VoerroTagsInput.vue: functional components are not supported with templates, they should use render functions.")}
-
-/* hot reload */
-if (true) {(function () {
-  var hotAPI = __webpack_require__(178)
-  hotAPI.install(__webpack_require__(26), false)
-  if (!hotAPI.compatible) return
-  module.hot.accept()
-  if (!module.hot.data) {
-    hotAPI.createRecord("data-v-2a24781a", Component.options)
-  } else {
-    hotAPI.reload("data-v-2a24781a", Component.options)
-  }
-})()}
 
 module.exports = Component.exports
 
 
 /***/ }),
 
-/***/ 1125:
-/***/ (function(module, exports, __webpack_require__) {
+/***/ 1066:
+/***/ (function(module, exports) {
 
 module.exports={render:function (){
 var _obj;
@@ -13836,17 +13007,10 @@ var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
     })
   })], 2) : _vm._e()])])
 },staticRenderFns: []}
-module.exports.render._withStripped = true
-if (true) {
-  module.hot.accept()
-  if (module.hot.data) {
-     __webpack_require__(178).rerender("data-v-2a24781a", module.exports)
-  }
-}
 
 /***/ }),
 
-/***/ 1239:
+/***/ 1180:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -13856,63 +13020,63 @@ Object.defineProperty(exports, "__esModule", {
     value: true
 });
 
-var _defineProperty2 = __webpack_require__(956);
+var _defineProperty2 = __webpack_require__(938);
 
 var _defineProperty3 = _interopRequireDefault(_defineProperty2);
 
-var _stringify = __webpack_require__(393);
+var _stringify = __webpack_require__(390);
 
 var _stringify2 = _interopRequireDefault(_stringify);
 
-var _assign = __webpack_require__(377);
+var _assign = __webpack_require__(374);
 
 var _assign2 = _interopRequireDefault(_assign);
 
-var _extends2 = __webpack_require__(7);
+var _extends2 = __webpack_require__(8);
 
 var _extends3 = _interopRequireDefault(_extends2);
 
 var _name$data$created$co;
 
-__webpack_require__(796);
+__webpack_require__(779);
 
-var _constant = __webpack_require__(797);
+var _constant = __webpack_require__(781);
 
 var _constant2 = _interopRequireDefault(_constant);
 
-var _vuex = __webpack_require__(180);
+var _vuex = __webpack_require__(176);
 
-var _vueLoadingOverlay = __webpack_require__(376);
+var _vueLoadingOverlay = __webpack_require__(373);
 
 var _vueLoadingOverlay2 = _interopRequireDefault(_vueLoadingOverlay);
 
-var _vueTreeselect = __webpack_require__(951);
+var _vueTreeselect = __webpack_require__(933);
 
 var _vueTreeselect2 = _interopRequireDefault(_vueTreeselect);
 
-__webpack_require__(953);
+__webpack_require__(935);
 
-__webpack_require__(1025);
+__webpack_require__(1008);
 
-var _helper = __webpack_require__(950);
+var _helper = __webpack_require__(932);
 
-var _eventBus = __webpack_require__(957);
+var _eventBus = __webpack_require__(939);
 
 var _eventBus2 = _interopRequireDefault(_eventBus);
 
-var _moment = __webpack_require__(794);
+var _moment = __webpack_require__(778);
 
 var _moment2 = _interopRequireDefault(_moment);
 
-var _VoerroTagsInput = __webpack_require__(1124);
+var _VoerroTagsInput = __webpack_require__(1065);
 
 var _VoerroTagsInput2 = _interopRequireDefault(_VoerroTagsInput);
 
-var _list = __webpack_require__(1008);
+var _list = __webpack_require__(991);
 
 var _list2 = _interopRequireDefault(_list);
 
-var _MIEditor = __webpack_require__(1028);
+var _MIEditor = __webpack_require__(1012);
 
 var _MIEditor2 = _interopRequireDefault(_MIEditor);
 
@@ -14389,8 +13553,23 @@ exports.default = (_name$data$created$co = {
 
 /***/ }),
 
-/***/ 1555:
+/***/ 1441:
 /***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__(53)();
+// imports
+
+
+// module
+exports.push([module.i, ".tags-input{display:flex;flex-wrap:wrap;align-items:center}.tags-input input{flex:1;background:transparent;border:none}.tags-input input:focus{outline:none}.tags-input input[type=text]{color:#495057}.tags-input-wrapper-default{padding:.5em .25em;background:#fff;border:1px solid transparent;border-radius:.25em;border-color:#dbdbdb}.tags-input-wrapper-default.active{border:1px solid #8bbafe;box-shadow:0 0 0 .2em rgba(13,110,253,.25);outline:0 none}.tags-input span{margin-right:.3em}.tags-input-remove{cursor:pointer;position:absolute;display:inline-block;right:.3em;top:.3em;padding:.5em;overflow:hidden}.tags-input-remove:focus{outline:none}.tags-input-remove:after,.tags-input-remove:before{content:\"\";position:absolute;width:75%;left:.15em;background:#5dc282;height:2px;margin-top:-1px}.tags-input-remove:before{transform:rotate(45deg)}.tags-input-remove:after{transform:rotate(-45deg)}.tags-input-badge{position:relative;display:inline-block;padding:.25em .4em;font-size:75%;font-weight:700;line-height:1;text-align:center;white-space:nowrap;vertical-align:baseline;border-radius:.25em;overflow:hidden;text-overflow:ellipsis}.tags-input-badge-pill{padding-right:1.25em;padding-left:.6em;border-radius:10em}.tags-input-badge-selected-default{color:#212529;background-color:#f0f1f2}.typeahead-hide-btn{color:#999!important;font-style:italic}.typeahead-badges>span{cursor:pointer;margin-right:.3em}.typeahead-dropdown{list-style-type:none;padding:0;margin:0;position:absolute;width:100%;z-index:1000}.typeahead-dropdown li{padding:.25em 1em;cursor:pointer}.tags-input-typeahead-item-default{color:#fff;background-color:#343a40}.tags-input-typeahead-item-highlighted-default{color:#fff;background-color:#007bff}", ""]);
+
+// exports
+
+
+/***/ }),
+
+/***/ 1539:
+/***/ (function(module, exports) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
   return _c('div', {
@@ -15450,83 +14629,47 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }
   })], 1)
 },staticRenderFns: []}
-module.exports.render._withStripped = true
-if (true) {
-  module.hot.accept()
-  if (module.hot.data) {
-     __webpack_require__(178).rerender("data-v-52f731a2", module.exports)
-  }
-}
 
 /***/ }),
 
-/***/ 1619:
+/***/ 1603:
 /***/ (function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
-var content = __webpack_require__(1107);
+var content = __webpack_require__(1441);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
-var update = __webpack_require__(801)("7446efb8", content, false);
-// Hot Module Replacement
-if(true) {
- // When the styles change, update the <style> tags
- if(!content.locals) {
-   module.hot.accept(1107, function() {
-     var newContent = __webpack_require__(1107);
-     if(typeof newContent === 'string') newContent = [[module.i, newContent, '']];
-     update(newContent);
-   });
- }
- // When the module is disposed, remove the <style> tags
- module.hot.dispose(function() { update(); });
-}
+var update = __webpack_require__(784)("e863d62e", content, true);
 
 /***/ }),
 
-/***/ 766:
+/***/ 750:
 /***/ (function(module, exports, __webpack_require__) {
 
 
 /* styles */
-__webpack_require__(1619)
+__webpack_require__(1603)
 
-var Component = __webpack_require__(374)(
+var Component = __webpack_require__(371)(
   /* script */
-  __webpack_require__(1239),
+  __webpack_require__(1180),
   /* template */
-  __webpack_require__(1555),
+  __webpack_require__(1539),
   /* scopeId */
   null,
   /* cssModules */
   null
 )
-Component.options.__file = "D:\\Code\\WORKING\\dotnet-platform-backend\\Web\\Platform\\CMS\\PlatformCMS\\ClientApp\\pages\\product\\clone.vue"
-if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
-if (Component.options.functional) {console.error("[vue-loader] clone.vue: functional components are not supported with templates, they should use render functions.")}
-
-/* hot reload */
-if (true) {(function () {
-  var hotAPI = __webpack_require__(178)
-  hotAPI.install(__webpack_require__(26), false)
-  if (!hotAPI.compatible) return
-  module.hot.accept()
-  if (!module.hot.data) {
-    hotAPI.createRecord("data-v-52f731a2", Component.options)
-  } else {
-    hotAPI.reload("data-v-52f731a2", Component.options)
-  }
-})()}
 
 module.exports = Component.exports
 
 
 /***/ }),
 
-/***/ 794:
+/***/ 778:
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(module) {var require;//! moment.js
@@ -17630,7 +16773,7 @@ module.exports = Component.exports
             try {
                 oldLocale = globalLocale._abbr;
                 aliasedRequire = require;
-                __webpack_require__(998)("./" + name);
+                __webpack_require__(980)("./" + name);
                 getSetGlobalLocale(oldLocale);
             } catch (e) {
                 // mark as not found to avoid repeating expensive file require call causing high CPU
@@ -21215,11 +20358,38 @@ module.exports = Component.exports
 
 })));
 
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(77)(module)))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(111)(module)))
 
 /***/ }),
 
-/***/ 795:
+/***/ 779:
+/***/ (function(module, exports, __webpack_require__) {
+
+// style-loader: Adds some css to the DOM by adding a <style> tag
+
+// load the styles
+var content = __webpack_require__(780);
+if(typeof content === 'string') content = [[module.i, content, '']];
+// add the styles to the DOM
+var update = __webpack_require__(175)(content, {});
+if(content.locals) module.exports = content.locals;
+// Hot Module Replacement
+if(false) {
+	// When the styles change, update the <style> tags
+	if(!content.locals) {
+		module.hot.accept("!!../../css-loader/index.js!./vue-loading.css", function() {
+			var newContent = require("!!../../css-loader/index.js!./vue-loading.css");
+			if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
+			update(newContent);
+		});
+	}
+	// When the module is disposed, remove the <style> tags
+	module.hot.dispose(function() { update(); });
+}
+
+/***/ }),
+
+/***/ 780:
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(53)();
@@ -21234,34 +20404,7 @@ exports.push([module.i, ".vld-overlay {\n  bottom: 0;\n  left: 0;\n  position: a
 
 /***/ }),
 
-/***/ 796:
-/***/ (function(module, exports, __webpack_require__) {
-
-// style-loader: Adds some css to the DOM by adding a <style> tag
-
-// load the styles
-var content = __webpack_require__(795);
-if(typeof content === 'string') content = [[module.i, content, '']];
-// add the styles to the DOM
-var update = __webpack_require__(179)(content, {});
-if(content.locals) module.exports = content.locals;
-// Hot Module Replacement
-if(true) {
-	// When the styles change, update the <style> tags
-	if(!content.locals) {
-		module.hot.accept(795, function() {
-			var newContent = __webpack_require__(795);
-			if(typeof newContent === 'string') newContent = [[module.i, newContent, '']];
-			update(newContent);
-		});
-	}
-	// When the module is disposed, remove the <style> tags
-	module.hot.dispose(function() { update(); });
-}
-
-/***/ }),
-
-/***/ 797:
+/***/ 781:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -21275,13 +20418,13 @@ exports.default = msgNotify;
 
 /***/ }),
 
-/***/ 798:
+/***/ 782:
 /***/ (function(module, exports, __webpack_require__) {
 
 var global = __webpack_require__(21);
 var core = __webpack_require__(20);
-var LIBRARY = __webpack_require__(105);
-var wksExt = __webpack_require__(799);
+var LIBRARY = __webpack_require__(104);
+var wksExt = __webpack_require__(783);
 var defineProperty = __webpack_require__(54).f;
 module.exports = function (name) {
   var $Symbol = core.Symbol || (core.Symbol = LIBRARY ? {} : global.Symbol || {});
@@ -21291,7 +20434,7 @@ module.exports = function (name) {
 
 /***/ }),
 
-/***/ 799:
+/***/ 783:
 /***/ (function(module, exports, __webpack_require__) {
 
 exports.f = __webpack_require__(23);
@@ -21299,22 +20442,7 @@ exports.f = __webpack_require__(23);
 
 /***/ }),
 
-/***/ 800:
-/***/ (function(module, exports, __webpack_require__) {
-
-exports = module.exports = __webpack_require__(53)();
-// imports
-
-
-// module
-exports.push([module.i, "/*!\n * vue-treeselect v0.4.0 | (c) 2017-2019 Riophae Lee\n * Released under the MIT License.\n * https://vue-treeselect.js.org/\n */\n/**\n * Dependencies\n */\n/**\n * Variables\n */\n/**\n * Mixins\n */\n/**\n * Helpers\n */\n.vue-treeselect-helper-hide {\n  display: none;\n}\n.vue-treeselect-helper-zoom-effect-off {\n  -ms-transform: none !important;\n      transform: none !important;\n}\n/**\n * Animations\n */\n@keyframes vue-treeselect-animation-fade-in {\n  0% {\n    opacity: 0;\n  }\n}\n@keyframes vue-treeselect-animation-bounce {\n  0%,\n  100% {\n    transform: scale(0);\n  }\n  50% {\n    transform: scale(1);\n  }\n}\n@keyframes vue-treeselect-animation-rotate {\n  100% {\n    transform: rotate(360deg);\n  }\n}\n/**\n * Transitions\n */\n.vue-treeselect__multi-value-item--transition-enter-active,\n.vue-treeselect__multi-value-item--transition-leave-active {\n  transition-duration: 200ms;\n  transition-property: transform, opacity;\n}\n.vue-treeselect__multi-value-item--transition-enter-active {\n  transition-timing-function: cubic-bezier(0.075, 0.82, 0.165, 1);\n}\n.vue-treeselect__multi-value-item--transition-leave-active {\n  transition-timing-function: cubic-bezier(0.215, 0.61, 0.355, 1);\n  position: absolute;\n}\n.vue-treeselect__multi-value-item--transition-enter,\n.vue-treeselect__multi-value-item--transition-leave-to {\n  -ms-transform: scale(0.7);\n      transform: scale(0.7);\n  opacity: 0;\n}\n.vue-treeselect__multi-value-item--transition-move {\n  transition: 200ms transform cubic-bezier(0.165, 0.84, 0.44, 1);\n}\n/**\n * Namespace\n */\n.vue-treeselect {\n  position: relative;\n  text-align: left;\n}\n[dir=\"rtl\"] .vue-treeselect {\n  text-align: right;\n}\n.vue-treeselect div,\n.vue-treeselect span {\n  box-sizing: border-box;\n}\n.vue-treeselect svg {\n  fill: currentColor;\n}\n/**\n * Control\n */\n.vue-treeselect__control {\n  padding-left: 5px;\n  padding-right: 5px;\n  display: table;\n  table-layout: fixed;\n  width: 100%;\n  height: 36px;\n  border: 1px solid #ddd;\n  border-radius: 5px;\n  background: #fff;\n  transition-duration: 200ms;\n  transition-property: border-color, box-shadow, width, height, background-color, opacity;\n  transition-timing-function: cubic-bezier(0.215, 0.61, 0.355, 1);\n}\n.vue-treeselect:not(.vue-treeselect--disabled):not(.vue-treeselect--focused) .vue-treeselect__control:hover {\n  border-color: #cfcfcf;\n}\n.vue-treeselect--focused:not(.vue-treeselect--open) .vue-treeselect__control {\n  border-color: #039be5;\n  box-shadow: 0 0 0 3px rgba(3, 155, 229, 0.1);\n}\n.vue-treeselect--disabled .vue-treeselect__control {\n  background-color: #f9f9f9;\n}\n.vue-treeselect--open .vue-treeselect__control {\n  border-color: #cfcfcf;\n}\n.vue-treeselect--open.vue-treeselect--open-below .vue-treeselect__control {\n  border-bottom-left-radius: 0;\n  border-bottom-right-radius: 0;\n}\n.vue-treeselect--open.vue-treeselect--open-above .vue-treeselect__control {\n  border-top-left-radius: 0;\n  border-top-right-radius: 0;\n}\n.vue-treeselect__value-container,\n.vue-treeselect__multi-value {\n  width: 100%;\n  vertical-align: middle;\n}\n.vue-treeselect__value-container {\n  display: table-cell;\n  position: relative;\n}\n.vue-treeselect--searchable:not(.vue-treeselect--disabled) .vue-treeselect__value-container {\n  cursor: text;\n}\n.vue-treeselect__multi-value {\n  display: inline-block;\n}\n.vue-treeselect--has-value .vue-treeselect__multi-value {\n  margin-bottom: 5px;\n}\n.vue-treeselect__placeholder,\n.vue-treeselect__single-value {\n  overflow: hidden;\n  text-overflow: ellipsis;\n  white-space: nowrap;\n  padding-left: 5px;\n  padding-right: 5px;\n  position: absolute;\n  top: 0;\n  right: 0;\n  bottom: 0;\n  left: 0;\n  line-height: 34px;\n  -webkit-user-select: none;\n     -moz-user-select: none;\n      -ms-user-select: none;\n          user-select: none;\n  pointer-events: none;\n}\n.vue-treeselect__placeholder {\n  color: #bdbdbd;\n}\n.vue-treeselect__single-value {\n  color: #333;\n}\n.vue-treeselect--focused.vue-treeselect--searchable .vue-treeselect__single-value {\n  color: #bdbdbd;\n}\n.vue-treeselect--disabled .vue-treeselect__single-value {\n  position: static;\n}\n.vue-treeselect__multi-value-item-container {\n  display: inline-block;\n  padding-top: 5px;\n  padding-right: 5px;\n  vertical-align: top;\n}\n[dir=\"rtl\"] .vue-treeselect__multi-value-item-container {\n  padding-right: 0;\n  padding-left: 5px;\n}\n.vue-treeselect__multi-value-item {\n  cursor: pointer;\n  display: inline-table;\n  background: #e3f2fd;\n  padding: 2px 0;\n  border: 1px solid transparent;\n  border-radius: 2px;\n  color: #039be5;\n  font-size: 12px;\n  vertical-align: top;\n}\n.vue-treeselect:not(.vue-treeselect--disabled) .vue-treeselect__multi-value-item:not(.vue-treeselect__multi-value-item-disabled):hover .vue-treeselect__multi-value-item:not(.vue-treeselect__multi-value-item-new) .vue-treeselect__multi-value-item:not(.vue-treeselect__multi-value-item-new):hover {\n  cursor: pointer;\n  background: #e3f2fd;\n  color: #039be5;\n}\n.vue-treeselect__multi-value-item.vue-treeselect__multi-value-item-disabled {\n  cursor: default;\n  background: #f5f5f5;\n  color: #757575;\n}\n.vue-treeselect--disabled .vue-treeselect__multi-value-item {\n  cursor: default;\n  background: #fff;\n  border-color: #e5e5e5;\n  color: #555;\n}\n.vue-treeselect__multi-value-item.vue-treeselect__multi-value-item-new {\n  background: #e8f5e9;\n}\n.vue-treeselect__multi-value-item.vue-treeselect__multi-value-item-new:hover {\n  background: #e8f5e9;\n}\n.vue-treeselect__value-remove,\n.vue-treeselect__multi-value-label {\n  display: table-cell;\n  padding: 0 5px;\n  vertical-align: middle;\n}\n.vue-treeselect__value-remove {\n  color: #039be5;\n  padding-left: 5px;\n  border-left: 1px solid #fff;\n  line-height: 0;\n}\n[dir=\"rtl\"] .vue-treeselect__value-remove {\n  border-left: 0 none;\n  border-right: 1px solid #fff;\n}\n.vue-treeselect__multi-value-item:hover .vue-treeselect__value-remove {\n  color: #e53935;\n}\n.vue-treeselect--disabled .vue-treeselect__value-remove,\n.vue-treeselect__multi-value-item-disabled .vue-treeselect__value-remove {\n  display: none;\n}\n.vue-treeselect__value-remove > svg {\n  width: 6px;\n  height: 6px;\n}\n.vue-treeselect__multi-value-label {\n  padding-right: 5px;\n  white-space: pre-line;\n  -webkit-user-select: none;\n     -moz-user-select: none;\n      -ms-user-select: none;\n          user-select: none;\n}\n.vue-treeselect__limit-tip {\n  display: inline-block;\n  padding-top: 5px;\n  padding-right: 5px;\n  vertical-align: top;\n}\n[dir=\"rtl\"] .vue-treeselect__limit-tip {\n  padding-right: 0;\n  padding-left: 5px;\n}\n.vue-treeselect__limit-tip-text {\n  cursor: default;\n  display: block;\n  margin: 2px 0;\n  padding: 1px 0;\n  color: #bdbdbd;\n  font-size: 12px;\n  font-weight: 600;\n}\n.vue-treeselect__input-container {\n  display: block;\n  max-width: 100%;\n  outline: none;\n}\n.vue-treeselect--single .vue-treeselect__input-container {\n  font-size: inherit;\n  height: 100%;\n}\n.vue-treeselect--multi .vue-treeselect__input-container {\n  display: inline-block;\n  font-size: 12px;\n  vertical-align: top;\n}\n.vue-treeselect--searchable .vue-treeselect__input-container {\n  padding-left: 5px;\n  padding-right: 5px;\n}\n.vue-treeselect--searchable.vue-treeselect--multi.vue-treeselect--has-value .vue-treeselect__input-container {\n  padding-top: 5px;\n  padding-left: 0;\n}\n[dir=\"rtl\"] .vue-treeselect--searchable.vue-treeselect--multi.vue-treeselect--has-value .vue-treeselect__input-container {\n  padding-left: 5px;\n  padding-right: 0;\n}\n.vue-treeselect--disabled .vue-treeselect__input-container {\n  display: none;\n}\n.vue-treeselect__input,\n.vue-treeselect__sizer {\n  margin: 0;\n  line-height: inherit;\n  font-family: inherit;\n  font-size: inherit;\n}\n.vue-treeselect__input {\n  max-width: 100%;\n  margin: 0;\n  padding: 0;\n  border: 0;\n  outline: none;\n  box-sizing: content-box;\n  box-shadow: none;\n  background: none transparent;\n  line-height: 1;\n  vertical-align: middle;\n}\n.vue-treeselect__input::-ms-clear {\n  display: none;\n}\n.vue-treeselect--single .vue-treeselect__input {\n  width: 100%;\n  height: 100%;\n}\n.vue-treeselect--multi .vue-treeselect__input {\n  padding-top: 3px;\n  padding-bottom: 3px;\n}\n.vue-treeselect--has-value .vue-treeselect__input {\n  line-height: inherit;\n  vertical-align: top;\n}\n.vue-treeselect__sizer {\n  position: absolute;\n  top: 0;\n  left: 0;\n  visibility: hidden;\n  height: 0;\n  overflow: scroll;\n  white-space: pre;\n}\n.vue-treeselect__x-container {\n  display: table-cell;\n  vertical-align: middle;\n  width: 20px;\n  text-align: center;\n  line-height: 0;\n  cursor: pointer;\n  color: #ccc;\n  animation: 200ms vue-treeselect-animation-fade-in cubic-bezier(0.075, 0.82, 0.165, 1);\n}\n.vue-treeselect__x-container:hover {\n  color: #e53935;\n}\n.vue-treeselect__x {\n  width: 8px;\n  height: 8px;\n}\n.vue-treeselect__control-arrow-container {\n  display: table-cell;\n  vertical-align: middle;\n  width: 20px;\n  text-align: center;\n  line-height: 0;\n  cursor: pointer;\n}\n.vue-treeselect--disabled .vue-treeselect__control-arrow-container {\n  cursor: default;\n}\n.vue-treeselect__control-arrow {\n  width: 9px;\n  height: 9px;\n  color: #ccc;\n}\n.vue-treeselect:not(.vue-treeselect--disabled) .vue-treeselect__control-arrow-container:hover .vue-treeselect__control-arrow {\n  color: #616161;\n}\n.vue-treeselect--disabled .vue-treeselect__control-arrow {\n  opacity: 0.35;\n}\n.vue-treeselect__control-arrow--rotated {\n  -ms-transform: rotate(180deg);\n      transform: rotateZ(180deg);\n}\n/**\n * Menu\n */\n.vue-treeselect__menu-container {\n  position: absolute;\n  left: 0;\n  width: 100%;\n  overflow: visible;\n  transition: 0s;\n}\n.vue-treeselect--open-below:not(.vue-treeselect--append-to-body) .vue-treeselect__menu-container {\n  top: 100%;\n}\n.vue-treeselect--open-above:not(.vue-treeselect--append-to-body) .vue-treeselect__menu-container {\n  bottom: 100%;\n}\n.vue-treeselect__menu {\n  cursor: default;\n  padding-top: 5px;\n  padding-bottom: 5px;\n  display: block;\n  position: absolute;\n  overflow-x: hidden;\n  overflow-y: auto;\n  width: auto;\n  border: 1px solid #cfcfcf;\n  background: #fff;\n  line-height: 180%;\n  -webkit-overflow-scrolling: touch;\n}\n.vue-treeselect--open-below .vue-treeselect__menu {\n  border-bottom-left-radius: 5px;\n  border-bottom-right-radius: 5px;\n  top: 0;\n  margin-top: -1px;\n  border-top-color: #f2f2f2;\n  box-shadow: 0 1px 0 rgba(0, 0, 0, 0.06);\n}\n.vue-treeselect--open-above .vue-treeselect__menu {\n  border-top-left-radius: 5px;\n  border-top-right-radius: 5px;\n  bottom: 0;\n  margin-bottom: -1px;\n  border-bottom-color: #f2f2f2;\n}\n.vue-treeselect__indent-level-0 .vue-treeselect__option {\n  padding-left: 5px;\n}\n[dir=\"rtl\"] .vue-treeselect__indent-level-0 .vue-treeselect__option {\n  padding-left: 5px;\n  padding-right: 5px;\n}\n.vue-treeselect__indent-level-0 .vue-treeselect__tip {\n  padding-left: 25px;\n}\n[dir=\"rtl\"] .vue-treeselect__indent-level-0 .vue-treeselect__tip {\n  padding-left: 5px;\n  padding-right: 25px;\n}\n.vue-treeselect__indent-level-1 .vue-treeselect__option {\n  padding-left: 25px;\n}\n[dir=\"rtl\"] .vue-treeselect__indent-level-1 .vue-treeselect__option {\n  padding-left: 5px;\n  padding-right: 25px;\n}\n.vue-treeselect__indent-level-1 .vue-treeselect__tip {\n  padding-left: 45px;\n}\n[dir=\"rtl\"] .vue-treeselect__indent-level-1 .vue-treeselect__tip {\n  padding-left: 5px;\n  padding-right: 45px;\n}\n.vue-treeselect__indent-level-2 .vue-treeselect__option {\n  padding-left: 45px;\n}\n[dir=\"rtl\"] .vue-treeselect__indent-level-2 .vue-treeselect__option {\n  padding-left: 5px;\n  padding-right: 45px;\n}\n.vue-treeselect__indent-level-2 .vue-treeselect__tip {\n  padding-left: 65px;\n}\n[dir=\"rtl\"] .vue-treeselect__indent-level-2 .vue-treeselect__tip {\n  padding-left: 5px;\n  padding-right: 65px;\n}\n.vue-treeselect__indent-level-3 .vue-treeselect__option {\n  padding-left: 65px;\n}\n[dir=\"rtl\"] .vue-treeselect__indent-level-3 .vue-treeselect__option {\n  padding-left: 5px;\n  padding-right: 65px;\n}\n.vue-treeselect__indent-level-3 .vue-treeselect__tip {\n  padding-left: 85px;\n}\n[dir=\"rtl\"] .vue-treeselect__indent-level-3 .vue-treeselect__tip {\n  padding-left: 5px;\n  padding-right: 85px;\n}\n.vue-treeselect__indent-level-4 .vue-treeselect__option {\n  padding-left: 85px;\n}\n[dir=\"rtl\"] .vue-treeselect__indent-level-4 .vue-treeselect__option {\n  padding-left: 5px;\n  padding-right: 85px;\n}\n.vue-treeselect__indent-level-4 .vue-treeselect__tip {\n  padding-left: 105px;\n}\n[dir=\"rtl\"] .vue-treeselect__indent-level-4 .vue-treeselect__tip {\n  padding-left: 5px;\n  padding-right: 105px;\n}\n.vue-treeselect__indent-level-5 .vue-treeselect__option {\n  padding-left: 105px;\n}\n[dir=\"rtl\"] .vue-treeselect__indent-level-5 .vue-treeselect__option {\n  padding-left: 5px;\n  padding-right: 105px;\n}\n.vue-treeselect__indent-level-5 .vue-treeselect__tip {\n  padding-left: 125px;\n}\n[dir=\"rtl\"] .vue-treeselect__indent-level-5 .vue-treeselect__tip {\n  padding-left: 5px;\n  padding-right: 125px;\n}\n.vue-treeselect__indent-level-6 .vue-treeselect__option {\n  padding-left: 125px;\n}\n[dir=\"rtl\"] .vue-treeselect__indent-level-6 .vue-treeselect__option {\n  padding-left: 5px;\n  padding-right: 125px;\n}\n.vue-treeselect__indent-level-6 .vue-treeselect__tip {\n  padding-left: 145px;\n}\n[dir=\"rtl\"] .vue-treeselect__indent-level-6 .vue-treeselect__tip {\n  padding-left: 5px;\n  padding-right: 145px;\n}\n.vue-treeselect__indent-level-7 .vue-treeselect__option {\n  padding-left: 145px;\n}\n[dir=\"rtl\"] .vue-treeselect__indent-level-7 .vue-treeselect__option {\n  padding-left: 5px;\n  padding-right: 145px;\n}\n.vue-treeselect__indent-level-7 .vue-treeselect__tip {\n  padding-left: 165px;\n}\n[dir=\"rtl\"] .vue-treeselect__indent-level-7 .vue-treeselect__tip {\n  padding-left: 5px;\n  padding-right: 165px;\n}\n.vue-treeselect__indent-level-8 .vue-treeselect__option {\n  padding-left: 165px;\n}\n[dir=\"rtl\"] .vue-treeselect__indent-level-8 .vue-treeselect__option {\n  padding-left: 5px;\n  padding-right: 165px;\n}\n.vue-treeselect__indent-level-8 .vue-treeselect__tip {\n  padding-left: 185px;\n}\n[dir=\"rtl\"] .vue-treeselect__indent-level-8 .vue-treeselect__tip {\n  padding-left: 5px;\n  padding-right: 185px;\n}\n.vue-treeselect__option {\n  padding-left: 5px;\n  padding-right: 5px;\n  display: table;\n  table-layout: fixed;\n  width: 100%;\n}\n.vue-treeselect__option--highlight {\n  background: #f5f5f5;\n}\n.vue-treeselect--single .vue-treeselect__option--selected {\n  background: #e3f2fd;\n  font-weight: 600;\n}\n.vue-treeselect--single .vue-treeselect__option--selected:hover {\n  background: #e3f2fd;\n}\n.vue-treeselect__option--hide {\n  display: none;\n}\n.vue-treeselect__option-arrow-container,\n.vue-treeselect__option-arrow-placeholder {\n  display: table-cell;\n  vertical-align: middle;\n  width: 20px;\n  text-align: center;\n  line-height: 0;\n}\n.vue-treeselect__option-arrow-container {\n  cursor: pointer;\n}\n.vue-treeselect__option-arrow {\n  display: inline-block;\n  width: 9px;\n  height: 9px;\n  color: #ccc;\n  vertical-align: middle;\n  transition: 200ms transform cubic-bezier(0.19, 1, 0.22, 1);\n  -ms-transform: rotate(-90deg);\n      transform: rotateZ(-90deg);\n}\n[dir=\"rtl\"] .vue-treeselect__option-arrow {\n  -ms-transform: rotate(90deg);\n      transform: rotateZ(90deg);\n}\n.vue-treeselect__option-arrow-container:hover .vue-treeselect__option-arrow,\n.vue-treeselect--branch-nodes-disabled .vue-treeselect__option:hover .vue-treeselect__option-arrow {\n  color: #616161;\n}\n.vue-treeselect__option-arrow--rotated {\n  -ms-transform: rotate(0);\n      transform: rotateZ(0);\n}\n[dir=\"rtl\"] .vue-treeselect__option-arrow--rotated {\n  -ms-transform: rotate(0);\n      transform: rotateZ(0);\n}\n.vue-treeselect__option-arrow--rotated.vue-treeselect__option-arrow--prepare-enter {\n  -ms-transform: rotate(-90deg) !important;\n      transform: rotateZ(-90deg) !important;\n}\n[dir=\"rtl\"] .vue-treeselect__option-arrow--rotated.vue-treeselect__option-arrow--prepare-enter {\n  -ms-transform: rotate(90deg) !important;\n      transform: rotateZ(90deg) !important;\n}\n.vue-treeselect__label-container {\n  display: table-cell;\n  vertical-align: middle;\n  cursor: pointer;\n  display: table;\n  width: 100%;\n  table-layout: fixed;\n  color: inherit;\n}\n.vue-treeselect__option--disabled .vue-treeselect__label-container {\n  cursor: not-allowed;\n  color: rgba(0, 0, 0, 0.25);\n}\n.vue-treeselect__checkbox-container {\n  display: table-cell;\n  width: 20px;\n  min-width: 20px;\n  height: 100%;\n  text-align: center;\n  vertical-align: middle;\n}\n.vue-treeselect__checkbox {\n  display: block;\n  margin: auto;\n  width: 12px;\n  height: 12px;\n  border-width: 1px;\n  border-style: solid;\n  border-radius: 2px;\n  position: relative;\n  transition: 200ms all cubic-bezier(0.075, 0.82, 0.165, 1);\n}\n.vue-treeselect__check-mark,\n.vue-treeselect__minus-mark {\n  display: block;\n  position: absolute;\n  left: 1px;\n  top: 1px;\n  background-repeat: no-repeat;\n  opacity: 0;\n  transition: 200ms all ease;\n}\n.vue-treeselect__minus-mark {\n  width: 8px;\n  height: 8px;\n  background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAgAAAAIAgMAAAC5YVYYAAAACVBMVEUAAAD///////9zeKVjAAAAAnRSTlMAuLMp9oYAAAAPSURBVAjXY4CDrJUgBAMAGaECJ9dz3BAAAAAASUVORK5CYII=);\n  background-size: 8px 8px;\n}\n@media (-webkit-min-device-pixel-ratio: 1.5), (min-resolution: 1.5dppx) {\n  .vue-treeselect__minus-mark {\n    background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQAgMAAABinRfyAAAADFBMVEUAAAD///////////84wDuoAAAAA3RSTlMAyTzPIdReAAAAGUlEQVQI12PAD+b///+Nof7//79gAsLFCwAx/w4blADeeQAAAABJRU5ErkJggg==);\n  }\n}\n@media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {\n  .vue-treeselect__minus-mark {\n    background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQAgMAAABinRfyAAAADFBMVEUAAAD///////////84wDuoAAAAA3RSTlMAyTzPIdReAAAAGUlEQVQI12PAD+b///+Nof7//79gAsLFCwAx/w4blADeeQAAAABJRU5ErkJggg==);\n  }\n}\n@media (-webkit-min-device-pixel-ratio: 3), (min-resolution: 288dpi) {\n  .vue-treeselect__minus-mark {\n    background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYBAMAAAASWSDLAAAAD1BMVEUAAAD///////////////+PQt5oAAAABHRSTlMAy2EFIuWxUgAAACRJREFUGNNjGBBgJOICBY7KDCoucODEAJSAS6FwUJShGjAQAADBPRGrK2/FhgAAAABJRU5ErkJggg==);\n  }\n}\n.vue-treeselect__checkbox--indeterminate > .vue-treeselect__minus-mark {\n  opacity: 1;\n}\n.vue-treeselect__checkbox--disabled .vue-treeselect__minus-mark {\n  background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAgAAAAIAgMAAAC5YVYYAAAACVBMVEUAAADi4uLh4eHOxeSRAAAAAnRSTlMAuLMp9oYAAAAPSURBVAjXY4CDrJUgBAMAGaECJ9dz3BAAAAAASUVORK5CYII=);\n}\n@media (-webkit-min-device-pixel-ratio: 1.5), (min-resolution: 1.5dppx) {\n  .vue-treeselect__checkbox--disabled .vue-treeselect__minus-mark {\n    background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQAgMAAABinRfyAAAADFBMVEUAAADi4uLi4uLh4eE5RQaIAAAAA3RSTlMAyTzPIdReAAAAGUlEQVQI12PAD+b///+Nof7//79gAsLFCwAx/w4blADeeQAAAABJRU5ErkJggg==);\n  }\n}\n@media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {\n  .vue-treeselect__checkbox--disabled .vue-treeselect__minus-mark {\n    background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQAgMAAABinRfyAAAADFBMVEUAAADi4uLi4uLh4eE5RQaIAAAAA3RSTlMAyTzPIdReAAAAGUlEQVQI12PAD+b///+Nof7//79gAsLFCwAx/w4blADeeQAAAABJRU5ErkJggg==);\n  }\n}\n@media (-webkit-min-device-pixel-ratio: 3), (min-resolution: 288dpi) {\n  .vue-treeselect__checkbox--disabled .vue-treeselect__minus-mark {\n    background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYBAMAAAASWSDLAAAAD1BMVEUAAADh4eHg4ODNzc3h4eEYfw2wAAAABHRSTlMAy2EFIuWxUgAAACRJREFUGNNjGBBgJOICBY7KDCoucODEAJSAS6FwUJShGjAQAADBPRGrK2/FhgAAAABJRU5ErkJggg==);\n  }\n}\n.vue-treeselect__check-mark {\n  width: 8px;\n  height: 8px;\n  background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAgAAAAICAMAAADz0U65AAAAQlBMVEUAAAD///////////////////////////////////////////////////////////////////////////////////8IX9KGAAAAFXRSTlMA8u24NxILB+Tawb6jiH1zRz0xIQIIP3GUAAAAMklEQVQI1y3FtQEAMQDDQD+EGbz/qkEVOpyEOP6PudKjZNSXn4Jm2CKRdBKzSLsFWl8fMG0Bl6Jk1rMAAAAASUVORK5CYII=);\n  background-size: 8px 8px;\n  -ms-transform: scaleY(0.125);\n      transform: scaleY(0.125);\n}\n@media (-webkit-min-device-pixel-ratio: 1.5), (min-resolution: 1.5dppx) {\n  .vue-treeselect__check-mark {\n    background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAMAAAAoLQ9TAAAAYFBMVEUAAAD///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////98JRy6AAAAH3RSTlMAzu4sDenl38fBvo1OMyIdEQrj1cSihX5hYFpHNycIcQOASAAAAF9JREFUGNN9zEcOgDAMRFHTS0LvNfe/JRmHKAIJ/mqeLJn+k9uDtaeUeFnFziGsBucUTirrprfe81RqZ3Bb6hPWeuZwDFOHyf+ig9CCzQ7INBn7bG5kF+QSt13BHNJnF7AaCT4Y+CW7AAAAAElFTkSuQmCC);\n  }\n}\n@media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {\n  .vue-treeselect__check-mark {\n    background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAMAAAAoLQ9TAAAAYFBMVEUAAAD///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////98JRy6AAAAH3RSTlMAzu4sDenl38fBvo1OMyIdEQrj1cSihX5hYFpHNycIcQOASAAAAF9JREFUGNN9zEcOgDAMRFHTS0LvNfe/JRmHKAIJ/mqeLJn+k9uDtaeUeFnFziGsBucUTirrprfe81RqZ3Bb6hPWeuZwDFOHyf+ig9CCzQ7INBn7bG5kF+QSt13BHNJnF7AaCT4Y+CW7AAAAAElFTkSuQmCC);\n  }\n}\n@media (-webkit-min-device-pixel-ratio: 3), (min-resolution: 288dpi) {\n  .vue-treeselect__check-mark {\n    background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAMAAADXqc3KAAAAWlBMVEUAAAD///////////////////////////////////////////////////////////////////////////////////////////////////////////////////9ZMre9AAAAHXRSTlMA/PiJhGNI9XlEHJB/b2ldV08+Oibk49vPp6QhAYgGBuwAAACCSURBVCjPrdHdDoIwDAXgTWAqCigo/+f9X5OwnoUwtis4V92XNWladUl+rzQPeQJAN2EHxoOnsPn7/oYk8fxBv08Rr/deOH/aZ2Nm8ZJ+s573QGfWKnNuZGzWm3+lv2V3pcU1XQ385/yjmBoM3Z+dXvlbYLLD3ujhTaOM3KaIXvNkFkuSEvYy1LqOAAAAAElFTkSuQmCC);\n  }\n}\n.vue-treeselect__checkbox--checked > .vue-treeselect__check-mark {\n  opacity: 1;\n  -ms-transform: scaleY(1);\n      transform: scaleY(1);\n}\n.vue-treeselect__checkbox--disabled .vue-treeselect__check-mark {\n  background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAgAAAAICAMAAADz0U65AAAAP1BMVEUAAADj4+Pf39/h4eHh4eHh4eHk5OTh4eHg4ODi4uLh4eHh4eHg4ODh4eHh4eHg4ODh4eHh4eHp6en////h4eFqcyvUAAAAFHRSTlMAOQfy7bgS5NrBvqOIfXNHMSELAgQ/iFsAAAA2SURBVAjXY4AANjYIzcjMAaVFuBkY+RkEWERYmRjYRXjANAOfiIgIFxNIAa8IpxBEi6AwiAQAK2MBd7xY8csAAAAASUVORK5CYII=);\n}\n@media (-webkit-min-device-pixel-ratio: 1.5), (min-resolution: 1.5dppx) {\n  .vue-treeselect__checkbox--disabled .vue-treeselect__check-mark {\n    background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAMAAAAoLQ9TAAAAXVBMVEUAAADh4eHh4eHh4eHi4uLb29vh4eHh4eHh4eHh4eHh4eHh4eHh4eHi4uLi4uLj4+Pi4uLk5OTo6Ojh4eHh4eHi4uLg4ODg4ODh4eHg4ODh4eHf39/g4OD////h4eEzIk+wAAAAHnRSTlMAzu6/LA3p5eLZx8ONTjYiHRIKooV+YWBaRzEnCANnm5rnAAAAZElEQVQY033P2wqAIAyA4VWaaWrnc/n+j5mbhBjUf7WPoTD47TJb4i5zTr/sRDRHuyFaoWX7uK/RlbctlPEuyI1f4WY9yQINEkf6rzzo8YIzmUFoCs7J1EjeIaa9bXIEmzl8dgOZEAj/+2IvzAAAAABJRU5ErkJggg==);\n  }\n}\n@media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {\n  .vue-treeselect__checkbox--disabled .vue-treeselect__check-mark {\n    background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAMAAAAoLQ9TAAAAXVBMVEUAAADh4eHh4eHh4eHi4uLb29vh4eHh4eHh4eHh4eHh4eHh4eHh4eHi4uLi4uLj4+Pi4uLk5OTo6Ojh4eHh4eHi4uLg4ODg4ODh4eHg4ODh4eHf39/g4OD////h4eEzIk+wAAAAHnRSTlMAzu6/LA3p5eLZx8ONTjYiHRIKooV+YWBaRzEnCANnm5rnAAAAZElEQVQY033P2wqAIAyA4VWaaWrnc/n+j5mbhBjUf7WPoTD47TJb4i5zTr/sRDRHuyFaoWX7uK/RlbctlPEuyI1f4WY9yQINEkf6rzzo8YIzmUFoCs7J1EjeIaa9bXIEmzl8dgOZEAj/+2IvzAAAAABJRU5ErkJggg==);\n  }\n}\n@media (-webkit-min-device-pixel-ratio: 3), (min-resolution: 288dpi) {\n  .vue-treeselect__checkbox--disabled .vue-treeselect__check-mark {\n    background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAMAAADXqc3KAAAAUVBMVEUAAADh4eHh4eHh4eHh4eHi4uLi4uLh4eHh4eHh4eHf39/j4+Ph4eHh4eHh4eHg4ODi4uLh4eHh4eHi4uLh4eHh4eHh4eHh4eHh4eH////h4eF3FMFTAAAAGnRSTlMA+/eJhGhfSHE9JBzz5KaQf3pXT0Xbz0I5AYDw8F0AAAB+SURBVCjPrdHbDoMgEEVRKAii1dZe9fz/hxplTiKIT7qfYCWTEEZdUvOwbckNAD2WHeh3brHW5f5EzGQ+iN+b1Gt6KPvtv16Dn6JX9M9ya3/A1yfu5dlyduL6Hec7mXY6ddXLPP2lpABGZ8PWXfYLTJxZekVhhl7eTX24zZPNKXoRC7zQLjUAAAAASUVORK5CYII=);\n  }\n}\n.vue-treeselect__checkbox--unchecked {\n  border-color: #e0e0e0;\n  background: #fff;\n}\n.vue-treeselect__label-container:hover .vue-treeselect__checkbox--unchecked {\n  border-color: #039be5;\n  background: #fff;\n}\n.vue-treeselect__checkbox--indeterminate {\n  border-color: #039be5;\n  background: #039be5;\n}\n.vue-treeselect__label-container:hover .vue-treeselect__checkbox--indeterminate {\n  border-color: #039be5;\n  background: #039be5;\n}\n.vue-treeselect__checkbox--checked {\n  border-color: #039be5;\n  background: #039be5;\n}\n.vue-treeselect__label-container:hover .vue-treeselect__checkbox--checked {\n  border-color: #039be5;\n  background: #039be5;\n}\n.vue-treeselect__checkbox--disabled {\n  border-color: #e0e0e0;\n  background-color: #f7f7f7;\n}\n.vue-treeselect__label-container:hover .vue-treeselect__checkbox--disabled {\n  border-color: #e0e0e0;\n  background-color: #f7f7f7;\n}\n.vue-treeselect__label {\n  overflow: hidden;\n  text-overflow: ellipsis;\n  white-space: nowrap;\n  display: table-cell;\n  padding-left: 5px;\n  max-width: 100%;\n  vertical-align: middle;\n  cursor: inherit;\n}\n[dir=\"rtl\"] .vue-treeselect__label {\n  padding-left: 0;\n  padding-right: 5px;\n}\n.vue-treeselect__count {\n  margin-left: 5px;\n  font-weight: 400;\n  opacity: 0.6;\n}\n[dir=\"rtl\"] .vue-treeselect__count {\n  margin-left: 0;\n  margin-right: 5px;\n}\n.vue-treeselect__tip {\n  padding-left: 5px;\n  padding-right: 5px;\n  display: table;\n  table-layout: fixed;\n  width: 100%;\n  color: #757575;\n}\n.vue-treeselect__tip-text {\n  display: table-cell;\n  vertical-align: middle;\n  padding-left: 5px;\n  padding-right: 5px;\n  overflow: hidden;\n  text-overflow: ellipsis;\n  white-space: nowrap;\n  width: 100%;\n  font-size: 12px;\n}\n.vue-treeselect__error-tip .vue-treeselect__retry {\n  cursor: pointer;\n  margin-left: 5px;\n  font-style: normal;\n  font-weight: 600;\n  text-decoration: none;\n  color: #039be5;\n}\n[dir=\"rtl\"] .vue-treeselect__error-tip .vue-treeselect__retry {\n  margin-left: 0;\n  margin-right: 5px;\n}\n.vue-treeselect__icon-container {\n  display: table-cell;\n  vertical-align: middle;\n  width: 20px;\n  text-align: center;\n  line-height: 0;\n}\n.vue-treeselect--single .vue-treeselect__icon-container {\n  padding-left: 5px;\n}\n[dir=\"rtl\"] .vue-treeselect--single .vue-treeselect__icon-container {\n  padding-left: 0;\n  padding-right: 5px;\n}\n.vue-treeselect__icon-warning {\n  display: block;\n  margin: auto;\n  border-radius: 50%;\n  position: relative;\n  width: 12px;\n  height: 12px;\n  background: #fb8c00;\n}\n.vue-treeselect__icon-warning::after {\n  display: block;\n  position: absolute;\n  content: \"\";\n  left: 5px;\n  top: 2.5px;\n  width: 2px;\n  height: 1px;\n  border: 0 solid #fff;\n  border-top-width: 5px;\n  border-bottom-width: 1px;\n}\n.vue-treeselect__icon-error {\n  display: block;\n  margin: auto;\n  border-radius: 50%;\n  position: relative;\n  width: 12px;\n  height: 12px;\n  background: #e53935;\n}\n.vue-treeselect__icon-error::before,\n.vue-treeselect__icon-error::after {\n  display: block;\n  position: absolute;\n  content: \"\";\n  background: #fff;\n  -ms-transform: rotate(45deg);\n      transform: rotate(45deg);\n}\n.vue-treeselect__icon-error::before {\n  width: 6px;\n  height: 2px;\n  left: 3px;\n  top: 5px;\n}\n.vue-treeselect__icon-error::after {\n  width: 2px;\n  height: 6px;\n  left: 5px;\n  top: 3px;\n}\n.vue-treeselect__icon-loader {\n  display: block;\n  margin: auto;\n  position: relative;\n  width: 12px;\n  height: 12px;\n  text-align: center;\n  animation: 1.6s vue-treeselect-animation-rotate linear infinite;\n}\n.vue-treeselect__icon-loader::before,\n.vue-treeselect__icon-loader::after {\n  border-radius: 50%;\n  position: absolute;\n  content: \"\";\n  left: 0;\n  top: 0;\n  display: block;\n  width: 100%;\n  height: 100%;\n  opacity: 0.6;\n  animation: 1.6s vue-treeselect-animation-bounce ease-in-out infinite;\n}\n.vue-treeselect__icon-loader::before {\n  background: #039be5;\n}\n.vue-treeselect__icon-loader::after {\n  background: #b3e5fc;\n  animation-delay: -0.8s;\n}\n/**\n * Menu Portal\n */\n.vue-treeselect__menu-placeholder {\n  display: none;\n}\n.vue-treeselect__portal-target {\n  position: absolute;\n  display: block;\n  left: 0;\n  top: 0;\n  height: 0;\n  width: 0;\n  padding: 0;\n  margin: 0;\n  border: 0;\n  overflow: visible;\n  box-sizing: border-box;\n}\n\n\n/*# sourceMappingURL=vue-treeselect.css.map*/", ""]);
-
-// exports
-
-
-/***/ }),
-
-/***/ 801:
+/***/ 784:
 /***/ (function(module, exports, __webpack_require__) {
 
 /*
@@ -21333,7 +20461,7 @@ if (typeof DEBUG !== 'undefined' && DEBUG) {
   ) }
 }
 
-var listToStyles = __webpack_require__(809)
+var listToStyles = __webpack_require__(792)
 
 /*
 type StyleObject = {
@@ -21536,33 +20664,33 @@ function applyToTag (styleElement, obj) {
 
 /***/ }),
 
-/***/ 802:
+/***/ 785:
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = { "default": __webpack_require__(947), __esModule: true };
+module.exports = { "default": __webpack_require__(930), __esModule: true };
 
 /***/ }),
 
-/***/ 803:
+/***/ 786:
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = { "default": __webpack_require__(960), __esModule: true };
+module.exports = { "default": __webpack_require__(942), __esModule: true };
 
 /***/ }),
 
-/***/ 804:
+/***/ 787:
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = { "default": __webpack_require__(961), __esModule: true };
+module.exports = { "default": __webpack_require__(943), __esModule: true };
 
 /***/ }),
 
-/***/ 805:
+/***/ 788:
 /***/ (function(module, exports, __webpack_require__) {
 
 // 19.1.2.7 / 15.2.3.4 Object.getOwnPropertyNames(O)
-var $keys = __webpack_require__(385);
-var hiddenKeys = __webpack_require__(185).concat('length', 'prototype');
+var $keys = __webpack_require__(382);
+var hiddenKeys = __webpack_require__(181).concat('length', 'prototype');
 
 exports.f = Object.getOwnPropertyNames || function getOwnPropertyNames(O) {
   return $keys(O, hiddenKeys);
@@ -21571,7 +20699,7 @@ exports.f = Object.getOwnPropertyNames || function getOwnPropertyNames(O) {
 
 /***/ }),
 
-/***/ 806:
+/***/ 789:
 /***/ (function(module, exports) {
 
 function _arrayLikeToArray(arr, len) {
@@ -21588,10 +20716,10 @@ module.exports = _arrayLikeToArray;
 
 /***/ }),
 
-/***/ 807:
+/***/ 790:
 /***/ (function(module, exports, __webpack_require__) {
 
-var arrayLikeToArray = __webpack_require__(806);
+var arrayLikeToArray = __webpack_require__(789);
 
 function _unsupportedIterableToArray(o, minLen) {
   if (!o) return;
@@ -21606,12 +20734,12 @@ module.exports = _unsupportedIterableToArray;
 
 /***/ }),
 
-/***/ 808:
+/***/ 791:
 /***/ (function(module, exports, __webpack_require__) {
 
-var baseTrim = __webpack_require__(982),
+var baseTrim = __webpack_require__(965),
     isObject = __webpack_require__(58),
-    isSymbol = __webpack_require__(988);
+    isSymbol = __webpack_require__(971);
 
 /** Used as references for various `Number` constants. */
 var NAN = 0 / 0;
@@ -21677,7 +20805,7 @@ module.exports = toNumber;
 
 /***/ }),
 
-/***/ 809:
+/***/ 792:
 /***/ (function(module, exports) {
 
 /**
@@ -21711,7 +20839,7 @@ module.exports = function listToStyles (parentId, list) {
 
 /***/ }),
 
-/***/ 810:
+/***/ 793:
 /***/ (function(module, exports) {
 
 exports.f = {}.propertyIsEnumerable;
@@ -21719,23 +20847,7 @@ exports.f = {}.propertyIsEnumerable;
 
 /***/ }),
 
-/***/ 811:
-/***/ (function(module, exports, __webpack_require__) {
-
-var global = __webpack_require__(22);
-var core = __webpack_require__(37);
-var LIBRARY = __webpack_require__(107);
-var wksExt = __webpack_require__(996);
-var defineProperty = __webpack_require__(55).f;
-module.exports = function (name) {
-  var $Symbol = core.Symbol || (core.Symbol = LIBRARY ? {} : global.Symbol || {});
-  if (name.charAt(0) != '_' && !(name in $Symbol)) defineProperty($Symbol, name, { value: wksExt.f(name) });
-};
-
-
-/***/ }),
-
-/***/ 812:
+/***/ 794:
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -21743,7 +20855,7 @@ module.exports = function (name) {
 //! author : Werner Mollentze : https://github.com/wernerm
 
 ;(function (global, factory) {
-    true ? factory(__webpack_require__(794)) :
+    true ? factory(__webpack_require__(778)) :
    typeof define === 'function' && define.amd ? define(['../moment'], factory) :
    factory(global.moment)
 }(this, (function (moment) { 'use strict';
@@ -21823,7 +20935,7 @@ module.exports = function (name) {
 
 /***/ }),
 
-/***/ 813:
+/***/ 795:
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -21835,7 +20947,7 @@ module.exports = function (name) {
 //! author : Noureddine LOUAHEDJ : https://github.com/noureddinem
 
 ;(function (global, factory) {
-    true ? factory(__webpack_require__(794)) :
+    true ? factory(__webpack_require__(778)) :
    typeof define === 'function' && define.amd ? define(['../moment'], factory) :
    factory(global.moment)
 }(this, (function (moment) { 'use strict';
@@ -21996,7 +21108,7 @@ module.exports = function (name) {
 
 /***/ }),
 
-/***/ 814:
+/***/ 796:
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -22004,7 +21116,7 @@ module.exports = function (name) {
 //! author : Nusret Parlak: https://github.com/nusretparlak
 
 ;(function (global, factory) {
-    true ? factory(__webpack_require__(794)) :
+    true ? factory(__webpack_require__(778)) :
    typeof define === 'function' && define.amd ? define(['../moment'], factory) :
    factory(global.moment)
 }(this, (function (moment) { 'use strict';
@@ -22068,7 +21180,7 @@ module.exports = function (name) {
 
 /***/ }),
 
-/***/ 815:
+/***/ 797:
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -22076,7 +21188,7 @@ module.exports = function (name) {
 //! author : Ali Hmer: https://github.com/kikoanis
 
 ;(function (global, factory) {
-    true ? factory(__webpack_require__(794)) :
+    true ? factory(__webpack_require__(778)) :
    typeof define === 'function' && define.amd ? define(['../moment'], factory) :
    factory(global.moment)
 }(this, (function (moment) { 'use strict';
@@ -22256,7 +21368,7 @@ module.exports = function (name) {
 
 /***/ }),
 
-/***/ 816:
+/***/ 798:
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -22265,7 +21377,7 @@ module.exports = function (name) {
 //! author : Abdel Said : https://github.com/abdelsaid
 
 ;(function (global, factory) {
-    true ? factory(__webpack_require__(794)) :
+    true ? factory(__webpack_require__(778)) :
    typeof define === 'function' && define.amd ? define(['../moment'], factory) :
    factory(global.moment)
 }(this, (function (moment) { 'use strict';
@@ -22329,7 +21441,7 @@ module.exports = function (name) {
 
 /***/ }),
 
-/***/ 817:
+/***/ 799:
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -22337,7 +21449,7 @@ module.exports = function (name) {
 //! author : Suhail Alkowaileet : https://github.com/xsoh
 
 ;(function (global, factory) {
-    true ? factory(__webpack_require__(794)) :
+    true ? factory(__webpack_require__(778)) :
    typeof define === 'function' && define.amd ? define(['../moment'], factory) :
    factory(global.moment)
 }(this, (function (moment) { 'use strict';
@@ -22451,7 +21563,7 @@ module.exports = function (name) {
 
 /***/ }),
 
-/***/ 818:
+/***/ 800:
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -22459,7 +21571,7 @@ module.exports = function (name) {
 //! author : Nader Toukabri : https://github.com/naderio
 
 ;(function (global, factory) {
-    true ? factory(__webpack_require__(794)) :
+    true ? factory(__webpack_require__(778)) :
    typeof define === 'function' && define.amd ? define(['../moment'], factory) :
    factory(global.moment)
 }(this, (function (moment) { 'use strict';
@@ -22523,7 +21635,7 @@ module.exports = function (name) {
 
 /***/ }),
 
-/***/ 819:
+/***/ 801:
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -22533,7 +21645,7 @@ module.exports = function (name) {
 //! author : forabi https://github.com/forabi
 
 ;(function (global, factory) {
-    true ? factory(__webpack_require__(794)) :
+    true ? factory(__webpack_require__(778)) :
    typeof define === 'function' && define.amd ? define(['../moment'], factory) :
    factory(global.moment)
 }(this, (function (moment) { 'use strict';
@@ -22729,7 +21841,7 @@ module.exports = function (name) {
 
 /***/ }),
 
-/***/ 820:
+/***/ 802:
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -22737,7 +21849,7 @@ module.exports = function (name) {
 //! author : topchiyev : https://github.com/topchiyev
 
 ;(function (global, factory) {
-    true ? factory(__webpack_require__(794)) :
+    true ? factory(__webpack_require__(778)) :
    typeof define === 'function' && define.amd ? define(['../moment'], factory) :
    factory(global.moment)
 }(this, (function (moment) { 'use strict';
@@ -22848,7 +21960,7 @@ module.exports = function (name) {
 
 /***/ }),
 
-/***/ 821:
+/***/ 803:
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -22858,7 +21970,7 @@ module.exports = function (name) {
 //! Author : Menelion Elensúle : https://github.com/Oire
 
 ;(function (global, factory) {
-    true ? factory(__webpack_require__(794)) :
+    true ? factory(__webpack_require__(778)) :
    typeof define === 'function' && define.amd ? define(['../moment'], factory) :
    factory(global.moment)
 }(this, (function (moment) { 'use strict';
@@ -23007,7 +22119,7 @@ module.exports = function (name) {
 
 /***/ }),
 
-/***/ 822:
+/***/ 804:
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -23015,7 +22127,7 @@ module.exports = function (name) {
 //! author : Krasen Borisov : https://github.com/kraz
 
 ;(function (global, factory) {
-    true ? factory(__webpack_require__(794)) :
+    true ? factory(__webpack_require__(778)) :
    typeof define === 'function' && define.amd ? define(['../moment'], factory) :
    factory(global.moment)
 }(this, (function (moment) { 'use strict';
@@ -23111,7 +22223,7 @@ module.exports = function (name) {
 
 /***/ }),
 
-/***/ 823:
+/***/ 805:
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -23119,7 +22231,7 @@ module.exports = function (name) {
 //! author : Estelle Comment : https://github.com/estellecomment
 
 ;(function (global, factory) {
-    true ? factory(__webpack_require__(794)) :
+    true ? factory(__webpack_require__(778)) :
    typeof define === 'function' && define.amd ? define(['../moment'], factory) :
    factory(global.moment)
 }(this, (function (moment) { 'use strict';
@@ -23179,7 +22291,7 @@ module.exports = function (name) {
 
 /***/ }),
 
-/***/ 824:
+/***/ 806:
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -23187,7 +22299,7 @@ module.exports = function (name) {
 //! author : Asraf Hossain Patoary : https://github.com/ashwoolford
 
 ;(function (global, factory) {
-    true ? factory(__webpack_require__(794)) :
+    true ? factory(__webpack_require__(778)) :
    typeof define === 'function' && define.amd ? define(['../moment'], factory) :
    factory(global.moment)
 }(this, (function (moment) { 'use strict';
@@ -23325,7 +22437,7 @@ module.exports = function (name) {
 
 /***/ }),
 
-/***/ 825:
+/***/ 807:
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -23333,7 +22445,7 @@ module.exports = function (name) {
 //! author : Kaushik Gandhi : https://github.com/kaushikgandhi
 
 ;(function (global, factory) {
-    true ? factory(__webpack_require__(794)) :
+    true ? factory(__webpack_require__(778)) :
    typeof define === 'function' && define.amd ? define(['../moment'], factory) :
    factory(global.moment)
 }(this, (function (moment) { 'use strict';
@@ -23461,7 +22573,7 @@ module.exports = function (name) {
 
 /***/ }),
 
-/***/ 826:
+/***/ 808:
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -23469,7 +22581,7 @@ module.exports = function (name) {
 //! author : Thupten N. Chakrishar : https://github.com/vajradog
 
 ;(function (global, factory) {
-    true ? factory(__webpack_require__(794)) :
+    true ? factory(__webpack_require__(778)) :
    typeof define === 'function' && define.amd ? define(['../moment'], factory) :
    factory(global.moment)
 }(this, (function (moment) { 'use strict';
@@ -23602,7 +22714,7 @@ module.exports = function (name) {
 
 /***/ }),
 
-/***/ 827:
+/***/ 809:
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -23610,7 +22722,7 @@ module.exports = function (name) {
 //! author : Jean-Baptiste Le Duigou : https://github.com/jbleduigou
 
 ;(function (global, factory) {
-    true ? factory(__webpack_require__(794)) :
+    true ? factory(__webpack_require__(778)) :
    typeof define === 'function' && define.amd ? define(['../moment'], factory) :
    factory(global.moment)
 }(this, (function (moment) { 'use strict';
@@ -23787,7 +22899,7 @@ module.exports = function (name) {
 
 /***/ }),
 
-/***/ 828:
+/***/ 810:
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -23796,7 +22908,7 @@ module.exports = function (name) {
 //! based on (hr) translation by Bojan Marković
 
 ;(function (global, factory) {
-    true ? factory(__webpack_require__(794)) :
+    true ? factory(__webpack_require__(778)) :
    typeof define === 'function' && define.amd ? define(['../moment'], factory) :
    factory(global.moment)
 }(this, (function (moment) { 'use strict';
@@ -23954,7 +23066,7 @@ module.exports = function (name) {
 
 /***/ }),
 
-/***/ 829:
+/***/ 811:
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -23962,7 +23074,7 @@ module.exports = function (name) {
 //! author : Juan G. Hurtado : https://github.com/juanghurtado
 
 ;(function (global, factory) {
-    true ? factory(__webpack_require__(794)) :
+    true ? factory(__webpack_require__(778)) :
    typeof define === 'function' && define.amd ? define(['../moment'], factory) :
    factory(global.moment)
 }(this, (function (moment) { 'use strict';
@@ -24071,7 +23183,7 @@ module.exports = function (name) {
 
 /***/ }),
 
-/***/ 830:
+/***/ 812:
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -24079,7 +23191,7 @@ module.exports = function (name) {
 //! author : petrbela : https://github.com/petrbela
 
 ;(function (global, factory) {
-    true ? factory(__webpack_require__(794)) :
+    true ? factory(__webpack_require__(778)) :
    typeof define === 'function' && define.amd ? define(['../moment'], factory) :
    factory(global.moment)
 }(this, (function (moment) { 'use strict';
@@ -24268,7 +23380,7 @@ module.exports = function (name) {
 
 /***/ }),
 
-/***/ 831:
+/***/ 813:
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -24276,7 +23388,7 @@ module.exports = function (name) {
 //! author : Anatoly Mironov : https://github.com/mirontoli
 
 ;(function (global, factory) {
-    true ? factory(__webpack_require__(794)) :
+    true ? factory(__webpack_require__(778)) :
    typeof define === 'function' && define.amd ? define(['../moment'], factory) :
    factory(global.moment)
 }(this, (function (moment) { 'use strict';
@@ -24348,7 +23460,7 @@ module.exports = function (name) {
 
 /***/ }),
 
-/***/ 832:
+/***/ 814:
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -24357,7 +23469,7 @@ module.exports = function (name) {
 //! author : https://github.com/ryangreaves
 
 ;(function (global, factory) {
-    true ? factory(__webpack_require__(794)) :
+    true ? factory(__webpack_require__(778)) :
    typeof define === 'function' && define.amd ? define(['../moment'], factory) :
    factory(global.moment)
 }(this, (function (moment) { 'use strict';
@@ -24463,7 +23575,7 @@ module.exports = function (name) {
 
 /***/ }),
 
-/***/ 833:
+/***/ 815:
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -24471,7 +23583,7 @@ module.exports = function (name) {
 //! author : Ulrik Nielsen : https://github.com/mrbase
 
 ;(function (global, factory) {
-    true ? factory(__webpack_require__(794)) :
+    true ? factory(__webpack_require__(778)) :
    typeof define === 'function' && define.amd ? define(['../moment'], factory) :
    factory(global.moment)
 }(this, (function (moment) { 'use strict';
@@ -24533,7 +23645,7 @@ module.exports = function (name) {
 
 /***/ }),
 
-/***/ 834:
+/***/ 816:
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -24544,7 +23656,7 @@ module.exports = function (name) {
 //! author : Mikolaj Dadela : https://github.com/mik01aj
 
 ;(function (global, factory) {
-    true ? factory(__webpack_require__(794)) :
+    true ? factory(__webpack_require__(778)) :
    typeof define === 'function' && define.amd ? define(['../moment'], factory) :
    factory(global.moment)
 }(this, (function (moment) { 'use strict';
@@ -24629,7 +23741,7 @@ module.exports = function (name) {
 
 /***/ }),
 
-/***/ 835:
+/***/ 817:
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -24637,7 +23749,7 @@ module.exports = function (name) {
 //! author : sschueller : https://github.com/sschueller
 
 ;(function (global, factory) {
-    true ? factory(__webpack_require__(794)) :
+    true ? factory(__webpack_require__(778)) :
    typeof define === 'function' && define.amd ? define(['../moment'], factory) :
    factory(global.moment)
 }(this, (function (moment) { 'use strict';
@@ -24722,7 +23834,7 @@ module.exports = function (name) {
 
 /***/ }),
 
-/***/ 836:
+/***/ 818:
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -24732,7 +23844,7 @@ module.exports = function (name) {
 //! author : Mikolaj Dadela : https://github.com/mik01aj
 
 ;(function (global, factory) {
-    true ? factory(__webpack_require__(794)) :
+    true ? factory(__webpack_require__(778)) :
    typeof define === 'function' && define.amd ? define(['../moment'], factory) :
    factory(global.moment)
 }(this, (function (moment) { 'use strict';
@@ -24817,7 +23929,7 @@ module.exports = function (name) {
 
 /***/ }),
 
-/***/ 837:
+/***/ 819:
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -24825,7 +23937,7 @@ module.exports = function (name) {
 //! author : Jawish Hameed : https://github.com/jawish
 
 ;(function (global, factory) {
-    true ? factory(__webpack_require__(794)) :
+    true ? factory(__webpack_require__(778)) :
    typeof define === 'function' && define.amd ? define(['../moment'], factory) :
    factory(global.moment)
 }(this, (function (moment) { 'use strict';
@@ -24924,7 +24036,7 @@ module.exports = function (name) {
 
 /***/ }),
 
-/***/ 838:
+/***/ 820:
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -24932,7 +24044,7 @@ module.exports = function (name) {
 //! author : Aggelos Karalias : https://github.com/mehiel
 
 ;(function (global, factory) {
-    true ? factory(__webpack_require__(794)) :
+    true ? factory(__webpack_require__(778)) :
    typeof define === 'function' && define.amd ? define(['../moment'], factory) :
    factory(global.moment)
 }(this, (function (moment) { 'use strict';
@@ -25047,7 +24159,7 @@ module.exports = function (name) {
 
 /***/ }),
 
-/***/ 839:
+/***/ 821:
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -25055,7 +24167,7 @@ module.exports = function (name) {
 //! author : Jared Morse : https://github.com/jarcoal
 
 ;(function (global, factory) {
-    true ? factory(__webpack_require__(794)) :
+    true ? factory(__webpack_require__(778)) :
    typeof define === 'function' && define.amd ? define(['../moment'], factory) :
    factory(global.moment)
 }(this, (function (moment) { 'use strict';
@@ -25132,7 +24244,7 @@ module.exports = function (name) {
 
 /***/ }),
 
-/***/ 840:
+/***/ 822:
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -25140,7 +24252,7 @@ module.exports = function (name) {
 //! author : Jonathan Abourbih : https://github.com/jonbca
 
 ;(function (global, factory) {
-    true ? factory(__webpack_require__(794)) :
+    true ? factory(__webpack_require__(778)) :
    typeof define === 'function' && define.amd ? define(['../moment'], factory) :
    factory(global.moment)
 }(this, (function (moment) { 'use strict';
@@ -25213,7 +24325,7 @@ module.exports = function (name) {
 
 /***/ }),
 
-/***/ 841:
+/***/ 823:
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -25221,7 +24333,7 @@ module.exports = function (name) {
 //! author : Chris Gedrim : https://github.com/chrisgedrim
 
 ;(function (global, factory) {
-    true ? factory(__webpack_require__(794)) :
+    true ? factory(__webpack_require__(778)) :
    typeof define === 'function' && define.amd ? define(['../moment'], factory) :
    factory(global.moment)
 }(this, (function (moment) { 'use strict';
@@ -25298,7 +24410,7 @@ module.exports = function (name) {
 
 /***/ }),
 
-/***/ 842:
+/***/ 824:
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -25306,7 +24418,7 @@ module.exports = function (name) {
 //! author : Chris Cartlidge : https://github.com/chriscartlidge
 
 ;(function (global, factory) {
-    true ? factory(__webpack_require__(794)) :
+    true ? factory(__webpack_require__(778)) :
    typeof define === 'function' && define.amd ? define(['../moment'], factory) :
    factory(global.moment)
 }(this, (function (moment) { 'use strict';
@@ -25383,7 +24495,7 @@ module.exports = function (name) {
 
 /***/ }),
 
-/***/ 843:
+/***/ 825:
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -25391,7 +24503,7 @@ module.exports = function (name) {
 //! author : Chris Gedrim : https://github.com/chrisgedrim
 
 ;(function (global, factory) {
-    true ? factory(__webpack_require__(794)) :
+    true ? factory(__webpack_require__(778)) :
    typeof define === 'function' && define.amd ? define(['../moment'], factory) :
    factory(global.moment)
 }(this, (function (moment) { 'use strict';
@@ -25464,7 +24576,7 @@ module.exports = function (name) {
 
 /***/ }),
 
-/***/ 844:
+/***/ 826:
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -25472,7 +24584,7 @@ module.exports = function (name) {
 //! author : Jatin Agrawal : https://github.com/jatinag22
 
 ;(function (global, factory) {
-    true ? factory(__webpack_require__(794)) :
+    true ? factory(__webpack_require__(778)) :
    typeof define === 'function' && define.amd ? define(['../moment'], factory) :
    factory(global.moment)
 }(this, (function (moment) { 'use strict';
@@ -25549,7 +24661,7 @@ module.exports = function (name) {
 
 /***/ }),
 
-/***/ 845:
+/***/ 827:
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -25557,7 +24669,7 @@ module.exports = function (name) {
 //! author : Luke McGregor : https://github.com/lukemcgregor
 
 ;(function (global, factory) {
-    true ? factory(__webpack_require__(794)) :
+    true ? factory(__webpack_require__(778)) :
    typeof define === 'function' && define.amd ? define(['../moment'], factory) :
    factory(global.moment)
 }(this, (function (moment) { 'use strict';
@@ -25634,7 +24746,7 @@ module.exports = function (name) {
 
 /***/ }),
 
-/***/ 846:
+/***/ 828:
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -25642,7 +24754,7 @@ module.exports = function (name) {
 //! author : Matthew Castrillon-Madrigal : https://github.com/techdimension
 
 ;(function (global, factory) {
-    true ? factory(__webpack_require__(794)) :
+    true ? factory(__webpack_require__(778)) :
    typeof define === 'function' && define.amd ? define(['../moment'], factory) :
    factory(global.moment)
 }(this, (function (moment) { 'use strict';
@@ -25719,7 +24831,7 @@ module.exports = function (name) {
 
 /***/ }),
 
-/***/ 847:
+/***/ 829:
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -25730,7 +24842,7 @@ module.exports = function (name) {
 //! comment : Vivakvo corrected the translation by colindean and miestasmia
 
 ;(function (global, factory) {
-    true ? factory(__webpack_require__(794)) :
+    true ? factory(__webpack_require__(778)) :
    typeof define === 'function' && define.amd ? define(['../moment'], factory) :
    factory(global.moment)
 }(this, (function (moment) { 'use strict';
@@ -25804,14 +24916,14 @@ module.exports = function (name) {
 
 /***/ }),
 
-/***/ 848:
+/***/ 830:
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
 //! locale : Spanish (Dominican Republic) [es-do]
 
 ;(function (global, factory) {
-    true ? factory(__webpack_require__(794)) :
+    true ? factory(__webpack_require__(778)) :
    typeof define === 'function' && define.amd ? define(['../moment'], factory) :
    factory(global.moment)
 }(this, (function (moment) { 'use strict';
@@ -25929,7 +25041,7 @@ module.exports = function (name) {
 
 /***/ }),
 
-/***/ 849:
+/***/ 831:
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -25937,7 +25049,7 @@ module.exports = function (name) {
 //! author : JC Franco : https://github.com/jcfranco
 
 ;(function (global, factory) {
-    true ? factory(__webpack_require__(794)) :
+    true ? factory(__webpack_require__(778)) :
    typeof define === 'function' && define.amd ? define(['../moment'], factory) :
    factory(global.moment)
 }(this, (function (moment) { 'use strict';
@@ -26056,7 +25168,7 @@ module.exports = function (name) {
 
 /***/ }),
 
-/***/ 850:
+/***/ 832:
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -26065,7 +25177,7 @@ module.exports = function (name) {
 //! author : chrisrodz : https://github.com/chrisrodz
 
 ;(function (global, factory) {
-    true ? factory(__webpack_require__(794)) :
+    true ? factory(__webpack_require__(778)) :
    typeof define === 'function' && define.amd ? define(['../moment'], factory) :
    factory(global.moment)
 }(this, (function (moment) { 'use strict';
@@ -26183,7 +25295,7 @@ module.exports = function (name) {
 
 /***/ }),
 
-/***/ 851:
+/***/ 833:
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -26191,7 +25303,7 @@ module.exports = function (name) {
 //! author : Julio Napurí : https://github.com/julionc
 
 ;(function (global, factory) {
-    true ? factory(__webpack_require__(794)) :
+    true ? factory(__webpack_require__(778)) :
    typeof define === 'function' && define.amd ? define(['../moment'], factory) :
    factory(global.moment)
 }(this, (function (moment) { 'use strict';
@@ -26310,7 +25422,7 @@ module.exports = function (name) {
 
 /***/ }),
 
-/***/ 852:
+/***/ 834:
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -26319,7 +25431,7 @@ module.exports = function (name) {
 //! improvements : Illimar Tambek : https://github.com/ragulka
 
 ;(function (global, factory) {
-    true ? factory(__webpack_require__(794)) :
+    true ? factory(__webpack_require__(778)) :
    typeof define === 'function' && define.amd ? define(['../moment'], factory) :
    factory(global.moment)
 }(this, (function (moment) { 'use strict';
@@ -26405,7 +25517,7 @@ module.exports = function (name) {
 
 /***/ }),
 
-/***/ 853:
+/***/ 835:
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -26413,7 +25525,7 @@ module.exports = function (name) {
 //! author : Eneko Illarramendi : https://github.com/eillarra
 
 ;(function (global, factory) {
-    true ? factory(__webpack_require__(794)) :
+    true ? factory(__webpack_require__(778)) :
    typeof define === 'function' && define.amd ? define(['../moment'], factory) :
    factory(global.moment)
 }(this, (function (moment) { 'use strict';
@@ -26487,7 +25599,7 @@ module.exports = function (name) {
 
 /***/ }),
 
-/***/ 854:
+/***/ 836:
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -26495,7 +25607,7 @@ module.exports = function (name) {
 //! author : Ebrahim Byagowi : https://github.com/ebraminio
 
 ;(function (global, factory) {
-    true ? factory(__webpack_require__(794)) :
+    true ? factory(__webpack_require__(778)) :
    typeof define === 'function' && define.amd ? define(['../moment'], factory) :
    factory(global.moment)
 }(this, (function (moment) { 'use strict';
@@ -26617,7 +25729,7 @@ module.exports = function (name) {
 
 /***/ }),
 
-/***/ 855:
+/***/ 837:
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -26625,7 +25737,7 @@ module.exports = function (name) {
 //! author : Tarmo Aidantausta : https://github.com/bleadof
 
 ;(function (global, factory) {
-    true ? factory(__webpack_require__(794)) :
+    true ? factory(__webpack_require__(778)) :
    typeof define === 'function' && define.amd ? define(['../moment'], factory) :
    factory(global.moment)
 }(this, (function (moment) { 'use strict';
@@ -26758,7 +25870,7 @@ module.exports = function (name) {
 
 /***/ }),
 
-/***/ 856:
+/***/ 838:
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -26767,7 +25879,7 @@ module.exports = function (name) {
 //! author : Matthew Co : https://github.com/matthewdeeco
 
 ;(function (global, factory) {
-    true ? factory(__webpack_require__(794)) :
+    true ? factory(__webpack_require__(778)) :
    typeof define === 'function' && define.amd ? define(['../moment'], factory) :
    factory(global.moment)
 }(this, (function (moment) { 'use strict';
@@ -26833,7 +25945,7 @@ module.exports = function (name) {
 
 /***/ }),
 
-/***/ 857:
+/***/ 839:
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -26842,7 +25954,7 @@ module.exports = function (name) {
 //! author : Kristian Sakarisson : https://github.com/sakarisson
 
 ;(function (global, factory) {
-    true ? factory(__webpack_require__(794)) :
+    true ? factory(__webpack_require__(778)) :
    typeof define === 'function' && define.amd ? define(['../moment'], factory) :
    factory(global.moment)
 }(this, (function (moment) { 'use strict';
@@ -26907,7 +26019,7 @@ module.exports = function (name) {
 
 /***/ }),
 
-/***/ 858:
+/***/ 840:
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -26915,7 +26027,7 @@ module.exports = function (name) {
 //! author : Jonathan Abourbih : https://github.com/jonbca
 
 ;(function (global, factory) {
-    true ? factory(__webpack_require__(794)) :
+    true ? factory(__webpack_require__(778)) :
    typeof define === 'function' && define.amd ? define(['../moment'], factory) :
    factory(global.moment)
 }(this, (function (moment) { 'use strict';
@@ -26994,7 +26106,7 @@ module.exports = function (name) {
 
 /***/ }),
 
-/***/ 859:
+/***/ 841:
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -27002,7 +26114,7 @@ module.exports = function (name) {
 //! author : Gaspard Bucher : https://github.com/gaspard
 
 ;(function (global, factory) {
-    true ? factory(__webpack_require__(794)) :
+    true ? factory(__webpack_require__(778)) :
    typeof define === 'function' && define.amd ? define(['../moment'], factory) :
    factory(global.moment)
 }(this, (function (moment) { 'use strict';
@@ -27085,7 +26197,7 @@ module.exports = function (name) {
 
 /***/ }),
 
-/***/ 860:
+/***/ 842:
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -27093,7 +26205,7 @@ module.exports = function (name) {
 //! author : John Fischer : https://github.com/jfroffice
 
 ;(function (global, factory) {
-    true ? factory(__webpack_require__(794)) :
+    true ? factory(__webpack_require__(778)) :
    typeof define === 'function' && define.amd ? define(['../moment'], factory) :
    factory(global.moment)
 }(this, (function (moment) { 'use strict';
@@ -27210,7 +26322,7 @@ module.exports = function (name) {
 
 /***/ }),
 
-/***/ 861:
+/***/ 843:
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -27218,7 +26330,7 @@ module.exports = function (name) {
 //! author : Robin van der Vliet : https://github.com/robin0van0der0v
 
 ;(function (global, factory) {
-    true ? factory(__webpack_require__(794)) :
+    true ? factory(__webpack_require__(778)) :
    typeof define === 'function' && define.amd ? define(['../moment'], factory) :
    factory(global.moment)
 }(this, (function (moment) { 'use strict';
@@ -27302,7 +26414,7 @@ module.exports = function (name) {
 
 /***/ }),
 
-/***/ 862:
+/***/ 844:
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -27310,7 +26422,7 @@ module.exports = function (name) {
 //! author : André Silva : https://github.com/askpt
 
 ;(function (global, factory) {
-    true ? factory(__webpack_require__(794)) :
+    true ? factory(__webpack_require__(778)) :
    typeof define === 'function' && define.amd ? define(['../moment'], factory) :
    factory(global.moment)
 }(this, (function (moment) { 'use strict';
@@ -27414,7 +26526,7 @@ module.exports = function (name) {
 
 /***/ }),
 
-/***/ 863:
+/***/ 845:
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -27422,7 +26534,7 @@ module.exports = function (name) {
 //! author : Jon Ashdown : https://github.com/jonashdown
 
 ;(function (global, factory) {
-    true ? factory(__webpack_require__(794)) :
+    true ? factory(__webpack_require__(778)) :
    typeof define === 'function' && define.amd ? define(['../moment'], factory) :
    factory(global.moment)
 }(this, (function (moment) { 'use strict';
@@ -27526,7 +26638,7 @@ module.exports = function (name) {
 
 /***/ }),
 
-/***/ 864:
+/***/ 846:
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -27534,7 +26646,7 @@ module.exports = function (name) {
 //! author : Juan G. Hurtado : https://github.com/juanghurtado
 
 ;(function (global, factory) {
-    true ? factory(__webpack_require__(794)) :
+    true ? factory(__webpack_require__(778)) :
    typeof define === 'function' && define.amd ? define(['../moment'], factory) :
    factory(global.moment)
 }(this, (function (moment) { 'use strict';
@@ -27618,7 +26730,7 @@ module.exports = function (name) {
 
 /***/ }),
 
-/***/ 865:
+/***/ 847:
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -27626,7 +26738,7 @@ module.exports = function (name) {
 //! author : The Discoverer : https://github.com/WikiDiscoverer
 
 ;(function (global, factory) {
-    true ? factory(__webpack_require__(794)) :
+    true ? factory(__webpack_require__(778)) :
    typeof define === 'function' && define.amd ? define(['../moment'], factory) :
    factory(global.moment)
 }(this, (function (moment) { 'use strict';
@@ -27761,7 +26873,7 @@ module.exports = function (name) {
 
 /***/ }),
 
-/***/ 866:
+/***/ 848:
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -27769,7 +26881,7 @@ module.exports = function (name) {
 //! author : The Discoverer : https://github.com/WikiDiscoverer
 
 ;(function (global, factory) {
-    true ? factory(__webpack_require__(794)) :
+    true ? factory(__webpack_require__(778)) :
    typeof define === 'function' && define.amd ? define(['../moment'], factory) :
    factory(global.moment)
 }(this, (function (moment) { 'use strict';
@@ -27902,7 +27014,7 @@ module.exports = function (name) {
 
 /***/ }),
 
-/***/ 867:
+/***/ 849:
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -27910,7 +27022,7 @@ module.exports = function (name) {
 //! author : Kaushik Thanki : https://github.com/Kaushik1987
 
 ;(function (global, factory) {
-    true ? factory(__webpack_require__(794)) :
+    true ? factory(__webpack_require__(778)) :
    typeof define === 'function' && define.amd ? define(['../moment'], factory) :
    factory(global.moment)
 }(this, (function (moment) { 'use strict';
@@ -28041,7 +27153,7 @@ module.exports = function (name) {
 
 /***/ }),
 
-/***/ 868:
+/***/ 850:
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -28051,7 +27163,7 @@ module.exports = function (name) {
 //! author : Tal Ater : https://github.com/TalAter
 
 ;(function (global, factory) {
-    true ? factory(__webpack_require__(794)) :
+    true ? factory(__webpack_require__(778)) :
    typeof define === 'function' && define.amd ? define(['../moment'], factory) :
    factory(global.moment)
 }(this, (function (moment) { 'use strict';
@@ -28152,7 +27264,7 @@ module.exports = function (name) {
 
 /***/ }),
 
-/***/ 869:
+/***/ 851:
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -28160,7 +27272,7 @@ module.exports = function (name) {
 //! author : Mayank Singhal : https://github.com/mayanksinghal
 
 ;(function (global, factory) {
-    true ? factory(__webpack_require__(794)) :
+    true ? factory(__webpack_require__(778)) :
    typeof define === 'function' && define.amd ? define(['../moment'], factory) :
    factory(global.moment)
 }(this, (function (moment) { 'use strict';
@@ -28337,7 +27449,7 @@ module.exports = function (name) {
 
 /***/ }),
 
-/***/ 870:
+/***/ 852:
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -28345,7 +27457,7 @@ module.exports = function (name) {
 //! author : Bojan Marković : https://github.com/bmarkovic
 
 ;(function (global, factory) {
-    true ? factory(__webpack_require__(794)) :
+    true ? factory(__webpack_require__(778)) :
    typeof define === 'function' && define.amd ? define(['../moment'], factory) :
    factory(global.moment)
 }(this, (function (moment) { 'use strict';
@@ -28510,7 +27622,7 @@ module.exports = function (name) {
 
 /***/ }),
 
-/***/ 871:
+/***/ 853:
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -28519,7 +27631,7 @@ module.exports = function (name) {
 //! author : Peter Viszt  : https://github.com/passatgt
 
 ;(function (global, factory) {
-    true ? factory(__webpack_require__(794)) :
+    true ? factory(__webpack_require__(778)) :
    typeof define === 'function' && define.amd ? define(['../moment'], factory) :
    factory(global.moment)
 }(this, (function (moment) { 'use strict';
@@ -28645,7 +27757,7 @@ module.exports = function (name) {
 
 /***/ }),
 
-/***/ 872:
+/***/ 854:
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -28653,7 +27765,7 @@ module.exports = function (name) {
 //! author : Armendarabyan : https://github.com/armendarabyan
 
 ;(function (global, factory) {
-    true ? factory(__webpack_require__(794)) :
+    true ? factory(__webpack_require__(778)) :
    typeof define === 'function' && define.amd ? define(['../moment'], factory) :
    factory(global.moment)
 }(this, (function (moment) { 'use strict';
@@ -28756,7 +27868,7 @@ module.exports = function (name) {
 
 /***/ }),
 
-/***/ 873:
+/***/ 855:
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -28765,7 +27877,7 @@ module.exports = function (name) {
 //! reference: http://id.wikisource.org/wiki/Pedoman_Umum_Ejaan_Bahasa_Indonesia_yang_Disempurnakan
 
 ;(function (global, factory) {
-    true ? factory(__webpack_require__(794)) :
+    true ? factory(__webpack_require__(778)) :
    typeof define === 'function' && define.amd ? define(['../moment'], factory) :
    factory(global.moment)
 }(this, (function (moment) { 'use strict';
@@ -28849,7 +27961,7 @@ module.exports = function (name) {
 
 /***/ }),
 
-/***/ 874:
+/***/ 856:
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -28857,7 +27969,7 @@ module.exports = function (name) {
 //! author : Hinrik Örn Sigurðsson : https://github.com/hinrik
 
 ;(function (global, factory) {
-    true ? factory(__webpack_require__(794)) :
+    true ? factory(__webpack_require__(778)) :
    typeof define === 'function' && define.amd ? define(['../moment'], factory) :
    factory(global.moment)
 }(this, (function (moment) { 'use strict';
@@ -29006,7 +28118,7 @@ module.exports = function (name) {
 
 /***/ }),
 
-/***/ 875:
+/***/ 857:
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -29014,7 +28126,7 @@ module.exports = function (name) {
 //! author : xfh : https://github.com/xfh
 
 ;(function (global, factory) {
-    true ? factory(__webpack_require__(794)) :
+    true ? factory(__webpack_require__(778)) :
    typeof define === 'function' && define.amd ? define(['../moment'], factory) :
    factory(global.moment)
 }(this, (function (moment) { 'use strict';
@@ -29087,7 +28199,7 @@ module.exports = function (name) {
 
 /***/ }),
 
-/***/ 876:
+/***/ 858:
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -29097,7 +28209,7 @@ module.exports = function (name) {
 //! author: Marco : https://github.com/Manfre98
 
 ;(function (global, factory) {
-    true ? factory(__webpack_require__(794)) :
+    true ? factory(__webpack_require__(778)) :
    typeof define === 'function' && define.amd ? define(['../moment'], factory) :
    factory(global.moment)
 }(this, (function (moment) { 'use strict';
@@ -29210,7 +28322,7 @@ module.exports = function (name) {
 
 /***/ }),
 
-/***/ 877:
+/***/ 859:
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -29218,7 +28330,7 @@ module.exports = function (name) {
 //! author : LI Long : https://github.com/baryon
 
 ;(function (global, factory) {
-    true ? factory(__webpack_require__(794)) :
+    true ? factory(__webpack_require__(778)) :
    typeof define === 'function' && define.amd ? define(['../moment'], factory) :
    factory(global.moment)
 }(this, (function (moment) { 'use strict';
@@ -29375,7 +28487,7 @@ module.exports = function (name) {
 
 /***/ }),
 
-/***/ 878:
+/***/ 860:
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -29384,7 +28496,7 @@ module.exports = function (name) {
 //! reference: http://jv.wikipedia.org/wiki/Basa_Jawa
 
 ;(function (global, factory) {
-    true ? factory(__webpack_require__(794)) :
+    true ? factory(__webpack_require__(778)) :
    typeof define === 'function' && define.amd ? define(['../moment'], factory) :
    factory(global.moment)
 }(this, (function (moment) { 'use strict';
@@ -29468,7 +28580,7 @@ module.exports = function (name) {
 
 /***/ }),
 
-/***/ 879:
+/***/ 861:
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -29476,7 +28588,7 @@ module.exports = function (name) {
 //! author : Irakli Janiashvili : https://github.com/IrakliJani
 
 ;(function (global, factory) {
-    true ? factory(__webpack_require__(794)) :
+    true ? factory(__webpack_require__(778)) :
    typeof define === 'function' && define.amd ? define(['../moment'], factory) :
    factory(global.moment)
 }(this, (function (moment) { 'use strict';
@@ -29577,7 +28689,7 @@ module.exports = function (name) {
 
 /***/ }),
 
-/***/ 880:
+/***/ 862:
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -29585,7 +28697,7 @@ module.exports = function (name) {
 //! authors : Nurlan Rakhimzhanov : https://github.com/nurlan
 
 ;(function (global, factory) {
-    true ? factory(__webpack_require__(794)) :
+    true ? factory(__webpack_require__(778)) :
    typeof define === 'function' && define.amd ? define(['../moment'], factory) :
    factory(global.moment)
 }(this, (function (moment) { 'use strict';
@@ -29676,7 +28788,7 @@ module.exports = function (name) {
 
 /***/ }),
 
-/***/ 881:
+/***/ 863:
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -29684,7 +28796,7 @@ module.exports = function (name) {
 //! author : Kruy Vanna : https://github.com/kruyvanna
 
 ;(function (global, factory) {
-    true ? factory(__webpack_require__(794)) :
+    true ? factory(__webpack_require__(778)) :
    typeof define === 'function' && define.amd ? define(['../moment'], factory) :
    factory(global.moment)
 }(this, (function (moment) { 'use strict';
@@ -29796,7 +28908,7 @@ module.exports = function (name) {
 
 /***/ }),
 
-/***/ 882:
+/***/ 864:
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -29804,7 +28916,7 @@ module.exports = function (name) {
 //! author : Rajeev Naik : https://github.com/rajeevnaikte
 
 ;(function (global, factory) {
-    true ? factory(__webpack_require__(794)) :
+    true ? factory(__webpack_require__(778)) :
    typeof define === 'function' && define.amd ? define(['../moment'], factory) :
    factory(global.moment)
 }(this, (function (moment) { 'use strict';
@@ -29937,7 +29049,7 @@ module.exports = function (name) {
 
 /***/ }),
 
-/***/ 883:
+/***/ 865:
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -29946,7 +29058,7 @@ module.exports = function (name) {
 //! author : Jeeeyul Lee <jeeeyul@gmail.com>
 
 ;(function (global, factory) {
-    true ? factory(__webpack_require__(794)) :
+    true ? factory(__webpack_require__(778)) :
    typeof define === 'function' && define.amd ? define(['../moment'], factory) :
    factory(global.moment)
 }(this, (function (moment) { 'use strict';
@@ -30029,7 +29141,7 @@ module.exports = function (name) {
 
 /***/ }),
 
-/***/ 884:
+/***/ 866:
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -30037,7 +29149,7 @@ module.exports = function (name) {
 //! author : Shahram Mebashar : https://github.com/ShahramMebashar
 
 ;(function (global, factory) {
-    true ? factory(__webpack_require__(794)) :
+    true ? factory(__webpack_require__(778)) :
    typeof define === 'function' && define.amd ? define(['../moment'], factory) :
    factory(global.moment)
 }(this, (function (moment) { 'use strict';
@@ -30164,7 +29276,7 @@ module.exports = function (name) {
 
 /***/ }),
 
-/***/ 885:
+/***/ 867:
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -30172,7 +29284,7 @@ module.exports = function (name) {
 //! author : Chyngyz Arystan uulu : https://github.com/chyngyz
 
 ;(function (global, factory) {
-    true ? factory(__webpack_require__(794)) :
+    true ? factory(__webpack_require__(778)) :
    typeof define === 'function' && define.amd ? define(['../moment'], factory) :
    factory(global.moment)
 }(this, (function (moment) { 'use strict';
@@ -30265,7 +29377,7 @@ module.exports = function (name) {
 
 /***/ }),
 
-/***/ 886:
+/***/ 868:
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -30274,7 +29386,7 @@ module.exports = function (name) {
 //! author : David Raison : https://github.com/kwisatz
 
 ;(function (global, factory) {
-    true ? factory(__webpack_require__(794)) :
+    true ? factory(__webpack_require__(778)) :
    typeof define === 'function' && define.amd ? define(['../moment'], factory) :
    factory(global.moment)
 }(this, (function (moment) { 'use strict';
@@ -30419,7 +29531,7 @@ module.exports = function (name) {
 
 /***/ }),
 
-/***/ 887:
+/***/ 869:
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -30427,7 +29539,7 @@ module.exports = function (name) {
 //! author : Ryan Hart : https://github.com/ryanhart2
 
 ;(function (global, factory) {
-    true ? factory(__webpack_require__(794)) :
+    true ? factory(__webpack_require__(778)) :
    typeof define === 'function' && define.amd ? define(['../moment'], factory) :
    factory(global.moment)
 }(this, (function (moment) { 'use strict';
@@ -30502,7 +29614,7 @@ module.exports = function (name) {
 
 /***/ }),
 
-/***/ 888:
+/***/ 870:
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -30510,7 +29622,7 @@ module.exports = function (name) {
 //! author : Mindaugas Mozūras : https://github.com/mmozuras
 
 ;(function (global, factory) {
-    true ? factory(__webpack_require__(794)) :
+    true ? factory(__webpack_require__(778)) :
    typeof define === 'function' && define.amd ? define(['../moment'], factory) :
    factory(global.moment)
 }(this, (function (moment) { 'use strict';
@@ -30644,7 +29756,7 @@ module.exports = function (name) {
 
 /***/ }),
 
-/***/ 889:
+/***/ 871:
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -30653,7 +29765,7 @@ module.exports = function (name) {
 //! author : Jānis Elmeris : https://github.com/JanisE
 
 ;(function (global, factory) {
-    true ? factory(__webpack_require__(794)) :
+    true ? factory(__webpack_require__(778)) :
    typeof define === 'function' && define.amd ? define(['../moment'], factory) :
    factory(global.moment)
 }(this, (function (moment) { 'use strict';
@@ -30755,7 +29867,7 @@ module.exports = function (name) {
 
 /***/ }),
 
-/***/ 890:
+/***/ 872:
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -30763,7 +29875,7 @@ module.exports = function (name) {
 //! author : Miodrag Nikač <miodrag@restartit.me> : https://github.com/miodragnikac
 
 ;(function (global, factory) {
-    true ? factory(__webpack_require__(794)) :
+    true ? factory(__webpack_require__(778)) :
    typeof define === 'function' && define.amd ? define(['../moment'], factory) :
    factory(global.moment)
 }(this, (function (moment) { 'use strict';
@@ -30889,7 +30001,7 @@ module.exports = function (name) {
 
 /***/ }),
 
-/***/ 891:
+/***/ 873:
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -30897,7 +30009,7 @@ module.exports = function (name) {
 //! author : John Corrigan <robbiecloset@gmail.com> : https://github.com/johnideal
 
 ;(function (global, factory) {
-    true ? factory(__webpack_require__(794)) :
+    true ? factory(__webpack_require__(778)) :
    typeof define === 'function' && define.amd ? define(['../moment'], factory) :
    factory(global.moment)
 }(this, (function (moment) { 'use strict';
@@ -30966,7 +30078,7 @@ module.exports = function (name) {
 
 /***/ }),
 
-/***/ 892:
+/***/ 874:
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -30975,7 +30087,7 @@ module.exports = function (name) {
 //! author : Sashko Todorov : https://github.com/bkyceh
 
 ;(function (global, factory) {
-    true ? factory(__webpack_require__(794)) :
+    true ? factory(__webpack_require__(778)) :
    typeof define === 'function' && define.amd ? define(['../moment'], factory) :
    factory(global.moment)
 }(this, (function (moment) { 'use strict';
@@ -31069,7 +30181,7 @@ module.exports = function (name) {
 
 /***/ }),
 
-/***/ 893:
+/***/ 875:
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -31077,7 +30189,7 @@ module.exports = function (name) {
 //! author : Floyd Pink : https://github.com/floydpink
 
 ;(function (global, factory) {
-    true ? factory(__webpack_require__(794)) :
+    true ? factory(__webpack_require__(778)) :
    typeof define === 'function' && define.amd ? define(['../moment'], factory) :
    factory(global.moment)
 }(this, (function (moment) { 'use strict';
@@ -31168,7 +30280,7 @@ module.exports = function (name) {
 
 /***/ }),
 
-/***/ 894:
+/***/ 876:
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -31176,7 +30288,7 @@ module.exports = function (name) {
 //! author : Javkhlantugs Nyamdorj : https://github.com/javkhaanj7
 
 ;(function (global, factory) {
-    true ? factory(__webpack_require__(794)) :
+    true ? factory(__webpack_require__(778)) :
    typeof define === 'function' && define.amd ? define(['../moment'], factory) :
    factory(global.moment)
 }(this, (function (moment) { 'use strict';
@@ -31285,7 +30397,7 @@ module.exports = function (name) {
 
 /***/ }),
 
-/***/ 895:
+/***/ 877:
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -31294,7 +30406,7 @@ module.exports = function (name) {
 //! author : Vivek Athalye : https://github.com/vnathalye
 
 ;(function (global, factory) {
-    true ? factory(__webpack_require__(794)) :
+    true ? factory(__webpack_require__(778)) :
    typeof define === 'function' && define.amd ? define(['../moment'], factory) :
    factory(global.moment)
 }(this, (function (moment) { 'use strict';
@@ -31505,7 +30617,7 @@ module.exports = function (name) {
 
 /***/ }),
 
-/***/ 896:
+/***/ 878:
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -31514,7 +30626,7 @@ module.exports = function (name) {
 //! author : Weldan Jamili : https://github.com/weldan
 
 ;(function (global, factory) {
-    true ? factory(__webpack_require__(794)) :
+    true ? factory(__webpack_require__(778)) :
    typeof define === 'function' && define.amd ? define(['../moment'], factory) :
    factory(global.moment)
 }(this, (function (moment) { 'use strict';
@@ -31598,7 +30710,7 @@ module.exports = function (name) {
 
 /***/ }),
 
-/***/ 897:
+/***/ 879:
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -31606,7 +30718,7 @@ module.exports = function (name) {
 //! author : Weldan Jamili : https://github.com/weldan
 
 ;(function (global, factory) {
-    true ? factory(__webpack_require__(794)) :
+    true ? factory(__webpack_require__(778)) :
    typeof define === 'function' && define.amd ? define(['../moment'], factory) :
    factory(global.moment)
 }(this, (function (moment) { 'use strict';
@@ -31690,7 +30802,7 @@ module.exports = function (name) {
 
 /***/ }),
 
-/***/ 898:
+/***/ 880:
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -31698,7 +30810,7 @@ module.exports = function (name) {
 //! author : Alessandro Maruccia : https://github.com/alesma
 
 ;(function (global, factory) {
-    true ? factory(__webpack_require__(794)) :
+    true ? factory(__webpack_require__(778)) :
    typeof define === 'function' && define.amd ? define(['../moment'], factory) :
    factory(global.moment)
 }(this, (function (moment) { 'use strict';
@@ -31763,7 +30875,7 @@ module.exports = function (name) {
 
 /***/ }),
 
-/***/ 899:
+/***/ 881:
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -31773,7 +30885,7 @@ module.exports = function (name) {
 //! author : Tin Aung Lin : https://github.com/thanyawzinmin
 
 ;(function (global, factory) {
-    true ? factory(__webpack_require__(794)) :
+    true ? factory(__webpack_require__(778)) :
    typeof define === 'function' && define.amd ? define(['../moment'], factory) :
    factory(global.moment)
 }(this, (function (moment) { 'use strict';
@@ -31871,7 +30983,7 @@ module.exports = function (name) {
 
 /***/ }),
 
-/***/ 900:
+/***/ 882:
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -31881,7 +30993,7 @@ module.exports = function (name) {
 //!           Stephen Ramthun : https://github.com/stephenramthun
 
 ;(function (global, factory) {
-    true ? factory(__webpack_require__(794)) :
+    true ? factory(__webpack_require__(778)) :
    typeof define === 'function' && define.amd ? define(['../moment'], factory) :
    factory(global.moment)
 }(this, (function (moment) { 'use strict';
@@ -31948,7 +31060,7 @@ module.exports = function (name) {
 
 /***/ }),
 
-/***/ 901:
+/***/ 883:
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -31956,7 +31068,7 @@ module.exports = function (name) {
 //! author : suvash : https://github.com/suvash
 
 ;(function (global, factory) {
-    true ? factory(__webpack_require__(794)) :
+    true ? factory(__webpack_require__(778)) :
    typeof define === 'function' && define.amd ? define(['../moment'], factory) :
    factory(global.moment)
 }(this, (function (moment) { 'use strict';
@@ -32086,7 +31198,7 @@ module.exports = function (name) {
 
 /***/ }),
 
-/***/ 902:
+/***/ 884:
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -32095,7 +31207,7 @@ module.exports = function (name) {
 //! author : Jacob Middag : https://github.com/middagj
 
 ;(function (global, factory) {
-    true ? factory(__webpack_require__(794)) :
+    true ? factory(__webpack_require__(778)) :
    typeof define === 'function' && define.amd ? define(['../moment'], factory) :
    factory(global.moment)
 }(this, (function (moment) { 'use strict';
@@ -32205,7 +31317,7 @@ module.exports = function (name) {
 
 /***/ }),
 
-/***/ 903:
+/***/ 885:
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -32214,7 +31326,7 @@ module.exports = function (name) {
 //! author : Jacob Middag : https://github.com/middagj
 
 ;(function (global, factory) {
-    true ? factory(__webpack_require__(794)) :
+    true ? factory(__webpack_require__(778)) :
    typeof define === 'function' && define.amd ? define(['../moment'], factory) :
    factory(global.moment)
 }(this, (function (moment) { 'use strict';
@@ -32326,7 +31438,7 @@ module.exports = function (name) {
 
 /***/ }),
 
-/***/ 904:
+/***/ 886:
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -32335,7 +31447,7 @@ module.exports = function (name) {
 //!           Stephen Ramthun : https://github.com/stephenramthun
 
 ;(function (global, factory) {
-    true ? factory(__webpack_require__(794)) :
+    true ? factory(__webpack_require__(778)) :
    typeof define === 'function' && define.amd ? define(['../moment'], factory) :
    factory(global.moment)
 }(this, (function (moment) { 'use strict';
@@ -32402,7 +31514,7 @@ module.exports = function (name) {
 
 /***/ }),
 
-/***/ 905:
+/***/ 887:
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -32410,7 +31522,7 @@ module.exports = function (name) {
 //! author : Quentin PAGÈS : https://github.com/Quenty31
 
 ;(function (global, factory) {
-    true ? factory(__webpack_require__(794)) :
+    true ? factory(__webpack_require__(778)) :
    typeof define === 'function' && define.amd ? define(['../moment'], factory) :
    factory(global.moment)
 }(this, (function (moment) { 'use strict';
@@ -32504,7 +31616,7 @@ module.exports = function (name) {
 
 /***/ }),
 
-/***/ 906:
+/***/ 888:
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -32512,7 +31624,7 @@ module.exports = function (name) {
 //! author : Harpreet Singh : https://github.com/harpreetkhalsagtbit
 
 ;(function (global, factory) {
-    true ? factory(__webpack_require__(794)) :
+    true ? factory(__webpack_require__(778)) :
    typeof define === 'function' && define.amd ? define(['../moment'], factory) :
    factory(global.moment)
 }(this, (function (moment) { 'use strict';
@@ -32643,7 +31755,7 @@ module.exports = function (name) {
 
 /***/ }),
 
-/***/ 907:
+/***/ 889:
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -32651,7 +31763,7 @@ module.exports = function (name) {
 //! author : Rafal Hirsz : https://github.com/evoL
 
 ;(function (global, factory) {
-    true ? factory(__webpack_require__(794)) :
+    true ? factory(__webpack_require__(778)) :
    typeof define === 'function' && define.amd ? define(['../moment'], factory) :
    factory(global.moment)
 }(this, (function (moment) { 'use strict';
@@ -32800,7 +31912,7 @@ module.exports = function (name) {
 
 /***/ }),
 
-/***/ 908:
+/***/ 890:
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -32808,7 +31920,7 @@ module.exports = function (name) {
 //! author : Caio Ribeiro Pereira : https://github.com/caio-ribeiro-pereira
 
 ;(function (global, factory) {
-    true ? factory(__webpack_require__(794)) :
+    true ? factory(__webpack_require__(778)) :
    typeof define === 'function' && define.amd ? define(['../moment'], factory) :
    factory(global.moment)
 }(this, (function (moment) { 'use strict';
@@ -32875,7 +31987,7 @@ module.exports = function (name) {
 
 /***/ }),
 
-/***/ 909:
+/***/ 891:
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -32883,7 +31995,7 @@ module.exports = function (name) {
 //! author : Jefferson : https://github.com/jalex79
 
 ;(function (global, factory) {
-    true ? factory(__webpack_require__(794)) :
+    true ? factory(__webpack_require__(778)) :
    typeof define === 'function' && define.amd ? define(['../moment'], factory) :
    factory(global.moment)
 }(this, (function (moment) { 'use strict';
@@ -32955,7 +32067,7 @@ module.exports = function (name) {
 
 /***/ }),
 
-/***/ 910:
+/***/ 892:
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -32965,7 +32077,7 @@ module.exports = function (name) {
 //! author : Emanuel Cepoi : https://github.com/cepem
 
 ;(function (global, factory) {
-    true ? factory(__webpack_require__(794)) :
+    true ? factory(__webpack_require__(778)) :
    typeof define === 'function' && define.amd ? define(['../moment'], factory) :
    factory(global.moment)
 }(this, (function (moment) { 'use strict';
@@ -33048,7 +32160,7 @@ module.exports = function (name) {
 
 /***/ }),
 
-/***/ 911:
+/***/ 893:
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -33058,7 +32170,7 @@ module.exports = function (name) {
 //! author : Коренберг Марк : https://github.com/socketpair
 
 ;(function (global, factory) {
-    true ? factory(__webpack_require__(794)) :
+    true ? factory(__webpack_require__(778)) :
    typeof define === 'function' && define.amd ? define(['../moment'], factory) :
    factory(global.moment)
 }(this, (function (moment) { 'use strict';
@@ -33278,7 +32390,7 @@ module.exports = function (name) {
 
 /***/ }),
 
-/***/ 912:
+/***/ 894:
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -33286,7 +32398,7 @@ module.exports = function (name) {
 //! author : Narain Sagar : https://github.com/narainsagar
 
 ;(function (global, factory) {
-    true ? factory(__webpack_require__(794)) :
+    true ? factory(__webpack_require__(778)) :
    typeof define === 'function' && define.amd ? define(['../moment'], factory) :
    factory(global.moment)
 }(this, (function (moment) { 'use strict';
@@ -33376,7 +32488,7 @@ module.exports = function (name) {
 
 /***/ }),
 
-/***/ 913:
+/***/ 895:
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -33384,7 +32496,7 @@ module.exports = function (name) {
 //! authors : Bård Rolstad Henriksen : https://github.com/karamell
 
 ;(function (global, factory) {
-    true ? factory(__webpack_require__(794)) :
+    true ? factory(__webpack_require__(778)) :
    typeof define === 'function' && define.amd ? define(['../moment'], factory) :
    factory(global.moment)
 }(this, (function (moment) { 'use strict';
@@ -33450,7 +32562,7 @@ module.exports = function (name) {
 
 /***/ }),
 
-/***/ 914:
+/***/ 896:
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -33458,7 +32570,7 @@ module.exports = function (name) {
 //! author : Sampath Sitinamaluwa : https://github.com/sampathsris
 
 ;(function (global, factory) {
-    true ? factory(__webpack_require__(794)) :
+    true ? factory(__webpack_require__(778)) :
    typeof define === 'function' && define.amd ? define(['../moment'], factory) :
    factory(global.moment)
 }(this, (function (moment) { 'use strict';
@@ -33536,7 +32648,7 @@ module.exports = function (name) {
 
 /***/ }),
 
-/***/ 915:
+/***/ 897:
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -33545,7 +32657,7 @@ module.exports = function (name) {
 //! based on work of petrbela : https://github.com/petrbela
 
 ;(function (global, factory) {
-    true ? factory(__webpack_require__(794)) :
+    true ? factory(__webpack_require__(778)) :
    typeof define === 'function' && define.amd ? define(['../moment'], factory) :
    factory(global.moment)
 }(this, (function (moment) { 'use strict';
@@ -33698,7 +32810,7 @@ module.exports = function (name) {
 
 /***/ }),
 
-/***/ 916:
+/***/ 898:
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -33706,7 +32818,7 @@ module.exports = function (name) {
 //! author : Robert Sedovšek : https://github.com/sedovsek
 
 ;(function (global, factory) {
-    true ? factory(__webpack_require__(794)) :
+    true ? factory(__webpack_require__(778)) :
    typeof define === 'function' && define.amd ? define(['../moment'], factory) :
    factory(global.moment)
 }(this, (function (moment) { 'use strict';
@@ -33886,7 +32998,7 @@ module.exports = function (name) {
 
 /***/ }),
 
-/***/ 917:
+/***/ 899:
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -33896,7 +33008,7 @@ module.exports = function (name) {
 //! author : Oerd Cukalla : https://github.com/oerd
 
 ;(function (global, factory) {
-    true ? factory(__webpack_require__(794)) :
+    true ? factory(__webpack_require__(778)) :
    typeof define === 'function' && define.amd ? define(['../moment'], factory) :
    factory(global.moment)
 }(this, (function (moment) { 'use strict';
@@ -33968,7 +33080,7 @@ module.exports = function (name) {
 
 /***/ }),
 
-/***/ 918:
+/***/ 900:
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -33977,7 +33089,7 @@ module.exports = function (name) {
 //! author : Stefan Crnjaković <stefan@hotmail.rs> : https://github.com/crnjakovic
 
 ;(function (global, factory) {
-    true ? factory(__webpack_require__(794)) :
+    true ? factory(__webpack_require__(778)) :
    typeof define === 'function' && define.amd ? define(['../moment'], factory) :
    factory(global.moment)
 }(this, (function (moment) { 'use strict';
@@ -34112,7 +33224,7 @@ module.exports = function (name) {
 
 /***/ }),
 
-/***/ 919:
+/***/ 901:
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -34121,7 +33233,7 @@ module.exports = function (name) {
 //! author : Stefan Crnjaković <stefan@hotmail.rs> : https://github.com/crnjakovic
 
 ;(function (global, factory) {
-    true ? factory(__webpack_require__(794)) :
+    true ? factory(__webpack_require__(778)) :
    typeof define === 'function' && define.amd ? define(['../moment'], factory) :
    factory(global.moment)
 }(this, (function (moment) { 'use strict';
@@ -34258,7 +33370,7 @@ module.exports = function (name) {
 
 /***/ }),
 
-/***/ 920:
+/***/ 902:
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -34266,7 +33378,7 @@ module.exports = function (name) {
 //! author : Nicolai Davies<mail@nicolai.io> : https://github.com/nicolaidavies
 
 ;(function (global, factory) {
-    true ? factory(__webpack_require__(794)) :
+    true ? factory(__webpack_require__(778)) :
    typeof define === 'function' && define.amd ? define(['../moment'], factory) :
    factory(global.moment)
 }(this, (function (moment) { 'use strict';
@@ -34359,7 +33471,7 @@ module.exports = function (name) {
 
 /***/ }),
 
-/***/ 921:
+/***/ 903:
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -34367,7 +33479,7 @@ module.exports = function (name) {
 //! author : Jens Alm : https://github.com/ulmus
 
 ;(function (global, factory) {
-    true ? factory(__webpack_require__(794)) :
+    true ? factory(__webpack_require__(778)) :
    typeof define === 'function' && define.amd ? define(['../moment'], factory) :
    factory(global.moment)
 }(this, (function (moment) { 'use strict';
@@ -34444,7 +33556,7 @@ module.exports = function (name) {
 
 /***/ }),
 
-/***/ 922:
+/***/ 904:
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -34452,7 +33564,7 @@ module.exports = function (name) {
 //! author : Fahad Kassim : https://github.com/fadsel
 
 ;(function (global, factory) {
-    true ? factory(__webpack_require__(794)) :
+    true ? factory(__webpack_require__(778)) :
    typeof define === 'function' && define.amd ? define(['../moment'], factory) :
    factory(global.moment)
 }(this, (function (moment) { 'use strict';
@@ -34516,7 +33628,7 @@ module.exports = function (name) {
 
 /***/ }),
 
-/***/ 923:
+/***/ 905:
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -34524,7 +33636,7 @@ module.exports = function (name) {
 //! author : Arjunkumar Krishnamoorthy : https://github.com/tk120404
 
 ;(function (global, factory) {
-    true ? factory(__webpack_require__(794)) :
+    true ? factory(__webpack_require__(778)) :
    typeof define === 'function' && define.amd ? define(['../moment'], factory) :
    factory(global.moment)
 }(this, (function (moment) { 'use strict';
@@ -34664,7 +33776,7 @@ module.exports = function (name) {
 
 /***/ }),
 
-/***/ 924:
+/***/ 906:
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -34672,7 +33784,7 @@ module.exports = function (name) {
 //! author : Krishna Chaitanya Thota : https://github.com/kcthota
 
 ;(function (global, factory) {
-    true ? factory(__webpack_require__(794)) :
+    true ? factory(__webpack_require__(778)) :
    typeof define === 'function' && define.amd ? define(['../moment'], factory) :
    factory(global.moment)
 }(this, (function (moment) { 'use strict';
@@ -34769,7 +33881,7 @@ module.exports = function (name) {
 
 /***/ }),
 
-/***/ 925:
+/***/ 907:
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -34779,7 +33891,7 @@ module.exports = function (name) {
 //! author : Sonia Simoes : https://github.com/soniasimoes
 
 ;(function (global, factory) {
-    true ? factory(__webpack_require__(794)) :
+    true ? factory(__webpack_require__(778)) :
    typeof define === 'function' && define.amd ? define(['../moment'], factory) :
    factory(global.moment)
 }(this, (function (moment) { 'use strict';
@@ -34854,7 +33966,7 @@ module.exports = function (name) {
 
 /***/ }),
 
-/***/ 926:
+/***/ 908:
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -34862,7 +33974,7 @@ module.exports = function (name) {
 //! author : Orif N. Jr. : https://github.com/orif-jr
 
 ;(function (global, factory) {
-    true ? factory(__webpack_require__(794)) :
+    true ? factory(__webpack_require__(778)) :
    typeof define === 'function' && define.amd ? define(['../moment'], factory) :
    factory(global.moment)
 }(this, (function (moment) { 'use strict';
@@ -34988,7 +34100,7 @@ module.exports = function (name) {
 
 /***/ }),
 
-/***/ 927:
+/***/ 909:
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -34996,7 +34108,7 @@ module.exports = function (name) {
 //! author : Kridsada Thanabulpong : https://github.com/sirn
 
 ;(function (global, factory) {
-    true ? factory(__webpack_require__(794)) :
+    true ? factory(__webpack_require__(778)) :
    typeof define === 'function' && define.amd ? define(['../moment'], factory) :
    factory(global.moment)
 }(this, (function (moment) { 'use strict';
@@ -35070,7 +34182,7 @@ module.exports = function (name) {
 
 /***/ }),
 
-/***/ 928:
+/***/ 910:
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -35078,7 +34190,7 @@ module.exports = function (name) {
 //! author : Atamyrat Abdyrahmanov : https://github.com/atamyratabdy
 
 ;(function (global, factory) {
-    true ? factory(__webpack_require__(794)) :
+    true ? factory(__webpack_require__(778)) :
    typeof define === 'function' && define.amd ? define(['../moment'], factory) :
    factory(global.moment)
 }(this, (function (moment) { 'use strict';
@@ -35178,7 +34290,7 @@ module.exports = function (name) {
 
 /***/ }),
 
-/***/ 929:
+/***/ 911:
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -35186,7 +34298,7 @@ module.exports = function (name) {
 //! author : Dan Hagman : https://github.com/hagmandan
 
 ;(function (global, factory) {
-    true ? factory(__webpack_require__(794)) :
+    true ? factory(__webpack_require__(778)) :
    typeof define === 'function' && define.amd ? define(['../moment'], factory) :
    factory(global.moment)
 }(this, (function (moment) { 'use strict';
@@ -35252,7 +34364,7 @@ module.exports = function (name) {
 
 /***/ }),
 
-/***/ 930:
+/***/ 912:
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -35260,7 +34372,7 @@ module.exports = function (name) {
 //! author : Dominika Kruk : https://github.com/amaranthrose
 
 ;(function (global, factory) {
-    true ? factory(__webpack_require__(794)) :
+    true ? factory(__webpack_require__(778)) :
    typeof define === 'function' && define.amd ? define(['../moment'], factory) :
    factory(global.moment)
 }(this, (function (moment) { 'use strict';
@@ -35393,7 +34505,7 @@ module.exports = function (name) {
 
 /***/ }),
 
-/***/ 931:
+/***/ 913:
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -35402,7 +34514,7 @@ module.exports = function (name) {
 //!           Burak Yiğit Kaya: https://github.com/BYK
 
 ;(function (global, factory) {
-    true ? factory(__webpack_require__(794)) :
+    true ? factory(__webpack_require__(778)) :
    typeof define === 'function' && define.amd ? define(['../moment'], factory) :
    factory(global.moment)
 }(this, (function (moment) { 'use strict';
@@ -35516,7 +34628,7 @@ module.exports = function (name) {
 
 /***/ }),
 
-/***/ 932:
+/***/ 914:
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -35525,7 +34637,7 @@ module.exports = function (name) {
 //! author : Iustì Canun
 
 ;(function (global, factory) {
-    true ? factory(__webpack_require__(794)) :
+    true ? factory(__webpack_require__(778)) :
    typeof define === 'function' && define.amd ? define(['../moment'], factory) :
    factory(global.moment)
 }(this, (function (moment) { 'use strict';
@@ -35622,7 +34734,7 @@ module.exports = function (name) {
 
 /***/ }),
 
-/***/ 933:
+/***/ 915:
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -35630,7 +34742,7 @@ module.exports = function (name) {
 //! author : Abdel Said : https://github.com/abdelsaid
 
 ;(function (global, factory) {
-    true ? factory(__webpack_require__(794)) :
+    true ? factory(__webpack_require__(778)) :
    typeof define === 'function' && define.amd ? define(['../moment'], factory) :
    factory(global.moment)
 }(this, (function (moment) { 'use strict';
@@ -35693,7 +34805,7 @@ module.exports = function (name) {
 
 /***/ }),
 
-/***/ 934:
+/***/ 916:
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -35701,7 +34813,7 @@ module.exports = function (name) {
 //! author : Abdel Said : https://github.com/abdelsaid
 
 ;(function (global, factory) {
-    true ? factory(__webpack_require__(794)) :
+    true ? factory(__webpack_require__(778)) :
    typeof define === 'function' && define.amd ? define(['../moment'], factory) :
    factory(global.moment)
 }(this, (function (moment) { 'use strict';
@@ -35764,7 +34876,7 @@ module.exports = function (name) {
 
 /***/ }),
 
-/***/ 935:
+/***/ 917:
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -35772,7 +34884,7 @@ module.exports = function (name) {
 //! author: boyaq : https://github.com/boyaq
 
 ;(function (global, factory) {
-    true ? factory(__webpack_require__(794)) :
+    true ? factory(__webpack_require__(778)) :
    typeof define === 'function' && define.amd ? define(['../moment'], factory) :
    factory(global.moment)
 }(this, (function (moment) { 'use strict';
@@ -35892,7 +35004,7 @@ module.exports = function (name) {
 
 /***/ }),
 
-/***/ 936:
+/***/ 918:
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -35901,7 +35013,7 @@ module.exports = function (name) {
 //! Author : Menelion Elensúle : https://github.com/Oire
 
 ;(function (global, factory) {
-    true ? factory(__webpack_require__(794)) :
+    true ? factory(__webpack_require__(778)) :
    typeof define === 'function' && define.amd ? define(['../moment'], factory) :
    factory(global.moment)
 }(this, (function (moment) { 'use strict';
@@ -36076,7 +35188,7 @@ module.exports = function (name) {
 
 /***/ }),
 
-/***/ 937:
+/***/ 919:
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -36085,7 +35197,7 @@ module.exports = function (name) {
 //! author : Zack : https://github.com/ZackVision
 
 ;(function (global, factory) {
-    true ? factory(__webpack_require__(794)) :
+    true ? factory(__webpack_require__(778)) :
    typeof define === 'function' && define.amd ? define(['../moment'], factory) :
    factory(global.moment)
 }(this, (function (moment) { 'use strict';
@@ -36175,7 +35287,7 @@ module.exports = function (name) {
 
 /***/ }),
 
-/***/ 938:
+/***/ 920:
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -36183,7 +35295,7 @@ module.exports = function (name) {
 //! author : Rasulbek Mirzayev : github.com/Rasulbeeek
 
 ;(function (global, factory) {
-    true ? factory(__webpack_require__(794)) :
+    true ? factory(__webpack_require__(778)) :
    typeof define === 'function' && define.amd ? define(['../moment'], factory) :
    factory(global.moment)
 }(this, (function (moment) { 'use strict';
@@ -36246,7 +35358,7 @@ module.exports = function (name) {
 
 /***/ }),
 
-/***/ 939:
+/***/ 921:
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -36254,7 +35366,7 @@ module.exports = function (name) {
 //! author : Sardor Muminov : https://github.com/muminoff
 
 ;(function (global, factory) {
-    true ? factory(__webpack_require__(794)) :
+    true ? factory(__webpack_require__(778)) :
    typeof define === 'function' && define.amd ? define(['../moment'], factory) :
    factory(global.moment)
 }(this, (function (moment) { 'use strict';
@@ -36314,7 +35426,7 @@ module.exports = function (name) {
 
 /***/ }),
 
-/***/ 940:
+/***/ 922:
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -36323,7 +35435,7 @@ module.exports = function (name) {
 //! author : Chien Kira : https://github.com/chienkira
 
 ;(function (global, factory) {
-    true ? factory(__webpack_require__(794)) :
+    true ? factory(__webpack_require__(778)) :
    typeof define === 'function' && define.amd ? define(['../moment'], factory) :
    factory(global.moment)
 }(this, (function (moment) { 'use strict';
@@ -36411,7 +35523,7 @@ module.exports = function (name) {
 
 /***/ }),
 
-/***/ 941:
+/***/ 923:
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -36419,7 +35531,7 @@ module.exports = function (name) {
 //! author : Andrew Hood : https://github.com/andrewhood125
 
 ;(function (global, factory) {
-    true ? factory(__webpack_require__(794)) :
+    true ? factory(__webpack_require__(778)) :
    typeof define === 'function' && define.amd ? define(['../moment'], factory) :
    factory(global.moment)
 }(this, (function (moment) { 'use strict';
@@ -36501,7 +35613,7 @@ module.exports = function (name) {
 
 /***/ }),
 
-/***/ 942:
+/***/ 924:
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -36509,7 +35621,7 @@ module.exports = function (name) {
 //! author : Atolagbe Abisoye : https://github.com/andela-batolagbe
 
 ;(function (global, factory) {
-    true ? factory(__webpack_require__(794)) :
+    true ? factory(__webpack_require__(778)) :
    typeof define === 'function' && define.amd ? define(['../moment'], factory) :
    factory(global.moment)
 }(this, (function (moment) { 'use strict';
@@ -36571,7 +35683,7 @@ module.exports = function (name) {
 
 /***/ }),
 
-/***/ 943:
+/***/ 925:
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -36581,7 +35693,7 @@ module.exports = function (name) {
 //! author : uu109 : https://github.com/uu109
 
 ;(function (global, factory) {
-    true ? factory(__webpack_require__(794)) :
+    true ? factory(__webpack_require__(778)) :
    typeof define === 'function' && define.amd ? define(['../moment'], factory) :
    factory(global.moment)
 }(this, (function (moment) { 'use strict';
@@ -36708,7 +35820,7 @@ module.exports = function (name) {
 
 /***/ }),
 
-/***/ 944:
+/***/ 926:
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -36719,7 +35831,7 @@ module.exports = function (name) {
 //! author : Anthony : https://github.com/anthonylau
 
 ;(function (global, factory) {
-    true ? factory(__webpack_require__(794)) :
+    true ? factory(__webpack_require__(778)) :
    typeof define === 'function' && define.amd ? define(['../moment'], factory) :
    factory(global.moment)
 }(this, (function (moment) { 'use strict';
@@ -36826,7 +35938,7 @@ module.exports = function (name) {
 
 /***/ }),
 
-/***/ 945:
+/***/ 927:
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -36836,7 +35948,7 @@ module.exports = function (name) {
 //! author : Tan Yuanhong : https://github.com/le0tan
 
 ;(function (global, factory) {
-    true ? factory(__webpack_require__(794)) :
+    true ? factory(__webpack_require__(778)) :
    typeof define === 'function' && define.amd ? define(['../moment'], factory) :
    factory(global.moment)
 }(this, (function (moment) { 'use strict';
@@ -36943,7 +36055,7 @@ module.exports = function (name) {
 
 /***/ }),
 
-/***/ 946:
+/***/ 928:
 /***/ (function(module, exports, __webpack_require__) {
 
 //! moment.js locale configuration
@@ -36952,7 +36064,7 @@ module.exports = function (name) {
 //! author : Chris Lam : https://github.com/hehachris
 
 ;(function (global, factory) {
-    true ? factory(__webpack_require__(794)) :
+    true ? factory(__webpack_require__(778)) :
    typeof define === 'function' && define.amd ? define(['../moment'], factory) :
    factory(global.moment)
 }(this, (function (moment) { 'use strict';
@@ -37059,10 +36171,26 @@ module.exports = function (name) {
 
 /***/ }),
 
-/***/ 947:
+/***/ 929:
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(948);
+var global = __webpack_require__(22);
+var core = __webpack_require__(37);
+var LIBRARY = __webpack_require__(106);
+var wksExt = __webpack_require__(979);
+var defineProperty = __webpack_require__(55).f;
+module.exports = function (name) {
+  var $Symbol = core.Symbol || (core.Symbol = LIBRARY ? {} : global.Symbol || {});
+  if (name.charAt(0) != '_' && !(name in $Symbol)) defineProperty($Symbol, name, { value: wksExt.f(name) });
+};
+
+
+/***/ }),
+
+/***/ 930:
+/***/ (function(module, exports, __webpack_require__) {
+
+__webpack_require__(931);
 var $Object = __webpack_require__(20).Object;
 module.exports = function defineProperty(it, key, desc) {
   return $Object.defineProperty(it, key, desc);
@@ -37071,7 +36199,7 @@ module.exports = function defineProperty(it, key, desc) {
 
 /***/ }),
 
-/***/ 948:
+/***/ 931:
 /***/ (function(module, exports, __webpack_require__) {
 
 var $export = __webpack_require__(32);
@@ -37081,22 +36209,7 @@ $export($export.S + $export.F * !__webpack_require__(44), 'Object', { defineProp
 
 /***/ }),
 
-/***/ 949:
-/***/ (function(module, exports, __webpack_require__) {
-
-exports = module.exports = __webpack_require__(53)();
-// imports
-
-
-// module
-exports.push([module.i, "\n#file-manager[data-v-497df3b6] {\n    padding: 0;\n}\n#file-manager___BV_modal_body_[data-v-497df3b6] {\n    padding: 0;\n}\n#fm-container-dialog[data-v-497df3b6] {\n    padding: 0;\n    overflow: hidden !important;\n}\n#fm-container[data-v-497df3b6] {\n    font-size: 12px;\n    font-family: sans-serif;\n    padding: 0\n}\n#fm-toolbar ul[data-v-497df3b6] {\n    float: left;\n    margin: 3.5px 0 3px 10px;\n    padding: 1px 2px;\n    border-radius: 0\n}\n#fm-toolbar ul li[data-v-497df3b6] {\n        border: 1px solid #fff;\n        cursor: pointer;\n        float: left;\n        line-height: 26px;\n        list-style-type: none;\n        padding: 0 8px;\n        text-align: center;\n}\n#fm-toolbar ul li[data-v-497df3b6]:hover {\n            background: #eaeaea;\n}\n#fm-toolbar ul li.active[data-v-497df3b6] {\n            background: #eaeaea;\n}\n#fm-container[data-v-497df3b6] {\n}\n#fm-toolbar[data-v-497df3b6] {\n}\n#fm-footer[data-v-497df3b6] {\n    border-top: 1px solid #eaeaea;\n    padding-top: 10px\n}\n#fm-toolbar .tool-items[data-v-497df3b6] {\n    clear: both;\n    padding-right: 6px;\n}\n#fm-toolbar .tools[data-v-497df3b6] {\n    float: left;\n}\n#fm-main[data-v-497df3b6] {\n    margin-top: 8px;\n    border-top: 1px solid #eaeaea;\n}\n#fm-sidebar .fm-header[data-v-497df3b6] {\n    height: 35px;\n    line-height: 35px;\n    background-color: #39c;\n    overflow: hidden;\n    font-size: 17px;\n    color: #ecf3f9;\n    text-align: center;\n}\n#fm-sidebar[data-v-497df3b6] {\n    border-right: 1px solid #eaeaea\n}\n#fm-content[data-v-497df3b6] {\n    background-color: white;\n    cursor: default; /*z-index: 0; box-shadow: 0 2px 4px rgba(0,0,0,0.04), 0 1px 4px rgba(0,0,0,0.12);*/\n    height: 100%;\n}\n#fm-data-wrapper[data-v-497df3b6] {\n    overflow: hidden;\n}\n#fm-file-view[data-v-497df3b6] {\n    border-left: 1px solid #eaeaea;\n    float: right;\n    height: 100%;\n    width: 250px;\n    padding: 9px;\n    background: #fff;\n}\n#fm-file-view .file-thumb[data-v-497df3b6] {\n        text-align: center;\n        max-height: 250px;\n        max-width: 230px;\n        overflow: hidden;\n}\n#fm-file-view .header[data-v-497df3b6] {\n        font-weight: bold;\n        margin-bottom: 12px;\n        padding: 2px 0;\n        text-align: center;\n        text-transform: uppercase;\n}\n#fm-file-view .details[data-v-497df3b6] {\n        padding-top: 16px;\n}\n#fm-file-view .details div[data-v-497df3b6] {\n            line-height: 21px;\n}\n#fm-file-view .details .uploaded[data-v-497df3b6],\n        #fm-file-view .details .file-size[data-v-497df3b6],\n        #fm-file-view .details .dimensions[data-v-497df3b6] {\n            line-height: 21px;\n}\n#fm-file-view .file-thumb img[data-v-497df3b6] {\n        border: 1px solid #eaeaea;\n        padding: 4px; /*max-height: 220px; max-width: 228px;*/\n}\n.attachment-info .filename[data-v-497df3b6] {\n    font-weight: 600;\n    color: #444;\n    word-wrap: break-word;\n}\n.btn-attack[data-v-497df3b6] {\n    background: #fff none repeat scroll 0 0;\n    padding: 3px 3px 3px 0;\n    width: 230px;\n    float: right;\n    clear: both;\n}\n.btn-attack button#btn-attack[data-v-497df3b6] {\n        color: #fff;\n        background: #0085ba;\n        border: 0;\n        padding: 4px 6px;\n}\n.btn-attack button#dl-close[data-v-497df3b6] {\n        background: #eaeaea;\n        border: 0;\n        padding: 4px 6px;\n        float: right;\n        clear: both;\n}\n#fm-content table._list[data-v-497df3b6] {\n    width: 100%;\n}\n#fm-content table._list tr[data-v-497df3b6] {\n}\n#fm-content table._list tr th[data-v-497df3b6] {\n            text-align: center;\n            font-weight: bold;\n}\n#fm-content table._list tr td[data-v-497df3b6] {\n            padding: 5px 4px;\n}\n#fm-content table._list tr._active[data-v-497df3b6] {\n            background: #48adff;\n}\n#fm-toolbar ul li i[data-v-497df3b6] {\n    background-repeat: no-repeat;\n    display: inline-block;\n    height: 16px;\n    vertical-align: middle;\n    width: 16px;\n}\n#fm-toolbar ul li i[data-v-497df3b6] {\n}\nli i.create-folder[data-v-497df3b6] {\n    background-image: url(" + __webpack_require__(1005) + ");\n}\nli i.upload[data-v-497df3b6] {\n    background-image: url(" + __webpack_require__(1007) + ");\n}\nli i.list[data-v-497df3b6] {\n    background-image: url(" + __webpack_require__(1002) + ");\n}\nli i.grid[data-v-497df3b6] {\n    background-image: url(" + __webpack_require__(1001) + ");\n}\nli i.iclose[data-v-497df3b6] {\n    background-image: url(" + __webpack_require__(1006) + ");\n}\nli i.crop[data-v-497df3b6] {\n    background-image: url(" + __webpack_require__(1004) + ");\n}\nli i.remove[data-v-497df3b6] {\n    background-image: url(" + __webpack_require__(1003) + ");\n}\nli i.close[data-v-497df3b6]:hover {\n}\n#fm-footer[data-v-497df3b6] {\n    min-height: 32px;\n}\n#fm-data-wrapper[data-v-497df3b6] {\n    height: 100%;\n}\n.clear[data-v-497df3b6] {\n    clear: both;\n}\n#_list ._active[data-v-497df3b6] {\n    background: #48adff;\n}\n#fm-content[data-v-497df3b6] {\n}\n#fm-content table._list table thead tr th[data-v-497df3b6] {\n        text-align: center;\n}\n#fm-content table._list tr[data-v-497df3b6] {\n        font-size: 11px;\n}\n#fm-content table._list tr[data-v-497df3b6]:hover {\n            background: #c1edff;\n            cursor: pointer;\n}\n#fm-content table._list tr td[data-v-497df3b6] {\n}\n#fm-content table._list tbody tr td.name[data-v-497df3b6] {\n        display: inline-flex;\n}\n#fm-content table._list tbody tr td.name .list-icon[data-v-497df3b6] {\n            display: inline-block;\n            float: left;\n            padding-right: 20px;\n}\n/* #fm-content table._list tbody tr td.name .png, #fm-content table tbody tr td.name .jpg, #fm-content table tbody tr td.name .jpeg, #fm-content table tbody tr td.name .gif,\n#fm-content table._list tbody tr td.name .bmp { background: url(/CMS/Modules/FileManager/Libs/Images/filetree/picture.png) no-repeat; width: 16px; height: 16px; }\n#fm-content table._list tbody tr td.name .doc, #fm-content table tbody tr td.name .docx { background: url(/CMS/Modules/FileManager/Libs/Images/filetree/doc.png) no-repeat; width: 16px; height: 16px; }\n#fm-content table._list tbody tr td.name .xlsx, #fm-content table tbody tr td.name .xls { background: url(/CMS/Modules/FileManager/Libs/Images/filetree/xls.png) no-repeat; width: 16px; height: 16px; }\n#fm-content table._list tbody tr td.name .zip, #fm-content table tbody tr td.name .rar { background: url(/CMS/Modules/FileManager/Libs/Images/filetree/zip.png) no-repeat; width: 16px; height: 16px; }\n#fm-content table._list tbody tr td.name .txt { background: url(/CMS/Modules/FileManager/Libs/Images/filetree/txt.png) no-repeat; width: 16px; height: 16px; }\n#fm-content table._list tbody tr td.name .pdf { background: url(/CMS/Modules/FileManager/Libs/Images/filetree/pdf.png) no-repeat; width: 16px; height: 16px; }\n#fm-content table._list tbody tr td.name { width: 274px; display: inline-block; overflow: hidden; }\n#fm-content table._list tbody tr td.name .fname { display: inline-flex; }\n#fm-content table._list tbody tr td.type, #fm-content table tbody tr td.size, #fm-content table tbody tr td.dimensions, #fm-content table tbody tr td.date { overflow: hidden; width: 98px; }\n#fm-content table._list tbody tr td.size { width: 70px; }\n#fm-content table._list tbody tr td.dimensions { width: 80px; }\n#fm-content table._list tbody tr td.date { width: 115px; } */\n#fm-grid[data-v-497df3b6], #fm-folder ul[data-v-497df3b6], #fm-grid li .info p[data-v-497df3b6] {\n    padding: 0;\n    margin: 0;\n}\n#fm-grid li[data-v-497df3b6] {\n        position: relative;\n        vertical-align: middle;\n        display: table-cell;\n        border: 1px solid #eaeaea;\n        cursor: pointer;\n        float: left;\n        height: 100px;\n        min-width: 114px;\n        list-style-type: none;\n        margin: 4px;\n        padding: 2px;\n        width: 15.78%;\n        position: relative;\n        overflow: hidden;\n        text-align: center;\n}\n#fm-grid li .info[data-v-497df3b6] {\n            font-size: 10px;\n            background: rgba(109,105,105,0.45882);\n            position: absolute;\n            bottom: 0;\n            width: 100%;\n            height: 0\n}\n#fm-grid li:hover .info[data-v-497df3b6] {\n            height: auto\n}\n.fm-list li img[data-v-497df3b6] {\n    width: 100%\n}\n.fm-list li.not_img img[data-v-497df3b6] {\n    width: 50%;\n    padding-top: 10px\n}\n#fm-grid li img.thumb[data-v-497df3b6] {\n    width: 60%;\n    margin: 0 auto;\n}\n#fm-grid li i[data-v-497df3b6] {\n    position: absolute;\n    z-index: 999;\n    right: 4px;\n    background: #fff;\n    border-radius: 11px;\n    color: #0085ba;\n    padding: 1px;\n    top: 3px;\n    display: none;\n}\n#fm-grid li._active i[data-v-497df3b6] {\n    display: block;\n}\n#fm-grid li._active[data-v-497df3b6] {\n    border: 1px solid #0085ba;\n}\n#fm-folder ul li[data-v-497df3b6] {\n    list-style-type: none;\n    padding: 8px 0;\n    cursor: pointer\n}\n#fm-folder ul li i[data-v-497df3b6] {\n        background-repeat: no-repeat;\n        display: inline-block;\n        height: 16px;\n        vertical-align: middle;\n        width: 16px;\n}\n.plupload_filelist_header[data-v-497df3b6] {\n    height: 20px;\n}\n.plupload_filelist_footer[data-v-497df3b6] {\n    padding: 6px 20px;\n    height: 33px;\n}\n.plupload_scroll .plupload_filelist[data-v-497df3b6] {\n    height: 172px !important;\n}\n.plupload_filelist_footer[data-v-497df3b6] {\n    padding: 6px 20px;\n}\n.plupload_filelist[data-v-497df3b6]:empty,\n.plupload_filelist li.plupload_droptext[data-v-497df3b6] {\n    height: 140px;\n}\n.plupload_filelist[data-v-497df3b6]:empty::before,\n    .plupload_filelist li.plupload_droptext[data-v-497df3b6]::before {\n        font-size: 52px;\n        height: 75px;\n        left: 49%;\n        margin-left: -40px;\n        padding-top: 43px;\n}\n.items-action[data-v-497df3b6] {\n    padding-top: 20px;\n    display: inline-block;\n    width: 100%;\n}\n.items-action .file-action[data-v-497df3b6] {\n        border: 0 none;\n        color: #fff;\n        padding: 4px 10px;\n}\n.items-action .file-action[data-v-497df3b6] {\n        background: rosybrown;\n        float: left;\n        clear: both;\n}\n/*.items-action .file-action:last-child { background: #0085ba;float: right;}*/\n#fm-toolbar .Mi.ipagination a[data-v-497df3b6]:first-child {\n    border: 0;\n    border-radius: 0;\n}\n#fm-toolbar .Mi.ipagination input[data-v-497df3b6] {\n    border: medium none;\n    float: left;\n    font-family: arial;\n    font-size: 11px;\n    height: 30px;\n    margin: 0;\n    outline: medium none;\n    padding: 0;\n    text-align: center;\n    vertical-align: middle;\n    width: 84px;\n}\n#fm-toolbar .Mi.ipagination a[data-v-497df3b6] {\n    border: 0;\n    border-radius: 0;\n    background: #fff;\n}\n#fm-toolbar .ipagination.iweb[data-v-497df3b6] {\n    margin-top: 3.45px;\n}\n#frowInTotals[data-v-497df3b6] {\n    display: inline-block;\n    float: left;\n    line-height: 39px;\n    padding-right: 3px;\n    vertical-align: baseline;\n}\nlabel#progressall[data-v-497df3b6] {\n    display: none;\n    padding: 7px 7px;\n}\n.Cdiv[data-v-497df3b6] {\n    padding-left: 12px;\n    height: 17px;\n    overflow: hidden;\n    text-overflow: ellipsis;\n    white-space: nowrap;\n    width: 100%;\n    display: inline-block;\n    font-weight: normal;\n}\n#btn-fm-upload label[data-v-497df3b6] {\n    margin-bottom: 0 !important;\n}\n/* Extra small devices (phones, 600px and down) */\n@media only screen and (max-width: 600px) {\n#fm-grid li[data-v-497df3b6] {\n        width: 47.65%;\n}\n}\n\n/* Small devices (portrait tablets and large phones, 600px and up) */\n@media only screen and (min-width: 600px) {\n}\n\n/* Medium devices (landscape tablets, 768px and up) */\n@media only screen and (min-width: 768px) {\n}\n\n/* Large devices (laptops/desktops, 992px and up) */\n@media only screen and (min-width: 992px) {\n}\n\n/* Extra large devices (large laptops and desktops, 1200px and up) */\n@media only screen and (min-width: 1200px) {\n}\n", "", {"version":3,"sources":["D:/Code/WORKING/dotnet-platform-backend/Web/Platform/CMS/PlatformCMS/ClientApp/components/fileManager/list.vue?b8c85d56"],"names":[],"mappings":";AAgYA;IACA,WAAA;CACA;AAEA;IACA,WAAA;CACA;AAEA;IACA,WAAA;IACA,4BAAA;CACA;AAEA;IACA,gBAAA;IACA,wBAAA;IACA,UAAA;CACA;AAEA;IACA,YAAA;IACA,yBAAA;IACA,iBAAA;IACA,gBAAA;CACA;AAEA;QACA,uBAAA;QACA,gBAAA;QACA,YAAA;QACA,kBAAA;QACA,sBAAA;QACA,eAAA;QACA,mBAAA;CACA;AAEA;YACA,oBAAA;CACA;AAEA;YACA,oBAAA;CACA;AAEA;CACA;AAEA;CACA;AAEA;IACA,8BAAA;IACA,iBAAA;CACA;AAEA;IACA,YAAA;IACA,mBAAA;CACA;AAEA;IACA,YAAA;CACA;AAEA;IACA,gBAAA;IACA,8BAAA;CACA;AAEA;IACA,aAAA;IACA,kBAAA;IACA,uBAAA;IACA,iBAAA;IACA,gBAAA;IACA,eAAA;IACA,mBAAA;CACA;AAEA;IACA,+BAAA;CACA;AAEA;IACA,wBAAA;IACA,gBAAA,CAAA,mFAAA;IACA,aAAA;CACA;AAEA;IACA,iBAAA;CACA;AAEA;IACA,+BAAA;IACA,aAAA;IACA,aAAA;IACA,aAAA;IACA,aAAA;IACA,iBAAA;CACA;AAEA;QACA,mBAAA;QACA,kBAAA;QACA,iBAAA;QACA,iBAAA;CACA;AAEA;QACA,kBAAA;QACA,oBAAA;QACA,eAAA;QACA,mBAAA;QACA,0BAAA;CACA;AAEA;QACA,kBAAA;CACA;AAEA;YACA,kBAAA;CACA;AAEA;;;YAGA,kBAAA;CACA;AAEA;QACA,0BAAA;QACA,aAAA,CAAA,wCAAA;CACA;AAEA;IACA,iBAAA;IACA,YAAA;IACA,sBAAA;CACA;AAEA;IACA,wCAAA;IACA,uBAAA;IACA,aAAA;IACA,aAAA;IACA,YAAA;CACA;AAEA;QACA,YAAA;QACA,oBAAA;QACA,UAAA;QACA,iBAAA;CACA;AAEA;QACA,oBAAA;QACA,UAAA;QACA,iBAAA;QACA,aAAA;QACA,YAAA;CACA;AAEA;IACA,YAAA;CACA;AAEA;CACA;AAEA;YACA,mBAAA;YACA,kBAAA;CACA;AAEA;YACA,iBAAA;CACA;AAEA;YACA,oBAAA;CACA;AAEA;IACA,6BAAA;IACA,sBAAA;IACA,aAAA;IACA,uBAAA;IACA,YAAA;CACA;AAEA;CACA;AAEA;IACA,gDAAA;CACA;AAEA;IACA,gDAAA;CACA;AAEA;IACA,gDAAA;CACA;AAEA;IACA,gDAAA;CACA;AAEA;IACA,gDAAA;CACA;AAEA;IACA,gDAAA;CACA;AAEA;IACA,gDAAA;CACA;AAEA;CACA;AAEA;IACA,iBAAA;CACA;AAEA;IACA,aAAA;CACA;AAEA;IACA,YAAA;CACA;AAEA;IACA,oBAAA;CACA;AAEA;CACA;AAEA;QACA,mBAAA;CACA;AAEA;QACA,gBAAA;CACA;AAEA;YACA,oBAAA;YACA,gBAAA;CACA;AAEA;CACA;AAEA;QACA,qBAAA;CACA;AAEA;YACA,sBAAA;YACA,YAAA;YACA,oBAAA;CACA;AACA;;;;;;;;;;;;6DAYA;AAEA;IACA,WAAA;IACA,UAAA;CACA;AAEA;QACA,mBAAA;QACA,uBAAA;QACA,oBAAA;QACA,0BAAA;QACA,gBAAA;QACA,YAAA;QACA,cAAA;QACA,iBAAA;QACA,sBAAA;QACA,YAAA;QACA,aAAA;QACA,cAAA;QACA,mBAAA;QACA,iBAAA;QACA,mBAAA;CACA;AAEA;YACA,gBAAA;YACA,sCAAA;YACA,mBAAA;YACA,UAAA;YACA,YAAA;YACA,SAAA;CACA;AAEA;YACA,YAAA;CACA;AAEA;IACA,WAAA;CACA;AAEA;IACA,WAAA;IACA,iBAAA;CACA;AAEA;IACA,WAAA;IACA,eAAA;CACA;AAEA;IACA,mBAAA;IACA,aAAA;IACA,WAAA;IACA,iBAAA;IACA,oBAAA;IACA,eAAA;IACA,aAAA;IACA,SAAA;IACA,cAAA;CACA;AAEA;IACA,eAAA;CACA;AAEA;IACA,0BAAA;CACA;AAEA;IACA,sBAAA;IACA,eAAA;IACA,eAAA;CACA;AAEA;QACA,6BAAA;QACA,sBAAA;QACA,aAAA;QACA,uBAAA;QACA,YAAA;CACA;AAEA;IACA,aAAA;CACA;AAEA;IACA,kBAAA;IACA,aAAA;CACA;AAEA;IACA,yBAAA;CACA;AAEA;IACA,kBAAA;CACA;AAEA;;IAEA,cAAA;CACA;AAEA;;QAEA,gBAAA;QACA,aAAA;QACA,UAAA;QACA,mBAAA;QACA,kBAAA;CACA;AAEA;IACA,kBAAA;IACA,sBAAA;IACA,YAAA;CACA;AAEA;QACA,eAAA;QACA,YAAA;QACA,kBAAA;CACA;AAEA;QACA,sBAAA;QACA,YAAA;QACA,YAAA;CACA;AACA,8EAAA;AACA;IACA,UAAA;IACA,iBAAA;CACA;AAEA;IACA,oBAAA;IACA,YAAA;IACA,mBAAA;IACA,gBAAA;IACA,aAAA;IACA,UAAA;IACA,qBAAA;IACA,WAAA;IACA,mBAAA;IACA,uBAAA;IACA,YAAA;CACA;AAEA;IACA,UAAA;IACA,iBAAA;IACA,iBAAA;CACA;AAEA;IACA,mBAAA;CACA;AAEA;IACA,sBAAA;IACA,YAAA;IACA,kBAAA;IACA,mBAAA;IACA,yBAAA;CACA;AAEA;IACA,cAAA;IACA,iBAAA;CACA;AAEA;IACA,mBAAA;IACA,aAAA;IACA,iBAAA;IACA,wBAAA;IACA,oBAAA;IACA,YAAA;IACA,sBAAA;IACA,oBAAA;CACA;AAEA;IACA,4BAAA;CACA;AACA,kDAAA;AAEA;AACA;QACA,cAAA;CACA;CACA;;AAEA,qEAAA;AAEA;CACA;;AAEA,sDAAA;AAEA;CACA;;AAEA,oDAAA;AAEA;CACA;;AAEA,qEAAA;AAEA;CACA","file":"list.vue","sourcesContent":["<template>\r\n    <div class=\"file-manager\">\r\n        <loading :active.sync=\"isLoading\"\r\n                 :height=\"35\"\r\n                 :width=\"35\"\r\n                 :color=\"color\"\r\n                 :is-full-page=\"fullPage\"></loading>\r\n        <b-modal ref=\"file-manager-modal\" id=\"file-manager\" fbody=\"xxx\" hide-footer hide-header size=\"xl\">\r\n            <div id=\"fm-container\" class=\"container-fluid\">\r\n                <b-row id=\"fm-toolbar\">\r\n                    <b-col lg=\"2\" md=\"2\" sm=\"12\">\r\n                        <b>Thư viện</b>\r\n                    </b-col>\r\n                    <b-col>\r\n                        <b-row align-h=\"between\">\r\n                            <b-col cols=\"4\">\r\n                                <div class=\"tool-items\">\r\n                                    <ul class=\"tools\">\r\n                                        <li title=\"Create folder\">\r\n                                            <i class=\"create-folder\"></i>\r\n                                        </li>\r\n                                    </ul>\r\n                                    <ul class=\"tools\">\r\n                                        <li title=\"Remove\" @click=\"removeFile\">\r\n                                            <i class=\"remove\"></i>\r\n                                        </li>\r\n\r\n                                    </ul>\r\n                                    <div class=\"tools\">\r\n                                        <input v-model=\"keyword\" v-on:keyup.enter=\"LoadFile()\" class=\"form-control\" placeholder=\"Gõ tên ảnh ấn enter\" />\r\n                                    </div>\r\n                                </div>\r\n                            </b-col>\r\n                            <b-col cols=\"4\" class=\"bd-0\">\r\n                                <b-pagination v-model=\"currentPage\" align=\"right\" size=\"sm\" :limit=\"4\"\r\n                                              :total-rows=\"files.totals\"\r\n                                              :per-page=\"pageSize\"></b-pagination>\r\n                            </b-col>\r\n                            <b-col cols=\"4\">\r\n                                <div class=\"tool-items float-right\">\r\n\r\n                                    <ul class=\"tools\">\r\n                                        <li title=\"Create folder\">\r\n                                            <i class=\"create-folder\"></i>\r\n                                        </li>\r\n                                        <li title=\"Upload\" id=\"btn-fm-upload\">\r\n                                            <label for=\"fileSingleupload\">\r\n                                                <i class=\"upload\"></i>\r\n                                            </label>\r\n                                            <input accept=\"image/*,.doc,.docx,.pdf,.xls,.xlsx,.zip,.rar\" @change=\"DoUploadFile\" id=\"fileSingleupload\"\r\n                                                   multiple\r\n                                                   type=\"file\"\r\n                                                   name=\"files[]\"\r\n                                                   style=\"display: none\" />\r\n                                        </li>\r\n                                    </ul>\r\n                                    <ul class=\"tools\">\r\n                                        <li title=\"List view\">\r\n                                            <i class=\"list\"></i>\r\n                                        </li>\r\n                                        <li title=\"Grid View\">\r\n                                            <i class=\"grid\"></i>\r\n                                        </li>\r\n                                    </ul>\r\n                                </div>\r\n                            </b-col>\r\n                        </b-row>\r\n\r\n                    </b-col>\r\n\r\n                </b-row>\r\n                <b-row id=\"fm-main\">\r\n                    <b-col id=\"fm-sidebar\" lg=\"2\" md=\"2\" sm=\"12\">\r\n                        <div id=\"fm-folder\">\r\n                            <ul>\r\n                                <li><i class=\"create-folder\"></i> Document</li>\r\n                                <li><i class=\"create-folder\"></i> Image</li>\r\n                                <li><i class=\"create-folder\"></i> Icon</li>\r\n                            </ul>\r\n                        </div>\r\n                    </b-col>\r\n                    <b-col id=\"fm-content\" lg=\"10\" dm=\"2\" sm=\"12\">\r\n                        <div id=\"fm-data-wrapper\">\r\n                            <div class=\"fm-list-wrapper\">\r\n                                <div class=\"fm-list\">\r\n                                    <ul id=\"fm-grid\">\r\n                                        <li v-for=\"file in files.files\" :key=\"file.id\" class=\"item\" :class=\"{ _active: isActive, not_img:checkImage(file.fileExt)}\" @click=\"SelectFile($event,{path:file.filePath,id:file.id})\">\r\n                                            <img :src=\"mapImageUrl(file.filePath,file.fileExt)\" alt=\"\">\r\n                                            <i class=\"fa fa-check\"></i>\r\n                                            <div class=\"info\">\r\n                                                <p class=\"name\">{{file.name}}</p>\r\n                                                <p class=\"dimensions\">{{file.dimensions}}</p>\r\n                                                <p class=\"size\">{{file.fileSize}}kb</p>\r\n                                            </div>\r\n                                        </li>\r\n                                    </ul>\r\n                                </div>\r\n                            </div>\r\n                        </div>\r\n\r\n                    </b-col>\r\n                </b-row>\r\n                <b-row align-h=\"end\" id=\"fm-footer\">\r\n                    <b-col cols=\"4\">\r\n                        <div class=\"btn-attack\">\r\n                            <button type=\"button\" id=\"btn-attack\" @click=\"attackFile\">Đính kèm</button>\r\n                            <!--<button type=\"button\" id=\"btn-attack\" @click=\"attackFileSelected\">Đính kèm2</button>-->\r\n                            <button type=\"button\" id=\"dl-close\" @click=\"hideFileManagerModal\" class=\"iclose\">Đóng</button>\r\n                        </div>\r\n                    </b-col>\r\n                </b-row>\r\n            </div>\r\n        </b-modal>\r\n    </div>\r\n</template>\r\n\r\n<script>\r\n    import \"vue-loading-overlay/dist/vue-loading.css\";\r\n    import msgNotify from \"./../../common/constant\";\r\n    import { mapActions } from \"vuex\";\r\n    import Loading from \"vue-loading-overlay\";\r\n    import EventBus from \"./../../common/eventBus\";\r\n    import { search } from \"core-js/fn/symbol\";\r\n    import { data } from \"jquery\";\r\n\r\n\r\n    export default {\r\n        name: \"FileManager\",\r\n        props: {\r\n            miKey: {\r\n                type: String\r\n            }\r\n        },\r\n        components: {\r\n            Loading\r\n        },\r\n        data() {\r\n            return {\r\n                isLoading: false,\r\n                fullPage: false,\r\n                color: \"#007bff\",\r\n                isLoadLang: false,\r\n                //  perPage: 10,\r\n                currentPage: 1,\r\n                pageSize: 30,\r\n                isLoading: false,\r\n                MaxFileSize: 3000,//Kb\r\n                selectedFile: [],\r\n                extensions: [],\r\n                extImage: [],\r\n                isActive: false,\r\n                selectType: '',\r\n                keyword: '',\r\n\r\n            };\r\n        },\r\n        created() {\r\n            let config = require('./../../../appsettings.json');\r\n            this.extImage = config.AppSettings.ImageAllowUpload;\r\n            this.extensions = config.AppSettings.ImageAllowUpload.concat(config.AppSettings.DocumentAllowUpload);\r\n\r\n            EventBus.$on(this.miKey, this.FileManagerOpen);\r\n        },\r\n        destroyed() {\r\n\r\n        },\r\n        computed: {\r\n            files() {\r\n                return this.$store.getters.files\r\n            }\r\n        },\r\n        methods: {\r\n            ...mapActions([\"fmFileUpload\", \"fmFileGetAll\", \"fmRemove\"]),\r\n            mapImageUrl(img, ext) {\r\n                if (this.extImage.indexOf(ext.toLowerCase()) !== -1) {\r\n                    return '/uploads/thumb' + img;\r\n                }\r\n                return './../../ClientApp/assets/fileicons/' + ext.replace('.', '') + '.png';\r\n            },\r\n            checkImage(ext) {\r\n                //debugger\r\n                if (this.extImage.indexOf(ext) == -1) {\r\n                    return true\r\n                }\r\n                return false\r\n            },\r\n            DoUploadFile(e) {\r\n                debugger\r\n                let files = e.srcElement.files;\r\n\r\n                if (files) {\r\n                    let filesTemp = Array.from(files);\r\n\r\n                    let msgFileAllow = '';\r\n                    let msgLimitedSize = '';\r\n                    for (var i = 0; i < filesTemp.length; i++) {\r\n\r\n                        let name = filesTemp[i].name;\r\n                        let type = name.split('.').pop().toLowerCase();\r\n\r\n                        if (this.extensions.indexOf(type) == -1) {\r\n                            filesTemp.splice(i, 1); // xóa khỏi array\r\n                            if (msgFileAllow.length == 0) {\r\n                                msgFileAllow = name;\r\n                            } else {\r\n                                msgFileAllow += ', ' + name;\r\n                            }\r\n                        }\r\n                        if (msgFileAllow.length > 0) {\r\n                            this.$toast.error(msgFileAllow + ' không hợp lệ !', {});\r\n                        }\r\n                    }\r\n                    for (var i = 0; i < filesTemp.length; i++) {\r\n                        let size = filesTemp[i].size;\r\n                        let name = filesTemp[i].name;\r\n\r\n\r\n                        if (this.MaxFileSize < (size / 1024)) {\r\n                            filesTemp.splice(i, 1);\r\n                            if (msgLimitedSize.length == 0) {\r\n                                msgLimitedSize = name;\r\n                            } else {\r\n                                msgLimitedSize += ', ' + name;\r\n                            }\r\n                        }\r\n                        if (msgLimitedSize.length > 0) {\r\n                            this.$toast.error(msgFileAllow + ' dung lượng quá lớn !', {});\r\n                        }\r\n                    }\r\n                    if (filesTemp.length) {\r\n                        let fd = new FormData();\r\n\r\n                        filesTemp.forEach(function (item) {\r\n                            fd.append('files', item);\r\n                        });\r\n                        this.UploadFileAction(fd);\r\n                    }\r\n\r\n                }\r\n\r\n            },\r\n            UploadFileAction(files) {\r\n                \r\n                this.fmFileUpload(files)\r\n                    .then(response => {\r\n                        if (response.success) {\r\n                            debugger\r\n                            console.log(response.data);\r\n                            var objtoast = this.$toast;\r\n                            response.data.forEach(function (item) {\r\n                                if (item.code == 200) {\r\n                                    objtoast.success(item.messages, {});\r\n                                } else {\r\n                                    objtoast.error(item.messages, {});\r\n                                }\r\n                            })\r\n                            //response.data.forEach(function () {\r\n\r\n                            //    this.$toast.success(response.message, {});\r\n                            //});\r\n                            //this.$toast.success(response.message, {});\r\n                            this.LoadFile();\r\n\r\n                            this.isLoading = false;\r\n                        }\r\n                        else {\r\n                            \r\n                            this.$toast.error(response.message, {});\r\n                            this.isLoading = false;\r\n                        }\r\n                    })\r\n                    .catch(e => {\r\n                        debugger\r\n                        this.$toast.error(msgNotify.error + \". Error:\" + e, {});\r\n                        this.isLoading = false;\r\n                    });\r\n\r\n\r\n            },\r\n            SelectFile(event, file) {\r\n                if (this.selectType == 'multi') {\r\n                    if (event.currentTarget.classList.contains('_active')) {\r\n                        event.currentTarget.classList.remove('_active');\r\n\r\n                        // let objIsExist = this.selectedFile.some(obj => obj.id = file.id);\r\n                        // if (objIsExist) {\r\n                        this.selectedFile = this.selectedFile.filter(obj => obj.id != file.id)\r\n                        // }\r\n                    }\r\n                    else {\r\n                        event.currentTarget.classList.add(\"_active\");\r\n                        this.selectedFile.push(file)\r\n                    }\r\n                } else {\r\n\r\n                    this.selectedFile = [];\r\n                    if (event.currentTarget.classList.contains('_active')) {\r\n                        event.currentTarget.classList.remove('_active');\r\n\r\n                    }\r\n                    else {\r\n                        let items = document.querySelectorAll('.item');\r\n                        items.forEach(function (item) {\r\n                            item.classList.remove('_active');\r\n                        });\r\n                        event.currentTarget.classList.add(\"_active\");\r\n                        this.selectedFile.push(file)\r\n                    }\r\n                }\r\n            },\r\n            LoadFile() {\r\n                this.fmFileGetAll({\r\n                    keyword: this.keyword,\r\n                    pageIndex: this.currentPage,\r\n                    pageSize: this.pageSize\r\n                });\r\n            }\r\n\r\n            ,\r\n            FileManagerOpen(param) {\r\n                this.selectType = param;\r\n                this.$refs[\"file-manager-modal\"].show();\r\n                this.LoadFile();\r\n            },\r\n\r\n            hideFileManagerModal() {\r\n                this.$refs[\"file-manager-modal\"].hide();\r\n            },\r\n            attackFile() {\r\n                // EventBus.$emit(\"FileSelected\", this.selectedFile);\r\n                this.$emit(\"handleAttackFile\", this.selectedFile);\r\n                this.$refs[\"file-manager-modal\"].hide();\r\n                this.selectedFile = [];\r\n            },\r\n\r\n            toggleFileModal() {\r\n                // We pass the ID of the button that we want to return focus to\r\n                // when the modal has hidden\r\n                this.$refs[\"file-manager-modal\"].toggle(\"#toggle-btn\");\r\n            },\r\n            removeFile() {\r\n                var result = confirm(\"Xác nhận?\");\r\n                if (!result) {\r\n                    return false;\r\n                }\r\n\r\n                let $this = this;\r\n                this.selectedFile.forEach(function (item) {\r\n                    $this.fmRemove(item.id)\r\n                        .then(response => {\r\n                            if (response.success) {\r\n                                \r\n                                $this.LoadFile();\r\n                                $this.$toast.success(response.message, {});\r\n                                $this.isLoading = false;\r\n                            }\r\n                            else {\r\n                                \r\n                                $this.$toast.error(response.message, {});\r\n                                $this.isLoading = false;\r\n                            }\r\n                        })\r\n                        .catch(e => {\r\n                            \r\n                            $this.$toast.error(msgNotify.error + \". Error:\" + e, {});\r\n                            $this.isLoading = false;\r\n                        });\r\n                });\r\n\r\n\r\n\r\n            }\r\n        },\r\n        mounted() {\r\n            //   this.fmFileGetAll();\r\n        },\r\n        watch: {\r\n            currentPage() {\r\n                this.LoadFile();\r\n            }\r\n        }\r\n    };\r\n</script>\r\n<style scoped>\r\n    #file-manager {\r\n        padding: 0;\r\n    }\r\n\r\n    #file-manager___BV_modal_body_ {\r\n        padding: 0;\r\n    }\r\n\r\n    #fm-container-dialog {\r\n        padding: 0;\r\n        overflow: hidden !important;\r\n    }\r\n\r\n    #fm-container {\r\n        font-size: 12px;\r\n        font-family: sans-serif;\r\n        padding: 0\r\n    }\r\n\r\n    #fm-toolbar ul {\r\n        float: left;\r\n        margin: 3.5px 0 3px 10px;\r\n        padding: 1px 2px;\r\n        border-radius: 0\r\n    }\r\n\r\n        #fm-toolbar ul li {\r\n            border: 1px solid #fff;\r\n            cursor: pointer;\r\n            float: left;\r\n            line-height: 26px;\r\n            list-style-type: none;\r\n            padding: 0 8px;\r\n            text-align: center;\r\n        }\r\n\r\n            #fm-toolbar ul li:hover {\r\n                background: #eaeaea;\r\n            }\r\n\r\n            #fm-toolbar ul li.active {\r\n                background: #eaeaea;\r\n            }\r\n\r\n    #fm-container {\r\n    }\r\n\r\n    #fm-toolbar {\r\n    }\r\n\r\n    #fm-footer {\r\n        border-top: 1px solid #eaeaea;\r\n        padding-top: 10px\r\n    }\r\n\r\n    #fm-toolbar .tool-items {\r\n        clear: both;\r\n        padding-right: 6px;\r\n    }\r\n\r\n    #fm-toolbar .tools {\r\n        float: left;\r\n    }\r\n\r\n    #fm-main {\r\n        margin-top: 8px;\r\n        border-top: 1px solid #eaeaea;\r\n    }\r\n\r\n    #fm-sidebar .fm-header {\r\n        height: 35px;\r\n        line-height: 35px;\r\n        background-color: #39c;\r\n        overflow: hidden;\r\n        font-size: 17px;\r\n        color: #ecf3f9;\r\n        text-align: center;\r\n    }\r\n\r\n    #fm-sidebar {\r\n        border-right: 1px solid #eaeaea\r\n    }\r\n\r\n    #fm-content {\r\n        background-color: white;\r\n        cursor: default; /*z-index: 0; box-shadow: 0 2px 4px rgba(0,0,0,0.04), 0 1px 4px rgba(0,0,0,0.12);*/\r\n        height: 100%;\r\n    }\r\n\r\n    #fm-data-wrapper {\r\n        overflow: hidden;\r\n    }\r\n\r\n    #fm-file-view {\r\n        border-left: 1px solid #eaeaea;\r\n        float: right;\r\n        height: 100%;\r\n        width: 250px;\r\n        padding: 9px;\r\n        background: #fff;\r\n    }\r\n\r\n        #fm-file-view .file-thumb {\r\n            text-align: center;\r\n            max-height: 250px;\r\n            max-width: 230px;\r\n            overflow: hidden;\r\n        }\r\n\r\n        #fm-file-view .header {\r\n            font-weight: bold;\r\n            margin-bottom: 12px;\r\n            padding: 2px 0;\r\n            text-align: center;\r\n            text-transform: uppercase;\r\n        }\r\n\r\n        #fm-file-view .details {\r\n            padding-top: 16px;\r\n        }\r\n\r\n            #fm-file-view .details div {\r\n                line-height: 21px;\r\n            }\r\n\r\n            #fm-file-view .details .uploaded,\r\n            #fm-file-view .details .file-size,\r\n            #fm-file-view .details .dimensions {\r\n                line-height: 21px;\r\n            }\r\n\r\n        #fm-file-view .file-thumb img {\r\n            border: 1px solid #eaeaea;\r\n            padding: 4px; /*max-height: 220px; max-width: 228px;*/\r\n        }\r\n\r\n    .attachment-info .filename {\r\n        font-weight: 600;\r\n        color: #444;\r\n        word-wrap: break-word;\r\n    }\r\n\r\n    .btn-attack {\r\n        background: #fff none repeat scroll 0 0;\r\n        padding: 3px 3px 3px 0;\r\n        width: 230px;\r\n        float: right;\r\n        clear: both;\r\n    }\r\n\r\n        .btn-attack button#btn-attack {\r\n            color: #fff;\r\n            background: #0085ba;\r\n            border: 0;\r\n            padding: 4px 6px;\r\n        }\r\n\r\n        .btn-attack button#dl-close {\r\n            background: #eaeaea;\r\n            border: 0;\r\n            padding: 4px 6px;\r\n            float: right;\r\n            clear: both;\r\n        }\r\n\r\n    #fm-content table._list {\r\n        width: 100%;\r\n    }\r\n\r\n        #fm-content table._list tr {\r\n        }\r\n\r\n            #fm-content table._list tr th {\r\n                text-align: center;\r\n                font-weight: bold;\r\n            }\r\n\r\n            #fm-content table._list tr td {\r\n                padding: 5px 4px;\r\n            }\r\n\r\n            #fm-content table._list tr._active {\r\n                background: #48adff;\r\n            }\r\n\r\n    #fm-toolbar ul li i {\r\n        background-repeat: no-repeat;\r\n        display: inline-block;\r\n        height: 16px;\r\n        vertical-align: middle;\r\n        width: 16px;\r\n    }\r\n\r\n    #fm-toolbar ul li i {\r\n    }\r\n\r\n    li i.create-folder {\r\n        background-image: url(./../../assets/img/icon/folder_add.png);\r\n    }\r\n\r\n    li i.upload {\r\n        background-image: url(\"./../../assets/img/icon/upload.png\");\r\n    }\r\n\r\n    li i.list {\r\n        background-image: url(\"./../../assets/img/icon/application_view_list.png\");\r\n    }\r\n\r\n    li i.grid {\r\n        background-image: url(\"./../../assets/img/icon/application_view_icons.png\");\r\n    }\r\n\r\n    li i.iclose {\r\n        background-image: url(\"./../../assets/img/icon/reset.png\");\r\n    }\r\n\r\n    li i.crop {\r\n        background-image: url(\"./../../assets/img/icon/crop.png\");\r\n    }\r\n\r\n    li i.remove {\r\n        background-image: url(\"./../../assets/img/icon/bin_closed.png\");\r\n    }\r\n\r\n    li i.close:hover {\r\n    }\r\n\r\n    #fm-footer {\r\n        min-height: 32px;\r\n    }\r\n\r\n    #fm-data-wrapper {\r\n        height: 100%;\r\n    }\r\n\r\n    .clear {\r\n        clear: both;\r\n    }\r\n\r\n    #_list ._active {\r\n        background: #48adff;\r\n    }\r\n\r\n    #fm-content {\r\n    }\r\n\r\n        #fm-content table._list table thead tr th {\r\n            text-align: center;\r\n        }\r\n\r\n        #fm-content table._list tr {\r\n            font-size: 11px;\r\n        }\r\n\r\n            #fm-content table._list tr:hover {\r\n                background: #c1edff;\r\n                cursor: pointer;\r\n            }\r\n\r\n            #fm-content table._list tr td {\r\n            }\r\n\r\n        #fm-content table._list tbody tr td.name {\r\n            display: inline-flex;\r\n        }\r\n\r\n            #fm-content table._list tbody tr td.name .list-icon {\r\n                display: inline-block;\r\n                float: left;\r\n                padding-right: 20px;\r\n            }\r\n    /* #fm-content table._list tbody tr td.name .png, #fm-content table tbody tr td.name .jpg, #fm-content table tbody tr td.name .jpeg, #fm-content table tbody tr td.name .gif,\r\n    #fm-content table._list tbody tr td.name .bmp { background: url(/CMS/Modules/FileManager/Libs/Images/filetree/picture.png) no-repeat; width: 16px; height: 16px; }\r\n    #fm-content table._list tbody tr td.name .doc, #fm-content table tbody tr td.name .docx { background: url(/CMS/Modules/FileManager/Libs/Images/filetree/doc.png) no-repeat; width: 16px; height: 16px; }\r\n    #fm-content table._list tbody tr td.name .xlsx, #fm-content table tbody tr td.name .xls { background: url(/CMS/Modules/FileManager/Libs/Images/filetree/xls.png) no-repeat; width: 16px; height: 16px; }\r\n    #fm-content table._list tbody tr td.name .zip, #fm-content table tbody tr td.name .rar { background: url(/CMS/Modules/FileManager/Libs/Images/filetree/zip.png) no-repeat; width: 16px; height: 16px; }\r\n    #fm-content table._list tbody tr td.name .txt { background: url(/CMS/Modules/FileManager/Libs/Images/filetree/txt.png) no-repeat; width: 16px; height: 16px; }\r\n    #fm-content table._list tbody tr td.name .pdf { background: url(/CMS/Modules/FileManager/Libs/Images/filetree/pdf.png) no-repeat; width: 16px; height: 16px; }\r\n    #fm-content table._list tbody tr td.name { width: 274px; display: inline-block; overflow: hidden; }\r\n    #fm-content table._list tbody tr td.name .fname { display: inline-flex; }\r\n    #fm-content table._list tbody tr td.type, #fm-content table tbody tr td.size, #fm-content table tbody tr td.dimensions, #fm-content table tbody tr td.date { overflow: hidden; width: 98px; }\r\n    #fm-content table._list tbody tr td.size { width: 70px; }\r\n    #fm-content table._list tbody tr td.dimensions { width: 80px; }\r\n    #fm-content table._list tbody tr td.date { width: 115px; } */\r\n\r\n    #fm-grid, #fm-folder ul, #fm-grid li .info p {\r\n        padding: 0;\r\n        margin: 0;\r\n    }\r\n\r\n        #fm-grid li {\r\n            position: relative;\r\n            vertical-align: middle;\r\n            display: table-cell;\r\n            border: 1px solid #eaeaea;\r\n            cursor: pointer;\r\n            float: left;\r\n            height: 100px;\r\n            min-width: 114px;\r\n            list-style-type: none;\r\n            margin: 4px;\r\n            padding: 2px;\r\n            width: 15.78%;\r\n            position: relative;\r\n            overflow: hidden;\r\n            text-align: center;\r\n        }\r\n\r\n            #fm-grid li .info {\r\n                font-size: 10px;\r\n                background: rgba(109,105,105,0.45882);\r\n                position: absolute;\r\n                bottom: 0;\r\n                width: 100%;\r\n                height: 0\r\n            }\r\n\r\n            #fm-grid li:hover .info {\r\n                height: auto\r\n            }\r\n\r\n    .fm-list li img {\r\n        width: 100%\r\n    }\r\n\r\n    .fm-list li.not_img img {\r\n        width: 50%;\r\n        padding-top: 10px\r\n    }\r\n\r\n    #fm-grid li img.thumb {\r\n        width: 60%;\r\n        margin: 0 auto;\r\n    }\r\n\r\n    #fm-grid li i {\r\n        position: absolute;\r\n        z-index: 999;\r\n        right: 4px;\r\n        background: #fff;\r\n        border-radius: 11px;\r\n        color: #0085ba;\r\n        padding: 1px;\r\n        top: 3px;\r\n        display: none;\r\n    }\r\n\r\n    #fm-grid li._active i {\r\n        display: block;\r\n    }\r\n\r\n    #fm-grid li._active {\r\n        border: 1px solid #0085ba;\r\n    }\r\n\r\n    #fm-folder ul li {\r\n        list-style-type: none;\r\n        padding: 8px 0;\r\n        cursor: pointer\r\n    }\r\n\r\n        #fm-folder ul li i {\r\n            background-repeat: no-repeat;\r\n            display: inline-block;\r\n            height: 16px;\r\n            vertical-align: middle;\r\n            width: 16px;\r\n        }\r\n\r\n    .plupload_filelist_header {\r\n        height: 20px;\r\n    }\r\n\r\n    .plupload_filelist_footer {\r\n        padding: 6px 20px;\r\n        height: 33px;\r\n    }\r\n\r\n    .plupload_scroll .plupload_filelist {\r\n        height: 172px !important;\r\n    }\r\n\r\n    .plupload_filelist_footer {\r\n        padding: 6px 20px;\r\n    }\r\n\r\n    .plupload_filelist:empty,\r\n    .plupload_filelist li.plupload_droptext {\r\n        height: 140px;\r\n    }\r\n\r\n        .plupload_filelist:empty::before,\r\n        .plupload_filelist li.plupload_droptext::before {\r\n            font-size: 52px;\r\n            height: 75px;\r\n            left: 49%;\r\n            margin-left: -40px;\r\n            padding-top: 43px;\r\n        }\r\n\r\n    .items-action {\r\n        padding-top: 20px;\r\n        display: inline-block;\r\n        width: 100%;\r\n    }\r\n\r\n        .items-action .file-action {\r\n            border: 0 none;\r\n            color: #fff;\r\n            padding: 4px 10px;\r\n        }\r\n\r\n        .items-action .file-action {\r\n            background: rosybrown;\r\n            float: left;\r\n            clear: both;\r\n        }\r\n    /*.items-action .file-action:last-child { background: #0085ba;float: right;}*/\r\n    #fm-toolbar .Mi.ipagination a:first-child {\r\n        border: 0;\r\n        border-radius: 0;\r\n    }\r\n\r\n    #fm-toolbar .Mi.ipagination input {\r\n        border: medium none;\r\n        float: left;\r\n        font-family: arial;\r\n        font-size: 11px;\r\n        height: 30px;\r\n        margin: 0;\r\n        outline: medium none;\r\n        padding: 0;\r\n        text-align: center;\r\n        vertical-align: middle;\r\n        width: 84px;\r\n    }\r\n\r\n    #fm-toolbar .Mi.ipagination a {\r\n        border: 0;\r\n        border-radius: 0;\r\n        background: #fff;\r\n    }\r\n\r\n    #fm-toolbar .ipagination.iweb {\r\n        margin-top: 3.45px;\r\n    }\r\n\r\n    #frowInTotals {\r\n        display: inline-block;\r\n        float: left;\r\n        line-height: 39px;\r\n        padding-right: 3px;\r\n        vertical-align: baseline;\r\n    }\r\n\r\n    label#progressall {\r\n        display: none;\r\n        padding: 7px 7px;\r\n    }\r\n\r\n    .Cdiv {\r\n        padding-left: 12px;\r\n        height: 17px;\r\n        overflow: hidden;\r\n        text-overflow: ellipsis;\r\n        white-space: nowrap;\r\n        width: 100%;\r\n        display: inline-block;\r\n        font-weight: normal;\r\n    }\r\n\r\n    #btn-fm-upload label {\r\n        margin-bottom: 0 !important;\r\n    }\r\n    /* Extra small devices (phones, 600px and down) */\r\n\r\n    @media only screen and (max-width: 600px) {\r\n        #fm-grid li {\r\n            width: 47.65%;\r\n        }\r\n    }\r\n\r\n    /* Small devices (portrait tablets and large phones, 600px and up) */\r\n\r\n    @media only screen and (min-width: 600px) {\r\n    }\r\n\r\n    /* Medium devices (landscape tablets, 768px and up) */\r\n\r\n    @media only screen and (min-width: 768px) {\r\n    }\r\n\r\n    /* Large devices (laptops/desktops, 992px and up) */\r\n\r\n    @media only screen and (min-width: 992px) {\r\n    }\r\n\r\n    /* Extra large devices (large laptops and desktops, 1200px and up) */\r\n\r\n    @media only screen and (min-width: 1200px) {\r\n    }\r\n</style>\r\n"],"sourceRoot":""}]);
-
-// exports
-
-
-/***/ }),
-
-/***/ 950:
+/***/ 932:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -37111,11 +36224,11 @@ exports.slug = slug;
 exports.pathImg = pathImg;
 exports.urlBase = urlBase;
 
-var _vue = __webpack_require__(26);
+var _vue = __webpack_require__(31);
 
 var _vue2 = _interopRequireDefault(_vue);
 
-var _jsTreeList = __webpack_require__(958);
+var _jsTreeList = __webpack_require__(940);
 
 var _jsTreeList2 = _interopRequireDefault(_jsTreeList);
 
@@ -37212,7 +36325,7 @@ function urlBase(title) {
 
 /***/ }),
 
-/***/ 951:
+/***/ 933:
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(process) {/*!
@@ -37311,91 +36424,91 @@ module.exports =
 /* 0 */
 /***/ (function(module, exports) {
 
-module.exports = __webpack_require__(976);
+module.exports = __webpack_require__(958);
 
 /***/ }),
 /* 1 */
 /***/ (function(module, exports) {
 
-module.exports = __webpack_require__(977);
+module.exports = __webpack_require__(959);
 
 /***/ }),
 /* 2 */
 /***/ (function(module, exports) {
 
-module.exports = __webpack_require__(971);
+module.exports = __webpack_require__(953);
 
 /***/ }),
 /* 3 */
 /***/ (function(module, exports) {
 
-module.exports = __webpack_require__(980);
+module.exports = __webpack_require__(963);
 
 /***/ }),
 /* 4 */
 /***/ (function(module, exports) {
 
-module.exports = __webpack_require__(990);
+module.exports = __webpack_require__(973);
 
 /***/ }),
 /* 5 */
 /***/ (function(module, exports) {
 
-module.exports = __webpack_require__(986);
+module.exports = __webpack_require__(969);
 
 /***/ }),
 /* 6 */
 /***/ (function(module, exports) {
 
-module.exports = __webpack_require__(995);
+module.exports = __webpack_require__(978);
 
 /***/ }),
 /* 7 */
 /***/ (function(module, exports) {
 
-module.exports = __webpack_require__(981);
+module.exports = __webpack_require__(964);
 
 /***/ }),
 /* 8 */
 /***/ (function(module, exports) {
 
-module.exports = __webpack_require__(992);
+module.exports = __webpack_require__(975);
 
 /***/ }),
 /* 9 */
 /***/ (function(module, exports) {
 
-module.exports = __webpack_require__(987);
+module.exports = __webpack_require__(970);
 
 /***/ }),
 /* 10 */
 /***/ (function(module, exports) {
 
-module.exports = __webpack_require__(985);
+module.exports = __webpack_require__(968);
 
 /***/ }),
 /* 11 */
 /***/ (function(module, exports) {
 
-module.exports = __webpack_require__(978);
+module.exports = __webpack_require__(960);
 
 /***/ }),
 /* 12 */
 /***/ (function(module, exports) {
 
-module.exports = __webpack_require__(989);
+module.exports = __webpack_require__(972);
 
 /***/ }),
 /* 13 */
 /***/ (function(module, exports) {
 
-module.exports = __webpack_require__(979);
+module.exports = __webpack_require__(961);
 
 /***/ }),
 /* 14 */
 /***/ (function(module, exports) {
 
-module.exports = __webpack_require__(26);
+module.exports = __webpack_require__(31);
 
 /***/ }),
 /* 15 */
@@ -41119,14 +40232,14 @@ var VERSION = "0.4.0";
 /***/ })
 /******/ ]);
 //# sourceMappingURL=vue-treeselect.cjs.js.map
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(27)))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(26)))
 
 /***/ }),
 
-/***/ 952:
+/***/ 934:
 /***/ (function(module, exports, __webpack_require__) {
 
-var META = __webpack_require__(182)('meta');
+var META = __webpack_require__(178)('meta');
 var isObject = __webpack_require__(56);
 var has = __webpack_require__(72);
 var setDesc = __webpack_require__(54).f;
@@ -41134,7 +40247,7 @@ var id = 0;
 var isExtensible = Object.isExtensible || function () {
   return true;
 };
-var FREEZE = !__webpack_require__(104)(function () {
+var FREEZE = !__webpack_require__(103)(function () {
   return isExtensible(Object.preventExtensions({}));
 });
 var setMeta = function (it) {
@@ -41183,24 +40296,24 @@ var meta = module.exports = {
 
 /***/ }),
 
-/***/ 953:
+/***/ 935:
 /***/ (function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
-var content = __webpack_require__(800);
+var content = __webpack_require__(962);
 if(typeof content === 'string') content = [[module.i, content, '']];
 // add the styles to the DOM
-var update = __webpack_require__(179)(content, {});
+var update = __webpack_require__(175)(content, {});
 if(content.locals) module.exports = content.locals;
 // Hot Module Replacement
-if(true) {
+if(false) {
 	// When the styles change, update the <style> tags
 	if(!content.locals) {
-		module.hot.accept(800, function() {
-			var newContent = __webpack_require__(800);
-			if(typeof newContent === 'string') newContent = [[module.i, newContent, '']];
+		module.hot.accept("!!../../../css-loader/index.js!./vue-treeselect.css", function() {
+			var newContent = require("!!../../../css-loader/index.js!./vue-treeselect.css");
+			if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
 			update(newContent);
 		});
 	}
@@ -41210,19 +40323,19 @@ if(true) {
 
 /***/ }),
 
-/***/ 954:
+/***/ 936:
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = { "default": __webpack_require__(389), __esModule: true };
+module.exports = { "default": __webpack_require__(386), __esModule: true };
 
 /***/ }),
 
-/***/ 955:
+/***/ 937:
 /***/ (function(module, exports, __webpack_require__) {
 
 // 19.1.2.7 / 15.2.3.4 Object.getOwnPropertyNames(O)
-var $keys = __webpack_require__(391);
-var hiddenKeys = __webpack_require__(188).concat('length', 'prototype');
+var $keys = __webpack_require__(388);
+var hiddenKeys = __webpack_require__(184).concat('length', 'prototype');
 
 exports.f = Object.getOwnPropertyNames || function getOwnPropertyNames(O) {
   return $keys(O, hiddenKeys);
@@ -41231,7 +40344,7 @@ exports.f = Object.getOwnPropertyNames || function getOwnPropertyNames(O) {
 
 /***/ }),
 
-/***/ 956:
+/***/ 938:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -41239,7 +40352,7 @@ exports.f = Object.getOwnPropertyNames || function getOwnPropertyNames(O) {
 
 exports.__esModule = true;
 
-var _defineProperty = __webpack_require__(802);
+var _defineProperty = __webpack_require__(785);
 
 var _defineProperty2 = _interopRequireDefault(_defineProperty);
 
@@ -41262,7 +40375,7 @@ exports.default = function (obj, key, value) {
 
 /***/ }),
 
-/***/ 957:
+/***/ 939:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -41272,7 +40385,7 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _vue = __webpack_require__(26);
+var _vue = __webpack_require__(31);
 
 var _vue2 = _interopRequireDefault(_vue);
 
@@ -41283,29 +40396,29 @@ exports.default = EventBus;
 
 /***/ }),
 
-/***/ 958:
+/***/ 940:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_RESULT__;
 
-var _assign = __webpack_require__(377);
+var _assign = __webpack_require__(374);
 
 var _assign2 = _interopRequireDefault(_assign);
 
-var _defineProperty = __webpack_require__(802);
+var _defineProperty = __webpack_require__(785);
 
 var _defineProperty2 = _interopRequireDefault(_defineProperty);
 
-var _iterator = __webpack_require__(804);
+var _iterator = __webpack_require__(787);
 
 var _iterator2 = _interopRequireDefault(_iterator);
 
-var _symbol = __webpack_require__(803);
+var _symbol = __webpack_require__(786);
 
 var _symbol2 = _interopRequireDefault(_symbol);
 
-var _typeof3 = __webpack_require__(959);
+var _typeof3 = __webpack_require__(941);
 
 var _typeof4 = _interopRequireDefault(_typeof3);
 
@@ -41701,7 +40814,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 /***/ }),
 
-/***/ 959:
+/***/ 941:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -41709,11 +40822,11 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 exports.__esModule = true;
 
-var _iterator = __webpack_require__(804);
+var _iterator = __webpack_require__(787);
 
 var _iterator2 = _interopRequireDefault(_iterator);
 
-var _symbol = __webpack_require__(803);
+var _symbol = __webpack_require__(786);
 
 var _symbol2 = _interopRequireDefault(_symbol);
 
@@ -41729,35 +40842,35 @@ exports.default = typeof _symbol2.default === "function" && _typeof(_iterator2.d
 
 /***/ }),
 
-/***/ 960:
+/***/ 942:
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(965);
-__webpack_require__(387);
-__webpack_require__(966);
-__webpack_require__(967);
+__webpack_require__(947);
+__webpack_require__(384);
+__webpack_require__(948);
+__webpack_require__(949);
 module.exports = __webpack_require__(20).Symbol;
 
 
 /***/ }),
 
-/***/ 961:
+/***/ 943:
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(184);
-__webpack_require__(381);
-module.exports = __webpack_require__(799).f('iterator');
+__webpack_require__(180);
+__webpack_require__(378);
+module.exports = __webpack_require__(783).f('iterator');
 
 
 /***/ }),
 
-/***/ 962:
+/***/ 944:
 /***/ (function(module, exports, __webpack_require__) {
 
 // all enumerable object keys, includes symbols
-var getKeys = __webpack_require__(181);
-var gOPS = __webpack_require__(378);
-var pIE = __webpack_require__(375);
+var getKeys = __webpack_require__(177);
+var gOPS = __webpack_require__(375);
+var pIE = __webpack_require__(372);
 module.exports = function (it) {
   var result = getKeys(it);
   var getSymbols = gOPS.f;
@@ -41773,15 +40886,15 @@ module.exports = function (it) {
 
 /***/ }),
 
-/***/ 963:
+/***/ 945:
 /***/ (function(module, exports, __webpack_require__) {
 
-var pIE = __webpack_require__(375);
-var createDesc = __webpack_require__(106);
-var toIObject = __webpack_require__(103);
-var toPrimitive = __webpack_require__(379);
+var pIE = __webpack_require__(372);
+var createDesc = __webpack_require__(105);
+var toIObject = __webpack_require__(102);
+var toPrimitive = __webpack_require__(376);
 var has = __webpack_require__(72);
-var IE8_DOM_DEFINE = __webpack_require__(382);
+var IE8_DOM_DEFINE = __webpack_require__(379);
 var gOPD = Object.getOwnPropertyDescriptor;
 
 exports.f = __webpack_require__(44) ? gOPD : function getOwnPropertyDescriptor(O, P) {
@@ -41796,12 +40909,12 @@ exports.f = __webpack_require__(44) ? gOPD : function getOwnPropertyDescriptor(O
 
 /***/ }),
 
-/***/ 964:
+/***/ 946:
 /***/ (function(module, exports, __webpack_require__) {
 
 // fallback for IE11 buggy Object.getOwnPropertyNames with iframe and window
-var toIObject = __webpack_require__(103);
-var gOPN = __webpack_require__(805).f;
+var toIObject = __webpack_require__(102);
+var gOPN = __webpack_require__(788).f;
 var toString = {}.toString;
 
 var windowNames = typeof window == 'object' && window && Object.getOwnPropertyNames
@@ -41822,7 +40935,7 @@ module.exports.f = function getOwnPropertyNames(it) {
 
 /***/ }),
 
-/***/ 965:
+/***/ 947:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -41832,29 +40945,29 @@ var global = __webpack_require__(21);
 var has = __webpack_require__(72);
 var DESCRIPTORS = __webpack_require__(44);
 var $export = __webpack_require__(32);
-var redefine = __webpack_require__(386);
-var META = __webpack_require__(952).KEY;
-var $fails = __webpack_require__(104);
-var shared = __webpack_require__(186);
-var setToStringTag = __webpack_require__(111);
-var uid = __webpack_require__(182);
+var redefine = __webpack_require__(383);
+var META = __webpack_require__(934).KEY;
+var $fails = __webpack_require__(103);
+var shared = __webpack_require__(182);
+var setToStringTag = __webpack_require__(110);
+var uid = __webpack_require__(178);
 var wks = __webpack_require__(23);
-var wksExt = __webpack_require__(799);
-var wksDefine = __webpack_require__(798);
-var enumKeys = __webpack_require__(962);
-var isArray = __webpack_require__(383);
+var wksExt = __webpack_require__(783);
+var wksDefine = __webpack_require__(782);
+var enumKeys = __webpack_require__(944);
+var isArray = __webpack_require__(380);
 var anObject = __webpack_require__(38);
 var isObject = __webpack_require__(56);
-var toObject = __webpack_require__(110);
-var toIObject = __webpack_require__(103);
-var toPrimitive = __webpack_require__(379);
-var createDesc = __webpack_require__(106);
-var _create = __webpack_require__(384);
-var gOPNExt = __webpack_require__(964);
-var $GOPD = __webpack_require__(963);
-var $GOPS = __webpack_require__(378);
+var toObject = __webpack_require__(109);
+var toIObject = __webpack_require__(102);
+var toPrimitive = __webpack_require__(376);
+var createDesc = __webpack_require__(105);
+var _create = __webpack_require__(381);
+var gOPNExt = __webpack_require__(946);
+var $GOPD = __webpack_require__(945);
+var $GOPS = __webpack_require__(375);
 var $DP = __webpack_require__(54);
-var $keys = __webpack_require__(181);
+var $keys = __webpack_require__(177);
 var gOPD = $GOPD.f;
 var dP = $DP.f;
 var gOPN = gOPNExt.f;
@@ -41977,11 +41090,11 @@ if (!USE_NATIVE) {
 
   $GOPD.f = $getOwnPropertyDescriptor;
   $DP.f = $defineProperty;
-  __webpack_require__(805).f = gOPNExt.f = $getOwnPropertyNames;
-  __webpack_require__(375).f = $propertyIsEnumerable;
+  __webpack_require__(788).f = gOPNExt.f = $getOwnPropertyNames;
+  __webpack_require__(372).f = $propertyIsEnumerable;
   $GOPS.f = $getOwnPropertySymbols;
 
-  if (DESCRIPTORS && !__webpack_require__(105)) {
+  if (DESCRIPTORS && !__webpack_require__(104)) {
     redefine(ObjectProto, 'propertyIsEnumerable', $propertyIsEnumerable, true);
   }
 
@@ -42076,23 +41189,23 @@ setToStringTag(global.JSON, 'JSON', true);
 
 /***/ }),
 
-/***/ 966:
+/***/ 948:
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(798)('asyncIterator');
+__webpack_require__(782)('asyncIterator');
 
 
 /***/ }),
 
-/***/ 967:
+/***/ 949:
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(798)('observable');
+__webpack_require__(782)('observable');
 
 
 /***/ }),
 
-/***/ 968:
+/***/ 950:
 /***/ (function(module, exports) {
 
 exports.f = Object.getOwnPropertySymbols;
@@ -42100,7 +41213,7 @@ exports.f = Object.getOwnPropertySymbols;
 
 /***/ }),
 
-/***/ 969:
+/***/ 951:
 /***/ (function(module, exports) {
 
 function _arrayWithHoles(arr) {
@@ -42111,10 +41224,10 @@ module.exports = _arrayWithHoles;
 
 /***/ }),
 
-/***/ 970:
+/***/ 952:
 /***/ (function(module, exports, __webpack_require__) {
 
-var arrayLikeToArray = __webpack_require__(806);
+var arrayLikeToArray = __webpack_require__(789);
 
 function _arrayWithoutHoles(arr) {
   if (Array.isArray(arr)) return arrayLikeToArray(arr);
@@ -42124,7 +41237,7 @@ module.exports = _arrayWithoutHoles;
 
 /***/ }),
 
-/***/ 971:
+/***/ 953:
 /***/ (function(module, exports) {
 
 function _defineProperty(obj, key, value) {
@@ -42146,7 +41259,7 @@ module.exports = _defineProperty;
 
 /***/ }),
 
-/***/ 972:
+/***/ 954:
 /***/ (function(module, exports) {
 
 function _iterableToArray(iter) {
@@ -42157,7 +41270,7 @@ module.exports = _iterableToArray;
 
 /***/ }),
 
-/***/ 973:
+/***/ 955:
 /***/ (function(module, exports) {
 
 function _iterableToArrayLimit(arr, i) {
@@ -42191,7 +41304,7 @@ module.exports = _iterableToArrayLimit;
 
 /***/ }),
 
-/***/ 974:
+/***/ 956:
 /***/ (function(module, exports) {
 
 function _nonIterableRest() {
@@ -42202,7 +41315,7 @@ module.exports = _nonIterableRest;
 
 /***/ }),
 
-/***/ 975:
+/***/ 957:
 /***/ (function(module, exports) {
 
 function _nonIterableSpread() {
@@ -42213,16 +41326,16 @@ module.exports = _nonIterableSpread;
 
 /***/ }),
 
-/***/ 976:
+/***/ 958:
 /***/ (function(module, exports, __webpack_require__) {
 
-var arrayWithHoles = __webpack_require__(969);
+var arrayWithHoles = __webpack_require__(951);
 
-var iterableToArrayLimit = __webpack_require__(973);
+var iterableToArrayLimit = __webpack_require__(955);
 
-var unsupportedIterableToArray = __webpack_require__(807);
+var unsupportedIterableToArray = __webpack_require__(790);
 
-var nonIterableRest = __webpack_require__(974);
+var nonIterableRest = __webpack_require__(956);
 
 function _slicedToArray(arr, i) {
   return arrayWithHoles(arr) || iterableToArrayLimit(arr, i) || unsupportedIterableToArray(arr, i) || nonIterableRest();
@@ -42232,16 +41345,16 @@ module.exports = _slicedToArray;
 
 /***/ }),
 
-/***/ 977:
+/***/ 959:
 /***/ (function(module, exports, __webpack_require__) {
 
-var arrayWithoutHoles = __webpack_require__(970);
+var arrayWithoutHoles = __webpack_require__(952);
 
-var iterableToArray = __webpack_require__(972);
+var iterableToArray = __webpack_require__(954);
 
-var unsupportedIterableToArray = __webpack_require__(807);
+var unsupportedIterableToArray = __webpack_require__(790);
 
-var nonIterableSpread = __webpack_require__(975);
+var nonIterableSpread = __webpack_require__(957);
 
 function _toConsumableArray(arr) {
   return arrayWithoutHoles(arr) || iterableToArray(arr) || unsupportedIterableToArray(arr) || nonIterableSpread();
@@ -42251,7 +41364,7 @@ module.exports = _toConsumableArray;
 
 /***/ }),
 
-/***/ 978:
+/***/ 960:
 /***/ (function(module, exports) {
 
 function _typeof(obj) {
@@ -42274,7 +41387,7 @@ module.exports = _typeof;
 
 /***/ }),
 
-/***/ 979:
+/***/ 961:
 /***/ (function(module, exports) {
 
 var nestRE = /^(attrs|props|on|nativeOn|class|style|hook)$/
@@ -42331,7 +41444,22 @@ function mergeFn (a, b) {
 
 /***/ }),
 
-/***/ 980:
+/***/ 962:
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__(53)();
+// imports
+
+
+// module
+exports.push([module.i, "/*!\n * vue-treeselect v0.4.0 | (c) 2017-2019 Riophae Lee\n * Released under the MIT License.\n * https://vue-treeselect.js.org/\n */\n/**\n * Dependencies\n */\n/**\n * Variables\n */\n/**\n * Mixins\n */\n/**\n * Helpers\n */\n.vue-treeselect-helper-hide {\n  display: none;\n}\n.vue-treeselect-helper-zoom-effect-off {\n  -ms-transform: none !important;\n      transform: none !important;\n}\n/**\n * Animations\n */\n@keyframes vue-treeselect-animation-fade-in {\n  0% {\n    opacity: 0;\n  }\n}\n@keyframes vue-treeselect-animation-bounce {\n  0%,\n  100% {\n    transform: scale(0);\n  }\n  50% {\n    transform: scale(1);\n  }\n}\n@keyframes vue-treeselect-animation-rotate {\n  100% {\n    transform: rotate(360deg);\n  }\n}\n/**\n * Transitions\n */\n.vue-treeselect__multi-value-item--transition-enter-active,\n.vue-treeselect__multi-value-item--transition-leave-active {\n  transition-duration: 200ms;\n  transition-property: transform, opacity;\n}\n.vue-treeselect__multi-value-item--transition-enter-active {\n  transition-timing-function: cubic-bezier(0.075, 0.82, 0.165, 1);\n}\n.vue-treeselect__multi-value-item--transition-leave-active {\n  transition-timing-function: cubic-bezier(0.215, 0.61, 0.355, 1);\n  position: absolute;\n}\n.vue-treeselect__multi-value-item--transition-enter,\n.vue-treeselect__multi-value-item--transition-leave-to {\n  -ms-transform: scale(0.7);\n      transform: scale(0.7);\n  opacity: 0;\n}\n.vue-treeselect__multi-value-item--transition-move {\n  transition: 200ms transform cubic-bezier(0.165, 0.84, 0.44, 1);\n}\n/**\n * Namespace\n */\n.vue-treeselect {\n  position: relative;\n  text-align: left;\n}\n[dir=\"rtl\"] .vue-treeselect {\n  text-align: right;\n}\n.vue-treeselect div,\n.vue-treeselect span {\n  box-sizing: border-box;\n}\n.vue-treeselect svg {\n  fill: currentColor;\n}\n/**\n * Control\n */\n.vue-treeselect__control {\n  padding-left: 5px;\n  padding-right: 5px;\n  display: table;\n  table-layout: fixed;\n  width: 100%;\n  height: 36px;\n  border: 1px solid #ddd;\n  border-radius: 5px;\n  background: #fff;\n  transition-duration: 200ms;\n  transition-property: border-color, box-shadow, width, height, background-color, opacity;\n  transition-timing-function: cubic-bezier(0.215, 0.61, 0.355, 1);\n}\n.vue-treeselect:not(.vue-treeselect--disabled):not(.vue-treeselect--focused) .vue-treeselect__control:hover {\n  border-color: #cfcfcf;\n}\n.vue-treeselect--focused:not(.vue-treeselect--open) .vue-treeselect__control {\n  border-color: #039be5;\n  box-shadow: 0 0 0 3px rgba(3, 155, 229, 0.1);\n}\n.vue-treeselect--disabled .vue-treeselect__control {\n  background-color: #f9f9f9;\n}\n.vue-treeselect--open .vue-treeselect__control {\n  border-color: #cfcfcf;\n}\n.vue-treeselect--open.vue-treeselect--open-below .vue-treeselect__control {\n  border-bottom-left-radius: 0;\n  border-bottom-right-radius: 0;\n}\n.vue-treeselect--open.vue-treeselect--open-above .vue-treeselect__control {\n  border-top-left-radius: 0;\n  border-top-right-radius: 0;\n}\n.vue-treeselect__value-container,\n.vue-treeselect__multi-value {\n  width: 100%;\n  vertical-align: middle;\n}\n.vue-treeselect__value-container {\n  display: table-cell;\n  position: relative;\n}\n.vue-treeselect--searchable:not(.vue-treeselect--disabled) .vue-treeselect__value-container {\n  cursor: text;\n}\n.vue-treeselect__multi-value {\n  display: inline-block;\n}\n.vue-treeselect--has-value .vue-treeselect__multi-value {\n  margin-bottom: 5px;\n}\n.vue-treeselect__placeholder,\n.vue-treeselect__single-value {\n  overflow: hidden;\n  text-overflow: ellipsis;\n  white-space: nowrap;\n  padding-left: 5px;\n  padding-right: 5px;\n  position: absolute;\n  top: 0;\n  right: 0;\n  bottom: 0;\n  left: 0;\n  line-height: 34px;\n  -webkit-user-select: none;\n     -moz-user-select: none;\n      -ms-user-select: none;\n          user-select: none;\n  pointer-events: none;\n}\n.vue-treeselect__placeholder {\n  color: #bdbdbd;\n}\n.vue-treeselect__single-value {\n  color: #333;\n}\n.vue-treeselect--focused.vue-treeselect--searchable .vue-treeselect__single-value {\n  color: #bdbdbd;\n}\n.vue-treeselect--disabled .vue-treeselect__single-value {\n  position: static;\n}\n.vue-treeselect__multi-value-item-container {\n  display: inline-block;\n  padding-top: 5px;\n  padding-right: 5px;\n  vertical-align: top;\n}\n[dir=\"rtl\"] .vue-treeselect__multi-value-item-container {\n  padding-right: 0;\n  padding-left: 5px;\n}\n.vue-treeselect__multi-value-item {\n  cursor: pointer;\n  display: inline-table;\n  background: #e3f2fd;\n  padding: 2px 0;\n  border: 1px solid transparent;\n  border-radius: 2px;\n  color: #039be5;\n  font-size: 12px;\n  vertical-align: top;\n}\n.vue-treeselect:not(.vue-treeselect--disabled) .vue-treeselect__multi-value-item:not(.vue-treeselect__multi-value-item-disabled):hover .vue-treeselect__multi-value-item:not(.vue-treeselect__multi-value-item-new) .vue-treeselect__multi-value-item:not(.vue-treeselect__multi-value-item-new):hover {\n  cursor: pointer;\n  background: #e3f2fd;\n  color: #039be5;\n}\n.vue-treeselect__multi-value-item.vue-treeselect__multi-value-item-disabled {\n  cursor: default;\n  background: #f5f5f5;\n  color: #757575;\n}\n.vue-treeselect--disabled .vue-treeselect__multi-value-item {\n  cursor: default;\n  background: #fff;\n  border-color: #e5e5e5;\n  color: #555;\n}\n.vue-treeselect__multi-value-item.vue-treeselect__multi-value-item-new {\n  background: #e8f5e9;\n}\n.vue-treeselect__multi-value-item.vue-treeselect__multi-value-item-new:hover {\n  background: #e8f5e9;\n}\n.vue-treeselect__value-remove,\n.vue-treeselect__multi-value-label {\n  display: table-cell;\n  padding: 0 5px;\n  vertical-align: middle;\n}\n.vue-treeselect__value-remove {\n  color: #039be5;\n  padding-left: 5px;\n  border-left: 1px solid #fff;\n  line-height: 0;\n}\n[dir=\"rtl\"] .vue-treeselect__value-remove {\n  border-left: 0 none;\n  border-right: 1px solid #fff;\n}\n.vue-treeselect__multi-value-item:hover .vue-treeselect__value-remove {\n  color: #e53935;\n}\n.vue-treeselect--disabled .vue-treeselect__value-remove,\n.vue-treeselect__multi-value-item-disabled .vue-treeselect__value-remove {\n  display: none;\n}\n.vue-treeselect__value-remove > svg {\n  width: 6px;\n  height: 6px;\n}\n.vue-treeselect__multi-value-label {\n  padding-right: 5px;\n  white-space: pre-line;\n  -webkit-user-select: none;\n     -moz-user-select: none;\n      -ms-user-select: none;\n          user-select: none;\n}\n.vue-treeselect__limit-tip {\n  display: inline-block;\n  padding-top: 5px;\n  padding-right: 5px;\n  vertical-align: top;\n}\n[dir=\"rtl\"] .vue-treeselect__limit-tip {\n  padding-right: 0;\n  padding-left: 5px;\n}\n.vue-treeselect__limit-tip-text {\n  cursor: default;\n  display: block;\n  margin: 2px 0;\n  padding: 1px 0;\n  color: #bdbdbd;\n  font-size: 12px;\n  font-weight: 600;\n}\n.vue-treeselect__input-container {\n  display: block;\n  max-width: 100%;\n  outline: none;\n}\n.vue-treeselect--single .vue-treeselect__input-container {\n  font-size: inherit;\n  height: 100%;\n}\n.vue-treeselect--multi .vue-treeselect__input-container {\n  display: inline-block;\n  font-size: 12px;\n  vertical-align: top;\n}\n.vue-treeselect--searchable .vue-treeselect__input-container {\n  padding-left: 5px;\n  padding-right: 5px;\n}\n.vue-treeselect--searchable.vue-treeselect--multi.vue-treeselect--has-value .vue-treeselect__input-container {\n  padding-top: 5px;\n  padding-left: 0;\n}\n[dir=\"rtl\"] .vue-treeselect--searchable.vue-treeselect--multi.vue-treeselect--has-value .vue-treeselect__input-container {\n  padding-left: 5px;\n  padding-right: 0;\n}\n.vue-treeselect--disabled .vue-treeselect__input-container {\n  display: none;\n}\n.vue-treeselect__input,\n.vue-treeselect__sizer {\n  margin: 0;\n  line-height: inherit;\n  font-family: inherit;\n  font-size: inherit;\n}\n.vue-treeselect__input {\n  max-width: 100%;\n  margin: 0;\n  padding: 0;\n  border: 0;\n  outline: none;\n  box-sizing: content-box;\n  box-shadow: none;\n  background: none transparent;\n  line-height: 1;\n  vertical-align: middle;\n}\n.vue-treeselect__input::-ms-clear {\n  display: none;\n}\n.vue-treeselect--single .vue-treeselect__input {\n  width: 100%;\n  height: 100%;\n}\n.vue-treeselect--multi .vue-treeselect__input {\n  padding-top: 3px;\n  padding-bottom: 3px;\n}\n.vue-treeselect--has-value .vue-treeselect__input {\n  line-height: inherit;\n  vertical-align: top;\n}\n.vue-treeselect__sizer {\n  position: absolute;\n  top: 0;\n  left: 0;\n  visibility: hidden;\n  height: 0;\n  overflow: scroll;\n  white-space: pre;\n}\n.vue-treeselect__x-container {\n  display: table-cell;\n  vertical-align: middle;\n  width: 20px;\n  text-align: center;\n  line-height: 0;\n  cursor: pointer;\n  color: #ccc;\n  animation: 200ms vue-treeselect-animation-fade-in cubic-bezier(0.075, 0.82, 0.165, 1);\n}\n.vue-treeselect__x-container:hover {\n  color: #e53935;\n}\n.vue-treeselect__x {\n  width: 8px;\n  height: 8px;\n}\n.vue-treeselect__control-arrow-container {\n  display: table-cell;\n  vertical-align: middle;\n  width: 20px;\n  text-align: center;\n  line-height: 0;\n  cursor: pointer;\n}\n.vue-treeselect--disabled .vue-treeselect__control-arrow-container {\n  cursor: default;\n}\n.vue-treeselect__control-arrow {\n  width: 9px;\n  height: 9px;\n  color: #ccc;\n}\n.vue-treeselect:not(.vue-treeselect--disabled) .vue-treeselect__control-arrow-container:hover .vue-treeselect__control-arrow {\n  color: #616161;\n}\n.vue-treeselect--disabled .vue-treeselect__control-arrow {\n  opacity: 0.35;\n}\n.vue-treeselect__control-arrow--rotated {\n  -ms-transform: rotate(180deg);\n      transform: rotateZ(180deg);\n}\n/**\n * Menu\n */\n.vue-treeselect__menu-container {\n  position: absolute;\n  left: 0;\n  width: 100%;\n  overflow: visible;\n  transition: 0s;\n}\n.vue-treeselect--open-below:not(.vue-treeselect--append-to-body) .vue-treeselect__menu-container {\n  top: 100%;\n}\n.vue-treeselect--open-above:not(.vue-treeselect--append-to-body) .vue-treeselect__menu-container {\n  bottom: 100%;\n}\n.vue-treeselect__menu {\n  cursor: default;\n  padding-top: 5px;\n  padding-bottom: 5px;\n  display: block;\n  position: absolute;\n  overflow-x: hidden;\n  overflow-y: auto;\n  width: auto;\n  border: 1px solid #cfcfcf;\n  background: #fff;\n  line-height: 180%;\n  -webkit-overflow-scrolling: touch;\n}\n.vue-treeselect--open-below .vue-treeselect__menu {\n  border-bottom-left-radius: 5px;\n  border-bottom-right-radius: 5px;\n  top: 0;\n  margin-top: -1px;\n  border-top-color: #f2f2f2;\n  box-shadow: 0 1px 0 rgba(0, 0, 0, 0.06);\n}\n.vue-treeselect--open-above .vue-treeselect__menu {\n  border-top-left-radius: 5px;\n  border-top-right-radius: 5px;\n  bottom: 0;\n  margin-bottom: -1px;\n  border-bottom-color: #f2f2f2;\n}\n.vue-treeselect__indent-level-0 .vue-treeselect__option {\n  padding-left: 5px;\n}\n[dir=\"rtl\"] .vue-treeselect__indent-level-0 .vue-treeselect__option {\n  padding-left: 5px;\n  padding-right: 5px;\n}\n.vue-treeselect__indent-level-0 .vue-treeselect__tip {\n  padding-left: 25px;\n}\n[dir=\"rtl\"] .vue-treeselect__indent-level-0 .vue-treeselect__tip {\n  padding-left: 5px;\n  padding-right: 25px;\n}\n.vue-treeselect__indent-level-1 .vue-treeselect__option {\n  padding-left: 25px;\n}\n[dir=\"rtl\"] .vue-treeselect__indent-level-1 .vue-treeselect__option {\n  padding-left: 5px;\n  padding-right: 25px;\n}\n.vue-treeselect__indent-level-1 .vue-treeselect__tip {\n  padding-left: 45px;\n}\n[dir=\"rtl\"] .vue-treeselect__indent-level-1 .vue-treeselect__tip {\n  padding-left: 5px;\n  padding-right: 45px;\n}\n.vue-treeselect__indent-level-2 .vue-treeselect__option {\n  padding-left: 45px;\n}\n[dir=\"rtl\"] .vue-treeselect__indent-level-2 .vue-treeselect__option {\n  padding-left: 5px;\n  padding-right: 45px;\n}\n.vue-treeselect__indent-level-2 .vue-treeselect__tip {\n  padding-left: 65px;\n}\n[dir=\"rtl\"] .vue-treeselect__indent-level-2 .vue-treeselect__tip {\n  padding-left: 5px;\n  padding-right: 65px;\n}\n.vue-treeselect__indent-level-3 .vue-treeselect__option {\n  padding-left: 65px;\n}\n[dir=\"rtl\"] .vue-treeselect__indent-level-3 .vue-treeselect__option {\n  padding-left: 5px;\n  padding-right: 65px;\n}\n.vue-treeselect__indent-level-3 .vue-treeselect__tip {\n  padding-left: 85px;\n}\n[dir=\"rtl\"] .vue-treeselect__indent-level-3 .vue-treeselect__tip {\n  padding-left: 5px;\n  padding-right: 85px;\n}\n.vue-treeselect__indent-level-4 .vue-treeselect__option {\n  padding-left: 85px;\n}\n[dir=\"rtl\"] .vue-treeselect__indent-level-4 .vue-treeselect__option {\n  padding-left: 5px;\n  padding-right: 85px;\n}\n.vue-treeselect__indent-level-4 .vue-treeselect__tip {\n  padding-left: 105px;\n}\n[dir=\"rtl\"] .vue-treeselect__indent-level-4 .vue-treeselect__tip {\n  padding-left: 5px;\n  padding-right: 105px;\n}\n.vue-treeselect__indent-level-5 .vue-treeselect__option {\n  padding-left: 105px;\n}\n[dir=\"rtl\"] .vue-treeselect__indent-level-5 .vue-treeselect__option {\n  padding-left: 5px;\n  padding-right: 105px;\n}\n.vue-treeselect__indent-level-5 .vue-treeselect__tip {\n  padding-left: 125px;\n}\n[dir=\"rtl\"] .vue-treeselect__indent-level-5 .vue-treeselect__tip {\n  padding-left: 5px;\n  padding-right: 125px;\n}\n.vue-treeselect__indent-level-6 .vue-treeselect__option {\n  padding-left: 125px;\n}\n[dir=\"rtl\"] .vue-treeselect__indent-level-6 .vue-treeselect__option {\n  padding-left: 5px;\n  padding-right: 125px;\n}\n.vue-treeselect__indent-level-6 .vue-treeselect__tip {\n  padding-left: 145px;\n}\n[dir=\"rtl\"] .vue-treeselect__indent-level-6 .vue-treeselect__tip {\n  padding-left: 5px;\n  padding-right: 145px;\n}\n.vue-treeselect__indent-level-7 .vue-treeselect__option {\n  padding-left: 145px;\n}\n[dir=\"rtl\"] .vue-treeselect__indent-level-7 .vue-treeselect__option {\n  padding-left: 5px;\n  padding-right: 145px;\n}\n.vue-treeselect__indent-level-7 .vue-treeselect__tip {\n  padding-left: 165px;\n}\n[dir=\"rtl\"] .vue-treeselect__indent-level-7 .vue-treeselect__tip {\n  padding-left: 5px;\n  padding-right: 165px;\n}\n.vue-treeselect__indent-level-8 .vue-treeselect__option {\n  padding-left: 165px;\n}\n[dir=\"rtl\"] .vue-treeselect__indent-level-8 .vue-treeselect__option {\n  padding-left: 5px;\n  padding-right: 165px;\n}\n.vue-treeselect__indent-level-8 .vue-treeselect__tip {\n  padding-left: 185px;\n}\n[dir=\"rtl\"] .vue-treeselect__indent-level-8 .vue-treeselect__tip {\n  padding-left: 5px;\n  padding-right: 185px;\n}\n.vue-treeselect__option {\n  padding-left: 5px;\n  padding-right: 5px;\n  display: table;\n  table-layout: fixed;\n  width: 100%;\n}\n.vue-treeselect__option--highlight {\n  background: #f5f5f5;\n}\n.vue-treeselect--single .vue-treeselect__option--selected {\n  background: #e3f2fd;\n  font-weight: 600;\n}\n.vue-treeselect--single .vue-treeselect__option--selected:hover {\n  background: #e3f2fd;\n}\n.vue-treeselect__option--hide {\n  display: none;\n}\n.vue-treeselect__option-arrow-container,\n.vue-treeselect__option-arrow-placeholder {\n  display: table-cell;\n  vertical-align: middle;\n  width: 20px;\n  text-align: center;\n  line-height: 0;\n}\n.vue-treeselect__option-arrow-container {\n  cursor: pointer;\n}\n.vue-treeselect__option-arrow {\n  display: inline-block;\n  width: 9px;\n  height: 9px;\n  color: #ccc;\n  vertical-align: middle;\n  transition: 200ms transform cubic-bezier(0.19, 1, 0.22, 1);\n  -ms-transform: rotate(-90deg);\n      transform: rotateZ(-90deg);\n}\n[dir=\"rtl\"] .vue-treeselect__option-arrow {\n  -ms-transform: rotate(90deg);\n      transform: rotateZ(90deg);\n}\n.vue-treeselect__option-arrow-container:hover .vue-treeselect__option-arrow,\n.vue-treeselect--branch-nodes-disabled .vue-treeselect__option:hover .vue-treeselect__option-arrow {\n  color: #616161;\n}\n.vue-treeselect__option-arrow--rotated {\n  -ms-transform: rotate(0);\n      transform: rotateZ(0);\n}\n[dir=\"rtl\"] .vue-treeselect__option-arrow--rotated {\n  -ms-transform: rotate(0);\n      transform: rotateZ(0);\n}\n.vue-treeselect__option-arrow--rotated.vue-treeselect__option-arrow--prepare-enter {\n  -ms-transform: rotate(-90deg) !important;\n      transform: rotateZ(-90deg) !important;\n}\n[dir=\"rtl\"] .vue-treeselect__option-arrow--rotated.vue-treeselect__option-arrow--prepare-enter {\n  -ms-transform: rotate(90deg) !important;\n      transform: rotateZ(90deg) !important;\n}\n.vue-treeselect__label-container {\n  display: table-cell;\n  vertical-align: middle;\n  cursor: pointer;\n  display: table;\n  width: 100%;\n  table-layout: fixed;\n  color: inherit;\n}\n.vue-treeselect__option--disabled .vue-treeselect__label-container {\n  cursor: not-allowed;\n  color: rgba(0, 0, 0, 0.25);\n}\n.vue-treeselect__checkbox-container {\n  display: table-cell;\n  width: 20px;\n  min-width: 20px;\n  height: 100%;\n  text-align: center;\n  vertical-align: middle;\n}\n.vue-treeselect__checkbox {\n  display: block;\n  margin: auto;\n  width: 12px;\n  height: 12px;\n  border-width: 1px;\n  border-style: solid;\n  border-radius: 2px;\n  position: relative;\n  transition: 200ms all cubic-bezier(0.075, 0.82, 0.165, 1);\n}\n.vue-treeselect__check-mark,\n.vue-treeselect__minus-mark {\n  display: block;\n  position: absolute;\n  left: 1px;\n  top: 1px;\n  background-repeat: no-repeat;\n  opacity: 0;\n  transition: 200ms all ease;\n}\n.vue-treeselect__minus-mark {\n  width: 8px;\n  height: 8px;\n  background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAgAAAAIAgMAAAC5YVYYAAAACVBMVEUAAAD///////9zeKVjAAAAAnRSTlMAuLMp9oYAAAAPSURBVAjXY4CDrJUgBAMAGaECJ9dz3BAAAAAASUVORK5CYII=);\n  background-size: 8px 8px;\n}\n@media (-webkit-min-device-pixel-ratio: 1.5), (min-resolution: 1.5dppx) {\n  .vue-treeselect__minus-mark {\n    background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQAgMAAABinRfyAAAADFBMVEUAAAD///////////84wDuoAAAAA3RSTlMAyTzPIdReAAAAGUlEQVQI12PAD+b///+Nof7//79gAsLFCwAx/w4blADeeQAAAABJRU5ErkJggg==);\n  }\n}\n@media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {\n  .vue-treeselect__minus-mark {\n    background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQAgMAAABinRfyAAAADFBMVEUAAAD///////////84wDuoAAAAA3RSTlMAyTzPIdReAAAAGUlEQVQI12PAD+b///+Nof7//79gAsLFCwAx/w4blADeeQAAAABJRU5ErkJggg==);\n  }\n}\n@media (-webkit-min-device-pixel-ratio: 3), (min-resolution: 288dpi) {\n  .vue-treeselect__minus-mark {\n    background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYBAMAAAASWSDLAAAAD1BMVEUAAAD///////////////+PQt5oAAAABHRSTlMAy2EFIuWxUgAAACRJREFUGNNjGBBgJOICBY7KDCoucODEAJSAS6FwUJShGjAQAADBPRGrK2/FhgAAAABJRU5ErkJggg==);\n  }\n}\n.vue-treeselect__checkbox--indeterminate > .vue-treeselect__minus-mark {\n  opacity: 1;\n}\n.vue-treeselect__checkbox--disabled .vue-treeselect__minus-mark {\n  background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAgAAAAIAgMAAAC5YVYYAAAACVBMVEUAAADi4uLh4eHOxeSRAAAAAnRSTlMAuLMp9oYAAAAPSURBVAjXY4CDrJUgBAMAGaECJ9dz3BAAAAAASUVORK5CYII=);\n}\n@media (-webkit-min-device-pixel-ratio: 1.5), (min-resolution: 1.5dppx) {\n  .vue-treeselect__checkbox--disabled .vue-treeselect__minus-mark {\n    background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQAgMAAABinRfyAAAADFBMVEUAAADi4uLi4uLh4eE5RQaIAAAAA3RSTlMAyTzPIdReAAAAGUlEQVQI12PAD+b///+Nof7//79gAsLFCwAx/w4blADeeQAAAABJRU5ErkJggg==);\n  }\n}\n@media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {\n  .vue-treeselect__checkbox--disabled .vue-treeselect__minus-mark {\n    background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQAgMAAABinRfyAAAADFBMVEUAAADi4uLi4uLh4eE5RQaIAAAAA3RSTlMAyTzPIdReAAAAGUlEQVQI12PAD+b///+Nof7//79gAsLFCwAx/w4blADeeQAAAABJRU5ErkJggg==);\n  }\n}\n@media (-webkit-min-device-pixel-ratio: 3), (min-resolution: 288dpi) {\n  .vue-treeselect__checkbox--disabled .vue-treeselect__minus-mark {\n    background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYBAMAAAASWSDLAAAAD1BMVEUAAADh4eHg4ODNzc3h4eEYfw2wAAAABHRSTlMAy2EFIuWxUgAAACRJREFUGNNjGBBgJOICBY7KDCoucODEAJSAS6FwUJShGjAQAADBPRGrK2/FhgAAAABJRU5ErkJggg==);\n  }\n}\n.vue-treeselect__check-mark {\n  width: 8px;\n  height: 8px;\n  background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAgAAAAICAMAAADz0U65AAAAQlBMVEUAAAD///////////////////////////////////////////////////////////////////////////////////8IX9KGAAAAFXRSTlMA8u24NxILB+Tawb6jiH1zRz0xIQIIP3GUAAAAMklEQVQI1y3FtQEAMQDDQD+EGbz/qkEVOpyEOP6PudKjZNSXn4Jm2CKRdBKzSLsFWl8fMG0Bl6Jk1rMAAAAASUVORK5CYII=);\n  background-size: 8px 8px;\n  -ms-transform: scaleY(0.125);\n      transform: scaleY(0.125);\n}\n@media (-webkit-min-device-pixel-ratio: 1.5), (min-resolution: 1.5dppx) {\n  .vue-treeselect__check-mark {\n    background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAMAAAAoLQ9TAAAAYFBMVEUAAAD///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////98JRy6AAAAH3RSTlMAzu4sDenl38fBvo1OMyIdEQrj1cSihX5hYFpHNycIcQOASAAAAF9JREFUGNN9zEcOgDAMRFHTS0LvNfe/JRmHKAIJ/mqeLJn+k9uDtaeUeFnFziGsBucUTirrprfe81RqZ3Bb6hPWeuZwDFOHyf+ig9CCzQ7INBn7bG5kF+QSt13BHNJnF7AaCT4Y+CW7AAAAAElFTkSuQmCC);\n  }\n}\n@media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {\n  .vue-treeselect__check-mark {\n    background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAMAAAAoLQ9TAAAAYFBMVEUAAAD///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////98JRy6AAAAH3RSTlMAzu4sDenl38fBvo1OMyIdEQrj1cSihX5hYFpHNycIcQOASAAAAF9JREFUGNN9zEcOgDAMRFHTS0LvNfe/JRmHKAIJ/mqeLJn+k9uDtaeUeFnFziGsBucUTirrprfe81RqZ3Bb6hPWeuZwDFOHyf+ig9CCzQ7INBn7bG5kF+QSt13BHNJnF7AaCT4Y+CW7AAAAAElFTkSuQmCC);\n  }\n}\n@media (-webkit-min-device-pixel-ratio: 3), (min-resolution: 288dpi) {\n  .vue-treeselect__check-mark {\n    background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAMAAADXqc3KAAAAWlBMVEUAAAD///////////////////////////////////////////////////////////////////////////////////////////////////////////////////9ZMre9AAAAHXRSTlMA/PiJhGNI9XlEHJB/b2ldV08+Oibk49vPp6QhAYgGBuwAAACCSURBVCjPrdHdDoIwDAXgTWAqCigo/+f9X5OwnoUwtis4V92XNWladUl+rzQPeQJAN2EHxoOnsPn7/oYk8fxBv08Rr/deOH/aZ2Nm8ZJ+s573QGfWKnNuZGzWm3+lv2V3pcU1XQ385/yjmBoM3Z+dXvlbYLLD3ujhTaOM3KaIXvNkFkuSEvYy1LqOAAAAAElFTkSuQmCC);\n  }\n}\n.vue-treeselect__checkbox--checked > .vue-treeselect__check-mark {\n  opacity: 1;\n  -ms-transform: scaleY(1);\n      transform: scaleY(1);\n}\n.vue-treeselect__checkbox--disabled .vue-treeselect__check-mark {\n  background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAgAAAAICAMAAADz0U65AAAAP1BMVEUAAADj4+Pf39/h4eHh4eHh4eHk5OTh4eHg4ODi4uLh4eHh4eHg4ODh4eHh4eHg4ODh4eHh4eHp6en////h4eFqcyvUAAAAFHRSTlMAOQfy7bgS5NrBvqOIfXNHMSELAgQ/iFsAAAA2SURBVAjXY4AANjYIzcjMAaVFuBkY+RkEWERYmRjYRXjANAOfiIgIFxNIAa8IpxBEi6AwiAQAK2MBd7xY8csAAAAASUVORK5CYII=);\n}\n@media (-webkit-min-device-pixel-ratio: 1.5), (min-resolution: 1.5dppx) {\n  .vue-treeselect__checkbox--disabled .vue-treeselect__check-mark {\n    background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAMAAAAoLQ9TAAAAXVBMVEUAAADh4eHh4eHh4eHi4uLb29vh4eHh4eHh4eHh4eHh4eHh4eHh4eHi4uLi4uLj4+Pi4uLk5OTo6Ojh4eHh4eHi4uLg4ODg4ODh4eHg4ODh4eHf39/g4OD////h4eEzIk+wAAAAHnRSTlMAzu6/LA3p5eLZx8ONTjYiHRIKooV+YWBaRzEnCANnm5rnAAAAZElEQVQY033P2wqAIAyA4VWaaWrnc/n+j5mbhBjUf7WPoTD47TJb4i5zTr/sRDRHuyFaoWX7uK/RlbctlPEuyI1f4WY9yQINEkf6rzzo8YIzmUFoCs7J1EjeIaa9bXIEmzl8dgOZEAj/+2IvzAAAAABJRU5ErkJggg==);\n  }\n}\n@media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {\n  .vue-treeselect__checkbox--disabled .vue-treeselect__check-mark {\n    background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAMAAAAoLQ9TAAAAXVBMVEUAAADh4eHh4eHh4eHi4uLb29vh4eHh4eHh4eHh4eHh4eHh4eHh4eHi4uLi4uLj4+Pi4uLk5OTo6Ojh4eHh4eHi4uLg4ODg4ODh4eHg4ODh4eHf39/g4OD////h4eEzIk+wAAAAHnRSTlMAzu6/LA3p5eLZx8ONTjYiHRIKooV+YWBaRzEnCANnm5rnAAAAZElEQVQY033P2wqAIAyA4VWaaWrnc/n+j5mbhBjUf7WPoTD47TJb4i5zTr/sRDRHuyFaoWX7uK/RlbctlPEuyI1f4WY9yQINEkf6rzzo8YIzmUFoCs7J1EjeIaa9bXIEmzl8dgOZEAj/+2IvzAAAAABJRU5ErkJggg==);\n  }\n}\n@media (-webkit-min-device-pixel-ratio: 3), (min-resolution: 288dpi) {\n  .vue-treeselect__checkbox--disabled .vue-treeselect__check-mark {\n    background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAMAAADXqc3KAAAAUVBMVEUAAADh4eHh4eHh4eHh4eHi4uLi4uLh4eHh4eHh4eHf39/j4+Ph4eHh4eHh4eHg4ODi4uLh4eHh4eHi4uLh4eHh4eHh4eHh4eHh4eH////h4eF3FMFTAAAAGnRSTlMA+/eJhGhfSHE9JBzz5KaQf3pXT0Xbz0I5AYDw8F0AAAB+SURBVCjPrdHbDoMgEEVRKAii1dZe9fz/hxplTiKIT7qfYCWTEEZdUvOwbckNAD2WHeh3brHW5f5EzGQ+iN+b1Gt6KPvtv16Dn6JX9M9ya3/A1yfu5dlyduL6Hec7mXY6ddXLPP2lpABGZ8PWXfYLTJxZekVhhl7eTX24zZPNKXoRC7zQLjUAAAAASUVORK5CYII=);\n  }\n}\n.vue-treeselect__checkbox--unchecked {\n  border-color: #e0e0e0;\n  background: #fff;\n}\n.vue-treeselect__label-container:hover .vue-treeselect__checkbox--unchecked {\n  border-color: #039be5;\n  background: #fff;\n}\n.vue-treeselect__checkbox--indeterminate {\n  border-color: #039be5;\n  background: #039be5;\n}\n.vue-treeselect__label-container:hover .vue-treeselect__checkbox--indeterminate {\n  border-color: #039be5;\n  background: #039be5;\n}\n.vue-treeselect__checkbox--checked {\n  border-color: #039be5;\n  background: #039be5;\n}\n.vue-treeselect__label-container:hover .vue-treeselect__checkbox--checked {\n  border-color: #039be5;\n  background: #039be5;\n}\n.vue-treeselect__checkbox--disabled {\n  border-color: #e0e0e0;\n  background-color: #f7f7f7;\n}\n.vue-treeselect__label-container:hover .vue-treeselect__checkbox--disabled {\n  border-color: #e0e0e0;\n  background-color: #f7f7f7;\n}\n.vue-treeselect__label {\n  overflow: hidden;\n  text-overflow: ellipsis;\n  white-space: nowrap;\n  display: table-cell;\n  padding-left: 5px;\n  max-width: 100%;\n  vertical-align: middle;\n  cursor: inherit;\n}\n[dir=\"rtl\"] .vue-treeselect__label {\n  padding-left: 0;\n  padding-right: 5px;\n}\n.vue-treeselect__count {\n  margin-left: 5px;\n  font-weight: 400;\n  opacity: 0.6;\n}\n[dir=\"rtl\"] .vue-treeselect__count {\n  margin-left: 0;\n  margin-right: 5px;\n}\n.vue-treeselect__tip {\n  padding-left: 5px;\n  padding-right: 5px;\n  display: table;\n  table-layout: fixed;\n  width: 100%;\n  color: #757575;\n}\n.vue-treeselect__tip-text {\n  display: table-cell;\n  vertical-align: middle;\n  padding-left: 5px;\n  padding-right: 5px;\n  overflow: hidden;\n  text-overflow: ellipsis;\n  white-space: nowrap;\n  width: 100%;\n  font-size: 12px;\n}\n.vue-treeselect__error-tip .vue-treeselect__retry {\n  cursor: pointer;\n  margin-left: 5px;\n  font-style: normal;\n  font-weight: 600;\n  text-decoration: none;\n  color: #039be5;\n}\n[dir=\"rtl\"] .vue-treeselect__error-tip .vue-treeselect__retry {\n  margin-left: 0;\n  margin-right: 5px;\n}\n.vue-treeselect__icon-container {\n  display: table-cell;\n  vertical-align: middle;\n  width: 20px;\n  text-align: center;\n  line-height: 0;\n}\n.vue-treeselect--single .vue-treeselect__icon-container {\n  padding-left: 5px;\n}\n[dir=\"rtl\"] .vue-treeselect--single .vue-treeselect__icon-container {\n  padding-left: 0;\n  padding-right: 5px;\n}\n.vue-treeselect__icon-warning {\n  display: block;\n  margin: auto;\n  border-radius: 50%;\n  position: relative;\n  width: 12px;\n  height: 12px;\n  background: #fb8c00;\n}\n.vue-treeselect__icon-warning::after {\n  display: block;\n  position: absolute;\n  content: \"\";\n  left: 5px;\n  top: 2.5px;\n  width: 2px;\n  height: 1px;\n  border: 0 solid #fff;\n  border-top-width: 5px;\n  border-bottom-width: 1px;\n}\n.vue-treeselect__icon-error {\n  display: block;\n  margin: auto;\n  border-radius: 50%;\n  position: relative;\n  width: 12px;\n  height: 12px;\n  background: #e53935;\n}\n.vue-treeselect__icon-error::before,\n.vue-treeselect__icon-error::after {\n  display: block;\n  position: absolute;\n  content: \"\";\n  background: #fff;\n  -ms-transform: rotate(45deg);\n      transform: rotate(45deg);\n}\n.vue-treeselect__icon-error::before {\n  width: 6px;\n  height: 2px;\n  left: 3px;\n  top: 5px;\n}\n.vue-treeselect__icon-error::after {\n  width: 2px;\n  height: 6px;\n  left: 5px;\n  top: 3px;\n}\n.vue-treeselect__icon-loader {\n  display: block;\n  margin: auto;\n  position: relative;\n  width: 12px;\n  height: 12px;\n  text-align: center;\n  animation: 1.6s vue-treeselect-animation-rotate linear infinite;\n}\n.vue-treeselect__icon-loader::before,\n.vue-treeselect__icon-loader::after {\n  border-radius: 50%;\n  position: absolute;\n  content: \"\";\n  left: 0;\n  top: 0;\n  display: block;\n  width: 100%;\n  height: 100%;\n  opacity: 0.6;\n  animation: 1.6s vue-treeselect-animation-bounce ease-in-out infinite;\n}\n.vue-treeselect__icon-loader::before {\n  background: #039be5;\n}\n.vue-treeselect__icon-loader::after {\n  background: #b3e5fc;\n  animation-delay: -0.8s;\n}\n/**\n * Menu Portal\n */\n.vue-treeselect__menu-placeholder {\n  display: none;\n}\n.vue-treeselect__portal-target {\n  position: absolute;\n  display: block;\n  left: 0;\n  top: 0;\n  height: 0;\n  width: 0;\n  padding: 0;\n  margin: 0;\n  border: 0;\n  overflow: visible;\n  box-sizing: border-box;\n}\n\n\n/*# sourceMappingURL=vue-treeselect.css.map*/", ""]);
+
+// exports
+
+
+/***/ }),
+
+/***/ 963:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -42363,7 +41491,7 @@ module.exports = fuzzysearch;
 
 /***/ }),
 
-/***/ 981:
+/***/ 964:
 /***/ (function(module, exports) {
 
 module.exports = isPromise;
@@ -42375,10 +41503,10 @@ function isPromise(obj) {
 
 /***/ }),
 
-/***/ 982:
+/***/ 965:
 /***/ (function(module, exports, __webpack_require__) {
 
-var trimmedEndIndex = __webpack_require__(983);
+var trimmedEndIndex = __webpack_require__(966);
 
 /** Used to match leading whitespace. */
 var reTrimStart = /^\s+/;
@@ -42401,7 +41529,7 @@ module.exports = baseTrim;
 
 /***/ }),
 
-/***/ 983:
+/***/ 966:
 /***/ (function(module, exports) {
 
 /** Used to match a single whitespace character. */
@@ -42427,10 +41555,10 @@ module.exports = trimmedEndIndex;
 
 /***/ }),
 
-/***/ 984:
+/***/ 967:
 /***/ (function(module, exports, __webpack_require__) {
 
-var toInteger = __webpack_require__(994);
+var toInteger = __webpack_require__(977);
 
 /** Error message constants. */
 var FUNC_ERROR_TEXT = 'Expected a function';
@@ -42474,7 +41602,7 @@ module.exports = before;
 
 /***/ }),
 
-/***/ 985:
+/***/ 968:
 /***/ (function(module, exports) {
 
 /**
@@ -42507,12 +41635,12 @@ module.exports = constant;
 
 /***/ }),
 
-/***/ 986:
+/***/ 969:
 /***/ (function(module, exports, __webpack_require__) {
 
 var isObject = __webpack_require__(58),
-    now = __webpack_require__(991),
-    toNumber = __webpack_require__(808);
+    now = __webpack_require__(974),
+    toNumber = __webpack_require__(791);
 
 /** Error message constants. */
 var FUNC_ERROR_TEXT = 'Expected a function';
@@ -42705,7 +41833,7 @@ module.exports = debounce;
 
 /***/ }),
 
-/***/ 987:
+/***/ 970:
 /***/ (function(module, exports) {
 
 /**
@@ -42733,7 +41861,7 @@ module.exports = identity;
 
 /***/ }),
 
-/***/ 988:
+/***/ 971:
 /***/ (function(module, exports, __webpack_require__) {
 
 var baseGetTag = __webpack_require__(76),
@@ -42769,7 +41897,7 @@ module.exports = isSymbol;
 
 /***/ }),
 
-/***/ 989:
+/***/ 972:
 /***/ (function(module, exports) {
 
 /**
@@ -42796,7 +41924,7 @@ module.exports = last;
 
 /***/ }),
 
-/***/ 990:
+/***/ 973:
 /***/ (function(module, exports) {
 
 /**
@@ -42820,7 +41948,7 @@ module.exports = noop;
 
 /***/ }),
 
-/***/ 991:
+/***/ 974:
 /***/ (function(module, exports, __webpack_require__) {
 
 var root = __webpack_require__(25);
@@ -42850,10 +41978,10 @@ module.exports = now;
 
 /***/ }),
 
-/***/ 992:
+/***/ 975:
 /***/ (function(module, exports, __webpack_require__) {
 
-var before = __webpack_require__(984);
+var before = __webpack_require__(967);
 
 /**
  * Creates a function that is restricted to invoking `func` once. Repeat calls
@@ -42882,10 +42010,10 @@ module.exports = once;
 
 /***/ }),
 
-/***/ 993:
+/***/ 976:
 /***/ (function(module, exports, __webpack_require__) {
 
-var toNumber = __webpack_require__(808);
+var toNumber = __webpack_require__(791);
 
 /** Used as references for various `Number` constants. */
 var INFINITY = 1 / 0,
@@ -42931,10 +42059,10 @@ module.exports = toFinite;
 
 /***/ }),
 
-/***/ 994:
+/***/ 977:
 /***/ (function(module, exports, __webpack_require__) {
 
-var toFinite = __webpack_require__(993);
+var toFinite = __webpack_require__(976);
 
 /**
  * Converts `value` to an integer.
@@ -42974,7 +42102,7 @@ module.exports = toInteger;
 
 /***/ }),
 
-/***/ 995:
+/***/ 978:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -43040,7 +42168,7 @@ var index = (function (element, listener) {
 
 /***/ }),
 
-/***/ 996:
+/***/ 979:
 /***/ (function(module, exports, __webpack_require__) {
 
 exports.f = __webpack_require__(17);
@@ -43048,303 +42176,280 @@ exports.f = __webpack_require__(17);
 
 /***/ }),
 
-/***/ 997:
-/***/ (function(module, exports, __webpack_require__) {
-
-var pIE = __webpack_require__(810);
-var createDesc = __webpack_require__(108);
-var toIObject = __webpack_require__(57);
-var toPrimitive = __webpack_require__(380);
-var has = __webpack_require__(73);
-var IE8_DOM_DEFINE = __webpack_require__(390);
-var gOPD = Object.getOwnPropertyDescriptor;
-
-exports.f = __webpack_require__(59) ? gOPD : function getOwnPropertyDescriptor(O, P) {
-  O = toIObject(O);
-  P = toPrimitive(P, true);
-  if (IE8_DOM_DEFINE) try {
-    return gOPD(O, P);
-  } catch (e) { /* empty */ }
-  if (has(O, P)) return createDesc(!pIE.f.call(O, P), O[P]);
-};
-
-
-/***/ }),
-
-/***/ 998:
+/***/ 980:
 /***/ (function(module, exports, __webpack_require__) {
 
 var map = {
-	"./af": 812,
-	"./af.js": 812,
-	"./ar": 819,
-	"./ar-dz": 813,
-	"./ar-dz.js": 813,
-	"./ar-kw": 814,
-	"./ar-kw.js": 814,
-	"./ar-ly": 815,
-	"./ar-ly.js": 815,
-	"./ar-ma": 816,
-	"./ar-ma.js": 816,
-	"./ar-sa": 817,
-	"./ar-sa.js": 817,
-	"./ar-tn": 818,
-	"./ar-tn.js": 818,
-	"./ar.js": 819,
-	"./az": 820,
-	"./az.js": 820,
-	"./be": 821,
-	"./be.js": 821,
-	"./bg": 822,
-	"./bg.js": 822,
-	"./bm": 823,
-	"./bm.js": 823,
-	"./bn": 825,
-	"./bn-bd": 824,
-	"./bn-bd.js": 824,
-	"./bn.js": 825,
-	"./bo": 826,
-	"./bo.js": 826,
-	"./br": 827,
-	"./br.js": 827,
-	"./bs": 828,
-	"./bs.js": 828,
-	"./ca": 829,
-	"./ca.js": 829,
-	"./cs": 830,
-	"./cs.js": 830,
-	"./cv": 831,
-	"./cv.js": 831,
-	"./cy": 832,
-	"./cy.js": 832,
-	"./da": 833,
-	"./da.js": 833,
-	"./de": 836,
-	"./de-at": 834,
-	"./de-at.js": 834,
-	"./de-ch": 835,
-	"./de-ch.js": 835,
-	"./de.js": 836,
-	"./dv": 837,
-	"./dv.js": 837,
-	"./el": 838,
-	"./el.js": 838,
-	"./en-au": 839,
-	"./en-au.js": 839,
-	"./en-ca": 840,
-	"./en-ca.js": 840,
-	"./en-gb": 841,
-	"./en-gb.js": 841,
-	"./en-ie": 842,
-	"./en-ie.js": 842,
-	"./en-il": 843,
-	"./en-il.js": 843,
-	"./en-in": 844,
-	"./en-in.js": 844,
-	"./en-nz": 845,
-	"./en-nz.js": 845,
-	"./en-sg": 846,
-	"./en-sg.js": 846,
-	"./eo": 847,
-	"./eo.js": 847,
-	"./es": 851,
-	"./es-do": 848,
-	"./es-do.js": 848,
-	"./es-mx": 849,
-	"./es-mx.js": 849,
-	"./es-us": 850,
-	"./es-us.js": 850,
-	"./es.js": 851,
-	"./et": 852,
-	"./et.js": 852,
-	"./eu": 853,
-	"./eu.js": 853,
-	"./fa": 854,
-	"./fa.js": 854,
-	"./fi": 855,
-	"./fi.js": 855,
-	"./fil": 856,
-	"./fil.js": 856,
-	"./fo": 857,
-	"./fo.js": 857,
-	"./fr": 860,
-	"./fr-ca": 858,
-	"./fr-ca.js": 858,
-	"./fr-ch": 859,
-	"./fr-ch.js": 859,
-	"./fr.js": 860,
-	"./fy": 861,
-	"./fy.js": 861,
-	"./ga": 862,
-	"./ga.js": 862,
-	"./gd": 863,
-	"./gd.js": 863,
-	"./gl": 864,
-	"./gl.js": 864,
-	"./gom-deva": 865,
-	"./gom-deva.js": 865,
-	"./gom-latn": 866,
-	"./gom-latn.js": 866,
-	"./gu": 867,
-	"./gu.js": 867,
-	"./he": 868,
-	"./he.js": 868,
-	"./hi": 869,
-	"./hi.js": 869,
-	"./hr": 870,
-	"./hr.js": 870,
-	"./hu": 871,
-	"./hu.js": 871,
-	"./hy-am": 872,
-	"./hy-am.js": 872,
-	"./id": 873,
-	"./id.js": 873,
-	"./is": 874,
-	"./is.js": 874,
-	"./it": 876,
-	"./it-ch": 875,
-	"./it-ch.js": 875,
-	"./it.js": 876,
-	"./ja": 877,
-	"./ja.js": 877,
-	"./jv": 878,
-	"./jv.js": 878,
-	"./ka": 879,
-	"./ka.js": 879,
-	"./kk": 880,
-	"./kk.js": 880,
-	"./km": 881,
-	"./km.js": 881,
-	"./kn": 882,
-	"./kn.js": 882,
-	"./ko": 883,
-	"./ko.js": 883,
-	"./ku": 884,
-	"./ku.js": 884,
-	"./ky": 885,
-	"./ky.js": 885,
-	"./lb": 886,
-	"./lb.js": 886,
-	"./lo": 887,
-	"./lo.js": 887,
-	"./lt": 888,
-	"./lt.js": 888,
-	"./lv": 889,
-	"./lv.js": 889,
-	"./me": 890,
-	"./me.js": 890,
-	"./mi": 891,
-	"./mi.js": 891,
-	"./mk": 892,
-	"./mk.js": 892,
-	"./ml": 893,
-	"./ml.js": 893,
-	"./mn": 894,
-	"./mn.js": 894,
-	"./mr": 895,
-	"./mr.js": 895,
-	"./ms": 897,
-	"./ms-my": 896,
-	"./ms-my.js": 896,
-	"./ms.js": 897,
-	"./mt": 898,
-	"./mt.js": 898,
-	"./my": 899,
-	"./my.js": 899,
-	"./nb": 900,
-	"./nb.js": 900,
-	"./ne": 901,
-	"./ne.js": 901,
-	"./nl": 903,
-	"./nl-be": 902,
-	"./nl-be.js": 902,
-	"./nl.js": 903,
-	"./nn": 904,
-	"./nn.js": 904,
-	"./oc-lnc": 905,
-	"./oc-lnc.js": 905,
-	"./pa-in": 906,
-	"./pa-in.js": 906,
-	"./pl": 907,
-	"./pl.js": 907,
-	"./pt": 909,
-	"./pt-br": 908,
-	"./pt-br.js": 908,
-	"./pt.js": 909,
-	"./ro": 910,
-	"./ro.js": 910,
-	"./ru": 911,
-	"./ru.js": 911,
-	"./sd": 912,
-	"./sd.js": 912,
-	"./se": 913,
-	"./se.js": 913,
-	"./si": 914,
-	"./si.js": 914,
-	"./sk": 915,
-	"./sk.js": 915,
-	"./sl": 916,
-	"./sl.js": 916,
-	"./sq": 917,
-	"./sq.js": 917,
-	"./sr": 919,
-	"./sr-cyrl": 918,
-	"./sr-cyrl.js": 918,
-	"./sr.js": 919,
-	"./ss": 920,
-	"./ss.js": 920,
-	"./sv": 921,
-	"./sv.js": 921,
-	"./sw": 922,
-	"./sw.js": 922,
-	"./ta": 923,
-	"./ta.js": 923,
-	"./te": 924,
-	"./te.js": 924,
-	"./tet": 925,
-	"./tet.js": 925,
-	"./tg": 926,
-	"./tg.js": 926,
-	"./th": 927,
-	"./th.js": 927,
-	"./tk": 928,
-	"./tk.js": 928,
-	"./tl-ph": 929,
-	"./tl-ph.js": 929,
-	"./tlh": 930,
-	"./tlh.js": 930,
-	"./tr": 931,
-	"./tr.js": 931,
-	"./tzl": 932,
-	"./tzl.js": 932,
-	"./tzm": 934,
-	"./tzm-latn": 933,
-	"./tzm-latn.js": 933,
-	"./tzm.js": 934,
-	"./ug-cn": 935,
-	"./ug-cn.js": 935,
-	"./uk": 936,
-	"./uk.js": 936,
-	"./ur": 937,
-	"./ur.js": 937,
-	"./uz": 939,
-	"./uz-latn": 938,
-	"./uz-latn.js": 938,
-	"./uz.js": 939,
-	"./vi": 940,
-	"./vi.js": 940,
-	"./x-pseudo": 941,
-	"./x-pseudo.js": 941,
-	"./yo": 942,
-	"./yo.js": 942,
-	"./zh-cn": 943,
-	"./zh-cn.js": 943,
-	"./zh-hk": 944,
-	"./zh-hk.js": 944,
-	"./zh-mo": 945,
-	"./zh-mo.js": 945,
-	"./zh-tw": 946,
-	"./zh-tw.js": 946
+	"./af": 794,
+	"./af.js": 794,
+	"./ar": 801,
+	"./ar-dz": 795,
+	"./ar-dz.js": 795,
+	"./ar-kw": 796,
+	"./ar-kw.js": 796,
+	"./ar-ly": 797,
+	"./ar-ly.js": 797,
+	"./ar-ma": 798,
+	"./ar-ma.js": 798,
+	"./ar-sa": 799,
+	"./ar-sa.js": 799,
+	"./ar-tn": 800,
+	"./ar-tn.js": 800,
+	"./ar.js": 801,
+	"./az": 802,
+	"./az.js": 802,
+	"./be": 803,
+	"./be.js": 803,
+	"./bg": 804,
+	"./bg.js": 804,
+	"./bm": 805,
+	"./bm.js": 805,
+	"./bn": 807,
+	"./bn-bd": 806,
+	"./bn-bd.js": 806,
+	"./bn.js": 807,
+	"./bo": 808,
+	"./bo.js": 808,
+	"./br": 809,
+	"./br.js": 809,
+	"./bs": 810,
+	"./bs.js": 810,
+	"./ca": 811,
+	"./ca.js": 811,
+	"./cs": 812,
+	"./cs.js": 812,
+	"./cv": 813,
+	"./cv.js": 813,
+	"./cy": 814,
+	"./cy.js": 814,
+	"./da": 815,
+	"./da.js": 815,
+	"./de": 818,
+	"./de-at": 816,
+	"./de-at.js": 816,
+	"./de-ch": 817,
+	"./de-ch.js": 817,
+	"./de.js": 818,
+	"./dv": 819,
+	"./dv.js": 819,
+	"./el": 820,
+	"./el.js": 820,
+	"./en-au": 821,
+	"./en-au.js": 821,
+	"./en-ca": 822,
+	"./en-ca.js": 822,
+	"./en-gb": 823,
+	"./en-gb.js": 823,
+	"./en-ie": 824,
+	"./en-ie.js": 824,
+	"./en-il": 825,
+	"./en-il.js": 825,
+	"./en-in": 826,
+	"./en-in.js": 826,
+	"./en-nz": 827,
+	"./en-nz.js": 827,
+	"./en-sg": 828,
+	"./en-sg.js": 828,
+	"./eo": 829,
+	"./eo.js": 829,
+	"./es": 833,
+	"./es-do": 830,
+	"./es-do.js": 830,
+	"./es-mx": 831,
+	"./es-mx.js": 831,
+	"./es-us": 832,
+	"./es-us.js": 832,
+	"./es.js": 833,
+	"./et": 834,
+	"./et.js": 834,
+	"./eu": 835,
+	"./eu.js": 835,
+	"./fa": 836,
+	"./fa.js": 836,
+	"./fi": 837,
+	"./fi.js": 837,
+	"./fil": 838,
+	"./fil.js": 838,
+	"./fo": 839,
+	"./fo.js": 839,
+	"./fr": 842,
+	"./fr-ca": 840,
+	"./fr-ca.js": 840,
+	"./fr-ch": 841,
+	"./fr-ch.js": 841,
+	"./fr.js": 842,
+	"./fy": 843,
+	"./fy.js": 843,
+	"./ga": 844,
+	"./ga.js": 844,
+	"./gd": 845,
+	"./gd.js": 845,
+	"./gl": 846,
+	"./gl.js": 846,
+	"./gom-deva": 847,
+	"./gom-deva.js": 847,
+	"./gom-latn": 848,
+	"./gom-latn.js": 848,
+	"./gu": 849,
+	"./gu.js": 849,
+	"./he": 850,
+	"./he.js": 850,
+	"./hi": 851,
+	"./hi.js": 851,
+	"./hr": 852,
+	"./hr.js": 852,
+	"./hu": 853,
+	"./hu.js": 853,
+	"./hy-am": 854,
+	"./hy-am.js": 854,
+	"./id": 855,
+	"./id.js": 855,
+	"./is": 856,
+	"./is.js": 856,
+	"./it": 858,
+	"./it-ch": 857,
+	"./it-ch.js": 857,
+	"./it.js": 858,
+	"./ja": 859,
+	"./ja.js": 859,
+	"./jv": 860,
+	"./jv.js": 860,
+	"./ka": 861,
+	"./ka.js": 861,
+	"./kk": 862,
+	"./kk.js": 862,
+	"./km": 863,
+	"./km.js": 863,
+	"./kn": 864,
+	"./kn.js": 864,
+	"./ko": 865,
+	"./ko.js": 865,
+	"./ku": 866,
+	"./ku.js": 866,
+	"./ky": 867,
+	"./ky.js": 867,
+	"./lb": 868,
+	"./lb.js": 868,
+	"./lo": 869,
+	"./lo.js": 869,
+	"./lt": 870,
+	"./lt.js": 870,
+	"./lv": 871,
+	"./lv.js": 871,
+	"./me": 872,
+	"./me.js": 872,
+	"./mi": 873,
+	"./mi.js": 873,
+	"./mk": 874,
+	"./mk.js": 874,
+	"./ml": 875,
+	"./ml.js": 875,
+	"./mn": 876,
+	"./mn.js": 876,
+	"./mr": 877,
+	"./mr.js": 877,
+	"./ms": 879,
+	"./ms-my": 878,
+	"./ms-my.js": 878,
+	"./ms.js": 879,
+	"./mt": 880,
+	"./mt.js": 880,
+	"./my": 881,
+	"./my.js": 881,
+	"./nb": 882,
+	"./nb.js": 882,
+	"./ne": 883,
+	"./ne.js": 883,
+	"./nl": 885,
+	"./nl-be": 884,
+	"./nl-be.js": 884,
+	"./nl.js": 885,
+	"./nn": 886,
+	"./nn.js": 886,
+	"./oc-lnc": 887,
+	"./oc-lnc.js": 887,
+	"./pa-in": 888,
+	"./pa-in.js": 888,
+	"./pl": 889,
+	"./pl.js": 889,
+	"./pt": 891,
+	"./pt-br": 890,
+	"./pt-br.js": 890,
+	"./pt.js": 891,
+	"./ro": 892,
+	"./ro.js": 892,
+	"./ru": 893,
+	"./ru.js": 893,
+	"./sd": 894,
+	"./sd.js": 894,
+	"./se": 895,
+	"./se.js": 895,
+	"./si": 896,
+	"./si.js": 896,
+	"./sk": 897,
+	"./sk.js": 897,
+	"./sl": 898,
+	"./sl.js": 898,
+	"./sq": 899,
+	"./sq.js": 899,
+	"./sr": 901,
+	"./sr-cyrl": 900,
+	"./sr-cyrl.js": 900,
+	"./sr.js": 901,
+	"./ss": 902,
+	"./ss.js": 902,
+	"./sv": 903,
+	"./sv.js": 903,
+	"./sw": 904,
+	"./sw.js": 904,
+	"./ta": 905,
+	"./ta.js": 905,
+	"./te": 906,
+	"./te.js": 906,
+	"./tet": 907,
+	"./tet.js": 907,
+	"./tg": 908,
+	"./tg.js": 908,
+	"./th": 909,
+	"./th.js": 909,
+	"./tk": 910,
+	"./tk.js": 910,
+	"./tl-ph": 911,
+	"./tl-ph.js": 911,
+	"./tlh": 912,
+	"./tlh.js": 912,
+	"./tr": 913,
+	"./tr.js": 913,
+	"./tzl": 914,
+	"./tzl.js": 914,
+	"./tzm": 916,
+	"./tzm-latn": 915,
+	"./tzm-latn.js": 915,
+	"./tzm.js": 916,
+	"./ug-cn": 917,
+	"./ug-cn.js": 917,
+	"./uk": 918,
+	"./uk.js": 918,
+	"./ur": 919,
+	"./ur.js": 919,
+	"./uz": 921,
+	"./uz-latn": 920,
+	"./uz-latn.js": 920,
+	"./uz.js": 921,
+	"./vi": 922,
+	"./vi.js": 922,
+	"./x-pseudo": 923,
+	"./x-pseudo.js": 923,
+	"./yo": 924,
+	"./yo.js": 924,
+	"./zh-cn": 925,
+	"./zh-cn.js": 925,
+	"./zh-hk": 926,
+	"./zh-hk.js": 926,
+	"./zh-mo": 927,
+	"./zh-mo.js": 927,
+	"./zh-tw": 928,
+	"./zh-tw.js": 928
 };
 function webpackContext(req) {
 	return __webpack_require__(webpackContextResolve(req));
@@ -43360,14 +42465,778 @@ webpackContext.keys = function webpackContextKeys() {
 };
 webpackContext.resolve = webpackContextResolve;
 module.exports = webpackContext;
-webpackContext.id = 998;
+webpackContext.id = 980;
+
+/***/ }),
+
+/***/ 981:
+/***/ (function(module, exports, __webpack_require__) {
+
+var pIE = __webpack_require__(793);
+var createDesc = __webpack_require__(107);
+var toIObject = __webpack_require__(57);
+var toPrimitive = __webpack_require__(377);
+var has = __webpack_require__(73);
+var IE8_DOM_DEFINE = __webpack_require__(387);
+var gOPD = Object.getOwnPropertyDescriptor;
+
+exports.f = __webpack_require__(59) ? gOPD : function getOwnPropertyDescriptor(O, P) {
+  O = toIObject(O);
+  P = toPrimitive(P, true);
+  if (IE8_DOM_DEFINE) try {
+    return gOPD(O, P);
+  } catch (e) { /* empty */ }
+  if (has(O, P)) return createDesc(!pIE.f.call(O, P), O[P]);
+};
+
+
+/***/ }),
+
+/***/ 982:
+/***/ (function(module, exports) {
+
+module.exports = {"AppSettings":{"Debug":true,"Version":"1.0.0.0","Domain":"http://demo.way2go.vn","UploadFolder":"uploads","FileUploadMaxSize":5000,"FileUploadSubFix":false,"ImageScaleWidth":300,"ImageScaleHeight":0,"ImageAllowUpload":".jpg,.jpeg,.png,.gif,.bit,.webp,.svg","DocumentAllowUpload":".doc,.docx,.pdf,.xls,.xlsx,.zip,.rar","FoderImg":"https://platformcms.hndedu.com","BaseDomain":"https://demo.way2go.vn","CacheEnable":"0","ESEnable":true,"NodeES":"http://127.0.0.1:9200","IndexES":"product_suggest"},"Redis":{"ConnectionString":"127.0.0.1:6379","DefaultDatabase":1,"InstanceName":"PLM_","CachingExpireMinute":3},"ConnectionStrings":{"DefaultConnection":"Server=103.184.112.82;Database=JT_DEV_2;Trusted_Connection=False;User Id=sa;password=EcaOicT35K%EC1"},"Cors":{"WithOrigin":"http://localhost:60099/"},"Logging":{"IncludeScopes":false,"LogLevel":{"Default":"Debug","System":"Information","Microsoft":"Information"}},"Tokens":{"Key":"0123456789ABCDEF","Issuer":"https://janhome.vn/"},"EmailSender":{"Host":"mail247.vn","Port":465,"CustomerService":{"Email":"cs@joytime.vn","Password":"D2A9HnvGMJYW3BeKQw5f4F"},"SupplierService":{"Email":"partner@joytime.vn","Password":"SL9QgKGtjCNUcbr7uXdWPY"},"HelpDesk":{"Email":"helpdesk@joytime.vn","Password":"jaR548durV2tpFCkX6qENx"},"BookingService":{"Email":"booking@joytime.vn","Password":"zydcpPBfEHeM7u9DU6XLVT"}}}
+
+/***/ }),
+
+/***/ 983:
+/***/ (function(module, exports, __webpack_require__) {
+
+var META = __webpack_require__(108)('meta');
+var isObject = __webpack_require__(45);
+var has = __webpack_require__(73);
+var setDesc = __webpack_require__(55).f;
+var id = 0;
+var isExtensible = Object.isExtensible || function () {
+  return true;
+};
+var FREEZE = !__webpack_require__(46)(function () {
+  return isExtensible(Object.preventExtensions({}));
+});
+var setMeta = function (it) {
+  setDesc(it, META, { value: {
+    i: 'O' + ++id, // object ID
+    w: {}          // weak collections IDs
+  } });
+};
+var fastKey = function (it, create) {
+  // return primitive with prefix
+  if (!isObject(it)) return typeof it == 'symbol' ? it : (typeof it == 'string' ? 'S' : 'P') + it;
+  if (!has(it, META)) {
+    // can't set metadata to uncaught frozen object
+    if (!isExtensible(it)) return 'F';
+    // not necessary to add metadata
+    if (!create) return 'E';
+    // add missing metadata
+    setMeta(it);
+  // return object ID
+  } return it[META].i;
+};
+var getWeak = function (it, create) {
+  if (!has(it, META)) {
+    // can't set metadata to uncaught frozen object
+    if (!isExtensible(it)) return true;
+    // not necessary to add metadata
+    if (!create) return false;
+    // add missing metadata
+    setMeta(it);
+  // return hash weak collections IDs
+  } return it[META].w;
+};
+// add metadata on freeze-family methods calling
+var onFreeze = function (it) {
+  if (FREEZE && meta.NEED && isExtensible(it) && !has(it, META)) setMeta(it);
+  return it;
+};
+var meta = module.exports = {
+  KEY: META,
+  NEED: false,
+  fastKey: fastKey,
+  getWeak: getWeak,
+  onFreeze: onFreeze
+};
+
+
+/***/ }),
+
+/***/ 984:
+/***/ (function(module, exports) {
+
+module.exports = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAJUlEQVQ4jWNgoBSkpaX9pwRTxwBsriJabHAYMBoGo2FAcRhQCgAhhv41B1NcjwAAAABJRU5ErkJggg=="
+
+/***/ }),
+
+/***/ 985:
+/***/ (function(module, exports) {
+
+module.exports = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAHElEQVQ4jWNgGPogLS3tPyV41AWjLhguLqAUAABjQNJhHOFYqgAAAABJRU5ErkJggg=="
+
+/***/ }),
+
+/***/ 986:
+/***/ (function(module, exports) {
+
+module.exports = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAg0lEQVQ4ja3QwQ3AIAgF0J6dwyVcwxUI4hZ1C6dwDZdwDs/tqYlRTKEpCRcjD/3HsakQwjX27t62xqFXYN4m7V+B9OGL53zQFds7JzYF0DigKoDKAUUBlAVAxCwFEDGzqSpekBaAiKIUIKLIAV4BeA5wCsAtAABYKQAAlgvRKEI0z9wNbkpkPnEUO00AAAAASUVORK5CYII="
+
+/***/ }),
+
+/***/ 987:
+/***/ (function(module, exports) {
+
+module.exports = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAyJpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuMy1jMDExIDY2LjE0NTY2MSwgMjAxMi8wMi8wNi0xNDo1NjoyNyAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvIiB4bWxuczp4bXBNTT0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL21tLyIgeG1sbnM6c3RSZWY9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9zVHlwZS9SZXNvdXJjZVJlZiMiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIENTNiAoV2luZG93cykiIHhtcE1NOkluc3RhbmNlSUQ9InhtcC5paWQ6QUFFNEVGRTcyNzI5MTFFN0E4MTJDODUxMTY5OTBDRTMiIHhtcE1NOkRvY3VtZW50SUQ9InhtcC5kaWQ6QUFFNEVGRTgyNzI5MTFFN0E4MTJDODUxMTY5OTBDRTMiPiA8eG1wTU06RGVyaXZlZEZyb20gc3RSZWY6aW5zdGFuY2VJRD0ieG1wLmlpZDpBQUU0RUZFNTI3MjkxMUU3QTgxMkM4NTExNjk5MENFMyIgc3RSZWY6ZG9jdW1lbnRJRD0ieG1wLmRpZDpBQUU0RUZFNjI3MjkxMUU3QTgxMkM4NTExNjk5MENFMyIvPiA8L3JkZjpEZXNjcmlwdGlvbj4gPC9yZGY6UkRGPiA8L3g6eG1wbWV0YT4gPD94cGFja2V0IGVuZD0iciI/PoebdJQAAAEfSURBVHjalNI9SwMxGMDxXHutaEXwHZdCEaSLQ71Fuujoojg4Cv0K4ioUStd+BpcOfgGh6Obo0uLsoJNQsC6+0evL9R94DkLotXcP/LiEJM8lT+J4nqckznGFY5UgUkY7jQ2VMFwUsYQ9ZHEwZ80Qb/gOEzRQwiJW8CgTHWthIN9lXOA+TFBBBme4xmnEn8MELeTMI/Skrb//eJ1zhJ+oIrpWP07hZy7YT3qNOsZYQA3PaGJbCro+rbiuleAPR6hK/xJlfGATJ+jPShDIPX/JbnRsYUf6JSn0ICrBGt7lSgNrTG+9i1XksQvfTPCLAp70QETNMrKbOm7QNhPohYdTdmXHHW7xoGtmTtZv+yXGzfny2Doq5sOx4xOjsDMRYADeTjM37KwM6gAAAABJRU5ErkJggg=="
+
+/***/ }),
+
+/***/ 988:
+/***/ (function(module, exports) {
+
+module.exports = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAlElEQVQ4jWNgGHCQlpb2Hw3fz8jIUKDEANIMwWEAXkwTAx4T7WdsXkhNTV2dnp6uT4ZrLjCkpaX9T09PL0pPT59AqgGpqan5MBfYp6WlvSLRgF+JiYmiDGlpad/T09PDybB9AywMjqampm4g1YD09HR/mAGL0tLSfpFowKu0tDRWmAGHybB9AnI0viHDAH2y0w06AACLVFch1Ej7rgAAAABJRU5ErkJggg=="
+
+/***/ }),
+
+/***/ 989:
+/***/ (function(module, exports) {
+
+module.exports = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAA6UlEQVQ4ja2TUU7DQAxE/UO5SwPH2SP4TX5yFKIgisRZijhFyyXyGfHXVuVnUzmrBNGCpZFWlme0s541Kwp4lNQBn8BXxl5S5+5VOX+ppmnuJb0CJ+C8gBOwSSmtJuSU0krSxw/EEu8TEeDtCvKIjZmZ1XX9EK9tZubuFdCH4X70H3pHd68MeI7K42AQ6YtevEVrwL5oTggzgnF2Z8Aw46+PK1sgn4HhXwT+ZiGn7qZHdPencY3HW9YoaW1mZjnCVwVJUjeJsrtvf0t29+3sfwBeop0ZHHLw7hZ/paQ10AK7vOIhn9uL51DfTreZQOo3Kt0AAAAASUVORK5CYII="
+
+/***/ }),
+
+/***/ 990:
+/***/ (function(module, exports) {
+
+module.exports = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAATUlEQVQ4jWNgoBXIyMhQSE1N3Z+RkaFAlua0tLT7aWlp/9PS0u6TZAia5v8kGYJDM2mGwACyZqI1jRpAJsARZURhsgxAtnhgXED1wAUASBXMx2KfmeMAAAAASUVORK5CYII="
+
+/***/ }),
+
+/***/ 991:
+/***/ (function(module, exports, __webpack_require__) {
+
+
+/* styles */
+__webpack_require__(1002)
+
+var Component = __webpack_require__(371)(
+  /* script */
+  __webpack_require__(997),
+  /* template */
+  __webpack_require__(1001),
+  /* scopeId */
+  "data-v-497df3b6",
+  /* cssModules */
+  null
+)
+
+module.exports = Component.exports
+
+
+/***/ }),
+
+/***/ 992:
+/***/ (function(module, exports, __webpack_require__) {
+
+// fallback for IE11 buggy Object.getOwnPropertyNames with iframe and window
+var toIObject = __webpack_require__(57);
+var gOPN = __webpack_require__(937).f;
+var toString = {}.toString;
+
+var windowNames = typeof window == 'object' && window && Object.getOwnPropertyNames
+  ? Object.getOwnPropertyNames(window) : [];
+
+var getWindowNames = function (it) {
+  try {
+    return gOPN(it);
+  } catch (e) {
+    return windowNames.slice();
+  }
+};
+
+module.exports.f = function getOwnPropertyNames(it) {
+  return windowNames && toString.call(it) == '[object Window]' ? getWindowNames(it) : gOPN(toIObject(it));
+};
+
+
+/***/ }),
+
+/***/ 993:
+/***/ (function(module, exports, __webpack_require__) {
+
+// all enumerable object keys, includes symbols
+var getKeys = __webpack_require__(179);
+var gOPS = __webpack_require__(950);
+var pIE = __webpack_require__(793);
+module.exports = function (it) {
+  var result = getKeys(it);
+  var getSymbols = gOPS.f;
+  if (getSymbols) {
+    var symbols = getSymbols(it);
+    var isEnum = pIE.f;
+    var i = 0;
+    var key;
+    while (symbols.length > i) if (isEnum.call(it, key = symbols[i++])) result.push(key);
+  } return result;
+};
+
+
+/***/ }),
+
+/***/ 994:
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+// ECMAScript 6 symbols shim
+var global = __webpack_require__(22);
+var has = __webpack_require__(73);
+var DESCRIPTORS = __webpack_require__(59);
+var $export = __webpack_require__(12);
+var redefine = __webpack_require__(61);
+var META = __webpack_require__(983).KEY;
+var $fails = __webpack_require__(46);
+var shared = __webpack_require__(113);
+var setToStringTag = __webpack_require__(112);
+var uid = __webpack_require__(108);
+var wks = __webpack_require__(17);
+var wksExt = __webpack_require__(979);
+var wksDefine = __webpack_require__(929);
+var enumKeys = __webpack_require__(993);
+var isArray = __webpack_require__(183);
+var anObject = __webpack_require__(36);
+var isObject = __webpack_require__(45);
+var toObject = __webpack_require__(39);
+var toIObject = __webpack_require__(57);
+var toPrimitive = __webpack_require__(377);
+var createDesc = __webpack_require__(107);
+var _create = __webpack_require__(385);
+var gOPNExt = __webpack_require__(992);
+var $GOPD = __webpack_require__(981);
+var $GOPS = __webpack_require__(950);
+var $DP = __webpack_require__(55);
+var $keys = __webpack_require__(179);
+var gOPD = $GOPD.f;
+var dP = $DP.f;
+var gOPN = gOPNExt.f;
+var $Symbol = global.Symbol;
+var $JSON = global.JSON;
+var _stringify = $JSON && $JSON.stringify;
+var PROTOTYPE = 'prototype';
+var HIDDEN = wks('_hidden');
+var TO_PRIMITIVE = wks('toPrimitive');
+var isEnum = {}.propertyIsEnumerable;
+var SymbolRegistry = shared('symbol-registry');
+var AllSymbols = shared('symbols');
+var OPSymbols = shared('op-symbols');
+var ObjectProto = Object[PROTOTYPE];
+var USE_NATIVE = typeof $Symbol == 'function' && !!$GOPS.f;
+var QObject = global.QObject;
+// Don't use setters in Qt Script, https://github.com/zloirock/core-js/issues/173
+var setter = !QObject || !QObject[PROTOTYPE] || !QObject[PROTOTYPE].findChild;
+
+// fallback for old Android, https://code.google.com/p/v8/issues/detail?id=687
+var setSymbolDesc = DESCRIPTORS && $fails(function () {
+  return _create(dP({}, 'a', {
+    get: function () { return dP(this, 'a', { value: 7 }).a; }
+  })).a != 7;
+}) ? function (it, key, D) {
+  var protoDesc = gOPD(ObjectProto, key);
+  if (protoDesc) delete ObjectProto[key];
+  dP(it, key, D);
+  if (protoDesc && it !== ObjectProto) dP(ObjectProto, key, protoDesc);
+} : dP;
+
+var wrap = function (tag) {
+  var sym = AllSymbols[tag] = _create($Symbol[PROTOTYPE]);
+  sym._k = tag;
+  return sym;
+};
+
+var isSymbol = USE_NATIVE && typeof $Symbol.iterator == 'symbol' ? function (it) {
+  return typeof it == 'symbol';
+} : function (it) {
+  return it instanceof $Symbol;
+};
+
+var $defineProperty = function defineProperty(it, key, D) {
+  if (it === ObjectProto) $defineProperty(OPSymbols, key, D);
+  anObject(it);
+  key = toPrimitive(key, true);
+  anObject(D);
+  if (has(AllSymbols, key)) {
+    if (!D.enumerable) {
+      if (!has(it, HIDDEN)) dP(it, HIDDEN, createDesc(1, {}));
+      it[HIDDEN][key] = true;
+    } else {
+      if (has(it, HIDDEN) && it[HIDDEN][key]) it[HIDDEN][key] = false;
+      D = _create(D, { enumerable: createDesc(0, false) });
+    } return setSymbolDesc(it, key, D);
+  } return dP(it, key, D);
+};
+var $defineProperties = function defineProperties(it, P) {
+  anObject(it);
+  var keys = enumKeys(P = toIObject(P));
+  var i = 0;
+  var l = keys.length;
+  var key;
+  while (l > i) $defineProperty(it, key = keys[i++], P[key]);
+  return it;
+};
+var $create = function create(it, P) {
+  return P === undefined ? _create(it) : $defineProperties(_create(it), P);
+};
+var $propertyIsEnumerable = function propertyIsEnumerable(key) {
+  var E = isEnum.call(this, key = toPrimitive(key, true));
+  if (this === ObjectProto && has(AllSymbols, key) && !has(OPSymbols, key)) return false;
+  return E || !has(this, key) || !has(AllSymbols, key) || has(this, HIDDEN) && this[HIDDEN][key] ? E : true;
+};
+var $getOwnPropertyDescriptor = function getOwnPropertyDescriptor(it, key) {
+  it = toIObject(it);
+  key = toPrimitive(key, true);
+  if (it === ObjectProto && has(AllSymbols, key) && !has(OPSymbols, key)) return;
+  var D = gOPD(it, key);
+  if (D && has(AllSymbols, key) && !(has(it, HIDDEN) && it[HIDDEN][key])) D.enumerable = true;
+  return D;
+};
+var $getOwnPropertyNames = function getOwnPropertyNames(it) {
+  var names = gOPN(toIObject(it));
+  var result = [];
+  var i = 0;
+  var key;
+  while (names.length > i) {
+    if (!has(AllSymbols, key = names[i++]) && key != HIDDEN && key != META) result.push(key);
+  } return result;
+};
+var $getOwnPropertySymbols = function getOwnPropertySymbols(it) {
+  var IS_OP = it === ObjectProto;
+  var names = gOPN(IS_OP ? OPSymbols : toIObject(it));
+  var result = [];
+  var i = 0;
+  var key;
+  while (names.length > i) {
+    if (has(AllSymbols, key = names[i++]) && (IS_OP ? has(ObjectProto, key) : true)) result.push(AllSymbols[key]);
+  } return result;
+};
+
+// 19.4.1.1 Symbol([description])
+if (!USE_NATIVE) {
+  $Symbol = function Symbol() {
+    if (this instanceof $Symbol) throw TypeError('Symbol is not a constructor!');
+    var tag = uid(arguments.length > 0 ? arguments[0] : undefined);
+    var $set = function (value) {
+      if (this === ObjectProto) $set.call(OPSymbols, value);
+      if (has(this, HIDDEN) && has(this[HIDDEN], tag)) this[HIDDEN][tag] = false;
+      setSymbolDesc(this, tag, createDesc(1, value));
+    };
+    if (DESCRIPTORS && setter) setSymbolDesc(ObjectProto, tag, { configurable: true, set: $set });
+    return wrap(tag);
+  };
+  redefine($Symbol[PROTOTYPE], 'toString', function toString() {
+    return this._k;
+  });
+
+  $GOPD.f = $getOwnPropertyDescriptor;
+  $DP.f = $defineProperty;
+  __webpack_require__(937).f = gOPNExt.f = $getOwnPropertyNames;
+  __webpack_require__(793).f = $propertyIsEnumerable;
+  $GOPS.f = $getOwnPropertySymbols;
+
+  if (DESCRIPTORS && !__webpack_require__(106)) {
+    redefine(ObjectProto, 'propertyIsEnumerable', $propertyIsEnumerable, true);
+  }
+
+  wksExt.f = function (name) {
+    return wrap(wks(name));
+  };
+}
+
+$export($export.G + $export.W + $export.F * !USE_NATIVE, { Symbol: $Symbol });
+
+for (var es6Symbols = (
+  // 19.4.2.2, 19.4.2.3, 19.4.2.4, 19.4.2.6, 19.4.2.8, 19.4.2.9, 19.4.2.10, 19.4.2.11, 19.4.2.12, 19.4.2.13, 19.4.2.14
+  'hasInstance,isConcatSpreadable,iterator,match,replace,search,species,split,toPrimitive,toStringTag,unscopables'
+).split(','), j = 0; es6Symbols.length > j;)wks(es6Symbols[j++]);
+
+for (var wellKnownSymbols = $keys(wks.store), k = 0; wellKnownSymbols.length > k;) wksDefine(wellKnownSymbols[k++]);
+
+$export($export.S + $export.F * !USE_NATIVE, 'Symbol', {
+  // 19.4.2.1 Symbol.for(key)
+  'for': function (key) {
+    return has(SymbolRegistry, key += '')
+      ? SymbolRegistry[key]
+      : SymbolRegistry[key] = $Symbol(key);
+  },
+  // 19.4.2.5 Symbol.keyFor(sym)
+  keyFor: function keyFor(sym) {
+    if (!isSymbol(sym)) throw TypeError(sym + ' is not a symbol!');
+    for (var key in SymbolRegistry) if (SymbolRegistry[key] === sym) return key;
+  },
+  useSetter: function () { setter = true; },
+  useSimple: function () { setter = false; }
+});
+
+$export($export.S + $export.F * !USE_NATIVE, 'Object', {
+  // 19.1.2.2 Object.create(O [, Properties])
+  create: $create,
+  // 19.1.2.4 Object.defineProperty(O, P, Attributes)
+  defineProperty: $defineProperty,
+  // 19.1.2.3 Object.defineProperties(O, Properties)
+  defineProperties: $defineProperties,
+  // 19.1.2.6 Object.getOwnPropertyDescriptor(O, P)
+  getOwnPropertyDescriptor: $getOwnPropertyDescriptor,
+  // 19.1.2.7 Object.getOwnPropertyNames(O)
+  getOwnPropertyNames: $getOwnPropertyNames,
+  // 19.1.2.8 Object.getOwnPropertySymbols(O)
+  getOwnPropertySymbols: $getOwnPropertySymbols
+});
+
+// Chrome 38 and 39 `Object.getOwnPropertySymbols` fails on primitives
+// https://bugs.chromium.org/p/v8/issues/detail?id=3443
+var FAILS_ON_PRIMITIVES = $fails(function () { $GOPS.f(1); });
+
+$export($export.S + $export.F * FAILS_ON_PRIMITIVES, 'Object', {
+  getOwnPropertySymbols: function getOwnPropertySymbols(it) {
+    return $GOPS.f(toObject(it));
+  }
+});
+
+// 24.3.2 JSON.stringify(value [, replacer [, space]])
+$JSON && $export($export.S + $export.F * (!USE_NATIVE || $fails(function () {
+  var S = $Symbol();
+  // MS Edge converts symbol values to JSON as {}
+  // WebKit converts symbol values to JSON as null
+  // V8 throws on boxed symbols
+  return _stringify([S]) != '[null]' || _stringify({ a: S }) != '{}' || _stringify(Object(S)) != '{}';
+})), 'JSON', {
+  stringify: function stringify(it) {
+    var args = [it];
+    var i = 1;
+    var replacer, $replacer;
+    while (arguments.length > i) args.push(arguments[i++]);
+    $replacer = replacer = args[1];
+    if (!isObject(replacer) && it === undefined || isSymbol(it)) return; // IE8 returns string on undefined
+    if (!isArray(replacer)) replacer = function (key, value) {
+      if (typeof $replacer == 'function') value = $replacer.call(this, key, value);
+      if (!isSymbol(value)) return value;
+    };
+    args[1] = replacer;
+    return _stringify.apply($JSON, args);
+  }
+});
+
+// 19.4.3.4 Symbol.prototype[@@toPrimitive](hint)
+$Symbol[PROTOTYPE][TO_PRIMITIVE] || __webpack_require__(48)($Symbol[PROTOTYPE], TO_PRIMITIVE, $Symbol[PROTOTYPE].valueOf);
+// 19.4.3.5 Symbol.prototype[@@toStringTag]
+setToStringTag($Symbol, 'Symbol');
+// 20.2.1.9 Math[@@toStringTag]
+setToStringTag(Math, 'Math', true);
+// 24.3.3 JSON[@@toStringTag]
+setToStringTag(global.JSON, 'JSON', true);
+
+
+/***/ }),
+
+/***/ 995:
+/***/ (function(module, exports, __webpack_require__) {
+
+__webpack_require__(929)('asyncIterator');
+
+
+/***/ }),
+
+/***/ 996:
+/***/ (function(module, exports, __webpack_require__) {
+
+__webpack_require__(929)('observable');
+
+
+/***/ }),
+
+/***/ 997:
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _from = __webpack_require__(936);
+
+var _from2 = _interopRequireDefault(_from);
+
+var _extends2 = __webpack_require__(8);
+
+var _extends3 = _interopRequireDefault(_extends2);
+
+var _defineProperty2 = __webpack_require__(938);
+
+var _defineProperty3 = _interopRequireDefault(_defineProperty2);
+
+__webpack_require__(779);
+
+var _constant = __webpack_require__(781);
+
+var _constant2 = _interopRequireDefault(_constant);
+
+var _vuex = __webpack_require__(176);
+
+var _vueLoadingOverlay = __webpack_require__(373);
+
+var _vueLoadingOverlay2 = _interopRequireDefault(_vueLoadingOverlay);
+
+var _eventBus = __webpack_require__(939);
+
+var _eventBus2 = _interopRequireDefault(_eventBus);
+
+var _symbol = __webpack_require__(998);
+
+var _jquery = __webpack_require__(1000);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+exports.default = {
+    name: "FileManager",
+    props: {
+        miKey: {
+            type: String
+        }
+    },
+    components: {
+        Loading: _vueLoadingOverlay2.default
+    },
+    data: function data() {
+        var _ref;
+
+        return _ref = {
+            isLoading: false,
+            fullPage: false,
+            color: "#007bff",
+            isLoadLang: false,
+
+            currentPage: 1,
+            pageSize: 30
+        }, (0, _defineProperty3.default)(_ref, "isLoading", false), (0, _defineProperty3.default)(_ref, "MaxFileSize", 3000), (0, _defineProperty3.default)(_ref, "selectedFile", []), (0, _defineProperty3.default)(_ref, "extensions", []), (0, _defineProperty3.default)(_ref, "extImage", []), (0, _defineProperty3.default)(_ref, "isActive", false), (0, _defineProperty3.default)(_ref, "selectType", ''), (0, _defineProperty3.default)(_ref, "keyword", ''), _ref;
+    },
+    created: function created() {
+        var config = __webpack_require__(982);
+        this.extImage = config.AppSettings.ImageAllowUpload;
+        this.extensions = config.AppSettings.ImageAllowUpload.concat(config.AppSettings.DocumentAllowUpload);
+
+        _eventBus2.default.$on(this.miKey, this.FileManagerOpen);
+    },
+    destroyed: function destroyed() {},
+
+    computed: {
+        files: function files() {
+            return this.$store.getters.files;
+        }
+    },
+    methods: (0, _extends3.default)({}, (0, _vuex.mapActions)(["fmFileUpload", "fmFileGetAll", "fmRemove"]), {
+        mapImageUrl: function mapImageUrl(img, ext) {
+            if (this.extImage.indexOf(ext.toLowerCase()) !== -1) {
+                return '/uploads/thumb' + img;
+            }
+            return './../../ClientApp/assets/fileicons/' + ext.replace('.', '') + '.png';
+        },
+        checkImage: function checkImage(ext) {
+            if (this.extImage.indexOf(ext) == -1) {
+                return true;
+            }
+            return false;
+        },
+        DoUploadFile: function DoUploadFile(e) {
+            debugger;
+            var files = e.srcElement.files;
+
+            if (files) {
+                var filesTemp = (0, _from2.default)(files);
+
+                var msgFileAllow = '';
+                var msgLimitedSize = '';
+                for (var i = 0; i < filesTemp.length; i++) {
+
+                    var name = filesTemp[i].name;
+                    var type = name.split('.').pop().toLowerCase();
+
+                    if (this.extensions.indexOf(type) == -1) {
+                        filesTemp.splice(i, 1);
+                        if (msgFileAllow.length == 0) {
+                            msgFileAllow = name;
+                        } else {
+                            msgFileAllow += ', ' + name;
+                        }
+                    }
+                    if (msgFileAllow.length > 0) {
+                        this.$toast.error(msgFileAllow + ' không hợp lệ !', {});
+                    }
+                }
+                for (var i = 0; i < filesTemp.length; i++) {
+                    var size = filesTemp[i].size;
+                    var _name = filesTemp[i].name;
+
+                    if (this.MaxFileSize < size / 1024) {
+                        filesTemp.splice(i, 1);
+                        if (msgLimitedSize.length == 0) {
+                            msgLimitedSize = _name;
+                        } else {
+                            msgLimitedSize += ', ' + _name;
+                        }
+                    }
+                    if (msgLimitedSize.length > 0) {
+                        this.$toast.error(msgFileAllow + ' dung lượng quá lớn !', {});
+                    }
+                }
+                if (filesTemp.length) {
+                    var fd = new FormData();
+
+                    filesTemp.forEach(function (item) {
+                        fd.append('files', item);
+                    });
+                    this.UploadFileAction(fd);
+                }
+            }
+        },
+        UploadFileAction: function UploadFileAction(files) {
+            var _this = this;
+
+            this.fmFileUpload(files).then(function (response) {
+                if (response.success) {
+                    debugger;
+                    console.log(response.data);
+                    var objtoast = _this.$toast;
+                    response.data.forEach(function (item) {
+                        if (item.code == 200) {
+                            objtoast.success(item.messages, {});
+                        } else {
+                            objtoast.error(item.messages, {});
+                        }
+                    });
+
+                    _this.LoadFile();
+
+                    _this.isLoading = false;
+                } else {
+
+                    _this.$toast.error(response.message, {});
+                    _this.isLoading = false;
+                }
+            }).catch(function (e) {
+                debugger;
+                _this.$toast.error(_constant2.default.error + ". Error:" + e, {});
+                _this.isLoading = false;
+            });
+        },
+        SelectFile: function SelectFile(event, file) {
+            if (this.selectType == 'multi') {
+                if (event.currentTarget.classList.contains('_active')) {
+                    event.currentTarget.classList.remove('_active');
+
+                    this.selectedFile = this.selectedFile.filter(function (obj) {
+                        return obj.id != file.id;
+                    });
+                } else {
+                    event.currentTarget.classList.add("_active");
+                    this.selectedFile.push(file);
+                }
+            } else {
+
+                this.selectedFile = [];
+                if (event.currentTarget.classList.contains('_active')) {
+                    event.currentTarget.classList.remove('_active');
+                } else {
+                    var items = document.querySelectorAll('.item');
+                    items.forEach(function (item) {
+                        item.classList.remove('_active');
+                    });
+                    event.currentTarget.classList.add("_active");
+                    this.selectedFile.push(file);
+                }
+            }
+        },
+        LoadFile: function LoadFile() {
+            this.fmFileGetAll({
+                keyword: this.keyword,
+                pageIndex: this.currentPage,
+                pageSize: this.pageSize
+            });
+        },
+        FileManagerOpen: function FileManagerOpen(param) {
+            this.selectType = param;
+            this.$refs["file-manager-modal"].show();
+            this.LoadFile();
+        },
+        hideFileManagerModal: function hideFileManagerModal() {
+            this.$refs["file-manager-modal"].hide();
+        },
+        attackFile: function attackFile() {
+            this.$emit("handleAttackFile", this.selectedFile);
+            this.$refs["file-manager-modal"].hide();
+            this.selectedFile = [];
+        },
+        toggleFileModal: function toggleFileModal() {
+            this.$refs["file-manager-modal"].toggle("#toggle-btn");
+        },
+        removeFile: function removeFile() {
+            var result = confirm("Xác nhận?");
+            if (!result) {
+                return false;
+            }
+
+            var $this = this;
+            this.selectedFile.forEach(function (item) {
+                $this.fmRemove(item.id).then(function (response) {
+                    if (response.success) {
+
+                        $this.LoadFile();
+                        $this.$toast.success(response.message, {});
+                        $this.isLoading = false;
+                    } else {
+
+                        $this.$toast.error(response.message, {});
+                        $this.isLoading = false;
+                    }
+                }).catch(function (e) {
+
+                    $this.$toast.error(_constant2.default.error + ". Error:" + e, {});
+                    $this.isLoading = false;
+                });
+            });
+        }
+    }),
+    mounted: function mounted() {},
+
+    watch: {
+        currentPage: function currentPage() {
+            this.LoadFile();
+        }
+    }
+};
+
+/***/ }),
+
+/***/ 998:
+/***/ (function(module, exports, __webpack_require__) {
+
+__webpack_require__(994);
+__webpack_require__(389);
+__webpack_require__(995);
+__webpack_require__(996);
+module.exports = __webpack_require__(37).Symbol;
+
 
 /***/ }),
 
 /***/ 999:
-/***/ (function(module, exports) {
+/***/ (function(module, exports, __webpack_require__) {
 
-module.exports = {"AppSettings":{"Debug":true,"Version":"1.0.0.0","Domain":"http://demo.way2go.vn","UploadFolder":"uploads","FileUploadMaxSize":5000,"FileUploadSubFix":false,"ImageScaleWidth":300,"ImageScaleHeight":0,"ImageAllowUpload":".jpg,.jpeg,.png,.gif,.bit,.webp,.svg","DocumentAllowUpload":".doc,.docx,.pdf,.xls,.xlsx,.zip,.rar","FoderImg":"https://platformcms.hndedu.com","BaseDomain":"https://demo.way2go.vn","CacheEnable":"0","ESEnable":true,"NodeES":"http://127.0.0.1:9200","IndexES":"product_suggest"},"Redis":{"ConnectionString":"127.0.0.1:6379","DefaultDatabase":1,"InstanceName":"PLM_","CachingExpireMinute":3},"ConnectionStrings":{"DefaultConnection":"Server=103.184.112.82;Database=JT_DEV_2;Trusted_Connection=False;User Id=sa;password=EcaOicT35K%EC1"},"Cors":{"WithOrigin":"http://localhost:60099/"},"Logging":{"IncludeScopes":false,"LogLevel":{"Default":"Debug","System":"Information","Microsoft":"Information"}},"Tokens":{"Key":"0123456789ABCDEF","Issuer":"https://janhome.vn/"},"EmailSender":{"Host":"mail247.vn","Port":465,"CustomerService":{"Email":"cs@joytime.vn","Password":"D2A9HnvGMJYW3BeKQw5f4F"},"SupplierService":{"Email":"partner@joytime.vn","Password":"SL9QgKGtjCNUcbr7uXdWPY"},"HelpDesk":{"Email":"helpdesk@joytime.vn","Password":"jaR548durV2tpFCkX6qENx"},"BookingService":{"Email":"booking@joytime.vn","Password":"zydcpPBfEHeM7u9DU6XLVT"}}}
+exports = module.exports = __webpack_require__(53)();
+// imports
+
+
+// module
+exports.push([module.i, "#file-manager[data-v-497df3b6],#file-manager___BV_modal_body_[data-v-497df3b6]{padding:0}#fm-container-dialog[data-v-497df3b6]{padding:0;overflow:hidden!important}#fm-container[data-v-497df3b6]{font-size:12px;font-family:sans-serif;padding:0}#fm-toolbar ul[data-v-497df3b6]{float:left;margin:3.5px 0 3px 10px;padding:1px 2px;border-radius:0}#fm-toolbar ul li[data-v-497df3b6]{border:1px solid #fff;cursor:pointer;float:left;line-height:26px;list-style-type:none;padding:0 8px;text-align:center}#fm-toolbar ul li.active[data-v-497df3b6],#fm-toolbar ul li[data-v-497df3b6]:hover{background:#eaeaea}#fm-footer[data-v-497df3b6]{border-top:1px solid #eaeaea;padding-top:10px}#fm-toolbar .tool-items[data-v-497df3b6]{clear:both;padding-right:6px}#fm-toolbar .tools[data-v-497df3b6]{float:left}#fm-main[data-v-497df3b6]{margin-top:8px;border-top:1px solid #eaeaea}#fm-sidebar .fm-header[data-v-497df3b6]{height:35px;line-height:35px;background-color:#39c;overflow:hidden;font-size:17px;color:#ecf3f9;text-align:center}#fm-sidebar[data-v-497df3b6]{border-right:1px solid #eaeaea}#fm-content[data-v-497df3b6]{background-color:#fff;cursor:default;height:100%}#fm-data-wrapper[data-v-497df3b6]{overflow:hidden}#fm-file-view[data-v-497df3b6]{border-left:1px solid #eaeaea;float:right;height:100%;width:250px;padding:9px;background:#fff}#fm-file-view .file-thumb[data-v-497df3b6]{text-align:center;max-height:250px;max-width:230px;overflow:hidden}#fm-file-view .header[data-v-497df3b6]{font-weight:700;margin-bottom:12px;padding:2px 0;text-align:center;text-transform:uppercase}#fm-file-view .details[data-v-497df3b6]{padding-top:16px}#fm-file-view .details .dimensions[data-v-497df3b6],#fm-file-view .details .file-size[data-v-497df3b6],#fm-file-view .details .uploaded[data-v-497df3b6],#fm-file-view .details div[data-v-497df3b6]{line-height:21px}#fm-file-view .file-thumb img[data-v-497df3b6]{border:1px solid #eaeaea;padding:4px}.attachment-info .filename[data-v-497df3b6]{font-weight:600;color:#444;word-wrap:break-word}.btn-attack[data-v-497df3b6]{background:#fff none repeat scroll 0 0;padding:3px 3px 3px 0;width:230px;float:right;clear:both}.btn-attack button#btn-attack[data-v-497df3b6]{color:#fff;background:#0085ba;border:0;padding:4px 6px}.btn-attack button#dl-close[data-v-497df3b6]{background:#eaeaea;border:0;padding:4px 6px;float:right;clear:both}#fm-content table._list[data-v-497df3b6]{width:100%}#fm-content table._list tr th[data-v-497df3b6]{text-align:center;font-weight:700}#fm-content table._list tr td[data-v-497df3b6]{padding:5px 4px}#fm-content table._list tr._active[data-v-497df3b6]{background:#48adff}#fm-toolbar ul li i[data-v-497df3b6]{background-repeat:no-repeat;display:inline-block;height:16px;vertical-align:middle;width:16px}li i.create-folder[data-v-497df3b6]{background-image:url(" + __webpack_require__(988) + ")}li i.upload[data-v-497df3b6]{background-image:url(" + __webpack_require__(990) + ")}li i.list[data-v-497df3b6]{background-image:url(" + __webpack_require__(985) + ")}li i.grid[data-v-497df3b6]{background-image:url(" + __webpack_require__(984) + ")}li i.iclose[data-v-497df3b6]{background-image:url(" + __webpack_require__(989) + ")}li i.crop[data-v-497df3b6]{background-image:url(" + __webpack_require__(987) + ")}li i.remove[data-v-497df3b6]{background-image:url(" + __webpack_require__(986) + ")}#fm-footer[data-v-497df3b6]{min-height:32px}#fm-data-wrapper[data-v-497df3b6]{height:100%}.clear[data-v-497df3b6]{clear:both}#_list ._active[data-v-497df3b6]{background:#48adff}#fm-content table._list table thead tr th[data-v-497df3b6]{text-align:center}#fm-content table._list tr[data-v-497df3b6]{font-size:11px}#fm-content table._list tr[data-v-497df3b6]:hover{background:#c1edff;cursor:pointer}#fm-content table._list tbody tr td.name[data-v-497df3b6]{display:inline-flex}#fm-content table._list tbody tr td.name .list-icon[data-v-497df3b6]{display:inline-block;float:left;padding-right:20px}#fm-folder ul[data-v-497df3b6],#fm-grid[data-v-497df3b6],#fm-grid li .info p[data-v-497df3b6]{padding:0;margin:0}#fm-grid li[data-v-497df3b6]{vertical-align:middle;display:table-cell;border:1px solid #eaeaea;cursor:pointer;float:left;height:100px;min-width:114px;list-style-type:none;margin:4px;padding:2px;width:15.78%;position:relative;overflow:hidden;text-align:center}#fm-grid li .info[data-v-497df3b6]{font-size:10px;background:hsla(0,2%,42%,.45882);position:absolute;bottom:0;width:100%;height:0}#fm-grid li:hover .info[data-v-497df3b6]{height:auto}.fm-list li img[data-v-497df3b6]{width:100%}.fm-list li.not_img img[data-v-497df3b6]{width:50%;padding-top:10px}#fm-grid li img.thumb[data-v-497df3b6]{width:60%;margin:0 auto}#fm-grid li i[data-v-497df3b6]{position:absolute;z-index:999;right:4px;background:#fff;border-radius:11px;color:#0085ba;padding:1px;top:3px;display:none}#fm-grid li._active i[data-v-497df3b6]{display:block}#fm-grid li._active[data-v-497df3b6]{border:1px solid #0085ba}#fm-folder ul li[data-v-497df3b6]{list-style-type:none;padding:8px 0;cursor:pointer}#fm-folder ul li i[data-v-497df3b6]{background-repeat:no-repeat;display:inline-block;height:16px;vertical-align:middle;width:16px}.plupload_filelist_header[data-v-497df3b6]{height:20px}.plupload_filelist_footer[data-v-497df3b6]{height:33px}.plupload_scroll .plupload_filelist[data-v-497df3b6]{height:172px!important}.plupload_filelist_footer[data-v-497df3b6]{padding:6px 20px}.plupload_filelist[data-v-497df3b6]:empty,.plupload_filelist li.plupload_droptext[data-v-497df3b6]{height:140px}.plupload_filelist[data-v-497df3b6]:empty:before,.plupload_filelist li.plupload_droptext[data-v-497df3b6]:before{font-size:52px;height:75px;left:49%;margin-left:-40px;padding-top:43px}.items-action[data-v-497df3b6]{padding-top:20px;display:inline-block;width:100%}.items-action .file-action[data-v-497df3b6]{border:0 none;color:#fff;padding:4px 10px;background:#bc8f8f;float:left;clear:both}#fm-toolbar .Mi.ipagination a[data-v-497df3b6]:first-child{border:0;border-radius:0}#fm-toolbar .Mi.ipagination input[data-v-497df3b6]{border:medium none;float:left;font-family:arial;font-size:11px;height:30px;margin:0;outline:medium none;padding:0;text-align:center;vertical-align:middle;width:84px}#fm-toolbar .Mi.ipagination a[data-v-497df3b6]{border:0;border-radius:0;background:#fff}#fm-toolbar .ipagination.iweb[data-v-497df3b6]{margin-top:3.45px}#frowInTotals[data-v-497df3b6]{display:inline-block;float:left;line-height:39px;padding-right:3px;vertical-align:baseline}label#progressall[data-v-497df3b6]{display:none;padding:7px}.Cdiv[data-v-497df3b6]{padding-left:12px;height:17px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;width:100%;display:inline-block;font-weight:400}#btn-fm-upload label[data-v-497df3b6]{margin-bottom:0!important}@media only screen and (max-width:600px){#fm-grid li[data-v-497df3b6]{width:47.65%}}", ""]);
+
+// exports
+
 
 /***/ })
 
