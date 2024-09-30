@@ -70,7 +70,7 @@ namespace PlatformWEBAPI.Controllers
                 response.username = request.email; 
                 response.password = request.password;
                 var sendMailStatus = _orderRepository.SendNewUserEmail(response);
-                //_extraRepository.SendEmailRegister(request);
+                _extraRepository.SendEmailRegister(request);
                 return Ok(result);
             }
             else
