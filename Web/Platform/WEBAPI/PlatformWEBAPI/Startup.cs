@@ -28,6 +28,7 @@ using PlatformWEBAPI.Services.Extra.Repository;
 using PlatformWEBAPI.Services.FlashSale.Repository;
 using PlatformWEBAPI.Services.Locations.Repository;
 using PlatformWEBAPI.Services.LuckySpin.Repository;
+using PlatformWEBAPI.Services.OpenAPI;
 using PlatformWEBAPI.Services.Order.Repository;
 using PlatformWEBAPI.Services.Product.Repository;
 using PlatformWEBAPI.Services.Promotion.Repository;
@@ -111,6 +112,7 @@ namespace PlatformWEBAPI
             services.AddTransient<ISiteMapUtility, SiteMapUtility>();
             services.AddTransient<IApiJoyTelRepository, ApiJoyTelRepository>();
             services.AddSingleton<IActionContextAccessor, ActionContextAccessor>();
+            services.AddSingleton<IOpenAPIRepository, OpenAPIRepository>();
 
             #endregion
 

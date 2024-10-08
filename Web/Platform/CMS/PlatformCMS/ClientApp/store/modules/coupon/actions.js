@@ -71,6 +71,40 @@ const addProductInCoupon = ({ commit }, data) => {
             alert('ex found:' + e)
         })
 }
+
+const getCouponInProducts = ({commit}, id) => {
+    return HttpService.get(`/api/Coupon/GetCouponInProducts/${id}`)
+    .then(response => {
+        return response.data
+    })
+    .catch(e => {
+        alert('ex found: ' + e)
+    })
+}
+const exportCouponInProducts = ({commit}, id) => {
+    return HttpService.get(`/api/Coupon/ExportCouponInProducts/${id}`)
+    .then(response => {
+        return response.data
+    })
+    .catch(e => {
+        alert('ex found: ' + e)
+    })
+}
+const importCouponInProducts = ({commit}, data) => {
+    return HttpService.post(`/api/Coupon/ImportCouponInProducts`, data, {
+        headers: {
+            'Content-Type': 'multipart/form-data'
+        }
+    })
+    .then(response => {
+        return response.data
+    })
+    .catch(e => {
+        alert('ex found: ' + e)
+    })
+}
+//ImportCouponInProducts
+//exportCouponInProducts
 export default {
     getCoupons,
     getCouponById,
@@ -79,5 +113,8 @@ export default {
     unPublishCoupon,
     getAllCoupon,
     getProductInCoupon,
-    addProductInCoupon
+    addProductInCoupon,
+    getCouponInProducts,
+    exportCouponInProducts,
+    importCouponInProducts
 }

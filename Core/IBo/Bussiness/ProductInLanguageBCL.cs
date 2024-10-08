@@ -46,12 +46,14 @@ namespace MI.Bo.Bussiness
                     IQueryable<Product> items = _context.Product.AsQueryable();
                     //items = items.Where(r => r.ParentId == 0);
                     items = items.Include(x => x.ProductInLanguage);
-
+                    var childs = new List<Product>();
                     //items = items.Where(x => x.LanguageCode.Trim().Equals(filter.languageCode.Trim()));
                     if (!String.IsNullOrEmpty(filter.keyword))
                     {
                         filter.keyword = filter.keyword.ToLower();
                         items = items.Where(x => x.Name.ToLower().Contains(filter.keyword) || x.ProductInLanguage.Any(d => d.Title.Contains(filter.keyword)) || x.Id.ToString() == filter.keyword || x.Code.ToLower() == filter.keyword.ToLower());
+                        
+                        
                     }
                     if (!String.IsNullOrEmpty(filter.voucher))
                         items = items.Where(x => x.Voucher == filter.voucher || x.Voucher.StartsWith(filter.voucher + ",") || x.Voucher.EndsWith("," + filter.voucher) || x.Voucher.Contains("," + filter.voucher + ","));
@@ -105,6 +107,8 @@ namespace MI.Bo.Bussiness
 
                     total = items.Count();
                     filter.pageIndex = filter.pageIndex < 1 ? 1 : filter.pageIndex;
+
+                    
 
                     return items.Skip((filter.pageIndex - 1) * filter.pageSize).Take(filter.pageSize).Select(x => new
                     {

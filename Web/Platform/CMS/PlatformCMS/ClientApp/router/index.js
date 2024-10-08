@@ -110,7 +110,10 @@ const ProductRenewal = () => import('./../pages/productrenewal/list');
 const ProductComponent = () => import('./../pages/productComponent/list');
 const ProductComponentEdit = () => import('./../pages/productComponent/edit');
 
+
+
 const SupOrders = () => import('./../pages/supplier/list')
+const AgencyCouponOrder = () => import('./../pages/agency_coupon/orderList')
 
 Vue.use(Router);
 
@@ -293,6 +296,13 @@ export let router = new Router({
                     path: '/admin/color/list',
                     name: 'Danh sách màu sắc',
                     component: Color,
+                    meta: { authorize: [] }
+                },
+                ///agency/coupon/order/list
+                {
+                    path: '/agency/coupon/order/list',
+                    name: 'Danh sách đơn hàng / Orders',
+                    component: AgencyCouponOrder,
                     meta: { authorize: [] }
                 },
                 {
@@ -776,3 +786,8 @@ router.beforeEach((to, from, next) => {
 });
 
 
+
+
+
+// WEBPACK FOOTER //
+// ./ClientApp/router/index.js

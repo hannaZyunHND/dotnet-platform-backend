@@ -162,6 +162,28 @@
                         </b-card>
                     </div>
                 </div>
+                <div class="row productedit">
+                    <div class="col-md-12">
+                        <b-card class="mt-3" header="Danh sách sản phẩm">
+                            <div class="button-control">
+                                <b-button variant="success" @click="onClickExport()">Xuất file cấu hình</b-button>
+                                <b-button variant="info" @click="onClickImport()">Nhập file cấu hình</b-button>
+                                <input type="file" ref="fileInput" @change="onFileChange" accept=".xlsx, .xls" style="display: none" />
+
+                            </div>
+                            <hr />
+                            <div class="data-table" v-if="cipItems.length > 0">
+                                <b-table striped hover :items="cipItems" :per-page="20" :current-page="currentPage"></b-table>
+                                <b-pagination v-model="currentPage"
+                                              :total-rows="cipItems.length"
+                                              :per-page="5"
+                                              aria-controls="my-table"></b-pagination>
+                            </div>
+                        </b-card>
+                        
+                    </div>
+                    
+                </div>
             </b-tab>
         </b-tabs>
     </div>
@@ -189,7 +211,7 @@
         name: "counpon",
         data() {
             return {
-
+                selectedFile:null,
                 editorData: "<p>Content of the editor.</p>",
                 editorConfig: {
                     allowedContent: true,
@@ -250,7 +272,8 @@
                 ListProductInCoupon: [],
                 ListDiscountZones: [],
                 ZoneValues: [],
-
+                cipItems : [],
+                currentPage: 1
             };
         },
         async created() {
@@ -263,6 +286,7 @@
 
             })
             this.GetById();
+            await this.getCouponInProductData();
         },
         destroyed() {
             EventBus.$off("FileSelected");
@@ -293,7 +317,10 @@
                 "uploadFile",
                 "getProductInCoupon",
                 "addProductInCoupon",
-                "getZones"
+                "getZones",
+                "exportCouponInProducts",
+                "importCouponInProducts",
+                "getCouponInProducts"
             ]),
             removeProduct(index) {
                 this.ListProductInCoupon.splice(index, 1);
@@ -344,8 +371,41 @@
                     this.ListProduct = response.ListProduct;
                 });
             },
+            async onClickExport() {
+                if (this.$route.params.id > 0) {
+                    let _id = this.$route.params.id;
+                    let response = await this.exportCouponInProducts(_id);
+                    if (response) {
+                        console.log(response);
+                        // Chuỗi Base64 trả về từ API
+                        const base64String = response;
 
+                        // Chuyển đổi chuỗi Base64 thành Blob
+                        const byteCharacters = atob(base64String);
+                        const byteNumbers = new Array(byteCharacters.length);
+                        for (let i = 0; i < byteCharacters.length; i++) {
+                            byteNumbers[i] = byteCharacters.charCodeAt(i);
+                        }
+                        const byteArray = new Uint8Array(byteNumbers);
+                        const blob = new Blob([byteArray], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' });
 
+                        // Tạo link tải về từ Blob
+                        const link = document.createElement('a');
+                        const url = window.URL.createObjectURL(blob);
+                        link.href = url;
+                        link.setAttribute('download', 'products.xlsx'); // Tên file tải về
+                        document.body.appendChild(link);
+                        link.click();
+                        document.body.removeChild(link);
+                        window.URL.revokeObjectURL(url); // Hủy bỏ URL khi không còn sử dụng
+                    }
+                    
+                }
+            },
+            onClickImport() {
+                this.$refs.fileInput.click(); // Kích hoạt click vào input file ẩn
+
+            },
             async GetById() {
                 if (this.$route.params.id > 0) {
                     var id = this.$route.params.id;
@@ -418,6 +478,47 @@
             onChangeList: function ({ source, destination }) {
                 this.ProductOptionsSource = source;
                 this.ProductOptionsDestination = destination;
+            },
+            // Hàm này sẽ gọi khi người dùng chọn file
+            async onFileChange(event) {
+                this.selectedFile = event.target.files[0]; // Lưu file được chọn vào `selectedFile`
+                if (this.selectedFile) {
+                    console.log(this.selectedFile)
+                    await this.uploadFile();
+                }
+            },
+            // Hàm này sẽ gọi API sau khi người dùng nhấn nút
+            async uploadFile() {
+                if (!this.selectedFile) {
+                    alert('Vui lòng chọn một file Excel!');
+                    return;
+                }
+                if (this.$route.params.id > 0) {
+                    const formData = new FormData();
+                    formData.append('couponId', this.$route.params.id); 
+                    formData.append('excelFile', this.selectedFile); // Gắn file Excel đã chọn
+
+                    try {
+                        const response = await this.importCouponInProducts(formData);
+                        alert('File đã được tải lên thành công!');
+                        //console.log(response.data); // Xử lý kết quả trả về từ API
+                        await this.getCouponInProductData();
+                    } catch (error) {
+                        //console.error('Lỗi khi tải lên file:', error);
+                        alert('Có lỗi xảy ra khi tải lên file.');
+                    }
+                }
+
+                
+            },
+            async getCouponInProductData() {
+                if (this.$route.params.id > 0) {
+                    const response = await this.getCouponInProducts(this.$route.params.id);
+                    if (response) {
+                        console.log(response);
+                        this.cipItems = response;
+                    }
+                }
             }
         }
     };
@@ -491,3 +592,4 @@
         margin-top: 10px
     }
 </style>
+

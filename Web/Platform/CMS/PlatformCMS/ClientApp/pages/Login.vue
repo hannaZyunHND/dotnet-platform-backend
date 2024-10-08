@@ -7,8 +7,24 @@
                         <b-card no-body class="p-4">
                             <b-card-body>
                                 <b-form @submit.prevent="DoLogin">
-                                    <h1>Đăng nhập</h1>
-                                    <p class="text-muted">Đăng nhập vào tài khoản của bạn</p>
+                                    <div class="language-select d-flex">
+                                        <div>
+                                            <img src="https://cdn.save.moe/b/6QziFKt7.png" alt="vietnam" border="0"
+                                                style="width: 30px;" @click="onChangeLanguage('vi')">
+
+                                        </div>
+                                        <div>
+                                            <img src="https://cdn.save.moe/b/3abfy0.png" alt="china" border="0"
+                                                style="width: 30px;margin-left:10px;" @click="onChangeLanguage('zh')">
+                                        </div>
+                                        <div>
+                                            <img src="https://cdn.save.moe/b/JAc5Rez.png" alt="united kingdom"
+                                                border="0" style="width: 30px;margin-left:10px"
+                                                @click="onChangeLanguage('en')">
+                                        </div>
+                                    </div>
+                                    <h1>{{$t('loginTitle')}}</h1>
+                                    <p class="text-muted">{{$t('loginSubtitle')}}</p>
                                     <b-input-group class="mb-3">
 
 
@@ -16,11 +32,11 @@
                                             <b-input-group-text><i class="icon-user"></i></b-input-group-text>
                                         </b-input-group-prepend>
                                         <b-form-input type="text" v-model.trim="$v.username.$model" name="username"
-                                            placeholder="Email đăng nhập" class="form-control"
+                                            :placeholder="$t('emailPlaceholder')" class="form-control"
                                             :class="{ 'is-invalid': submitted && $v.username.$error }"
                                             autocomplete="username email" />
-                                        <div v-if="submitted && !$v.username.required" class="invalid-feedback">Bắt buộc
-                                            phải nhập Email
+                                        <div v-if="submitted && !$v.username.required" class="invalid-feedback">
+                                            {{$t('emailRequired')}}
                                         </div>
                                     </b-input-group>
                                     <b-input-group class="mb-4">
@@ -30,9 +46,9 @@
                                         <b-form-input type="password" v-model.trim="$v.password.$model" name="password"
                                             class="form-control"
                                             :class="{ 'is-invalid': submitted && $v.password.$error }"
-                                            placeholder="Mật khẩu" autocomplete="current-password" />
-                                        <div v-if="submitted && !$v.password.required" class="invalid-feedback">Bắt buộc
-                                            phải nhập mật khẩu
+                                            :placeholder="$t('passwordPlaceholder')" autocomplete="current-password" />
+                                        <div v-if="submitted && !$v.password.required" class="invalid-feedback">
+                                            {{$t('passwordRequired')}}
                                         </div>
                                     </b-input-group>
                                     <b-row>
@@ -40,7 +56,7 @@
                                             <b-button :disabled="loading" variant="primary" class="px-4"
                                                 v-on:click="DoLogin">
                                                 <span class="spinner-border spinner-border-sm" v-show="loading"></span>
-                                                <span>Đăng nhập</span>
+                                                <span>{{$t('loginButton')}}</span>
                                             </b-button>
                                         </b-col>
                                     </b-row>
@@ -97,6 +113,10 @@ export default {
         this.returnUrl = this.$route.query.returnUrl || '/';
     },
     methods: {
+        onChangeLanguage(lang) {
+            this.$i18n.locale = lang; // Thay đổi ngôn ngữ trong i18n
+            localStorage.setItem('language', lang); // Lưu ngôn ngữ vào localStorage
+        },
         DoLogin() {
             this.submitted = true;
             // stop here if form is invalid
@@ -115,11 +135,14 @@ export default {
                             let roles = tokenObj.Roles;
                             console.log(roles);
                             if (roles) {
-                                
+
                                 if (roles.includes('Supplier')) {
                                     this.setDefaultUrl = '/supplier/orders'
                                 }
-                                else{
+                                else if (roles.includes('Coupon')) {
+                                    this.setDefaultUrl = '/agency/coupon/order/list'
+                                }
+                                else {
                                     this.setDefaultUrl = '/admin/dashboard'
                                 }
                             }
@@ -144,3 +167,4 @@ export default {
     }
 }
 </script>
+

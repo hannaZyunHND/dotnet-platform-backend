@@ -31,6 +31,7 @@ namespace MI.Entity.Models
         public string Address { get; set; }
         public string Avatar { get; set; }
         public bool? InActive { get; set; }
+        public string RefCouponCode { get; set; }
 
         public ICollection<AspNetUserClaims> AspNetUserClaims { get; set; }
         public ICollection<AspNetUserLogins> AspNetUserLogins { get; set; }

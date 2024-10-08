@@ -290,6 +290,26 @@ const getCancelPolicies = ({commit}, id) => {
         alert('ex found:' + e)
     })
 }
+const exportAnalyzeProductWithDestinationAndService = ({commit}) => {
+    return HttpService.post(`/api/Analyzes/AnalyzeProductByServiceAndDestination`, {
+        responseType: 'blob' // Expect the response as a blob (binary data)
+    }).then(response => {
+        return response;
+        //commit("GET_ADS", { ...response.data })
+    }).catch(e => {
+        alert('ex found:' + e)
+    })
+}
+const exportAnalyzeFullProductDetail = ({ commit }) => {
+    return HttpService.post(`/api/Analyzes/AnalyzeFullProductDetail`, {
+        responseType: 'blob' // Expect the response as a blob (binary data)
+    }).then(response => {
+        return response;
+        //commit("GET_ADS", { ...response.data })
+    }).catch(e => {
+        alert('ex found:' + e)
+    })
+}
 export default {
     getProducts,
     getProduct,
@@ -323,5 +343,7 @@ export default {
     getSerialNumbersByProductId,
     getGiaPhienBanTheoNgay,
     updateGiaPhienBanTheoNgay,
-    getCancelPolicies
+    getCancelPolicies,
+    exportAnalyzeProductWithDestinationAndService,
+    exportAnalyzeFullProductDetail
 }

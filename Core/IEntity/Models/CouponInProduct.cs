@@ -1,14 +1,17 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace MI.Entity.Models
 {
     public partial class CouponInProduct
     {
+        [Key]
+        public int Id { get; set; }
         public int ProductId { get; set; }
-        public string CouponChildMa { get; set; }
-        public double? Value { get; set; }
-        public byte? Type { get; set; }
         public int CouponId { get; set; }
+        public int DiscountOption { get; set; }
+        public decimal DiscountValue { get; set; }
+
     }
 }

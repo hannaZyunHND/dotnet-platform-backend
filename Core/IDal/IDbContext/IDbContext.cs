@@ -107,6 +107,7 @@ namespace MI.Dal.IDbContext
 
         public virtual DbSet<OrderChatSession> OrderChatSession { get; set; }
         public virtual DbSet<OrderChatSessionDetail> OrderChatSessionDetail { get; set; }
+        //public virtual DbSet<CouponInProduct> CouponInProducts { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -588,14 +589,7 @@ namespace MI.Dal.IDbContext
                 entity.Property(e => e.NumberUseCode).HasDefaultValueSql("((0))");
             });
 
-            modelBuilder.Entity<CouponInProduct>(entity =>
-            {
-                entity.HasKey(e => new { e.ProductId, e.CouponId });
-
-                entity.Property(e => e.Type).HasDefaultValueSql("((1))");
-
-                entity.Property(e => e.Value).HasDefaultValueSql("((0))");
-            });
+            
 
             modelBuilder.Entity<Customer>(entity =>
             {

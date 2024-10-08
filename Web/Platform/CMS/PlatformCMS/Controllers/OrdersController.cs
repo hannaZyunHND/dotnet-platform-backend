@@ -762,6 +762,116 @@ namespace PlatformCMS.Controllers
             }
         }
 
+
+        public async Task<IActionResult> GetCouponInProducts(int couponId)
+        {
+            try
+            {
+                // Khởi tạo context và biến tạm cho việc xử lý
+                using (var context = new IDbContext())
+                {
+                    // Truy vấn các sản phẩm có liên quan tới mã giảm giá (Coupon)
+                    var query = context.Product
+                        .Where(p => p.ParentId == 0 && p.Status == 1) // Lọc những sản phẩm có ParentId bằng 0 và trạng thái active
+                        .GroupJoin(context.CouponInProduct,
+                            p => new { ProductId = p.Id, CouponId = couponId },
+                            cip => new { ProductId = cip.ProductId, CouponId = cip.CouponId },
+                            (p, cipGroup) => new { p, cipGroup }) // Kết hợp bảng Product với bảng CouponInProduct
+                        .SelectMany(
+                            p_cip => p_cip.cipGroup.DefaultIfEmpty(), // Nếu không có mã giảm giá cho sản phẩm thì lấy giá trị mặc định
+                            (p_cip, cip) => new
+                            {
+                                p_cip.p.Id, // Lấy Id của sản phẩm
+                                p_cip.p.Code, // Lấy Code của sản phẩm
+                                p_cip.p.Name, // Lấy Name của sản phẩm
+                                DiscountValue = cip != null ? cip.DiscountValue : 0 // Lấy giá trị giảm giá nếu có, nếu không thì giá trị mặc định là 0
+                            })
+                        .ToList(); // Chuyển kết quả truy vấn sang dạng List
+
+                    // Trả kết quả dưới dạng HTTP 200 OK với danh sách sản phẩm và giảm giá
+                    return Ok(query);
+                }
+            }
+            catch (Exception ex)
+            {
+                // Xử lý ngoại lệ
+                return StatusCode(500, $"Internal server error: {ex.Message}");
+            }
+        }
+
+        [HttpPost("GetListOrder_WithCouponCode")]
+        public async Task<IActionResult> GetListOrder_WithCouponCode(RequesetGetListOrderWithCoupon request)
+        {
+            try
+            {
+                // Lấy thông tin người dùng hiện tại
+                var currentUserId = User.GetUserId();
+                var roles = User.GetRoleName();
+                var userEmail = request.emailSupplier;
+
+                // Lấy thông tin người dùng từ database
+                using (var context = new IDbContext())
+                {
+                    var user = await context.AspNetUsers.FindAsync(currentUserId);
+
+                    if (user != null && !string.IsNullOrEmpty(user.RefCouponCode))
+                    {
+                        request.refCouponCode = user.RefCouponCode;
+                    }
+                }
+
+                // Chuẩn bị phản hồi
+                dynamic response = new ExpandoObject();
+                List<ResponseGetListOrderV2> orders = new List<ResponseGetListOrderV2>();
+                int total = 0;
+                var statistics = new ResponseGetOrderDetailStatic();
+
+                // Kết nối với cơ sở dữ liệu và thực thi các stored procedures
+                using (var connection = new SqlConnection(_connectionString))
+                {
+                    if (connection.State == ConnectionState.Closed)
+                    {
+                        connection.Open();
+                    }
+
+                    var parameters = new DynamicParameters();
+                    parameters.Add("@keyword", request.keyword);
+                    parameters.Add("@startDate", request.startDate);
+                    parameters.Add("@endDate", request.endDate);
+                    parameters.Add("@activeStatus", request.activeStatus);
+                    parameters.Add("@supplierStatus", request.supplierStatus);
+                    parameters.Add("@lang_code", request.cultureCode ?? "vi-VN");
+                    parameters.Add("@emailSupplier", userEmail);
+                    parameters.Add("@refCouponCode", request.refCouponCode);
+                    parameters.Add("@index", request.index);
+                    parameters.Add("@size", request.size);
+                    parameters.Add("@total", dbType: DbType.Int32, direction: ParameterDirection.Output);
+
+                    // Thực thi stored procedure để lấy danh sách đơn hàng
+                    orders = connection.Query<ResponseGetListOrderV2>("usp_CMS_GetOrderDetailFullInfomations_vs_coupon", parameters, commandType: CommandType.StoredProcedure).ToList();
+
+                    // Lấy tổng số lượng đơn hàng
+                    total = parameters.Get<int>("@total");
+
+                    // Thực thi stored procedure để lấy thống kê
+                    statistics = connection.QueryFirstOrDefault<ResponseGetOrderDetailStatic>("usp_CMS_GetOrderDetailStatic_vs_CouponCode", parameters, commandType: CommandType.StoredProcedure);
+
+                    // Xây dựng phản hồi
+                    response.orders = orders;
+                    response.total = total;
+                    response.statistics = statistics;
+                }
+
+                return Ok(response);
+            }
+            catch (Exception ex)
+            {
+                // Xử lý ngoại lệ
+                return StatusCode(500, $"Internal server error: {ex.Message}");
+            }
+        }
+
+
         private async Task SendEmailToCustomerWithStatus(int orderDetailId)
         {
             var orderResponse = new ResponseGetListOrderV2();
@@ -895,10 +1005,10 @@ namespace PlatformCMS.Controllers
                                 {
                                     try
                                     {
-                                        client.Connect(smtpServer, smtpPort, true);
-                                        client.Authenticate(smtpUser, smtpPass);
-                                        client.Send(message);
-                                        client.Disconnect(true);
+                                        await client.ConnectAsync(smtpServer, smtpPort, true);
+                                        await client.AuthenticateAsync(smtpUser, smtpPass);
+                                        await client.SendAsync(message);
+                                        await client.DisconnectAsync(true);
                                     }
                                     catch (Exception ex)
                                     {
@@ -982,10 +1092,10 @@ namespace PlatformCMS.Controllers
                                 {
                                     try
                                     {
-                                        client.Connect(smtpServer, smtpPort, true);
-                                        client.Authenticate(smtpUser, smtpPass);
-                                        client.Send(message);
-                                        client.Disconnect(true);
+                                        await client.ConnectAsync(smtpServer, smtpPort, true);
+                                        await client.AuthenticateAsync(smtpUser, smtpPass);
+                                        await client.SendAsync(message);
+                                        await client.DisconnectAsync(true);
                                     }
                                     catch (Exception ex)
                                     {
@@ -1071,10 +1181,10 @@ namespace PlatformCMS.Controllers
                                 {
                                     try
                                     {
-                                        client.Connect(smtpServer, smtpPort, true);
-                                        client.Authenticate(smtpUser, smtpPass);
-                                        client.Send(message);
-                                        client.Disconnect(true);
+                                        await client.ConnectAsync(smtpServer, smtpPort, true);
+                                        await client.AuthenticateAsync(smtpUser, smtpPass);
+                                        await client.SendAsync(message);
+                                        await client.DisconnectAsync(true);
                                     }
                                     catch (Exception ex)
                                     {
@@ -1325,4 +1435,20 @@ namespace PlatformCMS.Controllers
         public string title { get; set; }
         public string note { get; set; }
     }
+    public class RequesetGetListOrderWithCoupon
+    {
+        // Properties
+        public string keyword { get; set; }
+        public DateTime? startDate { get; set; }
+        public DateTime? endDate { get; set; }
+        public string activeStatus { get; set; }
+        public string supplierStatus { get; set; }
+        public string emailSupplier { get; set; }
+        public int index { get; set; }
+        public int size { get; set; }
+        public string refCouponCode { get; set; }
+        public string cultureCode { get; set; }
+    }
+
+
 }

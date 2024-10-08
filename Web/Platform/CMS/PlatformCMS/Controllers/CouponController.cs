@@ -1,11 +1,16 @@
 using MI.Bo.Bussiness;
+using MI.Dal.IDbContext;
 using MI.Dapper.Data.Models;
 using MI.Dapper.Data.Repositories.Interfaces;
 using MI.Dapper.Data.ViewModels;
 using MI.Entity.Common;
+using MI.Entity.Models;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using OfficeOpenXml;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using Utils;
@@ -159,56 +164,213 @@ namespace PlatformCMS.Controllers
             return Ok();
         }
 
+        [HttpPost("ImportCouponInProducts")]
 
-        [HttpGet("GetProductInCounpon")]
-        public IActionResult GetProductInCounpon(int id)
+        public async Task<IActionResult> ImportCouponInProducts([FromForm] RequestImportCouponInProducts request)
         {
-            dynamic result = new System.Dynamic.ExpandoObject();
             try
             {
-                var products = MI.Cache.RamCache.DicProduct;
-                var data = couponInProductBCL.FindAll(x => x.CouponId == id);
-                result.ListData = data.Select(x => new { x.CouponChildMa, x.CouponId, x.ProductId, x.Type, x.Value, Name = products.ContainsKey(x.ProductId) ? products[x.ProductId] : "" }).ToList();
-                result.ListProduct = products.Select(x => new { id = x.Key, label = x.Value }).ToList();
-                return Ok(result);
+                // Kiểm tra file Excel đầu vào
+                var excelFile = request.excelFile;
+                if (excelFile == null || excelFile.Length == 0)
+                {
+                    return BadRequest("File Excel không hợp lệ.");
+                }
+
+                // Tạo danh sách lưu sản phẩm mã giảm giá từ file Excel
+                var couponInProductList = new List<CouponInProduct>();
+
+                using (var stream = new MemoryStream())
+                {
+                    // Copy nội dung của file Excel vào MemoryStream
+                    await excelFile.CopyToAsync(stream);
+                    using (var package = new ExcelPackage(stream))
+                    {
+                        var worksheet = package.Workbook.Worksheets[0];
+                        int row = 2; // Dòng đầu tiên thường là tiêu đề
+
+                        // Duyệt qua từng dòng của Excel để lấy dữ liệu
+                        while (row <= worksheet.Dimension.End.Row)
+                        {
+                            var productIdCell = worksheet.Cells[row, 1].Value;
+                            var discountValueCell = worksheet.Cells[row, 4].Value;
+
+                            if (productIdCell != null && discountValueCell != null)
+                            {
+                                // Kiểm tra và chuyển đổi giá trị của các cột
+                                if (int.TryParse(productIdCell.ToString(), out int productId) &&
+                                    decimal.TryParse(discountValueCell.ToString(), out decimal discountValue))
+                                {
+                                    // Tạo mới CouponInProduct và thêm vào danh sách
+                                    var couponInProduct = new CouponInProduct
+                                    {
+                                        ProductId = productId,
+                                        DiscountValue = discountValue,
+                                        CouponId = request.couponId,
+                                        DiscountOption = 1
+                                    };
+                                    couponInProductList.Add(couponInProduct);
+                                }
+                            }
+                            row++;
+                        }
+                    }
+                }
+
+                using (var context = new IDbContext())
+                {
+                    // Tìm mã giảm giá hiện tại
+                    var coupon = await context.Coupon.FindAsync(request.couponId);
+                    if (coupon == null)
+                    {
+                        return BadRequest("Coupon không tồn tại.");
+                    }
+
+                    // Xóa các mã giảm giá cũ của sản phẩm (nếu có)
+                    var oldValues = context.CouponInProduct.Where(c => c.CouponId == request.couponId);
+                    context.CouponInProduct.RemoveRange(oldValues);
+
+                    // Thêm các sản phẩm có mã giảm giá mới
+                    context.CouponInProduct.AddRange(couponInProductList);
+                    await context.SaveChangesAsync();
+                }
+
+                return Ok("Import thành công!");
             }
             catch (Exception ex)
             {
+                // Xử lý ngoại lệ
+                return StatusCode(500, $"Lỗi hệ thống: {ex.Message}");
             }
-            return Ok(result);
         }
 
-        [HttpPost("AddProductInCounpon")]
-        public IActionResult AddProductInCounpon(ViewModel.CouponInProductVM obj)
+        [HttpGet("ExportCouponInProducts/{couponId}")]
+        public async Task<IActionResult> ExportCouponInProducts(int couponId)
         {
-            KeyValuePair<bool, string> result = new KeyValuePair<bool, string>();
             try
             {
-                if (obj.id > 0)
+                using (var context = new IDbContext())
                 {
-                    if (obj.lstObj.Any(x => x.Value > 30 && x.Type == 1))
+                    // Query all products, including the ones without a coupon, but apply couponId match if available
+                    var query = (from p in context.Product
+                                 where p.ParentId == 0 && p.Status == 1
+                                 join cip in context.CouponInProduct
+                                 on new { ProductId = p.Id, CouponId = couponId }
+                                 equals new { ProductId = cip.ProductId, CouponId = cip.CouponId }
+                                 into productCouponGroup
+                                 from couponProduct in productCouponGroup.DefaultIfEmpty()
+
+                                 select new
+                                 {
+                                     Id = p.Id,
+                                     Code = p.Code,
+                                     Name = p.Name,
+                                     // If couponProduct is not null and couponId matches, set DiscountValue, otherwise set to 0
+                                     DiscountValue = couponProduct != null
+                                                     ? couponProduct.DiscountValue
+                                                     : 0M
+                                 }).ToList();
+
+
+                    // Tạo file Excel
+                    using (var package = new ExcelPackage())
                     {
-                        result = new KeyValuePair<bool, string>(false, "Mã giảm giá tối đa 30%");
-                    }
-                    else
-                    {
-                        var res = couponInProductBCL.Merge(obj.lstObj, obj.id);
-                        if (res)
-                            result = new KeyValuePair<bool, string>(true, "Thành công");
-                        else
-                            result = new KeyValuePair<bool, string>(false, "Thất bại");
+                        var worksheet = package.Workbook.Worksheets.Add("Products");
+
+                        // Thiết lập tiêu đề cho các cột
+                        worksheet.Cells[1, 1].Value = "Product ID";
+                        worksheet.Cells[1, 2].Value = "Code";
+                        worksheet.Cells[1, 3].Value = "Name";
+                        worksheet.Cells[1, 4].Value = "Discount Value";
+
+                        // Định dạng tiêu đề
+                        using (var range = worksheet.Cells[1, 1, 1, 4])
+                        {
+                            range.Style.Font.Bold = true;
+                            range.Style.HorizontalAlignment = OfficeOpenXml.Style.ExcelHorizontalAlignment.Center;
+                            range.Style.Fill.PatternType = OfficeOpenXml.Style.ExcelFillStyle.Solid;
+                            range.Style.Fill.BackgroundColor.SetColor(System.Drawing.Color.LightGray);
+                        }
+
+                        // Ghi dữ liệu sản phẩm vào file Excel
+                        int row = 2;
+                        foreach (var item in query)
+                        {
+                            worksheet.Cells[row, 1].Value = item.Id;
+                            worksheet.Cells[row, 2].Value = item.Code;
+                            worksheet.Cells[row, 3].Value = item.Name;
+                            worksheet.Cells[row, 4].Value = item.DiscountValue;
+                            row++;
+                        }
+
+                        // Tự động căn chỉnh độ rộng của các cột
+                        worksheet.Cells.AutoFitColumns();
+
+                        // Lấy dữ liệu Excel dưới dạng byte array
+                        var excelBytes = package.GetAsByteArray();
+
+                        // Chuyển đổi byte array thành chuỗi base64
+                        var base64Excel = Convert.ToBase64String(excelBytes);
+
+                        // Trả về chuỗi base64 của file Excel
+                        return Ok(base64Excel);
                     }
                 }
-                else
-                {
-                    result = new KeyValuePair<bool, string>(false, "Bạn cần tạo mã giảm giá trước khi thêm sản phẩm vào");
-                }
-                return Ok(result);
             }
             catch (Exception ex)
             {
+                // Xử lý lỗi
+                return StatusCode(500, $"Internal server error: {ex.Message}");
             }
-            return Ok(result);
         }
+
+        [HttpGet("GetCouponInProducts/{couponId}")]
+        public async Task<IActionResult> GetCouponInProducts(int couponId)
+        {
+            try
+            {
+                using (var context = new IDbContext())
+                {
+                    // Query all products, including the ones without a coupon, but apply couponId match if available
+                    var query = (from p in context.Product
+                                 where p.ParentId == 0 && p.Status == 1
+                                 join cip in context.CouponInProduct
+                                 on new { ProductId = p.Id, CouponId = couponId }
+                                 equals new { ProductId = cip.ProductId, CouponId = cip.CouponId }
+                                 into productCouponGroup
+                                 from couponProduct in productCouponGroup.DefaultIfEmpty()
+
+                                 select new
+                                 {
+                                     Id = p.Id,
+                                     Code = p.Code,
+                                     Name = p.Name,
+                                     // If couponProduct is not null and couponId matches, set DiscountValue, otherwise set to 0
+                                     DiscountValue = couponProduct != null
+                                                     ? couponProduct.DiscountValue
+                                                     : 0M
+                                 }).ToList();
+
+
+                    // Trả về kết quả dưới dạng JSON hoặc danh sách các sản phẩm kèm giảm giá
+                    return Ok(query);
+                }
+            }
+            catch (Exception ex)
+            {
+                // Xử lý lỗi
+                return StatusCode(500, $"Internal server error: {ex.Message}");
+            }
+        }
+
     }
+    public class RequestImportCouponInProducts
+    {
+        
+        // Properties
+        public int couponId { get; set; }
+        public IFormFile excelFile { get; set; }
+    }
+
+
 }

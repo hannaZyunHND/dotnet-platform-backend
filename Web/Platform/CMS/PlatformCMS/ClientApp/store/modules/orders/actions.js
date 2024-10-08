@@ -53,6 +53,33 @@ const getListOrderV2 = ({ commit }, data) => {
         alert('ex found:' + e)
     })
 }
+//GetListOrder_WithCouponCode
+const getListOrder_WithCouponCode = ({ commit }, data) => {
+
+    // Lay ma ngon ngu o day de request 
+    let cultureCode = "";
+    const savedLanguage = localStorage.getItem('language') || 'vi';
+    if(savedLanguage){
+        switch(savedLanguage){
+            case "vi":
+                cultureCode = "vi-VN"
+                break;
+            case "en":
+                cultureCode = "en-US"
+                break;
+            case "zh":
+                cultureCode = "zh-CN"
+                break;
+        }
+    }
+    data.cultureCode = cultureCode;
+
+    return HttpService.post(`/api/Orders/GetListOrder_WithCouponCode`, data).then(response => {
+        return response.data;
+    }).catch(e => {
+        alert('ex found:' + e)
+    })
+}
 const updateActiveStatusForOrderDetail = ({ commit }, data) => {
     return HttpService.post(`/api/ORders/UpdateActiveStatusForOrderDetail`, data, {
         headers: {
@@ -78,6 +105,14 @@ const exportExcelListOrderVersionSupplier = ({ commit }, data) => {
         alert('ex found:' + e)
     })
 }
+const exportExcelListOrderVersionCouponAgency = ({ commit }, data) => {
+    return HttpService.post(`/api/Orders/ExportExcelListOrderVersionCouponAgency`, data).then(response => {
+        return response.data;
+    }).catch(e => {
+        alert('ex found:' + e)
+    })
+}
+//ExportExcelListOrderVersionCouponAgency
 
 const getChatSessionByOrderDetailId = ({commit}, data) => {
 
@@ -108,5 +143,12 @@ export default {
     exportExcelListOrderVersionOffice,
     exportExcelListOrderVersionSupplier,
     getChatSessionByOrderDetailId,
-    sendChatSessionMessageByCMSUser
+    sendChatSessionMessageByCMSUser,
+    getListOrder_WithCouponCode,
+    exportExcelListOrderVersionCouponAgency
 }
+
+
+
+// WEBPACK FOOTER //
+// ./ClientApp/store/modules/orders/actions.js

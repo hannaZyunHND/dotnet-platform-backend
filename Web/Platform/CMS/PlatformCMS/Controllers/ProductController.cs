@@ -152,7 +152,31 @@ namespace PlatformCMS.Controllers
             {
                 int total = 0;
 
-                var data = productInLanguageBCL.FindAll(filter, out total).Where(x => x.Status != 0);
+                var data = productInLanguageBCL.FindAll(filter, out total).Where(x => x.Status != 0).ToList();
+                if (!string.IsNullOrEmpty(filter.keyword))
+                {
+                    var lsIdParent = data.Where(r => r.ParentId == 0).Select(x => x.Id).ToList();
+                    using (IDbContext context = new IDbContext())
+                    {
+                        var childs = context.Product.Where(r => lsIdParent.Contains(r.ParentId.Value)).ToList();
+                        childs = childs.Select(d => new MI.Entity.Models.Product
+                        {
+                            Id = d.Id,
+                            Code = d.Code,
+                            Name = d.Name,
+                            LangCount = d.LangCount,
+                            Avatar = d.Avatar,
+                            ProductInZone = d.ProductInZone,
+                            Price = d.Price,
+                            Status = d.Status,
+                            ViewCount = d.ViewCount ?? 0,
+                            ListUrl = d.ListUrl ?? null,
+                            SortOrder = d.SortOrder
+                        }).ToList();
+                        data.AddRange(childs);
+                    }
+                }
+
                 var lstId = data.Select(x => x.ProductInZone).SelectMany(d => d).ToList().Select(x => x.ZoneId);
                 var dicZone = zoneBCL.GetById(lstId.Distinct().ToList(), filter.languageCode)
                     .ToDictionary(x => x.Id, z => z.Name);
@@ -170,7 +194,7 @@ namespace PlatformCMS.Controllers
                     x.ViewCount,
                     x.SortOrder,
                     x.ArticleId,
-                    BaseUrl = x.ListUrl.Select(d => new KeyValuePair<string, string>(d.Key, $"{Utils.Utility.BaseDomain(Utils.BaseBA.UrlProductJanhome("", d.Value))}")).ToList()
+                    //BaseUrl = x.ListUrl.Select(d => new KeyValuePair<string, string>(d.Key, $"{Utils.Utility.BaseDomain(Utils.BaseBA.UrlProductJanhome("", d.Value))}")).ToList()
                 }).ToList<object>();
                 responseData.Total = total;
             }
