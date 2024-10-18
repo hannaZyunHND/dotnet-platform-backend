@@ -40,7 +40,7 @@ RUN apt-get update && apt-get install -y python3 python3-pip make g++ build-esse
 COPY Web/Platform/CMS/PlatformCMS/package*.json ./
 
 # Remove package-lock.json if it exists
-RUN npm install
+RUN npm ci
 
 # Copy the rest of the Vue.js project files
 COPY /Web/Platform/CMS/PlatformCMS/. .

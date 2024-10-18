@@ -22,20 +22,36 @@ pipeline {
             }
         }
         stage('Build Docker Images') {
-            steps {
-                withDockerRegistry(credentialsId: 'docker-hub', url: 'https://index.docker.io/v1/') {
-                    // sh 'DOCKER_BUILDKIT=1 docker build -f Web/Platform/WEBAPI/PlatformWEBAPI/Dockerfile --force-rm -t joytime-web-api .'
-                    sh 'DOCKER_BUILDKIT=1 docker build -f Web/Platform/CMS/PlatformCMS/Dockerfile --force-rm -t joytime-web-cms .'
+            parallel {
+                stage('Build CMS') {
+                    steps {
+                        sh 'DOCKER_BUILDKIT=1 docker build -f Web/Platform/CMS/PlatformCMS/Dockerfile --force-rm -t joytime-web-cms .'
+                    }
+                }
+                stage('Build API') {
+                    steps {
+                        sh 'DOCKER_BUILDKIT=1 docker build -f Web/Platform/WEBAPI/PlatformWEBAPI/Dockerfile --force-rm -t joytime-web-api .'
+                    }
                 }
             }
         }
-        stage('Push Docker Images') {
-            steps {
-                withDockerRegistry(credentialsId: 'docker-hub', url: 'https://index.docker.io/v1/') {
-                    // sh 'docker tag joytime-web-api consortio/joytime-web-api:latest'
-                    // sh 'docker push consortio/joytime-web-api:latest'
-                    sh 'docker tag joytime-web-cms consortio/joytime-web-cms:latest'
-                    sh 'docker push consortio/joytime-web-cms:latest'
+        stage('Tag and Push Docker Images') {
+            parallel {
+                stage('Tag and Push CMS') {
+                    steps {
+                        withDockerRegistry(credentialsId: 'docker-hub', url: 'https://index.docker.io/v1/') {
+                            sh 'docker tag joytime-web-cms consortio/joytime-web-cms:latest'
+                            sh 'docker push consortio/joytime-web-cms:latest'
+                        }
+                    }
+                }
+                stage('Tag and Push API') {
+                    steps {
+                        withDockerRegistry(credentialsId: 'docker-hub', url: 'https://index.docker.io/v1/') {
+                            sh 'docker tag joytime-web-api consortio/joytime-web-api:latest'
+                            sh 'docker push consortio/joytime-web-api:latest'
+                        }
+                    }
                 }
             }
         }
