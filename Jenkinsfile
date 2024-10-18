@@ -1,7 +1,7 @@
 pipeline {
     agent any
     environment {
-        DOCKER_CREDENTIALS_ID = 'docker-hub-login'
+        DOCKER_CREDENTIALS_ID = 'docker-hub'
     }
     stages {
         stage('Debug Docker') {
