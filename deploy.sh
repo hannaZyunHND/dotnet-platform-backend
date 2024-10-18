@@ -13,13 +13,17 @@ docker container prune -f
 docker volume prune -f
 
 # Dừng các container đang chạy mà không xóa network
-docker-compose -f Web/Platform/WEBAPI/PlatformWEBAPI/docker-compose.yaml stop
+#docker-compose -f Web/Platform/WEBAPI/PlatformWEBAPI/docker-compose.yaml stop
+docker-compose -f Web/Platform/CMS/PlatformCMS/docker-compose.yaml stop
 
 # Xóa các container cũ
-docker-compose -f Web/Platform/WEBAPI/PlatformWEBAPI/docker-compose.yaml rm -f
+#docker-compose -f Web/Platform/WEBAPI/PlatformWEBAPI/docker-compose.yaml rm -f
+docker-compose -f Web/Platform/CMS/PlatformCMS/docker-compose.yaml rm -f
 
 # Pull image mới từ Docker Hub
-docker-compose -f Web/Platform/WEBAPI/PlatformWEBAPI/docker-compose.yaml pull
+#docker-compose -f Web/Platform/WEBAPI/PlatformWEBAPI/docker-compose.yaml pull
+docker-compose -f Web/Platform/CMS/PlatformCMS/docker-compose.yaml pull
 
 # Chạy container mới
-docker-compose -f Web/Platform/WEBAPI/PlatformWEBAPI/docker-compose.yaml up -d
+#docker-compose -f Web/Platform/WEBAPI/PlatformWEBAPI/docker-compose.yaml up -d
+docker-compose -f Web/Platform/CMS/PlatformCMS/docker-compose.yaml up -d
