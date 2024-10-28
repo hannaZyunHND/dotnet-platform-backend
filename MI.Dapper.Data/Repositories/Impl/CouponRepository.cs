@@ -47,11 +47,18 @@ namespace MI.Dapper.Data.Repositories.Impl
                     parameters.Add("@ListProduct", String.Join(",", coupon.ListProduct));
                     parameters.Add("@activationZoneList", coupon.activationZoneList);
                     var isRepeating = 0;
+                    
                     if (coupon.isRepeating)
                     {
                         isRepeating = 1;
                     }
                     parameters.Add("@isRepeating", isRepeating);
+                    var isReturningCustomerDiscount = 0;
+                    if (coupon.isReturningCustomerDiscount)
+                    {
+                        isReturningCustomerDiscount = 1;
+                    }
+                    parameters.Add("@isReturningCustomerDiscount", isReturningCustomerDiscount);
                     parameters.Add("@id", dbType: DbType.Int32, direction: ParameterDirection.Output);
                     var result = await connection.ExecuteAsync("Create_Coupon", parameters, null, null,
                         CommandType.StoredProcedure);
@@ -95,7 +102,13 @@ namespace MI.Dapper.Data.Repositories.Impl
                     {
                         isRepeating = 1;
                     }
+                    var isReturningCustomerDiscount = 0;
                     parameters.Add("@isRepeating", isRepeating);
+                    if (coupon.isReturningCustomerDiscount)
+                    {
+                        isReturningCustomerDiscount = 1;
+                    }
+                    parameters.Add("@isReturningCustomerDiscount", isReturningCustomerDiscount);
                     parameters.Add("@id", coupon.Id);
                     var result = await connection.ExecuteAsync("Update_Coupon", parameters, null, null,
                         CommandType.StoredProcedure);

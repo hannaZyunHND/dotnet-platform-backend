@@ -69,6 +69,7 @@ namespace PlatformWEBAPI.Services.Product.ViewModel
         public int productId { get; set; }
         public string culture_code { get; set; }
         public string couponCode { get; set; }
+        public string customerEmail { get; set; } = "";
     }
 
     public class RequestCheckChatSessionByCustomerEmail

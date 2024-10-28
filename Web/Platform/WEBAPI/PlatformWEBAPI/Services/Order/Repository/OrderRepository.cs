@@ -1216,11 +1216,12 @@ namespace PlatformWEBAPI.Services.Order.Repository
         public ResponseGetCouponByProductId CheckCouponCode(RequestCheckCouponCode request)
         {
             var p = new DynamicParameters();
-            var commandText = "usp_Web_GetCouponCodeByProductIdAndCouponCode_version_by_sku";
+            var commandText = "usp_Web_GetCouponCodeByProductIdAndCouponCode_version_by_sku_with_remail";
 
             p.Add("@productId", request.productId);
             p.Add("@culture_code", request.culture_code);
             p.Add("@couponCode", request.couponCode);
+            p.Add("@customerEmail", request.customerEmail);
             var result = _executers.ExecuteCommand(_connStr, conn => conn.QueryFirst<ResponseGetCouponByProductId>(commandText, p, commandType: System.Data.CommandType.StoredProcedure));
             return result;
         }

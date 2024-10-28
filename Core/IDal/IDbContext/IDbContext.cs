@@ -107,6 +107,9 @@ namespace MI.Dal.IDbContext
 
         public virtual DbSet<OrderChatSession> OrderChatSession { get; set; }
         public virtual DbSet<OrderChatSessionDetail> OrderChatSessionDetail { get; set; }
+
+        public virtual DbSet<PrivateTourOrder> PrivateTourOrders { get; set; }
+        public virtual DbSet<PrivateTourOrderResponse> PrivateTourOrderResponses { get; set; }
         //public virtual DbSet<CouponInProduct> CouponInProducts { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)

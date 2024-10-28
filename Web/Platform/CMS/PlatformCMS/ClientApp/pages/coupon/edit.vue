@@ -75,6 +75,11 @@
                                             <input type="checkbox" v-model="objRequest.isRepeating" value="isRepeating"> 
                                         </b-form-group>
                                     </div>
+                                    <div class="col-md-12">
+                                        <b-form-group label="Mã phục vụ tái mua hàng">
+                                            <input type="checkbox" v-model="objRequest.isReturningCustomerDiscount" value="isReturningCustomerDiscount"> 
+                                        </b-form-group>
+                                    </div>
                                 </div>
                             </b-form>
                         </b-card>
@@ -242,7 +247,8 @@
                     isCategory: false,
                     listProduct: [],
                     activationZoneList: [],
-                    isRepeating : false
+                    isRepeating : false,
+                    isReturningCustomerDiscount: false
 
                 },
                 LanguageCodes: [],

@@ -26,8 +26,8 @@ namespace MI.Entity.Enums
         Region = 7,
         [EnumDescription("Khuyến mãi")]
         Discount = 8,
-        
-
+        [EnumDescription("Private Tour")]
+        PrivateTour = 9,
     }
     public enum StatusZone : byte
     {

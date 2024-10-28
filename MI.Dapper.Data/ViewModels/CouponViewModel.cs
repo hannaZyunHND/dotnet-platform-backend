@@ -22,6 +22,7 @@ namespace MI.Dapper.Data.ViewModels
         public List<int> ListProduct { get; set; }
         public string activationZoneList { get; set; }
         public bool isRepeating { get; set; }
+        public bool isReturningCustomerDiscount { get; set; }
 
 
         public CouponViewModel()
@@ -41,6 +42,7 @@ namespace MI.Dapper.Data.ViewModels
             this.ListProduct = new List<int>();
             this.activationZoneList = string.Empty;
             this.isRepeating = false;
+            this.isReturningCustomerDiscount = false;
         }
     }
 }
