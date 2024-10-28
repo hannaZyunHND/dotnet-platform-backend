@@ -1285,15 +1285,17 @@ namespace PlatformWEBAPI.Services.Order.Repository
                     var detail = await this.GetOrderItemFullDetail(requestGetOrderItemFullDetail);
                     if (detail != null)
                     {
+                        var metadata = Newtonsoft.Json.JsonConvert.DeserializeObject<OrderDetailMetaData>(detail.MetaData);
                         mailHooks.Add("[CUSTOMER_FULLNAME]", request.customerName);
                         mailHooks.Add("[DATA_FULL_NAME]", request.customerName);
                         mailHooks.Add("[DATA_MA_DON_HANG]", detail.OrderCode);
-                        mailHooks.Add("[DATA_NGAY_SU_DUNG]", detail.CreatedDate.ToString("dd/MM/yyyy hh:mm:ss"));
                         mailHooks.Add("[DATA_TEN_PACKAGE]", detail.ProductChildTitle);
                         mailHooks.Add("[DATA_TEN_FULL_OPTION]", detail.ZoneTitles);
+                        mailHooks.Add("[DATA_TEN_SAN_PHAM]", detail.ProductParentTitle);
                         mailHooks.Add("[MAIL_NOI_DUNG_SAN_PHAM_AVATAR]", UIHelper.StoreFilePath(detail.ProductParentAvatar));
-                        var metadata = Newtonsoft.Json.JsonConvert.DeserializeObject<OrderDetailMetaData>(detail.MetaData);
-                        mailHooks.Add("[DATA_NGAY_DAT_DICH_VU]", metadata.choosenDate);
+                        mailHooks.Add("[DATA_NGAY_DAT_DICH_VU]", detail.CreatedDate.ToString("dd/MM/yyyy hh:mm:ss"));
+                        mailHooks.Add("[DATA_NGAY_SU_DUNG]", metadata.choosenDate);
+
 
                         var MAIL_NOI_DUNG_SO_LUONG = new List<string>();
                         var MAIL_NOI_DUNG_SO_LUONG_NGUOI_LON = mailHooks.GetValueOrDefault("[MAIL_NOI_DUNG_SO_LUONG_NGUOI_LON]");
