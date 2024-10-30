@@ -3,6 +3,8 @@
   <PropertyGroup>
     <TargetFramework>netcoreapp2.1</TargetFramework>
     <UserSecretsId>57a0f08e-092a-4817-ab39-9c48470b290a</UserSecretsId>
+    <PreferredNativeSkiaSharp>x86</PreferredNativeSkiaSharp>
+
   </PropertyGroup>
 
   <ItemGroup>
@@ -303,6 +305,7 @@
     <PackageReference Include="NLog.Web.AspNetCore" Version="4.9.2" />
     <PackageReference Include="NPOI" Version="2.5.1" />
     <PackageReference Include="SixLabors.ImageSharp" Version="1.0.3" />
+    <PackageReference Include="SkiaSharp" Version="2.88.8" />
     <PackageReference Include="Swashbuckle.AspNetCore.Swagger" Version="2.4.0" />
     <PackageReference Include="Swashbuckle.AspNetCore.SwaggerGen" Version="2.4.0" />
     <PackageReference Include="Swashbuckle.AspNetCore.SwaggerUI" Version="2.4.0" />

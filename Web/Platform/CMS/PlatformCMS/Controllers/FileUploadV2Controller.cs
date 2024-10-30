@@ -6,6 +6,7 @@ using MI.Entity.Models;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.WebUtilities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using OfficeOpenXml;
@@ -19,7 +20,12 @@ using System.IO;
 using System.Linq;
 using Utils;
 using Image = System.Drawing.Image;
-
+using System;
+using System.Collections.Generic;
+using System.IO;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
+using SkiaSharp;
 
 namespace PlatformCMS.Controllers
 {
@@ -85,6 +91,7 @@ namespace PlatformCMS.Controllers
                                     fileName = Utility.UnicodeToKoDauAndGach(filenameNoExtension) + "-" + DateTime.Now.Hour + DateTime.Now.Minute + DateTime.Now.Second + DateTime.Now.Millisecond + ext;
                                 }
                                 var fullPath = Path.Combine(pathToSave, fileName);
+                                var webpPath = Path.Combine(pathToSave, Path.GetFileNameWithoutExtension(fileName) + ".webp");
                                 if (!Directory.Exists(pathToSave))
                                 {
                                     Directory.CreateDirectory(pathToSave);
@@ -95,9 +102,37 @@ namespace PlatformCMS.Controllers
                                     using (var stream = new FileStream(fullPath, FileMode.Create))
                                     {
                                         file.CopyTo(stream);
+
+                                        // Convert and save the WebP version
+                                        using (var originalStream = file.OpenReadStream())
+                                        using (var skiaImage = SKBitmap.Decode(originalStream))
+                                        {
+                                            using (var webpImage = SKImage.FromBitmap(skiaImage))
+                                            using (var data = webpImage.Encode(SKEncodedImageFormat.Webp, 80)) // Adjust quality as needed
+                                            {
+                                                using (var webpStream = new FileStream(webpPath, FileMode.Create, FileAccess.Write))
+                                                {
+                                                    data.SaveTo(webpStream);
+                                                }
+                                            }
+                                        }
+
+                                        
+
+                                        uploadResults.Add(new FileInfo
+                                        {
+                                            name = fileName,
+                                            path = "/" + Path.Combine(folder).Replace("\\", "/") + "/" + Path.GetFileNameWithoutExtension(fileName) + ".webp",
+                                            ext = ext,
+                                            size = file.Length / 1024,
+                                            code = 200,
+                                            messages = "Upload thành công"
+                                        });
+
+
                                         var obj = new FileUpload();
                                         obj.Name = fileName;
-                                        obj.FilePath = "/" + Path.Combine(folder).Replace("\\", "/") + "/" + fileName;
+                                        obj.FilePath = "/" + Path.Combine(folder).Replace("\\", "/") + "/" + Path.GetFileNameWithoutExtension(fileName) + ".webp";
                                         obj.FileExt = ext;
                                         //   obj.Dimensions = dimensions;
                                         obj.FileSize = file.Length / 1024;
@@ -116,7 +151,7 @@ namespace PlatformCMS.Controllers
                                                 FileInfo fileInfo = new FileInfo
                                                 {
                                                     name = fileName,
-                                                    path = "/" + Path.Combine(folder).Replace("\\", "/") + "/" + fileName,
+                                                    path = "/" + Path.Combine(folder).Replace("\\", "/") + "/" + Path.GetFileNameWithoutExtension(fileName) + ".webp",
                                                     ext = ext,
                                                     size = file.Length / 1024,//Math.Round((double)file.Length / 1024, 1),
                                                     code = 200,
@@ -124,78 +159,44 @@ namespace PlatformCMS.Controllers
 
                                                 };
                                                 uploadResults.Add(fileInfo);
+                                                // Inside your existing function
                                                 if (Array.IndexOf(imageAllowFileArray, ext.ToLower()) != -1)
                                                 {
                                                     using (var _stream = file.OpenReadStream())
                                                     {
-                                                        var uploadedImage = Image.FromStream(_stream);
-                                                        var dimensions =
-                                                            uploadedImage.PhysicalDimension.Width + "x" +
-                                                            uploadedImage.PhysicalDimension.Height;
-                                                        obj.Dimensions = dimensions;
-                                                        _fileUploadBCL.Update(obj);
-
-                                                        var thumbPathToSave = Path.Combine(webRoot, serverPath, "thumb",
-                                                            folder);
-                                                        if (!Directory.Exists(thumbPathToSave))
+                                                        // Decode the original image using SkiaSharp
+                                                        using (var skiaImage = SKBitmap.Decode(_stream))
                                                         {
-                                                            Directory.CreateDirectory(thumbPathToSave);
-                                                        }
+                                                            // Get the original dimensions and save them to the object
+                                                            var dimensions = $"{skiaImage.Width}x{skiaImage.Height}";
+                                                            obj.Dimensions = dimensions;
+                                                            _fileUploadBCL.Update(obj);
 
-                                                        var thumbFileDirectory = Path.Combine(folder);
-                                                        thumbFileDirectory = thumbFileDirectory.Replace("/", "\\");
-
-                                                        var thumbPath =
-                                                            "wwwroot\\" + serverPath + "\\thumb\\" +
-                                                            thumbFileDirectory +
-                                                            "\\" + fileName;
-                                                        if (ext.ToLower().Equals(".png"))
-                                                        {
-
-
-                                                            //  postedFile.SaveAs(fileDirectory);
-                                                            Bitmap origBMP = new Bitmap(uploadedImage);
-                                                            if (origBMP.Width <= imageScaleWidth)
+                                                            // Create the thumbnail save path
+                                                            var thumbPathToSave = Path.Combine(webRoot, serverPath, "thumb", folder);
+                                                            if (!Directory.Exists(thumbPathToSave))
                                                             {
-                                                                origBMP.Save(thumbPath);
-
-
-                                                            }
-                                                            else
-                                                            {
-                                                                int origWidth = origBMP.Width;
-                                                                int origHeight = origBMP.Height;
-                                                                int newWidth = imageScaleWidth;
-                                                                int newHeight = newWidth * origHeight / origWidth;
-
-                                                                Bitmap newBMP = new Bitmap(origBMP, newWidth, newHeight);
-                                                                Graphics objGra = Graphics.FromImage(newBMP);
-                                                                objGra.DrawImage(origBMP, new Rectangle(0, 0, newBMP.Width, newBMP.Height), 0, 0, origWidth, origHeight, GraphicsUnit.Pixel);
-                                                                objGra.Dispose();
-                                                                newBMP.Save(thumbPath);
-                                                                newBMP.Dispose();
-                                                                // write_watermark_text(thumbPath, true);
-                                                            }
-                                                        }
-                                                        else
-                                                        {
-                                                            if (imageScaleWidth > 0 && imageScaleHeight > 0)
-                                                            {
-                                                                var img = ImageResize.Scale(uploadedImage, 200, 100);
-                                                                img.SaveAs(@"" + thumbPath + "");
-                                                                img.Dispose();
-                                                                // write_watermark_text(thumbPath, false);
+                                                                Directory.CreateDirectory(thumbPathToSave);
                                                             }
 
-                                                            if (imageScaleWidth > 0 && imageScaleHeight == 0)
-                                                            {
-                                                                var img = ImageResize.ScaleByWidth(uploadedImage,
-                                                                    imageScaleWidth);
-                                                                img.SaveAs(@"" + thumbPath + "");
-                                                                img.Dispose();
-                                                                write_watermark_text(thumbPath, false);
-                                                            }
+                                                            var thumbFileDirectory = Path.Combine(folder);
+                                                            var thumbPath = Path.Combine(thumbPathToSave, Path.GetFileNameWithoutExtension(fileName) + ".webp");
 
+                                                            // Calculate new dimensions for the thumbnail (one-third of original)
+                                                            int newWidth = skiaImage.Width / 3;
+                                                            int newHeight = skiaImage.Height / 3;
+
+                                                            // Resize the image
+                                                            using (var resizedBitmap = skiaImage.Resize(new SKImageInfo(newWidth, newHeight), SKFilterQuality.High))
+                                                            using (var webpImage = SKImage.FromBitmap(resizedBitmap))
+                                                            {
+                                                                // Save the thumbnail as a WebP file
+                                                                using (var data = webpImage.Encode(SKEncodedImageFormat.Webp, 80)) // 80 is the quality level; adjust if needed
+                                                                using (var thumbStream = new FileStream(thumbPath, FileMode.Create, FileAccess.Write))
+                                                                {
+                                                                    data.SaveTo(thumbStream);
+                                                                }
+                                                            }
                                                         }
                                                     }
                                                 }
@@ -207,7 +208,7 @@ namespace PlatformCMS.Controllers
                                         {
                                             FileInfo fileInfo = new FileInfo
                                             {
-                                                name = fileName,
+                                                name = Path.GetFileNameWithoutExtension(fileName) + ".webp",
                                                 path = "/",
                                                 ext = ext,
                                                 size = file.Length / 1024, //Math.Round((double)file.Length / 1024, 1),
@@ -287,14 +288,175 @@ namespace PlatformCMS.Controllers
             }
             catch (Exception ex)
             {
+                // Define the log file path
+                string logFilePath = Path.Combine(Directory.GetCurrentDirectory(), "Logs", "error_log.txt");
 
+                // Ensure the directory exists
+                Directory.CreateDirectory(Path.GetDirectoryName(logFilePath));
+
+                // Compose the log message
+                string logMessage = $"{DateTime.Now:yyyy-MM-dd HH:mm:ss} - Error uploading file: {ex.Message}\n{ex.StackTrace}\n";
+
+                // Write the log message to the file
+                System.IO.File.AppendAllText(logFilePath, logMessage);
+
+                // Set response data
                 res.ErrorCode = -2;
                 res.Success = false;
                 res.Message = "Lỗi hệ thống, Vui lòng liên hệ quản trị.";
                 return Ok(res);
             }
 
+
         }
+        [Route("UploadImageV2")]
+
+        public IActionResult UploadV2(List<IFormFile> files)
+        {
+            string serverPath = _config.GetValue<string>("AppSettings:UploadFolder");
+            string folder = string.Format("{0:yyyy/MM/dd}", DateTime.Now);
+            var res = new ResponseData { Success = false };
+            try
+            {
+                var webRoot = _env.WebRootPath;
+                var fileDirectory = Path.Combine(serverPath, folder);
+                var pathToSave = Path.Combine(webRoot, fileDirectory);
+
+                if (Request.Form.Files.Count > 0)
+                {
+                    var uploadResults = new List<FileInfo>();
+                    string imageAllowUpload = _config.GetValue<string>("AppSettings:ImageAllowUpload");
+                    bool fileUploadSubFix = _config.GetValue<bool>("AppSettings:FileUploadSubFix");
+                    int fileUploadMaxSize = _config.GetValue<int>("AppSettings:FileUploadMaxSize");
+                    int imageScaleWidth = _config.GetValue<int>("AppSettings:ImageScaleWidth");
+
+                    foreach (var file in Request.Form.Files)
+                    {
+                        var ext = Path.GetExtension(file.FileName).ToLower();
+                        var allowedExtensions = imageAllowUpload.Split(',');
+
+                        if (Array.IndexOf(allowedExtensions, ext) != -1 && file.Length / 1024 <= fileUploadMaxSize)
+                        {
+                            var fileName = Path.GetFileName(file.FileName);
+                            if (fileUploadSubFix)
+                            {
+                                fileName = $"{Path.GetFileNameWithoutExtension(fileName)}-{DateTime.Now:HHmmssfff}{ext}";
+                            }
+
+                            var fullPath = Path.Combine(pathToSave, fileName);
+                            var webpPath = Path.Combine(pathToSave, Path.GetFileNameWithoutExtension(fileName) + ".webp");
+
+                            if (!Directory.Exists(pathToSave))
+                            {
+                                Directory.CreateDirectory(pathToSave);
+                            }
+
+                            if (!_fileUploadBCL.ExistFile(fileName))
+                            {
+                                // Save original image
+                                using (var stream = new FileStream(fullPath, FileMode.Create))
+                                {
+                                    file.CopyTo(stream);
+                                }
+
+                                // Convert and save the WebP version
+                                using (var originalStream = file.OpenReadStream())
+                                using (var skiaImage = SKBitmap.Decode(originalStream))
+                                {
+                                    using (var webpImage = SKImage.FromBitmap(skiaImage))
+                                    using (var data = webpImage.Encode(SKEncodedImageFormat.Webp, 80)) // Adjust quality as needed
+                                    {
+                                        using (var webpStream = new FileStream(webpPath, FileMode.Create, FileAccess.Write))
+                                        {
+                                            data.SaveTo(webpStream);
+                                        }
+                                    }
+                                }
+
+                                // Create and save the thumbnail in WebP format
+                                var thumbPath = Path.Combine(webRoot, serverPath, "thumb", folder, Path.GetFileNameWithoutExtension(fileName) + ".webp");
+                                var thumbDirectory = Path.GetDirectoryName(thumbPath);
+
+                                if (!Directory.Exists(thumbDirectory))
+                                {
+                                    Directory.CreateDirectory(thumbDirectory);
+                                }
+
+                                using (var originalStream = file.OpenReadStream())
+                                using (var skiaImage = SKBitmap.Decode(originalStream))
+                                {
+                                    int newWidth = skiaImage.Width / 3;
+                                    int newHeight = skiaImage.Height / 3;
+
+                                    using (var resizedBitmap = skiaImage.Resize(new SKImageInfo(newWidth, newHeight), SKFilterQuality.High))
+                                    using (var webpThumbnail = SKImage.FromBitmap(resizedBitmap))
+                                    using (var data = webpThumbnail.Encode(SKEncodedImageFormat.Webp, 80)) // Adjust quality as needed
+                                    {
+                                        using (var thumbStream = new FileStream(thumbPath, FileMode.Create, FileAccess.Write))
+                                        {
+                                            data.SaveTo(thumbStream);
+                                        }
+                                    }
+                                }
+
+                                uploadResults.Add(new FileInfo
+                                {
+                                    name = fileName,
+                                    path = "/" + Path.Combine(folder).Replace("\\", "/") + "/" + fileName,
+                                    ext = ext,
+                                    size = file.Length / 1024,
+                                    code = 200,
+                                    messages = "Upload thành công"
+                                });
+                            }
+                            else
+                            {
+                                uploadResults.Add(new FileInfo
+                                {
+                                    name = fileName,
+                                    path = "/",
+                                    ext = ext,
+                                    size = file.Length / 1024,
+                                    code = 900,
+                                    messages = "File đã tồn tại trên hệ thống"
+                                });
+                            }
+                        }
+                        else
+                        {
+                            uploadResults.Add(new FileInfo
+                            {
+                                name = file.FileName,
+                                path = "/",
+                                ext = ext,
+                                size = file.Length / 1024,
+                                code = 900,
+                                messages = "File extension not allowed or exceeds size limit"
+                            });
+                        }
+                    }
+                    res.Data = uploadResults;
+                    res.Success = true;
+                }
+                else
+                {
+                    res.ErrorCode = -1;
+                    res.Success = false;
+                    res.Message = "Hãy chọn một file.";
+                }
+
+                return Ok(res);
+            }
+            catch (Exception ex)
+            {
+                res.ErrorCode = -2;
+                res.Success = false;
+                res.Message = "Lỗi hệ thống, Vui lòng liên hệ quản trị.";
+                return Ok(res);
+            }
+        }
+
+
 
 
         [Route("UploadExcel")]
