@@ -23,7 +23,7 @@ const fmFileUpload = ({ commit }, data) => {
         })
 }
 const fmFileUpload_2 = ({ commit }, data) => {
-    return HttpService.post('/api/FileUploadV2/UploadFile', data, {
+    return HttpService.post('/api/FileUploadV2/UploadImage', data, {
         headers: {
             'Content-Type': 'multipart/form-data'
         }
