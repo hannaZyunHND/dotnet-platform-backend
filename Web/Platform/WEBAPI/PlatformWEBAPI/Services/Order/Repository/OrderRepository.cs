@@ -1294,7 +1294,7 @@ namespace PlatformWEBAPI.Services.Order.Repository
                         mailHooks.Add("[DATA_TEN_FULL_OPTION]", detail.ZoneTitles);
                         mailHooks.Add("[DATA_TEN_SAN_PHAM]", detail.ProductParentTitle);
                         mailHooks.Add("[MAIL_NOI_DUNG_SAN_PHAM_AVATAR]", UIHelper.StoreFilePath(detail.ProductParentAvatar));
-                        mailHooks.Add("[DATA_NGAY_DAT_DICH_VU]", detail.CreatedDate.ToString("dd/MM/yyyy hh:mm:ss"));
+                        mailHooks.Add("[DATA_NGAY_DAT_DICH_VU]", detail.CreatedDate.ToString("dd/MM/yyyy HH:mm:ss"));
                         mailHooks.Add("[DATA_NGAY_SU_DUNG]", metadata.choosenDate);
 
 
