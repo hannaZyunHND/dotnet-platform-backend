@@ -23,7 +23,7 @@ const Propertys = () => import('./../pages/property/list');
 const PropertyEdit = () => import('./../pages/property/edit');
 
 const Feedback = () => import('./../pages/Feedback');
-
+const Survey = () => import('./../pages/survey/list');
 const Forms = () => import('./../pages/Forms');
 const Page404 = () => import('./../pages/Page404');
 const Login = () => import('./../pages/Login');
@@ -142,6 +142,48 @@ export let router = new Router({
                     name: 'Đánh giá',
                     component: Feedback,
                     meta: { authorize: []}
+                },
+                {
+                    path: '/admin/survey',
+                    name: 'Khảo sát',
+                    component: Survey,
+                    meta: { authorize: []}
+                },
+                {
+                    path: '/admin/forms',
+                    name: 'Form',
+                    component: Forms,
+                    meta: { authorize: []}
+                },
+                {
+                    path: '/admin/product/extend',
+                    name: 'Mở rộng sản phẩm',
+                    component: ProductExtent,
+                    meta: { authorize: [] }
+                },
+                {
+                    path: '/admin/product/region',
+                    name: 'Khu vực',
+                    component: ProductRegion,
+                    meta: { authorize: [] }
+                },
+                {
+                    path: '/admin/product/promotion',
+                    name: 'Khuyến mãi',
+                    component: ProductPromotion,
+                    meta: { authorize: [] }
+                },
+                {
+                    path: '/admin/product/zone',
+                    name: 'Zone',
+                    component: ProductZone,
+                    meta: { authorize: [] }
+                },
+                {
+                    path: '/admin/banner/list',
+                    name: 'Danh sách Banner',
+                    component: Ads,
+                    meta: { authorize: [] }
                 },
                 {
                     path: '/admin/banner/setting',
