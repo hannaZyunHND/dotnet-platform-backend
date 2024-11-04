@@ -44,6 +44,7 @@ namespace PlatformWEBAPI.Services.Order.Repository
 
         Task<CustomerAuth> DoLogin(CustomerAuthViewModel request);
         int ChangePassword(CustomerAuthViewModel request);
+        int ForgotPassword(CustomerAuthViewModel request);
         int DoSignUp(CustomerAuthViewModel request);
 
         List<OrderDetailViewModel> GetListOrderDetailByOrderId(int orderId, string lang_code);
@@ -73,6 +74,7 @@ namespace PlatformWEBAPI.Services.Order.Repository
         List<ResponseGetCouponByProductId> GetCouponByProductId(RequestGetCouponByProductId request);
         ResponseGetCouponByProductId CheckCouponCode(RequestCheckCouponCode request);
         string GenerateOrderCode();
+        int EmailSubscriptionRegistration(string email);
         Task<OrderDetailFeedback> UpdateOrderDetailCommentWithRating(RequestUpdateOrderDetailCommentWithRating request);
         Task<ResponseOrderDetailCommentWithRating> GetOrderDetailCommentWithRating(int orderDetailId);
         List<ResponseGetLastChatDetailBySessionForCustomer> ResponseGetLastChatDetailBySessionForCustomer();
@@ -310,6 +312,17 @@ namespace PlatformWEBAPI.Services.Order.Repository
             var result = _executers.ExecuteCommand(_connStr, conn => conn.Execute(commandText, p, commandType: System.Data.CommandType.StoredProcedure));
             return result;
         }
+
+        public int ForgotPassword(CustomerAuthViewModel request)
+        {
+            var p = new DynamicParameters();
+            var commandText = "usp_Web_ForgotPassword";
+            p.Add("@email", request.email);
+            p.Add("@newCode", request.password);
+            var result = _executers.ExecuteCommand(_connStr, conn => conn.Execute(commandText, p, commandType: System.Data.CommandType.StoredProcedure));
+            return result;
+        }
+
         public int DoSignUp(CustomerAuthViewModel request)
         {
             var p = new DynamicParameters();
@@ -1516,6 +1529,18 @@ namespace PlatformWEBAPI.Services.Order.Repository
             }
             return response;
 
+        }
+
+        public int EmailSubscriptionRegistration(string email)
+        {
+            using (IDbContext context = new IDbContext())
+            {
+                var p = new DynamicParameters();
+                var commandText = "usp_web_InsertEmailSubcriber";
+                p.Add("@email",email);
+                var result = _executers.ExecuteCommand(_connStr, conn => conn.Execute(commandText, p, commandType: System.Data.CommandType.StoredProcedure));
+                return result;
+            }
         }
 
         public List<ResponseGetLastChatDetailBySessionForCustomer> ResponseGetLastChatDetailBySessionForCustomer()
