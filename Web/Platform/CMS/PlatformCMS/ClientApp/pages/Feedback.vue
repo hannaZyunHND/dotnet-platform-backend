@@ -62,6 +62,7 @@
                                     <th>Thông tin khách hàng</th>
                                     <th>Thông tin đơn hàng</th>
                                     <th>Nội dung phản hồi</th>
+                                    <th>Hình ảnh</th>
                                     <th>Hành động</th>
                                 </tr>
                             </thead>
@@ -98,6 +99,14 @@
                                             </li>
                                             <li>
                                                 <span>{{ formatTime(item.createdDate) }}</span>
+                                            </li>
+                                        </ul>
+                                    </td>
+                                    <td>
+                                        <ul>
+                                            <li>
+                                                <img :src="feedbackPreview(item.fileUpload)" alt=""
+                                                    style="width: 200px; height: 200px;">
                                             </li>
                                         </ul>
                                     </td>
@@ -187,6 +196,9 @@ export default {
             })
         },
 
+        feedbackPreview(filePath) {
+            return `https://apiplatform.hndedu.com/${filePath}`;
+        },
         formatTime(dateString) {
             return moment(dateString).format('h:mm A DD-MM-YYYY');
         }
