@@ -204,6 +204,7 @@ namespace PlatformCMS
             {
                 app.UseExceptionHandler("/Home/Error");
             }
+            app.UseMiddleware<RequestLoggingMiddleware>();
             app.UseResponseCaching();
 
 

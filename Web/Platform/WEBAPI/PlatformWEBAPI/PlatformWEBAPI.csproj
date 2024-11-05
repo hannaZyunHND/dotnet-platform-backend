@@ -158,6 +158,7 @@
     <Compile Remove="Controllers\SessionController.cs" />
     <Compile Remove="Controllers\StoreController.cs" />
     <Compile Remove="Controllers\ZoneController.cs" />
+    <Compile Remove="Middleware\RequestLoggingMiddleware.cs" />
   </ItemGroup>
 
   <ItemGroup>

@@ -317,7 +317,9 @@
     <Folder Include="ClientApp\common\vue\" />
     <Folder Include="ClientApp\components\product\" />
     <Folder Include="ClientApp\pages\manufacturer\" />
+    <Folder Include="logs\" />
     <Folder Include="wwwroot\Export\" />
+    <Folder Include="wwwroot\logs\" />
   </ItemGroup>
 
   <ItemGroup>

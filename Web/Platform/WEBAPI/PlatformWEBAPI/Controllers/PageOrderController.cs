@@ -1,14 +1,18 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using MI.Dal.IDbContext;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using PlatformWEBAPI.Services.Order.Repository;
 using PlatformWEBAPI.Services.Order.ViewModal;
 using PlatformWEBAPI.Services.Product.ViewModel;
 using PlatformWEBAPI.Utility;
+using System.Globalization;
+using System;
 using System.Linq;
 using System.Security.Cryptography;
 using System.Threading.Tasks;
 using Way2GoWEB.Payment;
+using Microsoft.EntityFrameworkCore;
 
 namespace PlatformWEBAPI.Controllers
 {
@@ -42,9 +46,9 @@ namespace PlatformWEBAPI.Controllers
             }
 
             var response = await _orderRepository.CreateMultipleItemOrderAsync(reqest);
-            if(response != null)
+            if (response != null)
             {
-               
+
                 if (response.auth.isNewUser)
                 {
                     var requestCreateAccount = new RequestSendNewUserEmail();
@@ -55,7 +59,7 @@ namespace PlatformWEBAPI.Controllers
                     requestCreateAccount.customerName = response.auth.firstName + " " + response.auth.lastName;
                     //Gui Email den khach hang
                     var sendMailStatus = _orderRepository.SendNewUserEmail(requestCreateAccount);
-                    
+
                 }
 
                 if (!string.IsNullOrEmpty(response.orderCode))
@@ -69,14 +73,14 @@ namespace PlatformWEBAPI.Controllers
                     var sendMailOrders = _orderRepository.SendNewOrderEmailToCustomer(requestCreateOrder);
                     var sendHelpDeskMaiOrder = _orderRepository.SendNewOrderEmailToHelpDesk(requestCreateOrder);
                 }
-                
+
                 return Ok(response);
             }
             else
             {
                 return BadRequest("ERROR");
             }
-            
+
         }
 
         [HttpPost]
@@ -84,27 +88,97 @@ namespace PlatformWEBAPI.Controllers
         public async Task<IActionResult> ProcessPaymentOnePay(RequestCreateMultipleItemOrder request)
         {
             //ExcuteGetMethod(string orderCode, string amount, string returnUrl, string customerEmail = "", string customerPhone = "", string customerId = "")
-            if(request != null)
+            if (request != null)
             {
                 var mainAPI = _configuration["MainAPI"];
                 var returnUrl = $"{mainAPI}/api/PageOrder/ResultPaymentOnePay";
                 returnUrl += "/" + request.i18Code;
-                
+
 
 
                 var orderCode = request.orderCode;
-                
+
                 var customerEmail = request.auth.email;
 
-                decimal totalPrice = request.pays.Sum(r => r.totalPrice - r.discountSelected.couponPrice);
-                
-                
+                //Tinh toan lai gia tien o day
+                decimal totalPrice = 0;
+                foreach (var pay in request.pays)
+                {
+                    decimal _total = 0;
+                    var choosenDate = pay.choosenDate; // Convert tu dinh dang dd/mm/yyyy => yyyy-mm-dd
+
+                    DateTime parsedDate = DateTime.ParseExact(choosenDate, "dd/MM/yyyy", CultureInfo.InvariantCulture);
+                    var combinationId = pay.combination.id;
+                    var productChildId = pay.productChildId;
+                    var productParentId = pay.productId;
+                    var discountCoupon = "";
+                    var numberOfAdut = pay.numberOfAldut;
+                    var numberOfChild = pay.numberOfChildrend;
+                    if (pay.discountSelected != null)
+                    {
+                        if (!string.IsNullOrEmpty(pay.discountSelected.couponCode))
+                        {
+                            discountCoupon = pay.discountSelected.couponCode;
+                        }
+                    }
+                    //Bat dau goi vao database de lay ra gia thuc te
+                    using (IDbContext context = new IDbContext())
+                    {
+                        var combinationDetail = await context.ProductPriceInZoneList.FindAsync(combinationId);
+                        if (combinationDetail != null)
+                        {
+                            var zoneList = combinationDetail.ZoneList;
+                            if (!string.IsNullOrEmpty(zoneList))
+                            {
+                                var productPriceDetail = await context.ProductPriceInZoneListByDate.FirstOrDefaultAsync(r => r.ProductId == productChildId && r.Date.Date == parsedDate.Date && r.ZoneList.Equals(zoneList));
+                                if (productPriceDetail != null)
+                                {
+                                    _total = productPriceDetail.PriceEachNguoiLon * numberOfAdut + productPriceDetail.PriceEachTreEm * numberOfChild;
+                                    //Tinh khuyen mai va tru di
+
+                                }
+                            }
+
+                        }
+                    }
+                    if (!string.IsNullOrEmpty(discountCoupon))
+                    {
+                        var requestCoupon = new RequestCheckCouponCode();
+                        requestCoupon.productId = productParentId;
+                        requestCoupon.couponCode = discountCoupon;
+                        requestCoupon.customerEmail = request.auth.email;
+                        requestCoupon.culture_code = "vi-VN";
+
+                        var resultCoupon = _orderRepository.CheckCouponCode(requestCoupon);
+                        if(resultCoupon != null)
+                        {
+                            var discountOption = resultCoupon.DiscountOption;
+                            var discountValue = resultCoupon.ValueDiscount;
+
+                            if(discountOption == 1) // 1 la loai khuyen mai theo phan tram
+                            {
+                                _total = _total * (100 - discountValue) / 100;
+                            }
+                            if(discountOption == 2) // 2 la khuuyen mai theo gia tien
+                            {
+                                _total = _total - discountValue;
+                            }
+                        }
+                    }
+                    totalPrice += _total;
+
+                }
+
+                //decimal totalPrice = request.pays.Sum(r => r.totalPrice - r.discountSelected.couponPrice);
+
+
                 totalPrice = totalPrice * 100;
-                var result = Onepay.ExcuteGetMethod(orderCode, totalPrice.ToString(), returnUrl, customerEmail);
+                var priceInt = (int)totalPrice;
+                var result = Onepay.ExcuteGetMethod(orderCode, priceInt.ToString(), returnUrl, customerEmail);
                 return Ok(result);
             }
-            
-            return Ok(request);
+
+            return BadRequest(request);
         }
 
         [HttpGet]
@@ -116,9 +190,9 @@ namespace PlatformWEBAPI.Controllers
             //vpc_MerchTxnRef
             var vpc_MerchTxnRef = Request.Query["vpc_MerchTxnRef"].ToString();
             var baseUrl = _configuration["MainUrl"];
-            if(!string.IsNullOrEmpty(txnResponseCode) && !string.IsNullOrEmpty(vpc_MerchTxnRef) && txnResponseCode.Equals("0"))
+            if (!string.IsNullOrEmpty(txnResponseCode) && !string.IsNullOrEmpty(vpc_MerchTxnRef) && txnResponseCode.Equals("0"))
             {
-                
+
                 var checker = Onepay.Decrypt(merchantEncriped);
                 if (checker.Equals(vpc_MerchTxnRef))
                 {
@@ -133,14 +207,14 @@ namespace PlatformWEBAPI.Controllers
                         var url = $"{baseUrl}/{i18Code}/confirm/payment/success";
                         return Redirect(url);
                     }
-                    
+
                 }
             }
             else
             {
                 if (i18Code.Equals("en"))
                 {
-                    
+
                     var fail_url = $"{baseUrl}/confirm/payment/fail";
                     return Redirect(fail_url);
                 }
@@ -177,6 +251,6 @@ namespace PlatformWEBAPI.Controllers
             return Ok(response);
         }
 
-        
+
     }
 }

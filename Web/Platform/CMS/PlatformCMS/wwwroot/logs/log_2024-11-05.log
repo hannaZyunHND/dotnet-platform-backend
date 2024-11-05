@@ -1,0 +1,224 @@
+==== Request Log Entry ====
+Timestamp: 11/5/2024 9:34:26 AM
+IP Address: ::1
+Bearer Token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJFbWFpbCI6Im1yYW1yYTE3OUBnbWFpbC5jb20iLCJJZCI6IjE2MTQ1MmNkLTM0OTEtNGIwYi04ZDk0LWZlYjVjZWNkZjIwNyIsImh0dHA6Ly9zY2hlbWFzLnhtbHNvYXAub3JnL3dzLzIwMDUvMDUvaWRlbnRpdHkvY2xhaW1zL25hbWUiOiJtcmFtcmExNzlAZ21haWwuY29tIiwiUm9sZXMiOiJBZG1pbiIsImZ1bGxOYW1lIjoiRGlEb25nWGFuaCBBZG1pbiIsImp0aSI6ImFhN2NmODM1LTAxMmYtNGYzNy1hNTE0LWJlMWYyNWMwN2JkOSIsImV4cCI6MTczMDk3MTczOCwiaXNzIjoiaHR0cHM6Ly9qYW5ob21lLnZuLyIsImF1ZCI6Imh0dHBzOi8vamFuaG9tZS52bi8ifQ.QUBSloqZWlss4VOS_D3X1vl2gOYcdaUgzPTxEoqiNEI
+Endpoint: /api/user/profile
+Request Body: 
+===========================
+==== Request Log Entry ====
+Timestamp: 11/5/2024 9:34:27 AM
+IP Address: ::1
+Bearer Token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJFbWFpbCI6Im1yYW1yYTE3OUBnbWFpbC5jb20iLCJJZCI6IjE2MTQ1MmNkLTM0OTEtNGIwYi04ZDk0LWZlYjVjZWNkZjIwNyIsImh0dHA6Ly9zY2hlbWFzLnhtbHNvYXAub3JnL3dzLzIwMDUvMDUvaWRlbnRpdHkvY2xhaW1zL25hbWUiOiJtcmFtcmExNzlAZ21haWwuY29tIiwiUm9sZXMiOiJBZG1pbiIsImZ1bGxOYW1lIjoiRGlEb25nWGFuaCBBZG1pbiIsImp0aSI6ImVmNGVjNTdlLTRmNGEtNDYzNC04OTQ3LTQwNTk0YzNjMWZhNiIsImV4cCI6MTczMDk3MDI2MiwiaXNzIjoiaHR0cHM6Ly9qYW5ob21lLnZuLyIsImF1ZCI6Imh0dHBzOi8vamFuaG9tZS52bi8ifQ.8GFdM2_JQc0yvSYR_zNbc49f3Fl6wi1McH_Eat_zyPk
+Endpoint: /api/user/profile
+Request Body: 
+===========================
+==== Request Log Entry ====
+Timestamp: 11/5/2024 9:34:27 AM
+IP Address: ::1
+Bearer Token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJFbWFpbCI6Im1yYW1yYTE3OUBnbWFpbC5jb20iLCJJZCI6IjE2MTQ1MmNkLTM0OTEtNGIwYi04ZDk0LWZlYjVjZWNkZjIwNyIsImh0dHA6Ly9zY2hlbWFzLnhtbHNvYXAub3JnL3dzLzIwMDUvMDUvaWRlbnRpdHkvY2xhaW1zL25hbWUiOiJtcmFtcmExNzlAZ21haWwuY29tIiwiUm9sZXMiOiJBZG1pbiIsImZ1bGxOYW1lIjoiRGlEb25nWGFuaCBBZG1pbiIsImp0aSI6ImFhN2NmODM1LTAxMmYtNGYzNy1hNTE0LWJlMWYyNWMwN2JkOSIsImV4cCI6MTczMDk3MTczOCwiaXNzIjoiaHR0cHM6Ly9qYW5ob21lLnZuLyIsImF1ZCI6Imh0dHBzOi8vamFuaG9tZS52bi8ifQ.QUBSloqZWlss4VOS_D3X1vl2gOYcdaUgzPTxEoqiNEI
+Endpoint: /api/user/profile
+Request Body: 
+===========================
+==== Request Log Entry ====
+Timestamp: 11/5/2024 9:34:27 AM
+IP Address: ::1
+Bearer Token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJFbWFpbCI6Im1yYW1yYTE3OUBnbWFpbC5jb20iLCJJZCI6IjE2MTQ1MmNkLTM0OTEtNGIwYi04ZDk0LWZlYjVjZWNkZjIwNyIsImh0dHA6Ly9zY2hlbWFzLnhtbHNvYXAub3JnL3dzLzIwMDUvMDUvaWRlbnRpdHkvY2xhaW1zL25hbWUiOiJtcmFtcmExNzlAZ21haWwuY29tIiwiUm9sZXMiOiJBZG1pbiIsImZ1bGxOYW1lIjoiRGlEb25nWGFuaCBBZG1pbiIsImp0aSI6ImFhN2NmODM1LTAxMmYtNGYzNy1hNTE0LWJlMWYyNWMwN2JkOSIsImV4cCI6MTczMDk3MTczOCwiaXNzIjoiaHR0cHM6Ly9qYW5ob21lLnZuLyIsImF1ZCI6Imh0dHBzOi8vamFuaG9tZS52bi8ifQ.QUBSloqZWlss4VOS_D3X1vl2gOYcdaUgzPTxEoqiNEI
+Endpoint: /api/permission/functions-view
+Request Body: 
+===========================
+==== Request Log Entry ====
+Timestamp: 11/5/2024 9:34:28 AM
+IP Address: ::1
+Bearer Token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJFbWFpbCI6Im1yYW1yYTE3OUBnbWFpbC5jb20iLCJJZCI6IjE2MTQ1MmNkLTM0OTEtNGIwYi04ZDk0LWZlYjVjZWNkZjIwNyIsImh0dHA6Ly9zY2hlbWFzLnhtbHNvYXAub3JnL3dzLzIwMDUvMDUvaWRlbnRpdHkvY2xhaW1zL25hbWUiOiJtcmFtcmExNzlAZ21haWwuY29tIiwiUm9sZXMiOiJBZG1pbiIsImZ1bGxOYW1lIjoiRGlEb25nWGFuaCBBZG1pbiIsImp0aSI6ImVmNGVjNTdlLTRmNGEtNDYzNC04OTQ3LTQwNTk0YzNjMWZhNiIsImV4cCI6MTczMDk3MDI2MiwiaXNzIjoiaHR0cHM6Ly9qYW5ob21lLnZuLyIsImF1ZCI6Imh0dHBzOi8vamFuaG9tZS52bi8ifQ.8GFdM2_JQc0yvSYR_zNbc49f3Fl6wi1McH_Eat_zyPk
+Endpoint: /api/permission/functions-view
+Request Body: 
+===========================
+==== Request Log Entry ====
+Timestamp: 11/5/2024 9:34:28 AM
+IP Address: ::1
+Bearer Token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJFbWFpbCI6Im1yYW1yYTE3OUBnbWFpbC5jb20iLCJJZCI6IjE2MTQ1MmNkLTM0OTEtNGIwYi04ZDk0LWZlYjVjZWNkZjIwNyIsImh0dHA6Ly9zY2hlbWFzLnhtbHNvYXAub3JnL3dzLzIwMDUvMDUvaWRlbnRpdHkvY2xhaW1zL25hbWUiOiJtcmFtcmExNzlAZ21haWwuY29tIiwiUm9sZXMiOiJBZG1pbiIsImZ1bGxOYW1lIjoiRGlEb25nWGFuaCBBZG1pbiIsImp0aSI6ImVmNGVjNTdlLTRmNGEtNDYzNC04OTQ3LTQwNTk0YzNjMWZhNiIsImV4cCI6MTczMDk3MDI2MiwiaXNzIjoiaHR0cHM6Ly9qYW5ob21lLnZuLyIsImF1ZCI6Imh0dHBzOi8vamFuaG9tZS52bi8ifQ.8GFdM2_JQc0yvSYR_zNbc49f3Fl6wi1McH_Eat_zyPk
+Endpoint: /api/user/profile
+Request Body: 
+===========================
+==== Request Log Entry ====
+Timestamp: 11/5/2024 9:34:28 AM
+IP Address: ::1
+Bearer Token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJFbWFpbCI6Im1yYW1yYTE3OUBnbWFpbC5jb20iLCJJZCI6IjE2MTQ1MmNkLTM0OTEtNGIwYi04ZDk0LWZlYjVjZWNkZjIwNyIsImh0dHA6Ly9zY2hlbWFzLnhtbHNvYXAub3JnL3dzLzIwMDUvMDUvaWRlbnRpdHkvY2xhaW1zL25hbWUiOiJtcmFtcmExNzlAZ21haWwuY29tIiwiUm9sZXMiOiJBZG1pbiIsImZ1bGxOYW1lIjoiRGlEb25nWGFuaCBBZG1pbiIsImp0aSI6ImVmNGVjNTdlLTRmNGEtNDYzNC04OTQ3LTQwNTk0YzNjMWZhNiIsImV4cCI6MTczMDk3MDI2MiwiaXNzIjoiaHR0cHM6Ly9qYW5ob21lLnZuLyIsImF1ZCI6Imh0dHBzOi8vamFuaG9tZS52bi8ifQ.8GFdM2_JQc0yvSYR_zNbc49f3Fl6wi1McH_Eat_zyPk
+Endpoint: /api/DashBoard/GetDataDashBoard1
+Request Body: 
+===========================
+==== Request Log Entry ====
+Timestamp: 11/5/2024 9:34:28 AM
+IP Address: ::1
+Bearer Token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJFbWFpbCI6Im1yYW1yYTE3OUBnbWFpbC5jb20iLCJJZCI6IjE2MTQ1MmNkLTM0OTEtNGIwYi04ZDk0LWZlYjVjZWNkZjIwNyIsImh0dHA6Ly9zY2hlbWFzLnhtbHNvYXAub3JnL3dzLzIwMDUvMDUvaWRlbnRpdHkvY2xhaW1zL25hbWUiOiJtcmFtcmExNzlAZ21haWwuY29tIiwiUm9sZXMiOiJBZG1pbiIsImZ1bGxOYW1lIjoiRGlEb25nWGFuaCBBZG1pbiIsImp0aSI6ImFhN2NmODM1LTAxMmYtNGYzNy1hNTE0LWJlMWYyNWMwN2JkOSIsImV4cCI6MTczMDk3MTczOCwiaXNzIjoiaHR0cHM6Ly9qYW5ob21lLnZuLyIsImF1ZCI6Imh0dHBzOi8vamFuaG9tZS52bi8ifQ.QUBSloqZWlss4VOS_D3X1vl2gOYcdaUgzPTxEoqiNEI
+Endpoint: /api/Product/Supports
+Request Body: 
+===========================
+==== Request Log Entry ====
+Timestamp: 11/5/2024 9:34:27 AM
+IP Address: ::1
+Bearer Token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJFbWFpbCI6Im1yYW1yYTE3OUBnbWFpbC5jb20iLCJJZCI6IjE2MTQ1MmNkLTM0OTEtNGIwYi04ZDk0LWZlYjVjZWNkZjIwNyIsImh0dHA6Ly9zY2hlbWFzLnhtbHNvYXAub3JnL3dzLzIwMDUvMDUvaWRlbnRpdHkvY2xhaW1zL25hbWUiOiJtcmFtcmExNzlAZ21haWwuY29tIiwiUm9sZXMiOiJBZG1pbiIsImZ1bGxOYW1lIjoiRGlEb25nWGFuaCBBZG1pbiIsImp0aSI6ImFhN2NmODM1LTAxMmYtNGYzNy1hNTE0LWJlMWYyNWMwN2JkOSIsImV4cCI6MTczMDk3MTczOCwiaXNzIjoiaHR0cHM6Ly9qYW5ob21lLnZuLyIsImF1ZCI6Imh0dHBzOi8vamFuaG9tZS52bi8ifQ.QUBSloqZWlss4VOS_D3X1vl2gOYcdaUgzPTxEoqiNEI
+Endpoint: /api/Promotion/GetAllNamePromotion
+Request Body: 
+===========================
+==== Request Log Entry ====
+Timestamp: 11/5/2024 9:34:28 AM
+IP Address: ::1
+Bearer Token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJFbWFpbCI6Im1yYW1yYTE3OUBnbWFpbC5jb20iLCJJZCI6IjE2MTQ1MmNkLTM0OTEtNGIwYi04ZDk0LWZlYjVjZWNkZjIwNyIsImh0dHA6Ly9zY2hlbWFzLnhtbHNvYXAub3JnL3dzLzIwMDUvMDUvaWRlbnRpdHkvY2xhaW1zL25hbWUiOiJtcmFtcmExNzlAZ21haWwuY29tIiwiUm9sZXMiOiJBZG1pbiIsImZ1bGxOYW1lIjoiRGlEb25nWGFuaCBBZG1pbiIsImp0aSI6ImVmNGVjNTdlLTRmNGEtNDYzNC04OTQ3LTQwNTk0YzNjMWZhNiIsImV4cCI6MTczMDk3MDI2MiwiaXNzIjoiaHR0cHM6Ly9qYW5ob21lLnZuLyIsImF1ZCI6Imh0dHBzOi8vamFuaG9tZS52bi8ifQ.8GFdM2_JQc0yvSYR_zNbc49f3Fl6wi1McH_Eat_zyPk
+Endpoint: /api/DashBoard/GetDataDashBoard2
+Request Body: 
+===========================
+==== Request Log Entry ====
+Timestamp: 11/5/2024 9:34:27 AM
+IP Address: ::1
+Bearer Token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJFbWFpbCI6Im1yYW1yYTE3OUBnbWFpbC5jb20iLCJJZCI6IjE2MTQ1MmNkLTM0OTEtNGIwYi04ZDk0LWZlYjVjZWNkZjIwNyIsImh0dHA6Ly9zY2hlbWFzLnhtbHNvYXAub3JnL3dzLzIwMDUvMDUvaWRlbnRpdHkvY2xhaW1zL25hbWUiOiJtcmFtcmExNzlAZ21haWwuY29tIiwiUm9sZXMiOiJBZG1pbiIsImZ1bGxOYW1lIjoiRGlEb25nWGFuaCBBZG1pbiIsImp0aSI6ImFhN2NmODM1LTAxMmYtNGYzNy1hNTE0LWJlMWYyNWMwN2JkOSIsImV4cCI6MTczMDk3MTczOCwiaXNzIjoiaHR0cHM6Ly9qYW5ob21lLnZuLyIsImF1ZCI6Imh0dHBzOi8vamFuaG9tZS52bi8ifQ.QUBSloqZWlss4VOS_D3X1vl2gOYcdaUgzPTxEoqiNEI
+Endpoint: /api/Coupon/GetAll
+Request Body: 
+===========================
+==== Request Log Entry ====
+Timestamp: 11/5/2024 9:34:28 AM
+IP Address: ::1
+Bearer Token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJFbWFpbCI6Im1yYW1yYTE3OUBnbWFpbC5jb20iLCJJZCI6IjE2MTQ1MmNkLTM0OTEtNGIwYi04ZDk0LWZlYjVjZWNkZjIwNyIsImh0dHA6Ly9zY2hlbWFzLnhtbHNvYXAub3JnL3dzLzIwMDUvMDUvaWRlbnRpdHkvY2xhaW1zL25hbWUiOiJtcmFtcmExNzlAZ21haWwuY29tIiwiUm9sZXMiOiJBZG1pbiIsImZ1bGxOYW1lIjoiRGlEb25nWGFuaCBBZG1pbiIsImp0aSI6ImVmNGVjNTdlLTRmNGEtNDYzNC04OTQ3LTQwNTk0YzNjMWZhNiIsImV4cCI6MTczMDk3MDI2MiwiaXNzIjoiaHR0cHM6Ly9qYW5ob21lLnZuLyIsImF1ZCI6Imh0dHBzOi8vamFuaG9tZS52bi8ifQ.8GFdM2_JQc0yvSYR_zNbc49f3Fl6wi1McH_Eat_zyPk
+Endpoint: /api/DashBoard/GetCommentData
+Request Body: 
+===========================
+==== Request Log Entry ====
+Timestamp: 11/5/2024 9:34:28 AM
+IP Address: ::1
+Bearer Token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJFbWFpbCI6Im1yYW1yYTE3OUBnbWFpbC5jb20iLCJJZCI6IjE2MTQ1MmNkLTM0OTEtNGIwYi04ZDk0LWZlYjVjZWNkZjIwNyIsImh0dHA6Ly9zY2hlbWFzLnhtbHNvYXAub3JnL3dzLzIwMDUvMDUvaWRlbnRpdHkvY2xhaW1zL25hbWUiOiJtcmFtcmExNzlAZ21haWwuY29tIiwiUm9sZXMiOiJBZG1pbiIsImZ1bGxOYW1lIjoiRGlEb25nWGFuaCBBZG1pbiIsImp0aSI6ImFhN2NmODM1LTAxMmYtNGYzNy1hNTE0LWJlMWYyNWMwN2JkOSIsImV4cCI6MTczMDk3MTczOCwiaXNzIjoiaHR0cHM6Ly9qYW5ob21lLnZuLyIsImF1ZCI6Imh0dHBzOi8vamFuaG9tZS52bi8ifQ.QUBSloqZWlss4VOS_D3X1vl2gOYcdaUgzPTxEoqiNEI
+Endpoint: /api/Zone/GetZones
+Request Body: 
+===========================
+==== Request Log Entry ====
+Timestamp: 11/5/2024 9:34:28 AM
+IP Address: ::1
+Bearer Token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJFbWFpbCI6Im1yYW1yYTE3OUBnbWFpbC5jb20iLCJJZCI6IjE2MTQ1MmNkLTM0OTEtNGIwYi04ZDk0LWZlYjVjZWNkZjIwNyIsImh0dHA6Ly9zY2hlbWFzLnhtbHNvYXAub3JnL3dzLzIwMDUvMDUvaWRlbnRpdHkvY2xhaW1zL25hbWUiOiJtcmFtcmExNzlAZ21haWwuY29tIiwiUm9sZXMiOiJBZG1pbiIsImZ1bGxOYW1lIjoiRGlEb25nWGFuaCBBZG1pbiIsImp0aSI6ImVmNGVjNTdlLTRmNGEtNDYzNC04OTQ3LTQwNTk0YzNjMWZhNiIsImV4cCI6MTczMDk3MDI2MiwiaXNzIjoiaHR0cHM6Ly9qYW5ob21lLnZuLyIsImF1ZCI6Imh0dHBzOi8vamFuaG9tZS52bi8ifQ.8GFdM2_JQc0yvSYR_zNbc49f3Fl6wi1McH_Eat_zyPk
+Endpoint: /api/DashBoard/GetDataDashBoard3
+Request Body: 
+===========================
+==== Request Log Entry ====
+Timestamp: 11/5/2024 9:34:28 AM
+IP Address: ::1
+Bearer Token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJFbWFpbCI6Im1yYW1yYTE3OUBnbWFpbC5jb20iLCJJZCI6IjE2MTQ1MmNkLTM0OTEtNGIwYi04ZDk0LWZlYjVjZWNkZjIwNyIsImh0dHA6Ly9zY2hlbWFzLnhtbHNvYXAub3JnL3dzLzIwMDUvMDUvaWRlbnRpdHkvY2xhaW1zL25hbWUiOiJtcmFtcmExNzlAZ21haWwuY29tIiwiUm9sZXMiOiJBZG1pbiIsImZ1bGxOYW1lIjoiRGlEb25nWGFuaCBBZG1pbiIsImp0aSI6ImFhN2NmODM1LTAxMmYtNGYzNy1hNTE0LWJlMWYyNWMwN2JkOSIsImV4cCI6MTczMDk3MTczOCwiaXNzIjoiaHR0cHM6Ly9qYW5ob21lLnZuLyIsImF1ZCI6Imh0dHBzOi8vamFuaG9tZS52bi8ifQ.QUBSloqZWlss4VOS_D3X1vl2gOYcdaUgzPTxEoqiNEI
+Endpoint: /api/Product/Search
+Request Body: {"languageCode":"vi-VN     ","pageIndex":1,"pageSize":10,"keyword":"","trangThai":0,"idZones":[],"voucher":"","idPromotion":0,"isInstallment":false,"sortDir":"desc","sortBy":"Id","idTypeData":0}
+===========================
+==== Request Log Entry ====
+Timestamp: 11/5/2024 9:37:28 AM
+IP Address: ::1
+Bearer Token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJFbWFpbCI6Im1yYW1yYTE3OUBnbWFpbC5jb20iLCJJZCI6IjE2MTQ1MmNkLTM0OTEtNGIwYi04ZDk0LWZlYjVjZWNkZjIwNyIsImh0dHA6Ly9zY2hlbWFzLnhtbHNvYXAub3JnL3dzLzIwMDUvMDUvaWRlbnRpdHkvY2xhaW1zL25hbWUiOiJtcmFtcmExNzlAZ21haWwuY29tIiwiUm9sZXMiOiJBZG1pbiIsImZ1bGxOYW1lIjoiRGlEb25nWGFuaCBBZG1pbiIsImp0aSI6ImVmNGVjNTdlLTRmNGEtNDYzNC04OTQ3LTQwNTk0YzNjMWZhNiIsImV4cCI6MTczMDk3MDI2MiwiaXNzIjoiaHR0cHM6Ly9qYW5ob21lLnZuLyIsImF1ZCI6Imh0dHBzOi8vamFuaG9tZS52bi8ifQ.8GFdM2_JQc0yvSYR_zNbc49f3Fl6wi1McH_Eat_zyPk
+Endpoint: /api/user/profile
+Request Body: 
+===========================
+==== Request Log Entry ====
+Timestamp: 11/5/2024 9:37:29 AM
+IP Address: ::1
+Bearer Token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJFbWFpbCI6Im1yYW1yYTE3OUBnbWFpbC5jb20iLCJJZCI6IjE2MTQ1MmNkLTM0OTEtNGIwYi04ZDk0LWZlYjVjZWNkZjIwNyIsImh0dHA6Ly9zY2hlbWFzLnhtbHNvYXAub3JnL3dzLzIwMDUvMDUvaWRlbnRpdHkvY2xhaW1zL25hbWUiOiJtcmFtcmExNzlAZ21haWwuY29tIiwiUm9sZXMiOiJBZG1pbiIsImZ1bGxOYW1lIjoiRGlEb25nWGFuaCBBZG1pbiIsImp0aSI6ImVmNGVjNTdlLTRmNGEtNDYzNC04OTQ3LTQwNTk0YzNjMWZhNiIsImV4cCI6MTczMDk3MDI2MiwiaXNzIjoiaHR0cHM6Ly9qYW5ob21lLnZuLyIsImF1ZCI6Imh0dHBzOi8vamFuaG9tZS52bi8ifQ.8GFdM2_JQc0yvSYR_zNbc49f3Fl6wi1McH_Eat_zyPk
+Endpoint: /api/user/profile
+Request Body: 
+===========================
+==== Request Log Entry ====
+Timestamp: 11/5/2024 9:37:29 AM
+IP Address: ::1
+Bearer Token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJFbWFpbCI6Im1yYW1yYTE3OUBnbWFpbC5jb20iLCJJZCI6IjE2MTQ1MmNkLTM0OTEtNGIwYi04ZDk0LWZlYjVjZWNkZjIwNyIsImh0dHA6Ly9zY2hlbWFzLnhtbHNvYXAub3JnL3dzLzIwMDUvMDUvaWRlbnRpdHkvY2xhaW1zL25hbWUiOiJtcmFtcmExNzlAZ21haWwuY29tIiwiUm9sZXMiOiJBZG1pbiIsImZ1bGxOYW1lIjoiRGlEb25nWGFuaCBBZG1pbiIsImp0aSI6ImVmNGVjNTdlLTRmNGEtNDYzNC04OTQ3LTQwNTk0YzNjMWZhNiIsImV4cCI6MTczMDk3MDI2MiwiaXNzIjoiaHR0cHM6Ly9qYW5ob21lLnZuLyIsImF1ZCI6Imh0dHBzOi8vamFuaG9tZS52bi8ifQ.8GFdM2_JQc0yvSYR_zNbc49f3Fl6wi1McH_Eat_zyPk
+Endpoint: /api/permission/functions-view
+Request Body: 
+===========================
+==== Request Log Entry ====
+Timestamp: 11/5/2024 9:37:29 AM
+IP Address: ::1
+Bearer Token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJFbWFpbCI6Im1yYW1yYTE3OUBnbWFpbC5jb20iLCJJZCI6IjE2MTQ1MmNkLTM0OTEtNGIwYi04ZDk0LWZlYjVjZWNkZjIwNyIsImh0dHA6Ly9zY2hlbWFzLnhtbHNvYXAub3JnL3dzLzIwMDUvMDUvaWRlbnRpdHkvY2xhaW1zL25hbWUiOiJtcmFtcmExNzlAZ21haWwuY29tIiwiUm9sZXMiOiJBZG1pbiIsImZ1bGxOYW1lIjoiRGlEb25nWGFuaCBBZG1pbiIsImp0aSI6ImVmNGVjNTdlLTRmNGEtNDYzNC04OTQ3LTQwNTk0YzNjMWZhNiIsImV4cCI6MTczMDk3MDI2MiwiaXNzIjoiaHR0cHM6Ly9qYW5ob21lLnZuLyIsImF1ZCI6Imh0dHBzOi8vamFuaG9tZS52bi8ifQ.8GFdM2_JQc0yvSYR_zNbc49f3Fl6wi1McH_Eat_zyPk
+Endpoint: /api/DashBoard/GetDataDashBoard1
+Request Body: 
+===========================
+==== Request Log Entry ====
+Timestamp: 11/5/2024 9:37:29 AM
+IP Address: ::1
+Bearer Token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJFbWFpbCI6Im1yYW1yYTE3OUBnbWFpbC5jb20iLCJJZCI6IjE2MTQ1MmNkLTM0OTEtNGIwYi04ZDk0LWZlYjVjZWNkZjIwNyIsImh0dHA6Ly9zY2hlbWFzLnhtbHNvYXAub3JnL3dzLzIwMDUvMDUvaWRlbnRpdHkvY2xhaW1zL25hbWUiOiJtcmFtcmExNzlAZ21haWwuY29tIiwiUm9sZXMiOiJBZG1pbiIsImZ1bGxOYW1lIjoiRGlEb25nWGFuaCBBZG1pbiIsImp0aSI6ImVmNGVjNTdlLTRmNGEtNDYzNC04OTQ3LTQwNTk0YzNjMWZhNiIsImV4cCI6MTczMDk3MDI2MiwiaXNzIjoiaHR0cHM6Ly9qYW5ob21lLnZuLyIsImF1ZCI6Imh0dHBzOi8vamFuaG9tZS52bi8ifQ.8GFdM2_JQc0yvSYR_zNbc49f3Fl6wi1McH_Eat_zyPk
+Endpoint: /api/DashBoard/GetDataDashBoard2
+Request Body: 
+===========================
+==== Request Log Entry ====
+Timestamp: 11/5/2024 9:37:29 AM
+IP Address: ::1
+Bearer Token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJFbWFpbCI6Im1yYW1yYTE3OUBnbWFpbC5jb20iLCJJZCI6IjE2MTQ1MmNkLTM0OTEtNGIwYi04ZDk0LWZlYjVjZWNkZjIwNyIsImh0dHA6Ly9zY2hlbWFzLnhtbHNvYXAub3JnL3dzLzIwMDUvMDUvaWRlbnRpdHkvY2xhaW1zL25hbWUiOiJtcmFtcmExNzlAZ21haWwuY29tIiwiUm9sZXMiOiJBZG1pbiIsImZ1bGxOYW1lIjoiRGlEb25nWGFuaCBBZG1pbiIsImp0aSI6ImVmNGVjNTdlLTRmNGEtNDYzNC04OTQ3LTQwNTk0YzNjMWZhNiIsImV4cCI6MTczMDk3MDI2MiwiaXNzIjoiaHR0cHM6Ly9qYW5ob21lLnZuLyIsImF1ZCI6Imh0dHBzOi8vamFuaG9tZS52bi8ifQ.8GFdM2_JQc0yvSYR_zNbc49f3Fl6wi1McH_Eat_zyPk
+Endpoint: /api/DashBoard/GetDataDashBoard3
+Request Body: 
+===========================
+==== Request Log Entry ====
+Timestamp: 11/5/2024 9:37:29 AM
+IP Address: ::1
+Bearer Token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJFbWFpbCI6Im1yYW1yYTE3OUBnbWFpbC5jb20iLCJJZCI6IjE2MTQ1MmNkLTM0OTEtNGIwYi04ZDk0LWZlYjVjZWNkZjIwNyIsImh0dHA6Ly9zY2hlbWFzLnhtbHNvYXAub3JnL3dzLzIwMDUvMDUvaWRlbnRpdHkvY2xhaW1zL25hbWUiOiJtcmFtcmExNzlAZ21haWwuY29tIiwiUm9sZXMiOiJBZG1pbiIsImZ1bGxOYW1lIjoiRGlEb25nWGFuaCBBZG1pbiIsImp0aSI6ImVmNGVjNTdlLTRmNGEtNDYzNC04OTQ3LTQwNTk0YzNjMWZhNiIsImV4cCI6MTczMDk3MDI2MiwiaXNzIjoiaHR0cHM6Ly9qYW5ob21lLnZuLyIsImF1ZCI6Imh0dHBzOi8vamFuaG9tZS52bi8ifQ.8GFdM2_JQc0yvSYR_zNbc49f3Fl6wi1McH_Eat_zyPk
+Endpoint: /api/DashBoard/GetCommentData
+Request Body: 
+===========================
+==== Request Log Entry ====
+Timestamp: 11/5/2024 9:37:38 AM
+IP Address: ::1
+Bearer Token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJFbWFpbCI6Im1yYW1yYTE3OUBnbWFpbC5jb20iLCJJZCI6IjE2MTQ1MmNkLTM0OTEtNGIwYi04ZDk0LWZlYjVjZWNkZjIwNyIsImh0dHA6Ly9zY2hlbWFzLnhtbHNvYXAub3JnL3dzLzIwMDUvMDUvaWRlbnRpdHkvY2xhaW1zL25hbWUiOiJtcmFtcmExNzlAZ21haWwuY29tIiwiUm9sZXMiOiJBZG1pbiIsImZ1bGxOYW1lIjoiRGlEb25nWGFuaCBBZG1pbiIsImp0aSI6ImVmNGVjNTdlLTRmNGEtNDYzNC04OTQ3LTQwNTk0YzNjMWZhNiIsImV4cCI6MTczMDk3MDI2MiwiaXNzIjoiaHR0cHM6Ly9qYW5ob21lLnZuLyIsImF1ZCI6Imh0dHBzOi8vamFuaG9tZS52bi8ifQ.8GFdM2_JQc0yvSYR_zNbc49f3Fl6wi1McH_Eat_zyPk
+Endpoint: /api/user/profile
+Request Body: 
+===========================
+==== Request Log Entry ====
+Timestamp: 11/5/2024 9:37:38 AM
+IP Address: ::1
+Bearer Token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJFbWFpbCI6Im1yYW1yYTE3OUBnbWFpbC5jb20iLCJJZCI6IjE2MTQ1MmNkLTM0OTEtNGIwYi04ZDk0LWZlYjVjZWNkZjIwNyIsImh0dHA6Ly9zY2hlbWFzLnhtbHNvYXAub3JnL3dzLzIwMDUvMDUvaWRlbnRpdHkvY2xhaW1zL25hbWUiOiJtcmFtcmExNzlAZ21haWwuY29tIiwiUm9sZXMiOiJBZG1pbiIsImZ1bGxOYW1lIjoiRGlEb25nWGFuaCBBZG1pbiIsImp0aSI6ImVmNGVjNTdlLTRmNGEtNDYzNC04OTQ3LTQwNTk0YzNjMWZhNiIsImV4cCI6MTczMDk3MDI2MiwiaXNzIjoiaHR0cHM6Ly9qYW5ob21lLnZuLyIsImF1ZCI6Imh0dHBzOi8vamFuaG9tZS52bi8ifQ.8GFdM2_JQc0yvSYR_zNbc49f3Fl6wi1McH_Eat_zyPk
+Endpoint: /api/user/GetSuppliers
+Request Body: 
+===========================
+==== Request Log Entry ====
+Timestamp: 11/5/2024 9:37:38 AM
+IP Address: ::1
+Bearer Token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJFbWFpbCI6Im1yYW1yYTE3OUBnbWFpbC5jb20iLCJJZCI6IjE2MTQ1MmNkLTM0OTEtNGIwYi04ZDk0LWZlYjVjZWNkZjIwNyIsImh0dHA6Ly9zY2hlbWFzLnhtbHNvYXAub3JnL3dzLzIwMDUvMDUvaWRlbnRpdHkvY2xhaW1zL25hbWUiOiJtcmFtcmExNzlAZ21haWwuY29tIiwiUm9sZXMiOiJBZG1pbiIsImZ1bGxOYW1lIjoiRGlEb25nWGFuaCBBZG1pbiIsImp0aSI6ImVmNGVjNTdlLTRmNGEtNDYzNC04OTQ3LTQwNTk0YzNjMWZhNiIsImV4cCI6MTczMDk3MDI2MiwiaXNzIjoiaHR0cHM6Ly9qYW5ob21lLnZuLyIsImF1ZCI6Imh0dHBzOi8vamFuaG9tZS52bi8ifQ.8GFdM2_JQc0yvSYR_zNbc49f3Fl6wi1McH_Eat_zyPk
+Endpoint: /api/ORders/GetListOrderV2
+Request Body: {"keyword":"","startDate":"","endDate":"","activeStatus":"","supplierStatus":"","index":1,"size":10,"emailSupplier":""}
+===========================
+==== Request Log Entry ====
+Timestamp: 11/5/2024 9:37:40 AM
+IP Address: ::1
+Bearer Token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJFbWFpbCI6Im1yYW1yYTE3OUBnbWFpbC5jb20iLCJJZCI6IjE2MTQ1MmNkLTM0OTEtNGIwYi04ZDk0LWZlYjVjZWNkZjIwNyIsImh0dHA6Ly9zY2hlbWFzLnhtbHNvYXAub3JnL3dzLzIwMDUvMDUvaWRlbnRpdHkvY2xhaW1zL25hbWUiOiJtcmFtcmExNzlAZ21haWwuY29tIiwiUm9sZXMiOiJBZG1pbiIsImZ1bGxOYW1lIjoiRGlEb25nWGFuaCBBZG1pbiIsImp0aSI6ImVmNGVjNTdlLTRmNGEtNDYzNC04OTQ3LTQwNTk0YzNjMWZhNiIsImV4cCI6MTczMDk3MDI2MiwiaXNzIjoiaHR0cHM6Ly9qYW5ob21lLnZuLyIsImF1ZCI6Imh0dHBzOi8vamFuaG9tZS52bi8ifQ.8GFdM2_JQc0yvSYR_zNbc49f3Fl6wi1McH_Eat_zyPk
+Endpoint: /api/user/profile
+Request Body: 
+===========================
+==== Request Log Entry ====
+Timestamp: 11/5/2024 9:37:40 AM
+IP Address: ::1
+Bearer Token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJFbWFpbCI6Im1yYW1yYTE3OUBnbWFpbC5jb20iLCJJZCI6IjE2MTQ1MmNkLTM0OTEtNGIwYi04ZDk0LWZlYjVjZWNkZjIwNyIsImh0dHA6Ly9zY2hlbWFzLnhtbHNvYXAub3JnL3dzLzIwMDUvMDUvaWRlbnRpdHkvY2xhaW1zL25hbWUiOiJtcmFtcmExNzlAZ21haWwuY29tIiwiUm9sZXMiOiJBZG1pbiIsImZ1bGxOYW1lIjoiRGlEb25nWGFuaCBBZG1pbiIsImp0aSI6ImVmNGVjNTdlLTRmNGEtNDYzNC04OTQ3LTQwNTk0YzNjMWZhNiIsImV4cCI6MTczMDk3MDI2MiwiaXNzIjoiaHR0cHM6Ly9qYW5ob21lLnZuLyIsImF1ZCI6Imh0dHBzOi8vamFuaG9tZS52bi8ifQ.8GFdM2_JQc0yvSYR_zNbc49f3Fl6wi1McH_Eat_zyPk
+Endpoint: /api/Common/GetAllTypeContact
+Request Body: 
+===========================
+==== Request Log Entry ====
+Timestamp: 11/5/2024 9:37:40 AM
+IP Address: ::1
+Bearer Token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJFbWFpbCI6Im1yYW1yYTE3OUBnbWFpbC5jb20iLCJJZCI6IjE2MTQ1MmNkLTM0OTEtNGIwYi04ZDk0LWZlYjVjZWNkZjIwNyIsImh0dHA6Ly9zY2hlbWFzLnhtbHNvYXAub3JnL3dzLzIwMDUvMDUvaWRlbnRpdHkvY2xhaW1zL25hbWUiOiJtcmFtcmExNzlAZ21haWwuY29tIiwiUm9sZXMiOiJBZG1pbiIsImZ1bGxOYW1lIjoiRGlEb25nWGFuaCBBZG1pbiIsImp0aSI6ImVmNGVjNTdlLTRmNGEtNDYzNC04OTQ3LTQwNTk0YzNjMWZhNiIsImV4cCI6MTczMDk3MDI2MiwiaXNzIjoiaHR0cHM6Ly9qYW5ob21lLnZuLyIsImF1ZCI6Imh0dHBzOi8vamFuaG9tZS52bi8ifQ.8GFdM2_JQc0yvSYR_zNbc49f3Fl6wi1McH_Eat_zyPk
+Endpoint: /api/Common/GetAllStatusContact
+Request Body: 
+===========================
+==== Request Log Entry ====
+Timestamp: 11/5/2024 9:37:40 AM
+IP Address: ::1
+Bearer Token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJFbWFpbCI6Im1yYW1yYTE3OUBnbWFpbC5jb20iLCJJZCI6IjE2MTQ1MmNkLTM0OTEtNGIwYi04ZDk0LWZlYjVjZWNkZjIwNyIsImh0dHA6Ly9zY2hlbWFzLnhtbHNvYXAub3JnL3dzLzIwMDUvMDUvaWRlbnRpdHkvY2xhaW1zL25hbWUiOiJtcmFtcmExNzlAZ21haWwuY29tIiwiUm9sZXMiOiJBZG1pbiIsImZ1bGxOYW1lIjoiRGlEb25nWGFuaCBBZG1pbiIsImp0aSI6ImVmNGVjNTdlLTRmNGEtNDYzNC04OTQ3LTQwNTk0YzNjMWZhNiIsImV4cCI6MTczMDk3MDI2MiwiaXNzIjoiaHR0cHM6Ly9qYW5ob21lLnZuLyIsImF1ZCI6Imh0dHBzOi8vamFuaG9tZS52bi8ifQ.8GFdM2_JQc0yvSYR_zNbc49f3Fl6wi1McH_Eat_zyPk
+Endpoint: /api/Contact/Get
+Request Body: {"keyword":"","pageIndex":1,"pageSize":10,"sortBy":"Id","sortDir":"asc","type":0,"status":1}
+===========================
+==== Request Log Entry ====
+Timestamp: 11/5/2024 9:37:42 AM
+IP Address: ::1
+Bearer Token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJFbWFpbCI6Im1yYW1yYTE3OUBnbWFpbC5jb20iLCJJZCI6IjE2MTQ1MmNkLTM0OTEtNGIwYi04ZDk0LWZlYjVjZWNkZjIwNyIsImh0dHA6Ly9zY2hlbWFzLnhtbHNvYXAub3JnL3dzLzIwMDUvMDUvaWRlbnRpdHkvY2xhaW1zL25hbWUiOiJtcmFtcmExNzlAZ21haWwuY29tIiwiUm9sZXMiOiJBZG1pbiIsImZ1bGxOYW1lIjoiRGlEb25nWGFuaCBBZG1pbiIsImp0aSI6ImVmNGVjNTdlLTRmNGEtNDYzNC04OTQ3LTQwNTk0YzNjMWZhNiIsImV4cCI6MTczMDk3MDI2MiwiaXNzIjoiaHR0cHM6Ly9qYW5ob21lLnZuLyIsImF1ZCI6Imh0dHBzOi8vamFuaG9tZS52bi8ifQ.8GFdM2_JQc0yvSYR_zNbc49f3Fl6wi1McH_Eat_zyPk
+Endpoint: /api/user/profile
+Request Body: 
+===========================
+==== Request Log Entry ====
+Timestamp: 11/5/2024 9:37:42 AM
+IP Address: ::1
+Bearer Token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJFbWFpbCI6Im1yYW1yYTE3OUBnbWFpbC5jb20iLCJJZCI6IjE2MTQ1MmNkLTM0OTEtNGIwYi04ZDk0LWZlYjVjZWNkZjIwNyIsImh0dHA6Ly9zY2hlbWFzLnhtbHNvYXAub3JnL3dzLzIwMDUvMDUvaWRlbnRpdHkvY2xhaW1zL25hbWUiOiJtcmFtcmExNzlAZ21haWwuY29tIiwiUm9sZXMiOiJBZG1pbiIsImZ1bGxOYW1lIjoiRGlEb25nWGFuaCBBZG1pbiIsImp0aSI6ImVmNGVjNTdlLTRmNGEtNDYzNC04OTQ3LTQwNTk0YzNjMWZhNiIsImV4cCI6MTczMDk3MDI2MiwiaXNzIjoiaHR0cHM6Ly9qYW5ob21lLnZuLyIsImF1ZCI6Imh0dHBzOi8vamFuaG9tZS52bi8ifQ.8GFdM2_JQc0yvSYR_zNbc49f3Fl6wi1McH_Eat_zyPk
+Endpoint: /api/Zone/Supports
+Request Body: 
+===========================
+==== Request Log Entry ====
+Timestamp: 11/5/2024 9:37:42 AM
+IP Address: ::1
+Bearer Token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJFbWFpbCI6Im1yYW1yYTE3OUBnbWFpbC5jb20iLCJJZCI6IjE2MTQ1MmNkLTM0OTEtNGIwYi04ZDk0LWZlYjVjZWNkZjIwNyIsImh0dHA6Ly9zY2hlbWFzLnhtbHNvYXAub3JnL3dzLzIwMDUvMDUvaWRlbnRpdHkvY2xhaW1zL25hbWUiOiJtcmFtcmExNzlAZ21haWwuY29tIiwiUm9sZXMiOiJBZG1pbiIsImZ1bGxOYW1lIjoiRGlEb25nWGFuaCBBZG1pbiIsImp0aSI6ImVmNGVjNTdlLTRmNGEtNDYzNC04OTQ3LTQwNTk0YzNjMWZhNiIsImV4cCI6MTczMDk3MDI2MiwiaXNzIjoiaHR0cHM6Ly9qYW5ob21lLnZuLyIsImF1ZCI6Imh0dHBzOi8vamFuaG9tZS52bi8ifQ.8GFdM2_JQc0yvSYR_zNbc49f3Fl6wi1McH_Eat_zyPk
+Endpoint: /api/Zone/GetAll
+Request Body: 
+===========================
