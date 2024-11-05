@@ -365,6 +365,8 @@ namespace PlatformWEBAPI.Controllers
             return Ok(response);
         }
 
+
+
         [HttpPost]
         [Route("EmailSubscriptionRegistration")]
         public async Task<IActionResult> EmailSubscriptionRegistration(string email)

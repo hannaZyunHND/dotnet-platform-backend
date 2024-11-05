@@ -14,3 +14,14 @@ BEGIN
     INSERT INTO EmailSubscriptions (Email)
     VALUES (@Email);
 END
+
+CREATE PROCEDURE usp_web_GetAllEmailSubcriber
+AS
+BEGIN
+    SET NOCOUNT ON;  -- Tắt thông báo số hàng ảnh hưởng
+
+    SELECT * FROM EmailSubscriptions;
+END
+GO
+
+EXEC usp_web_GetAllEmailSubcriber;

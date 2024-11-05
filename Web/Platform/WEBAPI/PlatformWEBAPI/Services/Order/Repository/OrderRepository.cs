@@ -1537,11 +1537,12 @@ namespace PlatformWEBAPI.Services.Order.Repository
             {
                 var p = new DynamicParameters();
                 var commandText = "usp_web_InsertEmailSubcriber";
-                p.Add("@email",email);
+                p.Add("@email", email);
                 var result = _executers.ExecuteCommand(_connStr, conn => conn.Execute(commandText, p, commandType: System.Data.CommandType.StoredProcedure));
                 return result;
             }
         }
+
 
         public List<ResponseGetLastChatDetailBySessionForCustomer> ResponseGetLastChatDetailBySessionForCustomer()
         {

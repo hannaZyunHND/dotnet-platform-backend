@@ -735,15 +735,33 @@ namespace PlatformCMS.Controllers
             }
         }
 
+        [HttpGet]
+        [Route("GetAllEmailSubcribe")]
+        public async Task<IActionResult> GetAllEmailSubcribe() 
+        {
+                using (var connection = new SqlConnection(_connectionString))
+                {
+                    if (connection.State == ConnectionState.Closed)
+                    {
+                        connection.Open();
+                    }
+
+                    var orders = connection.Query<EmailSubcriberModel>("usp_web_GetAllEmailSubcriber", commandType: CommandType.StoredProcedure).ToList();
+
+                    return Ok(orders);
+                }
+        }
+
+
         [HttpPost]
         [Route("UpdateReviewFeedback")]
-        public async Task<IActionResult> UpdateReviewFeedback (UpdateFeedbackDetail request)
+        public async Task<IActionResult> UpdateReviewFeedback(UpdateFeedbackDetail request)
         {
             try
             {
                 using (var connection = new SqlConnection(_connectionString))
                 {
-                    if(connection.State == ConnectionState.Closed)
+                    if (connection.State == ConnectionState.Closed)
                     {
                         connection.Close();
                     }
@@ -751,12 +769,12 @@ namespace PlatformCMS.Controllers
                     var parameters = new DynamicParameters();
                     parameters.Add("@orderDetailFeedbackId", request.OrderDetailFeedbackId);
                     parameters.Add("@IsConfirm", request.IsConfirm);
-                    
+
                     var orders = connection.Query<OrderFeedbackDetail>("usp_CMS_UpdateReviewFeedback", parameters, commandType: CommandType.StoredProcedure).ToList();
                     return Ok(orders);
                 }
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 return BadRequest(ex.Message);
             }
@@ -1450,5 +1468,11 @@ namespace PlatformCMS.Controllers
         public string cultureCode { get; set; }
     }
 
-
+    public class EmailSubcriberModel
+    {
+        public int id { get; set; }
+        public string email { get; set; }
+        public DateTime CreatedAt { get; set; }
+        public DateTime UpdatedAt { get; set; }
+    }
 }
