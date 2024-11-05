@@ -33,6 +33,7 @@ using PlatformWEBAPI.Utility;
 using System.Data;
 using Utils;
 using System.Web;
+using System.Security.Cryptography;
 
 namespace PlatformWEBAPI.Controllers
 {
@@ -100,73 +101,75 @@ namespace PlatformWEBAPI.Controllers
                     return false;
                 }
 
+                var newPassword = GenerateRandomPassword(8);
 
-                var wwwrootPath = _hostingEnvironment.WebRootPath;
-                var tempFile = "mail-quen-mat-khau.html";
+                request.password = newPassword;
+                var result = _orderRepository.ForgotPassword(request);
 
-                var templatePath = Path.Combine(wwwrootPath, "mail-templates", tempFile);
-                if (System.IO.File.Exists(templatePath))
+                if (result != null)
                 {
-                    var templateString = ReadTemplateFromFile(templatePath);
+                    var wwwrootPath = _hostingEnvironment.WebRootPath;
+                    var tempFile = "mail-quen-mat-khau.html";
 
-                    //Lay cultureCode
-                    Dictionary<string, string> mailHooks = new Dictionary<string, string>();
-
-                    var metadata = Newtonsoft.Json.JsonConvert.DeserializeObject<OrderDetailMetaData>(user.MetaData);
-                    mailHooks.Add("[MAIL_FORGOT_PASSWORD]", user.Pcname);
-
-
-
-                    var outputHtml = ReplacePlaceholders(templateString, mailHooks);
-                    if (!string.IsNullOrEmpty(outputHtml))
+                    var templatePath = Path.Combine(wwwrootPath, "mail-templates", tempFile);
+                    if (System.IO.File.Exists(templatePath))
                     {
-                        var smtpServer = _configuration["EmailSender:Host"];
-                        int smtpPort = int.Parse(_configuration["EmailSender:Port"]);
-                        var smtpUser = _configuration["EmailSender:BookingService:Email"];
-                        var smtpPass = _configuration["EmailSender:BookingService:Password"];
-                        var title = mailHooks.GetValueOrDefault("[MAIL_TITLE]");
-                        var subject = "";
-                        if (!string.IsNullOrEmpty(title))
+                        var templateString = ReadTemplateFromFile(templatePath);
+
+
+                        // Tạo mailHooks và gán giá trị cho các placeholder
+                        Dictionary<string, string> mailHooks = new Dictionary<string, string>();
+                        mailHooks.Add("[MAIL_FORGOT_PASSWORD]", newPassword);
+
+
+
+                        var outputHtml = ReplacePlaceholders(templateString, mailHooks);
+                        if (!string.IsNullOrEmpty(outputHtml))
                         {
-                            subject = ConvertToCorrectEncoding(title);
+                            var smtpServer = _configuration["EmailSender:Host"];
+                            int smtpPort = int.Parse(_configuration["EmailSender:Port"]);
+                            var smtpUser = _configuration["EmailSender:BookingService:Email"];
+                            var smtpPass = _configuration["EmailSender:BookingService:Password"];
+                            var title = mailHooks.GetValueOrDefault("[MAIL_TITLE]");
+                            var subject = "";
+                            if (!string.IsNullOrEmpty(title))
+                            {
+                                subject = ConvertToCorrectEncoding(title);
+                            }
+
+                            var body = outputHtml;
+
+                            var toEmail = user.Email;
+
+                            var message = new MimeMessage();
+                            message.From.Add(new MailboxAddress(smtpUser, smtpUser));
+                            message.To.Add(new MailboxAddress(toEmail, toEmail));
+                            message.Subject = subject;
+
+                            var bodyBuilder = new BodyBuilder { HtmlBody = body };
+                            message.Body = bodyBuilder.ToMessageBody();
+
+                            using (var client = new MailKit.Net.Smtp.SmtpClient())
+                            {
+                                try
+                                {
+                                    await client.ConnectAsync(smtpServer, smtpPort, true);
+                                    await client.AuthenticateAsync(smtpUser, smtpPass);
+                                    await client.SendAsync(message);
+                                    await client.DisconnectAsync(true);
+                                }
+                                catch (Exception ex)
+                                {
+                                    Console.WriteLine($"ERROR: {ex.Message}");
+                                    return false;
+                                }
+                            }
                         }
 
-                        var body = outputHtml;
 
-                        var toEmail = "helpdesk@joytime.vn";
-                        var helpDeskGmail = "joytime234@gmail.com";
-
-                        var message = new MimeMessage();
-                        message.From.Add(new MailboxAddress(smtpUser, smtpUser));
-                        message.To.Add(new MailboxAddress(toEmail, toEmail));
-                        message.To.Add(new MailboxAddress(helpDeskGmail, helpDeskGmail));
-                        message.Subject = subject;
-
-                        var bodyBuilder = new BodyBuilder { HtmlBody = body };
-                        message.Body = bodyBuilder.ToMessageBody();
-
-                        using (var client = new MailKit.Net.Smtp.SmtpClient())
-                        {
-                            try
-                            {
-                                await client.ConnectAsync(smtpServer, smtpPort, true);
-                                await client.AuthenticateAsync(smtpUser, smtpPass);
-                                await client.SendAsync(message);
-                                await client.DisconnectAsync(true);
-                            }
-                            catch (Exception ex)
-                            {
-                                // Handle  (e.g., log the error)
-                                Console.WriteLine($"ERROR: {ex.Message}");
-                                return false;
-                            }
-                        }
                     }
 
-
                 }
-
-
             }
             return true;
         }
@@ -406,6 +409,23 @@ namespace PlatformWEBAPI.Controllers
 
             return decodedString;
 
+        }
+
+        private string GenerateRandomPassword(int length)
+        {
+            const string chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+            var password = new char[length];
+            using (var rng = RandomNumberGenerator.Create())
+            {
+                var byteBuffer = new byte[1];
+                for (int i = 0; i < length; i++)
+                {
+                    rng.GetBytes(byteBuffer);
+                    var randomIndex = byteBuffer[0] % chars.Length;
+                    password[i] = chars[randomIndex];
+                }
+            }
+            return new string(password);
         }
     }
 }
