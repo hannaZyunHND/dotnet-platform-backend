@@ -22,11 +22,12 @@ namespace MI.Entity.Models
     public class OptionCreateDto
     {
         public string Text { get; set; } // Nội dung lựa chọn
-        public int Value { get; set; } // Giá trị của lựa chọn
+        public string Value { get; set; } // Giá trị của lựa chọn
     }
 
     public class SurveyResponseDto
     {
+        public string Feedback { get; set; }
         public int SurveyId { get; set; } // ID của khảo sát
         public string Email { get; set; } // Email của người dùng (tuỳ chọn)
         public List<AnswerDto> Answers { get; set; } = new List<AnswerDto>(); // Danh sách câu trả lời của người dùng
@@ -68,7 +69,28 @@ namespace MI.Entity.Models
         public int QuestionId { get; set; }
         public string QuestionText { get; set; }
         public string SelectedOption { get; set; }
-        public int? Value { get; set; }
+        public string Value { get; set; }
+        public string AnswerFeedback { get; set; }
     }
+    public class OptionOutput
+    {
+        public int Option_Id { get; set; }
+        public string Text { get; set; }
+    }
+
+    public class QuestionOutput
+    {
+        public int Question_Id { get; set; }
+        public string Text { get; set; }
+        public List<OptionOutput> Options { get; set; }
+    }
+
+    public class SurveyOutput
+    {
+        public int Survey_Id { get; set; }
+        public string Survey_Title { get; set; }
+        public List<QuestionOutput> Questions { get; set; }
+    }
+
 
 }
