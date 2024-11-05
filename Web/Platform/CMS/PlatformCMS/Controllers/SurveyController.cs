@@ -115,31 +115,92 @@ namespace PlatformCMS.Controllers
                         await _context.SaveChangesAsync();
 
                         var answers = new List<Answers>();
+
                         foreach (var answer in request.Answers)
                         {
                             var answerEntity = new Answers
                             {
                                 Response_Id = response.Response_Id,
                                 Question_Id = answer.QuestionId,
-                                Option_Id = answer.OptionId,
-                                Text_Answer = answer.TextAnswer
+                                Option_Id = answer.OptionId
                             };
 
+                            // Nếu `OptionId` là null, thêm `Text_Answer`
+                            if (answer.OptionId == null)
+                            {
+                                answerEntity.Text_Answer = request.Feedback;
+                            }
+
+                            // Thêm `answerEntity` vào danh sách `answers`
                             answers.Add(answerEntity);
                         }
 
                         await _context.Answers.AddRangeAsync(answers);
                         await _context.SaveChangesAsync();
-                        return Ok(answers);
+                        return Ok(answers);  // Trả về kết quả nếu thành công
                     }
 
-                    return BadRequest("Invalid request");
+                    return BadRequest("Invalid request"); // Trả về nếu request là null
                 }
             }
             catch (Exception ex)
             {
-                // Trả về thông tin chi tiết về lỗi
-                return StatusCode(500, new { Msg = ex.Message, InnerException = ex.InnerException?.Message });
+                // Log lỗi hoặc xử lý ngoại lệ
+                return StatusCode(500, "An error occurred while processing your request."); // Trả về mã lỗi 500
+            }
+        }
+
+        [HttpGet]
+        [Route("Find_All_Info_Survey/{survey_id}")]
+        public async Task<IActionResult> Find_All_Info_Survey(int survey_id)
+        {
+            if (survey_id <= 0)
+            {
+                return BadRequest("Invalid survey ID.");
+            }
+
+            using (var _context = new IDbContext())
+            {
+                var survey = await _context.Surveys.FirstOrDefaultAsync(s => s.Survey_Id == survey_id);
+                if (survey == null)
+                {
+                    return NotFound("Survey not found.");
+                }
+
+                // Khởi tạo output cho survey
+                var surveyOutput = new SurveyOutput
+                {
+                    Survey_Id = survey.Survey_Id,
+                    Survey_Title = survey.Title,
+                    Questions = new List<QuestionOutput>()
+                };
+
+                // Lấy câu hỏi và các lựa chọn
+                var questions = await _context.Questions
+                                              .Where(q => q.Survey_Id == survey_id)
+                                              .ToListAsync();
+
+                foreach (var question in questions)
+                {
+                    var options = await _context.Options
+                                                 .Where(o => o.Question_Id == question.Question_Id)
+                                                 .Select(o => new OptionOutput
+                                                 {
+                                                     Option_Id = o.Option_Id,
+                                                     Text = o.Text
+                                                 })
+                                                 .ToListAsync();
+
+                    // Thêm câu hỏi và các lựa chọn vào survey output
+                    surveyOutput.Questions.Add(new QuestionOutput
+                    {
+                        Question_Id = question.Question_Id,
+                        Text = question.Text,
+                        Options = options
+                    });
+                }
+
+                return Ok(surveyOutput);
             }
         }
 
@@ -173,12 +234,12 @@ namespace PlatformCMS.Controllers
                                                      .Where(a => a.Response_Id == response.Response_Id)
                                                      .ToListAsync();
 
-                        int totalValue = answers
-                                        .Join(_context.Options,
-                                              answer => answer.Option_Id,
-                                              option => option.Option_Id,
-                                              (answer, option) => option.Value)
-                                        .Sum();
+                        //int totalValue = answers
+                        //                .Join(_context.Options,
+                        //                      answer => answer.Option_Id,
+                        //                      option => option.Option_Id,
+                        //                      (answer, option) => option.Value)
+                        //                .Sum();
 
                         var surveyDataOutput = new Survey_Data_Output()
                         {
@@ -186,7 +247,7 @@ namespace PlatformCMS.Controllers
                             Survey_Name = survey.Title,
                             Email = response.Email,
                             Time_To_Submit = response.Submitted_At,
-                            Total_Responses = totalValue
+                            //Total_Responses = totalValue
                         };
 
                         surveyResults.Add(surveyDataOutput);
@@ -222,7 +283,6 @@ namespace PlatformCMS.Controllers
                     return BadRequest("Invalid response ID.");
                 }
 
-                // Find the response entry
                 var response = await _context.Responses.FirstOrDefaultAsync(r => r.Response_Id == response_Id);
 
                 if (response == null)
@@ -230,10 +290,8 @@ namespace PlatformCMS.Controllers
                     return NotFound("Response not found.");
                 }
 
-                // Prepare a list to store detailed answers for each question
                 List<QuestionResponseDetail> questionDetails = new List<QuestionResponseDetail>();
 
-                // Fetch all answers associated with this response
                 var answers = await _context.Answers
                                             .Where(a => a.Response_Id == response_Id)
                                             .ToListAsync();
@@ -241,16 +299,24 @@ namespace PlatformCMS.Controllers
                 // Process each answer
                 foreach (var answer in answers)
                 {
-                    var question = _context.Questions.Find(answer.Question_Id);
-                    var option = _context.Options.Find(answer.Option_Id);
-                    questionDetails.Add(new QuestionResponseDetail
-                    {
+                    var question = await _context.Questions.FindAsync(answer.Question_Id); // Thay đổi thành FindAsync để đồng bộ hóa với async
+                    var option = await _context.Options.FindAsync(answer.Option_Id); // Cũng thay đổi thành FindAsync
 
+                    var questionDetail = new QuestionResponseDetail
+                    {
                         QuestionId = question.Question_Id,
                         QuestionText = question.Text,
-                        SelectedOption = option.Text,  // This will be null if the answer was a text input
-                        Value = option.Value,
-                    });
+                        SelectedOption = option != null ? option.Text : null,  // Kiểm tra option có null không
+                        Value = option != null ? option.Value.ToString() : null // Chuyển đổi Value thành string nếu option không null
+                    };
+
+                    // Nếu option là null, gán AnswerFeedback từ answer
+                    if (option == null)
+                    {
+                        questionDetail.AnswerFeedback = answer.Text_Answer;
+                    }
+
+                    questionDetails.Add(questionDetail);
                 }
 
                 // Create the result object with survey and user response details
@@ -263,17 +329,37 @@ namespace PlatformCMS.Controllers
             }
         }
 
+
         [HttpGet]
         [Route("Get_All_Options/{question_Id}")]
         public async Task<IActionResult> Get_All_Options(int question_Id)
         {
-            using (var _context = new IDbContext()) // Sử dụng lớp thực thi
+            using (var _context = new IDbContext())
             {
-                if (question_Id != 0) // Kiểm tra giá trị khác 0
+                if (question_Id != 0)
                 {
                     var options = await _context.Options
                         .Where(r => r.Question_Id == question_Id)
-                        .ToListAsync(); // Thực hiện truy vấn bất đồng bộ
+                        .ToListAsync();
+
+                    if (options.Count > 0)
+                    {
+                        var text_feedback = await _context.Answers
+                                .Where(r => r.Question_Id == question_Id)
+                                .Select(r => r.Text_Answer)
+                                .FirstOrDefaultAsync();
+
+                        if (!string.IsNullOrEmpty(text_feedback))
+                        {
+                            options.Add(new Options // Giả sử bạn có một đối tượng Option
+                            {
+                                // Thiết lập các thuộc tính cho phản hồi văn bản
+                                Text = text_feedback, // Hoặc thuộc tính nào bạn muốn hiển thị
+                                                      // Bạn có thể thêm các thuộc tính khác nếu cần thiết
+                            });
+                        }
+                    }
+
                     return Ok(options);
                 }
 

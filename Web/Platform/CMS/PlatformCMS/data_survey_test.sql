@@ -7,13 +7,13 @@ VALUES
 
 INSERT INTO Options (question_id, text, value)
 VALUES 
-    (1, 'Rất hài lòng', 5),
-    (1, 'Hài lòng', 4),
-    (1, 'Bình thường', 3),
-    (1, 'Không hài lòng', 2),
-    (1, 'Rất không hài lòng', 1),
-    (2, 'Có', 1),
-    (2, 'Không', 0);
+    (6, 'Rất hài lòng', 5),
+    (6, 'Hài lòng', 4),
+    (6, 'Bình thường', 3),
+    (6, 'Không hài lòng', 2),
+    (6, 'Rất không hài lòng', 1),
+    (7, 'Có', 1),
+    (7, 'Không', 0);
 
 INSERT INTO Responses (survey_id, email)
 VALUES 

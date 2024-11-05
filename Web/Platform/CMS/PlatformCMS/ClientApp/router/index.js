@@ -142,25 +142,25 @@ export let router = new Router({
                     path: '/admin/feedback',
                     name: 'Đánh giá',
                     component: Feedback,
-                    meta: { authorize: []}
+                    meta: { authorize: [] }
                 },
                 {
-                    path: '/admin/survey',
+                    path: '/admin/survey/list',
                     name: 'Khảo sát',
                     component: Survey,
-                    meta: { authorize: []}
+                    meta: { authorize: [] }
                 },
                 {
                     path: '/admin/email-subcriber',
                     name: 'Đăng kí thông tin',
                     component: EmailSubcribe,
-                    meta: { authorize: []}
+                    meta: { authorize: [] }
                 },
                 {
                     path: '/admin/forms',
                     name: 'Form',
                     component: Forms,
-                    meta: { authorize: []}
+                    meta: { authorize: [] }
                 },
                 {
                     path: '/admin/product/extend',

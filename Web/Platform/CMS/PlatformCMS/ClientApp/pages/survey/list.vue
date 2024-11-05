@@ -80,12 +80,15 @@
                                     </td>
                                     <td>
                                         <span>{{ formatTime(item.time_To_Submit) }}</span>
-
+                                    </td>
                                     <td>
-                                        <span>{{ item.total_Responses }}</span>
+                                        <b-button-group>
+                                            <b-button v-b-modal.modal-1
+                                                @click="showDetail(item.answer_Id)">Xem</b-button>
+                                        </b-button-group>
                                     </td>
 
-                                    </td>
+
                                     <td>
                                         <b-button-group>
                                             <b-form-checkbox :checked="item.isConfirm"
@@ -94,10 +97,7 @@
                                             </b-form-checkbox>
                                         </b-button-group>
 
-                                        <b-button-group>
-                                            <b-button v-b-modal.modal-1
-                                                @click="showDetail(item.answer_Id)">Xem</b-button>
-                                        </b-button-group>
+
                                     </td>
                                 </tr>
                             </tbody>
@@ -120,6 +120,7 @@
                                     :value="option.text">
                                     {{ option.text }}
                                 </b-form-radio>
+
                             </b-form-radio-group>
                         </div>
                     </li>
