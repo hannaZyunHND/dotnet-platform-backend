@@ -294,6 +294,8 @@ namespace PlatformWEBAPI
             app.UseCookiePolicy();
             //app.UseResponseCaching();
             app.UseResponseCompression();
+            
+
             app.UseHangfireServer();
             app.UseSession();
             //app.ClearCacheMiddleware();
