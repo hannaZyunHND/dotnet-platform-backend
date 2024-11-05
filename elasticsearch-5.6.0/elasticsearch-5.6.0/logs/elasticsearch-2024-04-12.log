@@ -1,2 +1,0 @@
-[2024-04-12T09:46:04,106][INFO ][o.e.c.m.MetaDataDeleteIndexService] [-uPqMDo] [elastic_way2go/vCHJIFztQR-xc1ISe4WZSQ] deleting index
-[2024-04-12T09:46:04,771][INFO ][o.e.c.m.MetaDataCreateIndexService] [-uPqMDo] [elastic_way2go] creating index, cause [api], templates [], shards [5]/[1], mappings [essearchitem]
