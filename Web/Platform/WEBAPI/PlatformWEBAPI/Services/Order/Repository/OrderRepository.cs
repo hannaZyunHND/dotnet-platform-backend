@@ -44,6 +44,7 @@ namespace PlatformWEBAPI.Services.Order.Repository
 
         Task<CustomerAuth> DoLogin(CustomerAuthViewModel request);
         int ChangePassword(CustomerAuthViewModel request);
+        int ForgotPassword(CustomerAuthViewModel request);
         int DoSignUp(CustomerAuthViewModel request);
 
         List<OrderDetailViewModel> GetListOrderDetailByOrderId(int orderId, string lang_code);
@@ -73,6 +74,7 @@ namespace PlatformWEBAPI.Services.Order.Repository
         List<ResponseGetCouponByProductId> GetCouponByProductId(RequestGetCouponByProductId request);
         ResponseGetCouponByProductId CheckCouponCode(RequestCheckCouponCode request);
         string GenerateOrderCode();
+        int EmailSubscriptionRegistration(string email);
         Task<OrderDetailFeedback> UpdateOrderDetailCommentWithRating(RequestUpdateOrderDetailCommentWithRating request);
         Task<ResponseOrderDetailCommentWithRating> GetOrderDetailCommentWithRating(int orderDetailId);
         List<ResponseGetLastChatDetailBySessionForCustomer> ResponseGetLastChatDetailBySessionForCustomer();
@@ -88,7 +90,7 @@ namespace PlatformWEBAPI.Services.Order.Repository
         private readonly IExecuters _executers;
         private readonly IHostingEnvironment _hostingEnvironment;
         private readonly IBannerAdsRepository _bannerAdsRepository;
-        
+
 
         public OrderRepository(IConfiguration configuration, IExecuters executers, IHostingEnvironment hostingEnvironment, IBannerAdsRepository bannerAdsRepository)
         {
@@ -96,7 +98,7 @@ namespace PlatformWEBAPI.Services.Order.Repository
             _connStr = _configuration.GetConnectionString("DefaultConnection");
             _executers = executers;
             _hostingEnvironment = hostingEnvironment;
-            _bannerAdsRepository = bannerAdsRepository; 
+            _bannerAdsRepository = bannerAdsRepository;
         }
 
         public int CreateOrderInWebsite(OrderViewModel orders)
@@ -279,17 +281,17 @@ namespace PlatformWEBAPI.Services.Order.Repository
                 using (IDbContext context = new IDbContext())
                 {
                     var customer = context.Customer.Where(r => r.Pcname.Equals(request.password) && r.Email.Equals(request.email)).FirstOrDefault();
-                    if(customer != null)
+                    if (customer != null)
                     {
                         var response = new CustomerAuth();
                         response.id = customer.Id;
                         response.email = customer.Email;
                         response.country = customer.Country;
-                        response.phoneNumber= customer.PhoneNumber;
+                        response.phoneNumber = customer.PhoneNumber;
                         //response.firstName = customer.Fullname.Split(" ").FirstOrDefault();
                         //response.lastName = customer.Fullname.Split(" ").LastOrDefault();
                         return response;
-                    }  
+                    }
                 }
             }
             catch (Exception ex)
@@ -310,6 +312,17 @@ namespace PlatformWEBAPI.Services.Order.Repository
             var result = _executers.ExecuteCommand(_connStr, conn => conn.Execute(commandText, p, commandType: System.Data.CommandType.StoredProcedure));
             return result;
         }
+
+        public int ForgotPassword(CustomerAuthViewModel request)
+        {
+            var p = new DynamicParameters();
+            var commandText = "usp_Web_ForgotPassword";
+            p.Add("@email", request.email);
+            p.Add("@newCode", request.password);
+            var result = _executers.ExecuteCommand(_connStr, conn => conn.Execute(commandText, p, commandType: System.Data.CommandType.StoredProcedure));
+            return result;
+        }
+
         public int DoSignUp(CustomerAuthViewModel request)
         {
             var p = new DynamicParameters();
@@ -505,7 +518,7 @@ namespace PlatformWEBAPI.Services.Order.Repository
                             customer.Fullname = request.auth.firstName + " " + request.auth.lastName;
                             customer.PhoneNumber = request.auth.phoneNumber;
                             context.Customer.Update(customer);
-                            
+
                             await context.SaveChangesAsync();
 
                         }
@@ -539,7 +552,7 @@ namespace PlatformWEBAPI.Services.Order.Repository
                                     {
                                         pickingDateByCustomer = DateTime.Parse($"{pickingDateSplited[2]}-{pickingDateSplited[1]}-{pickingDateSplited[0]}");
                                     }
-                                    
+
                                     //
 
                                     var orderDetail = new MI.Entity.Models.OrderDetail();
@@ -557,7 +570,7 @@ namespace PlatformWEBAPI.Services.Order.Repository
                                     if (orderItem.discountSelected != null)
                                     {
                                         orderDetail.Voucher = orderItem.discountSelected.couponCode;
-                                        if(orderItem.discountSelected.couponPrice > 0)
+                                        if (orderItem.discountSelected.couponPrice > 0)
                                         {
                                             orderDetail.LogPrice = orderItem.totalPrice - orderItem.discountSelected.couponPrice;
                                         }
@@ -576,16 +589,16 @@ namespace PlatformWEBAPI.Services.Order.Repository
 
                                     orderDetail.CreatedDate = DateTime.Now;
                                     orderDetail.ProductParentId = orderItem.productId;
-                                    if(orderItem != null)
+                                    if (orderItem != null)
                                     {
-                                        foreach(var noteGroup in orderItem.productBookingNoteGroups)
+                                        foreach (var noteGroup in orderItem.productBookingNoteGroups)
                                         {
-                                            foreach(var noteItem in noteGroup.NoteList)
+                                            foreach (var noteItem in noteGroup.NoteList)
                                             {
                                                 if (noteItem.bookingNoteType.StartsWith("date"))
                                                 {
                                                     DateTime _d = DateTime.Now;
-                                                    if(DateTime.TryParse(noteItem.noteValue, out _d))
+                                                    if (DateTime.TryParse(noteItem.noteValue, out _d))
                                                     {
                                                         noteItem.noteValue = _d.AddHours(7).ToUniversalTime().ToString("yyyy-MM-ddTHH:mm:ss");
                                                     }
@@ -601,7 +614,7 @@ namespace PlatformWEBAPI.Services.Order.Repository
                                     orderDetail.PaymentMethod = request.paymentMethod;
                                     orderDetail.OnepayRef = request.orderCode;
                                     orderDetail.PickingDate = pickingDateByCustomer;
-                                    
+
                                     orderDetail.DefaultLanguage = cultureCode;
                                     orderDetail.noteSpecial = request.orderNotes.noteSpecial;
                                     orderDetail.useAppContact = request.orderNotes.useAppContact;
@@ -638,7 +651,7 @@ namespace PlatformWEBAPI.Services.Order.Repository
                     //Write log
                     return null;
                 }
-                
+
 
             }
             return null;
@@ -689,19 +702,19 @@ namespace PlatformWEBAPI.Services.Order.Repository
             using (IDbContext context = new IDbContext())
             {
                 var customer = context.Customer.Where(r => r.Id == request.customerId).FirstOrDefault();
-                if(customer != null)
+                if (customer != null)
                 {
                     var order = context.Orders.Where(r => r.OrderCode.Equals(request.orderCode)).FirstOrDefault();
-                    if(order != null)
+                    if (order != null)
                     {
                         var orderDetail = context.OrderDetail.Where(r => r.Id == request.orderDetailId && r.OrderId == order.Id).FirstOrDefault();
-                        if(orderDetail != null)
+                        if (orderDetail != null)
                         {
                             orderDetail.ActiveStatus = "YEU_CAU_HUY";
                             orderDetail.rollbackOption = request.rollbackOption;
                             orderDetail.rollbackValue = request.rollbackValue;
                             orderDetail.RollbackRequestDate = DateTime.Now;
-                            
+
                             context.OrderDetail.Update(orderDetail);
                             await context.SaveChangesAsync();
                             return true;
@@ -725,13 +738,13 @@ namespace PlatformWEBAPI.Services.Order.Repository
                     if (!string.IsNullOrEmpty(templateString))
                     {
                         var mailInfo = _bannerAdsRepository.GetBannerAds_By_Code(request.culture_code, "MAIL_CULTURE_NEW_REGISTER");
-                        if(mailInfo != null)
+                        if (mailInfo != null)
                         {
                             var banners = WebHelper.ConvertSlide(mailInfo);
-                            if(banners != null)
+                            if (banners != null)
                             {
                                 Dictionary<string, string> mailHooks = new Dictionary<string, string>();
-                                foreach(var item in banners)
+                                foreach (var item in banners)
                                 {
                                     if (!string.IsNullOrEmpty(item.Title))
                                     {
@@ -756,7 +769,7 @@ namespace PlatformWEBAPI.Services.Order.Repository
                                     {
                                         subject = ConvertToCorrectEncoding(title);
                                     }
-                                    
+
                                     var body = outputHtml;
 
                                     var toEmail = request.customerEmail;
@@ -810,14 +823,14 @@ namespace PlatformWEBAPI.Services.Order.Repository
                         }
                     }
 
-                    
-                
+
+
                 }
             }
             catch (Exception ex)
             {
                 Console.WriteLine(ex.Message);
-               
+
             }
             return false;
 
@@ -902,8 +915,8 @@ namespace PlatformWEBAPI.Services.Order.Repository
                     requestGetOrderItemFullDetail.orderDetailId = item.ToString();
                     requestGetOrderItemFullDetail.cultureCode = request.culture_code;
 
-                    
-                    
+
+
                     //Goi db
                     var detail = await this.GetOrderItemFullDetail(requestGetOrderItemFullDetail);
                     if (detail != null)
@@ -1005,9 +1018,9 @@ namespace PlatformWEBAPI.Services.Order.Repository
                 return true;
             }
             return false;
-            
+
         }
-        private  string ConvertToCorrectEncoding(string input)
+        private string ConvertToCorrectEncoding(string input)
         {
             // Giải mã các ký tự HTML entities thành chuỗi Unicode
             string decodedString = HttpUtility.HtmlDecode(input);
@@ -1029,9 +1042,9 @@ namespace PlatformWEBAPI.Services.Order.Repository
 
         public bool SendRequestOrderToSupplierInBackground()
         {
-           
+
             var result = this.GetOrderItemFullDetailPedningForSupplier();
-            foreach(var detail in result)
+            foreach (var detail in result)
             {
                 var wwwrootPath = _hostingEnvironment.WebRootPath;
                 var templatePath = Path.Combine(wwwrootPath, "mail-templates", "mail-thong-bao-doi-tac.html");
@@ -1170,25 +1183,25 @@ namespace PlatformWEBAPI.Services.Order.Repository
                         catch (Exception ex)
                         {
                             Console.WriteLine(ex.Message);
-                            
+
                         }
-                        
+
                     }
-                    
+
                 }
-                
+
             }
             return true;
-                
+
         }
 
         public List<ResponseGetOrderItemFullDetailForSupplier> GetOrderItemFullDetailPedningForSupplier()
         {
             var p = new DynamicParameters();
             var commandText = "usp_Web_GetOrderDetailFullInfomationForSupplier";
-            
+
             p.Add("@lang_code", "vi-VN");
-            var result =  _executers.ExecuteCommand(_connStr, conn => conn.Query<ResponseGetOrderItemFullDetailForSupplier>(commandText, p, commandType: System.Data.CommandType.StoredProcedure)).ToList();
+            var result = _executers.ExecuteCommand(_connStr, conn => conn.Query<ResponseGetOrderItemFullDetailForSupplier>(commandText, p, commandType: System.Data.CommandType.StoredProcedure)).ToList();
             return result;
         }
 
@@ -1294,7 +1307,7 @@ namespace PlatformWEBAPI.Services.Order.Repository
                         mailHooks.Add("[DATA_TEN_FULL_OPTION]", detail.ZoneTitles);
                         mailHooks.Add("[DATA_TEN_SAN_PHAM]", detail.ProductParentTitle);
                         mailHooks.Add("[MAIL_NOI_DUNG_SAN_PHAM_AVATAR]", UIHelper.StoreFilePath(detail.ProductParentAvatar));
-                        mailHooks.Add("[DATA_NGAY_DAT_DICH_VU]", detail.CreatedDate.ToString("dd/MM/yyyy hh:mm:ss"));
+                        mailHooks.Add("[DATA_NGAY_DAT_DICH_VU]", detail.CreatedDate.ToString("dd/MM/yyyy HH:mm:ss"));
                         mailHooks.Add("[DATA_NGAY_SU_DUNG]", metadata.choosenDate);
 
 
@@ -1392,17 +1405,17 @@ namespace PlatformWEBAPI.Services.Order.Repository
             {
                 if (request != null)
                 {
-                    if(request.OrderDetailId > 0)
+                    if (request.OrderDetailId > 0)
                     {
                         var orderDetail = await context.OrderDetail.FindAsync(request.OrderDetailId);
-                        if(orderDetail != null)
+                        if (orderDetail != null)
                         {
                             var feedBack = new OrderDetailFeedback();
                             if (request.Id > 0)
                             {
                                 //Tien hanh Update
                                 feedBack = await context.OrderDetailFeedback.FindAsync(request.Id);
-                                if(feedBack != null)
+                                if (feedBack != null)
                                 {
                                     feedBack.TitleComment = request.TitleComment;
                                     feedBack.ContentComment = request.ContentComment;
@@ -1430,18 +1443,18 @@ namespace PlatformWEBAPI.Services.Order.Repository
                             else
                             {
                                 //Tien hanh them moi
-                                
+
                                 feedBack.TitleComment = request.TitleComment;
                                 feedBack.ContentComment = request.ContentComment;
                                 feedBack.CreatedDate = DateTime.Now;
                                 feedBack.OrderDetailId = orderDetail.Id;
                                 feedBack.Rating = request.Rating;
                                 var fileUpload = new List<string>();
-                                foreach(var item in request.OldFileUpload)
+                                foreach (var item in request.OldFileUpload)
                                 {
                                     fileUpload.Add(item);
                                 }
-                                foreach(var item in request.NewFileUpload)
+                                foreach (var item in request.NewFileUpload)
                                 {
                                     var filePath = SaveFeedbackImage(item, orderDetail.Id);
                                     fileUpload.Add(filePath);
@@ -1456,7 +1469,7 @@ namespace PlatformWEBAPI.Services.Order.Repository
                             return feedBack;
                         }
                     }
-                    }
+                }
             }
             return null;
         }
@@ -1498,7 +1511,7 @@ namespace PlatformWEBAPI.Services.Order.Repository
         public async Task<ResponseOrderDetailCommentWithRating> GetOrderDetailCommentWithRating(int orderDetailId)
         {
             var response = new ResponseOrderDetailCommentWithRating();
-            if(orderDetailId > 0)
+            if (orderDetailId > 0)
             {
                 using (IDbContext context = new IDbContext())
                 {
@@ -1510,13 +1523,26 @@ namespace PlatformWEBAPI.Services.Order.Repository
                         response.ContentComment = orderDetailFeedback.ContentComment;
                         response.Rating = orderDetailFeedback.Rating;
                         response.OldFileUpload = orderDetailFeedback.FileUpload.Split(",").ToList();
-                        response.OrderDetailId =orderDetailFeedback.OrderDetailId;
+                        response.OrderDetailId = orderDetailFeedback.OrderDetailId;
                     }
                 }
             }
             return response;
-            
+
         }
+
+        public int EmailSubscriptionRegistration(string email)
+        {
+            using (IDbContext context = new IDbContext())
+            {
+                var p = new DynamicParameters();
+                var commandText = "usp_web_InsertEmailSubcriber";
+                p.Add("@email", email);
+                var result = _executers.ExecuteCommand(_connStr, conn => conn.Execute(commandText, p, commandType: System.Data.CommandType.StoredProcedure));
+                return result;
+            }
+        }
+
 
         public List<ResponseGetLastChatDetailBySessionForCustomer> ResponseGetLastChatDetailBySessionForCustomer()
         {
@@ -1524,8 +1550,8 @@ namespace PlatformWEBAPI.Services.Order.Repository
             var commandText = "usp_Web_GetLastChatDetailBySession";
 
             var result = _executers.ExecuteCommand(_connStr, conn => conn.Query<ResponseGetLastChatDetailBySessionForCustomer>(commandText, p, commandType: System.Data.CommandType.StoredProcedure));
-            
-            if(result != null)
+
+            if (result != null)
             {
                 var wwwrootPath = _hostingEnvironment.WebRootPath;
                 var tempFile = "mail-noti-new-message-customer.html";
@@ -1603,7 +1629,7 @@ namespace PlatformWEBAPI.Services.Order.Repository
                                             Console.WriteLine($"ERROR: {ex.Message}");
                                         }
                                     }
-                                    
+
                                 }
 
                             }
@@ -1613,17 +1639,17 @@ namespace PlatformWEBAPI.Services.Order.Repository
                     using (IDbContext context = new IDbContext())
                     {
                         var affected = context.OrderChatSessionDetail.Where(r => listDone.Contains(r.Id));
-                        foreach(var item in affected)
+                        foreach (var item in affected)
                         {
                             item.IsNotiCustomer = true;
-                            
+
                         }
                         context.OrderChatSessionDetail.UpdateRange(affected);
                         context.SaveChanges();
                     }
                     return result.ToList();
                 }
-                
+
             }
             return null;
         }

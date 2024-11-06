@@ -100,7 +100,7 @@ namespace MI.Dal.IDbContext
         public virtual DbSet<ProductInBankInstallment> ProductInBankInstallment { get; set; }
         public virtual DbSet<ProductSerialNumbers> ProductSerialNumbers { get; set; }
         public virtual DbSet<ProductPriceInZoneList> ProductPriceInZoneList { get; set; }
-        public virtual DbSet<ProductPriceInZoneListByDate> ProductPriceInZoneListByDate { get; set; }   
+        public virtual DbSet<ProductPriceInZoneListByDate> ProductPriceInZoneListByDate { get; set; }
         public virtual DbSet<ProductCancelPolicy> ProductCancelPolicy { get; set; }
 
         public virtual DbSet<OrderDetailFeedback> OrderDetailFeedback { get; set; }
@@ -110,6 +110,11 @@ namespace MI.Dal.IDbContext
 
         public virtual DbSet<PrivateTourOrder> PrivateTourOrders { get; set; }
         public virtual DbSet<PrivateTourOrderResponse> PrivateTourOrderResponses { get; set; }
+        public virtual DbSet<Surveys> Surveys { get; set; }
+        public virtual DbSet<Questions> Questions { get; set; }
+        public virtual DbSet<Responses> Responses { get; set; }
+        public virtual DbSet<Options> Options { get; set; }
+        public virtual DbSet<Answers> Answers { get; set; }
         //public virtual DbSet<CouponInProduct> CouponInProducts { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -244,11 +249,11 @@ namespace MI.Dal.IDbContext
                 entity.Property(e => e.SocialTitle).HasMaxLength(255);
                 //Lavista entity
                 //entity.Property(e => e.ThiTruong).HasMaxLength(255);
-                
+
                 //entity.Property(e => e.MoHinh).HasMaxLength(255);
-                
+
                 //entity.Property(e => e.DuAn).HasMaxLength(255);
-                
+
                 //entity.Property(e => e.MucDichDauTu).HasMaxLength(255);
                 //End lavista entity
                 entity.Property(e => e.Title)
@@ -592,7 +597,7 @@ namespace MI.Dal.IDbContext
                 entity.Property(e => e.NumberUseCode).HasDefaultValueSql("((0))");
             });
 
-            
+
 
             modelBuilder.Entity<Customer>(entity =>
             {
@@ -1196,7 +1201,7 @@ namespace MI.Dal.IDbContext
             {
                 entity.Property(e => e.Status).HasDefaultValue(1);
                 entity.Property(e => e.LocationId).HasDefaultValue(0);
-                
+
             });
 
             modelBuilder.Entity<ProductPriceInLocation>(entity =>

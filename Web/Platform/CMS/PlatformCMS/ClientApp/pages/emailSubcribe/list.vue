@@ -13,7 +13,7 @@
                             <label>Nhà cung cấp</label>
                             <select class="form-control" v-model="filter.emailSupplier">
                                 <option value="">TẤT CẢ</option>
-                                <option v-for="u in userSuppliers" :value="u.value">{{ u.label }}</option>
+                                <!-- <option v-for="u in userSuppliers" :value="u.value">{{ u.label }}</option> -->
                             </select>
                         </b-col>
                         <b-col>
@@ -28,7 +28,7 @@
                             <label>Trạng thái dịch vụ</label>
                             <select class="form-control" v-model="filter.activeStatus">
                                 <option value="">ALL</option>
-                                <option v-for="a in allActiveStatus" :value="a.value">{{ a.label }}</option>
+                                <!-- <option v-for="a in allActiveStatus" :value="a.value">{{ a.label }}</option> -->
                             </select>
                         </b-col>
                     </b-row>
@@ -60,64 +60,20 @@
                                 <tr role="row">
                                     <th>ID</th>
                                     <th>Thông tin khách hàng</th>
-                                    <th>Thông tin đơn hàng</th>
-                                    <th>Nội dung phản hồi</th>
-                                    <th>Hình ảnh</th>
-                                    <th>Hành động</th>
+                                    <th>Ngày tạo</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr role="row" class="odd" v-for="item in listFeedbacks">
+                                <tr role="row" class="odd" v-for="item in listEmails" :key="item.id">
                                     <td>{{ item.id }}</td>
                                     <td>
-                                        <ul>
-                                            <li>Customer: {{ item.customer }}</li>
-                                            <li>Phon: {{ item.phone }}</li>
-                                            <li>Email: {{ item.email }}</li>
-                                        </ul>
+                                        {{ item.email }}
                                     </td>
                                     <td>
-                                        <ul>
-                                            <li>Product: {{ item.title }}</li>
-                                            <!-- <li>Package: {{ item.productChildTitle }}</li>
-                                            <li>Options: {{ item.zoneTitles }}</li>
-                                            <li>Đối tác: {{ item.supplierFullName }}</li>
-                                            <li>Ngày đặt dịch vụ: {{ item.createdDate }}</li>
-                                            <li>Ngày SD dịch vụ: {{ item.pickingDate }}</li> -->
-                                        </ul>
+                                        {{ formatTime(item.createdAt) }}
+
                                     </td>
-                                    <td>
-                                        <ul>
-                                            <li>Title: {{ item.titleComment }}</li>
-                                            <li>Feedback: {{ item.contentComment }}</li>
-                                        </ul>
-                                        <ul>
-                                            <li>
-                                                <span v-for="i in item.rating" :key="i"
-                                                    class="mdi mdi-star text-warning">&#9733;</span>
-                                                <span v-if="item.rating === 0">No Rating</span>
-                                            </li>
-                                            <li>
-                                                <span>{{ formatTime(item.createdDate) }}</span>
-                                            </li>
-                                        </ul>
-                                    </td>
-                                    <td>
-                                        <ul>
-                                            <li>
-                                                <img :src="feedbackPreview(item.fileUpload)" alt=""
-                                                    style="width: 200px; height: 200px;">
-                                            </li>
-                                        </ul>
-                                    </td>
-                                    <td>
-                                        <b-button-group>
-                                            <b-form-checkbox :checked="item.isConfirm"
-                                                @change="acceptShowFeedback(item.id, item.isConfirm)">
-                                                Accept
-                                            </b-form-checkbox>
-                                        </b-button-group>
-                                    </td>
+
                                 </tr>
                             </tbody>
                         </table>
@@ -152,7 +108,7 @@ export default {
                 emailSupplier: ''
             },
             total: 0,
-            listFeedbacks: [],
+            listEmails: [],
             totalPage: 0,
             currentOrder: {},
             isLoading: false,
@@ -168,37 +124,16 @@ export default {
         };
     },
     methods: {
-        ...mapActions(["getOrderFeedbacks", "updateOrderFeedback"]),
+        ...mapActions(["GetAllEmailSubcribe"]),
 
         onLoadData() {
-            this.getOrderFeedbacks().then(response => {
-                this.listFeedbacks = response;
+            this.GetAllEmailSubcribe().then(response => {
+                this.listEmails = response;
                 this.totalPage = response.length;
 
             })
         },
 
-        acceptShowFeedback(id, isConfirm) {
-            const dataJson = {
-                OrderDetailFeedbackId: id,
-                IsConfirm: !isConfirm
-            }
-
-            this.updateOrderFeedback(dataJson).then(response => {
-                if (response) {
-                    alert("cập nhật thành công tình trạng hiển thị của feedback")
-                    this.onLoadData()
-                }
-                else {
-                    alert("cập nhật thất bại")
-                }
-
-            })
-        },
-
-        feedbackPreview(filePath) {
-            return `https://apiplatform.hndedu.com/${filePath}`;
-        },
         formatTime(dateString) {
             return moment(dateString).format('h:mm A DD-MM-YYYY');
         }

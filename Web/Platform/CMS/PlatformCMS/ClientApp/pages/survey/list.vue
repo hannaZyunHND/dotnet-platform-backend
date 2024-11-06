@@ -58,65 +58,46 @@
                         <table class="table data-thumb-view dataTable no-footer table-bordered" role="grid">
                             <thead class="table table-centered table-nowrap">
                                 <tr role="row">
-                                    <th>ID</th>
-                                    <th>Thông tin khách hàng</th>
-                                    <th>Thông tin đơn hàng</th>
-                                    <th>Nội dung phản hồi</th>
-                                    <th>Hình ảnh</th>
+                                    <th>Answer_Id</th>
+                                    <th>Email</th>
+                                    <th>Thông tin khảo sát</th>
+                                    <th>Thời gian</th>
+                                    <th>Đánh giá</th>
                                     <th>Hành động</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr role="row" class="odd" v-for="item in listFeedbacks">
-                                    <td>{{ item.id }}</td>
+                                <tr role="row" class="odd" v-for="item in results">
                                     <td>
-                                        <ul>
-                                            <li>Customer: {{ item.customer }}</li>
-                                            <li>Phon: {{ item.phone }}</li>
-                                            <li>Email: {{ item.email }}</li>
-                                        </ul>
+                                        <span>{{ item.answer_Id }}</span>
                                     </td>
                                     <td>
-                                        <ul>
-                                            <li>Product: {{ item.title }}</li>
-                                            <!-- <li>Package: {{ item.productChildTitle }}</li>
-                                            <li>Options: {{ item.zoneTitles }}</li>
-                                            <li>Đối tác: {{ item.supplierFullName }}</li>
-                                            <li>Ngày đặt dịch vụ: {{ item.createdDate }}</li>
-                                            <li>Ngày SD dịch vụ: {{ item.pickingDate }}</li> -->
-                                        </ul>
+                                        <span>Email: {{ item.email }}</span>
+                                    </td>
+
+                                    <td>
+                                        <span>Title: {{ item.survey_Name }}</span>
                                     </td>
                                     <td>
-                                        <ul>
-                                            <li>Title: {{ item.titleComment }}</li>
-                                            <li>Feedback: {{ item.contentComment }}</li>
-                                        </ul>
-                                        <ul>
-                                            <li>
-                                                <span v-for="i in item.rating" :key="i"
-                                                    class="mdi mdi-star text-warning">&#9733;</span>
-                                                <span v-if="item.rating === 0">No Rating</span>
-                                            </li>
-                                            <li>
-                                                <span>{{ formatTime(item.createdDate) }}</span>
-                                            </li>
-                                        </ul>
-                                    </td>
-                                    <td>
-                                        <ul>
-                                            <li>
-                                                <img :src="feedbackPreview(item.fileUpload)" alt=""
-                                                    style="width: 200px; height: 200px;">
-                                            </li>
-                                        </ul>
+                                        <span>{{ formatTime(item.time_To_Submit) }}</span>
                                     </td>
                                     <td>
                                         <b-button-group>
+                                            <b-button v-b-modal.modal-1
+                                                @click="showDetail(item.answer_Id)">Xem</b-button>
+                                        </b-button-group>
+                                    </td>
+
+
+                                    <td>
+                                        <b-button-group>
                                             <b-form-checkbox :checked="item.isConfirm"
-                                                @change="acceptShowFeedback(item.id, item.isConfirm)">
-                                                Accept
+                                                @change="acceptDeleteSurvey(item.id, item.isConfirm)">
+                                                Delete
                                             </b-form-checkbox>
                                         </b-button-group>
+
+
                                     </td>
                                 </tr>
                             </tbody>
@@ -126,7 +107,30 @@
 
             </div>
         </div>
+
+        <div>
+            <b-modal id="modal-1" title="Chi tiết khảo sát" v-if="detail_Result.length">
+                <!-- Danh sách câu hỏi và các tùy chọn -->
+                <ul v-for="(result, index) in detail_Result" :key="index" class="question-list mb-3">
+                    <li class="center d-flex align-items-center" style="gap: 50px;">
+                        <p><strong>{{ questions[result.questionId] || '' }}</strong></p>
+                        <div class="options">
+                            <b-form-radio-group v-model="result.selectedOption">
+                                <b-form-radio v-for="option in options[result.questionId]" :key="option.option_id"
+                                    :value="option.text">
+                                    {{ option.text }}
+                                </b-form-radio>
+
+                            </b-form-radio-group>
+                        </div>
+                    </li>
+                </ul>
+            </b-modal>
+
+        </div>
     </div>
+    <!-- Tooltip Component -->
+
 </template>
 <script>
 import "vue-loading-overlay/dist/vue-loading.css";
@@ -135,7 +139,7 @@ import Loading from "vue-loading-overlay";
 import moment from 'moment'
 
 export default {
-    name: "Feedback",
+    name: "Survey",
     components: {
         Loading
     },
@@ -152,7 +156,7 @@ export default {
                 emailSupplier: ''
             },
             total: 0,
-            listFeedbacks: [],
+            results: [],
             totalPage: 0,
             currentOrder: {},
             isLoading: false,
@@ -165,43 +169,70 @@ export default {
             updateInterval: null, // To store the interval ID for clearing later
             currentOrderCode: "",
 
+            questions: {},
+            detail_Result: [],
+            options: {},
+            fields: [
+                { key: 'questionText', label: 'Câu hỏi' },
+                { key: 'options', label: 'Lựa chọn' },
+                // Có thể thêm các trường khác nếu cần
+            ],
         };
     },
     methods: {
-        ...mapActions(["getOrderFeedbacks", "updateOrderFeedback"]),
+        ...mapActions(["getAllSurvey", "getSurveyById", "getAllOptions", "getQuestionById"]),
 
         onLoadData() {
-            this.getOrderFeedbacks().then(response => {
-                this.listFeedbacks = response;
-                this.totalPage = response.length;
-
-            })
-        },
-
-        acceptShowFeedback(id, isConfirm) {
-            const dataJson = {
-                OrderDetailFeedbackId: id,
-                IsConfirm: !isConfirm
+            const data = {
+                page_index: this.filter.index,
+                page_size: this.filter.size
             }
-
-            this.updateOrderFeedback(dataJson).then(response => {
-                if (response) {
-                    alert("cập nhật thành công tình trạng hiển thị của feedback")
-                    this.onLoadData()
-                }
-                else {
-                    alert("cập nhật thất bại")
-                }
+            this.getAllSurvey(data).then(response => {
+                this.results = response.results;
+                this.totalPage = response.totalCount;
 
             })
         },
 
-        feedbackPreview(filePath) {
-            return `https://apiplatform.hndedu.com/${filePath}`;
+        async showDetail(Id) {
+            const response = await this.getSurveyById(Id);
+            if (response) {
+                this.detail_Result = response.responses;
+                await this.loadAllOptions();
+            } else {
+                alert("cập nhật thất bại");
+            }
         },
+
+        async loadAllOptions() {
+            const questionIds = this.detail_Result.map(result => result.questionId);
+            for (let questionId of questionIds) {
+                await this.onLoadQuestion(questionId);
+                await this.onLoadOptions(questionId);
+            }
+        },
+
+        async onLoadQuestion(questionId) {
+            if (!this.questions[questionId]) {
+                const response = await this.getQuestionById(questionId);
+                if (response) {
+                    this.$set(this.questions, questionId, response.text);
+                }
+            }
+        },
+
+        async onLoadOptions(questionId) {
+            const response = await this.getAllOptions(questionId);
+            if (response) {
+                this.$set(this.options, questionId, response);
+            }
+        },
+
         formatTime(dateString) {
             return moment(dateString).format('h:mm A DD-MM-YYYY');
-        }
+        },
+
+
     },
     mounted() {
         this.onLoadData();
@@ -211,6 +242,65 @@ export default {
 };
 </script>
 <style scoped>
+.question-list {
+    list-style-type: none;
+    /* Xóa dấu chấm cho danh sách */
+    padding: 0;
+    /* Xóa padding của danh sách */
+    margin: 0;
+    /* Xóa margin của danh sách */
+}
+
+.center {
+    display: flex;
+    /* Sử dụng flexbox */
+    justify-content: space-between;
+    /* Tách đều giữa câu hỏi và tùy chọn */
+    align-items: center;
+    /* Căn giữa theo chiều dọc */
+}
+
+.options {
+    flex: 1;
+    /* Tùy chọn sẽ chiếm không gian còn lại */
+    text-align: left;
+    /* Căn lề trái cho các tùy chọn */
+}
+
+.question-list p {
+    margin: 0;
+    /* Xóa margin của đoạn văn */
+    text-align: left;
+    /* Căn lề trái cho câu hỏi */
+}
+
+.list-unstyled {
+    padding: 0;
+    margin: 0;
+}
+
+/* Optional: Style the radio buttons to match the image more closely */
+::v-deep .custom-radio {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.question-list {
+    list-style: none;
+    padding: 0;
+}
+
+.options {
+    display: flex;
+    flex-direction: column;
+    margin-top: 8px;
+}
+
+.options b-form-radio {
+    margin-right: 15px;
+}
+
 .upload-preview-container {
     display: flex;
     align-items: center;

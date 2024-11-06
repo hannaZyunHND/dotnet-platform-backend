@@ -502,7 +502,7 @@ namespace PlatformWEBAPI.Services.Order.ViewModal
         public string pickItemName { get; set; }
     }
 
-    
+
     public class ResponseGetCouponByProductId
     {
         public int CouponId { get; set; }
