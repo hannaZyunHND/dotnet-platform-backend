@@ -155,7 +155,7 @@ namespace PlatformWEBAPI.Utility
             r += "\"description\":\"" + product.Description + "\",";
             r += "\"mpn\":\"" + product.Id + "\",";
             r += "\"brand\":{\"@type\":\"Brand\",\"name\":\"" + product.Title + "\"},";
-            r += "\"aggregateRating\":{\"@type\":\"AggregateRating\",\"ratingValue\":\"" + Math.Round(product.RateAVG, 1) + "\", \"reviewCount\":\"" + product.TotalRate + "\"},";
+            r += "\"aggregateRating\":{\"@type\":\"AggregateRating\",\"ratingValue\":\"" + Math.Round((decimal)product.RateAVG, 1) + "\", \"reviewCount\":\"" + product.TotalRate + "\"},";
             r += "\"offers\":{\"@type\":\"Offer\",\"priceCurrency\":\"VND\",\"price\":\"" + product.Price + "\",\"priceValidUntil\":\"" + product.DiscountPrice + "\",\"itemCondition\":\"http://schema.org/UsedCondition \",\"availability\":\"http://schema.org/InStock \",\"logo\":{\"@type\":\"Organization\",\"name\":\"Executive Objects\"}},";
             r += "}";
             r += "</script>";

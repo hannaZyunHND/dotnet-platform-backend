@@ -948,9 +948,56 @@ namespace PlatformWEBAPI.Services.Order.Repository
                         mailHooks.Add("[DATA_SO_LUONG]", string.Join(" - ", MAIL_NOI_DUNG_SO_LUONG));
                         mailHooks.Add("[DATA_GIA_TIEN]", $"VND {UIHelper.FormatNumber(detail.LogPrice)}");
 
+
+                        
+
+
+
                         var outputHtml = ReplacePlaceholders(templateString, mailHooks);
                         if (!string.IsNullOrEmpty(outputHtml))
                         {
+                            var htmlDoc = new HtmlDocument();
+                            htmlDoc.LoadHtml(outputHtml);
+
+                            // Find the div with class 'booking-note-wrapper'
+                            var bookingNoteDiv = htmlDoc.DocumentNode.SelectSingleNode("//div[contains(@class, 'booking-note-wrapper')]");
+                            if (bookingNoteDiv != null)
+                            {
+                                //Lấy ra tất cả options của note ở đay
+                                foreach(var noteGroup in metadata.productBookingNoteGroups)
+                                {
+                                    foreach(var note in noteGroup.NoteList)
+                                    {
+                                        if (note.bookingNoteSendWithMail)
+                                        {
+                                            var noteLabel = note.ZoneName;
+                                            var noteValue = note.noteValue;
+                                            if (!string.IsNullOrEmpty(noteValue))
+                                            {
+                                                string htmlContent = $@"
+                                                    <table class=""paragraph_block block-3"" width=""100%"" border=""0"" cellpadding=""0"" cellspacing=""0"" role=""presentation"" style=""mso-table-lspace: 0pt; mso-table-rspace: 0pt; word-break: break-word;"">
+                                                      <tr>
+                                                        <td class=""pad"" style=""padding-bottom:10px;padding-left:25px;padding-right:10px;"">
+                                                          <div style=""color:#122f50;font-family:'Montserrat', 'Trebuchet MS', 'Lucida Grande', 'Lucida Sans Unicode', 'Lucida Sans', Tahoma, sans-serif;font-size:14px;line-height:120%;text-align:left;mso-line-height-alt:16.8px;"">
+                                                            <p style=""margin: 0; word-break: break-word;"">{noteLabel}: {noteValue}</p>
+                                                          </div>
+                                                        </td>
+                                                      </tr>
+                                                    </table>";
+
+                                                //Sau đó append cái này vào bookingNoteDiv ở trên
+                                                var newNode = HtmlNode.CreateNode(htmlContent);
+                                                bookingNoteDiv.AppendChild(newNode);
+                                            }
+                                        }
+                                        
+                                    }
+                                }
+                                outputHtml = htmlDoc.DocumentNode.OuterHtml;
+                            }
+
+                            //Gửi mail ở đây
+
                             var smtpServer = _configuration["EmailSender:Host"];
                             int smtpPort = int.Parse(_configuration["EmailSender:Port"]);
                             var smtpUser = _configuration["EmailSender:BookingService:Email"]; // cs@joytime.vn
@@ -990,24 +1037,6 @@ namespace PlatformWEBAPI.Services.Order.Repository
                                     return false;
                                 }
                             }
-                            //using (var client = new SmtpClient(smtpServer, smtpPort))
-                            //{
-                            //    client.Credentials = new NetworkCredential(smtpUser, smtpPass);
-                            //    client.EnableSsl = false;
-
-                            //    var mailMessage = new MailMessage
-                            //    {
-                            //        From = new MailAddress(smtpUser),
-                            //        Subject = subject,
-                            //        Body = body,
-                            //        IsBodyHtml = true
-                            //    };
-
-                            //    mailMessage.To.Add(toEmail);
-
-                            //    await client.SendMailAsync(mailMessage);
-                            //    return true;
-                            //}
                         }
 
 
@@ -1328,6 +1357,52 @@ namespace PlatformWEBAPI.Services.Order.Repository
                         var outputHtml = ReplacePlaceholders(templateString, mailHooks);
                         if (!string.IsNullOrEmpty(outputHtml))
                         {
+
+                            //Doc HTML o day de tim den the div co class la `booking-note-wrapper`
+
+                            //Sau do add them the h1 HELLO WORD vao
+                            // Load the HTML string into an HtmlDocument
+                            var htmlDoc = new HtmlDocument();
+                            htmlDoc.LoadHtml(outputHtml);
+
+                            // Find the div with class 'booking-note-wrapper'
+                            var bookingNoteDiv = htmlDoc.DocumentNode.SelectSingleNode("//div[contains(@class, 'booking-note-wrapper')]");
+                            if (bookingNoteDiv != null)
+                            {
+                                //Lấy ra tất cả options của note ở đay
+                                foreach (var noteGroup in metadata.productBookingNoteGroups)
+                                {
+                                    foreach (var note in noteGroup.NoteList)
+                                    {
+                                        if (note.bookingNoteSendWithMail)
+                                        {
+                                            var noteLabel = note.ZoneName;
+                                            var noteValue = note.noteValue;
+                                            if (!string.IsNullOrEmpty(noteValue))
+                                            {
+                                                string htmlContent = $@"
+                                                    <table class=""paragraph_block block-3"" width=""100%"" border=""0"" cellpadding=""0"" cellspacing=""0"" role=""presentation"" style=""mso-table-lspace: 0pt; mso-table-rspace: 0pt; word-break: break-word;"">
+                                                      <tr>
+                                                        <td class=""pad"" style=""padding-bottom:10px;padding-left:25px;padding-right:10px;"">
+                                                          <div style=""color:#122f50;font-family:'Montserrat', 'Trebuchet MS', 'Lucida Grande', 'Lucida Sans Unicode', 'Lucida Sans', Tahoma, sans-serif;font-size:14px;line-height:120%;text-align:left;mso-line-height-alt:16.8px;"">
+                                                            <p style=""margin: 0; word-break: break-word;"">{noteLabel}: {noteValue}</p>
+                                                          </div>
+                                                        </td>
+                                                      </tr>
+                                                    </table>";
+
+                                                //Sau đó append cái này vào bookingNoteDiv ở trên
+                                                var newNode = HtmlNode.CreateNode(htmlContent);
+                                                bookingNoteDiv.AppendChild(newNode);
+                                            }
+                                        }
+
+                                    }
+                                }
+                                outputHtml = htmlDoc.DocumentNode.OuterHtml;
+                            }
+
+
                             var smtpServer = _configuration["EmailSender:Host"];
                             int smtpPort = int.Parse(_configuration["EmailSender:Port"]);
                             var smtpUser = _configuration["EmailSender:BookingService:Email"]; // cs@joytime.vn

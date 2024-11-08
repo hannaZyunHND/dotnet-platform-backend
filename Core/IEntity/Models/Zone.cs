@@ -31,5 +31,6 @@ namespace MI.Entity.Models
         public string googleMapCrood { get; set; } = "";
         public string bookingNoteType { get; set; } = "";
         public bool? bookingNoteRequired { get; set; } = false;
+        public bool? bookingNoteSendWithMail { get; set; } = false;
     }
 }

@@ -233,10 +233,10 @@ namespace PlatformWEBAPI.Services.Product.ViewModel
         public int Id { get; set; }
         public string AvatarArray { get; set; }
         public string Warranty { get; set; }
-        public int ManufacturerId { get; set; }
+        public int? ManufacturerId { get; set; }
         public string Code { get; set; }
         public string Unit { get; set; }
-        public int Quantity { get; set; }
+        public int? Quantity { get; set; }
         public string PropertyId { get; set; }
         public string Title { get; set; }
         public string Description { get; set; }
@@ -251,34 +251,34 @@ namespace PlatformWEBAPI.Services.Product.ViewModel
         public string SocialDescription { get; set; }
         public string SocialImage { get; set; }
         public string LanguageCode { get; set; }
-        public double RateAVG { get; set; }
-        public int TotalRate { get; set; }
+        public double? RateAVG { get; set; }
+        public int? TotalRate { get; set; }
 
-        public int ZoneId { get; set; }
+        public int? ZoneId { get; set; }
         public string ZoneUrl { get; set; }
         public string ZoneName { get; set; }
 
-        public int ZoneCategoryId { get; set; }
+        public int? ZoneCategoryId { get; set; }
         public string ZoneCategoryUrl { get; set; }
         public string ZoneCategoyName { get; set; }
 
         public string Avatar { get; set; }
-        public int Five_Star { get; set; }
-        public int Four_Star { get; set; }
-        public int Three_Star { get; set; }
-        public int Two_Star { get; set; }
-        public int One_Star { get; set; }
-        public int FlashSaleId { get; set; }
-        public DateTime FlashSaleStartTime { get; set; }
-        public DateTime FlashSaleEndTime { get; set; }
-        public decimal ProductPriceInFlashSale { get; set; }
-        public int ProductQuantityInFlashSale { get; set; }
+        public int? Five_Star { get; set; }
+        public int? Four_Star { get; set; }
+        public int? Three_Star { get; set; }
+        public int? Two_Star { get; set; }
+        public int? One_Star { get; set; }
+        public int? FlashSaleId { get; set; }
+        public DateTime? FlashSaleStartTime { get; set; }
+        public DateTime? FlashSaleEndTime { get; set; }
+        public decimal? ProductPriceInFlashSale { get; set; }
+        public int? ProductQuantityInFlashSale { get; set; }
         public string MetaFile { get; set; }
-        public int MaterialType { get; set; }
-        public int ViewCount { get; set; }
-        public decimal Price { get; set; }
-        public decimal DiscountPrice { get; set; }
-        public int ParentId { get; set; }
+        public int? MaterialType { get; set; }
+        public int? ViewCount { get; set; }
+        public decimal? Price { get; set; }
+        public decimal? DiscountPrice { get; set; }
+        public int? ParentId { get; set; }
         public int? ProductCpnId { get; set; }
         public string ArticleId { get; set; }
         public string NgayDem { get; set; }
@@ -289,7 +289,7 @@ namespace PlatformWEBAPI.Services.Product.ViewModel
         public decimal? GiaNguoiLon { get; set; }
         public decimal? GiaTreEm { get; set; }
         public decimal? GiaEmBe { get; set; }
-        public DateTime NgayBatDau { get; set; } = DateTime.Now;
+        public DateTime? NgayBatDau { get; set; } = DateTime.Now;
         public string GradientColor { get; set; }
         public string Coverage { get; set; }
         public string DataLimit { get; set; }
@@ -317,10 +317,10 @@ namespace PlatformWEBAPI.Services.Product.ViewModel
         public string location { get; set; }
         public string locationIframe { get; set; }
         public string tagCombineds { get; set; }
-        public int TotalSale { get; set; } = 0;
+        public int? TotalSale { get; set; } = 0;
         public string NoteOptions { get; set; } = "";
         public List<ProductCommentFeedback> feedbacks { get; set; } = new List<ProductCommentFeedback>();
-        public int totalFeedback { get; set; } = 0;
+        public int? totalFeedback { get; set; } = 0;
 
 
 
@@ -344,6 +344,7 @@ namespace PlatformWEBAPI.Services.Product.ViewModel
         public string notePlaceHolder { get; set; }
         public string noteValue { get; set; } = "";
         public bool? bookingNoteRequired { get; set; } = false;
+        public bool? bookingNoteSendWithMail { get; set; } = false;
     }
     public class RequestGetProductCommentFeedback
     {

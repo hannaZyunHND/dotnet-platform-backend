@@ -96,4 +96,12 @@ namespace PlatformWEBAPI.Services.Extra.ViewModel
         public bool IsActive { get; set; } = false;
         public string Flag { get; set; } = "";
     }
+
+    public class SitemapItem
+    {
+        public string Url { get; set; }
+        public int? Id { get; set; }
+        public string Type { get; set; }
+
+    }
 }

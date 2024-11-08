@@ -294,7 +294,7 @@ namespace PlatformWEBAPI.Controllers
                                 var pickingDate = orderDetailAffected.PickingDate;
                                 var dateNow = DateTime.Now;
                                 var dateDiff = pickingDate - dateNow;
-                                var numberOfDateDiff = dateDiff.Value.Days;
+                                var numberOfDateDiff = dateDiff.Value.Hours;
                                 cancelPolicies = cancelPolicies.OrderByDescending(r => r.BeforeDate).ToList();
                                 foreach (var item in cancelPolicies)
                                 {

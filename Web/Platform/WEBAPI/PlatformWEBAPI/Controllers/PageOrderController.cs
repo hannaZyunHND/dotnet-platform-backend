@@ -13,6 +13,7 @@ using System.Security.Cryptography;
 using System.Threading.Tasks;
 using Way2GoWEB.Payment;
 using Microsoft.EntityFrameworkCore;
+using System.Dynamic;
 
 namespace PlatformWEBAPI.Controllers
 {
@@ -30,9 +31,7 @@ namespace PlatformWEBAPI.Controllers
             _configuration = configuration;
         }
 
-        [HttpPost]
-        [Route("CreateMultipleItemOrderAsync")]
-        public async Task<IActionResult> CreateMultipleItemOrderAsync(RequestCreateMultipleItemOrder reqest)
+        private async Task<ResponseCreateMultipleItemOrder> _CreateMultipleItemOrderManualy(RequestCreateMultipleItemOrder reqest)
         {
             var cultureCode = "";
             switch (reqest.i18Code)
@@ -74,7 +73,26 @@ namespace PlatformWEBAPI.Controllers
                     var sendHelpDeskMaiOrder = _orderRepository.SendNewOrderEmailToHelpDesk(requestCreateOrder);
                 }
 
+                return response;
+            }
+            else
+            {
+                return null;
+            }
+        }
+
+
+        [HttpPost]
+        [Route("CreateMultipleItemOrderAsync")]
+        public async Task<IActionResult> CreateMultipleItemOrderAsync(RequestCreateMultipleItemOrder reqest)
+        {
+            
+
+            var response = await _CreateMultipleItemOrderManualy(reqest);
+            if(response != null)
+            {
                 return Ok(response);
+
             }
             else
             {
@@ -107,7 +125,8 @@ namespace PlatformWEBAPI.Controllers
                     decimal _total = 0;
                     var choosenDate = pay.choosenDate; // Convert tu dinh dang dd/mm/yyyy => yyyy-mm-dd
 
-                    DateTime parsedDate = DateTime.ParseExact(choosenDate, "dd/MM/yyyy", CultureInfo.InvariantCulture);
+                    DateTime parsedDate = DateTime.TryParseExact(pay.choosenDate, new[] { "d/M/yyyy", "dd/MM/yyyy" }, CultureInfo.InvariantCulture, DateTimeStyles.None, out DateTime date) ? date : throw new FormatException("Invalid date format");
+
                     var combinationId = pay.combination.id;
                     var productChildId = pay.productChildId;
                     var productParentId = pay.productId;
@@ -174,7 +193,7 @@ namespace PlatformWEBAPI.Controllers
 
                 totalPrice = totalPrice * 100;
                 var priceInt = (int)totalPrice;
-                var result = Onepay.ExcuteGetMethod(orderCode, priceInt.ToString(), returnUrl, customerEmail);
+                var result = Onepay.ExcuteGetMethod(orderCode, priceInt.ToString(), returnUrl, customerEmail, requestBody: request);
                 return Ok(result);
             }
 
@@ -196,17 +215,36 @@ namespace PlatformWEBAPI.Controllers
                 var checker = Onepay.Decrypt(merchantEncriped);
                 if (checker.Equals(vpc_MerchTxnRef))
                 {
+                    //Doc vao database lay ra object tu merchantRef
+                    using (IDbContext context = new IDbContext())
+                    {
+                        var paymentDetail = await context.OnepayRefs.FirstOrDefaultAsync(r => r.EncryptMerchantTxtCode.Equals(merchantEncriped));
+                        if (paymentDetail != null)
+                        {
+                            var paymentObject = Newtonsoft.Json.JsonConvert.DeserializeObject<RequestCreateMultipleItemOrder>(paymentDetail.Object);
 
-                    if (i18Code.Equals("en"))
-                    {
-                        var url = $"{baseUrl}/confirm/payment/success";
-                        return Redirect(url);
+
+                            //Tao don hang
+                            var response = await _CreateMultipleItemOrderManualy(paymentObject);
+                            if(response != null)
+                            {
+                                if (i18Code.Equals("en"))
+                                {
+
+                                    var url = $"{baseUrl}/confirm/payment/success";
+                                    return Redirect(url);
+                                }
+                                else
+                                {
+                                    var url = $"{baseUrl}/{i18Code}/confirm/payment/success";
+                                    return Redirect(url);
+                                }
+                            }
+                            //return ve success
+                        }
                     }
-                    else
-                    {
-                        var url = $"{baseUrl}/{i18Code}/confirm/payment/success";
-                        return Redirect(url);
-                    }
+
+                    
 
                 }
             }
@@ -250,7 +288,38 @@ namespace PlatformWEBAPI.Controllers
             var response = _orderRepository.CheckCouponCode(request);
             return Ok(response);
         }
-
-
+        [HttpGet]
+        [Route("CheckOrderPaidByOrderCode/{orderCode}")]
+        public async Task<IActionResult> CheckOrderPaidByOrderCode(string orderCode)
+        {
+            using (IDbContext context = new IDbContext())
+            {
+                var checker = await context.Orders.FirstOrDefaultAsync(r => r.OnepayRef.Equals(orderCode));
+                if (checker != null)
+                {
+                    var customerId = checker.CustomerId;
+                    
+                    dynamic response = new ExpandoObject();
+                    response.customerId = 0;
+                    response.customerEmail = "";
+                    if (customerId > 0)
+                    {
+                        var customer = await context.Customer.FindAsync(customerId);
+                        if(customer != null)
+                        {
+                            
+                            response.customerId = customerId;
+                            response.customerEmail = customer.Email;
+                        }
+                        
+                    }
+                    return Ok(response);
+                }
+                else
+                {
+                    return BadRequest();
+                }
+            }
+        }
     }
 }

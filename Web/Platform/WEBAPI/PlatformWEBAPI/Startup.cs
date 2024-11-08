@@ -294,7 +294,7 @@ namespace PlatformWEBAPI
             app.UseCookiePolicy();
             //app.UseResponseCaching();
             app.UseResponseCompression();
-            
+
 
             app.UseHangfireServer();
             app.UseSession();
@@ -310,7 +310,13 @@ namespace PlatformWEBAPI
                 c.SwaggerEndpoint("/swagger/v1/swagger.json", "My API V1");
                 c.RoutePrefix = string.Empty;  // Đặt Swagger UI là trang chủ
             });
-            app.UseMvc();
+            app.UseMvc(routes => {
+                routes.MapRoute(
+                    name: "SiteMap",
+                    template: "sitemap.xml",
+                    defaults: new { controller = "Extra", action = "SiteMapGenerate" }
+                );
+            });
 
         }
     }

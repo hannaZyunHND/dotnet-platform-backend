@@ -309,7 +309,7 @@ namespace PlatformWEBAPI.Controllers
                         if(parentItem != null)
                         {
                             resItem.zoneParent = parentItem;
-                            var childItems = zoneOptions.Where(r => r.ParentId == parent).Where(r => groupedZoneList.Contains(r.Id)).ToList();
+                            var childItems = zoneOptions.Where(r => r.ParentId == parent).Where(r => groupedZoneList.Contains(r.Id)).OrderBy(r => r.SortOrder).ToList();
                             resItem.zoneChilds = childItems;
                             resItem.combinations = productZoneOptions;
                             response.Add(resItem);

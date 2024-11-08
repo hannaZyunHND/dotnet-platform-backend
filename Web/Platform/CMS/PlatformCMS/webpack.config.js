@@ -61,9 +61,9 @@ module.exports = (env) => {
             //    manifest: require('./wwwroot/dist/vendor-manifest.json')
             //}),
 
-           //new webpack.optimize.LimitChunkCountPlugin({
-           //    maxChunks: 1
-           //})
+           new webpack.optimize.LimitChunkCountPlugin({
+               maxChunks: 1
+           })
         ].concat(isDevBuild ? [
             // Plugins that apply in development builds only
             new webpack.SourceMapDevToolPlugin({
