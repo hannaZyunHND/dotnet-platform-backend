@@ -602,7 +602,6 @@ namespace PlatformWEBAPI.Services.Order.Repository
                                                     {
                                                         noteItem.noteValue = _d.AddHours(7).ToUniversalTime().ToString("yyyy-MM-ddTHH:mm:ss");
                                                     }
-
                                                 }
                                             }
                                         }
