@@ -461,39 +461,39 @@ namespace PlatformWEBAPI.Services.Order.ViewModal
         public string activeStatus { get; set; } = "TAO_MOI";
     }
 
-    public class OrderDetailMetaData
-    {
-        public string choosenDate { get; set; }
-        public Combination combination { get; set; }
-        public Currentpickoption[] currentPickOption { get; set; }
-        public int numberOfAldut { get; set; }
-        public int numberOfChildrend { get; set; }
-        public int couponValue { get; set; }
-        public int couponType { get; set; }
-        public int totalPrice { get; set; }
-        public string avatar { get; set; }
-        public string bookingName { get; set; }
-        public int productId { get; set; }
-        public int productChildId { get; set; }
-        public string bookingParentName { get; set; }
-        public List<NoteOptions> noteOptions { get; set; } = new List<NoteOptions>();
-    }
+    //public class OrderDetailMetaData
+    //{
+    //    public string choosenDate { get; set; }
+    //    public Combination combination { get; set; }
+    //    public Currentpickoption[] currentPickOption { get; set; }
+    //    public int numberOfAldut { get; set; }
+    //    public int numberOfChildrend { get; set; }
+    //    public int couponValue { get; set; }
+    //    public int couponType { get; set; }
+    //    public int totalPrice { get; set; }
+    //    public string avatar { get; set; }
+    //    public string bookingName { get; set; }
+    //    public int productId { get; set; }
+    //    public int productChildId { get; set; }
+    //    public string bookingParentName { get; set; }
+    //    public List<NoteOptions> noteOptions { get; set; } = new List<NoteOptions>();
+    //}
     public class NoteOptions
     {
         public string title { get; set; }
         public string note { get; set; }
     }
-    public class Combination
-    {
-        public int id { get; set; }
-        public string zoneList { get; set; }
-        public int priceEachNguoiLon { get; set; }
-        public int priceEachTreEm { get; set; }
-        public int netEachNguoiLon { get; set; }
-        public int netEachTreEm { get; set; }
-        public int productId { get; set; }
-        public int[] convertedZoneList { get; set; }
-    }
+    //public class Combination
+    //{
+    //    public int id { get; set; }
+    //    public string zoneList { get; set; }
+    //    public int priceEachNguoiLon { get; set; }
+    //    public int priceEachTreEm { get; set; }
+    //    public int netEachNguoiLon { get; set; }
+    //    public int netEachTreEm { get; set; }
+    //    public int productId { get; set; }
+    //    public int[] convertedZoneList { get; set; }
+    //}
 
     public class Currentpickoption
     {
@@ -514,6 +514,79 @@ namespace PlatformWEBAPI.Services.Order.ViewModal
         public string ZoneDescription { get; set; }
         public string ZoneContent { get; set; }
         public bool isActive { get; set; } = false;
+    }
+
+    public class OrderDetailMetaData
+    {
+        public string choosenDate { get; set; }
+        public Combination combination { get; set; }
+        public Currentpickoption[] currentPickOption { get; set; }
+        public int numberOfAldut { get; set; }
+        public int numberOfChildrend { get; set; }
+        public int couponValue { get; set; }
+        public int couponType { get; set; }
+        public int totalPrice { get; set; }
+        public string avatar { get; set; }
+        public string bookingName { get; set; }
+        public int productId { get; set; }
+        public int productChildId { get; set; }
+        public string bookingParentName { get; set; }
+        public Productbookingnotegroup[] productBookingNoteGroups { get; set; }
+        public Discountselected discountSelected { get; set; }
+    }
+
+    public class Combination
+    {
+        public int id { get; set; }
+        public string zoneList { get; set; }
+        public int priceEachNguoiLon { get; set; }
+        public int priceEachTreEm { get; set; }
+        public int netEachNguoiLon { get; set; }
+        public int netEachTreEm { get; set; }
+        public int productId { get; set; }
+        public int[] convertedZoneList { get; set; }
+    }
+
+    public class Discountselected
+    {
+        public string couponCode { get; set; }
+        public string couponDescription { get; set; }
+        public decimal couponPrice { get; set; }
+    }
+
+    //public class Currentpickoption
+    //{
+    //    public string parentGroup { get; set; }
+    //    public int pickItem { get; set; }
+    //    public string pickItemName { get; set; }
+    //}
+
+    public class Productbookingnotegroup
+    {
+        public int ZoneParentId { get; set; }
+        public string ZoneParentName { get; set; }
+        public Notelist[] NoteList { get; set; }
+    }
+
+    public class Notelist
+    {
+        public int ZoneId { get; set; }
+        public string ZoneName { get; set; }
+        public int ZoneParentId { get; set; }
+        public string ZoneParentName { get; set; }
+        public string bookingNoteType { get; set; }
+        public string noteOptions { get; set; }
+        public Noteoptionitem[] noteOptionItems { get; set; }
+        public string notePlaceHolder { get; set; }
+        public string noteValue { get; set; }
+        public bool bookingNoteRequired { get; set; }
+        public bool bookingNoteSendWithMail { get; set; } = false;
+    }
+
+    public class Noteoptionitem
+    {
+        public string label { get; set; }
+        public string value { get; set; }
     }
 
 }

@@ -1,8 +1,11 @@
 ﻿using Dapper;
 using HtmlAgilityPack;
+using MI.Dal.IDbContext;
 using MI.Entity.Enums;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Caching.Distributed;
 using Microsoft.Extensions.Configuration;
 using Nest;
@@ -65,6 +68,7 @@ namespace PlatformWEBAPI.Services.Extra.Repository
 
         void Tool_ImportTranslateLanguage(string langCode);
         void SendEmailEsimQRCode(string productName, string qrUrl, string customerEmail);
+        Task<List<SitemapItem>> GetDynamicSiteMap();
     }
     public class ExtraRepository : IExtraRepository
     {
@@ -861,7 +865,7 @@ namespace PlatformWEBAPI.Services.Extra.Repository
                         var prod = orderDetails.Where(r => r.ProductId == productId && r.ICCID == newIccid).FirstOrDefault();
                         if (prod != null)
                         {
-                            var productDetail = _productRepository.GetProductInfomationDetail(productId,"en-US");
+                            var productDetail = _productRepository.GetProductInfomationDetail(productId, "en-US");
                             var dataLimit = productDetail.DataLimit.Replace("NGAY", "DAY");
                             if (productDetail != null)
                             {
@@ -907,5 +911,119 @@ namespace PlatformWEBAPI.Services.Extra.Repository
 
             }
         }
+
+        public async Task<List<SitemapItem>> GetDynamicSiteMap()
+        {
+            var result = new List<SitemapItem>();
+
+            //Lay cau truc cac trang san pham
+            using (IDbContext context = new IDbContext())
+            {
+                var languages = await context.Language.ToListAsync();
+                foreach (var language in languages)
+                {
+                    var languageCode = language.LanguageCode;
+                    if (!string.IsNullOrEmpty(languageCode))
+                    {
+                        var languagePrefix = languageCode.Split("-")[0];
+                        if (!string.IsNullOrEmpty(languagePrefix))
+                        {
+                            //Bat dau doc ra o day
+                            var productsQuery = await (from p in context.Product
+                                                       join pl in context.ProductInLanguage on p.Id equals pl.ProductId
+                                                       where p.Status == (int)StatusProduct.Public && pl.LanguageCode == languageCode
+                                                       select new SitemapItem
+                                                       {
+                                                           Id = p.Id,
+                                                           Type = "products",
+                                                           Url = $"/{languagePrefix}/products/{p.Id}/{pl.Url}"
+                                                       }).ToListAsync();
+                            result.AddRange(productsQuery);
+                            var blogsQuery = await (from a in context.Article
+                                                    join al in context.ArticleInLanguage on a.Id equals al.ArticleId
+                                                    where a.Status == (int)StatusArticle.Public && al.LanguageCode == languageCode
+                                                    select new SitemapItem
+                                                    {
+                                                        Id = a.Id,
+                                                        Type = "blogs",
+                                                        Url = $"/{languagePrefix}/blogs/{a.Id}/{al.Url}"
+                                                    }).ToListAsync();
+                            result.AddRange(blogsQuery);
+                            var articlesQuery = await (from z in context.Zone
+                                                       join zl in context.ZoneInLanguage on z.Id equals zl.ZoneId
+                                                       where z.Status == (int)StatusZone.Normal && z.Type == (int)TypeZone.Article && zl.LanguageCode == languageCode
+                                                       select new SitemapItem
+                                                       {
+                                                           Id = z.Id,
+                                                           Type = "articles",
+                                                           Url = $"/{languagePrefix}/articles/{z.Id}/{zl.Url}"
+                                                       }).ToListAsync();
+                            result.AddRange(articlesQuery);
+                            var destinationsQuery = await (from z in context.Zone
+                                                           join zl in context.ZoneInLanguage on z.Id equals zl.ZoneId
+                                                           where z.Status == (int)StatusZone.Normal && z.Type == (int)TypeZone.DiemDen && zl.LanguageCode == languageCode
+                                                           select new SitemapItem
+                                                           {
+                                                               Id = z.Id,
+                                                               Type = "destinations",
+                                                               Url = $"/{languagePrefix}/search/{zl.Url}"
+                                                           }).ToListAsync();
+                            result.AddRange(destinationsQuery);
+                            var servicesQuery = await (from z in context.Zone
+                                                       join zl in context.ZoneInLanguage on z.Id equals zl.ZoneId
+                                                       where z.Status == (int)StatusZone.Normal && z.Type == (int)TypeZone.Product && zl.LanguageCode == languageCode
+                                                       select new SitemapItem
+                                                       {
+                                                           Id = z.Id,
+                                                           Type = "services",
+                                                           Url = $"/{languagePrefix}/search/{zl.Url}"
+                                                       }).ToListAsync();
+                            result.AddRange(servicesQuery);
+                            var combinationsQuery = new List<SitemapItem>();
+                            //To hop tiep search vao day
+                            foreach(var d in destinationsQuery)
+                            {
+                                foreach(var s in servicesQuery)
+                                {
+                                    combinationsQuery.Add(new SitemapItem() { Id = 0, Type = "searchCombination", Url = $"/{languagePrefix}/search/{d.Url}/{s.Url}" });
+                                }
+                            }
+                            result.AddRange(combinationsQuery);
+                            //Khuyen mai vao day
+                            var discountsQuery = await (from z in context.Zone
+                                                       join zl in context.ZoneInLanguage on z.Id equals zl.ZoneId
+                                                       where z.Status == (int)StatusZone.Normal && z.Type == (int)TypeZone.Discount && zl.LanguageCode == languageCode
+                                                       select new SitemapItem
+                                                       {
+                                                           Id = z.Id,
+                                                           Type = "services",
+                                                           Url = $"/{languagePrefix}/promotions/{z.Id}/{zl.Url}"
+                                                       }).ToListAsync();
+                            result.AddRange(discountsQuery);
+                            //Page tinh vao day
+                            var staticPagesQuery = new List<SitemapItem>();
+                            
+                            staticPagesQuery.Add(new SitemapItem() { Id = 0, Type = "home", Url = $"/{languagePrefix}" }); //Page Home 
+                            staticPagesQuery.Add(new SitemapItem() { Id = 0, Type = "home", Url = $"/{languagePrefix}/aboutus" });
+                            staticPagesQuery.Add(new SitemapItem() { Id = 0, Type = "home", Url = $"/{languagePrefix}/become_a_partner" });
+                            staticPagesQuery.Add(new SitemapItem() { Id = 0, Type = "home", Url = $"/{languagePrefix}/carts" });
+                            staticPagesQuery.Add(new SitemapItem() { Id = 0, Type = "home", Url = $"/{languagePrefix}/contact" });
+                            staticPagesQuery.Add(new SitemapItem() { Id = 0, Type = "home", Url = $"/{languagePrefix}/error" });
+                            staticPagesQuery.Add(new SitemapItem() { Id = 0, Type = "home", Url = $"/{languagePrefix}/faq" });
+                            staticPagesQuery.Add(new SitemapItem() { Id = 0, Type = "home", Url = $"/{languagePrefix}/observe" });
+                            staticPagesQuery.Add(new SitemapItem() { Id = 0, Type = "home", Url = $"/{languagePrefix}/payment" });
+                            staticPagesQuery.Add(new SitemapItem() { Id = 0, Type = "home", Url = $"/{languagePrefix}/termsandconditions" });
+                            result.AddRange(staticPagesQuery);
+                        }
+                    }
+
+
+
+                }
+
+            }
+            return result;
+        }
+
     }
 }

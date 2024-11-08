@@ -126,8 +126,11 @@
                                 </select>
                                 <small style="color:red">(* Lưu ý: Chuyển sang vùng ngôn ngữ để cập nhật placeholder và các lựa chọn nếu có)</small>
                             </b-form-group>
-                            <b-form-group label="Tọa độ trên Google Map">
+                            <b-form-group label="Note bắt buộc">
                                 <input type="checkbox" v-model="objRequest.bookingNoteRequired"> Note bắt buộc
+                            </b-form-group>
+                            <b-form-group label="Note được gửi cùng email">
+                                <input type="checkbox" v-model="objRequest.bookingNoteSendWithMail"> Note được gửi cùng email
                             </b-form-group>
                         </b-card>
                         <b-card header="Hình ảnh">

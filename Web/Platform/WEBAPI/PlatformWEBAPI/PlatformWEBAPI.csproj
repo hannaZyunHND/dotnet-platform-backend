@@ -130,7 +130,6 @@
 
   <ItemGroup>
     <Compile Remove="Controllers\ApiJoyTelController.cs" />
-    <Compile Remove="Controllers\BaseController.cs" />
     <Compile Remove="Controllers\BlogController.cs" />
     <Compile Remove="Controllers\CategoriesController.cs" />
     <Compile Remove="Controllers\CommonController.cs" />
@@ -139,7 +138,6 @@
     <Compile Remove="Controllers\CustomerController.cs" />
     <Compile Remove="Controllers\CutNewController.cs" />
     <Compile Remove="Controllers\EstimatesController.cs" />
-    <Compile Remove="Controllers\ExtraController.cs" />
     <Compile Remove="Controllers\FilterArticleController.cs" />
     <Compile Remove="Controllers\FilterProductController.cs" />
     <Compile Remove="Controllers\FlashSaleController.cs" />
@@ -242,6 +240,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Include="Views\Extra\SiteMapGenerate.cshtml" />
     <None Include="wwwroot\assets\images\background\background-1.svg" />
     <None Include="wwwroot\assets\images\banner\banner-1.svg" />
     <None Include="wwwroot\assets\images\banner\banner-2.svg" />
@@ -863,7 +862,6 @@
 
   <ItemGroup>
     <Folder Include="Resources\Controllers\Home\IndexPublic\" />
-    <Folder Include="Views\" />
     <Folder Include="wwwroot\export-qr-code\" />
   </ItemGroup>
 

@@ -9,6 +9,9 @@ using System.Net.Http;
 using System.Threading.Tasks;
 using Nest;
 using System.IO;
+using PlatformWEBAPI.Services.Order.ViewModal;
+using MI.Dal.IDbContext;
+using MI.Entity.Models;
 
 namespace Way2GoWEB.Payment
 {
@@ -206,62 +209,42 @@ namespace Way2GoWEB.Payment
             return dictSorted;
         }
 
-        public static ResponseOnepay ExcuteGetMethod(string orderCode, string amount, string returnUrl, string customerEmail = "", string customerPhone = "", string customerId = "")
+        public static ResponseOnepay ExcuteGetMethod(string orderCode, string amount, string returnUrl, string customerEmail = "", string customerPhone = "", string customerId = "", RequestCreateMultipleItemOrder requestBody = null)
         {
             long ticks = DateTime.Now.Ticks;
             string vpcMerchantTxnRef = "TEST_" + ticks.ToString();
             var encryptTxnRef = Onepay.Encrypt(vpcMerchantTxnRef);
             returnUrl = returnUrl + "/" + encryptTxnRef;
-            var generated = MerchantSendRequestDynamic(orderCode, amount,vpcMerchantTxnRef, returnUrl, customerEmail);
+            //b1. Luu vao bang logs
+            if(requestBody != null)
+            {
+                try
+                {
+                    using (IDbContext context = new IDbContext())
+                    {
+                        OnepayRef _newPaymentOrder = new OnepayRef();
+                        _newPaymentOrder.EncryptMerchantTxtCode = encryptTxnRef;
+                        _newPaymentOrder.Object = Newtonsoft.Json.JsonConvert.SerializeObject(requestBody);
+
+                        context.OnepayRefs.Add(_newPaymentOrder);
+                        context.SaveChanges();
+                    }
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine(ex.Message);
+                    throw;
+                }
+                
+            }
+            
+                //Sau khi thanh toán trả về, kiểm tra encrypt xong thì sẽ 
+            var generated = MerchantSendRequestDynamic(orderCode, amount, vpcMerchantTxnRef, returnUrl, customerEmail);
             
             if(generated != null)
             {
                 return generated;
-                //var uri = generated.returnUrl;
-                ////string uri = MerchantSendRequestStatic();
-                ////Console.WriteLine(generated.returnUrl);
-                //var request = (HttpWebRequest)WebRequest.Create(uri);
-                //request.Method = "GET";
-                //request.AllowAutoRedirect = false;
-                //try
-                //{
-                //    using (var webResponse = request.GetResponse())
-                //    {
-                //        // Xử lý phản hồi ở đây
-                //        // Lấy và xử lý URL chuyển hướng từ header `Location`
-                //        var location = webResponse.Headers["Location"];
-                //        Console.WriteLine("Link chuyển hướng: " + location);
-                //        generated.returnUrl = location;
-                //        return generated;
-                //    }
-                //}
-                //catch (WebException ex)
-                //{
-                //    if (ex.Response is HttpWebResponse response)
-                //    {
-                //        // Kiểm tra mã trạng thái HTTP
-                //        if (response.StatusCode == HttpStatusCode.Found) // 302 Found
-                //        {
-                //            // Lấy và xử lý URL chuyển hướng từ header `Location`
-                //            var location = response.Headers["Location"];
-                //            Console.WriteLine("Link chuyển hướng: " + location);
-                //            generated.returnUrl = location;
-                //            return generated;
-                //            // Tiếp tục xử lý tại đây nếu cần
-                //        }
-                //    }
-                //}
-                ////using (var webResponse = request.GetResponse())
-                ////{
-                ////    WebHeaderCollection header = webResponse.Headers;
-                ////    var link = header["Location"];
-                ////    Console.WriteLine("Link chuyển hướng: " + link);
-                ////    return link;
-                ////}
-                ////string redirectUrl = GetRedirectUrl(uri).GetAwaiter().GetResult();
-                ////Console.WriteLine("URL chuyển hướng: " + redirectUrl);
-                ////return redirectUrl;
-                //return null;
+                
             }
             return null;
             
