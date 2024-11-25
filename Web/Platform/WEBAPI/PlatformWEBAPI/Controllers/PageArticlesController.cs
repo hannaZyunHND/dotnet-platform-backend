@@ -1,9 +1,11 @@
 ﻿using HtmlAgilityPack;
+using MI.Dal.IDbContext;
 using MI.Entity.Enums;
 using MI.Entity.Models;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using PlatformWEBAPI.Services.Article.Repository;
 using PlatformWEBAPI.Services.Article.ViewModel;
 using PlatformWEBAPI.Services.Product.Repository;
@@ -67,29 +69,29 @@ namespace PlatformWEBAPI.Controllers
                         {
                             var listIdString = listId.Split(",");
                             var listIdInt = new List<int>();
-                            foreach(var i in listIdString)
+                            foreach (var i in listIdString)
                             {
                                 var t = 0;
                                 int.TryParse(i, out t);
-                                if(t > 0)
+                                if (t > 0)
                                 {
-                                    listIdInt.Add(t);   
+                                    listIdInt.Add(t);
                                 }
                             }
                             var products = _productRepository.GetProductByListId(listIdInt, cultureCode, 0);
                             var html = "";
-                            if (products != null) 
+                            if (products != null)
                             {
                                 var from = "From";
                                 var bookNow = "Book Now";
                                 var langShortUrl = "en";
-                                if(cultureCode == "vi-VN")
+                                if (cultureCode == "vi-VN")
                                 {
                                     from = "Từ";
                                     bookNow = "Đặt ngay";
                                     langShortUrl = "vi";
                                 }
-                                
+
 
                                 html += $"<div class='container'>";
                                 foreach (var prod in products)
@@ -103,7 +105,7 @@ namespace PlatformWEBAPI.Controllers
                                     html += $"<div class='title-blog'>{prod.Title}</div>";
                                     html += $"<div class='danh-gia-blog'>";
                                     html += $"<i class='fas fa-star sao-blog' style='color: #f09b0a;'></i>";
-                                    html += $"<span style='letter-spacing: 0.2px; color: #f09b0a; font-size: 14px; font-weight: 400;'>{Math.Round(prod.Rate,1)}</span>";
+                                    html += $"<span style='letter-spacing: 0.2px; color: #f09b0a; font-size: 14px; font-weight: 400;'>{Math.Round(prod.Rate, 1)}</span>";
                                     html += $"</div>";
                                     html += $"</div>";
                                     html += $"<div class='row price-blog'>";
@@ -128,14 +130,14 @@ namespace PlatformWEBAPI.Controllers
                 return doc.DocumentNode.InnerHtml;
             }
             return body;
-            
+
         }
 
         [HttpPost]
         [Route("GetBlogsSameZone")]
         public async Task<IActionResult> GetBlogsSameZone(RequestGetBlogsSameZone request)
         {
-            if(request != null)
+            if (request != null)
             {
                 var _t = 0;
 
@@ -153,6 +155,23 @@ namespace PlatformWEBAPI.Controllers
             {
                 var _t = 0;
 
+                //Get Zone by Alias
+                var zoneId = 0;
+                if (!string.IsNullOrEmpty(request.zoneUrl))
+                {
+                    using (IDbContext context = new IDbContext())
+                    {
+                        var zoneInLang = await (from z in context.Zone
+                                                join zil in context.ZoneInLanguage on z.Id equals zil.ZoneId
+                                                where zil.Url.Equals(request.zoneUrl) && zil.LanguageCode.Equals(request.cultureCode) && z.Type == (int)TypeZone.Article
+                                                select zil).FirstOrDefaultAsync();
+                        if (zoneInLang != null)
+                        {
+                            zoneId = zoneInLang.ZoneId;
+                        }
+                    }
+                }
+                
                 var result = _articleRepository.GetArticlesInZoneId_Minify_FullFilter(request.zoneId, (int)TypeZone.All, (int)TypeArticle.All, 2, request.cultureCode, "", request.pageIndex, request.pageSize, out _t);
                 //response = response.Where(r => r.Id != request.blogId).ToList();
 

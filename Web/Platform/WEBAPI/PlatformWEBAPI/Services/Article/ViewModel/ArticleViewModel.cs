@@ -33,6 +33,7 @@ namespace PlatformWEBAPI.Services.Article.ViewModel
         public int type { get; set; }
         public int pageIndex { get; set; } = 1;
         public int pageSize { get; set; } = 10;
+        public string zoneUrl { get; set; }
     }
 
     public class ArticleMinify
@@ -96,5 +97,7 @@ namespace PlatformWEBAPI.Services.Article.ViewModel
         public int Type { get; set; }
         public string MetaNoIndex { get; set; }
         public string MetaCanonical { get; set; }
+        public string ZoneUrl { get; set; }
+        public string Url { get; set; }
     }
 }

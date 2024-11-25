@@ -340,6 +340,7 @@ namespace PlatformWEBAPI.Services.Order.ViewModal
 
         public string ZoneTitles { get; set; } = "";
         public DateTime? PickingDate { get; set; } = null;
+        public string unit { get; set; }
     }
     public class ResponseGetOrderItemFullDetailForSupplier
     {
@@ -459,6 +460,8 @@ namespace PlatformWEBAPI.Services.Order.ViewModal
         public string customerName { get; set; } = "";
         public string orderCode { get; set; } = "";
         public string activeStatus { get; set; } = "TAO_MOI";
+        public OrderNote orderNotes { get; set; } = new OrderNote();
+
     }
 
     //public class OrderDetailMetaData

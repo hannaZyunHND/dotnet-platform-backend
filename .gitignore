@@ -108,3 +108,4 @@ Web/DiDongXanh/DiDongXanh_CMS/wwwroot/dist
 dist/
 logs/
 dump.rdb
+appsetting*

@@ -1,6 +1,7 @@
 ﻿using Dapper;
 using HtmlAgilityPack;
 using MI.Dal.IDbContext;
+using MI.Entity.Enums;
 using MI.Entity.Models;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
@@ -26,6 +27,7 @@ using System.Linq;
 using System.Net;
 using System.Net.Mail;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Web;
 using Utils;
@@ -894,7 +896,7 @@ namespace PlatformWEBAPI.Services.Order.Repository
                     if (banners != null)
                     {
 
-                        foreach (var b in banners)
+                        foreach (var b in banners.Where(r => !r.Title.Equals("MAIL_NOI_DUNG_NOTE")))
                         {
                             if (!string.IsNullOrEmpty(b.Title))
                             {
@@ -907,7 +909,7 @@ namespace PlatformWEBAPI.Services.Order.Repository
                 }
                 foreach (var item in orderDetailsId)
                 {
-
+                    var banners = WebHelper.ConvertSlide(mailInfo);
                     var requestGetOrderItemFullDetail = new RequestGetOrderItemFullDetail();
                     requestGetOrderItemFullDetail.customerId = request.customerId;
                     requestGetOrderItemFullDetail.orderCode = request.orderCode;
@@ -923,7 +925,7 @@ namespace PlatformWEBAPI.Services.Order.Repository
                         mailHooks.Add("[CUSTOMER_FULLNAME]", request.customerName);
                         mailHooks.Add("[DATA_FULL_NAME]", request.customerName);
                         mailHooks.Add("[DATA_MA_DON_HANG]", detail.OrderCode);
-                        mailHooks.Add("[DATA_NGAY_DAT_DICH_VU]", detail.CreatedDate.ToString("dd/MM/yyyy HH:mm:ss"));
+                        mailHooks.Add("[DATA_NGAY_DAT_DICH_VU]", detail.CreatedDate.ToString("dd/MM/yyyy HH:mm"));
                         //DATA_TEN_SAN_PHAM
                         mailHooks.Add("[DATA_TEN_SAN_PHAM]", detail.ProductParentTitle);
                         mailHooks.Add("[DATA_TEN_PACKAGE]", detail.ProductChildTitle);
@@ -936,6 +938,15 @@ namespace PlatformWEBAPI.Services.Order.Repository
                         var MAIL_NOI_DUNG_SO_LUONG = new List<string>();
                         var MAIL_NOI_DUNG_SO_LUONG_NGUOI_LON = mailHooks.GetValueOrDefault("[MAIL_NOI_DUNG_SO_LUONG_NGUOI_LON]");
                         var MAIL_NOI_DUNG_SO_LUONG_TRE_EM = mailHooks.GetValueOrDefault("[MAIL_NOI_DUNG_SO_LUONG_TRE_EM]");
+                        
+                        
+                        if(detail.quantityAldut > 0 && detail.QuantityChildren <= 0)
+                        {
+                            if (!string.IsNullOrEmpty(detail.unit))
+                            {
+                                MAIL_NOI_DUNG_SO_LUONG_NGUOI_LON = detail.unit;
+                            }
+                        }
                         if (detail.quantityAldut > 0)
                         {
                             MAIL_NOI_DUNG_SO_LUONG.Add($"{detail.quantityAldut} x {MAIL_NOI_DUNG_SO_LUONG_NGUOI_LON}");
@@ -946,10 +957,7 @@ namespace PlatformWEBAPI.Services.Order.Repository
                         }
                         mailHooks.Add("[DATA_SO_LUONG]", string.Join(" - ", MAIL_NOI_DUNG_SO_LUONG));
                         mailHooks.Add("[DATA_GIA_TIEN]", $"VND {UIHelper.FormatNumber(detail.LogPrice)}");
-
-
                         
-
 
 
                         var outputHtml = ReplacePlaceholders(templateString, mailHooks);
@@ -970,7 +978,15 @@ namespace PlatformWEBAPI.Services.Order.Repository
                                         if (note.bookingNoteSendWithMail)
                                         {
                                             var noteLabel = note.ZoneName;
+                                            noteLabel = Regex.Replace(noteLabel, @"\s*\(.*?\)", "").Trim();
                                             var noteValue = note.noteValue;
+                                            var _tryParseDateTimeValue = DateTime.Now;
+                                            var noteOutString = note.noteValue;
+                                            // Bat 1 so truong hop o day
+                                            if(DateTime.TryParse(noteValue, out _tryParseDateTimeValue))
+                                            {
+                                                noteValue = _tryParseDateTimeValue.ToString("dd/MM/yyyy HH:mm");
+                                            }
                                             if (!string.IsNullOrEmpty(noteValue))
                                             {
                                                 string htmlContent = $@"
@@ -992,11 +1008,50 @@ namespace PlatformWEBAPI.Services.Order.Repository
                                         
                                     }
                                 }
-                                outputHtml = htmlDoc.DocumentNode.OuterHtml;
+                                
                             }
+                            //note-spectial-wrapper
+                            var noteSpectialDiv = htmlDoc.DocumentNode.SelectSingleNode("//div[contains(@class, 'note-spectial-wrapper')]");
+                            if(noteSpectialDiv != null)
+                            {
+                                if (request.orderNotes != null)
+                                {
+                                    var hookNoteTitleValue = banners.FirstOrDefault(r => r.Title.Equals("MAIL_NOI_DUNG_NOTE"));
+                                    if (hookNoteTitleValue != null)
+                                    {
+                                        
+                                        if (!string.IsNullOrEmpty(request.orderNotes.noteSpecial))
+                                        {
+                                            var _str = WebHelper.GetCultureText(banners, hookNoteTitleValue.Title);
+                                            mailHooks.Add("[MAIL_NOI_DUNG_NOTE]", $"{_str}");
+                                            mailHooks.Add("[DATA_GIA_NOTE]", $"{request.orderNotes.noteSpecial}");
+                                            string htmlContent = $@"
+                                                    <table class=""paragraph_block block-4"" width=""100%"" border=""0""
+														   cellpadding=""0"" cellspacing=""0"" role=""presentation""
+														   style=""mso-table-lspace: 0pt; mso-table-rspace: 0pt; word-break: break-word;"">
+														<tr>
+															<td class=""pad""
+																style=""padding-bottom:10px;padding-left:25px;padding-right:10px;"">
+																<div style=""color:#122f50;font-family: 'Reddit Sans', sans-serif;font-size:14px;line-height:120%;text-align:left;mso-line-height-alt:16.8px;"">
+																	<p style=""margin: 0; word-break: break-word;"">
+																		{_str} : {request.orderNotes.noteSpecial}
+																	</p>
+																</div>
+															</td>
+														</tr>
+													</table>
+                                            ";
+                                            var newNode = HtmlNode.CreateNode(htmlContent);
+                                            noteSpectialDiv.AppendChild(newNode);
 
+                                        }
+                                    }
+
+                                }
+                            }
                             //Gửi mail ở đây
-
+                            outputHtml = htmlDoc.DocumentNode.OuterHtml;
+                            
                             var smtpServer = _configuration["EmailSender:Host"];
                             int smtpPort = int.Parse(_configuration["EmailSender:Port"]);
                             var smtpUser = _configuration["EmailSender:BookingService:Email"]; // cs@joytime.vn
@@ -1352,7 +1407,13 @@ namespace PlatformWEBAPI.Services.Order.Repository
                         }
                         mailHooks.Add("[DATA_SO_LUONG]", string.Join(" - ", MAIL_NOI_DUNG_SO_LUONG));
                         mailHooks.Add("[DATA_GIA_TIEN]", $"VND {UIHelper.FormatNumber(detail.LogPrice)}");
-
+                        if (request.orderNotes != null)
+                        {
+                            if (!string.IsNullOrEmpty(request.orderNotes.noteSpecial))
+                            {
+                                mailHooks.Add("[DATA_GIA_NOTE]", $"{request.orderNotes.noteSpecial}");
+                            }
+                        }
                         var outputHtml = ReplacePlaceholders(templateString, mailHooks);
                         if (!string.IsNullOrEmpty(outputHtml))
                         {
@@ -1740,113 +1801,117 @@ namespace PlatformWEBAPI.Services.Order.Repository
 
         public List<ResponseOrderNotificationFeedback> GetOrderNotificationFeedback()
         {
-            var p = new DynamicParameters();
-            var commandText = "usp_Web_GetOrderNotiFeedback";
-
-            var result = _executers.ExecuteCommand(_connStr, conn => conn.Query<ResponseOrderNotificationFeedback>(commandText, p, commandType: System.Data.CommandType.StoredProcedure));
-            if (result != null)
+            if (false)
             {
-                var wwwrootPath = _hostingEnvironment.WebRootPath;
-                var tempFile = "mail-noti-feedback.html";
-                var templatePath = Path.Combine(wwwrootPath, "mail-templates", tempFile);
-                if (File.Exists(templatePath))
+                var p = new DynamicParameters();
+                var commandText = "usp_Web_GetOrderNotiFeedback";
+
+                var result = _executers.ExecuteCommand(_connStr, conn => conn.Query<ResponseOrderNotificationFeedback>(commandText, p, commandType: System.Data.CommandType.StoredProcedure));
+                if (result != null)
                 {
-                    var listDone = new List<int>();
-                    foreach (var item in result)
+                    var wwwrootPath = _hostingEnvironment.WebRootPath;
+                    var tempFile = "mail-noti-feedback.html";
+                    var templatePath = Path.Combine(wwwrootPath, "mail-templates", tempFile);
+                    if (File.Exists(templatePath))
                     {
-                        //Lay cultureCode
-                        var templateString = ReadTemplateFromFile(templatePath);
-                        Dictionary<string, string> mailHooks = new Dictionary<string, string>();
-                        var mailInfo = _bannerAdsRepository.GetBannerAds_By_Code(item.DefaultLanguage, "MAIL_CULTURE_NOTI_FEEDBACK");
-                        if (mailInfo != null)
+                        var listDone = new List<int>();
+                        foreach (var item in result)
                         {
-                            var banners = WebHelper.ConvertSlide(mailInfo);
-                            if (banners != null)
+                            //Lay cultureCode
+                            var templateString = ReadTemplateFromFile(templatePath);
+                            Dictionary<string, string> mailHooks = new Dictionary<string, string>();
+                            var mailInfo = _bannerAdsRepository.GetBannerAds_By_Code(item.DefaultLanguage, "MAIL_CULTURE_NOTI_FEEDBACK");
+                            if (mailInfo != null)
                             {
-
-                                foreach (var b in banners)
+                                var banners = WebHelper.ConvertSlide(mailInfo);
+                                if (banners != null)
                                 {
 
-                                    if (!string.IsNullOrEmpty(b.Title))
+                                    foreach (var b in banners)
                                     {
-                                        mailHooks.Add($"[{b.Title}]", WebHelper.GetCultureText(banners, b.Title));
 
-
-                                    }
-                                }
-                                mailHooks.Add("[DATA_MA_DON_HANG]", item.OrderCode);
-                                mailHooks.Add("[DATA_URL_LICH_SU_DON_HANG]", $"{_configuration["MainUrl"]}/users/order/{item.OrderCode}/{item.OrderDetailId}");
-                                //DATA_TEN_SAN_PHAM
-                                mailHooks.Add("[DATA_TEN_SAN_PHAM]", item.Title);
-                                mailHooks.Add("[DATA_NGAY_SU_DUNG]", item.PickingDate.ToString("dd/MM/yyyy"));
-                                mailHooks.Add("[MAIL_NOI_DUNG_SAN_PHAM_AVATAR]", $"{UIHelper.StoreFilePath(item.Avatar)}");
-                                mailHooks.Add("[DATA_FULL_NAME]", item.Fullname);
-                                mailHooks.Add("[CUSTOMER_FULLNAME]", item.Fullname);
-                                var outputHtml = ReplacePlaceholders(templateString, mailHooks);
-                                if (!string.IsNullOrEmpty(outputHtml))
-                                {
-                                    var smtpServer = _configuration["EmailSender:Host"];
-                                    int smtpPort = int.Parse(_configuration["EmailSender:Port"]);
-                                    var smtpUser = _configuration["EmailSender:BookingService:Email"]; // cs@joytime.vn
-                                    var smtpPass = _configuration["EmailSender:BookingService:Password"]; //D2A9HnvGMJYW3BeKQw5f4F
-                                    var title = mailHooks.GetValueOrDefault("[MAIL_TITLE]");
-                                    var subject = "";
-                                    if (!string.IsNullOrEmpty(title))
-                                    {
-                                        subject = ConvertToCorrectEncoding(title);
-                                    }
-
-                                    var body = outputHtml;
-
-                                    var toEmail = item.Email;
-
-                                    var message = new MimeMessage();
-                                    message.From.Add(new MailboxAddress(smtpUser, smtpUser));
-                                    message.To.Add(new MailboxAddress(toEmail, toEmail));
-                                    message.Subject = subject;
-
-                                    var bodyBuilder = new BodyBuilder { HtmlBody = body };
-                                    message.Body = bodyBuilder.ToMessageBody();
-
-                                    using (var client = new MailKit.Net.Smtp.SmtpClient())
-                                    {
-                                        try
+                                        if (!string.IsNullOrEmpty(b.Title))
                                         {
-                                            client.Connect(smtpServer, smtpPort, true);
-                                            client.Authenticate(smtpUser, smtpPass);
-                                            client.Send(message);
-                                            client.Disconnect(true);
-                                            listDone.Add(item.OrderDetailId);
-                                            //Cap nhat lai OrderSessionDetailId
+                                            mailHooks.Add($"[{b.Title}]", WebHelper.GetCultureText(banners, b.Title));
+
+
                                         }
-                                        catch (Exception ex)
+                                    }
+                                    mailHooks.Add("[DATA_MA_DON_HANG]", item.OrderCode);
+                                    mailHooks.Add("[DATA_URL_LICH_SU_DON_HANG]", $"{_configuration["MainUrl"]}/users/order/{item.OrderCode}/{item.OrderDetailId}");
+                                    //DATA_TEN_SAN_PHAM
+                                    mailHooks.Add("[DATA_TEN_SAN_PHAM]", item.Title);
+                                    mailHooks.Add("[DATA_NGAY_SU_DUNG]", item.PickingDate.ToString("dd/MM/yyyy"));
+                                    mailHooks.Add("[MAIL_NOI_DUNG_SAN_PHAM_AVATAR]", $"{UIHelper.StoreFilePath(item.Avatar)}");
+                                    mailHooks.Add("[DATA_FULL_NAME]", item.Fullname);
+                                    mailHooks.Add("[CUSTOMER_FULLNAME]", item.Fullname);
+                                    var outputHtml = ReplacePlaceholders(templateString, mailHooks);
+                                    if (!string.IsNullOrEmpty(outputHtml))
+                                    {
+                                        var smtpServer = _configuration["EmailSender:Host"];
+                                        int smtpPort = int.Parse(_configuration["EmailSender:Port"]);
+                                        var smtpUser = _configuration["EmailSender:BookingService:Email"]; // cs@joytime.vn
+                                        var smtpPass = _configuration["EmailSender:BookingService:Password"]; //D2A9HnvGMJYW3BeKQw5f4F
+                                        var title = mailHooks.GetValueOrDefault("[MAIL_TITLE]");
+                                        var subject = "";
+                                        if (!string.IsNullOrEmpty(title))
                                         {
-                                            // Handle exception (e.g., log the error)
-                                            Console.WriteLine($"ERROR: {ex.Message}");
+                                            subject = ConvertToCorrectEncoding(title);
                                         }
+
+                                        var body = outputHtml;
+
+                                        var toEmail = item.Email;
+
+                                        var message = new MimeMessage();
+                                        message.From.Add(new MailboxAddress(smtpUser, smtpUser));
+                                        message.To.Add(new MailboxAddress(toEmail, toEmail));
+                                        message.Subject = subject;
+
+                                        var bodyBuilder = new BodyBuilder { HtmlBody = body };
+                                        message.Body = bodyBuilder.ToMessageBody();
+
+                                        using (var client = new MailKit.Net.Smtp.SmtpClient())
+                                        {
+                                            try
+                                            {
+                                                client.Connect(smtpServer, smtpPort, true);
+                                                client.Authenticate(smtpUser, smtpPass);
+                                                client.Send(message);
+                                                client.Disconnect(true);
+                                                listDone.Add(item.OrderDetailId);
+                                                //Cap nhat lai OrderSessionDetailId
+                                            }
+                                            catch (Exception ex)
+                                            {
+                                                // Handle exception (e.g., log the error)
+                                                Console.WriteLine($"ERROR: {ex.Message}");
+                                            }
+                                        }
+
                                     }
 
                                 }
 
                             }
-
                         }
+                        //using (IDbContext context = new IDbContext())
+                        //{
+                        //    var affected = context.OrderChatSessionDetail.Where(r => listDone.Contains(r.Id));
+                        //    foreach (var item in affected)
+                        //    {
+                        //        item.IsNotiCustomer = true;
+
+                        //    }
+                        //    context.OrderChatSessionDetail.UpdateRange(affected);
+                        //    context.SaveChanges();
+                        //}
+                        return result.ToList();
                     }
-                    //using (IDbContext context = new IDbContext())
-                    //{
-                    //    var affected = context.OrderChatSessionDetail.Where(r => listDone.Contains(r.Id));
-                    //    foreach (var item in affected)
-                    //    {
-                    //        item.IsNotiCustomer = true;
 
-                    //    }
-                    //    context.OrderChatSessionDetail.UpdateRange(affected);
-                    //    context.SaveChanges();
-                    //}
-                    return result.ToList();
                 }
-
             }
+            
             return null;
         }
 

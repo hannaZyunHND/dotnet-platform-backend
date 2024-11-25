@@ -69,6 +69,7 @@ namespace PlatformWEBAPI.Controllers
                     requestCreateOrder.customerEmail = response.auth.email;
                     requestCreateOrder.orderCode = response.orderCode;
                     requestCreateOrder.culture_code = cultureCode;
+                    requestCreateOrder.orderNotes = reqest.orderNotes;
                     var sendMailOrders = _orderRepository.SendNewOrderEmailToCustomer(requestCreateOrder);
                     var sendHelpDeskMaiOrder = _orderRepository.SendNewOrderEmailToHelpDesk(requestCreateOrder);
                 }
