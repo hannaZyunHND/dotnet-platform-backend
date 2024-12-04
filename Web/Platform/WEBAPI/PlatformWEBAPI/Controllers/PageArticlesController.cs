@@ -172,7 +172,7 @@ namespace PlatformWEBAPI.Controllers
                     }
                 }
                 
-                var result = _articleRepository.GetArticlesInZoneId_Minify_FullFilter(request.zoneId, (int)TypeZone.All, (int)TypeArticle.All, 2, request.cultureCode, "", request.pageIndex, request.pageSize, out _t);
+                var result = _articleRepository.GetArticlesInZoneId_Minify_FullFilter(zoneId, (int)TypeZone.All, (int)TypeArticle.All, 2, request.cultureCode, "", request.pageIndex, request.pageSize, out _t);
                 //response = response.Where(r => r.Id != request.blogId).ToList();
 
                 dynamic response = new ExpandoObject();

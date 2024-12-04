@@ -334,7 +334,7 @@ namespace PlatformWEBAPI.Controllers
                 
                 if(request != null)
                 {
-                    var _r = context.ProductPriceInZoneListByDate.Where(r => r.ProductId == request.id && r.ZoneList.Equals(request.combination) && r.Date.Month == request.month).ToList();
+                    var _r = context.ProductPriceInZoneListByDate.Where(r => r.ProductId == request.id && r.ZoneList.Equals(request.combination) && r.Date.Month == request.month && r.Date.Year == request.year).ToList();
                     var mapperStrirng = Newtonsoft.Json.JsonConvert.SerializeObject(_r);
                     if (!string.IsNullOrEmpty(mapperStrirng))
                     {

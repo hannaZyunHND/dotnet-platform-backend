@@ -40,6 +40,7 @@ namespace PlatformWEBAPI.Services.Product.ViewModel
         public int id { get; set; }
         public string combination { get; set; }
         public int month { get; set; }
+        public int year { get; set; } = DateTime.Now.Year;
     }
 
     public class RequestGetProductLastSeen
