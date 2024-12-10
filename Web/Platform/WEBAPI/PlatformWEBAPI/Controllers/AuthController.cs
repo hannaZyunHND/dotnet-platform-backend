@@ -197,7 +197,8 @@ namespace PlatformWEBAPI.Controllers
 
         }
 
-
+        [HttpPost]
+        [Route("DoSignUp")]
         public async Task<IActionResult> DoSignUp(CustomerAuthViewModel request)
         {
             var result = _orderRepository.DoSignUp(request);
@@ -215,6 +216,24 @@ namespace PlatformWEBAPI.Controllers
             {
                 return BadRequest();
             }
+
+        }
+
+        [HttpPost]
+        [Route("UpdateAvatarImage")]
+        public async Task<IActionResult> UpdateAvatarImage(AvatarCustomerUpdate request)
+        {
+            if (request == null)
+            {
+                return BadRequest();
+            }
+
+            var result = await _orderRepository.UpdateAvatarCustomer(request.AvatarBase64, request.CustomerEmail);
+            if (result)
+            {
+                return Ok(result);
+            }
+            return BadRequest();
 
         }
 

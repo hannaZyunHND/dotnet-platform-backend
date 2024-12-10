@@ -12,6 +12,7 @@ using MimeKit;
 
 //using MimeKit;
 using Nest;
+using NLog.Web.LayoutRenderers;
 using Org.BouncyCastle.Asn1.Ocsp;
 using PlatformWEBAPI.ExecuteCommand;
 using PlatformWEBAPI.Services.BannerAds.Repository;
@@ -77,6 +78,7 @@ namespace PlatformWEBAPI.Services.Order.Repository
         ResponseGetCouponByProductId CheckCouponCode(RequestCheckCouponCode request);
         string GenerateOrderCode();
         int EmailSubscriptionRegistration(string email);
+        Task<bool> UpdateAvatarCustomer(string base64Image, string emailCustomer);
         Task<OrderDetailFeedback> UpdateOrderDetailCommentWithRating(RequestUpdateOrderDetailCommentWithRating request);
         Task<ResponseOrderDetailCommentWithRating> GetOrderDetailCommentWithRating(int orderDetailId);
         List<ResponseGetLastChatDetailBySessionForCustomer> ResponseGetLastChatDetailBySessionForCustomer();
@@ -290,6 +292,7 @@ namespace PlatformWEBAPI.Services.Order.Repository
                         response.email = customer.Email;
                         response.country = customer.Country;
                         response.phoneNumber = customer.PhoneNumber;
+                        response.avatar = customer.Avatar;
                         //response.firstName = customer.Fullname.Split(" ").FirstOrDefault();
                         //response.lastName = customer.Fullname.Split(" ").LastOrDefault();
                         return response;
@@ -1643,7 +1646,62 @@ namespace PlatformWEBAPI.Services.Order.Repository
             return $"/feedback/ODT-{orderDetailId}/{fileName}";
         }
 
-        public async Task<ResponseOrderDetailCommentWithRating> GetOrderDetailCommentWithRating(int orderDetailId)
+        public async Task<bool> UpdateAvatarCustomer(string base64Image, string emailCustomer)
+        {
+            using (IDbContext context = new IDbContext())
+            {
+                var customer = await context.Customer.FirstOrDefaultAsync(c => c.Email == emailCustomer);
+                if (customer == null)
+                {
+                    return false;
+                }
+                var avatarPath = ConvertBase64ToAvatar(base64Image);
+
+                customer.Avatar = avatarPath;
+
+                context.Customer.Update(customer);
+                await context.SaveChangesAsync();
+
+                return true;
+            }
+        }
+
+
+        private string ConvertBase64ToAvatar(string base64Image)
+        {
+            if (string.IsNullOrWhiteSpace(base64Image))
+            {
+                throw new ArgumentNullException(nameof(base64Image));
+            }
+
+            // Remove data:image/jpeg;base64, prefix if it exists
+            var base64Data = base64Image.Contains(",") ? base64Image.Split(',')[1] : base64Image;
+
+            byte[] imageBytes;
+            try
+            {
+                imageBytes = Convert.FromBase64String(base64Data);
+            }
+            catch (FormatException)
+            {
+                throw new ArgumentException("Invalid Base64 string format.", nameof(base64Image));
+            }
+
+            string directoryPath = Path.Combine(_hostingEnvironment.WebRootPath, "avatar");
+            if (!Directory.Exists(directoryPath))
+            {
+                Directory.CreateDirectory(directoryPath);
+            }
+            string fileName = $"{DateTime.Now.Ticks}.jpg";
+            string filePath = Path.Combine(directoryPath, fileName);
+
+            File.WriteAllBytes(filePath, imageBytes);
+
+            // Return the relative path that can be used to access the image from the web
+            return $"/avatar/{fileName}";
+        }
+
+    public async Task<ResponseOrderDetailCommentWithRating> GetOrderDetailCommentWithRating(int orderDetailId)
         {
             var response = new ResponseOrderDetailCommentWithRating();
             if (orderDetailId > 0)
