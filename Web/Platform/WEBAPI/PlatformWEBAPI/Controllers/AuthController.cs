@@ -197,7 +197,8 @@ namespace PlatformWEBAPI.Controllers
 
         }
 
-
+        [HttpPost]
+        [Route("DoSignUp")]
         public async Task<IActionResult> DoSignUp(CustomerAuthViewModel request)
         {
             var result = _orderRepository.DoSignUp(request);
