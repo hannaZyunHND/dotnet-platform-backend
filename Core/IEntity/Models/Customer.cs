@@ -25,6 +25,7 @@ namespace MI.Entity.Models
         public string Address { get; set; } = "";
         public byte Type { get; set; } = 0;
         public byte Source { get; set; } = 0;
+        public string Avatar { get; set; } = "";
 
         public string Country { get; set; } = "";
         public string Fullname { get; set; } = "";

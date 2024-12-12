@@ -39,6 +39,7 @@ namespace PlatformWEBAPI.Services.Order.ViewModal
         public string phoneNumber { get; set; } = "";
         public bool isNewUser { get; set; } = true;
         public string pcname { get; set; }
+        public string avatar { get; set; } = "";
     }
     public class Pay
     {
@@ -248,6 +249,12 @@ namespace PlatformWEBAPI.Services.Order.ViewModal
         public string email { get; set; } = "";
         public string password { get; set; } = "";
         public string oldPassword { get; set; } = "";
+    }
+
+    public class AvatarCustomerUpdate
+    {
+        public string CustomerEmail { get; set; }
+        public string AvatarBase64 { get; set; }
     }
 
     public class SuccessEmailRequest
