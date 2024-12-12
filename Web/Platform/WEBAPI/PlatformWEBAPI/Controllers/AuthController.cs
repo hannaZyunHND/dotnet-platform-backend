@@ -229,7 +229,7 @@ namespace PlatformWEBAPI.Controllers
             }
 
             var result = await _orderRepository.UpdateAvatarCustomer(request.AvatarBase64, request.CustomerEmail);
-            if (result)
+            if (!string.IsNullOrEmpty(result))
             {
                 return Ok(result);
             }
