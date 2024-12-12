@@ -1314,6 +1314,7 @@ namespace PlatformWEBAPI.Services.Order.Repository
 
         public ResponseGetCouponByProductId CheckCouponCode(RequestCheckCouponCode request)
         {
+
             var p = new DynamicParameters();
             var commandText = "usp_Web_GetCouponCodeByProductIdAndCouponCode_version_by_sku_with_remail";
 
