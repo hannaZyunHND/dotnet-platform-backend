@@ -78,7 +78,7 @@ namespace PlatformWEBAPI.Services.Order.Repository
         ResponseGetCouponByProductId CheckCouponCode(RequestCheckCouponCode request);
         string GenerateOrderCode();
         int EmailSubscriptionRegistration(string email);
-        Task<bool> UpdateAvatarCustomer(string base64Image, string emailCustomer);
+        Task<string> UpdateAvatarCustomer(string base64Image, string emailCustomer);
         Task<OrderDetailFeedback> UpdateOrderDetailCommentWithRating(RequestUpdateOrderDetailCommentWithRating request);
         Task<ResponseOrderDetailCommentWithRating> GetOrderDetailCommentWithRating(int orderDetailId);
         List<ResponseGetLastChatDetailBySessionForCustomer> ResponseGetLastChatDetailBySessionForCustomer();
@@ -1648,14 +1648,14 @@ namespace PlatformWEBAPI.Services.Order.Repository
             return $"/feedback/ODT-{orderDetailId}/{fileName}";
         }
 
-        public async Task<bool> UpdateAvatarCustomer(string base64Image, string emailCustomer)
+        public async Task<string> UpdateAvatarCustomer(string base64Image, string emailCustomer)
         {
             using (IDbContext context = new IDbContext())
             {
                 var customer = await context.Customer.FirstOrDefaultAsync(c => c.Email == emailCustomer);
                 if (customer == null)
                 {
-                    return false;
+                    return "";
                 }
                 var avatarPath = ConvertBase64ToAvatar(base64Image);
 
@@ -1664,7 +1664,7 @@ namespace PlatformWEBAPI.Services.Order.Repository
                 context.Customer.Update(customer);
                 await context.SaveChangesAsync();
 
-                return true;
+                return avatarPath;
             }
         }
 
