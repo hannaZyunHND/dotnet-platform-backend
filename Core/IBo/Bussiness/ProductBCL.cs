@@ -5,6 +5,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using MI.Entity.Models;
+using Microsoft.EntityFrameworkCore;
+using System.Threading.Tasks;
 //using MI.Dapper.Data.Models;
 
 namespace MI.Bo.Bussiness
@@ -324,6 +326,50 @@ namespace MI.Bo.Bussiness
             }
         }
 
+
+        public async Task<bool> UpdateProductPriceInZoneListByYear(int year)
+        {
+            var pricesByDate = new List<ProductPriceInZoneListByDate>();
+            var allDates = GetDatesOfSelectionYear(year);
+
+            using (IDbContext context = new IDbContext())
+            {
+                
+                var productZoneLists = await context.ProductPriceInZoneList.ToListAsync();
+                foreach(var item in productZoneLists)
+                {
+                    //xoa tat ca gia cua 2025
+
+                    var oldPrices = context.ProductPriceInZoneListByDate.Where(r => r.ProductId == item.ProductId && r.ZoneList.Equals(item.ZoneList) && r.Date.Year == year);
+                    context.ProductPriceInZoneListByDate.RemoveRange(oldPrices);
+                    await context.SaveChangesAsync();
+
+                    foreach(var d in allDates)
+                    {
+                        var pByDate = new ProductPriceInZoneListByDate();
+                        pByDate.ZoneList = item.ZoneList;
+                        pByDate.ProductId = item.ProductId;
+                        pByDate.Date = d.Date;
+                        pByDate.DayOfWeek = d.DayOfWeekAbbreviation;
+                        pByDate.PriceEachNguoiLon = item.PriceEachNguoiLon;
+                        pByDate.PriceEachTreEm = item.PriceEachTreEm;
+                        pByDate.PriceEachNguoiGia = item.PriceEachNguoiGia;
+                        pByDate.NetEachNguoiLon = item.NetEachNguoiLon;
+                        pByDate.NetEachTreEm = item.NetEachTreEm;
+                        pByDate.NetEachNguoiGia = item.NetEachNguoiGia;
+                        pricesByDate.Add(pByDate);
+                    }
+                }
+
+                await context.ProductPriceInZoneListByDate.AddRangeAsync(pricesByDate);
+                await context.SaveChangesAsync();
+                return true;
+
+            }
+            return false;
+    
+        }
+
         public void UpdateCancelPolicies(List<ProductCancelPolicy> cancelPolicies)
         {
             var productId = 0;
@@ -379,6 +425,28 @@ namespace MI.Bo.Bussiness
 
             return dateList;
         }
+        private List<MI.Dapper.Data.Models.DateInfo> GetDatesOfSelectionYear(int year)
+        {
+            var dateList = new List<MI.Dapper.Data.Models.DateInfo>();
+            int currentYear = year;
+
+            DateTime startDate = new DateTime(currentYear, 1, 1);
+            DateTime endDate = new DateTime(currentYear, 12, 31);
+
+            for (DateTime date = startDate; date <= endDate; date = date.AddDays(1))
+            {
+                var dateInfo = new MI.Dapper.Data.Models.DateInfo
+                {
+                    Date = date,
+                    DayOfWeekAbbreviation = date.ToString("ddd")
+                };
+
+                dateList.Add(dateInfo);
+            }
+
+            return dateList;
+        }
+
         public bool UpdateTrangThai(Entity.Models.Product entity)
         {
             try

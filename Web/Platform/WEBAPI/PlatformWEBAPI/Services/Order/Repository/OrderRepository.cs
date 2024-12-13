@@ -884,7 +884,8 @@ namespace PlatformWEBAPI.Services.Order.Repository
                 var orderDetailsId = new List<int>();
                 using (IDbContext context = new IDbContext())
                 {
-                    var order = await context.Orders.Where(r => r.OrderCode.Equals(request.orderCode)).FirstOrDefaultAsync();
+                    var order = await context.Orders.Where(r => r.OrderCode.Equals(request.orderCode)).LastOrDefaultAsync(); // Tai sao lại bị trùng đơn hàng được nhỉ
+
                     if (order != null)
                     {
                         orderDetailsId = context.OrderDetail.Where(r => r.OrderId == order.Id).Select(r => r.Id).ToList();
@@ -1345,7 +1346,7 @@ namespace PlatformWEBAPI.Services.Order.Repository
                 var orderDetailsId = new List<int>();
                 using (IDbContext context = new IDbContext())
                 {
-                    var order = await context.Orders.Where(r => r.OrderCode.Equals(request.orderCode)).FirstOrDefaultAsync();
+                    var order = await context.Orders.Where(r => r.OrderCode.Equals(request.orderCode)).LastOrDefaultAsync(); // Tại sao lại có trường hợp trùng đơn hàng nhỉ
                     if (order != null)
                     {
                         orderDetailsId = context.OrderDetail.Where(r => r.OrderId == order.Id).Select(r => r.Id).ToList();

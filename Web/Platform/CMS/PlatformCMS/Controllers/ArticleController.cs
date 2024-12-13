@@ -107,16 +107,16 @@ namespace PlatformCMS.Controllers
                                     break;
                                 case "h3":
                                     h3++;
-                                    if (texts[i + 1].Name == "h4")
-                                    {
-                                        is_have_flag = h2 + "." + h3;
-                                        strh3.Append($"<li><a href='#{id}'><span class='toc_number toc_depth_2'>{h2}.{h3} </span> {texts[i].InnerText}</a>[#Child.{is_have_flag}]</li>");
-                                    }
-                                    else
-                                    {
-                                        strh3.Append($"<li><a href='#{id}'><span class='toc_number toc_depth_2'>{h2}.{h3} </span> {texts[i].InnerText}</a>[#Child]</li>");
-                                    }
-                                    //strh3.Append($"<li><a href='#{id}'><span class='toc_number toc_depth_2'>{h2}.{h3} </span> {texts[i].InnerText}</a>[#Child.{is_have_flag}]</li>");
+                                    //if (texts[i + 1].Name == "h4")
+                                    //{
+                                    //    is_have_flag = h2 + "." + h3;
+                                    //    strh3.Append($"<li><a href='#{id}'><span class='toc_number toc_depth_2'>{h2}.{h3} </span> {texts[i].InnerText}</a>[#Child.{is_have_flag}]</li>");
+                                    //}
+                                    //else
+                                    //{
+                                    //    strh3.Append($"<li><a href='#{id}'><span class='toc_number toc_depth_2'>{h2}.{h3} </span> {texts[i].InnerText}</a>[#Child]</li>");
+                                    //}
+                                    strh3.Append($"<li><a href='#{id}'><span class='toc_number toc_depth_2'>{h2}.{h3} </span> {texts[i].InnerText}</a>[#Child.{is_have_flag}]</li>");
                                     break;
                                 case "h4":
                                     h4++;
