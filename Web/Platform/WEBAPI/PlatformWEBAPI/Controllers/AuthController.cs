@@ -1,39 +1,25 @@
 ﻿using HtmlAgilityPack;
 using MI.Dal.IDbContext;
-using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using Nest;
+using Microsoft.Extensions.Configuration;
+using MimeKit;
 using PlatformWEBAPI.Services.Extra.Repository;
 using PlatformWEBAPI.Services.Order.Repository;
 using PlatformWEBAPI.Services.Order.ViewModal;
 using PlatformWEBAPI.Services.Product.ViewModel;
 using System;
 using System.Collections.Generic;
+//using MimeKit;
+using System.Data;
 using System.Dynamic;
 using System.IO;
 using System.Linq;
-using System.Net;
-using System.Runtime.CompilerServices;
-using System.Threading.Tasks;
-using Dapper;
-using HtmlAgilityPack;
-using MI.Dal.IDbContext;
-using MI.Entity.Models;
-using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Razor.Language.Extensions;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Configuration;
-using MimeKit;
-
-//using MimeKit;
-using PlatformWEBAPI.Utility;
-
-using System.Data;
-using Utils;
-using System.Web;
 using System.Security.Cryptography;
+using System.Threading.Tasks;
+using System.Web;
+using Utils;
 
 namespace PlatformWEBAPI.Controllers
 {
@@ -72,6 +58,7 @@ namespace PlatformWEBAPI.Controllers
         [Route("ChangePassword")]
         public async Task<IActionResult> ChangePassword(CustomerAuthViewModel request)
         {
+
             var result = _orderRepository.ChangePassword(request);
             if (result > 0)
             {
@@ -86,19 +73,29 @@ namespace PlatformWEBAPI.Controllers
 
         [HttpPost]
         [Route("ForgotPassword")]
-        public async Task<bool> ForgotPassword(CustomerAuthViewModel request)
+        public async Task<IActionResult> ForgotPassword(CustomerAuthViewModel request)
         {
-            if (request == null)
+            if (request == null || string.IsNullOrEmpty(request.email))
             {
-                return false;
+                return BadRequest(new ApiResponse
+                {
+                    Status = "error",
+                    Message = "Account not found. Please provide a valid email.", 
+                    Data = null
+                });
             }
 
-            using (IDbContext context = new IDbContext())  // Ensure IDbContext implements IAsyncDisposable if using C# 8+
+            using (IDbContext context = new IDbContext()) 
             {
                 var user = await context.Customer.FirstOrDefaultAsync(r => r.Email == request.email);
                 if (user == null)
                 {
-                    return false;
+                    return BadRequest(new ApiResponse
+                    {
+                        Status = "fail",
+                        Message = "Account does not exist. Please check the email again.",
+                        Data = null
+                    });
                 }
 
                 var newPassword = GenerateRandomPassword(8);
@@ -161,7 +158,12 @@ namespace PlatformWEBAPI.Controllers
                                 catch (Exception ex)
                                 {
                                     Console.WriteLine($"ERROR: {ex.Message}");
-                                    return false;
+                                    return StatusCode(500, new ApiResponse
+                                    {
+                                        Status = "error",
+                                        Message = "An unexpected error occurred while sending the email.",
+                                        Data = null
+                                    });
                                 }
                             }
                         }
@@ -171,7 +173,12 @@ namespace PlatformWEBAPI.Controllers
 
                 }
             }
-            return true;
+            return Ok(new ApiResponse
+            {
+                Status = "success",
+                Message = "Password reset successful. Please check your email for the new password.",
+                Data = null
+            });
         }
 
         [HttpPost]
@@ -201,6 +208,21 @@ namespace PlatformWEBAPI.Controllers
         [Route("DoSignUp")]
         public async Task<IActionResult> DoSignUp(CustomerAuthViewModel request)
         {
+
+            using (IDbContext context = new IDbContext())
+            {
+                var user = await context.Customer.FirstOrDefaultAsync(r => r.Email == request.email);
+                if (user != null)
+                {
+                    return BadRequest(new ApiResponse
+                    {
+                        Status = "fail",
+                        Message = "Account is exist. Please check the email again.",
+                        Data = null
+                    });
+                }
+            }
+
             var result = _orderRepository.DoSignUp(request);
             if (result > 0)
             {
@@ -214,7 +236,13 @@ namespace PlatformWEBAPI.Controllers
             }
             else
             {
-                return BadRequest();
+               
+                    return BadRequest(new ApiResponse
+                    {
+                        Status = "error",
+                        Message = "Failed to add account",
+                        Data = null
+                    });
             }
 
         }

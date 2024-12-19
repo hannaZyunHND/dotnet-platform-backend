@@ -251,6 +251,14 @@ namespace PlatformWEBAPI.Services.Order.ViewModal
         public string oldPassword { get; set; } = "";
     }
 
+    public class ApiResponse
+    {
+        public string Status { get; set; }  // success, error, fail
+        public string Message { get; set; } 
+        public object Data { get; set; } 
+        public DateTime Timestamp { get; set; } = DateTime.UtcNow;
+    }
+
     public class AvatarCustomerUpdate
     {
         public string CustomerEmail { get; set; }
