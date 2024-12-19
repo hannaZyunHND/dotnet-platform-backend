@@ -28,7 +28,7 @@ using Utils;
 
 namespace PlatformWEBAPI.Controllers
 {
-    public class ExtraController : BaseController
+    public class ExtraController : Controller
     {
         private readonly IZoneRepository _zoneRepository;
         private readonly IProductRepository _productRepository;
@@ -50,10 +50,10 @@ namespace PlatformWEBAPI.Controllers
 
         
 
-        public IActionResult SiteMapGenerate()
+        public async Task<IActionResult> SiteMapGenerate()
         {
 
-            return View();
+            return View("~/Views/Extra/SiteMapGenerate.cshtml");
         }
 
         

@@ -892,25 +892,9 @@ namespace PlatformWEBAPI.Services.Order.Repository
                     }
                 }
                 //Lay cultureCode
-                Dictionary<string, string> mailHooks = new Dictionary<string, string>();
+                //Dictionary<string, string> mailHooks = new Dictionary<string, string>();
                 var mailInfo = _bannerAdsRepository.GetBannerAds_By_Code(request.culture_code, "MAIL_CULTURE_NEW_ORDER");
-                if (mailInfo != null)
-                {
-                    var banners = WebHelper.ConvertSlide(mailInfo);
-                    if (banners != null)
-                    {
-
-                        foreach (var b in banners.Where(r => !r.Title.Equals("MAIL_NOI_DUNG_NOTE")))
-                        {
-                            if (!string.IsNullOrEmpty(b.Title))
-                            {
-                                mailHooks.Add($"[{b.Title}]", WebHelper.GetCultureText(banners, b.Title));
-                            }
-                        }
-
-                    }
-
-                }
+                
                 foreach (var item in orderDetailsId)
                 {
                     var banners = WebHelper.ConvertSlide(mailInfo);
@@ -926,6 +910,25 @@ namespace PlatformWEBAPI.Services.Order.Repository
                     var detail = await this.GetOrderItemFullDetail(requestGetOrderItemFullDetail);
                     if (detail != null)
                     {
+                        Dictionary<string, string> mailHooks = new Dictionary<string, string>();
+
+                        if (mailInfo != null)
+                        {
+                            //var banners = WebHelper.ConvertSlide(mailInfo);
+                            if (banners != null)
+                            {
+
+                                foreach (var b in banners.Where(r => !r.Title.Equals("MAIL_NOI_DUNG_NOTE")))
+                                {
+                                    if (!string.IsNullOrEmpty(b.Title))
+                                    {
+                                        mailHooks.Add($"[{b.Title}]", WebHelper.GetCultureText(banners, b.Title));
+                                    }
+                                }
+
+                            }
+
+                        }
                         mailHooks.Add("[CUSTOMER_FULLNAME]", request.customerName);
                         mailHooks.Add("[DATA_FULL_NAME]", request.customerName);
                         mailHooks.Add("[DATA_MA_DON_HANG]", detail.OrderCode);
@@ -1353,25 +1356,9 @@ namespace PlatformWEBAPI.Services.Order.Repository
                     }
                 }
                 //Lay cultureCode
-                Dictionary<string, string> mailHooks = new Dictionary<string, string>();
+                
                 var mailInfo = _bannerAdsRepository.GetBannerAds_By_Code(request.culture_code, "MAIL_CULTURE_NEW_ORDER");
-                if (mailInfo != null)
-                {
-                    var banners = WebHelper.ConvertSlide(mailInfo);
-                    if (banners != null)
-                    {
-
-                        foreach (var b in banners)
-                        {
-                            if (!string.IsNullOrEmpty(b.Title))
-                            {
-                                mailHooks.Add($"[{b.Title}]", WebHelper.GetCultureText(banners, b.Title));
-                            }
-                        }
-
-                    }
-
-                }
+                
                 foreach (var item in orderDetailsId)
                 {
 
@@ -1387,6 +1374,24 @@ namespace PlatformWEBAPI.Services.Order.Repository
                     var detail = await this.GetOrderItemFullDetail(requestGetOrderItemFullDetail);
                     if (detail != null)
                     {
+                        Dictionary<string, string> mailHooks = new Dictionary<string, string>();
+                        if (mailInfo != null)
+                        {
+                            var banners = WebHelper.ConvertSlide(mailInfo);
+                            if (banners != null)
+                            {
+
+                                foreach (var b in banners)
+                                {
+                                    if (!string.IsNullOrEmpty(b.Title))
+                                    {
+                                        mailHooks.Add($"[{b.Title}]", WebHelper.GetCultureText(banners, b.Title));
+                                    }
+                                }
+
+                            }
+
+                        }
                         var metadata = Newtonsoft.Json.JsonConvert.DeserializeObject<OrderDetailMetaData>(detail.MetaData);
                         mailHooks.Add("[CUSTOMER_FULLNAME]", request.customerName);
                         mailHooks.Add("[DATA_FULL_NAME]", request.customerName);
