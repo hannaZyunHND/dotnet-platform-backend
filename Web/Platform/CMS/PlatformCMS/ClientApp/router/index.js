@@ -25,6 +25,7 @@ const PropertyEdit = () => import('./../pages/property/edit');
 const Feedback = () => import('./../pages/Feedback');
 const EmailSubcribe = () => import('./../pages/emailSubcribe/list');
 const Survey = () => import('./../pages/survey/list');
+const Subscriber = () => import('./../pages/subscriber/list');
 const Forms = () => import('./../pages/Forms');
 const Page404 = () => import('./../pages/Page404');
 const Login = () => import('./../pages/Login');
@@ -148,6 +149,12 @@ export let router = new Router({
                     path: '/admin/survey/list',
                     name: 'Khảo sát',
                     component: Survey,
+                    meta: { authorize: [] }
+                },
+                {
+                    path: '/admin/subscriber',
+                    name: 'Đăng kí nhận thôgn tin',
+                    component: Subscriber,
                     meta: { authorize: [] }
                 },
                 {

@@ -1,55 +1,141 @@
 <!DOCTYPE html>
-<html lang="vi">
-
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Thông báo mật khẩu</title>
+    <title>[MAIL_TITLE]</title>
     <style>
+        /* Reset default styles */
         body {
-            font-family: Arial, sans-serif;
-            background-color: #f4f4f4;
             margin: 0;
-            padding: 20px;
+            padding: 0;
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            color: #333333;
+            background-color: #f4f4f4;
         }
 
+        /* Container styles */
         .container {
             max-width: 600px;
-            background-color: #ffffff;
+            margin: 20px auto;
             padding: 20px;
+            background-color: #ffffff;
             border-radius: 5px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
         }
 
-        h1 {
-            color: #333;
+        /* Header styles */
+        .mail-header {
+            margin-bottom: 20px;
         }
 
-        p {
-            color: #555;
-            line-height: 1.5;
+        /* Content styles */
+        .mail-content {
+            padding: 20px 0;
         }
 
-        .footer {
+        /* Temporary password box */
+        .temp-password {
+            background-color: #f8f9fa;
+            border: 1px solid #dee2e6;
+            border-radius: 4px;
+            padding: 10px 15px;
+            margin: 15px 0;
+            font-family: monospace;
+            font-size: 16px;
+            text-align: center;
+        }
+
+        /* Instructions list */
+        .instructions {
+            padding-left: 20px;
+        }
+
+            .instructions li {
+                margin-bottom: 10px;
+            }
+
+        /* Notice box */
+        .notice {
+            font-style: italic;
+            margin: 15px 0;
+            color: #666;
+        }
+
+        /* Contact info */
+        .contact-info {
+            background-color: #f8f9fa;
+            padding: 15px;
+            border-radius: 4px;
             margin-top: 20px;
-            font-size: 0.9em;
-            color: #777;
+        }
+
+        /* Footer styles */
+        .mail-footer {
+            margin-top: 20px;
+            padding-top: 20px;
+            border-top: 1px solid #dee2e6;
+        }
+
+        /* Responsive styles */
+        @media screen and (max-width: 600px) {
+            .container {
+                margin: 10px;
+                padding: 15px;
+            }
+
+            .temp-password {
+                font-size: 14px;
+            }
         }
     </style>
 </head>
-
 <body>
     <div class="container">
-        <h1>Thông báo về mật khẩu</h1>
-        <p>Xin chào,</p>
-        <p>Chúng tôi đã cấp cho bạn mật khẩu mới để đăng nhập:</p>
-        <p><strong>Mật khẩu mới của bạn: [MAIL_FORGOT_PASSWORD]</strong></p>
-        <p>Vì lý do bảo mật, vui lòng đăng nhập và đổi mật khẩu ngay sau khi sử dụng mật khẩu mới.</p>
-        <p>Trân trọng,<br>Đội ngũ hỗ trợ khách hàng</p>
-        <div class="footer">
-            <p>Địa chỉ công ty | Số điện thoại | Email hỗ trợ</p>
+        <div class="mail-header">
+            <h2>[MAIL_SUBJECT]</h2>
+        </div>
+
+        <div class="mail-content">
+            <p>[MAIL_GREETING],</p>
+
+            <p>[MAIL_RECEIVED_REQUEST]</p>
+
+            <div class="temp-password">
+                [MAIL_TEMP_PASSWORD]
+            </div>
+
+            <div class="notice">
+                [MAIL_SECURITY_NOTICE]
+            </div>
+
+            <p>[MAIL_INSTRUCTIONS_HEADING]</p>
+            <ol class="instructions">
+                <li>[MAIL_STEP_1]</li>
+                <li>[MAIL_STEP_2]</li>
+                <li>[MAIL_STEP_3]</li>
+                <li>[MAIL_STEP_4]</li>
+                <li>[MAIL_STEP_5]</li>
+            </ol>
+
+            <p>[MAIL_SUPPORT_TEXT]</p>
+
+            <div class="contact-info">
+                <p>
+                    <strong>[MAIL_HOTLINE_LABEL]</strong>
+                    [MAIL_HOTLINE_NUMBER]
+                </p>
+                <p>
+                    <strong>[MAIL_EMAIL_LABEL]</strong> <a href="mailto:[MAIL_SUPPORT_EMAIL]">[MAIL_SUPPORT_EMAIL]</a>
+                </p>
+            </div>
+        </div>
+
+        <div class="mail-footer">
+            <p>[MAIL_THANK_YOU]</p>
+            <p>[MAIL_REGARDS]</p>
         </div>
     </div>
 </body>
-
 </html>

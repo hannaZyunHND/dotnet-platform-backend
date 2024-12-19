@@ -47,7 +47,7 @@ namespace PlatformWEBAPI.Services.Order.Repository
 
         Task<CustomerAuth> DoLogin(CustomerAuthViewModel request);
         int ChangePassword(CustomerAuthViewModel request);
-        int ForgotPassword(CustomerAuthViewModel request);
+        int ForgotPassword(CustomerForGotPassViewModel request);
         int DoSignUp(CustomerAuthViewModel request);
 
         List<OrderDetailViewModel> GetListOrderDetailByOrderId(int orderId, string lang_code);
@@ -71,6 +71,7 @@ namespace PlatformWEBAPI.Services.Order.Repository
         Task<bool> CancelOrdersOrderDetail(RequestCancelOrdersOrderDetail request);
 
         Task<bool> SendNewUserEmail(RequestSendNewUserEmail request);
+        Task<bool> SendNewSubscriberEmail(SubscribersRequest request);
         Task<bool> SendNewOrderEmailToCustomer(RequestSendNewOrderEmail request);
         Task<bool> SendNewOrderEmailToHelpDesk(RequestSendNewOrderEmail request);
         bool SendRequestOrderToSupplierInBackground();
@@ -318,7 +319,7 @@ namespace PlatformWEBAPI.Services.Order.Repository
             return result;
         }
 
-        public int ForgotPassword(CustomerAuthViewModel request)
+        public int ForgotPassword(CustomerForGotPassViewModel request)
         {
             var p = new DynamicParameters();
             var commandText = "usp_Web_ForgotPassword";
@@ -838,6 +839,112 @@ namespace PlatformWEBAPI.Services.Order.Repository
             }
             return false;
 
+        }
+
+        public async Task<bool> SendNewSubscriberEmail(SubscribersRequest request)
+        {
+            try
+            {
+                var wwwrootPath = _hostingEnvironment.WebRootPath;
+                var templatePath = Path.Combine(wwwrootPath, "mail-templates", "mail-subscriber-success.html");
+                if (File.Exists(templatePath))
+                {
+
+                    var templateString = ReadTemplateFromFile(templatePath);
+                    if (!string.IsNullOrEmpty(templateString))
+                    {
+                        var mailInfo = _bannerAdsRepository.GetBannerAds_By_Code(request.culture_code, "MAIL_CULTURE_NEW_REGISTER");
+                        if (mailInfo != null)
+                        {
+                            var banners = WebHelper.ConvertSlide(mailInfo);
+                            if (banners != null)
+                            {
+                                Dictionary<string, string> mailHooks = new Dictionary<string, string>();
+                                foreach (var item in banners)
+                                {
+                                    if (!string.IsNullOrEmpty(item.Title))
+                                    {
+                                        mailHooks.Add($"[{item.Title}]", WebHelper.GetCultureText(banners, item.Title));
+                                    }
+                                }
+
+                                var outputHtml = ReplacePlaceholders(templateString, mailHooks);
+                                if (!string.IsNullOrEmpty(outputHtml))
+                                {
+                                    var smtpServer = _configuration["EmailSender:Host"];
+                                    int smtpPort = int.Parse(_configuration["EmailSender:Port"]);
+                                    var smtpUser = _configuration["EmailSender:CustomerService:Email"]; // cs@joytime.vn
+                                    var smtpPass = _configuration["EmailSender:CustomerService:Password"]; //D2A9HnvGMJYW3BeKQw5f4F
+                                    var title = mailHooks.GetValueOrDefault("[MAIL_TITLE]");
+                                    var subject = "";
+                                    if (!string.IsNullOrEmpty(title))
+                                    {
+                                        subject = ConvertToCorrectEncoding(title);
+                                    }
+
+                                    var body = outputHtml;
+
+                                    var toEmail = request.Email;
+
+
+                                    var message = new MimeMessage();
+                                    message.From.Add(new MailboxAddress(smtpUser, smtpUser));
+                                    message.To.Add(new MailboxAddress(toEmail, toEmail));
+                                    message.Subject = subject;
+
+                                    var bodyBuilder = new BodyBuilder { HtmlBody = body };
+                                    message.Body = bodyBuilder.ToMessageBody();
+
+                                    using (var client = new MailKit.Net.Smtp.SmtpClient())
+                                    {
+                                        try
+                                        {
+                                            await client.ConnectAsync(smtpServer, smtpPort, true);
+                                            await client.AuthenticateAsync(smtpUser, smtpPass);
+                                            await client.SendAsync(message);
+                                            await client.DisconnectAsync(true);
+                                        }
+                                        catch (Exception ex)
+                                        {
+                                            // Handle exception (e.g., log the error)
+                                            Console.WriteLine($"ERROR: {ex.Message}");
+                                            return false;
+                                        }
+                                    }
+
+                                    //using (var client = new SmtpClient(smtpServer, smtpPort))
+                                    //{
+                                    //    client.Credentials = new NetworkCredential(smtpUser, smtpPass);
+                                    //    client.EnableSsl = true;
+
+                                    //    var mailMessage = new MailMessage
+                                    //    {
+                                    //        From = new MailAddress(smtpUser),
+                                    //        Subject = subject,
+                                    //        Body = body,
+                                    //        IsBodyHtml = true
+                                    //    };
+
+                                    //    mailMessage.To.Add(toEmail);
+
+                                    //    await client.SendMailAsync(mailMessage);
+                                    //    return true;
+                                    //}
+                                }
+                            }
+                        }
+                    }
+
+
+
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+
+            }
+            return false;
         }
 
         private string ReadTemplateFromFile(string filePath)

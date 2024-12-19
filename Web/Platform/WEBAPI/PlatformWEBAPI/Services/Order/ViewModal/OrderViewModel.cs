@@ -251,6 +251,14 @@ namespace PlatformWEBAPI.Services.Order.ViewModal
         public string oldPassword { get; set; } = "";
     }
 
+    public class CustomerForGotPassViewModel
+    {
+        public string email { get; set; } = "";
+        public string password { get; set; } = "";
+        public string oldPassword { get; set; } = "";
+        public string culture_code { get; set; }
+    }
+
     public class ApiResponse
     {
         public string Status { get; set; }  // success, error, fail
@@ -264,6 +272,7 @@ namespace PlatformWEBAPI.Services.Order.ViewModal
     {
         public string Email { get; set; }
         public bool IsActive { get; set; }
+        public string culture_code { get; set; }
     }
     public class AvatarCustomerUpdate
     {

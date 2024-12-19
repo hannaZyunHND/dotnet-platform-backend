@@ -6,10 +6,12 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using MimeKit;
+using PlatformWEBAPI.Services.BannerAds.Repository;
 using PlatformWEBAPI.Services.Extra.Repository;
 using PlatformWEBAPI.Services.Order.Repository;
 using PlatformWEBAPI.Services.Order.ViewModal;
 using PlatformWEBAPI.Services.Product.ViewModel;
+using PlatformWEBAPI.Utility;
 using System;
 using System.Collections.Generic;
 //using MimeKit;
@@ -32,13 +34,15 @@ namespace PlatformWEBAPI.Controllers
         private readonly IExtraRepository _extraRepository;
         private readonly IHostingEnvironment _hostingEnvironment;
         private readonly IConfiguration _configuration;
+        private readonly IBannerAdsRepository _bannerAdsRepository;
 
-        public AuthController(IOrderRepository orderRepository, IExtraRepository extraRepository, IConfiguration configuration, IHostingEnvironment hostingEnvironment)
+        public AuthController(IOrderRepository orderRepository, IExtraRepository extraRepository, IBannerAdsRepository bannerAdsRepository, IConfiguration configuration, IHostingEnvironment hostingEnvironment)
         {
             _orderRepository = orderRepository;
             _extraRepository = extraRepository;
             _configuration = configuration;
             _hostingEnvironment = hostingEnvironment;
+            _bannerAdsRepository = bannerAdsRepository;
         }
         [HttpPost]
         [Route("DoLogin")]
@@ -74,19 +78,21 @@ namespace PlatformWEBAPI.Controllers
 
         [HttpPost]
         [Route("ForgotPassword")]
-        public async Task<IActionResult> ForgotPassword(CustomerAuthViewModel request)
+        public async Task<IActionResult> ForgotPassword(CustomerForGotPassViewModel request)
         {
             if (request == null || string.IsNullOrEmpty(request.email))
             {
                 return BadRequest(new ApiResponse
                 {
                     Status = "error",
-                    Message = "Account not found. Please provide a valid email.", 
+                    Message = "Account not found. Please provide a valid email.",
                     Data = null
                 });
             }
 
-            using (IDbContext context = new IDbContext()) 
+            var culture_code =request.culture_code;
+
+            using (IDbContext context = new IDbContext())
             {
                 var user = await context.Customer.FirstOrDefaultAsync(r => r.Email == request.email);
                 if (user == null)
@@ -117,9 +123,26 @@ namespace PlatformWEBAPI.Controllers
 
                         // Tạo mailHooks và gán giá trị cho các placeholder
                         Dictionary<string, string> mailHooks = new Dictionary<string, string>();
+
+                        var mailInfo = _bannerAdsRepository.GetBannerAds_By_Code(culture_code, "MAIL_CULTURE_FORGOT_PASSWORD");
+
+                        var banners = WebHelper.ConvertSlide(mailInfo);
+                        if(mailInfo != null)
+                        {
+                            if(banners != null)
+                            {
+                                foreach (var b in banners)
+                                {
+                                    if (!string.IsNullOrEmpty(b.Title))
+                                    {
+                                        mailHooks.Add($"[{b.Title}]", WebHelper.GetCultureText(banners, b.Title));
+                                    }
+                                }
+
+                            }
+                        }
+
                         mailHooks.Add("[MAIL_FORGOT_PASSWORD]", newPassword);
-
-
 
                         var outputHtml = ReplacePlaceholders(templateString, mailHooks);
                         if (!string.IsNullOrEmpty(outputHtml))
@@ -128,7 +151,7 @@ namespace PlatformWEBAPI.Controllers
                             int smtpPort = int.Parse(_configuration["EmailSender:Port"]);
                             var smtpUser = _configuration["EmailSender:BookingService:Email"];
                             var smtpPass = _configuration["EmailSender:BookingService:Password"];
-                            var title = mailHooks.GetValueOrDefault("[MAIL_TITLE]");
+                            var title = mailHooks.GetValueOrDefault("[MAIL_SUBJECT]");
                             var subject = "";
                             if (!string.IsNullOrEmpty(title))
                             {
@@ -184,7 +207,7 @@ namespace PlatformWEBAPI.Controllers
 
         [HttpPost]
         [Route("UpdateForgotPassword")]
-        public async Task<IActionResult> UpdateForgotPassword(CustomerAuthViewModel request)
+        public async Task<IActionResult> UpdateForgotPassword(CustomerForGotPassViewModel request)
         {
             if (request == null)
             {
@@ -237,20 +260,20 @@ namespace PlatformWEBAPI.Controllers
             }
             else
             {
-               
-                    return BadRequest(new ApiResponse
-                    {
-                        Status = "error",
-                        Message = "Failed to add account",
-                        Data = null
-                    });
+
+                return BadRequest(new ApiResponse
+                {
+                    Status = "error",
+                    Message = "Failed to add account",
+                    Data = null
+                });
             }
 
         }
 
         [HttpPost]
         [Route("Subscribers")]
-        public async Task<IActionResult> SubscribersToPromotions (SubscribersRequest request)
+        public async Task<IActionResult> SubscribersToPromotions(SubscribersRequest request)
         {
             if (request == null)
             {
@@ -273,8 +296,14 @@ namespace PlatformWEBAPI.Controllers
 
                 await context.Subscribers.AddAsync(subscribers);
                 await context.SaveChangesAsync();
-                return Ok();
+
+                var response = await _orderRepository.SendNewSubscriberEmail(request);
+                if (response)
+                {
+                    return Ok("Subscriber with this email successfully");
+                }
             }
+            return Ok("Subscriber with this email successfully");
         }
 
 

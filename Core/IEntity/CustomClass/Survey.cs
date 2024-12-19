@@ -58,6 +58,14 @@ namespace MI.Entity.Models
     }
 
 
+    public class Subscriber_Data_Output
+    {
+        public string Email { get; set; }
+        public bool IsActive { get; set; }
+        public DateTime CreatedAt { get; set; }
+        public DateTime UnsubscribeAt { get; set; }
+    }
+
     public class Pagination
     {
         public int page_size { get; set; } = 10;
