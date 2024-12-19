@@ -1,5 +1,6 @@
 ﻿using HtmlAgilityPack;
 using MI.Dal.IDbContext;
+using MI.Entity.Models;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -246,6 +247,36 @@ namespace PlatformWEBAPI.Controllers
             }
 
         }
+
+        [HttpPost]
+        [Route("Subscribers")]
+        public async Task<IActionResult> SubscribersToPromotions (SubscribersRequest request)
+        {
+            if (request == null)
+            {
+                return BadRequest("Request cannot be null");
+            }
+
+            using (IDbContext context = new IDbContext())
+            {
+                var customerExisting = await context.Subscribers.FirstOrDefaultAsync(r => r.Email == request.Email);
+                if (customerExisting != null)
+                {
+                    return BadRequest("Subcriber with this mail already exist !!");
+                }
+
+                var subscribers = new Subscribers
+                {
+                    Email = request.Email,
+                    IsActive = request.IsActive,
+                };
+
+                await context.Subscribers.AddAsync(subscribers);
+                await context.SaveChangesAsync();
+                return Ok();
+            }
+        }
+
 
         [HttpPost]
         [Route("UpdateAvatarImage")]

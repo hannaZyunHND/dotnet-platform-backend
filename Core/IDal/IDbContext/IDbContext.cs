@@ -116,6 +116,7 @@ namespace MI.Dal.IDbContext
         public virtual DbSet<Options> Options { get; set; }
         public virtual DbSet<Answers> Answers { get; set; }
         public virtual DbSet<OnepayRef> OnepayRefs { get; set; }
+        public virtual DbSet<Subscribers> Subscribers { get; set; }
         //public virtual DbSet<CouponInProduct> CouponInProducts { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)

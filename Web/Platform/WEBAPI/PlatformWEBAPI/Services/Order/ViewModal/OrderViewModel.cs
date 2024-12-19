@@ -259,6 +259,12 @@ namespace PlatformWEBAPI.Services.Order.ViewModal
         public DateTime Timestamp { get; set; } = DateTime.UtcNow;
     }
 
+
+    public class SubscribersRequest
+    {
+        public string Email { get; set; }
+        public bool IsActive { get; set; }
+    }
     public class AvatarCustomerUpdate
     {
         public string CustomerEmail { get; set; }
