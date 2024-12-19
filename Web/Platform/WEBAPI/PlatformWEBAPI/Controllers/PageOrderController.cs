@@ -224,23 +224,28 @@ namespace PlatformWEBAPI.Controllers
                         {
                             var paymentObject = Newtonsoft.Json.JsonConvert.DeserializeObject<RequestCreateMultipleItemOrder>(paymentDetail.Object);
 
-
-                            //Tao don hang
-                            var response = await _CreateMultipleItemOrderManualy(paymentObject);
-                            if(response != null)
+                            //Kiem tra xem don hang da ton tai chua
+                            var checkCreatedOrder = await context.Orders.FirstOrDefaultAsync(r => r.OnepayRef == paymentObject.orderCode);
+                            if (checkCreatedOrder != null)
                             {
-                                if (i18Code.Equals("en"))
+                                //Tao don hang
+                                var response = await _CreateMultipleItemOrderManualy(paymentObject);
+                                if (response != null)
                                 {
+                                    if (i18Code.Equals("en"))
+                                    {
 
-                                    var url = $"{baseUrl}/confirm/payment/success";
-                                    return Redirect(url);
-                                }
-                                else
-                                {
-                                    var url = $"{baseUrl}/{i18Code}/confirm/payment/success";
-                                    return Redirect(url);
+                                        var url = $"{baseUrl}/confirm/payment/success";
+                                        return Redirect(url);
+                                    }
+                                    else
+                                    {
+                                        var url = $"{baseUrl}/{i18Code}/confirm/payment/success";
+                                        return Redirect(url);
+                                    }
                                 }
                             }
+                            
                             //return ve success
                         }
                     }
