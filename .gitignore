@@ -109,3 +109,5 @@ dist/
 logs/
 dump.rdb
 appsetting*
+# Ngoại trừ AppSetting.cs
+!AppSetting.cs
