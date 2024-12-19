@@ -261,7 +261,7 @@ namespace PlatformWEBAPI.Services.Product.ViewModel
 
         public int? ZoneCategoryId { get; set; }
         public string ZoneCategoryUrl { get; set; }
-        public string ZoneCategoyName { get; set; }
+        public string ZoneCategoryName { get; set; }
 
         public string Avatar { get; set; }
         public int? Five_Star { get; set; }
@@ -322,6 +322,9 @@ namespace PlatformWEBAPI.Services.Product.ViewModel
         public string NoteOptions { get; set; } = "";
         public List<ProductCommentFeedback> feedbacks { get; set; } = new List<ProductCommentFeedback>();
         public int? totalFeedback { get; set; } = 0;
+        //public string zoneCategoryUrl { get; set; }
+        //public string zoneCategoryName { get; set; }
+        //public int zoneCategoryId { get; set; }
 
 
 

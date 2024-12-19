@@ -884,32 +884,17 @@ namespace PlatformWEBAPI.Services.Order.Repository
                 var orderDetailsId = new List<int>();
                 using (IDbContext context = new IDbContext())
                 {
-                    var order = await context.Orders.Where(r => r.OrderCode.Equals(request.orderCode)).FirstOrDefaultAsync();
+                    var order = await context.Orders.Where(r => r.OrderCode.Equals(request.orderCode)).LastOrDefaultAsync(); // Tai sao lại bị trùng đơn hàng được nhỉ
+
                     if (order != null)
                     {
                         orderDetailsId = context.OrderDetail.Where(r => r.OrderId == order.Id).Select(r => r.Id).ToList();
                     }
                 }
                 //Lay cultureCode
-                Dictionary<string, string> mailHooks = new Dictionary<string, string>();
+                //Dictionary<string, string> mailHooks = new Dictionary<string, string>();
                 var mailInfo = _bannerAdsRepository.GetBannerAds_By_Code(request.culture_code, "MAIL_CULTURE_NEW_ORDER");
-                if (mailInfo != null)
-                {
-                    var banners = WebHelper.ConvertSlide(mailInfo);
-                    if (banners != null)
-                    {
-
-                        foreach (var b in banners.Where(r => !r.Title.Equals("MAIL_NOI_DUNG_NOTE")))
-                        {
-                            if (!string.IsNullOrEmpty(b.Title))
-                            {
-                                mailHooks.Add($"[{b.Title}]", WebHelper.GetCultureText(banners, b.Title));
-                            }
-                        }
-
-                    }
-
-                }
+                
                 foreach (var item in orderDetailsId)
                 {
                     var banners = WebHelper.ConvertSlide(mailInfo);
@@ -925,6 +910,25 @@ namespace PlatformWEBAPI.Services.Order.Repository
                     var detail = await this.GetOrderItemFullDetail(requestGetOrderItemFullDetail);
                     if (detail != null)
                     {
+                        Dictionary<string, string> mailHooks = new Dictionary<string, string>();
+
+                        if (mailInfo != null)
+                        {
+                            //var banners = WebHelper.ConvertSlide(mailInfo);
+                            if (banners != null)
+                            {
+
+                                foreach (var b in banners.Where(r => !r.Title.Equals("MAIL_NOI_DUNG_NOTE")))
+                                {
+                                    if (!string.IsNullOrEmpty(b.Title))
+                                    {
+                                        mailHooks.Add($"[{b.Title}]", WebHelper.GetCultureText(banners, b.Title));
+                                    }
+                                }
+
+                            }
+
+                        }
                         mailHooks.Add("[CUSTOMER_FULLNAME]", request.customerName);
                         mailHooks.Add("[DATA_FULL_NAME]", request.customerName);
                         mailHooks.Add("[DATA_MA_DON_HANG]", detail.OrderCode);
@@ -1314,6 +1318,7 @@ namespace PlatformWEBAPI.Services.Order.Repository
 
         public ResponseGetCouponByProductId CheckCouponCode(RequestCheckCouponCode request)
         {
+
             var p = new DynamicParameters();
             var commandText = "usp_Web_GetCouponCodeByProductIdAndCouponCode_version_by_sku_with_remail";
 
@@ -1344,32 +1349,16 @@ namespace PlatformWEBAPI.Services.Order.Repository
                 var orderDetailsId = new List<int>();
                 using (IDbContext context = new IDbContext())
                 {
-                    var order = await context.Orders.Where(r => r.OrderCode.Equals(request.orderCode)).FirstOrDefaultAsync();
+                    var order = await context.Orders.Where(r => r.OrderCode.Equals(request.orderCode)).LastOrDefaultAsync(); // Tại sao lại có trường hợp trùng đơn hàng nhỉ
                     if (order != null)
                     {
                         orderDetailsId = context.OrderDetail.Where(r => r.OrderId == order.Id).Select(r => r.Id).ToList();
                     }
                 }
                 //Lay cultureCode
-                Dictionary<string, string> mailHooks = new Dictionary<string, string>();
+                
                 var mailInfo = _bannerAdsRepository.GetBannerAds_By_Code(request.culture_code, "MAIL_CULTURE_NEW_ORDER");
-                if (mailInfo != null)
-                {
-                    var banners = WebHelper.ConvertSlide(mailInfo);
-                    if (banners != null)
-                    {
-
-                        foreach (var b in banners)
-                        {
-                            if (!string.IsNullOrEmpty(b.Title))
-                            {
-                                mailHooks.Add($"[{b.Title}]", WebHelper.GetCultureText(banners, b.Title));
-                            }
-                        }
-
-                    }
-
-                }
+                
                 foreach (var item in orderDetailsId)
                 {
 
@@ -1385,6 +1374,24 @@ namespace PlatformWEBAPI.Services.Order.Repository
                     var detail = await this.GetOrderItemFullDetail(requestGetOrderItemFullDetail);
                     if (detail != null)
                     {
+                        Dictionary<string, string> mailHooks = new Dictionary<string, string>();
+                        if (mailInfo != null)
+                        {
+                            var banners = WebHelper.ConvertSlide(mailInfo);
+                            if (banners != null)
+                            {
+
+                                foreach (var b in banners)
+                                {
+                                    if (!string.IsNullOrEmpty(b.Title))
+                                    {
+                                        mailHooks.Add($"[{b.Title}]", WebHelper.GetCultureText(banners, b.Title));
+                                    }
+                                }
+
+                            }
+
+                        }
                         var metadata = Newtonsoft.Json.JsonConvert.DeserializeObject<OrderDetailMetaData>(detail.MetaData);
                         mailHooks.Add("[CUSTOMER_FULLNAME]", request.customerName);
                         mailHooks.Add("[DATA_FULL_NAME]", request.customerName);

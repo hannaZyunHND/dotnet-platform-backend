@@ -393,6 +393,15 @@ namespace PlatformCMS.Controllers
 
             return responseData;
         }
+
+
+        [HttpPost("UpdatePriceInYear/{year}")]
+        public async Task<IActionResult> UpdatePriceInYear(int year)
+        {
+            var response = await productBCL.UpdateProductPriceInZoneListByYear(2025);
+            return Ok(response);
+        }
+
         [HttpGet("GetPhienBan")]
         public List<PhienBans> GetPhienBansByParentId(int idProduct)
         {

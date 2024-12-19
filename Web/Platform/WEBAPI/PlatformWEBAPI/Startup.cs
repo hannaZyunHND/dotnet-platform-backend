@@ -200,11 +200,6 @@ namespace PlatformWEBAPI
                 options.Cookie.Name = ".MyApplication";
             });
             services.AddMvc()
-                .AddSessionStateTempDataProvider()
-                .AddViewLocalization(
-                    options => { options.ResourcesPath = "Resources"; })
-                .AddViewLocalization(Microsoft.AspNetCore.Mvc.Razor.LanguageViewLocationExpanderFormat.Suffix)
-                .AddDataAnnotationsLocalization()
                 .SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
 
             services.AddTransient<SmtpClient>((serviceProvider) =>
@@ -284,11 +279,11 @@ namespace PlatformWEBAPI
             });
 
             //app.UseHttpsRedirection();
-            app.UseStaticFiles();
+            //app.UseStaticFiles(); 
 
             #region register localization
             var options = app.ApplicationServices.GetService<IOptions<RequestLocalizationOptions>>();
-            app.UseRequestLocalization(options.Value);
+            //app.UseRequestLocalization(options.Value);
             //app.UseRequestLocalization();
             #endregion
             app.UseCookiePolicy();
@@ -310,13 +305,18 @@ namespace PlatformWEBAPI
                 c.SwaggerEndpoint("/swagger/v1/swagger.json", "My API V1");
                 c.RoutePrefix = string.Empty;  // Đặt Swagger UI là trang chủ
             });
-            app.UseMvc(routes => {
+            app.UseMvc(routes =>
+            {
+                routes.MapRoute(
+                    name: "default",
+                    template: "{controller=Extra}/{action=SiteMapGenerate}/{id?}");
                 routes.MapRoute(
                     name: "SiteMap",
                     template: "sitemap.xml",
                     defaults: new { controller = "Extra", action = "SiteMapGenerate" }
                 );
             });
+            app.UseStaticFiles();
 
         }
     }

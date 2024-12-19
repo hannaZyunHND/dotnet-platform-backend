@@ -57,7 +57,7 @@ namespace PlatformWEBAPI.Controllers
                     requestCreateAccount.password = response.auth.pcname;
                     requestCreateAccount.customerName = response.auth.firstName + " " + response.auth.lastName;
                     //Gui Email den khach hang
-                    var sendMailStatus = _orderRepository.SendNewUserEmail(requestCreateAccount);
+                    var sendMailStatus = await _orderRepository.SendNewUserEmail(requestCreateAccount);
 
                 }
 
@@ -70,8 +70,8 @@ namespace PlatformWEBAPI.Controllers
                     requestCreateOrder.orderCode = response.orderCode;
                     requestCreateOrder.culture_code = cultureCode;
                     requestCreateOrder.orderNotes = reqest.orderNotes;
-                    var sendMailOrders = _orderRepository.SendNewOrderEmailToCustomer(requestCreateOrder);
-                    var sendHelpDeskMaiOrder = _orderRepository.SendNewOrderEmailToHelpDesk(requestCreateOrder);
+                    var sendMailOrders = await _orderRepository.SendNewOrderEmailToCustomer(requestCreateOrder);
+                    var sendHelpDeskMaiOrder = await _orderRepository.SendNewOrderEmailToHelpDesk(requestCreateOrder);
                 }
 
                 return response;

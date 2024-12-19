@@ -936,7 +936,7 @@ namespace PlatformWEBAPI.Services.Extra.Repository
                                                        {
                                                            Id = p.Id,
                                                            Type = "products",
-                                                           Url = $"/{languagePrefix}/products/{p.Id}/{pl.Url}"
+                                                           Url = $"/{languagePrefix}/product/{pl.Url}-d={p.Id}"
                                                        }).ToListAsync();
                             result.AddRange(productsQuery);
                             var blogsQuery = await (from a in context.Article
@@ -946,7 +946,7 @@ namespace PlatformWEBAPI.Services.Extra.Repository
                                                     {
                                                         Id = a.Id,
                                                         Type = "blogs",
-                                                        Url = $"/{languagePrefix}/blogs/{a.Id}/{al.Url}"
+                                                        Url = $"/{languagePrefix}/blog/{al.Url}-d={a.Id}"
                                                     }).ToListAsync();
                             result.AddRange(blogsQuery);
                             var articlesQuery = await (from z in context.Zone
@@ -956,7 +956,7 @@ namespace PlatformWEBAPI.Services.Extra.Repository
                                                        {
                                                            Id = z.Id,
                                                            Type = "articles",
-                                                           Url = $"/{languagePrefix}/articles/{z.Id}/{zl.Url}"
+                                                           Url = $"/{languagePrefix}/blogs/{zl.Url}"
                                                        }).ToListAsync();
                             result.AddRange(articlesQuery);
                             var destinationsQuery = await (from z in context.Zone
@@ -966,7 +966,7 @@ namespace PlatformWEBAPI.Services.Extra.Repository
                                                            {
                                                                Id = z.Id,
                                                                Type = "destinations",
-                                                               Url = $"/{languagePrefix}/search/{zl.Url}"
+                                                               Url = $"/{languagePrefix}/service/{zl.Url}"
                                                            }).ToListAsync();
                             result.AddRange(destinationsQuery);
                             var servicesQuery = await (from z in context.Zone
@@ -976,7 +976,7 @@ namespace PlatformWEBAPI.Services.Extra.Repository
                                                        {
                                                            Id = z.Id,
                                                            Type = "services",
-                                                           Url = $"/{languagePrefix}/search/{zl.Url}"
+                                                           Url = $"/{languagePrefix}/service/{zl.Url}"
                                                        }).ToListAsync();
                             result.AddRange(servicesQuery);
                             var combinationsQuery = new List<SitemapItem>();
@@ -985,7 +985,7 @@ namespace PlatformWEBAPI.Services.Extra.Repository
                             {
                                 foreach(var s in servicesQuery)
                                 {
-                                    combinationsQuery.Add(new SitemapItem() { Id = 0, Type = "searchCombination", Url = $"/{languagePrefix}/search/{d.Url}/{s.Url}" });
+                                    combinationsQuery.Add(new SitemapItem() { Id = 0, Type = "searchCombination", Url = $"/{languagePrefix}/service/{d.Url}/{s.Url}" });
                                 }
                             }
                             result.AddRange(combinationsQuery);
@@ -1004,15 +1004,15 @@ namespace PlatformWEBAPI.Services.Extra.Repository
                             var staticPagesQuery = new List<SitemapItem>();
                             
                             staticPagesQuery.Add(new SitemapItem() { Id = 0, Type = "home", Url = $"/{languagePrefix}" }); //Page Home 
-                            staticPagesQuery.Add(new SitemapItem() { Id = 0, Type = "home", Url = $"/{languagePrefix}/aboutus" });
-                            staticPagesQuery.Add(new SitemapItem() { Id = 0, Type = "home", Url = $"/{languagePrefix}/become_a_partner" });
+                            staticPagesQuery.Add(new SitemapItem() { Id = 0, Type = "home", Url = $"/{languagePrefix}/about-us" });
+                            staticPagesQuery.Add(new SitemapItem() { Id = 0, Type = "home", Url = $"/{languagePrefix}/become-a-partner" });
                             staticPagesQuery.Add(new SitemapItem() { Id = 0, Type = "home", Url = $"/{languagePrefix}/carts" });
                             staticPagesQuery.Add(new SitemapItem() { Id = 0, Type = "home", Url = $"/{languagePrefix}/contact" });
                             staticPagesQuery.Add(new SitemapItem() { Id = 0, Type = "home", Url = $"/{languagePrefix}/error" });
                             staticPagesQuery.Add(new SitemapItem() { Id = 0, Type = "home", Url = $"/{languagePrefix}/faq" });
                             staticPagesQuery.Add(new SitemapItem() { Id = 0, Type = "home", Url = $"/{languagePrefix}/observe" });
                             staticPagesQuery.Add(new SitemapItem() { Id = 0, Type = "home", Url = $"/{languagePrefix}/payment" });
-                            staticPagesQuery.Add(new SitemapItem() { Id = 0, Type = "home", Url = $"/{languagePrefix}/termsandconditions" });
+                            staticPagesQuery.Add(new SitemapItem() { Id = 0, Type = "home", Url = $"/{languagePrefix}/terms-and-conditions" });
                             result.AddRange(staticPagesQuery);
                         }
                     }

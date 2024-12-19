@@ -12,6 +12,7 @@ using System.IO;
 using PlatformWEBAPI.Services.Order.ViewModal;
 using MI.Dal.IDbContext;
 using MI.Entity.Models;
+using Utils.Settings;
 
 namespace Way2GoWEB.Payment
 {
@@ -26,17 +27,17 @@ namespace Way2GoWEB.Payment
         private static readonly string key = "93a8b6c4d2e1f08a45c9d6e3b7f2a1d3";
         private static readonly string iv = "b1e2d3c4a5f6b7c8";
 
-        //public static string merchantId = "TESTONEPAY";
-        public static string merchantId = "OP_EVISACS2";
+        public static string merchantId = AppSettings.GetOnePayQueryParams("merchantId");
+        //public static string merchantId = "OP_EVISACS2";
 
-        //public static string accessCode = "6BEB2546";
-        public static string accessCode = "B2106B90";
+        public static string accessCode = AppSettings.GetOnePayQueryParams("accessCode");
+        //public static string accessCode = "B2106B90";
 
-        //public static string merchantHashCode = "6D0870CDE5F24F34F3915FB0045120DB";
-        public static string merchantHashCode = "4D68420A9B98479E9A2CF73A0FC9DF08";
+        public static string merchantHashCode = AppSettings.GetOnePayQueryParams("merchantHashCode");
+        //public static string merchantHashCode = "4D68420A9B98479E9A2CF73A0FC9DF08";
 
-        //public static string BASE_URL = "https://mtf.onepay.vn/paygate/vpcpay.op";
-        public static string BASE_URL = "https://onepay.vn/paygate/vpcpay.op";
+        public static string BASE_URL = AppSettings.GetOnePayQueryParams("BASE_URL");
+        //public static string BASE_URL = "https://onepay.vn/paygate/vpcpay.op";
 
 
 
@@ -225,7 +226,6 @@ namespace Way2GoWEB.Payment
                         OnepayRef _newPaymentOrder = new OnepayRef();
                         _newPaymentOrder.EncryptMerchantTxtCode = encryptTxnRef;
                         _newPaymentOrder.Object = Newtonsoft.Json.JsonConvert.SerializeObject(requestBody);
-
                         context.OnepayRefs.Add(_newPaymentOrder);
                         context.SaveChanges();
                     }

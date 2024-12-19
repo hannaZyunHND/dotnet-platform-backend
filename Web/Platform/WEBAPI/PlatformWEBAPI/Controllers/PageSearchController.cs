@@ -81,11 +81,11 @@ namespace PlatformWEBAPI.Controllers
                 {
                     typeSearch = "SEARCH_ONLY_ELASTIC";
                 }
-                if(request.keywords.Count == 0 && request.selectedZones.Where(r => string.IsNullOrEmpty(r)).Count() < 2){
+                if(request.keywords.Count == 0 && request.selectedZones.Where(r => string.IsNullOrEmpty(r)).Count() <= 2){
                     typeSearch = "SEARCH_ONLY_ZONE";
                 }
 
-                if (request.keywords.Count > 0 && request.selectedZones.Where(r => string.IsNullOrEmpty(r)).Count() < 2)
+                if (request.keywords.Count > 0 && request.selectedZones.Where(r => string.IsNullOrEmpty(r)).Count() <= 2)
                 {
                     typeSearch = "SEARCH_KET_HOP";
                 }

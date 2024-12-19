@@ -8,9 +8,7 @@
 
 @{
     Layout = null;
-    //HttpContextAccessor.HttpContext.Response.ContentType = "text/xml";
-    //await HttpContextAccessor.HttpContext.Response.WriteAsync("<?xml version='1.0' encoding='UTF-8' ?>");
-    //var domain = Context.Request.Host.ToString();
+
     var domain = "https://joytime.vn";
     Context.Response.ContentType = "text/xml";
     await Context.Response.WriteAsync("<?xml version='1.0' encoding='UTF-8' ?>");
@@ -20,12 +18,6 @@
 }
 @{
     var list_outer_url = new List<PlatformWEBAPI.Services.Extra.ViewModel.SiteMapViewModel>();
-    //list_outer_url.Add(new PlatformWEBAPI.Services.Extra.ViewModel.SiteMapViewModel() { Title = "Giỏ hàng", Create = DateTime.Now, Modified = DateTime.Now, Type = "more", Url = "gio-hang" });
-    //list_outer_url.Add(new PlatformWEBAPI.Services.Extra.ViewModel.SiteMapViewModel() { Title = "Dự toán công trình", Create = DateTime.Now, Modified = DateTime.Now, Type = "more", Url = "du-toan-cong-trinh" });
-    //list_outer_url.Add(new PlatformWEBAPI.Services.Extra.ViewModel.SiteMapViewModel() { Title = "Chi nhánh", Create = DateTime.Now, Modified = DateTime.Now, Type = "more", Url = "chi-nhanh" });
-    //list_outer_url.Add(new PlatformWEBAPI.Services.Extra.ViewModel.SiteMapViewModel() { Title = "Flash Sale", Create = DateTime.Now, Modified = DateTime.Now, Type = "more", Url = "flash-sale" });
-    //list_outer_url.Add(new PlatformWEBAPI.Services.Extra.ViewModel.SiteMapViewModel() { Title = "Liên hệ", Create = DateTime.Now, Modified = DateTime.Now, Type = "more", Url = "lien-he" });
-    //list_outer_url.Add(new PlatformWEBAPI.Services.Extra.ViewModel.SiteMapViewModel() { Title = "Vòng quay may mắn", Create = DateTime.Now, Modified = DateTime.Now, Type = "more", Url = "vong-quay-may-man.html" });
     var sitemapItems = await extraRepository.GetDynamicSiteMap();
 }
 
