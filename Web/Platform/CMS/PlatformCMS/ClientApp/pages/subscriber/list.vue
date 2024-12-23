@@ -58,37 +58,19 @@
                         <table class="table data-thumb-view dataTable no-footer table-bordered" role="grid">
                             <thead class="table table-centered table-nowrap">
                                 <tr role="row">
-                                    <th>Answer_Id</th>
                                     <th>Email</th>
-                                    <th>Thông tin khảo sát</th>
                                     <th>Thời gian</th>
-                                    <th>Đánh giá</th>
                                     <th>Hành động</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 <tr role="row" class="odd" v-for="item in results">
                                     <td>
-                                        <span>{{ item.answer_Id }}</span>
-                                    </td>
-                                    <td>
                                         <span>Email: {{ item.email }}</span>
-                                    </td>
-
-                                    <td>
-                                        <span>Title: {{ item.survey_Name }}</span>
                                     </td>
                                     <td>
                                         <span>{{ formatTime(item.time_To_Submit) }}</span>
                                     </td>
-                                    <td>
-                                        <b-button-group>
-                                            <b-button v-b-modal.modal-1
-                                                @click="showDetail(item.answer_Id)">Xem</b-button>
-                                        </b-button-group>
-                                    </td>
-
-
                                     <td>
                                         <b-button-group>
                                             <b-form-checkbox :checked="item.isConfirm"
