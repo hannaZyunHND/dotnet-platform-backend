@@ -142,7 +142,7 @@ namespace PlatformWEBAPI.Controllers
                             }
                         }
 
-                        mailHooks.Add("[MAIL_FORGOT_PASSWORD]", newPassword);
+                        mailHooks.Add("[MAIL_TEMP_PASSWORD]", newPassword);
 
                         var outputHtml = ReplacePlaceholders(templateString, mailHooks);
                         if (!string.IsNullOrEmpty(outputHtml))
