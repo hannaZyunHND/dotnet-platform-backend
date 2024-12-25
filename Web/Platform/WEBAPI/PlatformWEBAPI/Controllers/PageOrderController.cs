@@ -226,7 +226,7 @@ namespace PlatformWEBAPI.Controllers
 
                             //Kiem tra xem don hang da ton tai chua
                             var checkCreatedOrder = await context.Orders.FirstOrDefaultAsync(r => r.OnepayRef == paymentObject.orderCode);
-                            if (checkCreatedOrder != null)
+                            if (checkCreatedOrder == null)
                             {
                                 //Tao don hang
                                 var response = await _CreateMultipleItemOrderManualy(paymentObject);
@@ -243,6 +243,20 @@ namespace PlatformWEBAPI.Controllers
                                         var url = $"{baseUrl}/{i18Code}/confirm/payment/success";
                                         return Redirect(url);
                                     }
+                                }
+                            }
+                            else
+                            {
+                                if (i18Code.Equals("en"))
+                                {
+
+                                    var fail_url = $"{baseUrl}/confirm/payment/fail";
+                                    return Redirect(fail_url);
+                                }
+                                else
+                                {
+                                    var fail_url = $"{baseUrl}/{i18Code}/confirm/payment/fail";
+                                    return Redirect(fail_url);
                                 }
                             }
                             

@@ -21,5 +21,9 @@ namespace PlatformWEBAPI.Controllers
             var result = await _extraRepository.GetDynamicSiteMap();
             return Ok(result);
         }
+
+
+        
+
     }
 }
