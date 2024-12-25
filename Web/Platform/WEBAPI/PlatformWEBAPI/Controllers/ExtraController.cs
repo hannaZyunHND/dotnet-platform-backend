@@ -55,8 +55,46 @@ namespace PlatformWEBAPI.Controllers
 
             return View("~/Views/Extra/SiteMapGenerate.cshtml");
         }
-
         
+        public async Task<IActionResult> GetFirstLevelSiteMap()
+        {
+            var result = await _extraRepository.GetFirstLevelSiteMap();
+            return View(result);
+        }
+        
+        public async Task<IActionResult> GetSecondLevelSiteMap(string culture_code)
+        {
+            var result = await _extraRepository.GetSecondLevelSiteMap(culture_code);
+            return View(result);
+        }
+
+        public async Task<IActionResult> GetThirdLevelSiteMapStaticPage(string culture_code)
+        {
+            var result = await _extraRepository.GetThirdLevelSiteMap_StaticPages(culture_code);
+            return View(result);
+        }
+        public async Task<IActionResult> GetThirdLevelSiteMapBlogCategory(string culture_code)
+        {
+            var result = await _extraRepository.GetThirdLevelSiteMap_blog_category(culture_code);
+            return View(result);
+        }
+        public async Task<IActionResult> GetThirdLevelSiteMapProductCategory(string culture_code)
+        {
+            var result = await _extraRepository.GetThirdLevelSiteMap_product_category(culture_code);
+            return View(result);
+        }
+        public async Task<IActionResult> GetThirdLevelSiteMapBlogs(string culture_code)
+        {
+            var result = await _extraRepository.GetThirdLevelSiteMap_blogs(culture_code);
+            return View(result);
+        }
+        public async Task<IActionResult> GetThirdLevelSiteMapProducts(string culture_code)
+        {
+            var result = await _extraRepository.GetThirdLevelSiteMap_products(culture_code);
+            return View(result);
+        }
+
+
 
     }
 }

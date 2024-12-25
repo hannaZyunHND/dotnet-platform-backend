@@ -102,6 +102,9 @@ namespace PlatformWEBAPI.Services.Extra.ViewModel
         public string Url { get; set; }
         public int? Id { get; set; }
         public string Type { get; set; }
+        public string Slug { get; set; } = "";
+        public string Priority { get; set; } = "1.0";
+        public string ChangeFreq { get; set; } = "weekly";
 
     }
 }

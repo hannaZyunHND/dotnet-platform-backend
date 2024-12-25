@@ -309,11 +309,41 @@ namespace PlatformWEBAPI
             {
                 routes.MapRoute(
                     name: "default",
-                    template: "{controller=Extra}/{action=SiteMapGenerate}/{id?}");
+                    template: "{controller=Extra}/{action=GetFirstLevelSiteMap}/{id?}");
                 routes.MapRoute(
                     name: "SiteMap",
                     template: "sitemap.xml",
-                    defaults: new { controller = "Extra", action = "SiteMapGenerate" }
+                    defaults: new { controller = "Extra", action = "GetFirstLevelSiteMap" }
+                );
+                routes.MapRoute(
+                    name: "SiteMapSecondLevel",
+                    template: "{culture_code}/sitemap.xml",
+                    defaults: new { controller = "Extra", action = "GetSecondLevelSiteMap" }
+                );
+                routes.MapRoute(
+                    name: "GetThirdLevelSiteMapStaticPage",
+                    template: "{culture_code}/static_page.xml",
+                    defaults: new { controller = "Extra", action = "GetThirdLevelSiteMapStaticPage" }
+                );
+                routes.MapRoute(
+                    name: "GetThirdLevelSiteMapBlogCategory",
+                    template: "{culture_code}/blog_category.xml",
+                    defaults: new { controller = "Extra", action = "GetThirdLevelSiteMapBlogCategory" }
+                );
+                routes.MapRoute(
+                    name: "GetThirdLevelSiteMapProductCategory",
+                    template: "{culture_code}/product_category.xml",
+                    defaults: new { controller = "Extra", action = "GetThirdLevelSiteMapProductCategory" }
+                );
+                routes.MapRoute(
+                    name: "GetThirdLevelSiteMapBlogs",
+                    template: "{culture_code}/blogs.xml",
+                    defaults: new { controller = "Extra", action = "GetThirdLevelSiteMapBlogs" }
+                );
+                routes.MapRoute(
+                    name: "GetThirdLevelSiteMapProducts",
+                    template: "{culture_code}/products.xml",
+                    defaults: new { controller = "Extra", action = "GetThirdLevelSiteMapProducts" }
                 );
             });
             app.UseStaticFiles();
