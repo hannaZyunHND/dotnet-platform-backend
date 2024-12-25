@@ -401,6 +401,12 @@ namespace PlatformCMS.Controllers
             var response = await productBCL.UpdateProductPriceInZoneListByYear(2025);
             return Ok(response);
         }
+        [HttpPost("UpdatePriceInYearForProductCode/{productId}/{zoneList}/{year}")]
+        public async Task<IActionResult> UpdatePriceInYearForProductCode(int productId, string zoneList, int year)
+        {
+            var response = await productBCL.UpdateProductPriceInZoneListByProductCodeInYear(productId, zoneList, year);
+            return Ok(response);
+        }
 
         [HttpGet("GetPhienBan")]
         public List<PhienBans> GetPhienBansByParentId(int idProduct)

@@ -283,6 +283,8 @@ namespace MI.Bo.Bussiness
                     //Add tiep cho cac phan ve gia theo ngay thang o day
                     var pricesByDate = new List<ProductPriceInZoneListByDate>();
                     var allDates = GetDatesOfCurrentYear();
+                    var allDatesSelectedYearu = GetDatesOfSelectionYear(2025);
+                    allDates.AddRange(allDatesSelectedYearu);
                     foreach(var item in phienBans)
                     {
 
@@ -368,6 +370,53 @@ namespace MI.Bo.Bussiness
             }
             return false;
     
+        }
+
+        public async Task<bool> UpdateProductPriceInZoneListByProductCodeInYear(int productId, string zoneList, int year)
+        {
+            var pricesByDate = new List<ProductPriceInZoneListByDate>();
+            var allDates = GetDatesOfSelectionYear(year);
+
+            using (IDbContext context = new IDbContext())
+            {
+                var productZoneList = await context.ProductPriceInZoneList.Where(r => r.ProductId == productId && r.ZoneList.Equals(zoneList)).FirstOrDefaultAsync();
+
+                if (productZoneList != null)
+                {
+                    var item = productZoneList;
+                    var oldPrices = context.ProductPriceInZoneListByDate.Where(r => r.ProductId == item.ProductId && r.ZoneList.Equals(item.ZoneList) && r.Date.Year == year);
+                    if (oldPrices.Count() > 0)
+                    {
+                        context.ProductPriceInZoneListByDate.RemoveRange(oldPrices);
+                        await context.SaveChangesAsync();
+                    }
+                    else
+                    {
+                        foreach (var d in allDates)
+                        {
+                            var pByDate = new ProductPriceInZoneListByDate();
+                            pByDate.ZoneList = item.ZoneList;
+                            pByDate.ProductId = item.ProductId;
+                            pByDate.Date = d.Date;
+                            pByDate.DayOfWeek = d.DayOfWeekAbbreviation;
+                            pByDate.PriceEachNguoiLon = item.PriceEachNguoiLon;
+                            pByDate.PriceEachTreEm = item.PriceEachTreEm;
+                            pByDate.PriceEachNguoiGia = item.PriceEachNguoiGia;
+                            pByDate.NetEachNguoiLon = item.NetEachNguoiLon;
+                            pByDate.NetEachTreEm = item.NetEachTreEm;
+                            pByDate.NetEachNguoiGia = item.NetEachNguoiGia;
+                            pricesByDate.Add(pByDate);
+                        }
+                    }
+                }
+
+
+                await context.ProductPriceInZoneListByDate.AddRangeAsync(pricesByDate);
+                await context.SaveChangesAsync();
+                return true;
+
+            }
+            return false;
         }
 
         public void UpdateCancelPolicies(List<ProductCancelPolicy> cancelPolicies)
