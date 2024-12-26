@@ -58,7 +58,7 @@
 
         /* Notice box */
         .notice {
-            font-style: italic;
+/*            font-style: italic;*/
             margin: 15px 0;
             color: #666;
         }
@@ -98,17 +98,22 @@
         </div>
 
         <div class="mail-content">
-            <p>[MAIL_GREETING],</p>
+            <p>[MAIL_GREETING], [MAIL_USERNAME]</p>
 
             <p>[MAIL_RECEIVED_REQUEST]</p>
 
             <div class="temp-password">
-                [MAIL_TEMP_PASSWORD]
+                [MAIL_TEMP_PASSWORD]: [MAIL_TEMP_FORGOT_PASSWORD]
             </div>
 
             <div class="notice">
                 [MAIL_SECURITY_NOTICE]
             </div>
+            <div class="sub-notice">
+                <span>[MAIL_SECURITY_NOTICE_1]</span>
+                <span>[MAIL_SECURITY_NOTICE_2]</span>
+            </div>
+
 
             <p>[MAIL_INSTRUCTIONS_HEADING]</p>
             <ol class="instructions">
