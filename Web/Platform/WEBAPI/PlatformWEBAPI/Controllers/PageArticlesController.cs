@@ -126,7 +126,16 @@ namespace PlatformWEBAPI.Controllers
                         }
                     }
                 }
-
+                var tableTags = doc.DocumentNode.SelectNodes("//table");
+                if(tableTags != null)
+                {
+                    foreach(var tb in tableTags)
+                    {
+                        tb.AddClass("table");
+                        tb.AddClass("table-responsive");
+                        tb.AddClass("table-bordered");
+                    }
+                }
                 return doc.DocumentNode.InnerHtml;
             }
             return body;
