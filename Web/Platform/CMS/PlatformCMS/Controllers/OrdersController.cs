@@ -1542,6 +1542,7 @@ namespace PlatformCMS.Controllers
         public int? rollbackOption { get; set; }
         public DateTime? rollbackRequestDate { get; set; }
         public string unit { get; set; }
+        public string country { get; set; }
 
     }
 

@@ -118,6 +118,7 @@
                                     <option value="">KHÔNG SỬ DỤNG</option>
                                     <option value="text">Ô text nhập liệu</option>
                                     <option value="textarea">Ô textarea nhập liệu</option>
+                                    <option value="person-information">Thông tin khách hàng</option>
                                     <!--<option value="date">Ô nhập ngày tháng</option>-->
                                     <option value="datetime-local">Ô nhập ngày tháng - thời gian</option>
                                     <!--<option value="checkbox">Checkbox nhiều lựa chọn</option>-->

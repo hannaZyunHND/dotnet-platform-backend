@@ -1,5 +1,7 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using MI.Dal.IDbContext;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using PlatformWEBAPI.Services.Extra.Repository;
 using System.Threading.Tasks;
 
@@ -22,8 +24,16 @@ namespace PlatformWEBAPI.Controllers
             return Ok(result);
         }
 
+        [HttpGet]
+        [Route("Redirects")]
+        public async Task<IActionResult> Redirects()
+        {
+            using (IDbContext context = new IDbContext())
+            {
+                var redirects = await context.Redirect.ToListAsync();
+                return Ok(redirects);
+            }
 
-        
-
+        }
     }
 }

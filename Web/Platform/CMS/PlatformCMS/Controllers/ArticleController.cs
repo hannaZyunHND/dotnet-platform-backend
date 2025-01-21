@@ -103,7 +103,8 @@ namespace PlatformCMS.Controllers
                                         strh2 = new StringBuilder(); strh3 = new StringBuilder(); strh4 = new StringBuilder(); strh5 = new StringBuilder();
                                     }
                                     h2++;
-                                    strh2.Append($"<li><a href='#{id}'><span class='toc_number toc_depth_1'>{h2} </span> {texts[i].InnerText}</a>[#Child]</li>");
+                                    //strh2.Append($"<li><a href='#{id}'><span class='toc_number toc_depth_1'>{h2} </span> {texts[i].InnerText}</a>[#Child]</li>");
+                                    strh2.Append($"<li><a href='#{id}'><span class='toc_number toc_depth_1'></span> {texts[i].InnerText}</a>[#Child]</li>");
                                     break;
                                 case "h3":
                                     h3++;
@@ -116,15 +117,18 @@ namespace PlatformCMS.Controllers
                                     //{
                                     //    strh3.Append($"<li><a href='#{id}'><span class='toc_number toc_depth_2'>{h2}.{h3} </span> {texts[i].InnerText}</a>[#Child]</li>");
                                     //}
-                                    strh3.Append($"<li><a href='#{id}'><span class='toc_number toc_depth_2'>{h2}.{h3} </span> {texts[i].InnerText}</a>[#Child.{is_have_flag}]</li>");
+                                    strh3.Append($"<li><a href='#{id}'><span class='toc_number toc_depth_2'></span> {texts[i].InnerText}</a>[#Child.{is_have_flag}]</li>");
+                                    //strh3.Append($"<li><a href='#{id}'><span class='toc_number toc_depth_2'>{h2}.{h3} </span> {texts[i].InnerText}</a>[#Child.{is_have_flag}]</li>");
                                     break;
                                 case "h4":
                                     h4++;
-                                    strh4.Append($"<li><a href='#{id}'><span class='toc_number toc_depth_3'>{h2}.{h3}.{h4} </span> {texts[i].InnerText}</a>[#Child]</li>");
+                                    //strh4.Append($"<li><a href='#{id}'><span class='toc_number toc_depth_3'>{h2}.{h3}.{h4} </span> {texts[i].InnerText}</a>[#Child]</li>");
+                                    strh4.Append($"<li><a href='#{id}'><span class='toc_number toc_depth_3'> </span> {texts[i].InnerText}</a>[#Child]</li>");
                                     break;
                                 case "h5":
                                     h5++;
-                                    strh5.Append($"<li><a href='#{id}'><span class='toc_number toc_depth_4'>{h2}.{h3}.{h4}.{h5} </span> {texts[i].InnerText}</a>[#Child]</li>");
+                                    //strh5.Append($"<li><a href='#{id}'><span class='toc_number toc_depth_4'>{h2}.{h3}.{h4}.{h5} </span> {texts[i].InnerText}</a>[#Child]</li>");
+                                    strh5.Append($"<li><a href='#{id}'><span class='toc_number toc_depth_4'></span> {texts[i].InnerText}</a>[#Child]</li>");
                                     break;
                             }
                         }
@@ -144,6 +148,8 @@ namespace PlatformCMS.Controllers
                         strh2 = new StringBuilder(); strh3 = new StringBuilder(); strh4 = new StringBuilder(); strh5 = new StringBuilder();
                     }
                     sb.Append("</ul></div>");
+
+                    sb.Replace("[#Child.]", "");
                     obj.Indexing = sb.ToString();
                     obj.Html = doc.DocumentNode.OuterHtml;
                 }
