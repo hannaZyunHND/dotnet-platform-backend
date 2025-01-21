@@ -9,6 +9,7 @@ using Microsoft.EntityFrameworkCore;
 using PlatformWEBAPI.Services.Article.Repository;
 using PlatformWEBAPI.Services.Article.ViewModel;
 using PlatformWEBAPI.Services.Product.Repository;
+using Swashbuckle.AspNetCore.Swagger;
 using System;
 using System.Collections.Generic;
 using System.Dynamic;
@@ -126,7 +127,33 @@ namespace PlatformWEBAPI.Controllers
                         }
                     }
                 }
+                var tableTags = doc.DocumentNode.SelectNodes("//table");
+                if(tableTags != null)
+                {
+                    foreach(var tb in tableTags)
+                    {
+                        tb.AddClass("table");
+                        tb.AddClass("table-bordered");
 
+                        // Tạo thẻ div với class table-responsive
+                        var divNode = HtmlNode.CreateNode("<div class='table-responsive'></div>");
+
+                        // Thêm thẻ table vào bên trong div
+                        divNode.AppendChild(tb.Clone());
+
+                        // Thay thế thẻ table cũ bằng thẻ div mới
+                        tb.ParentNode.ReplaceChild(divNode, tb);
+                    }
+                }
+
+                var aTags = doc.DocumentNode.SelectNodes("//a");
+                if(aTags != null)
+                {
+                    foreach(var atag in aTags)
+                    {
+                        atag.Attributes.Add("target", "_blank");
+                    }
+                }
                 return doc.DocumentNode.InnerHtml;
             }
             return body;
@@ -185,6 +212,7 @@ namespace PlatformWEBAPI.Controllers
                 response.firstItem = result.FirstOrDefault();
                 response.nextThreeItem = result.Skip(1).Take(3).ToList();
                 response.lastItems = result.Skip(4).ToList();
+                response.totalItems = _t;
                 return Ok(response);
             }
             return BadRequest();

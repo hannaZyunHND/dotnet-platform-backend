@@ -283,8 +283,8 @@ namespace MI.Bo.Bussiness
                     //Add tiep cho cac phan ve gia theo ngay thang o day
                     var pricesByDate = new List<ProductPriceInZoneListByDate>();
                     var allDates = GetDatesOfCurrentYear();
-                    var allDatesSelectedYearu = GetDatesOfSelectionYear(2025);
-                    allDates.AddRange(allDatesSelectedYearu);
+                    //var allDatesSelectedYearu = GetDatesOfSelectionYear(2025);
+                    //allDates.AddRange(allDatesSelectedYearu);
                     foreach(var item in phienBans)
                     {
 
@@ -293,7 +293,7 @@ namespace MI.Bo.Bussiness
                         //if (oldPricesByDate.Any()) {
                         //    db.ProductPriceInZoneListByDate.RemoveRange(oldPricesByDate);
                         //}
-                        var checker = db.ProductPriceInZoneListByDate.Where(r => r.ZoneList.Equals(string.Join(",",item.selectedOptions)) && r.ProductId == productId).Any();
+                        var checker = db.ProductPriceInZoneListByDate.Where(r => r.ZoneList.Equals(string.Join(",",item.selectedOptions)) && r.ProductId == productId && r.Date.Year == DateTime.Now.Year).Any();
                         if (!checker)
                         {
                             

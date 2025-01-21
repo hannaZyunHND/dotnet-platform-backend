@@ -162,7 +162,9 @@
                                             <li>Tên: {{ item.fullName }}</li>
                                             <li>SĐT: {{ item.phoneNumber }}</li>
                                             <li>Email: {{ item.email }}</li>
-                                            <li><a href="javascript:;" @click="onViewThongTin(item)">Xem ghi chú</a>
+                                            <li>Quốc tịch: {{ item.country }}</li>
+                                            <li>
+                                                <a href="javascript:;" @click="onViewThongTin(item)">Xem ghi chú</a>
                                             </li>
                                         </ul>
                                     </td>

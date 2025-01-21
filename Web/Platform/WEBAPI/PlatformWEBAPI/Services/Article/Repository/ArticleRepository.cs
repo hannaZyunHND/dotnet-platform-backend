@@ -92,7 +92,7 @@ namespace PlatformWEBAPI.Services.Article.Repository
             var r = new List<ArticleMinify>();
             //get in cache
             var result_after_cache = _distributedCache.Get(keyCache);
-            if (result_after_cache != null)
+            if (false) // Tat tam dieu kien cache de set trang
             {
                 r = Newtonsoft.Json.JsonConvert.DeserializeObject<List<ArticleMinify>>(Encoding.UTF8.GetString(result_after_cache));
                 totalRow = r.Count;
