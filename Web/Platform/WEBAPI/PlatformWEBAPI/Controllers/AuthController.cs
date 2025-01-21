@@ -63,17 +63,26 @@ namespace PlatformWEBAPI.Controllers
         [Route("ChangePassword")]
         public async Task<IActionResult> ChangePassword(CustomerAuthViewModel request)
         {
-
+            using (IDbContext context = new IDbContext())
+            {
+                var user = await context.Customer.FirstOrDefaultAsync(r => r.Email == request.email);
+                if (user != null)
+                {
+                    if(user.Pcname != request.oldPassword){
+                        return BadRequest("Password is not corressponding !!");
+                    }
+                }
+                   
+            }
             var result = _orderRepository.ChangePassword(request);
             if (result > 0)
             {
-                return Ok(result);
+                 return Ok(result);
             }
             else
             {
-                return BadRequest();
+                 return BadRequest();
             }
-
         }
 
         [HttpPost]
@@ -282,11 +291,11 @@ namespace PlatformWEBAPI.Controllers
 
             using (IDbContext context = new IDbContext())
             {
-                var customerExisting = await context.Subscribers.FirstOrDefaultAsync(r => r.Email == request.Email);
-                if (customerExisting != null)
-                {
-                    return BadRequest("Subcriber with this mail already exist !!");
-                }
+                //    var customerExisting = await context.Subscribers.FirstOrDefaultAsync(r => r.Email == request.Email);
+                //    if (customerExisting != null)
+                //    {
+                //        return BadRequest("Subcriber with this mail already exist !!");
+                //    }
 
                 var subscribers = new Subscribers
                 {
