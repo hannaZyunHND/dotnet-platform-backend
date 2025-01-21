@@ -209,10 +209,18 @@
                                     <td>
                                         <b-button-group>
                                             <b-button variant="primary"
-                                                @click="onOpenUpdateStatusDonHangModal(item)">Update TT đơn
-                                                hàng</b-button>
-                                            <b-button variant="success" @click="onOpenModalChat(item)">Giao tiếp
-                                                KH</b-button>
+                                                      @click="onOpenUpdateStatusDonHangModal(item)">
+                                                Update TT đơn
+                                                hàng
+                                            </b-button>
+                                            <b-button variant="success" @click="onOpenModalChat(item)">
+                                                Giao tiếp
+                                                KH
+                                            </b-button>
+                                            <!--<b-button variant="primary" v-if="item.activeStatus == 'CHAP_NHAN_DICH_VU'"
+                                                      @click="onGetManualyConfirmEmail(item)">
+                                                Mail confirm thủ công
+                                            </b-button>-->
                                         </b-button-group>
                                     </td>
                                 </tr>
@@ -707,7 +715,9 @@ export default {
             a.remove();
             window.URL.revokeObjectURL(url);
         },
-
+        onGetManualyConfirmEmail(item) {
+            console.log(item)
+        }
     },
 
 

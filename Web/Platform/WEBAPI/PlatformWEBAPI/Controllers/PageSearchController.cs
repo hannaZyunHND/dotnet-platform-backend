@@ -73,6 +73,7 @@ namespace PlatformWEBAPI.Controllers
                 var productsMap = new List<ProductMapLocation>();
 
                 var countSearchZone = 0;
+                var countSearchKeyword = 0;
                 foreach(var item in request.selectedZones)
                 {
                     if (!string.IsNullOrEmpty(item))
@@ -80,25 +81,32 @@ namespace PlatformWEBAPI.Controllers
                         countSearchZone++;
                     }
                 }
+                foreach(var item in request.keywords)
+                {
+                    if (!string.IsNullOrEmpty(item))
+                    {
+                        countSearchKeyword++;
+                    }
+                }
 
                 var typeSearch = "";
-                if(request.keywords.Count == 0 && countSearchZone == 2)
+                if(countSearchKeyword == 0 && countSearchZone == 2)
                 {
                     typeSearch = "SEARCH_ONLY_ZONE";
                 }
-                if(request.keywords.Count > 0 && countSearchZone == 0)
+                if(countSearchKeyword > 0 && countSearchZone == 0)
                 {
                     typeSearch = "SEARCH_ONLY_ELASTIC";
                 }
-                if(request.keywords.Count == 0 && (countSearchZone > 0 && countSearchZone <= 2)){
+                if(countSearchKeyword == 0 && (countSearchZone > 0 && countSearchZone <= 2)){
                     typeSearch = "SEARCH_ONLY_ZONE";
                 }
 
-                if (request.keywords.Count > 0 && (countSearchZone > 0 && countSearchZone <= 2))
+                if (countSearchKeyword > 0 && (countSearchZone > 0 && countSearchZone <= 2))
                 {
                     typeSearch = "SEARCH_KET_HOP";
                 }
-                if(request.keywords.Count == 0 && countSearchZone == 0)
+                if(countSearchKeyword == 0 && countSearchZone == 0)
                 {
                     typeSearch = "SEARCH_KET_HOP";
                 }
