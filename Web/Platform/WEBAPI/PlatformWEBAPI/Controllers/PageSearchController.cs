@@ -85,7 +85,10 @@ namespace PlatformWEBAPI.Controllers
                 {
                     if (!string.IsNullOrEmpty(item))
                     {
-                        countSearchKeyword++;
+                        if (!string.IsNullOrWhiteSpace(item))
+                        {
+                            countSearchKeyword++;
+                        }
                     }
                 }
 
