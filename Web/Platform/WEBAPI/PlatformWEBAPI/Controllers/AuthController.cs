@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using MimeKit;
+using Nest;
 using PlatformWEBAPI.Services.BannerAds.Repository;
 using PlatformWEBAPI.Services.Extra.Repository;
 using PlatformWEBAPI.Services.Order.Repository;
@@ -69,7 +70,12 @@ namespace PlatformWEBAPI.Controllers
                 if (user != null)
                 {
                     if(user.Pcname != request.oldPassword){
-                        return BadRequest("Password is not corressponding !!");
+                        return BadRequest(new ApiResponse
+                        {
+                            Status = "error",
+                            Message = "Password is incorressponding !!",
+                            Data = null
+                        });
                     }
                 }
                    
@@ -77,11 +83,20 @@ namespace PlatformWEBAPI.Controllers
             var result = _orderRepository.ChangePassword(request);
             if (result > 0)
             {
-                 return Ok(result);
+                 return Ok(new ApiResponse {
+                     Status = "success",
+                     Message = "Change password successfully",
+                     Data = result,
+                   });
             }
             else
             {
-                 return BadRequest();
+                return BadRequest(new ApiResponse
+                {
+                    Status = "error",
+                    Message = "Password is incorressponding !!",
+                    Data = null
+                });
             }
         }
 
