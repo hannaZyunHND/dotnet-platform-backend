@@ -262,7 +262,7 @@
             let _config = require('./../../../appsettings.json');
             this.extImage = _config.AppSettings.ImageAllowUpload;
             this.extensions = _config.AppSettings.ImageAllowUpload.concat(_config.AppSettings.DocumentAllowUpload);
-            
+
         },
         computed: {
             files() {
@@ -278,10 +278,10 @@
             CKAddCustomPlugin() {
                 let $this = this;
                 //console.log(this.config)
-                
+
                 let e = this.config.extraPlugins;
                 let extraConfigs = e.split(',')
-                
+
                 this.config.extraPlugins = extraConfigs.join(',')
 
                 if (!CKEDITOR.plugins.get("niw_btn")) {
@@ -324,9 +324,9 @@
                         }
                     });
                 }
-                
-                
-                
+
+
+
             },
 
             toggleEditorDisabled() {
@@ -397,7 +397,7 @@
               //  this.$modal.show('hello-world');
                 //this.$refs["product-manager-modal"].show();
               //  $('#file-manager-modal').modal('show')
-               // this.$bvModal.show('product-manager-modal')	
+               // this.$bvModal.show('product-manager-modal')
                 this.getZones(1).then(respose => {
                     var data = respose.listData;
                     data.push({ id: 0, label: "Danh mục", parentId: 0 });
@@ -444,8 +444,10 @@
             // attack file
             ...mapActions(["fmFileUpload", "fmFileGetAll"]),
             mapImageUrl(img, ext) {
+                this.cloudFontCDN = _config.AppSettings.CloudFontCDN;
                 if (this.extImage.indexOf(ext) !== -1) {
-                    return '/uploads/thumb' + img;
+                    // return '/uploads/thumb' + img;
+                    return this.cloudFontCDN + '/uploads/thumb' + img;
                 }
                 return './../../ClientApp/assets/fileicons/' + ext.replace('.', '') + '.png';
             },
@@ -566,12 +568,12 @@
             },
 
             FileManagers(param) {
-               
+
                 this.selectType = param;
-              
+
                 this.modalShowFile = true;
                // this.$refs["file-manager-modal"].show();
-                // this.$bvModal.show('file-manager-modal')	
+                // this.$bvModal.show('file-manager-modal')
                 this.LoadFile();
             },
 
@@ -605,7 +607,7 @@
             },
             index() {
                 this.index_p = this.index;
-                
+
             },
             currentPageFileManager() {
                 this.isLoading = true;

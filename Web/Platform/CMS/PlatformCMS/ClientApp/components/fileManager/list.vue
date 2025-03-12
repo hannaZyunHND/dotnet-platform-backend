@@ -158,6 +158,7 @@
             let config = require('./../../../appsettings.json');
             this.extImage = config.AppSettings.ImageAllowUpload;
             this.extensions = config.AppSettings.ImageAllowUpload.concat(config.AppSettings.DocumentAllowUpload);
+            this.cloudFontCDN = config.AppSettings.CloudFontCDN; // Thêm dòng này
 
             EventBus.$on(this.miKey, this.FileManagerOpen);
         },
@@ -173,7 +174,7 @@
             ...mapActions(["fmFileUpload", "fmFileGetAll", "fmRemove"]),
             mapImageUrl(img, ext) {
                 if (this.extImage.indexOf(ext.toLowerCase()) !== -1) {
-                    return '/uploads/thumb' + img;
+                    return this.cloudFontCDN + "/uploads/thumb" + img;
                 }
                 return './../../ClientApp/assets/fileicons/' + ext.replace('.', '') + '.png';
             },
@@ -240,7 +241,7 @@
 
             },
             UploadFileAction(files) {
-                
+
                 this.fmFileUpload(files)
                     .then(response => {
                         if (response.success) {
@@ -264,7 +265,7 @@
                             this.isLoading = false;
                         }
                         else {
-                            
+
                             this.$toast.error(response.message, {});
                             this.isLoading = false;
                         }
@@ -349,19 +350,19 @@
                     $this.fmRemove(item.id)
                         .then(response => {
                             if (response.success) {
-                                
+
                                 $this.LoadFile();
                                 $this.$toast.success(response.message, {});
                                 $this.isLoading = false;
                             }
                             else {
-                                
+
                                 $this.$toast.error(response.message, {});
                                 $this.isLoading = false;
                             }
                         })
                         .catch(e => {
-                            
+
                             $this.$toast.error(msgNotify.error + ". Error:" + e, {});
                             $this.isLoading = false;
                         });

@@ -26,6 +26,9 @@ using System.IO;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using SkiaSharp;
+using System.Net.Http;
+using Newtonsoft.Json;
+using Microsoft.Extensions.Logging;
 
 namespace PlatformCMS.Controllers
 {
@@ -38,32 +41,33 @@ namespace PlatformCMS.Controllers
         private readonly IConfiguration _config;
         private readonly IExportUtility _workingFile;
         IHostingEnvironment _hostingEnvironment;
+        private readonly ILogger<FileUploadV2Controller> _logger;
 
-        public FileUploadV2Controller(IHostingEnvironment env, IConfiguration iConfig, IExportUtility workingFile, IHostingEnvironment hostingEnvironment)
+        public FileUploadV2Controller(ILogger<FileUploadV2Controller> logger, IHostingEnvironment env, IConfiguration iConfig, IExportUtility workingFile, IHostingEnvironment hostingEnvironment)
         {
             _env = env;
             _config = iConfig;
             _fileUploadBCL = new FileUploadBCL();
             _workingFile = workingFile;
             _hostingEnvironment = hostingEnvironment;
+            _logger = logger;
         }
 
         [Route("UploadImage")]
         [HttpPost, DisableRequestSizeLimit]
         public IActionResult Upload(List<IFormFile> files)
         {
+            string uploadS3BucketAPI = _config.GetValue<string>("AppSettings:S3BucketUploadAPI");
+            string bucketName = _config.GetValue<string>("AppSettings:BucketName");
+            int webpQuality = _config.GetValue<int>("AppSettings:WebpQuality") > 0
+                ? _config.GetValue<int>("AppSettings:WebpQuality")
+                : 80;
 
-            string serverPath = _config.GetValue<string>("AppSettings:UploadFolder");
-            string folder = string.Format("{0:yyyy/MM/dd}", DateTime.Now);
             var res = new ResponseData();
             res.Success = false;
+
             try
             {
-
-                var webRoot = _env.WebRootPath;
-                var fileDirectory = Path.Combine(serverPath, folder);
-                var pathToSave = Path.Combine(webRoot, fileDirectory);
-
                 if (Request.Form.Files.Count > 0)
                 {
                     var uploadResults = new List<FileInfo>();
@@ -71,180 +75,36 @@ namespace PlatformCMS.Controllers
                     string documentAllowUpload = _config.GetValue<string>("AppSettings:DocumentAllowUpload");
                     bool fileUploadSubFix = _config.GetValue<bool>("AppSettings:FileUploadSubFix");
                     int fileUploadMaxSize = _config.GetValue<int>("AppSettings:FileUploadMaxSize");
-                    int imageScaleWidth = _config.GetValue<int>("AppSettings:ImageScaleWidth");
-                    int imageScaleHeight = _config.GetValue<int>("AppSettings:ImageScaleHeight");
+
                     foreach (var file in Request.Form.Files)
                     {
-                        var ext = Path.GetExtension(fileDirectory + "\\" + file.FileName);
-
-                        var imageAllowFileArray = imageAllowUpload.Split(',');
-                        var documentAllowFileArray = documentAllowUpload.Split(',');
-                        if (Array.IndexOf(imageAllowFileArray, ext.ToLower()) != -1 || Array.IndexOf(documentAllowFileArray, ext.ToLower()) != -1)
+                        try
                         {
-                            var fileName = Path.GetFileName(fileDirectory + "\\" + file.FileName);
-                            if (fileUploadMaxSize >= (file.Length / 1024))
+                            var fileName = Path.GetFileName(file.FileName);
+                            var ext = Path.GetExtension(fileName).ToLower();
+                            var imageAllowFileArray = imageAllowUpload.Split(',');
+                            var documentAllowFileArray = documentAllowUpload.Split(',');
+
+                            // 1. Kiểm tra định dạng file có được phép không
+                            if (Array.IndexOf(imageAllowFileArray, ext.ToLower()) == -1 &&
+                                Array.IndexOf(documentAllowFileArray, ext.ToLower()) == -1)
                             {
-
-                                if (fileUploadSubFix)
+                                uploadResults.Add(new FileInfo
                                 {
-                                    string filenameNoExtension = System.IO.Path.GetFileNameWithoutExtension(fileName);
-                                    fileName = Utility.UnicodeToKoDauAndGach(filenameNoExtension) + "-" + DateTime.Now.Hour + DateTime.Now.Minute + DateTime.Now.Second + DateTime.Now.Millisecond + ext;
-                                }
-                                var fullPath = Path.Combine(pathToSave, fileName);
-                                var webpPath = Path.Combine(pathToSave, Path.GetFileNameWithoutExtension(fileName) + ".webp");
-                                if (!Directory.Exists(pathToSave))
-                                {
-                                    Directory.CreateDirectory(pathToSave);
-                                }
-
-                                if (!_fileUploadBCL.ExistFile(fileName))
-                                {
-                                    using (var stream = new FileStream(fullPath, FileMode.Create))
-                                    {
-                                        file.CopyTo(stream);
-
-                                        // Convert and save the WebP version
-                                        using (var originalStream = file.OpenReadStream())
-                                        using (var skiaImage = SKBitmap.Decode(originalStream))
-                                        {
-                                            using (var webpImage = SKImage.FromBitmap(skiaImage))
-                                            using (var data = webpImage.Encode(SKEncodedImageFormat.Webp, 80)) // Adjust quality as needed
-                                            {
-                                                using (var webpStream = new FileStream(webpPath, FileMode.Create, FileAccess.Write))
-                                                {
-                                                    data.SaveTo(webpStream);
-                                                }
-                                            }
-                                        }
-
-                                        
-
-                                        uploadResults.Add(new FileInfo
-                                        {
-                                            name = fileName,
-                                            path = "/" + Path.Combine(folder).Replace("\\", "/") + "/" + Path.GetFileNameWithoutExtension(fileName) + ".webp",
-                                            ext = ext,
-                                            size = file.Length / 1024,
-                                            code = 200,
-                                            messages = "Upload thành công"
-                                        });
-
-
-                                        var obj = new FileUpload();
-                                        obj.Name = fileName;
-                                        obj.FilePath = "/" + Path.Combine(folder).Replace("\\", "/") + "/" + Path.GetFileNameWithoutExtension(fileName) + ".webp";
-                                        obj.FileExt = ext;
-                                        //   obj.Dimensions = dimensions;
-                                        obj.FileSize = file.Length / 1024;
-                                        obj.Status = 1;
-                                        obj.Type = 2;
-
-                                        ResponseData responseData = new ResponseData();
-                                        try
-                                        {
-                                            bool result = _fileUploadBCL.Add(obj);
-                                            if (result)
-                                            {
-
-                                                responseData.Success = true;
-                                                responseData.Message = "Thành công";
-                                                FileInfo fileInfo = new FileInfo
-                                                {
-                                                    name = fileName,
-                                                    path = "/" + Path.Combine(folder).Replace("\\", "/") + "/" + Path.GetFileNameWithoutExtension(fileName) + ".webp",
-                                                    ext = ext,
-                                                    size = file.Length / 1024,//Math.Round((double)file.Length / 1024, 1),
-                                                    code = 200,
-                                                    messages = "Upload thành công ne"
-
-                                                };
-                                                uploadResults.Add(fileInfo);
-                                                // Inside your existing function
-                                                if (Array.IndexOf(imageAllowFileArray, ext.ToLower()) != -1)
-                                                {
-                                                    using (var _stream = file.OpenReadStream())
-                                                    {
-                                                        // Decode the original image using SkiaSharp
-                                                        using (var skiaImage = SKBitmap.Decode(_stream))
-                                                        {
-                                                            // Get the original dimensions and save them to the object
-                                                            var dimensions = $"{skiaImage.Width}x{skiaImage.Height}";
-                                                            obj.Dimensions = dimensions;
-                                                            _fileUploadBCL.Update(obj);
-
-                                                            // Create the thumbnail save path
-                                                            var thumbPathToSave = Path.Combine(webRoot, serverPath, "thumb", folder);
-                                                            if (!Directory.Exists(thumbPathToSave))
-                                                            {
-                                                                Directory.CreateDirectory(thumbPathToSave);
-                                                            }
-
-                                                            var thumbFileDirectory = Path.Combine(folder);
-                                                            var thumbPath = Path.Combine(thumbPathToSave, Path.GetFileNameWithoutExtension(fileName) + ".webp");
-
-                                                            // Calculate new dimensions for the thumbnail (one-third of original)
-                                                            int newWidth = skiaImage.Width / 3;
-                                                            int newHeight = skiaImage.Height / 3;
-
-                                                            // Resize the image
-                                                            using (var resizedBitmap = skiaImage.Resize(new SKImageInfo(newWidth, newHeight), SKFilterQuality.High))
-                                                            using (var webpImage = SKImage.FromBitmap(resizedBitmap))
-                                                            {
-                                                                // Save the thumbnail as a WebP file
-                                                                using (var data = webpImage.Encode(SKEncodedImageFormat.Webp, 80)) // 80 is the quality level; adjust if needed
-                                                                using (var thumbStream = new FileStream(thumbPath, FileMode.Create, FileAccess.Write))
-                                                                {
-                                                                    data.SaveTo(thumbStream);
-                                                                }
-                                                            }
-                                                        }
-                                                    }
-                                                }
-
-
-                                            }
-                                        }
-                                        catch (Exception ex)
-                                        {
-                                            FileInfo fileInfo = new FileInfo
-                                            {
-                                                name = Path.GetFileNameWithoutExtension(fileName) + ".webp",
-                                                path = "/",
-                                                ext = ext,
-                                                size = file.Length / 1024, //Math.Round((double)file.Length / 1024, 1),
-                                                code = 500,
-                                                messages = ex.Message
-
-                                            };
-                                            uploadResults.Add(fileInfo);
-                                        }
-
-
-                                    }
-                                    write_watermark_text(fullPath);
-
-
-                                    write_watermark_text(fullPath, false);
-
-                                }
-                                else
-                                {
-                                    FileInfo fileInfo = new FileInfo
-                                    {
-                                        name = fileName,
-                                        path = "/",
-                                        ext = ext,
-                                        size = file.Length / 1024,
-                                        code = 900,
-                                        messages = "File đã tồn tại trên hệ thống"
-
-                                    };
-                                    uploadResults.Add(fileInfo);
-                                }
+                                    name = file.FileName,
+                                    path = "/",
+                                    ext = ext,
+                                    size = file.Length / 1024,
+                                    code = 900,
+                                    messages = "File extension not allowed"
+                                });
+                                continue;
                             }
-                            else
+
+                            // 2. Kiểm tra kích thước file
+                            if (fileUploadMaxSize < (file.Length / 1024))
                             {
-                                FileInfo fileInfo = new FileInfo
+                                uploadResults.Add(new FileInfo
                                 {
                                     name = fileName,
                                     path = "/",
@@ -252,28 +112,206 @@ namespace PlatformCMS.Controllers
                                     size = file.Length / 1024,
                                     code = 900,
                                     messages = "Limited file size"
-
-                                };
-                                uploadResults.Add(fileInfo);
+                                });
+                                continue;
                             }
 
+                            // 3. Xử lý tên file nếu cần
+                            if (fileUploadSubFix)
+                            {
+                                string filenameNoExtension = Path.GetFileNameWithoutExtension(fileName);
+                                fileName = Utility.UnicodeToKoDauAndGach(filenameNoExtension) + "-" + DateTime.Now.ToString("HHmmssfff") + ext;
+                            }
+
+                            // 4. Kiểm tra file đã tồn tại trong DB chưa
+                            if (_fileUploadBCL.ExistFile(fileName))
+                            {
+                                uploadResults.Add(new FileInfo
+                                {
+                                    name = fileName,
+                                    path = "/",
+                                    ext = ext,
+                                    size = file.Length / 1024,
+                                    code = 900,
+                                    messages = "File đã tồn tại trên hệ thống"
+                                });
+                                continue;
+                            }
+
+                            // 5. Kiểm tra xem đây có phải là file ảnh không
+                            bool isImage = Array.IndexOf(imageAllowFileArray, ext.ToLower()) != -1;
+
+                            // 6. Upload file lên S3
+                            try
+                            {
+                                using (var client = new HttpClient())
+                                {
+                                    client.Timeout = TimeSpan.FromMinutes(5);
+
+                                    try
+                                    {
+                                        // Sử dụng using để đảm bảo giải phóng tài nguyên
+                                        using (var content = new MultipartFormDataContent())
+                                        {
+                                            // Sử dụng FileStream thay vì MemoryStream để xử lý file lớn
+                                            using (var fileStream = file.OpenReadStream())
+                                            {
+                                                // Thêm trực tiếp từ file stream, không đọc toàn bộ vào memory
+                                                content.Add(new StreamContent(fileStream), "imageFile", fileName);
+
+                                                // Thêm các thông số cần thiết
+                                                content.Add(new StringContent(bucketName), "BucketName");
+
+                                                // Nếu là ảnh và API WebP được cấu hình, sử dụng nó
+                                                string apiEndpoint = uploadS3BucketAPI;
+                                                if (isImage)
+                                                {
+                                                    content.Add(new StringContent(webpQuality.ToString()), "WebpQuality");
+                                                    content.Add(new StringContent("false"), "WebpLossless");
+                                                }
+
+                                                // Gửi request - sử dụng await thay vì .Result
+
+                                                var response = client.PostAsync(uploadS3BucketAPI, content).Result;
+                                                var jsonResponse = response.Content.ReadAsStringAsync().Result;
+
+                                                // Phân tích phản hồi
+                                                S3UploadResponse s3Response;
+                                                if (isImage && _config.GetValue<bool>("AppSettings:UseWebp", false))
+                                                {
+                                                    s3Response = JsonConvert.DeserializeObject<S3UploadResponse>(jsonResponse);
+                                                }
+                                                else
+                                                {
+                                                    s3Response = JsonConvert.DeserializeObject<S3UploadResponse>(jsonResponse);
+                                                }
+
+                                                if (s3Response.success)
+                                                {
+                                                    // Lấy thông tin ảnh nếu là file ảnh - sử dụng cách nhẹ hơn
+                                                    string dimensions = "";
+                                                    if (isImage)
+                                                    {
+                                                        try
+                                                        {
+                                                            // Sử dụng đoạn mã tối ưu hơn để đọc kích thước ảnh
+                                                            using (var imageStream = file.OpenReadStream())
+                                                            {
+                                                                using (var img = System.Drawing.Image.FromStream(imageStream))
+                                                                {
+                                                                    dimensions = $"{img.Width}x{img.Height}";
+                                                                }
+                                                            }
+                                                        }
+                                                        catch
+                                                        {
+                                                            // Nếu không đọc được kích thước, bỏ qua
+                                                            dimensions = "";
+                                                        }
+                                                    }
+
+                                                    // Thêm vào DB
+                                                    var obj = new FileUpload
+                                                    {
+                                                        Name = fileName,
+                                                        FilePath = s3Response.imageUrl,
+                                                        FileExt = ext,
+                                                        FileSize = file.Length / 1024,
+                                                        Status = 1,
+                                                        Type = 2,
+                                                        Dimensions = dimensions
+                                                    };
+
+                                                    bool result = _fileUploadBCL.Add(obj);
+                                                    if (result)
+                                                    {
+                                                        var fileInfo = new FileInfo
+                                                        {
+                                                            name = fileName,
+                                                            path = s3Response.imageUrl,
+                                                            ext = ext,
+                                                            size = file.Length / 1024,
+                                                            code = 200,
+                                                            messages = "Upload thành công"
+                                                        };
+
+                                                        uploadResults.Add(fileInfo);
+                                                    }
+                                                }
+                                                else
+                                                {
+                                                    uploadResults.Add(new FileInfo
+                                                    {
+                                                        name = fileName,
+                                                        path = "/",
+                                                        ext = ext,
+                                                        size = file.Length / 1024,
+                                                        code = 500,
+                                                        messages = s3Response.message
+                                                    });
+                                                }
+                                            }
+                                        }
+                                    }
+                                    catch (OutOfMemoryException ex)
+                                    {
+                                        _logger.LogError(ex, "Lỗi hết bộ nhớ khi xử lý file {FileName}", fileName);
+                                        uploadResults.Add(new FileInfo
+                                        {
+                                            name = fileName,
+                                            path = "/",
+                                            ext = ext,
+                                            size = file.Length / 1024,
+                                            code = 500,
+                                            messages = "File quá lớn, không đủ bộ nhớ để xử lý"
+                                        });
+                                    }
+                                    catch (Exception ex)
+                                    {
+                                        _logger.LogError(ex, "Lỗi khi upload file {FileName}", fileName);
+                                        uploadResults.Add(new FileInfo
+                                        {
+                                            name = fileName,
+                                            path = "/",
+                                            ext = ext,
+                                            size = file.Length / 1024,
+                                            code = 500,
+                                            messages = $"Lỗi upload: {ex.Message}"
+                                        });
+                                    }
+                                }
+                            }
+                            catch (Exception uploadEx)
+                            {
+                                _logger.LogError(uploadEx, "Lỗi khi upload file lên S3: {Message}", uploadEx.Message);
+
+                                uploadResults.Add(new FileInfo
+                                {
+                                    name = fileName,
+                                    path = "/",
+                                    ext = ext,
+                                    size = file.Length / 1024,
+                                    code = 500,
+                                    messages = "Lỗi upload: " + uploadEx.Message
+                                });
+                            }
                         }
-                        else
+                        catch (Exception fileEx)
                         {
-                            FileInfo fileInfo = new FileInfo
+                            _logger.LogError(fileEx, "Lỗi xử lý file {FileName}: {Message}", file.FileName, fileEx.Message);
+
+                            uploadResults.Add(new FileInfo
                             {
                                 name = file.FileName,
                                 path = "/",
-                                ext = ext,
+                                ext = Path.GetExtension(file.FileName),
                                 size = file.Length / 1024,
-                                code = 900,
-                                messages = "File extension not allowed"
-
-                            };
-                            uploadResults.Add(fileInfo);
-
+                                code = 500,
+                                messages = "Lỗi xử lý file: " + fileEx.Message
+                            });
                         }
                     }
+
                     res.Data = uploadResults;
                     res.Success = true;
                 }
@@ -288,27 +326,20 @@ namespace PlatformCMS.Controllers
             }
             catch (Exception ex)
             {
-                // Define the log file path
-                string logFilePath = Path.Combine(Directory.GetCurrentDirectory(), "Logs", "error_log.txt");
+                _logger.LogError(ex, "Lỗi khi upload file: {Message}", ex.Message);
 
-                // Ensure the directory exists
-                Directory.CreateDirectory(Path.GetDirectoryName(logFilePath));
+                if (ex.InnerException != null)
+                {
+                    _logger.LogError("Inner exception: {Message}", ex.InnerException.Message);
+                }
 
-                // Compose the log message
-                string logMessage = $"{DateTime.Now:yyyy-MM-dd HH:mm:ss} - Error uploading file: {ex.Message}\n{ex.StackTrace}\n";
-
-                // Write the log message to the file
-                System.IO.File.AppendAllText(logFilePath, logMessage);
-
-                // Set response data
                 res.ErrorCode = -2;
                 res.Success = false;
-                res.Message = "Lỗi hệ thống, Vui lòng liên hệ quản trị.";
+                res.Message = "Lỗi hệ thống: " + ex.Message;
                 return Ok(res);
             }
-
-
         }
+
         [Route("UploadImageV2")]
 
         public IActionResult UploadV2(List<IFormFile> files)
@@ -1313,6 +1344,13 @@ namespace PlatformCMS.Controllers
     {
         public int productId { get; set; }
         public int type { get; set; }
+    }
+
+    public class S3UploadResponse
+    {
+        public string imageUrl { get; set; }
+        public bool success { get; set; }
+        public string message { get; set; }
     }
 }
 
