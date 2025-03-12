@@ -334,7 +334,8 @@ namespace PlatformCMS.Controllers
                     parameters.Add("@index", request.index);
                     parameters.Add("@size", request.size);
                     parameters.Add("@total", dbType: DbType.Int32, direction: ParameterDirection.Output);
-                    orders = connection.Query<ResponseGetListOrderV2>("usp_CMS_GetOrderDetailFullInfomations", parameters, commandType: CommandType.StoredProcedure).ToList();
+                    //orders = connection.Query<ResponseGetListOrderV2>("usp_CMS_GetOrderDetailFullInfomations", parameters, commandType: CommandType.StoredProcedure).ToList();
+                    orders = connection.Query<ResponseGetListOrderV2>("usp_CMS_GetOrderDetailFullInfomations_vTurning", parameters, commandType: CommandType.StoredProcedure).ToList();
                     total = parameters.Get<int>("@total");
 
 

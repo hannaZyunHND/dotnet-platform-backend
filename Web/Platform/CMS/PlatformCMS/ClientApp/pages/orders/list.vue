@@ -156,7 +156,10 @@
                             </thead>
                             <tbody>
                                 <tr role="row" class="odd" v-for="item in filterdOrders">
-                                    <td>{{ item.orderCode }}</td>
+                                    <td>{{ item.orderCode }}
+                                    <br />
+                                        <small>{{item.onepayRef}}</small>
+                                    </td>
                                     <td>
                                         <ul>
                                             <li>Tên: {{ item.fullName }}</li>

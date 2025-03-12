@@ -26,6 +26,9 @@ namespace MI.Entity.Models
         public string noteOptions { get; set; } = "";
         public string suggestionSeason { get; set; } = "";
         public string suggestionTraveldDate { get; set; } = "";
+        public string comments { get; set; } = "";
+        public string faqs { get; set; } = "";
+        public string searchTags { get; set; } = "";
         public Language LanguageCodeNavigation { get; set; }
         public Zone Zone { get; set; }
     }

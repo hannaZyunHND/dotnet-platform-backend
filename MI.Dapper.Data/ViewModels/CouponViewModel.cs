@@ -24,7 +24,6 @@ namespace MI.Dapper.Data.ViewModels
         public bool isRepeating { get; set; }
         public bool isReturningCustomerDiscount { get; set; }
 
-
         public CouponViewModel()
         {
             this.Id = 0;

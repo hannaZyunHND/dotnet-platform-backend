@@ -56,10 +56,10 @@ module.exports = (env) => {
         },
 
         plugins: [
-            //new webpack.DllReferencePlugin({
+            // new webpack.DllReferencePlugin({
             //    context: __dirname,
             //    manifest: require('./wwwroot/dist/vendor-manifest.json')
-            //}),
+            // }),
 
            new webpack.optimize.LimitChunkCountPlugin({
                maxChunks: 1

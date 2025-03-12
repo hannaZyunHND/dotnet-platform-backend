@@ -29,6 +29,7 @@ namespace PlatformWEBAPI.Services.Zone.Repository
 
         List<ZoneByTreeViewMinify> GetListOfCountry(string zoneIds, string lang_code);
         ResponseGetZoneDetailMinify GetZoneDetailMinifyById(int zoneId, string langCode);
+        List<ZoneToRedirect> GetZoneBreadcrum(string alias, string lang_code);
     }
     public class ZoneRepository : IZoneRepository
     {
@@ -110,6 +111,12 @@ namespace PlatformWEBAPI.Services.Zone.Repository
 
             var result = _executers.ExecuteCommand(_connStr, conn => conn.Query<ZoneByTreeViewMinify>(commandText, p, commandType: System.Data.CommandType.StoredProcedure)).ToList();
             return result;
+        }
+
+        public List<ZoneToRedirect> GetZoneBreadcrum(string alias, string lang_code)
+        {
+            //
+            throw new NotImplementedException();
         }
 
         public ZoneToRedirect GetZoneByAlias(string url, string lang_code)

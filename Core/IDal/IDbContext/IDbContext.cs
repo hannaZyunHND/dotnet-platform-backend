@@ -1323,19 +1323,7 @@ namespace MI.Dal.IDbContext
                 entity.Property(e => e.Rate).HasColumnType("decimal(18, 1)");
             });
 
-            modelBuilder.Entity<Redirect>(entity =>
-            {
-                entity.HasKey(e => e.UrlOld);
-
-                entity.Property(e => e.UrlOld)
-                    .HasMaxLength(500)
-                    .IsUnicode(false)
-                    .ValueGeneratedNever();
-
-                entity.Property(e => e.UrlNew)
-                    .HasMaxLength(500)
-                    .IsUnicode(false);
-            });
+            
 
             modelBuilder.Entity<Schema>(entity =>
             {

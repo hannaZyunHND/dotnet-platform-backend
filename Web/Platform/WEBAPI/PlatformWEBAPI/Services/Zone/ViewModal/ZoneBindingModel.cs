@@ -21,6 +21,12 @@ namespace PlatformWEBAPI.Services.Zone.ViewModal
         public int zoneId { get; set; }
         public string cultureCode { get; set; }
     }
+
+    public class RequestGetZoneDetailByAlias
+    {
+        public string alias { get; set; }
+        public string cultureCode { get; set; }
+    }
     public class ResponseZoneMinify
     {
         public int id { get; set; }
@@ -127,5 +133,9 @@ namespace PlatformWEBAPI.Services.Zone.ViewModal
         public decimal Rate { get; set; }
         public string UrlOld { get; set; }
         public string Filter { get; set; }
+        public string comments { get; set; }
+        public string faqs { get; set; }
+        public string searchTags { get; set; }
+        public List<ZoneByTreeViewMinify> breadcrumbs { get; set; }
     }
 }

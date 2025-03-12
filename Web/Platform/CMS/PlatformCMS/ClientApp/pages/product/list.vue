@@ -555,10 +555,11 @@ export default {
 
             }
         });
-        this.getZones(1).then(response => {
+        this.getZones(0).then(response => {
             try {
                 var data = response.listData;
                 data.push({ id: 0, label: "Chọn danh mục", parentId: 0 });
+                //this.getZones(5).then(responseDiemDen)
                 this.ListZone = unflatten(data);
             }
             catch (ex) {

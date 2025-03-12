@@ -73,7 +73,11 @@ namespace MI.Bo.Bussiness
                     if (filter.idZones.Count > 0)
                     {
                         items = items.Include(x => x.ProductInZone);
-                        items = items.Where(x => x.ProductInZone.Any(d => filter.idZones.Contains(d.ZoneId)));
+                        foreach(var item in filter.idZones)
+                        {
+                            items = items.Where(x => x.ProductInZone.Any(d => d.ZoneId == item));
+                        }
+                        //items = items.Where(x => x.ProductInZone.Any(d => filter.idZones.Contains(d.ZoneId)));
                     }
                     else if (filter.idZone > 0)
                     {
