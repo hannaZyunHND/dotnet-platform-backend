@@ -294,8 +294,8 @@ namespace PlatformWEBAPI.Services.Order.Repository
                         response.country = customer.Country;
                         response.phoneNumber = customer.PhoneNumber;
                         response.avatar = customer.Avatar;
-                        //response.firstName = customer.Fullname.Split(" ").FirstOrDefault();
-                        //response.lastName = customer.Fullname.Split(" ").LastOrDefault();
+                        response.firstName = customer.Fullname.Split(" ").FirstOrDefault();
+                        response.lastName = customer.Fullname.Split(" ").LastOrDefault();
                         return response;
                     }
                 }
@@ -636,13 +636,13 @@ namespace PlatformWEBAPI.Services.Order.Repository
                                 var response = new ResponseCreateMultipleItemOrder();
                                 response.auth = new CustomerAuth();
                                 response.auth.isNewUser = isNewUser;
-                                response.auth.firstName = customer.Fullname.Split(" ").FirstOrDefault() ?? " ";
-                                response.auth.lastName = string.Join(" ", customer.Fullname.Split(" ").ToList().Skip(1));
+                                response.auth.firstName = request.auth.firstName;
+                                response.auth.lastName = request.auth.lastName;
                                 response.auth.phoneNumber = customer.PhoneNumber;
                                 response.auth.email = customer.Email;
                                 response.auth.id = customer.Id;
                                 response.auth.pcname = pcName;
-
+                                response.auth.country = request.auth.country;
                                 //Code
                                 response.orderCode = order.OrderCode;
                                 return response;

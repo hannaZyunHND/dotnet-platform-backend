@@ -29,6 +29,7 @@ namespace MI.Entity.Models
         public string comments { get; set; } = "";
         public string faqs { get; set; } = "";
         public string searchTags { get; set; } = "";
+        public string dynamicschema { get; set; }
         public Language LanguageCodeNavigation { get; set; }
         public Zone Zone { get; set; }
     }

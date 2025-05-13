@@ -136,6 +136,7 @@ namespace PlatformWEBAPI.Services.Zone.ViewModal
         public string comments { get; set; }
         public string faqs { get; set; }
         public string searchTags { get; set; }
+        public string dynamicschema { get; set; }
         public List<ZoneByTreeViewMinify> breadcrumbs { get; set; }
     }
 }

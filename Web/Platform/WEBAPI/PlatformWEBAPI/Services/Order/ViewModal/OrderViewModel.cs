@@ -20,6 +20,7 @@ namespace PlatformWEBAPI.Services.Order.ViewModal
         public string i18Code { get; set; } = "en";
         public string paymentMethod { get; set; } = "TEST";
         public OrderNote orderNotes { get; set; } = new OrderNote();
+        public string SourceOrder { get; set; } = "WEBSITE";
     }
 
     public class ResponseCreateMultipleItemOrder

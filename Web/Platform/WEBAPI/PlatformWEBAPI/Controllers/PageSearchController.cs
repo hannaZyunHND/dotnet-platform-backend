@@ -214,6 +214,170 @@ namespace PlatformWEBAPI.Controllers
             return Ok(response);
         }
 
+
+        [HttpPost]
+        [Route("GetProductByKeywords_V2")]
+        public async Task<IActionResult> GetProductByKeywords_V2(RequestGetProductByKeywords_V2 request)
+        {
+            var response = new ResponseGetProductByKeywords();
+            if (request != null)
+            {
+                var total = 0;
+                var mapTotal = 0;
+                var products = new List<ProductMinify>();
+                var productsMap = new List<ProductMapLocation>();
+
+                var countSearchZone = 0;
+                var countSearchKeyword = 0;
+                foreach (var item in request.selectedZoneDestinations)
+                {
+                    if (item > 0)
+                    {
+                        countSearchZone++;
+                    }
+                }
+                foreach (var item in request.selectedZoneServices)
+                {
+                    if (item > 0)
+                    {
+                        countSearchZone++;
+                    }
+                }
+                foreach (var item in request.keywords)
+                {
+                    if (!string.IsNullOrEmpty(item))
+                    {
+                        if (!string.IsNullOrWhiteSpace(item))
+                        {
+                            countSearchKeyword++;
+                        }
+                    }
+                }
+
+                var typeSearch = "";
+                if (countSearchKeyword == 0 && countSearchZone == 2)
+                {
+                    typeSearch = "SEARCH_ONLY_ZONE";
+                }
+                if (countSearchKeyword > 0 && countSearchZone == 0)
+                {
+                    typeSearch = "SEARCH_ONLY_ELASTIC";
+                }
+                if (countSearchKeyword == 0 && (countSearchZone > 0 ))
+                {
+                    typeSearch = "SEARCH_ONLY_ZONE";
+                }
+
+                if (countSearchKeyword > 0 && (countSearchZone > 0 ))
+                {
+                    typeSearch = "SEARCH_KET_HOP";
+                }
+                if (countSearchKeyword == 0 && countSearchZone == 0)
+                {
+                    typeSearch = "SEARCH_KET_HOP";
+                }
+                Console.WriteLine("NEO DEBUGG");
+                if (typeSearch == "SEARCH_ONLY_ZONE" || typeSearch == "SEARCH_KET_HOP")
+                {
+                    //products = _productRepository.GetProductByKeywords(request.keywords, request.selectedZones, request.cultureCode, request.pageIndex, request.pageSize, out total, request.sortBy, request.startPrice, request.endPrice);
+                    products = _productRepository.GetProductByKeywords_V2(request.keywords, request.selectedZoneDestinations, request.selectedZoneServices, request.selectedZoneRegions, request.cultureCode, request.pageIndex, request.pageSize, out total, request.sortBy, request.startPrice, request.endPrice);
+                    //productsMap = _productRepository.GetProductByKeywordsALLMAP(request.keywords, request.selectedZones, request.cultureCode, request.pageIndex, request.pageSize, out mapTotal, request.sortBy, request.startPrice, request.endPrice);
+                    //foreach (var item in products)
+                    //{
+                    //    var googleMapCroodSplited = item.googleMapCrood.Split("-");
+                    //    if (googleMapCroodSplited.Length == 2)
+                    //    {
+                    //        item.lat = decimal.Parse(googleMapCroodSplited[0]);
+                    //        item.lng = decimal.Parse(googleMapCroodSplited[1]);
+
+                    //    }
+                    //};
+                }
+                if (typeSearch == "SEARCH_ONLY_ELASTIC" || typeSearch == "SEARCH_KET_HOP")
+                {
+                    if (request.keywords.Count > 0)
+                    {
+                        var _firstKeyword = request.keywords.FirstOrDefault();
+
+                        if (_firstKeyword != null)
+                        {
+                            var esResult = MI.ES.BCLES.AutocompleteService.SuggestJoytimeAsync(_firstKeyword, request.cultureCode, request.pageIndex, request.pageSize, "PRODUCT");
+                            if (esResult != null)
+                            {
+                                //KHong phai la group by
+                                //Ma phai loc ra cac thang co diem chung
+
+                                var esResultId = esResult.Select(r => r.itemId);
+                                //Group by 
+                                var productsId = products.Select(r => r.ProductId).ToList();
+                                if (productsId.Count > 0)
+                                {
+                                    esResultId = from e in esResultId
+                                                 join p in productsId on e equals p
+                                                 group e by e into grouped
+                                                 select grouped.Key;
+                                }
+
+                                esResultId = esResultId.Where(r => !productsId.Contains(r));
+
+                                var p_EsResult_ids = esResultId.ToList();
+                                if (p_EsResult_ids != null)
+                                {
+                                    var p_esResult_products = _productRepository.GetProductByListIdVersionSearch(p_EsResult_ids, request.cultureCode, 0, request.sortBy, request.startPrice, request.endPrice);
+                                    foreach (var item in p_esResult_products)
+                                    {
+                                        var m = new ProductMapLocation();
+                                        m.Id = item.ProductId;
+                                        m.googleMapCrood = item.googleMapCrood;
+
+                                        productsMap.Add(m);
+                                    }
+                                    products.AddRange(p_esResult_products);
+                                    total += p_esResult_products.Count;
+                                }
+                            }
+                        }
+
+                    }
+                }
+
+                foreach (var item in productsMap)
+                {
+                    if (!string.IsNullOrEmpty(item.googleMapCrood))
+                    {
+                        var splitted = item.googleMapCrood.Split("-");
+                        if (splitted.Length == 2)
+                        {
+                            decimal lat = 0;
+                            decimal lng = 0;
+                            decimal.TryParse(splitted[0], out lat);
+                            decimal.TryParse(splitted[1], out lng);
+                            item.lat = lat;
+                            item.lng = lng;
+                        }
+                    }
+                }
+
+
+
+
+                //if (request.selectedZones.Count > 0)
+                //{
+                //    if(request.selectedZones.Where(r => string.IsNullOrEmpty(r)).Count() <= 1)
+                //    {
+
+                //    }
+
+                //}
+
+
+                response.products = products;
+                response.itemMaps = productsMap;
+                response.total = total;
+            }
+            return Ok(response);
+        }
+
         [HttpPost]
         [Route("GetProductMinifyById")]
         public async Task<IActionResult> GetProductMinifyById(RequestGetProductMinifyById request)

@@ -52,6 +52,7 @@ namespace MI.Entity.Models
         public string ConfirmOption { get; set; } = "";
 
 
+
         //// From Way2Go
         //public string SimType { get; set; } = "";
         //public string GradientColor { get; set; } = "";

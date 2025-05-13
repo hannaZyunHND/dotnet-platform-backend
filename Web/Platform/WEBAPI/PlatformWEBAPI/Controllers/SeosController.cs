@@ -30,7 +30,7 @@ namespace PlatformWEBAPI.Controllers
         {
             using (IDbContext context = new IDbContext())
             {
-                var redirects = await context.Redirect.ToListAsync();
+                var redirects = await _extraRepository.GetRedirects();
                 return Ok(redirects);
             }
 

@@ -135,7 +135,7 @@ export function slug(str) {
 
 export function pathImg(title) {
     if (title != null && title != undefined && title.length > 0) {
-        title = "http://platformcms.hndedu.com/" + "uploads/thumb" + title;
+        title = "https://cms.joytime.vn/" + "uploads/thumb" + title;
     }
     return title;
 
@@ -143,7 +143,7 @@ export function pathImg(title) {
 
 export function urlBase(title) {
     if (title != null && title != undefined && title.length > 0) {
-        title = "http://platformcms.hndedu.com/" + title + ".html";
+        title = "https://cms.joytime.vn/" + title + ".html";
     }
     return title;
 

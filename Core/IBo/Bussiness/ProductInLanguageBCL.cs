@@ -383,8 +383,9 @@ namespace MI.Bo.Bussiness
                     entry.Property(x => x.location).IsModified = true;
                     entry.Property(x => x.locationIframe).IsModified = true;
                     entry.Property(x => x.unit).IsModified = true;
-
-
+                    entry.Property(x => x.IconCornerTag).IsModified = true;
+                    entry.Property(x => x.ColorCornerTag).IsModified = true;
+                    entry.Property(x => x.TextCornerTag).IsModified = true;
 
                     //_context.ProductInLanguage.Update(obj);
                     _context.SaveChanges();

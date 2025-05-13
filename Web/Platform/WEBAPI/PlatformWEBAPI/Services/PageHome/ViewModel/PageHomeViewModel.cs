@@ -13,6 +13,12 @@ namespace PlatformWEBAPI.Services.PageHome.ViewModel
 
     public class RequestHomeRegionViewModel
     {
+        public int parentId { get; set; } = 0;
+        public string cultureCode { get; set; }
+    }
+    public class RequestGetListProductInRegionViewModel
+    {
+        public int regionId { get; set; }
         public string cultureCode { get; set; }
     }
 

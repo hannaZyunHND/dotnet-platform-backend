@@ -349,6 +349,7 @@ namespace PlatformWEBAPI.Services.Product.ViewModel
         public string noteValue { get; set; } = "";
         public bool? bookingNoteRequired { get; set; } = false;
         public bool? bookingNoteSendWithMail { get; set; } = false;
+        public int? addHours { get; set; } = 0;
     }
     public class RequestGetProductCommentFeedback
     {

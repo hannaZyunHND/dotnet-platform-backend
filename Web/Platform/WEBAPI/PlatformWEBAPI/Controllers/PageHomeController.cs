@@ -44,7 +44,7 @@ namespace PlatformWEBAPI.Controllers
             var response = new List<ResponseHomeRegionViewModel>();
             if(request != null)
             {
-                var regions = _zoneRepository.GetZoneByTreeViewMinifies((int)TypeZone.Region, request.cultureCode, 0);
+                var regions = _zoneRepository.GetZoneByTreeViewMinifies((int)TypeZone.Region, request.cultureCode, 1287); // 1287 là Id của Region PC
                 if (regions != null)
                 {
                     foreach (var item in regions)
@@ -64,6 +64,8 @@ namespace PlatformWEBAPI.Controllers
             
             return Ok(response);
         }
+
+        
 
         [HttpPost]
         [Route("GetProductLastSeen")]
@@ -86,7 +88,7 @@ namespace PlatformWEBAPI.Controllers
             if (request != null)
             {
                 var _t = 0;
-                response = _articleRepository.GetArticlesInZoneId_Minify_FullFilter(0, (int)TypeZone.All, (int)TypeArticle.Blog, 1, request.cultureCode, "", 1, 12, out _t);
+                response = _articleRepository.GetArticlesInZoneId_Minify_FullFilter(0, (int)TypeZone.All, (int)TypeArticle.All, 2, request.cultureCode, "", 1, 12, out _t);
             }
             return Ok(response);
             

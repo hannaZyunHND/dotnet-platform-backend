@@ -448,19 +448,20 @@ namespace PlatformCMS.Controllers
                 worksheet.Cells[1, 1].Value = "No";
                 worksheet.Cells[1, 2].Value = "Mã đơn hàng";
                 worksheet.Cells[1, 3].Value = "Tên khách hàng";
-                worksheet.Cells[1, 4].Value = "Số điện thoại";
-                worksheet.Cells[1, 5].Value = "Email";
-                worksheet.Cells[1, 6].Value = "Tên sản phẩm";
-                worksheet.Cells[1, 7].Value = "Tên package";
-                worksheet.Cells[1, 8].Value = "Tên đối tác";
-                worksheet.Cells[1, 9].Value = "Ngày đặt DV";
-                worksheet.Cells[1, 10].Value = "Ngày sử dụng DV";
-                worksheet.Cells[1, 11].Value = "Số lượng (Số người lớn)";
-                worksheet.Cells[1, 12].Value = "Số trẻ em";
-                worksheet.Cells[1, 13].Value = "Giá bán";
-                worksheet.Cells[1, 14].Value = "Giá vốn";
-                worksheet.Cells[1, 15].Value = "Trạng thái";
-                worksheet.Cells[1, 16].Value = "OnepayRef";
+                worksheet.Cells[1, 4].Value = "Quốc tịch";
+                worksheet.Cells[1, 5].Value = "Số điện thoại";
+                worksheet.Cells[1, 6].Value = "Email";
+                worksheet.Cells[1, 7].Value = "Tên sản phẩm";
+                worksheet.Cells[1, 8].Value = "Tên package";
+                worksheet.Cells[1, 9].Value = "Tên đối tác";
+                worksheet.Cells[1, 10].Value = "Ngày đặt DV";
+                worksheet.Cells[1, 11].Value = "Ngày sử dụng DV";
+                worksheet.Cells[1, 12].Value = "Số lượng (Số người lớn)";
+                worksheet.Cells[1, 13].Value = "Số trẻ em";
+                worksheet.Cells[1, 14].Value = "Giá bán";
+                worksheet.Cells[1, 15].Value = "Giá vốn";
+                worksheet.Cells[1, 16].Value = "Trạng thái";
+                worksheet.Cells[1, 17].Value = "OnepayRef";
 
                 // Add data
                 for (int i = 0; i < orders.Count; i++)
@@ -469,19 +470,20 @@ namespace PlatformCMS.Controllers
                     worksheet.Cells[i + 2, 1].Value = i + 1;
                     worksheet.Cells[i + 2, 2].Value = item.OrderCode;
                     worksheet.Cells[i + 2, 3].Value = item.FullName;
-                    worksheet.Cells[i + 2, 4].Value = item.PhoneNumber;
-                    worksheet.Cells[i + 2, 5].Value = item.Email;
-                    worksheet.Cells[i + 2, 6].Value = item.ProductParentTitle;
-                    worksheet.Cells[i + 2, 7].Value = item.ProductChildTitle;
-                    worksheet.Cells[i + 2, 8].Value = item.SupplierFullName;
-                    worksheet.Cells[i + 2, 9].Value = item.CreatedDate.ToString("dd/MM/yyyy");
-                    worksheet.Cells[i + 2, 10].Value = item.pickingDate.ToString("dd/MM/yyyy");
-                    worksheet.Cells[i + 2, 11].Value = item.quantityAldut;
-                    worksheet.Cells[i + 2, 12].Value = item.QuantityChildren;
-                    worksheet.Cells[i + 2, 13].Value = item.LogPrice;
-                    worksheet.Cells[i + 2, 14].Value = item.LogPriceGross;
-                    worksheet.Cells[i + 2, 15].Value = item.ActiveStatus;
-                    worksheet.Cells[i + 2, 16].Value = item.OnepayRef;
+                    worksheet.Cells[i + 2, 4].Value = item.country;
+                    worksheet.Cells[i + 2, 5].Value = item.PhoneNumber;
+                    worksheet.Cells[i + 2, 6].Value = item.Email;
+                    worksheet.Cells[i + 2, 7].Value = item.ProductParentTitle;
+                    worksheet.Cells[i + 2, 8].Value = item.ProductChildTitle;
+                    worksheet.Cells[i + 2, 9].Value = item.SupplierFullName;
+                    worksheet.Cells[i + 2, 10].Value = item.CreatedDate.ToString("dd/MM/yyyy");
+                    worksheet.Cells[i + 2, 11].Value = item.pickingDate.ToString("dd/MM/yyyy");
+                    worksheet.Cells[i + 2, 12].Value = item.quantityAldut;
+                    worksheet.Cells[i + 2, 13].Value = item.QuantityChildren;
+                    worksheet.Cells[i + 2, 14].Value = item.LogPrice;
+                    worksheet.Cells[i + 2, 15].Value = item.LogPriceGross;
+                    worksheet.Cells[i + 2, 16].Value = item.ActiveStatus;
+                    worksheet.Cells[i + 2, 17].Value = item.OnepayRef;
                 }
                 // Tự động điều chỉnh độ rộng của các cột
                 worksheet.Cells[worksheet.Dimension.Address].AutoFitColumns();
@@ -1291,6 +1293,105 @@ namespace PlatformCMS.Controllers
                                 mailHooks.Add("[DATA_TEN_PACKAGE]", detail.ProductParentTitle);
                                 mailHooks.Add("[DATA_TEN_FULL_OPTION]", detail.ZoneTitles);
                                 mailHooks.Add("[MAIL_NOI_DUNG_SAN_PHAM_AVATAR]", UIHelper.StoreFilePath(detail.ProductParentAvatar));
+
+                                var MAIL_NOI_DUNG_SO_LUONG = new List<string>();
+                                var MAIL_NOI_DUNG_SO_LUONG_NGUOI_LON = mailHooks.GetValueOrDefault("[MAIL_NOI_DUNG_SO_LUONG_NGUOI_LON]");
+                                var MAIL_NOI_DUNG_SO_LUONG_TRE_EM = mailHooks.GetValueOrDefault("[MAIL_NOI_DUNG_SO_LUONG_TRE_EM]");
+                                if (detail.quantityAldut > 0)
+                                {
+                                    MAIL_NOI_DUNG_SO_LUONG.Add($"{detail.quantityAldut} x {MAIL_NOI_DUNG_SO_LUONG_NGUOI_LON}");
+                                }
+                                if (detail.QuantityChildren > 0)
+                                {
+                                    MAIL_NOI_DUNG_SO_LUONG.Add($"{detail.QuantityChildren} x {MAIL_NOI_DUNG_SO_LUONG_TRE_EM}");
+                                }
+                                mailHooks.Add("[DATA_SO_LUONG]", string.Join(" - ", MAIL_NOI_DUNG_SO_LUONG));
+                                mailHooks.Add("[DATA_GIA_TIEN]", $"VND {UIHelper.FormatNumber(detail.LogPrice)}");
+                                var templateString = ReadTemplateFromFile(templateFullPath);
+                                var outputHtml = ReplacePlaceholders(templateString, mailHooks);
+                                if (!string.IsNullOrEmpty(outputHtml))
+                                {
+
+                                    var title = mailHooks.GetValueOrDefault("[MAIL_TITLE]");
+                                    var subject = "";
+                                    if (!string.IsNullOrEmpty(title))
+                                    {
+                                        subject = ConvertToCorrectEncoding(title);
+                                    }
+
+                                    var body = outputHtml;
+                                    var toEmail = detail.Email;
+
+
+                                    var message = new MimeMessage();
+                                    message.From.Add(new MailboxAddress(smtpUser, smtpUser));
+                                    message.To.Add(new MailboxAddress(toEmail, toEmail));
+                                    message.Subject = subject;
+
+                                    var bodyBuilder = new BodyBuilder { HtmlBody = body };
+                                    message.Body = bodyBuilder.ToMessageBody();
+                                    using (var client = new MailKit.Net.Smtp.SmtpClient())
+                                    {
+                                        try
+                                        {
+                                            await client.ConnectAsync(smtpServer, smtpPort, true);
+                                            await client.AuthenticateAsync(smtpUser, smtpPass);
+                                            await client.SendAsync(message);
+                                            await client.DisconnectAsync(true);
+                                        }
+                                        catch (Exception ex)
+                                        {
+                                            // Handle exception (e.g., log the error)
+                                            Console.WriteLine($"ERROR: {ex.Message}");
+
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                    if (orderResponse.ActiveStatus.Equals("DA_SU_DUNG_DICH_VU"))
+                    {
+                        // GUI EMAIL DA HUY DICH VU
+                        //GUI EMAIL TU CHOI DICH VU
+                        bannerCode = "MAIL_CULTURE_NOTI_FEEDBACK";
+                        templateEmailName = "mail-noti-feedback.html";
+                        var bannerCulture = GetBannerAdsByCode(languageBanner, bannerCode);
+
+                        if (bannerCulture != null)
+                        {
+                            var wwwroot = _enviroment.WebRootPath;
+                            var templateFullPath = Path.Combine(wwwroot, "mail-templates", templateEmailName);
+                            if (System.IO.File.Exists(templateFullPath))
+                            {
+                                //Ve gioi ve bien gi thi ve vao day
+                                Dictionary<string, string> mailHooks = new Dictionary<string, string>();
+                                foreach (var b in bannerCulture)
+                                {
+                                    if (!string.IsNullOrEmpty(b.Title))
+                                    {
+                                        mailHooks.Add($"[{b.Title}]", CMSHelper.GetCultureText(bannerCulture, b.Title));
+                                    }
+                                }
+                                mailHooks.Add("[CUSTOMER_FULLNAME]", detail.FullName);
+                                mailHooks.Add("[DATA_FULL_NAME]", detail.FullName);
+                                mailHooks.Add("[DATA_MA_DON_HANG]", detail.OrderCode);
+                                mailHooks.Add("[DATA_NGAY_SU_DUNG]", detail.CreatedDate.ToString("dd/MM/yyyy HH:mm:ss"));
+                                mailHooks.Add("[DATA_LY_DO_TU_CHOI]", orderResponse.CancelResponse);
+                                mailHooks.Add("[DATA_TEN_SAN_PHAM]", detail.ProductParentTitle);
+                                mailHooks.Add("[DATA_TEN_FULL_OPTION]", detail.ZoneTitles);
+                                mailHooks.Add("[MAIL_NOI_DUNG_SAN_PHAM_AVATAR]", UIHelper.StoreFilePath(detail.ProductParentAvatar));
+                                var feedbackUrl = "";
+                                var prefixLanguage = languageBanner.Split("-").FirstOrDefault();
+                                if (!string.IsNullOrEmpty(prefixLanguage))
+                                {
+                                    feedbackUrl = $"https://joytime.vn/{prefixLanguage}/users/order/{detail.OrderCode}/{detail.OrderDetailId}";
+                                }
+
+                                ///en/users/order/JT_23104/24648
+
+
+                                mailHooks.Add("[MAIL_NOI_DUNG_FEEDBACK_URL]", feedbackUrl);
 
                                 var MAIL_NOI_DUNG_SO_LUONG = new List<string>();
                                 var MAIL_NOI_DUNG_SO_LUONG_NGUOI_LON = mailHooks.GetValueOrDefault("[MAIL_NOI_DUNG_SO_LUONG_NGUOI_LON]");

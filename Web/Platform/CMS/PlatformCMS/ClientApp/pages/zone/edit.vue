@@ -123,6 +123,7 @@
                                 <b-form-input v-model="objRequest.googleMapCrood" placeholder="(lat - long)"
                                     required></b-form-input>
                             </b-form-group>
+                            
                             <b-form-group label="Loại note (Chỉ dành cho danh mục Booking Note)">
                                 <select class="form-control" v-model="objRequest.bookingNoteType">
                                     <option value="">KHÔNG SỬ DỤNG</option>
@@ -144,6 +145,10 @@
                             <b-form-group label="Note được gửi cùng email">
                                 <input type="checkbox" v-model="objRequest.bookingNoteSendWithMail"> Note được gửi cùng
                                 email
+                            </b-form-group>
+                            <b-form-group label="Số giờ cộng tối thiểu dịch vụ (Dành cho note thời gian)">
+                                <b-form-input v-model="objRequest.addHours" type="number" placeholder="Số giờ cộng tối thiểu"
+                                    required></b-form-input>
                             </b-form-group>
                         </b-card>
                         <b-card header="Hình ảnh">
@@ -413,6 +418,10 @@
                                         <b-form-textarea rows="3" max-rows="6" v-model="objRequestLanguage.metaWebPage"
                                             placeholder="WebPage" required></b-form-textarea>
                                     </b-form-group>
+                                    <b-form-group label="Mô tả">
+                                        <b-form-textarea v-model="objRequestLanguage.dynamicschema"
+                                            placeholder="Dynamic schema (Bao gồm thẻ script)" rows="3" max-rows="6" required></b-form-textarea>
+                                    </b-form-group>
                                     <b-form-group>
                                         <div class="row">
                                             <div class="col-md-6">
@@ -639,7 +648,7 @@ export default {
                             this.comments = JSON.parse(this.objRequestLanguage.comments)
                         }
                         if(this.objRequestLanguage.faqs){
-                            this.faqs = JSON.parse(this.objRequestLanguage.comments)
+                            this.faqs = JSON.parse(this.objRequestLanguage.faqs)
                         }
                         if(this.objRequestLanguage.searchTags){
                             this.searchTags = JSON.parse(this.objRequestLanguage.searchTags)

@@ -35,6 +35,9 @@ namespace MI.Entity.Models
             this.location = string.Empty;
             this.locationIframe = string.Empty;
             this.unit = string.Empty;
+            this.ColorCornerTag = string.Empty;
+            this.IconCornerTag = string.Empty;
+            this.TextCornerTag = string.Empty;
         }
         public ProductInLanguage(ProductInLanguage obj, List<string> lstTags)
         {
@@ -67,6 +70,9 @@ namespace MI.Entity.Models
             this.location = obj.location;
             this.locationIframe = obj.locationIframe;
             this.unit = obj.unit;
+            this.IconCornerTag = obj.IconCornerTag;
+            this.TextCornerTag = obj.TextCornerTag;
+            this.ColorCornerTag = obj.ColorCornerTag;
         }
     }
 }

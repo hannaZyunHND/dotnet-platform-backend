@@ -70,6 +70,8 @@ namespace PlatformWEBAPI.Services.Product.Repository
         List<ProductCommentFeedback> GetProductCommentFeedback(RequestGetProductCommentFeedback request, out int total);
         ResponsePromotionDetail GetPromotionDetail(RequestPromotionDetail request);
 
+        List<ProductMinify> GetProductByKeywords_V2(List<string> keywords, List<int> selectedZoneDestinations, List<int> selectedZoneServices, List<int> selectedZoneRegions, string lang_code, int pageNumber, int pageSize, out int total, string sortBy = "TOP_VIEW", decimal startPrice = 0, decimal endPrice = 10000000);
+
 
         //List<ProductMinify> GetProductsByStringFilter(string filter, string lang_code, int location_id, out int total_row);
     }
@@ -117,23 +119,60 @@ namespace PlatformWEBAPI.Services.Product.Repository
         }
         public List<ProductMinify> GetProductByParentId(int productId, string lang_code)
         {
-            var p = new DynamicParameters();
-            var commandText = "usp_Web_GetProductByParentId";
-            p.Add("@productId", productId);
-            p.Add("@lang_code", lang_code);
 
-            var result = _executers.ExecuteCommand(_connStr, conn => conn.Query<ProductMinify>(commandText, p, commandType: System.Data.CommandType.StoredProcedure)).ToList();
+            var keyCache = string.Format("JT_{0}_{1}_{2}", "GetProductByParentId", productId, lang_code);
+            var result = new List<ProductMinify>();
+
+            var result_after_cache = _distributedCache.Get(keyCache);
+            if (result_after_cache != null)
+            {
+                result = Newtonsoft.Json.JsonConvert.DeserializeObject<List<ProductMinify>>(Encoding.UTF8.GetString(result_after_cache));
+            }
+            else
+            {
+                var p = new DynamicParameters();
+                var commandText = "usp_Web_GetProductByParentId";
+                p.Add("@productId", productId);
+                p.Add("@lang_code", lang_code);
+
+                result = _executers.ExecuteCommand(_connStr, conn => conn.Query<ProductMinify>(commandText, p, commandType: System.Data.CommandType.StoredProcedure)).ToList();
+
+                var add_to_cache = Newtonsoft.Json.JsonConvert.SerializeObject(result);
+                result_after_cache = Encoding.UTF8.GetBytes(add_to_cache);
+                var cache_options = new DistributedCacheEntryOptions().SetSlidingExpiration(TimeSpan.FromMinutes(60)).SetAbsoluteExpiration(DateTime.Now.AddMinutes(int.Parse(_configuration["Redis:CachingExpireMinute"])));
+                _distributedCache.Set(keyCache, result_after_cache, cache_options);
+            }
+
             return result;
+
         }
         public List<ProductMinify> GetProductSameZoneByProductId(int productId, string lang_code)
         {
-            var p = new DynamicParameters();
-            var commandText = "usp_Web_GetProductSameZoneByProductId";
-            p.Add("@productId", productId);
-            p.Add("@lang_code", lang_code);
 
-            var result = _executers.ExecuteCommand(_connStr, conn => conn.Query<ProductMinify>(commandText, p, commandType: System.Data.CommandType.StoredProcedure)).ToList();
+            var keyCache = string.Format("JT_{0}_{1}_{2}", "GetProductSameZoneByProductId", productId, lang_code);
+            var result = new List<ProductMinify>();
+
+            var result_after_cache = _distributedCache.Get(keyCache);
+            if (result_after_cache != null)
+            {
+                result = Newtonsoft.Json.JsonConvert.DeserializeObject<List<ProductMinify>>(Encoding.UTF8.GetString(result_after_cache));
+            }
+            else
+            {
+                var p = new DynamicParameters();
+                var commandText = "usp_Web_GetProductSameZoneByProductId";
+                p.Add("@productId", productId);
+                p.Add("@lang_code", lang_code);
+
+                result = _executers.ExecuteCommand(_connStr, conn => conn.Query<ProductMinify>(commandText, p, commandType: System.Data.CommandType.StoredProcedure)).ToList();
+                var add_to_cache = Newtonsoft.Json.JsonConvert.SerializeObject(result);
+                result_after_cache = Encoding.UTF8.GetBytes(add_to_cache);
+                var cache_options = new DistributedCacheEntryOptions().SetSlidingExpiration(TimeSpan.FromMinutes(60)).SetAbsoluteExpiration(DateTime.Now.AddMinutes(int.Parse(_configuration["Redis:CachingExpireMinute"])));
+                _distributedCache.Set(keyCache, result_after_cache, cache_options);
+            }
+
             return result;
+
         }
         public List<ProductMinify> GetProductChildInProductParent(int parentId, int locationId)
         {
@@ -170,20 +209,30 @@ namespace PlatformWEBAPI.Services.Product.Repository
 
         public ProductDetail GetProductInfomationDetail(int id, string lang_code)
         {
-            try
+
+            var keyCache = string.Format("JT_{0}_{1}_{2}", "GetProductInRegionByZoneIdMinify", id, lang_code);
+            var result = new ProductDetail();
+
+            var result_after_cache = _distributedCache.Get(keyCache);
+            if (result_after_cache != null)
+            {
+                result = Newtonsoft.Json.JsonConvert.DeserializeObject<ProductDetail>(Encoding.UTF8.GetString(result_after_cache));
+            }
+            else
             {
                 var p = new DynamicParameters();
                 var commandText = "usp_Web_GetProductInfomationDetailV2";
                 p.Add("@id", id);
                 p.Add("@lang_code", lang_code);
-                var result = _executers.ExecuteCommand(_connStr, conn => conn.QueryFirstOrDefault<ProductDetail>(commandText, p, commandType: System.Data.CommandType.StoredProcedure));
-                return result;
+                result = _executers.ExecuteCommand(_connStr, conn => conn.QueryFirstOrDefault<ProductDetail>(commandText, p, commandType: System.Data.CommandType.StoredProcedure));
+                
+                var add_to_cache = Newtonsoft.Json.JsonConvert.SerializeObject(result);
+                result_after_cache = Encoding.UTF8.GetBytes(add_to_cache);
+                var cache_options = new DistributedCacheEntryOptions().SetSlidingExpiration(TimeSpan.FromMinutes(60)).SetAbsoluteExpiration(DateTime.Now.AddMinutes(int.Parse(_configuration["Redis:CachingExpireMinute"])));
+                _distributedCache.Set(keyCache, result_after_cache, cache_options);
             }
-            catch (Exception ex)
-            {
 
-                throw;
-            }
+            return result;
 
         }
 
@@ -440,6 +489,59 @@ namespace PlatformWEBAPI.Services.Product.Repository
                 
             }
             p.Add("@zone_urls", dt.AsTableValuedParameter("type_selectedSearchZoneUrl"));
+            p.Add("@lang_code", lang_code);
+            p.Add("@PageNumber", pageNumber);
+            p.Add("@SortBy", sortBy);
+            p.Add("@startPrice", startPrice);
+            p.Add("@endPrice", endPrice);
+            p.Add("@PageSize", pageSize);
+            p.Add("@total", dbType: System.Data.DbType.Int32, direction: System.Data.ParameterDirection.Output);
+            r = _executers.ExecuteCommand(_connStr, conn => conn.Query<ProductMinify>(commandText, p, commandType: System.Data.CommandType.StoredProcedure)).ToList();
+            a = p.Get<int>("@total");
+            total = a;
+            return r;
+        }
+
+        public List<ProductMinify> GetProductByKeywords_V2(List<string> keywords, List<int> selectedZoneDestinations, List<int> selectedZoneServices, List<int> selectedZoneRegions, string lang_code, int pageNumber, int pageSize, out int total, string sortBy = "TOP_VIEW", decimal startPrice = 0, decimal endPrice = 10000000)
+        {
+            var a = pageSize;
+            var r = new List<ProductMinify>();
+            //get in cache
+            var p = new DynamicParameters();
+            var commandText = "usp_Web_GetProductByKeywords_Minify_V2";
+            DataTable dtDestinations = new DataTable();
+            dtDestinations.Columns.Add("id", typeof(int));
+            foreach (var item in selectedZoneDestinations)
+            {
+                if (item > 0)
+                {
+                    dtDestinations.Rows.Add(item);
+                }
+
+            }
+            DataTable dtServices = new DataTable();
+            dtServices.Columns.Add("id", typeof(int));
+            foreach (var item in selectedZoneServices)
+            {
+                if (item > 0)
+                {
+                    dtServices.Rows.Add(item);
+                }
+
+            }
+            DataTable dtZoneRegion = new DataTable();
+            dtZoneRegion.Columns.Add("id", typeof(int));
+            foreach (var item in selectedZoneRegions)
+            {
+                if (item > 0)
+                {
+                    dtZoneRegion.Rows.Add(item);
+                }
+
+            }
+            p.Add("@zone_destinations", dtDestinations.AsTableValuedParameter("type_selectedSearchZoneId"));
+            p.Add("@zone_services", dtServices.AsTableValuedParameter("type_selectedSearchZoneId"));
+            p.Add("@zone_regions", dtZoneRegion.AsTableValuedParameter("type_selectedSearchZoneId"));
             p.Add("@lang_code", lang_code);
             p.Add("@PageNumber", pageNumber);
             p.Add("@SortBy", sortBy);
@@ -907,24 +1009,63 @@ namespace PlatformWEBAPI.Services.Product.Repository
         public List<ProductBookingNote> GetProductBookingNote(int productId, string lang_code)
         {
             //get in cache
-            var p = new DynamicParameters();
-            var commandText = "usp_Web_GetBookingNoteZoneByProductId";
 
-            p.Add("@productId", productId);
-            p.Add("@lang_code", lang_code);
-            var r = _executers.ExecuteCommand(_connStr, conn => conn.Query<ProductBookingNote>(commandText, p, commandType: System.Data.CommandType.StoredProcedure)).ToList();
-            return r;
+
+            var keyCache = string.Format("JT_{0}_{1}_{2}", "GetProductBookingNote", productId, lang_code);
+            var result = new List<ProductBookingNote>();
+
+            var result_after_cache = _distributedCache.Get(keyCache);
+            if (result_after_cache != null)
+            {
+                result = Newtonsoft.Json.JsonConvert.DeserializeObject<List<ProductBookingNote>>(Encoding.UTF8.GetString(result_after_cache));
+            }
+            else
+            {
+                var p = new DynamicParameters();
+                var commandText = "usp_Web_GetBookingNoteZoneByProductId";
+
+                p.Add("@productId", productId);
+                p.Add("@lang_code", lang_code);
+                result = _executers.ExecuteCommand(_connStr, conn => conn.Query<ProductBookingNote>(commandText, p, commandType: System.Data.CommandType.StoredProcedure)).ToList();
+                
+                var add_to_cache = Newtonsoft.Json.JsonConvert.SerializeObject(result);
+                result_after_cache = Encoding.UTF8.GetBytes(add_to_cache);
+                var cache_options = new DistributedCacheEntryOptions().SetSlidingExpiration(TimeSpan.FromMinutes(60)).SetAbsoluteExpiration(DateTime.Now.AddMinutes(int.Parse(_configuration["Redis:CachingExpireMinute"])));
+                _distributedCache.Set(keyCache, result_after_cache, cache_options);
+            }
+
+            return result;
+
         }
 
         public List<ProductCommentFeedback> GetProductCommentFeedback(RequestGetProductCommentFeedback request, out int total)
         {
-            var p = new DynamicParameters();
-            var commandText = "usp_Web_GetProductFeedbackByProductId";
-            p.Add("@productId", request.productId);
-            p.Add("@index", request.index);
-            p.Add("@size", request.size);
-            p.Add("@total", dbType: System.Data.DbType.Int32, direction: System.Data.ParameterDirection.Output);
-            var result = _executers.ExecuteCommand(_connStr, conn => conn.Query<ProductCommentFeedback>(commandText, p, commandType: System.Data.CommandType.StoredProcedure)).ToList();
+
+
+            var keyCache = string.Format("JT_{0}_{1}_{2}_{3}", "GetProductCommentFeedback", request.productId, request.index, request.size);
+            var result = new List<ProductCommentFeedback>();
+            var _t = 0;
+            var result_after_cache = _distributedCache.Get(keyCache);
+            if (result_after_cache != null)
+            {
+                result = Newtonsoft.Json.JsonConvert.DeserializeObject<List<ProductCommentFeedback>>(Encoding.UTF8.GetString(result_after_cache));
+            }
+            else
+            {
+                var p = new DynamicParameters();
+                var commandText = "usp_Web_GetProductFeedbackByProductId";
+                p.Add("@productId", request.productId);
+                p.Add("@index", request.index);
+                p.Add("@size", request.size);
+                p.Add("@total", dbType: System.Data.DbType.Int32, direction: System.Data.ParameterDirection.Output);
+                result = _executers.ExecuteCommand(_connStr, conn => conn.Query<ProductCommentFeedback>(commandText, p, commandType: System.Data.CommandType.StoredProcedure)).ToList();
+                _t = p.Get<int>("@total");
+
+                var add_to_cache = Newtonsoft.Json.JsonConvert.SerializeObject(result);
+                result_after_cache = Encoding.UTF8.GetBytes(add_to_cache);
+                var cache_options = new DistributedCacheEntryOptions().SetSlidingExpiration(TimeSpan.FromMinutes(60)).SetAbsoluteExpiration(DateTime.Now.AddMinutes(int.Parse(_configuration["Redis:CachingExpireMinute"])));
+                _distributedCache.Set(keyCache, result_after_cache, cache_options);
+            }
 
             foreach(var item in result)
             {
@@ -938,8 +1079,8 @@ namespace PlatformWEBAPI.Services.Product.Repository
                     item.ratingStars.Add(i);
                 }
             }
-
-            total = p.Get<int>("@total");
+            total = _t;
+            
             return result;
         }
 

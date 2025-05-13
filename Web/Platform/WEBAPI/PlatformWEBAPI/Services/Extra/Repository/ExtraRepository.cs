@@ -2,6 +2,7 @@
 using HtmlAgilityPack;
 using MI.Dal.IDbContext;
 using MI.Entity.Enums;
+using MI.Entity.Models;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -17,6 +18,7 @@ using PlatformWEBAPI.Services.Extra.ViewModel;
 using PlatformWEBAPI.Services.Order.Repository;
 using PlatformWEBAPI.Services.Order.ViewModal;
 using PlatformWEBAPI.Services.Product.Repository;
+using PlatformWEBAPI.Services.Product.ViewModel;
 using PlatformWEBAPI.Services.Zone.Repository;
 using PlatformWEBAPI.Utility;
 using QRCoder;
@@ -26,6 +28,7 @@ using System.Collections.Generic;
 using System.Data;
 using System.Drawing;
 using System.Drawing.Imaging;
+using System.Drawing.Printing;
 using System.IO;
 using System.Linq;
 using System.Net;
@@ -42,7 +45,7 @@ namespace PlatformWEBAPI.Services.Extra.Repository
         List<CommentDetail> GetCommentPublisedByObjectId(int id, int type, int pageIndex = 1, int pageSize = 10);
         List<ManufactureViewModel> GetManufactures(string lang_code);
         List<ColorViewModel> GetColors(string lang_code);
-        TagViewModel GetTagTarget(string tag);
+        Product.ViewModel.TagViewModel GetTagTarget(string tag);
 
         int CreateRating(int objectId, int objectType, int rate);
         int CalculateDepartment();
@@ -79,6 +82,7 @@ namespace PlatformWEBAPI.Services.Extra.Repository
         Task<List<SitemapItem>> GetThirdLevelSiteMap_product_category(string culture_code);
         Task<List<SitemapItem>> GetThirdLevelSiteMap_blogs(string culture_code);
         Task<List<SitemapItem>> GetThirdLevelSiteMap_products(string culture_code);
+        Task<List<Redirect>> GetRedirects();
     }
     public class ExtraRepository : IExtraRepository
     {
@@ -215,12 +219,12 @@ namespace PlatformWEBAPI.Services.Extra.Repository
             return result;
         }
 
-        public TagViewModel GetTagTarget(string tag)
+        public Product.ViewModel.TagViewModel GetTagTarget(string tag)
         {
             var p = new DynamicParameters();
             var commandText = "usp_Web_GetTagByAlias";
             p.Add("@tag", tag);
-            var result = _executers.ExecuteCommand(_connStr, conn => conn.QueryFirstOrDefault<TagViewModel>(commandText, p, commandType: System.Data.CommandType.StoredProcedure));
+            var result = _executers.ExecuteCommand(_connStr, conn => conn.QueryFirstOrDefault<Product.ViewModel.TagViewModel>(commandText, p, commandType: System.Data.CommandType.StoredProcedure));
             return result;
         }
 
@@ -941,7 +945,7 @@ namespace PlatformWEBAPI.Services.Extra.Repository
                             //Bat dau doc ra o day
                             var productsQuery = await (from p in context.Product
                                                        join pl in context.ProductInLanguage on p.Id equals pl.ProductId
-                                                       where p.Status == (int)StatusProduct.Public && pl.LanguageCode == languageCode
+                                                       where p.Status == (int)StatusProduct.Public && pl.LanguageCode == languageCode && p.ParentId <= 0
                                                        select new SitemapItem
                                                        {
                                                            Id = p.Id,
@@ -1051,9 +1055,13 @@ namespace PlatformWEBAPI.Services.Extra.Repository
                         var languagePrefix = languageCode.Split("-")[0];
                         if (!string.IsNullOrEmpty(languagePrefix))
                         {
-                            var firstLevelSitemap = new List<SitemapItem>();
-                            firstLevelSitemap.Add(new SitemapItem() { Id = 0, Type = "firstLevel", Url = $"/{languagePrefix}/sitemap.xml" });
-                            result.AddRange(firstLevelSitemap);
+                            if(languagePrefix == "en")
+                            {
+                                var firstLevelSitemap = new List<SitemapItem>();
+                                firstLevelSitemap.Add(new SitemapItem() { Id = 0, Type = "firstLevel", Url = $"/{languagePrefix}/sitemap.xml" });
+                                result.AddRange(firstLevelSitemap);
+                            }
+                            
                         }
                     }
 
@@ -1213,38 +1221,56 @@ namespace PlatformWEBAPI.Services.Extra.Repository
                         {
                             if (languagePrefix.Equals(culture_code))
                             {
-                                var destinationsQuery = await (from z in context.Zone
-                                                               join zl in context.ZoneInLanguage on z.Id equals zl.ZoneId
-                                                               where z.Status == (int)StatusZone.Normal && z.Type == (int)TypeZone.DiemDen && zl.LanguageCode == languageCode
-                                                               select new SitemapItem
-                                                               {
-                                                                   Id = z.Id,
-                                                                   Type = "destinations",
-                                                                   Url = $"/{languagePrefix}/service/{zl.Url}",
-                                                                   Slug = zl.Url
-                                                               }).ToListAsync();
-                                result.AddRange(destinationsQuery);
+                                //var destinationsQuery = await (from z in context.Zone
+                                //                               join zl in context.ZoneInLanguage on z.Id equals zl.ZoneId
+                                //                               where z.Status == (int)StatusZone.Normal && z.Type == (int)TypeZone.DiemDen && zl.LanguageCode == languageCode
+                                //                               select new SitemapItem
+                                //                               {
+                                //                                   Id = z.Id,
+                                //                                   Type = "destinations",
+                                //                                   Url = $"/{languagePrefix}/service/{zl.Url}",
+                                //                                   Slug = zl.Url
+                                //                               }).ToListAsync();
+                                //result.AddRange(destinationsQuery);
                                 var servicesQuery = await (from z in context.Zone
                                                            join zl in context.ZoneInLanguage on z.Id equals zl.ZoneId
-                                                           where z.Status == (int)StatusZone.Normal && z.Type == (int)TypeZone.Product && zl.LanguageCode == languageCode
+                                                           where z.Status == (int)StatusZone.Normal
+                                                               && z.Type == (int)TypeZone.Product
+                                                               && zl.LanguageCode == languageCode
+                                                               && z.ParentId > 0
+                                                               && context.Zone.Any(c => c.ParentId == z.Id) // Kiểm tra có con
                                                            select new SitemapItem
                                                            {
                                                                Id = z.Id,
                                                                Type = "services",
-                                                               Url = $"/{languagePrefix}/service/{zl.Url}",
+                                                               Url = $"/{languagePrefix}/{zl.Url}",
                                                                Slug = zl.Url
                                                            }).ToListAsync();
                                 result.AddRange(servicesQuery);
+                                foreach(var item in servicesQuery)
+                                {
+                                    var childQuery = await (from z in context.Zone
+                                                            join zl in context.ZoneInLanguage on z.Id equals zl.ZoneId
+                                                            where z.Status == (int)StatusZone.Normal && z.Type == (int)TypeZone.Product && zl.LanguageCode == languageCode && (z.ParentId == item.Id)
+                                                            select new SitemapItem
+                                                            {
+                                                                Id = z.Id,
+                                                                Type = "services",
+                                                                Url = $"{item.Url}/{zl.Url}",
+                                                                Slug = zl.Url
+                                                            }).ToListAsync();
+                                    result.AddRange(childQuery);
+                                }
                                 var combinationsQuery = new List<SitemapItem>();
                                 //To hop tiep search vao day
-                                foreach (var d in destinationsQuery)
-                                {
-                                    foreach (var s in servicesQuery)
-                                    {
-                                        combinationsQuery.Add(new SitemapItem() { Id = 0, Type = "searchCombination", Url = $"/{languagePrefix}/service/{d.Slug}/{s.Slug}" });
-                                    }
-                                }
-                                result.AddRange(combinationsQuery);
+                                //foreach (var d in destinationsQuery)
+                                //{
+                                //    foreach (var s in servicesQuery)
+                                //    {
+                                //        combinationsQuery.Add(new SitemapItem() { Id = 0, Type = "searchCombination", Url = $"/{languagePrefix}/service/{d.Slug}/{s.Slug}" });
+                                //    }
+                                //}
+                                //result.AddRange(combinationsQuery);
                                 //Khuyen mai vao day
                                 var discountsQuery = await (from z in context.Zone
                                                             join zl in context.ZoneInLanguage on z.Id equals zl.ZoneId
@@ -1295,7 +1321,7 @@ namespace PlatformWEBAPI.Services.Extra.Repository
                                                         {
                                                             Id = a.Id,
                                                             Type = "blogs",
-                                                            Url = $"/{languagePrefix}/blog/{al.Url}-d={a.Id}"
+                                                            Url = $"/{languagePrefix}/blog/{a.Id}-{al.Url}.html"
                                                         }).ToListAsync();
                                 result.AddRange(blogsQuery);
                             }
@@ -1331,12 +1357,12 @@ namespace PlatformWEBAPI.Services.Extra.Repository
                                 //Bat dau doc ra o day
                                 var productsQuery = await (from p in context.Product
                                                            join pl in context.ProductInLanguage on p.Id equals pl.ProductId
-                                                           where p.Status == (int)StatusProduct.Public && pl.LanguageCode == languageCode
+                                                           where p.Status == (int)StatusProduct.Public && pl.LanguageCode == languageCode && p.ParentId == 0
                                                            select new SitemapItem
                                                            {
                                                                Id = p.Id,
                                                                Type = "products",
-                                                               Url = $"/{languagePrefix}/product/{pl.Url}-d={p.Id}"
+                                                               Url = $"/{languagePrefix}/product/{p.Id}-{pl.Url}.html"
                                                            }).ToListAsync();
                                 result.AddRange(productsQuery);
                             }
@@ -1349,6 +1375,32 @@ namespace PlatformWEBAPI.Services.Extra.Repository
 
             }
             return result;
+        }
+
+        public async Task<List<Redirect>> GetRedirects()
+        {
+
+            var keyCache = string.Format("JT_GetRedirects");
+            var result = new List<Redirect>();
+
+            var result_after_cache = _distributedCache.Get(keyCache);
+            if (result_after_cache != null)
+            {
+                result = Newtonsoft.Json.JsonConvert.DeserializeObject<List<Redirect>>(Encoding.UTF8.GetString(result_after_cache));
+            }
+            else
+            {
+                using (IDbContext context = new IDbContext())
+                {
+                    result = await context.Redirect.ToListAsync();
+                    var add_to_cache = Newtonsoft.Json.JsonConvert.SerializeObject(result);
+                    result_after_cache = Encoding.UTF8.GetBytes(add_to_cache);
+                    var cache_options = new DistributedCacheEntryOptions().SetSlidingExpiration(TimeSpan.FromMinutes(60)).SetAbsoluteExpiration(DateTime.Now.AddMinutes(int.Parse(_configuration["Redis:CachingExpireMinute"])));
+                    _distributedCache.Set(keyCache, result_after_cache, cache_options);
+                }
+            }
+            return result;
+
         }
     }
 }

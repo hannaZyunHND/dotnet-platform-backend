@@ -32,5 +32,6 @@ namespace MI.Entity.Models
         public string bookingNoteType { get; set; } = "";
         public bool? bookingNoteRequired { get; set; } = false;
         public bool? bookingNoteSendWithMail { get; set; } = false;
+        public int? addHours { get; set; } = 0;
     }
 }

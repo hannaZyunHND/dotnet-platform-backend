@@ -52,13 +52,33 @@ namespace PlatformWEBAPI.Services.Zone.Repository
 
         public List<ZoneByTreeViewMinify> GetBreadcrumbByZoneId(int zone_id, string lang_code)
         {
-            var p = new DynamicParameters();
-            var commandText = "usp_Web_BreadcrumbByZoneId";
-            p.Add("@zone_id", zone_id);
-            p.Add("@lang_code", lang_code);
 
-            var result = _executers.ExecuteCommand(_connStr, conn => conn.Query<ZoneByTreeViewMinify>(commandText, p, commandType: System.Data.CommandType.StoredProcedure)).ToList();
+            var keyCache = $"JT_GetBreadcrumbByZoneId_{zone_id}_{lang_code}";
+            var result = new List<ZoneByTreeViewMinify>();
+            var result_after_cache = _distributedCache.Get(keyCache);
+            if (result_after_cache != null)
+            {
+                result = Newtonsoft.Json.JsonConvert.DeserializeObject<List<ZoneByTreeViewMinify>>(Encoding.UTF8.GetString(result_after_cache));
+            }
+            else
+            {
+                //result = new ZoneToRedirect();
+                var p = new DynamicParameters();
+                var commandText = "usp_Web_BreadcrumbByZoneId";
+                p.Add("@zone_id", zone_id);
+                p.Add("@lang_code", lang_code);
+
+                 result = _executers.ExecuteCommand(_connStr, conn => conn.Query<ZoneByTreeViewMinify>(commandText, p, commandType: System.Data.CommandType.StoredProcedure)).ToList();
+
+                //Add cache
+                var add_to_cache = Newtonsoft.Json.JsonConvert.SerializeObject(result);
+                result_after_cache = Encoding.UTF8.GetBytes(add_to_cache);
+                var cache_options = new DistributedCacheEntryOptions().SetSlidingExpiration(TimeSpan.FromMinutes(60)).SetAbsoluteExpiration(DateTime.Now.AddMinutes(int.Parse(_configuration["Redis:CachingExpireMinute"])));
+                _distributedCache.Set(keyCache, result_after_cache, cache_options);
+
+            }
             return result;
+
         }
 
         public ZoneByTreeViewMinify GetFirstZoneInType(int type, string lang_code, int parentId, int isShowMenu)
@@ -121,13 +141,35 @@ namespace PlatformWEBAPI.Services.Zone.Repository
 
         public ZoneToRedirect GetZoneByAlias(string url, string lang_code)
         {
+
+
+            var keyCache = $"JT_GetZoneByAlias_{url}_{lang_code}";
             var result = new ZoneToRedirect();
-            var p = new DynamicParameters();
-            var commandText = "usp_Web_GetZoneByAlias";
-            p.Add("@url", url);
-            p.Add("@lang_code", lang_code);
-            result = _executers.ExecuteCommand(_connStr, conn => conn.QueryFirstOrDefault<ZoneToRedirect>(commandText, p, commandType: System.Data.CommandType.StoredProcedure));
+            var result_after_cache = _distributedCache.Get(keyCache);
+            if (result_after_cache != null)
+            {
+                result = Newtonsoft.Json.JsonConvert.DeserializeObject<ZoneToRedirect>(Encoding.UTF8.GetString(result_after_cache));
+            }
+            else
+            {
+                //result = new ZoneToRedirect();
+                var p = new DynamicParameters();
+                var commandText = "usp_Web_GetZoneByAlias";
+                p.Add("@url", url);
+                p.Add("@lang_code", lang_code);
+                result = _executers.ExecuteCommand(_connStr, conn => conn.QueryFirstOrDefault<ZoneToRedirect>(commandText, p, commandType: System.Data.CommandType.StoredProcedure));
+
+                //Add cache
+                var add_to_cache = Newtonsoft.Json.JsonConvert.SerializeObject(result);
+                result_after_cache = Encoding.UTF8.GetBytes(add_to_cache);
+                var cache_options = new DistributedCacheEntryOptions().SetSlidingExpiration(TimeSpan.FromMinutes(60)).SetAbsoluteExpiration(DateTime.Now.AddMinutes(int.Parse(_configuration["Redis:CachingExpireMinute"])));
+                _distributedCache.Set(keyCache, result_after_cache, cache_options);
+
+            }
+
             return result;
+
+
         }
 
         public List<ZoneByTreeViewMinify> GetZoneByTreeViewMinifies(int type, string lang_code, int parentId)
@@ -189,12 +231,31 @@ namespace PlatformWEBAPI.Services.Zone.Repository
 
         public ZoneDetail GetZoneDetail(int zoneId, string lang_code)
         {
+
+            var keyCache = $"JT_GetZoneDetail_{zoneId}_{lang_code}";
             var result = new ZoneDetail();
-            var p = new DynamicParameters();
-            var commandText = "usp_Web_GetZoneDetail";
-            p.Add("@id", zoneId);
-            p.Add("@lang_code", lang_code);
-            result = _executers.ExecuteCommand(_connStr, conn => conn.QueryFirstOrDefault<ZoneDetail>(commandText, p, commandType: System.Data.CommandType.StoredProcedure));
+            var result_after_cache = _distributedCache.Get(keyCache);
+            if (result_after_cache != null)
+            {
+                result = Newtonsoft.Json.JsonConvert.DeserializeObject<ZoneDetail>(Encoding.UTF8.GetString(result_after_cache));
+            }
+            else
+            {
+                //result = new ZoneToRedirect();
+                var p = new DynamicParameters();
+                var commandText = "usp_Web_GetZoneDetail";
+                p.Add("@id", zoneId);
+                p.Add("@lang_code", lang_code);
+                result = _executers.ExecuteCommand(_connStr, conn => conn.QueryFirstOrDefault<ZoneDetail>(commandText, p, commandType: System.Data.CommandType.StoredProcedure));
+
+                //Add cache
+                var add_to_cache = Newtonsoft.Json.JsonConvert.SerializeObject(result);
+                result_after_cache = Encoding.UTF8.GetBytes(add_to_cache);
+                var cache_options = new DistributedCacheEntryOptions().SetSlidingExpiration(TimeSpan.FromMinutes(60)).SetAbsoluteExpiration(DateTime.Now.AddMinutes(int.Parse(_configuration["Redis:CachingExpireMinute"])));
+                _distributedCache.Set(keyCache, result_after_cache, cache_options);
+
+            }
+
             return result;
         }
 

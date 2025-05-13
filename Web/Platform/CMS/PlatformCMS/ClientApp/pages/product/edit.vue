@@ -851,7 +851,7 @@
                                             <b-col>
                                                 <b-form-group label="Ngôn ngữ">
                                                     <b-form-select v-model="langSelected" @change="onChangeSelectd"
-                                                        :options="Languages"></b-form-select>
+                                                                   :options="Languages"></b-form-select>
                                                 </b-form-group>
                                             </b-col>
                                             <!--<b-col title="Xem trên website" style="margin-top:25px;font-size:30px">
@@ -861,45 +861,45 @@
                                         </b-row>
                                         <b-form-group label="Tiêu đề theo ngôn ngữ" label-for="input-1">
                                             <b-form-input id="input-1" v-model="objRequestDetail.title" type="text"
-                                                required v-on:keyup.13="slugM()" placeholder="Tiêu đề"></b-form-input>
+                                                          required v-on:keyup.13="slugM()" placeholder="Tiêu đề"></b-form-input>
                                         </b-form-group>
 
                                         <b-form-group label="Đường dẫn">
                                             <b-form-input v-model="objRequestDetail.url" placeholder="Đường dẫn"
-                                                required></b-form-input>
+                                                          required></b-form-input>
                                         </b-form-group>
                                         <b-form-group label="Đường dẫn cũ">
                                             <b-form-input v-model="objRequestDetail.urlOld" placeholder="Đường dẫn"
-                                                required></b-form-input>
+                                                          required></b-form-input>
                                         </b-form-group>
                                         <b-form-group label="Location">
                                             <b-form-input v-model="objRequestDetail.location" placeholder="Địa chỉ"
-                                                required></b-form-input>
+                                                          required></b-form-input>
                                         </b-form-group>
                                         <b-form-group label="Location Iframe">
                                             <b-form-input v-model="objRequestDetail.locationIframe"
-                                                placeholder="Mã embed bản đồ" required></b-form-input>
+                                                          placeholder="Mã embed bản đồ" required></b-form-input>
                                         </b-form-group>
                                         <b-form-group label="Đơn vị sản phẩm">
                                             <b-form-input v-model="objRequestDetail.unit" placeholder="Đơn vị sản phẩm"
-                                                required></b-form-input>
+                                                          required></b-form-input>
                                         </b-form-group>
 
                                         <b-form-group label="Mô tả">
                                             <ckeditor tag-name="textarea" v-model="objRequestDetail.description"
-                                                :rows="3" :config="editorConfig">
+                                                      :rows="3" :config="editorConfig">
                                             </ckeditor>
                                         </b-form-group>
                                         <b-form-group label="Nội dung">
                                             <MIEditor :contentEditor="objRequestDetail.content"
-                                                v-on:handleEditorInput="getOrSetData" :index="-1"></MIEditor>
+                                                      v-on:handleEditorInput="getOrSetData" :index="-1"></MIEditor>
                                         </b-form-group>
                                         <b-row>
                                             <b-col>
                                                 <b-form-group>
                                                     <label class="typo__label">Thêm tag</label>
                                                     <v-tags-input element-id="tags" v-model="Tags" :typeahead="true"
-                                                        :existingTags="ListAllTags"></v-tags-input>
+                                                                  :existingTags="ListAllTags"></v-tags-input>
 
                                                 </b-form-group>
                                             </b-col>
@@ -911,11 +911,64 @@
                                 <div class="card-header">
                                     <b-row>
                                         <b-col md="11">
+                                            Khuyến mại (Hiển thị ở góc sản phẩm)
+                                        </b-col>
+                                        <b-col md="1">
+                                            <b-btn v-b-toggle.collapsePromo variant="primary" class="pull-right">
+                                                <i class="fa fa-angle-double-down" aria-hidden="true"></i>
+                                            </b-btn>
+                                        </b-col>
+                                    </b-row>
+                                </div>
+                                <b-collapse id="collapsePromo" class="mt-2">
+                                    <div class="card-body">
+                                        <b-row>
+                                            <b-col md="3">
+                                                <a @click="openImg('ImgIconCorner')">
+                                                    <div style="width:150px;display:flex"
+                                                         class=" gallery-upload-file ui-sortable">
+                                                        <div style="padding:0"
+                                                             class="col-md-12 col-xs-12  r-queue-item ui-sortable-handle">
+                                                            <div v-if="objRequestDetail.iconCornerTag != null && objRequestDetail.iconCornerTag != undefined && objRequestDetail.iconCornerTag.length > 0">
+                                                                <img alt="Ảnh lỗi" style="height:150px;width:150px"
+                                                                     :src="pathImgs(objRequestDetail.iconCornerTag)"
+                                                                     class="preview-image img-thumbnail">
+                                                            </div>
+                                                            <div v-else>
+                                                                <i class="fa fa-picture-o"></i>
+                                                                <p>[Chọn ảnh]</p>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </a>
+                                            </b-col>
+                                            <b-col md="9">
+                                                <b-form-group label="Text icon tag góc">
+                                                    <b-form-input v-model="objRequestDetail.textCornerTag" placeholder=""
+                                                                  required></b-form-input>
+                                                </b-form-group>
+                                                <b-form-group label="Mã màu Icon tag góc">
+                                                    <b-form-input v-model="objRequestDetail.colorCornerTag" placeholder=""
+                                                                  required></b-form-input>
+                                                </b-form-group>
+                                            </b-col>
+                                        </b-row>
+                                        
+
+
+                                    </div>
+                                </b-collapse>
+                            </div>
+                            <div class="card">
+                                <div class="card-header">
+                                    <b-row>
+                                        <b-col md="11">
                                             Thông tin
                                         </b-col>
                                         <b-col md="1">
-                                            <b-btn v-b-toggle.collapseSocial3 variant="primary" class="pull-right"><i
-                                                    class="fa fa-angle-double-down" aria-hidden="true"></i></b-btn>
+                                            <b-btn v-b-toggle.collapseSocial3 variant="primary" class="pull-right">
+                                                <i class="fa fa-angle-double-down" aria-hidden="true"></i>
+                                            </b-btn>
                                         </b-col>
                                     </b-row>
                                 </div>
@@ -926,12 +979,12 @@
                                             <b-col md="10">
                                                 <b-form-group label="Tiêu đề">
                                                     <b-form-input v-model="item.tieuDe" placeholder="Tiêu đề"
-                                                        required></b-form-input>
+                                                                  required></b-form-input>
                                                 </b-form-group>
                                                 <b-form-group label="Nội dung">
                                                     <MIEditor :contentEditor="item.noiDung"
-                                                        v-on:handleEditorInput="tour_getOrSetData_lichTour"
-                                                        :index="index">
+                                                              v-on:handleEditorInput="tour_getOrSetData_lichTour"
+                                                              :index="index">
                                                     </MIEditor>
                                                 </b-form-group>
                                             </b-col>
@@ -939,13 +992,13 @@
                                                 <b-row>
                                                     <b-col md="12">
                                                         <button class="btn btn-primary btn-submit-form col-md-12 btncus"
-                                                            type="submit" @click="tour_DoAddLichTour()">
+                                                                type="submit" @click="tour_DoAddLichTour()">
                                                             <i class="fa fa-trash"></i> Thêm
                                                         </button>
                                                     </b-col>
                                                     <b-col md="12">
                                                         <button class="btn btn-danger btn-submit-form col-md-12 btncus"
-                                                            type="submit" @click="tour_DoDelLichTour(index)">
+                                                                type="submit" @click="tour_DoDelLichTour(index)">
                                                             <i class="fa fa-trash"></i> Xóa
                                                         </button>
                                                     </b-col>
@@ -964,8 +1017,9 @@
                                             Note
                                         </b-col>
                                         <b-col md="1">
-                                            <b-btn v-b-toggle.collapseSocial4 variant="primary" class="pull-right"><i
-                                                    class="fa fa-angle-double-down" aria-hidden="true"></i></b-btn>
+                                            <b-btn v-b-toggle.collapseSocial4 variant="primary" class="pull-right">
+                                                <i class="fa fa-angle-double-down" aria-hidden="true"></i>
+                                            </b-btn>
                                         </b-col>
                                     </b-row>
                                 </div>
@@ -976,12 +1030,12 @@
                                             <b-col md="10">
                                                 <b-form-group label="Tiêu đề">
                                                     <b-form-input v-model="item.tieuDe" placeholder="Tiêu đề"
-                                                        required></b-form-input>
+                                                                  required></b-form-input>
                                                 </b-form-group>
                                                 <b-form-group label="Nội dung">
                                                     <MIEditor :contentEditor="item.noiDung"
-                                                        v-on:handleEditorInput="tour_getOrSetData_thongTinTour"
-                                                        :index="index">
+                                                              v-on:handleEditorInput="tour_getOrSetData_thongTinTour"
+                                                              :index="index">
                                                     </MIEditor>
                                                 </b-form-group>
                                             </b-col>
@@ -989,13 +1043,13 @@
                                                 <b-row>
                                                     <b-col md="12">
                                                         <button class="btn btn-primary btn-submit-form col-md-12 btncus"
-                                                            type="submit" @click="tour_DoAddThongTinTour()">
+                                                                type="submit" @click="tour_DoAddThongTinTour()">
                                                             <i class="fa fa-trash"></i> Thêm
                                                         </button>
                                                     </b-col>
                                                     <b-col md="12">
                                                         <button class="btn btn-danger btn-submit-form col-md-12 btncus"
-                                                            type="submit" @click="tour_DoDelThongTinTour(index)">
+                                                                type="submit" @click="tour_DoDelThongTinTour(index)">
                                                             <i class="fa fa-trash"></i> Xóa
                                                         </button>
                                                     </b-col>
@@ -1016,8 +1070,9 @@
                                             Policy
                                         </b-col>
                                         <b-col md="1">
-                                            <b-btn v-b-toggle.collapseSocial5 variant="primary" class="pull-right"><i
-                                                    class="fa fa-angle-double-down" aria-hidden="true"></i></b-btn>
+                                            <b-btn v-b-toggle.collapseSocial5 variant="primary" class="pull-right">
+                                                <i class="fa fa-angle-double-down" aria-hidden="true"></i>
+                                            </b-btn>
                                         </b-col>
                                     </b-row>
                                 </div>
@@ -1028,12 +1083,12 @@
                                             <b-col md="10">
                                                 <b-form-group label="Tiêu đề">
                                                     <b-form-input v-model="item.tieuDe" placeholder="Tiêu đề"
-                                                        required></b-form-input>
+                                                                  required></b-form-input>
                                                 </b-form-group>
                                                 <b-form-group label="Nội dung">
                                                     <MIEditor :contentEditor="item.noiDung"
-                                                        v-on:handleEditorInput="tour_getOrSetData_thuTucVisa"
-                                                        :index="index">
+                                                              v-on:handleEditorInput="tour_getOrSetData_thuTucVisa"
+                                                              :index="index">
                                                     </MIEditor>
                                                 </b-form-group>
                                             </b-col>
@@ -1041,13 +1096,13 @@
                                                 <b-row>
                                                     <b-col md="12">
                                                         <button class="btn btn-primary btn-submit-form col-md-12 btncus"
-                                                            type="submit" @click="tour_DoAddThuTucVisa()">
+                                                                type="submit" @click="tour_DoAddThuTucVisa()">
                                                             <i class="fa fa-trash"></i> Thêm
                                                         </button>
                                                     </b-col>
                                                     <b-col md="12">
                                                         <button class="btn btn-danger btn-submit-form col-md-12 btncus"
-                                                            type="submit" @click="tour_DoDelThuTucVisa(index)">
+                                                                type="submit" @click="tour_DoDelThuTucVisa(index)">
                                                             <i class="fa fa-trash"></i> Xóa
                                                         </button>
                                                     </b-col>
@@ -1065,8 +1120,9 @@
                                             SEO Analysis
                                         </b-col>
                                         <b-col md="1">
-                                            <b-btn v-b-toggle.collapseSEO2 variant="primary" class="pull-right"><i
-                                                    class="fa fa-angle-double-down" aria-hidden="true"></i></b-btn>
+                                            <b-btn v-b-toggle.collapseSEO2 variant="primary" class="pull-right">
+                                                <i class="fa fa-angle-double-down" aria-hidden="true"></i>
+                                            </b-btn>
                                         </b-col>
                                     </b-row>
                                 </div>
@@ -1074,39 +1130,43 @@
                                     <div class="card-body">
                                         <b-form-group label="Tiêu đề SEO">
                                             <b-form-input v-model="objRequestDetail.metaTitle" placeholder="Tiêu đề SEO"
-                                                required></b-form-input>
+                                                          required></b-form-input>
                                         </b-form-group>
                                         <b-form-group label="Từ khóa SEO">
                                             <b-form-input v-model="objRequestDetail.metaKeyword"
-                                                placeholder="Từ khóa SEO" required></b-form-input>
+                                                          placeholder="Từ khóa SEO" required></b-form-input>
                                         </b-form-group>
                                         <b-form-group label="Mô tả SEO">
                                             <b-form-textarea rows="3" max-rows="6"
-                                                v-model="objRequestDetail.metaDescription" placeholder="Mô tả"
-                                                required></b-form-textarea>
+                                                             v-model="objRequestDetail.metaDescription" placeholder="Mô tả"
+                                                             required></b-form-textarea>
                                         </b-form-group>
                                         <b-form-group label="Script WebPage">
                                             <b-form-textarea rows="3" max-rows="6"
-                                                v-model="objRequestDetail.metaWebPage" placeholder="WebPage"
-                                                required></b-form-textarea>
+                                                             v-model="objRequestDetail.metaWebPage" placeholder="WebPage"
+                                                             required></b-form-textarea>
                                         </b-form-group>
                                         <b-form-group label="">
                                             <div class="row">
                                                 <div class="col-md-6">
                                                     <b-form-checkbox placeholder="Canonical" v-model="statusCanonical"
-                                                        required>Chặn
-                                                        trùng lặp nội dung (Canonical)</b-form-checkbox>
+                                                                     required>
+                                                        Chặn
+                                                        trùng lặp nội dung (Canonical)
+                                                    </b-form-checkbox>
                                                 </div>
                                                 <div class="col-md-6">
                                                     <b-form-checkbox placeholder="NoIndex" v-model="statusNoindex"
-                                                        required>Chặn lập
-                                                        chỉ mục (NoIndex)</b-form-checkbox>
+                                                                     required>
+                                                        Chặn lập
+                                                        chỉ mục (NoIndex)
+                                                    </b-form-checkbox>
                                                 </div>
                                             </div>
                                         </b-form-group>
                                         <b-form-group label="Giá trị (Canonical)">
                                             <b-form-input placeholder="Canonical" v-model="valueCanonical"
-                                                required></b-form-input>
+                                                          required></b-form-input>
                                         </b-form-group>
                                     </div>
 
@@ -1119,8 +1179,9 @@
                                             Social Share
                                         </b-col>
                                         <b-col md="1">
-                                            <b-btn v-b-toggle.collapseSocial2 variant="primary" class="pull-right"><i
-                                                    class="fa fa-angle-double-down" aria-hidden="true"></i></b-btn>
+                                            <b-btn v-b-toggle.collapseSocial2 variant="primary" class="pull-right">
+                                                <i class="fa fa-angle-double-down" aria-hidden="true"></i>
+                                            </b-btn>
                                         </b-col>
                                     </b-row>
                                 </div>
@@ -1130,12 +1191,11 @@
                                             <a @click="openImg('ImgS')">
                                                 <div class="row gallery-upload-file ui-sortable">
                                                     <div style="width:200px;height:200px"
-                                                        class="r-queue-item ui-sortable-handle">
-                                                        <div
-                                                            v-if="objRequestDetail.socialImage != null && objRequestDetail.socialImage != undefined && objRequestDetail.socialImage.length > 0">
+                                                         class="r-queue-item ui-sortable-handle">
+                                                        <div v-if="objRequestDetail.socialImage != null && objRequestDetail.socialImage != undefined && objRequestDetail.socialImage.length > 0">
                                                             <img alt="Ảnh lỗi"
-                                                                :src="pathImgs(objRequestDetail.socialImage)"
-                                                                style="height:200px;width:200px" />
+                                                                 :src="pathImgs(objRequestDetail.socialImage)"
+                                                                 style="height:200px;width:200px" />
                                                         </div>
                                                         <div v-else>
                                                             <i class="fa fa-picture-o"></i>
@@ -1148,11 +1208,11 @@
                                         </b-form-group>
                                         <b-form-group label="Tiêu đề">
                                             <b-form-input v-model="objRequestDetail.socialTitle" placeholder="Tiêu đề"
-                                                required></b-form-input>
+                                                          required></b-form-input>
                                         </b-form-group>
                                         <b-form-group label="Mô tả">
                                             <b-form-input v-model="objRequestDetail.socialDescription"
-                                                placeholder="Mô tả" required></b-form-input>
+                                                          placeholder="Mô tả" required></b-form-input>
                                         </b-form-group>
                                     </div>
                                 </b-collapse>
@@ -2441,6 +2501,9 @@ export default {
             }
             else if (this.choseImg == "ImgS") {
                 vm.objRequestDetail.socialImage = value[0].path;
+            }
+            else if (this.choseImg == "ImgIconCorner") {
+                vm.objRequestDetail.iconCornerTag = value[0].path;
             }
             else if (this.choseImg == "fileVideo") {
                 vm.FileMeta.FileVideo = value[0].path;

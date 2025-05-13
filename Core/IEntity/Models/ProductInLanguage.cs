@@ -32,6 +32,12 @@ namespace MI.Entity.Models
         public string locationIframe { get; set; }
         public string unit { get; set; }
 
+
+        public string IconCornerTag { get; set; }
+        public string TextCornerTag { get; set; }
+        public string ColorCornerTag { get; set; }
+
+
         public Product Product { get; set; }
     }
 }

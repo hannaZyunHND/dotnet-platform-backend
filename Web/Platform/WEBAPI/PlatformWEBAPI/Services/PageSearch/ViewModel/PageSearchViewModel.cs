@@ -30,6 +30,19 @@ namespace PlatformWEBAPI.Services.PageSearch.ViewModel
         public int pageIndex { get; set; } = 1;
         public int pageSize { get; set; } = 12;
     }
+    public class RequestGetProductByKeywords_V2
+    {
+        public List<string> keywords { get; set; } = new List<string>();
+        public List<int> selectedZoneDestinations { get; set; } = new List<int>();
+        public List<int> selectedZoneServices { get; set; } = new List<int>();
+        public List<int> selectedZoneRegions { get; set; } = new List<int>();
+        public string cultureCode { get; set; } = "en-US";
+        public string sortBy { get; set; } = "TOP_VIEW";
+        public decimal startPrice { get; set; } = 0;
+        public decimal endPrice { get; set; } = 10000000;
+        public int pageIndex { get; set; } = 1;
+        public int pageSize { get; set; } = 12;
+    }
 
     public class RequestGetProductMinifyById
     {
