@@ -86,7 +86,7 @@ function unflatten(arr) {
                         console.log(ex);
                     }
                 }
-                
+
             }
             // If the element is at the root level, add it to first level elements array.
             else {
@@ -134,6 +134,8 @@ export function slug(str) {
 
 
 export function pathImg(title) {
+    let config = require('./../../appsettings.json');
+    let cloudFontCDN = config.AppSettings.CloudFontCDN;
     if (title != null && title != undefined && title.length > 0) {
         title = "https://cms.joytime.vn/" + "uploads/thumb" + title;
     }
