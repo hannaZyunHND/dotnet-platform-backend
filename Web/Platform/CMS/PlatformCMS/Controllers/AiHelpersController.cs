@@ -3,6 +3,7 @@ using MI.Entity.Enums;
 using MI.Entity.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Configuration;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -18,7 +19,15 @@ namespace PlatformCMS.Controllers
     public class AiHelpersController : ControllerBase
     {
         private static readonly HttpClient _httpClient = new HttpClient();
-        private readonly string OPEN_API_KEY = "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";
+        private readonly IConfiguration _configuration;
+        private readonly string OPEN_API_KEY = "";
+
+        public AiHelpersController(IConfiguration configuration)
+        {
+            _configuration = configuration;
+            OPEN_API_KEY = configuration["OPEN_API_KEY"];
+        }
+
         
         [HttpGet]
         [Route("UpdateProductInLanguage/{productId}")]
