@@ -21,8 +21,10 @@
     var sitemapItems = await extraRepository.GetFirstLevelSiteMap();
 }
 
-
+@*<?xml version="1.0" encoding="UTF-8" ?>
+<?xml -stylesheet=-stylesheet type="text/xsl" href="gss.xsl" ?>*@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+
     @foreach (var item in sitemapItems)
     {
 

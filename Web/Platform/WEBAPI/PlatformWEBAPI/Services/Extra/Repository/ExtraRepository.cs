@@ -1103,7 +1103,7 @@ namespace PlatformWEBAPI.Services.Extra.Repository
                                 var secondLevelSiteMap = new List<SitemapItem>();
                                 secondLevelSiteMap.Add(new SitemapItem() { Id = 0, Type = "home", Url = $"/{languagePrefix}/", Priority="1.0", ChangeFreq = "weekly" });
                                 secondLevelSiteMap.Add(new SitemapItem() { Id = 0, Type = "static_page", Url = $"/{languagePrefix}/static_page.xml", Priority = "1.0", ChangeFreq = "monthly" });
-                                secondLevelSiteMap.Add(new SitemapItem() { Id = 0, Type = "blog_category", Url = $"/{languagePrefix}/blog_category.xml", Priority = "0.6", ChangeFreq = "monthly" });
+                                //secondLevelSiteMap.Add(new SitemapItem() { Id = 0, Type = "blog_category", Url = $"/{languagePrefix}/blog_category.xml", Priority = "0.6", ChangeFreq = "monthly" });
                                 secondLevelSiteMap.Add(new SitemapItem() { Id = 0, Type = "product_category", Url = $"/{languagePrefix}/product_category.xml", Priority = "0.8", ChangeFreq = "weekly" });
                                 secondLevelSiteMap.Add(new SitemapItem() { Id = 0, Type = "blogs", Url = $"/{languagePrefix}/blogs.xml" , Priority = "1.0", ChangeFreq = "daily" });
                                 secondLevelSiteMap.Add(new SitemapItem() { Id = 0, Type = "products", Url = $"/{languagePrefix}/products.xml", Priority = "1.0", ChangeFreq = "daily" });
