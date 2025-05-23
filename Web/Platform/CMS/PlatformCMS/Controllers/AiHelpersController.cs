@@ -20,12 +20,12 @@ namespace PlatformCMS.Controllers
     {
         private static readonly HttpClient _httpClient = new HttpClient();
         private readonly IConfiguration _configuration;
-        private readonly string OPEN_API_KEY = "";
+        private readonly string KEY = "";
 
         public AiHelpersController(IConfiguration configuration)
         {
             _configuration = configuration;
-            OPEN_API_KEY = configuration["OPEN_API_KEY"];
+            KEY = configuration["OPEN_API_KEY"];
         }
 
         
@@ -142,7 +142,7 @@ namespace PlatformCMS.Controllers
             };
 
             var requestContent = new StringContent(JsonConvert.SerializeObject(requestBody), Encoding.UTF8, "application/json");
-            _httpClient.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", OPEN_API_KEY);
+            _httpClient.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", KEY);
 
             var response = await _httpClient.PostAsync("https://api.openai.com/v1/chat/completions", requestContent);
             var responseString = await response.Content.ReadAsStringAsync();
@@ -179,7 +179,7 @@ namespace PlatformCMS.Controllers
             };
 
             var requestContent = new StringContent(JsonConvert.SerializeObject(requestBody), Encoding.UTF8, "application/json");
-            _httpClient.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", OPEN_API_KEY);
+            _httpClient.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", KEY);
 
             var response = await _httpClient.PostAsync("https://api.openai.com/v1/chat/completions", requestContent);
             var responseString = await response.Content.ReadAsStringAsync();
