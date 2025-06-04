@@ -1,0 +1,9 @@
+version: '3.8'
+services:
+  app:
+    image: 'registry.gitlab.com/phamtiendat246/uploadimage-s3-cloud-front-aws:latest'
+    container_name: 'upload-s3-aws'
+    ports:
+      - '808:8080'
+      - '8081:8081'
+    

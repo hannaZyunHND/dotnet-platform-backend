@@ -37,6 +37,10 @@ using Microsoft.VisualStudio.Web.CodeGeneration.Contracts.Messaging;
 using OfficeOpenXml;
 using Org.BouncyCastle.Asn1.Ocsp;
 using System.Text.RegularExpressions;
+using static Microsoft.AspNetCore.Hosting.Internal.HostingApplication;
+using Microsoft.EntityFrameworkCore;
+using PlatformCMS.PushNotification;
+using FirebaseAdmin.Messaging;
 
 namespace PlatformCMS.Controllers
 {
@@ -760,19 +764,19 @@ namespace PlatformCMS.Controllers
 
         [HttpGet]
         [Route("GetAllEmailSubcribe")]
-        public async Task<IActionResult> GetAllEmailSubcribe() 
+        public async Task<IActionResult> GetAllEmailSubcribe()
         {
-                using (var connection = new SqlConnection(_connectionString))
+            using (var connection = new SqlConnection(_connectionString))
+            {
+                if (connection.State == ConnectionState.Closed)
                 {
-                    if (connection.State == ConnectionState.Closed)
-                    {
-                        connection.Open();
-                    }
-
-                    var orders = connection.Query<EmailSubcriberModel>("usp_web_GetAllEmailSubcriber", commandType: CommandType.StoredProcedure).ToList();
-
-                    return Ok(orders);
+                    connection.Open();
                 }
+
+                var orders = connection.Query<EmailSubcriberModel>("usp_web_GetAllEmailSubcriber", commandType: CommandType.StoredProcedure).ToList();
+
+                return Ok(orders);
+            }
         }
 
 
@@ -950,7 +954,7 @@ namespace PlatformCMS.Controllers
                 rq.orderDetailId = orderResponse.OrderDetailId;
                 rq.cultureCode = orderResponse.DefaultLanguage;
                 var odr = await GetOrderItemFullDetail(rq);
-                if(odr != null)
+                if (odr != null)
                 {
                     var detail = odr;
                     languageBanner = orderResponse.DefaultLanguage;
@@ -1069,45 +1073,7 @@ namespace PlatformCMS.Controllers
                                         }
 
                                     }
-             //                       //note-spectial-wrapper
-             //                       var noteSpectialDiv = htmlDoc.DocumentNode.SelectSingleNode("//div[contains(@class, 'note-spectial-wrapper')]");
-             //                       if (noteSpectialDiv != null)
-             //                       {
-             //                           if (request.orderNotes != null)
-             //                           {
-             //                               var hookNoteTitleValue = bannerCulture.FirstOrDefault(r => r.Title.Equals("MAIL_NOI_DUNG_NOTE"));
-             //                               if (hookNoteTitleValue != null)
-             //                               {
 
-             //                                   if (!string.IsNullOrEmpty(request.orderNotes.noteSpecial))
-             //                                   {
-             //                                       var _str = this.GetCultureText(bannerCulture, hookNoteTitleValue.Title);
-             //                                       mailHooks.Add("[MAIL_NOI_DUNG_NOTE]", $"{_str}");
-             //                                       mailHooks.Add("[DATA_GIA_NOTE]", $"{request.orderNotes.noteSpecial}");
-             //                                       string htmlContent = $@"
-             //                                       <table class=""paragraph_block block-4"" width=""100%"" border=""0""
-													//	   cellpadding=""0"" cellspacing=""0"" role=""presentation""
-													//	   style=""mso-table-lspace: 0pt; mso-table-rspace: 0pt; word-break: break-word;"">
-													//	<tr>
-													//		<td class=""pad""
-													//			style=""padding-bottom:10px;padding-left:25px;padding-right:10px;"">
-													//			<div style=""color:#122f50;font-family: 'Reddit Sans', sans-serif;font-size:14px;line-height:120%;text-align:left;mso-line-height-alt:16.8px;"">
-													//				<p style=""margin: 0; word-break: break-word;"">
-													//					{_str} : {request.orderNotes.noteSpecial}
-													//				</p>
-													//			</div>
-													//		</td>
-													//	</tr>
-													//</table>
-             //                               ";
-             //                                       var newNode = HtmlNode.CreateNode(htmlContent);
-             //                                       noteSpectialDiv.AppendChild(newNode);
-
-             //                                   }
-             //                               }
-
-             //                           }
-             //                       }
                                     //Gửi mail ở đây
                                     outputHtml = htmlDoc.DocumentNode.OuterHtml;
 
@@ -1170,6 +1136,8 @@ namespace PlatformCMS.Controllers
 
                                         }
                                     }
+                                    await PushFirebaseNotification(orderResponse, detail, "NOTI_APP_CONFIRM_ORDER", "/myorder?v=2");
+
                                 }
                             }
                         }
@@ -1257,6 +1225,7 @@ namespace PlatformCMS.Controllers
 
                                         }
                                     }
+                                    await PushFirebaseNotification(orderResponse, detail, "NOTI_APP_PENDING_CANCEL_ORDER", "/myorder?v=4");
                                 }
                             }
                         }
@@ -1346,6 +1315,7 @@ namespace PlatformCMS.Controllers
 
                                         }
                                     }
+                                    await PushFirebaseNotification(orderResponse, detail, "NOTI_APP_CANCEL_ORDER", "/myorder?v=4");
                                 }
                             }
                         }
@@ -1445,14 +1415,96 @@ namespace PlatformCMS.Controllers
 
                                         }
                                     }
+                                    await PushFirebaseNotification(orderResponse, detail, "NOTI_APP_COMPLETE_ORDER", "/myorder?v=3");
                                 }
                             }
                         }
                     }
                 }
-                
+
             }
 
+        }
+
+
+        private async Task PushFirebaseNotification(ResponseGetListOrderV2 orderResponse, ResponseGetOrderItemFullDetail detail, string _bannerNotiCode, string router = "/myorder?v=2")
+        {
+            try
+            {
+                // Tạo ra luôn PushNotification ở đây
+                using (IDbContext context = new IDbContext())
+                {
+                    //var _bannerNotiCode = "NOTI_APP_CONFIRM_ORDER";
+                    var notiCulture = GetBannerAdsByCode(orderResponse.DefaultLanguage, "NOTI_APP_CONFIRM_ORDER");
+                    var notiTitle = _bannerNotiCode;
+                    var notiDescription = _bannerNotiCode;
+                    if (notiCulture != null)
+                    {
+                        var _t = notiCulture.Where(r => r.Title.Equals("[TITLE]"));
+                        if (_t != null)
+                        {
+                            notiTitle = CMSHelper.GetCultureText(notiCulture, "[TITLE]");
+                            notiTitle = notiTitle.Replace("[DON_HANG]", detail.OrderCode);
+                        }
+                        var _d = notiCulture.Where(r => r.Title.Equals("[DESCRIPTION]"));
+                        if (_d != null)
+                        {
+                            notiDescription = CMSHelper.GetCultureText(notiCulture, "[DESCRIPTION]");
+                            notiDescription = notiDescription.Replace("[DON_HANG]", detail.OrderCode);
+                            notiDescription = notiDescription.Replace("[PRODUCT_NAME]", detail.ProductParentTitle);
+                        }
+                    }
+
+
+
+                    var notification = new S_PushNotification();
+                    notification.CustomerId = detail.CustomerId;
+                    notification.EmailReceiver = detail.Email;
+                    notification.NotificationBannerCode = _bannerNotiCode;
+                    notification.NotificationTitle = notiTitle;
+                    notification.NotificationDescription = notiDescription;
+                    notification.OrderCode = detail.OrderCode;
+                    notification.OrderDetailId = detail.OrderDetailId;
+                    notification.IsPushToClient = true;
+                    notification.CreationTime = DateTime.Now;
+                    notification.PushingTime = DateTime.Now;
+                    notification.IsReaded = false;
+
+
+                    await context.S_PushNotification.AddAsync(notification);
+                    await context.SaveChangesAsync();
+
+                    // 🔔 Push notification
+                    var tokenRecord = await context.CustomerFcmToken.FirstOrDefaultAsync(x => x.Email == notification.EmailReceiver);
+
+                    if (tokenRecord != null)
+                    {
+                        var _message = new FirebaseAdmin.Messaging.Message()
+                        {
+                            Token = tokenRecord.FcmToken,
+                            Notification = new Notification
+                            {
+                                Title = notiTitle,
+                                Body = notiDescription
+                            },
+                            Data = new Dictionary<string, string>
+                                            {
+                                                { "route", router }
+                                            }
+                        };
+
+                        await FirebaseMessaging.DefaultInstance.SendAsync(_message);
+
+
+                    }
+                }
+
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+                //throw;
+            }
         }
 
         private async Task SendEmailToHelpdeskWithStatus(int orderDetailId)

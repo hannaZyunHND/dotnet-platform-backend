@@ -582,11 +582,12 @@
                 this.modalShowFile = false;
             },
             attackFile() {
-                let domain = config.BASE_URLCms;
+                // let domain = config.BASE_URLCms; // Danh cho upload tai localfile
+                let domain = config.BASE_CDN;
                 let images = this.selectedFile;
                 for (let x in images) {
                     this.curentEditor.insertHtml(
-                        '<img style="max-width:90%" src="' + domain + 'uploads' + images[x].path + '"/>'
+                        '<img style="max-width:90%" src="' + domain + '/uploads' + images[x].path + '"/>'
                     );
                 }
                // this.$refs["file-manager-modal"].hide();

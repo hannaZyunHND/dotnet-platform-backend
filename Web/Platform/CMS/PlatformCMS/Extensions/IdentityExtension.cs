@@ -27,5 +27,17 @@ namespace PlatformCMS.Extensions
                x.Type == SystemConstants.UserClaim.Roles);
             return claim.Value;
         }
+
+        public static string GetUserName(this ClaimsPrincipal claimsPrincipal)
+        {
+            var claim = ((ClaimsIdentity)claimsPrincipal.Identity).Claims.SingleOrDefault(x =>
+                x.Type == SystemConstants.UserClaim.FullName);
+
+            if (claim == null)
+                return null;
+
+            return claim.Value;
+        }
+
     }
 }

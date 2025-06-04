@@ -213,6 +213,8 @@
   <ItemGroup>
     <PackageReference Include="Dapper" Version="2.0.30" />
     <PackageReference Include="EPPlus" Version="7.1.0" />
+    <PackageReference Include="FirebaseAdmin" Version="2.2.0" />
+    <PackageReference Include="Google.Apis.Auth" Version="1.54.0" />
     <PackageReference Include="Hangfire.AspNetCore" Version="1.7.11" />
     <PackageReference Include="Hangfire.SqlServer" Version="1.7.11" />
     <PackageReference Include="LocalizationCultureCore" Version="1.1.2" />

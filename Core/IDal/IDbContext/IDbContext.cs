@@ -117,8 +117,13 @@ namespace MI.Dal.IDbContext
         public virtual DbSet<Answers> Answers { get; set; }
         public virtual DbSet<OnepayRef> OnepayRefs { get; set; }
         public virtual DbSet<Subscribers> Subscribers { get; set; }
+        public virtual DbSet<S_PushNotification> S_PushNotification { get; set; }
+        public virtual DbSet<CustomerFcmToken> CustomerFcmToken { get; set; }
         //public virtual DbSet<CouponInProduct> CouponInProducts { get; set; }
-
+        public DbSet<CustomerGroup> CustomerGroup { get; set; }
+        public DbSet<CustomerGroupDetail> CustomerGroupDetail { get; set; }
+        public DbSet<G_PushNotification> G_PushNotification { get; set; }
+        public DbSet<G_PushNotificationDetail> G_PushNotificationDetail { get; set; }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<ViewCount>(entity =>

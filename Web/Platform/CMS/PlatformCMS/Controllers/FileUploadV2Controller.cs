@@ -53,7 +53,7 @@ namespace PlatformCMS.Controllers
             _logger = logger;
         }
 
-        [Route("UploadImage")]
+        [Route("UploadImage_v3")]
         [HttpPost, DisableRequestSizeLimit]
         public IActionResult Upload(List<IFormFile> files)
         {
@@ -487,7 +487,205 @@ namespace PlatformCMS.Controllers
             }
         }
 
+        [Route("UploadImage")]
+        [HttpPost, DisableRequestSizeLimit]
+        public IActionResult UploadImage(List<IFormFile> files)
+        {
+            var res = new ResponseData { Success = false };
 
+            if (files == null || files.Count == 0)
+            {
+                res.ErrorCode = -1;
+                res.Message = "Hãy chọn một file.";
+                return Ok(res);
+            }
+
+            try
+            {
+                var uploadResults = new List<FileInfo>();
+
+                // Cấu hình
+                var uploadS3BucketAPI = _config.GetValue<string>("AppSettings:S3BucketUploadAPI");
+                var bucketName = _config.GetValue<string>("AppSettings:BucketName");
+                var webpQuality = _config.GetValue<int>("AppSettings:WebpQuality");
+                var imageAllowUpload = _config.GetValue<string>("AppSettings:ImageAllowUpload");
+                var documentAllowUpload = _config.GetValue<string>("AppSettings:DocumentAllowUpload");
+                var fileUploadSubFix = _config.GetValue<bool>("AppSettings:FileUploadSubFix");
+                var fileUploadMaxSize = _config.GetValue<int>("AppSettings:FileUploadMaxSize");
+                var serverPath = _config.GetValue<string>("AppSettings:UploadFolder");
+                var webRoot = _env.WebRootPath;
+                var thumbFolder = Path.Combine(serverPath, "thumb");
+
+                foreach (var file in files)
+                {
+                    var ext = Path.GetExtension(file.FileName).ToLower();
+                    var fileName = Path.GetFileName(file.FileName);
+                    var fileSize = file.Length / 1024;
+                    var isImage = imageAllowUpload.Split(',').Contains(ext);
+
+                    if (!isImage && !documentAllowUpload.Split(',').Contains(ext))
+                    {
+                        uploadResults.Add(new FileInfo
+                        {
+                            name = fileName,
+                            path = "/",
+                            ext = ext,
+                            size = fileSize,
+                            code = 900,
+                            messages = "File extension not allowed"
+                        });
+                        continue;
+                    }
+
+                    if (fileSize > fileUploadMaxSize)
+                    {
+                        uploadResults.Add(new FileInfo
+                        {
+                            name = fileName,
+                            path = "/",
+                            ext = ext,
+                            size = fileSize,
+                            code = 900,
+                            messages = "Limited file size"
+                        });
+                        continue;
+                    }
+
+                    if (fileUploadSubFix)
+                    {
+                        var fileNameNoExt = Path.GetFileNameWithoutExtension(fileName);
+                        fileName = $"{Utility.UnicodeToKoDauAndGach(fileNameNoExt)}-{DateTime.Now:HHmmssfff}{ext}";
+                    }
+
+                    if (_fileUploadBCL.ExistFile(fileName))
+                    {
+                        uploadResults.Add(new FileInfo
+                        {
+                            name = fileName,
+                            path = "/",
+                            ext = ext,
+                            size = fileSize,
+                            code = 900,
+                            messages = "File đã tồn tại trên hệ thống"
+                        });
+                        continue;
+                    }
+
+                    // === 1. Upload Local ===
+                    string folder = $"{DateTime.Now:yyyy/MM/dd}";
+                    var savePath = Path.Combine(webRoot, serverPath, folder);
+                    Directory.CreateDirectory(savePath);
+                    var localPath = Path.Combine(savePath, fileName);
+
+                    using (var stream = new FileStream(localPath, FileMode.Create))
+                    {
+                        file.CopyTo(stream);
+                    }
+
+                    // === 2. Tạo thumbnail WebP nếu là ảnh ===
+                    string thumbPath = "";
+                    if (isImage)
+                    {
+                        try
+                        {
+                            var thumbDir = Path.Combine(webRoot, thumbFolder, folder);
+                            Directory.CreateDirectory(thumbDir);
+                            thumbPath = Path.Combine(thumbDir, Path.GetFileNameWithoutExtension(fileName) + ".webp");
+
+                            using (var originalStream = file.OpenReadStream())
+                            using (var skiaImage = SKBitmap.Decode(originalStream))
+                            {
+                                int newWidth = skiaImage.Width / 3;
+                                int newHeight = skiaImage.Height / 3;
+
+                                using (var resizedBitmap = skiaImage.Resize(new SKImageInfo(newWidth, newHeight), SKFilterQuality.High))
+                                using (var webpImage = SKImage.FromBitmap(resizedBitmap))
+                                using (var data = webpImage.Encode(SKEncodedImageFormat.Webp, 80))
+                                using (var thumbStream = new FileStream(thumbPath, FileMode.Create, FileAccess.Write))
+                                {
+                                    data.SaveTo(thumbStream);
+                                }
+                            }
+                        }
+                        catch (Exception ex)
+                        {
+                            _logger.LogWarning(ex, "Không thể tạo thumbnail cho file ảnh: {FileName}", fileName);
+                        }
+                    }
+
+                    // === 3. Upload lên S3 ===
+                    string s3Url = null;
+                    string s3Message = "";
+                    bool s3Success = false;
+
+                    try
+                    {
+                        using (var client = new HttpClient())
+                        using (var content = new MultipartFormDataContent())
+                        using (var fileStream = file.OpenReadStream())
+                        {
+                            content.Add(new StreamContent(fileStream), "imageFile", fileName);
+                            content.Add(new StringContent(bucketName), "BucketName");
+
+                            if (isImage)
+                            {
+                                content.Add(new StringContent(webpQuality.ToString()), "WebpQuality");
+                                content.Add(new StringContent("false"), "WebpLossless");
+                            }
+
+                            var response = client.PostAsync(uploadS3BucketAPI, content).Result;
+                            var jsonResponse = response.Content.ReadAsStringAsync().Result;
+                            var s3Response = JsonConvert.DeserializeObject<S3UploadResponse>(jsonResponse);
+
+                            s3Success = s3Response.success;
+                            s3Url = s3Response.imageUrl;
+                            s3Message = s3Response.message;
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        _logger.LogError(ex, "Lỗi upload S3: {FileName}", fileName);
+                        s3Message = ex.Message;
+                    }
+
+                    // === 4. Ghi DB nếu muốn ===
+                    var dbRecord = new FileUpload
+                    {
+                        Name = fileName,
+                        FilePath = s3Url ?? "",
+                        FileExt = ext,
+                        FileSize = fileSize,
+                        Status = 1,
+                        Type = 2
+                    };
+                    _fileUploadBCL.Add(dbRecord);
+
+                    // === 5. Trả kết quả tổng hợp ===
+                    uploadResults.Add(new FileInfo
+                    {
+                        name = fileName,
+                        path = s3Url ?? $"/{Path.Combine(serverPath, folder, fileName).Replace("\\", "/")}",
+                        ext = ext,
+                        size = fileSize,
+                        code = s3Success ? 200 : 206,
+                        messages = s3Success
+                            ? "Upload thành công (S3 + local)"
+                            : $"Upload local thành công - S3 lỗi: {s3Message}"
+                    });
+                }
+
+                res.Data = uploadResults;
+                res.Success = true;
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Lỗi tổng khi upload: {Message}", ex.Message);
+                res.ErrorCode = -2;
+                res.Message = "Lỗi hệ thống: " + ex.Message;
+            }
+
+            return Ok(res);
+        }
 
 
         [Route("UploadExcel")]

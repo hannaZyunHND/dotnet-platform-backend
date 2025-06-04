@@ -9,6 +9,7 @@ using Newtonsoft.Json;
 using PlatformWEBAPI.Services.Product.Repository;
 using PlatformWEBAPI.Services.Product.ViewModel;
 using PlatformWEBAPI.Services.Zone.Repository;
+using PlatformWEBAPI.Utility;
 using System;
 using System.Collections.Generic;
 using System.Dynamic;
@@ -141,6 +142,8 @@ namespace PlatformWEBAPI.Controllers
                     //
                     //
 
+                    //Content điều chỉnh ảnh ở đây
+                    response.Content = WebHelper.UsingCDNUrl(response.Content);
 
                     //Social Description
                     response.SocialDescription = HttpUtility.HtmlDecode(UIHelper.ClearHtmlTag(response.Description));

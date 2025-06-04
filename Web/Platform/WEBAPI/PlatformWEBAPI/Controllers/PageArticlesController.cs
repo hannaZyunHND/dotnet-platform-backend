@@ -9,6 +9,7 @@ using Microsoft.EntityFrameworkCore;
 using PlatformWEBAPI.Services.Article.Repository;
 using PlatformWEBAPI.Services.Article.ViewModel;
 using PlatformWEBAPI.Services.Product.Repository;
+using PlatformWEBAPI.Utility;
 using Swashbuckle.AspNetCore.Swagger;
 using System;
 using System.Collections.Generic;
@@ -44,7 +45,9 @@ namespace PlatformWEBAPI.Controllers
                 var response = _articleRepository.GetArticleDetail(request.id, request.cultureCode);
                 if (response != null)
                 {
-                    var newBody = RenderProductInBlogDetail(response.Body, request.cultureCode);
+                    var newBody = WebHelper.UsingCDNUrl(response.Body);
+                    newBody = RenderProductInBlogDetail(response.Body, request.cultureCode);
+                    
                     response.Body = newBody;
                     return Ok(response);
                 }

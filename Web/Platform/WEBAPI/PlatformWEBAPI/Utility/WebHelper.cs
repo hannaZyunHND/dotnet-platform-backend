@@ -1,6 +1,7 @@
 ﻿using HtmlAgilityPack;
 using MI.Entity.Models;
 using Microsoft.AspNetCore.Razor.Language;
+using Microsoft.CodeAnalysis;
 using Microsoft.EntityFrameworkCore.Internal;
 using Microsoft.Extensions.Configuration;
 using Newtonsoft.Json;
@@ -45,6 +46,66 @@ namespace PlatformWEBAPI.Utility
 
 
 
+        }
+
+        public static string UsingCDNUrl(string origin)
+        {
+            try
+            {
+                var cdnHost = Configuration["AppSettings:CdnUrl"];
+                if (string.IsNullOrWhiteSpace(cdnHost) || string.IsNullOrWhiteSpace(origin))
+                    return origin;
+
+                var doc = new HtmlAgilityPack.HtmlDocument();
+                doc.LoadHtml(origin);
+
+                var imgNodes = doc.DocumentNode.SelectNodes("//img[@src]");
+                if (imgNodes != null)
+                {
+                    foreach (var img in imgNodes)
+                    {
+                        var src = img.GetAttributeValue("src", "");
+                        if (string.IsNullOrWhiteSpace(src))
+                            continue;
+
+                        // Bỏ qua nếu là base64 hoặc tương đối không có host
+                        if (src.StartsWith("data:") || src.StartsWith("/") || !Uri.IsWellFormedUriString(src, UriKind.Absolute))
+                            continue;
+
+                        Uri uri = new Uri(src);
+                        string newUrl = $"{cdnHost.TrimEnd('/')}{uri.PathAndQuery}";
+
+                        img.SetAttributeValue("src", newUrl);
+                    }
+                }
+
+                return doc.DocumentNode.OuterHtml;
+            }
+            catch (Exception ex)
+            {
+                // Có thể log nếu cần
+                return origin;
+            }
+        }
+
+        public static string GetCultureNotiText(List<DetailBanerAds> _object, string code, bool isTrimDot = false)
+        {
+            var _r = "";
+            var result = _object.Where(r => r.Title.Equals(code)).FirstOrDefault();
+            if (result != null)
+            {
+                _r = result.Description;
+            }
+            else
+            {
+                _r = code;
+            }
+            _r = _r.Trim();
+            if (_r.EndsWith(".") && isTrimDot)
+            {
+                _r = _r.TrimEnd('.');
+            }
+            return UIHelper.ClearHtmlTag(_r).Replace("&nbsp;", "").Trim();
         }
         public static string RandomCode(int size)
         {

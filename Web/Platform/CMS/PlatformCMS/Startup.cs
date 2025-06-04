@@ -1,3 +1,5 @@
+using FirebaseAdmin;
+using Google.Apis.Auth.OAuth2;
 using MI.Cache;
 using MI.Dapper.Data.Models;
 using MI.Dapper.Data.Repositories.Impl;
@@ -38,6 +40,14 @@ namespace PlatformCMS
                 .AddJsonFile($"appsettings.{env.EnvironmentName}.json", optional: true)
                 .AddEnvironmentVariables();
             Configuration = builder.Build();
+            // ✅ Khởi tạo Firebase một lần duy nhất
+            if (FirebaseApp.DefaultInstance == null)
+            {
+                FirebaseApp.Create(new AppOptions
+                {
+                    Credential = GoogleCredential.FromFile("./serviceAccount.json") // đường dẫn tùy bạn
+                });
+            }
         }
 
         public IConfigurationRoot Configuration { get; }
@@ -167,12 +177,22 @@ namespace PlatformCMS
                     {"Bearer", new string[] { }}
                 });
             });
-            services.AddCors(o => o.AddPolicy("MyPolicy", builder =>
+            services.AddCors(options =>
             {
-                builder.AllowAnyOrigin()
-                       .AllowAnyMethod()
-                       .AllowAnyHeader();
-            }));
+                options.AddPolicy("MyPolicy", builder =>
+                {
+                    builder
+                        .WithOrigins(
+                            "http://localhost:8080",
+                            "https://joytime.vn",
+                            "https://staging.joytime.vn"
+                        )
+                        .AllowAnyMethod()
+                        .AllowAnyHeader()
+                        .AllowCredentials();
+                });
+            });
+            services.AddSignalR();
             services.AddMvc();
 
 
@@ -239,6 +259,9 @@ namespace PlatformCMS
             app.UseSwaggerUI(c => { c.SwaggerEndpoint("/swagger/v1/swagger.json", "MI Rest Api v1"); });
             app.UseAuthentication(); //Add auth
             app.UseCors("MyPolicy");
+            // ✅ THÊM VÀO ĐÂY
+
+
             app.UseMvc(routes =>
             {
                 routes.MapRoute(
@@ -249,6 +272,7 @@ namespace PlatformCMS
                     name: "spa-fallback",
                     defaults: new { controller = "Home", action = "Index" });
             });
+            
         }
     }
 }

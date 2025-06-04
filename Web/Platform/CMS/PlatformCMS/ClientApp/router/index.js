@@ -111,9 +111,10 @@ const RedirectList = () => import('./../pages/redirect/list');
 const ProductRenewal = () => import('./../pages/productrenewal/list');
 const ProductComponent = () => import('./../pages/productComponent/list');
 const ProductComponentEdit = () => import('./../pages/productComponent/edit');
-
-
-
+const CustomerGroupList = () => import('./../pages/customerGroup/CustomerGroupList.vue')
+const GNotificationList = () => import('./../pages/gnotification/GNotificationList.vue')
+//GNotificationEdit
+const GNotificationEdit = () => import('./../pages/gnotification/GNotificationEdit.vue')
 const SupOrders = () => import('./../pages/supplier/list')
 const AgencyCouponOrder = () => import('./../pages/agency_coupon/orderList')
 
@@ -140,11 +141,34 @@ export let router = new Router({
                     meta: { authorize: [] }
                 },
                 {
+                    path: '/admin/customergroup/list',
+                    name: 'Nhóm khách hàng',
+                    component: CustomerGroupList,
+                    meta: { authorize: [] }
+                },
+                //CustomerGroupList
+                {
+                    path: '/admin/notifications/campaign',
+                    name: 'Thông báo',
+                    component: GNotificationList,
+                    meta: { authorize: [] }
+                },
+                //GNotificationList
+                {
+                    path: '/admin/gnotification/edit/:id',
+                    name: 'GNotificationEdit',
+                    component: GNotificationEdit,
+                    meta: { authorize: [] }
+                },
+                //GNotificationEdit
+                {
                     path: '/admin/feedback',
                     name: 'Đánh giá',
                     component: Feedback,
                     meta: { authorize: [] }
                 },
+
+                
                 {
                     path: '/admin/survey/list',
                     name: 'Khảo sát',

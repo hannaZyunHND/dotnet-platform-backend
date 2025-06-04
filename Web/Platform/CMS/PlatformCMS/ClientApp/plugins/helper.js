@@ -137,7 +137,7 @@ export function pathImg(title) {
     let config = require('./../../appsettings.json');
     let cloudFontCDN = config.AppSettings.CloudFontCDN;
     if (title != null && title != undefined && title.length > 0) {
-        title = "https://cms.joytime.vn/" + "uploads/thumb" + title;
+        title = cloudFontCDN + "/uploads/thumb" + title;
     }
     return title;
 
@@ -145,7 +145,7 @@ export function pathImg(title) {
 
 export function urlBase(title) {
     if (title != null && title != undefined && title.length > 0) {
-        title = "https://cms.joytime.vn/" + title + ".html";
+        title = cloudFontCDN + "/" + title + ".html";
     }
     return title;
 

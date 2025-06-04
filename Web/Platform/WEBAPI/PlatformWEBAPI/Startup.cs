@@ -1,4 +1,6 @@
-﻿using Hangfire;
+﻿using FirebaseAdmin;
+using Google.Apis.Auth.OAuth2;
+using Hangfire;
 using MI.Cache;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Diagnostics;
@@ -62,6 +64,18 @@ namespace PlatformWEBAPI
             //    .AddEnvironmentVariables();
             //Configuration = builder.Build();
             Configuration = configuration;
+
+            // ✅ Khởi tạo Firebase một lần duy nhất
+            if (FirebaseApp.DefaultInstance == null)
+            {
+                FirebaseApp.Create(new AppOptions
+                {
+                    Credential = GoogleCredential.FromFile("./serviceAccount.json") // đường dẫn tùy bạn
+                });
+            }
+
+
+
         }
 
         public IConfiguration Configuration { get; }

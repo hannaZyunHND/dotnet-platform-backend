@@ -32,6 +32,10 @@ using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Web;
 using Utils;
+using Microsoft.EntityFrameworkCore;
+using PlatformWEBAPI.PushNotification;
+using static Microsoft.AspNetCore.Hosting.Internal.HostingApplication;
+using FirebaseAdmin.Messaging;
 
 namespace PlatformWEBAPI.Services.Order.Repository
 {
@@ -477,190 +481,196 @@ namespace PlatformWEBAPI.Services.Order.Repository
         {
             using (IDbContext context = new IDbContext())
             {
-                try
+                using (var transaction = context.Database.BeginTransaction(System.Data.IsolationLevel.Serializable))
                 {
-                    //Tra ve
-                    var cultureCode = "";
-                    switch (request.i18Code)
+                    try
                     {
-                        case "en":
-                            cultureCode = "en-US";
-                            break;
-                        case "vi":
-                            cultureCode = "vi-VN";
-                            break;
-                    }
-                    bool isNewUser = false;
-                    var pcName = "";
-                    if (request.auth != null)
-                    {
-                        //kiem tra xem la co tai khoan chua
+                        //Tra ve
+                        var cultureCode = "";
+                        switch (request.i18Code)
+                        {
+                            case "en":
+                                cultureCode = "en-US";
+                                break;
+                            case "vi":
+                                cultureCode = "vi-VN";
+                                break;
+                        }
 
-                        var customer = context.Customer.Where(r => r.Email.Equals(request.auth.email)).FirstOrDefault();
+                        bool isNewUser = false;
+                        var pcName = "";
+                        var customer = context.Customer.FirstOrDefault(r => r.Email == request.auth.email);
+
                         if (customer == null)
                         {
-                            //neu chua co thi tao tai khoan 
-                            customer = new Customer();
-                            customer.Email = request.auth.email;
-                            customer.Fullname = request.auth.firstName + " " + request.auth.lastName;
-                            customer.PhoneNumber = request.auth.phoneNumber;
-                            var randomCode = RandomCode(12);
-                            //MK MAC DINH LA 12345678
-                            customer.Name = randomCode;
-                            customer.Pcname = randomCode;
-                            customer.Type = 1;
-                            customer.Source = 1;
-                            customer.Country = request.auth.country;
-
+                            customer = new Customer
+                            {
+                                Email = request.auth.email,
+                                Fullname = request.auth.firstName + " " + request.auth.lastName,
+                                PhoneNumber = request.auth.phoneNumber,
+                                Name = RandomCode(12),
+                                Pcname = RandomCode(12),
+                                Type = 1,
+                                Source = 1,
+                                Country = request.auth.country
+                            };
+                            pcName = customer.Pcname;
                             context.Customer.Add(customer);
                             await context.SaveChangesAsync();
                             isNewUser = true;
-                            pcName = randomCode;
                         }
                         else
                         {
-                            //neu co roi thi lay id
-                            customer.Email = request.auth.email;
                             customer.Fullname = request.auth.firstName + " " + request.auth.lastName;
                             customer.PhoneNumber = request.auth.phoneNumber;
                             context.Customer.Update(customer);
-
                             await context.SaveChangesAsync();
-
                         }
-                        if (customer.Id > 0)
+
+                        var existingOrder = context.Orders
+                                            .FromSql("SELECT * FROM Orders WITH (UPDLOCK, HOLDLOCK) WHERE OnepayRef = {0}", request.orderCode)
+                                            .FirstOrDefault();
+                        if (existingOrder != null)
                         {
-
-                            var randomOrderCode = RandomCode(8);
-                            //Dem so luong Order
-                            var countOrder = context.Orders.Count();
-                            //Tao ra order
-                            var order = new Orders();
-                            order.CustomerId = customer.Id;
-                            order.OrderCode = CreateOrderCode(countOrder++);
-                            order.OnepayRef = request.orderCode;
-                            order.CreatedDate = DateTime.Now;
-                            order.CreatedBy = customer.Email;
-                            order.Status = "TAO_MOI";
-                            order.MetaData = Newtonsoft.Json.JsonConvert.SerializeObject(request);
-
-                            context.Orders.Add(order);
-                            await context.SaveChangesAsync();
-                            if (order.Id > 0)
+                            return new ResponseCreateMultipleItemOrder
                             {
-                                var insertOrderDetail = new List<MI.Entity.Models.OrderDetail>();
-                                //Khoi tao OrderDetail
-                                foreach (var orderItem in request.pays)
+                                auth = new CustomerAuth
                                 {
-                                    var pickingDateByCustomer = DateTime.MinValue;
-                                    var pickingDateSplited = orderItem.choosenDate.Split("/");
-                                    if (pickingDateSplited.Length == 3)
-                                    {
-                                        pickingDateByCustomer = DateTime.Parse($"{pickingDateSplited[2]}-{pickingDateSplited[1]}-{pickingDateSplited[0]}");
-                                    }
-
-                                    //
-
-                                    var orderDetail = new MI.Entity.Models.OrderDetail();
-                                    orderDetail.OrderId = order.Id;
-                                    if (orderItem.combination != null)
-                                    {
-                                        orderDetail.ProductId = orderItem.combination.productId;
-                                        orderDetail.CombinationZoneList = orderItem.combination.zoneList;
-                                        orderDetail.PriceEach = orderItem.combination.priceEachNguoiLon;
-                                        orderDetail.PriceEachChildren = orderItem.combination.priceEachTreEm;
-                                    }
-                                    orderDetail.LogPrice = orderItem.totalPrice;
-                                    //Tinh ra gross
-
-                                    if (orderItem.discountSelected != null)
-                                    {
-                                        orderDetail.Voucher = orderItem.discountSelected.couponCode;
-                                        if (orderItem.discountSelected.couponPrice > 0)
-                                        {
-                                            orderDetail.LogPrice = orderItem.totalPrice - orderItem.discountSelected.couponPrice;
-                                        }
-                                        //Cho discount su dung roi bi disable hoac khong di
-                                    }
-                                    orderDetail.Quantity = orderItem.numberOfAldut;
-                                    orderDetail.QuantityChildren = orderItem.numberOfChildrend;
-                                    //Tinh gia gross
-                                    var optionItem = context.ProductPriceInZoneListByDate.Where(r => r.ProductId == orderItem.combination.productId && r.Date.Date == pickingDateByCustomer.Date && r.ZoneList.Equals(orderItem.combination.zoneList)).FirstOrDefault();
-                                    if (optionItem != null)
-                                    {
-                                        orderDetail.PriceGross = optionItem.NetEachNguoiLon;
-                                        orderDetail.PriceGrossTreEm = optionItem.NetEachTreEm;
-                                        orderDetail.LogPriceGross = (optionItem.NetEachNguoiLon * orderItem.numberOfAldut) + (optionItem.NetEachTreEm * orderItem.numberOfChildrend);
-                                    }
-
-                                    orderDetail.CreatedDate = DateTime.Now;
-                                    orderDetail.ProductParentId = orderItem.productId;
-                                    if (orderItem != null)
-                                    {
-                                        foreach (var noteGroup in orderItem.productBookingNoteGroups)
-                                        {
-                                            foreach (var noteItem in noteGroup.NoteList)
-                                            {
-                                                if (noteItem.bookingNoteType.StartsWith("date"))
-                                                {
-                                                    DateTime _d = DateTime.Now;
-                                                    if (DateTime.TryParse(noteItem.noteValue, out _d))
-                                                    {
-                                                        noteItem.noteValue = _d.AddHours(7).ToUniversalTime().ToString("yyyy-MM-ddTHH:mm:ss");
-                                                    }
-                                                }
-                                            }
-                                        }
-                                    }
-
-                                    orderDetail.MetaData = Newtonsoft.Json.JsonConvert.SerializeObject(orderItem);
-                                    orderDetail.ActiveStatus = "TAO_MOI";
-                                    orderDetail.SupplierStatus = "PENDING";
-                                    orderDetail.PaymentMethod = request.paymentMethod;
-                                    orderDetail.OnepayRef = request.orderCode;
-                                    orderDetail.PickingDate = pickingDateByCustomer;
-
-                                    orderDetail.DefaultLanguage = cultureCode;
-                                    orderDetail.noteSpecial = request.orderNotes.noteSpecial;
-                                    orderDetail.useAppContact = request.orderNotes.useAppContact;
-                                    orderDetail.useDiffrenceNumber = request.orderNotes.useDiffrenceNumber;
-                                    orderDetail.useAppContactValue = request.orderNotes.useAppContactValue;
-
-                                    insertOrderDetail.Add(orderDetail);
-                                }
-                                context.AddRange(insertOrderDetail);
-                                await context.SaveChangesAsync();
-
-
-                                //Customer
-                                var response = new ResponseCreateMultipleItemOrder();
-                                response.auth = new CustomerAuth();
-                                response.auth.isNewUser = isNewUser;
-                                response.auth.firstName = request.auth.firstName;
-                                response.auth.lastName = request.auth.lastName;
-                                response.auth.phoneNumber = customer.PhoneNumber;
-                                response.auth.email = customer.Email;
-                                response.auth.id = customer.Id;
-                                response.auth.pcname = pcName;
-                                response.auth.country = request.auth.country;
-                                //Code
-                                response.orderCode = order.OrderCode;
-                                return response;
-                            }
+                                    isNewUser = false,
+                                    firstName = request.auth.firstName,
+                                    lastName = request.auth.lastName,
+                                    phoneNumber = customer.PhoneNumber,
+                                    email = customer.Email,
+                                    id = customer.Id,
+                                    pcname = customer.Pcname,
+                                    country = customer.Country
+                                },
+                                orderCode = existingOrder.OrderCode
+                            };
                         }
+
+                        var order = new Orders
+                        {
+                            CustomerId = customer.Id,
+                            OrderCode = CreateOrderCode(context.Orders.Count() + 1),
+                            OnepayRef = request.orderCode,
+                            CreatedDate = DateTime.Now,
+                            CreatedBy = customer.Email,
+                            Status = "TAO_MOI",
+                            MetaData = Newtonsoft.Json.JsonConvert.SerializeObject(request)
+                        };
+
+                        context.Orders.Add(order);
+                        await context.SaveChangesAsync();
+
+                        var insertOrderDetail = new List<MI.Entity.Models.OrderDetail>();
+
+                        foreach (var orderItem in request.pays)
+                        {
+                            var pickingDateByCustomer = DateTime.MinValue;
+                            var pickingDateSplited = orderItem.choosenDate.Split("/");
+                            if (pickingDateSplited.Length == 3)
+                            {
+                                pickingDateByCustomer = DateTime.Parse($"{pickingDateSplited[2]}-{pickingDateSplited[1]}-{pickingDateSplited[0]}");
+                            }
+
+                            var orderDetail = new MI.Entity.Models.OrderDetail
+                            {
+                                OrderId = order.Id,
+                                ProductId = orderItem.combination?.productId ?? 0,
+                                CombinationZoneList = orderItem.combination?.zoneList,
+                                PriceEach = orderItem.combination?.priceEachNguoiLon ?? 0,
+                                PriceEachChildren = orderItem.combination?.priceEachTreEm ?? 0,
+                                LogPrice = orderItem.totalPrice,
+                                Quantity = orderItem.numberOfAldut,
+                                QuantityChildren = orderItem.numberOfChildrend,
+                                CreatedDate = DateTime.Now,
+                                ProductParentId = orderItem.productId,
+                                ActiveStatus = "TAO_MOI",
+                                SupplierStatus = "PENDING",
+                                PaymentMethod = request.paymentMethod,
+                                OnepayRef = request.orderCode,
+                                PickingDate = pickingDateByCustomer,
+                                DefaultLanguage = cultureCode,
+                                noteSpecial = request.orderNotes.noteSpecial,
+                                useAppContact = request.orderNotes.useAppContact,
+                                useDiffrenceNumber = request.orderNotes.useDiffrenceNumber,
+                                useAppContactValue = request.orderNotes.useAppContactValue
+                            };
+
+                            if (orderItem.discountSelected != null)
+                            {
+                                orderDetail.Voucher = orderItem.discountSelected.couponCode;
+                                if (orderItem.discountSelected.couponPrice > 0)
+                                {
+                                    orderDetail.LogPrice -= orderItem.discountSelected.couponPrice;
+                                }
+                            }
+
+                            var optionItem = context.ProductPriceInZoneListByDate.FirstOrDefault(r =>
+                                r.ProductId == orderItem.combination.productId &&
+                                r.Date.Date == pickingDateByCustomer.Date &&
+                                r.ZoneList == orderItem.combination.zoneList);
+
+                            if (optionItem != null)
+                            {
+                                orderDetail.PriceGross = optionItem.NetEachNguoiLon;
+                                orderDetail.PriceGrossTreEm = optionItem.NetEachTreEm;
+                                orderDetail.LogPriceGross = (optionItem.NetEachNguoiLon * orderItem.numberOfAldut) +
+                                                            (optionItem.NetEachTreEm * orderItem.numberOfChildrend);
+                            }
+
+                            foreach (var noteGroup in orderItem.productBookingNoteGroups)
+                            {
+                                foreach (var noteItem in noteGroup.NoteList)
+                                {
+                                    if (noteItem.bookingNoteType.StartsWith("date") &&
+                                        DateTime.TryParse(noteItem.noteValue, out DateTime _d))
+                                    {
+                                        noteItem.noteValue = _d.AddHours(7).ToUniversalTime().ToString("yyyy-MM-ddTHH:mm:ss");
+                                    }
+                                }
+                            }
+
+                            orderDetail.MetaData = Newtonsoft.Json.JsonConvert.SerializeObject(orderItem);
+                            insertOrderDetail.Add(orderDetail);
+                        }
+
+                        context.AddRange(insertOrderDetail);
+                        await context.SaveChangesAsync();
+
+                        
+                        
+
+
+                        transaction.Commit();
+
+                        return new ResponseCreateMultipleItemOrder
+                        {
+                            auth = new CustomerAuth
+                            {
+                                isNewUser = isNewUser,
+                                firstName = request.auth.firstName,
+                                lastName = request.auth.lastName,
+                                phoneNumber = customer.PhoneNumber,
+                                email = customer.Email,
+                                id = customer.Id,
+                                pcname = pcName,
+                                country = request.auth.country
+                            },
+                            orderCode = order.OrderCode
+                        };
+                    }
+                    catch (Exception ex)
+                    {
+                        transaction.Rollback();
+                        // log ex here if needed
+                        return null;
                     }
                 }
-                catch (Exception ex)
-                {
-
-                    //Write log
-                    return null;
-                }
-
-
             }
-            return null;
         }
+
 
         private string RandomCode(int size)
         {
@@ -1205,6 +1215,85 @@ namespace PlatformWEBAPI.Services.Order.Repository
                                     return false;
                                 }
                             }
+
+                            try
+                            {
+                                // Tạo ra luôn PushNotification ở đây
+                                using (IDbContext context = new IDbContext())
+                                {
+                                    var bannerCode = "NOTI_APP_NEW_ORDER";
+                                    var notiCulture = _bannerAdsRepository.GetBannerAds_By_Code(request.culture_code, "NOTI_APP_NEW_ORDER");
+                                    var notiTitle = "";
+                                    var notiDescription = "";
+                                    if (notiCulture != null)
+                                    {
+                                        var _b = WebHelper.ConvertSlide(notiCulture);
+                                        var _t = banners.Where(r => r.Title.Equals("[TITLE]"));
+                                        if (_t != null)
+                                        {
+                                            notiTitle = WebHelper.GetCultureNotiText(_b, "[TITLE]");
+                                            notiTitle = notiTitle.Replace("[DON_HANG]", detail.OrderCode);
+                                        }
+                                        var _d = banners.Where(r => r.Title.Equals("[DESCRIPTION]"));
+                                        if (_d != null)
+                                        {
+                                            notiDescription = WebHelper.GetCultureNotiText(_b, "[DESCRIPTION]");
+                                            notiDescription = notiDescription.Replace("[DON_HANG]", detail.OrderCode);
+                                            notiDescription = notiDescription.Replace("[PRODUCT_NAME]", detail.ProductParentTitle);
+                                        }
+                                    }
+
+
+
+                                    var notification = new S_PushNotification();
+                                    notification.CustomerId = detail.CustomerId;
+                                    notification.EmailReceiver = detail.Email;
+                                    notification.NotificationBannerCode = bannerCode;
+                                    notification.NotificationTitle = notiTitle;
+                                    notification.NotificationDescription = notiDescription;
+                                    notification.OrderCode = detail.OrderCode;
+                                    notification.OrderDetailId = detail.OrderDetailId;
+                                    notification.IsPushToClient = true;
+                                    notification.CreationTime = DateTime.Now;
+                                    notification.PushingTime = DateTime.Now;
+                                    notification.IsReaded = false;
+
+
+                                    await context.S_PushNotification.AddAsync(notification);
+                                    await context.SaveChangesAsync();
+
+                                    // 🔔 Push notification
+                                    var tokenRecord = await context.CustomerFcmToken.FirstOrDefaultAsync(x => x.Email == notification.EmailReceiver);
+
+                                    if (tokenRecord != null)
+                                    {
+                                        var _message = new Message()
+                                        {
+                                            Token = tokenRecord.FcmToken,
+                                            Notification = new Notification
+                                            {
+                                                Title = notiTitle,
+                                                Body = notiDescription
+                                            },
+                                            Data = new Dictionary<string, string>
+                                            {
+                                                { "route", "/myorder?v=1" }
+                                            }
+                                        };
+
+                                        await FirebaseMessaging.DefaultInstance.SendAsync(_message);
+
+
+                                    }
+                                }
+                                    
+                            }
+                            catch (Exception ex)
+                            {
+                                Console.WriteLine(ex.Message);
+                                //throw;
+                            }
+
                         }
 
 

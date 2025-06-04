@@ -25,7 +25,7 @@ namespace PlatformCMS.Controllers
         public AiHelpersController(IConfiguration configuration)
         {
             _configuration = configuration;
-            KEY = configuration["OPEN_API_KEY"];
+            KEY = configuration["OpenAiApiKey"];
         }
 
         
@@ -35,7 +35,7 @@ namespace PlatformCMS.Controllers
         {
             using (IDbContext _context = new IDbContext())
             {
-                var products = _context.Product.Where(r => r.Status == (int)StatusProduct.Public && r.Id == productId);
+                var products = _context.Product.Where(r => (r.Status == (int)StatusProduct.Public && r.Id == productId) || (r.Status == (int)StatusProduct.Public && r.ParentId == productId));
                 var languagesTarget = new List<string>() { "ko-KR", "zh-CN" };
 
                 var message = "";
@@ -44,7 +44,7 @@ namespace PlatformCMS.Controllers
                 foreach (var item in products)
                 {
                     var langEng = _context.ProductInLanguage.Where(r => r.ProductId == item.Id && r.LanguageCode.Contains("en-US")).FirstOrDefault();
-                    langEng.Product = null;
+                    //langEng.Product = null;
                     if (langEng != null)
                     {
                         foreach (var lang in languagesTarget)
@@ -54,12 +54,18 @@ namespace PlatformCMS.Controllers
                             if (checker == null)
                             {
                                 // Them moi
-
-                                var newLang = Newtonsoft.Json.JsonConvert.DeserializeObject<ProductInLanguage>(Newtonsoft.Json.JsonConvert.SerializeObject(langEng));
+                                var settings = new JsonSerializerSettings
+                                {
+                                    ReferenceLoopHandling = ReferenceLoopHandling.Ignore
+                                };
+                                var newLang = JsonConvert.DeserializeObject<ProductInLanguage>(
+                                    JsonConvert.SerializeObject(langEng, settings)
+                                );
 
                                 newLang.LanguageCode = lang;
                                 newLang.Id = Guid.NewGuid().ToString();
                                 newLang.Title = await TranslateTextUsingAi(langEng.Title, lang);
+                                newLang.Title = newLang.Title.Replace("\"", "");
                                 newLang.Description = await TranslateHtmlUsingAi(langEng.Description, lang);
                                 newLang.Content = await TranslateHtmlUsingAi(langEng.Content, lang);
                                 newLang.Url = langEng.Url;
@@ -73,6 +79,7 @@ namespace PlatformCMS.Controllers
                                 foreach (var mtd in lichTourEng)
                                 {
                                     mtd.tieuDe = await TranslateTextUsingAi(mtd.tieuDe, lang);
+                                    mtd.tieuDe = mtd.tieuDe.Replace("\"", "");
                                     mtd.noiDung = await TranslateHtmlUsingAi(mtd.noiDung, lang);
                                 }
 

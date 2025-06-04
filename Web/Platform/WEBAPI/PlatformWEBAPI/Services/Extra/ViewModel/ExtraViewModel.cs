@@ -5,6 +5,11 @@ using System.Threading.Tasks;
 
 namespace PlatformWEBAPI.Services.Extra.ViewModel
 {
+    public class SaveFcmTokenRequest
+    {
+        public string Email { get; set; }
+        public string FcmToken { get; set; }
+    }
     public class PropertyDetail
     {
         public int Id { get; set; }
