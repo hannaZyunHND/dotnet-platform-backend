@@ -229,11 +229,19 @@ namespace PlatformWEBAPI.Controllers
 
                 var countSearchZone = 0;
                 var countSearchKeyword = 0;
+                var countSearchbyId = 0;
                 foreach (var item in request.selectedZoneDestinations)
                 {
                     if (item > 0)
                     {
                         countSearchZone++;
+                    }
+                } 
+                foreach (var item in request.selectedIdProduct)
+                {
+                    if (item > 0)
+                    {
+                        countSearchbyId++;
                     }
                 }
                 foreach (var item in request.selectedZoneServices)
@@ -275,6 +283,11 @@ namespace PlatformWEBAPI.Controllers
                 if (countSearchKeyword == 0 && countSearchZone == 0)
                 {
                     typeSearch = "SEARCH_KET_HOP";
+                }
+
+                if (countSearchbyId > 0)
+                {
+                    typeSearch = "SEARCH_BY_ID";
                 }
                 Console.WriteLine("NEO DEBUGG");
                 if (typeSearch == "SEARCH_ONLY_ZONE" || typeSearch == "SEARCH_KET_HOP")
@@ -341,6 +354,11 @@ namespace PlatformWEBAPI.Controllers
                     }
                 }
 
+                if (typeSearch == "SEARCH_BY_ID")
+                {
+                    products = _productRepository.GetProductByListId(request.selectedIdProduct, request.cultureCode,0);
+                    total = products.Count();
+                }
                 foreach (var item in productsMap)
                 {
                     if (!string.IsNullOrEmpty(item.googleMapCrood))

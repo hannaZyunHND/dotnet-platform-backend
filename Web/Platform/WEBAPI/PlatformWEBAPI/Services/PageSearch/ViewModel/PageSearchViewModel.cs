@@ -36,6 +36,7 @@ namespace PlatformWEBAPI.Services.PageSearch.ViewModel
         public List<int> selectedZoneDestinations { get; set; } = new List<int>();
         public List<int> selectedZoneServices { get; set; } = new List<int>();
         public List<int> selectedZoneRegions { get; set; } = new List<int>();
+        public List<int> selectedIdProduct { get; set; } = new List<int>();
         public string cultureCode { get; set; } = "en-US";
         public string sortBy { get; set; } = "TOP_VIEW";
         public decimal startPrice { get; set; } = 0;
