@@ -1,13 +1,16 @@
 ﻿using Dapper;
 using MI.Bo.Bussiness;
+using MI.Dal.IDbContext;
 using MI.Dapper.Data.Models;
 using MI.Entity.ViewModel;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Caching.Distributed;
 using Microsoft.Extensions.Configuration;
 using Nest;
 using PlatformWEBAPI.ExecuteCommand;
 using PlatformWEBAPI.Services.Product.ViewModel;
+using PlatformWEBAPI.Services.Promotion.ViewModel;
 using StackExchange.Redis;
 using System;
 using System.Collections.Generic;
@@ -71,8 +74,8 @@ namespace PlatformWEBAPI.Services.Product.Repository
         ResponsePromotionDetail GetPromotionDetail(RequestPromotionDetail request);
 
         List<ProductMinify> GetProductByKeywords_V2(List<string> keywords, List<int> selectedZoneDestinations, List<int> selectedZoneServices, List<int> selectedZoneRegions, string lang_code, int pageNumber, int pageSize, out int total, string sortBy = "TOP_VIEW", decimal startPrice = 0, decimal endPrice = 10000000);
-
-
+        List<ProductMinify> GetProductInProdmotion(List<string> keywords, List<string> zoneUrl, string lang_code, int pageNumber, int pageSize, out int total, string sortBy = "TOP_VIEW", decimal startPrice = 0, decimal endPrice = 10000000);
+        Task<List<ResponseCheckValuePromotionCodeByProductId>> CheckValuePromotionCodeByProductId(RequestCheckValuePromotionCodeByProductId request);
         //List<ProductMinify> GetProductsByStringFilter(string filter, string lang_code, int location_id, out int total_row);
     }
     public class ProductRepository : IProductRepository
@@ -470,6 +473,38 @@ namespace PlatformWEBAPI.Services.Product.Repository
             total = a;
             return r;
         }
+        //usp_Web_GetProductInProdmotionByKeywords_Minify
+
+        public List<ProductMinify> GetProductInProdmotion(List<string> keywords, List<string> zoneUrl, string lang_code, int pageNumber, int pageSize, out int total, string sortBy = "TOP_VIEW", decimal startPrice = 0, decimal endPrice = 10000000)
+        {
+            var a = pageSize;
+            var r = new List<ProductMinify>();
+            //get in cache
+            var p = new DynamicParameters();
+            var commandText = "usp_Web_GetProductInProdmotionByKeywords_Minify";
+            DataTable dt = new DataTable();
+            dt.Columns.Add("zoneUrl", typeof(string));
+            foreach (var item in zoneUrl)
+            {
+                if (!string.IsNullOrEmpty(item))
+                {
+                    dt.Rows.Add(item);
+                }
+
+            }
+            p.Add("@zone_urls", dt.AsTableValuedParameter("type_selectedSearchZoneUrl"));
+            p.Add("@lang_code", lang_code);
+            p.Add("@PageNumber", pageNumber);
+            p.Add("@SortBy", sortBy);
+            p.Add("@startPrice", startPrice);
+            p.Add("@endPrice", endPrice);
+            p.Add("@PageSize", pageSize);
+            p.Add("@total", dbType: System.Data.DbType.Int32, direction: System.Data.ParameterDirection.Output);
+            r = _executers.ExecuteCommand(_connStr, conn => conn.Query<ProductMinify>(commandText, p, commandType: System.Data.CommandType.StoredProcedure)).ToList();
+            a = p.Get<int>("@total");
+            total = a;
+            return r;
+        }
 
         public List<ProductMinify> GetProductByKeywords(List<string> keywords, List<string> zoneUrl, string lang_code, int pageNumber, int pageSize, out int total, string sortBy = "TOP_VIEW", decimal startPrice = 0, decimal endPrice= 10000000)
         {
@@ -554,6 +589,8 @@ namespace PlatformWEBAPI.Services.Product.Repository
             total = a;
             return r;
         }
+
+        //usp_Web_GetProductInDiscountByZoneId_Minify
 
         public List<ProductMinify> GetProductInDiemDenByZoneIdMinify(int zone_id, DateTime? tuNgay, DateTime? denNgay, int locationId, string lang_code, int pageNumber, int pageSize, out int total)
         {
@@ -1189,6 +1226,33 @@ namespace PlatformWEBAPI.Services.Product.Repository
 
             
             return null;
+        }
+
+        public async Task<List<ResponseCheckValuePromotionCodeByProductId>>  CheckValuePromotionCodeByProductId(RequestCheckValuePromotionCodeByProductId request)
+        {
+            using (IDbContext context = new IDbContext())
+            {
+                var query = await (from cip in context.CouponInProduct
+                            join cc in context.CouponChild on cip.CouponId equals cc.Parrent
+                            join c in context.Coupon on cc.Parrent equals c.Id
+                            where cip.ProductId == request.productId && request.discountCode.Contains(cc.Ma)
+                            select new ResponseCheckValuePromotionCodeByProductId
+                            {
+                                discountCode = cc.Ma,
+                                productId = request.productId,
+                                isCanUse = true,
+                                discountValue = cip.DiscountValue,
+                                discountType = c.DiscountOption.Value
+                            }).ToListAsync();
+                foreach(var item in query)
+                {
+                    if(item.discountValue <= 0)
+                    {
+                        item.isCanUse = false;
+                    }
+                }
+                return query;
+            }
         }
     }
 }

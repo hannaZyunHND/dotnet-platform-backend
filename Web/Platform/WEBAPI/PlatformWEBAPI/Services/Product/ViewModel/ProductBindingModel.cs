@@ -213,6 +213,8 @@ namespace PlatformWEBAPI.Services.Product.ViewModel
         public bool isHaveProduct { get; set; } = false;
         public List<ResponseZoneInPromotion> destinations { get; set; } = new List<ResponseZoneInPromotion>();
         public List<ResponseZoneInPromotion> services { get; set; } = new List<ResponseZoneInPromotion>();
+        public DateTime? endingTime { get; set; }
+        public string discountCode { get; set; }
     }
 
     public class ResponseZoneInPromotion

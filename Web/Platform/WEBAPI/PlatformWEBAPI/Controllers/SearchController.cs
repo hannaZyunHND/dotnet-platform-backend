@@ -40,8 +40,8 @@ namespace PlatformWEBAPI.Controllers
             var Check = Utils.Settings.AppSettings.GetByKey("ESEnable").ToLower();
             if (Check == "True".ToLower())
             {
-                long total = 0;
-                var result = MI.ES.BCLES.AutocompleteService.SuggestJoytimeAsync(request.keyword, request.culture_code, request.index, request.size);
+                var total = 0;
+                var result = MI.ES.BCLES.AutocompleteService.SuggestJoytimeAsync(request.keyword, request.culture_code, out total, request.index, request.size);
                 //return MI.ES.BCLES.AutocompleteService.SuggestAsync(keyword, CurrentLanguageCode, 0, 10, out total);
                 return Ok(result);
             }

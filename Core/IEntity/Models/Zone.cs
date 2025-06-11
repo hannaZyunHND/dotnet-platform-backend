@@ -33,5 +33,7 @@ namespace MI.Entity.Models
         public bool? bookingNoteRequired { get; set; } = false;
         public bool? bookingNoteSendWithMail { get; set; } = false;
         public int? addHours { get; set; } = 0;
+        public string discountCode { get; set; }
+        public DateTime? endingTime { get; set; }
     }
 }

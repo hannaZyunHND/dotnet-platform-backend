@@ -495,9 +495,82 @@ namespace MI.ES.BCLES
             return result;
         }
 
-        public static List<EsSearchItem> SuggestJoytimeAsync(string keyword, string lang, int index = 1, int size = 50, string type = "")
+        //public static List<EsSearchItem> SuggestJoytimeAsync(string keyword, string lang, int index = 1, int size = 50, string type = "")
+        //{
+        //    var result = new List<EsSearchItem>();
+        //    if (string.IsNullOrEmpty(lang))
+        //    {
+        //        lang = Utils.Utility.DefaultLang;
+        //    }
+
+        //    List<QueryContainer> mustQuery = new List<QueryContainer>();
+
+        //    if (!string.IsNullOrEmpty(keyword))
+        //    {
+        //        //Type = TextQueryType.BestFields,
+        //        //Fuzziness = Fuzziness.Zero,
+        //        //Analyzer = "standard"
+
+        //        // Sử dụng multi_match query với trọng số cho các trường quan trọng
+        //        //mustQuery.Add(new MultiMatchQuery
+        //        //{
+        //        //    Fields = new[] { "itemSearchKeyword", "itemSearchKeyword.keyword", "itemSearchKeywordNorm", "itemSearchKeywordNorm.keyword" },
+        //        //    Query = $"*{keyword}*",
+        //        //    Fuzziness = Fuzziness.Auto,
+        //        //    Analyzer = "standard" // Sử dụng analyzer tiêu chuẩn
+        //        //});
+
+        //        mustQuery.Add(new MultiMatchQuery
+        //        {
+        //            Fields = new[] { "itemSearchKeyword", "itemSearchKeyword.keyword", "itemSearchKeywordNorm", "itemSearchKeywordNorm.keyword", "itemSearchTag", "itemSearchTag.keyword", "itemSearchTagNorm", "itemSearchTagNorm.keyword" },
+        //            Query = $"*{keyword}*",
+        //            Type = TextQueryType.BestFields,
+        //            Fuzziness = Fuzziness.EditDistance(0),
+        //            Slop = 2,
+        //            Operator = Operator.And,
+        //            Analyzer = "standard"
+        //        });
+        //    }
+        //    if (!string.IsNullOrEmpty(type))
+        //    {
+        //        mustQuery.Add(new MatchQuery
+        //        {
+        //            Field = "itemType.keyword",
+        //            Query = type
+        //        });
+
+        //    }
+        //    mustQuery.Add(new MatchQuery
+        //    {
+        //        Field = "languageCode.keyword",
+        //        Query = lang
+        //    });
+
+        //    SearchRequest req = new SearchRequest(strNameIndex_HeThong)
+        //    {
+        //        Query = new QueryContainer(new BoolQuery { Must = mustQuery }),
+        //        From = (index - 1) * size,
+        //        Size = size,
+        //        Sort = new List<ISort>
+        //{
+        //    new SortField { Field = "_score", Order = SortOrder.Descending }
+        //}
+        //    };
+
+        //    var res = client.Search<EsSearchItem>(req);
+        //    if (res.IsValid)
+        //    {
+        //        result = res.Documents.ToList();
+        //    }
+
+        //    return result;
+        //}
+
+        public static List<EsSearchItem> SuggestJoytimeAsync(string keyword, string lang, out int total, int index = 1, int size = 50, string type = "")
         {
+            total = 0;
             var result = new List<EsSearchItem>();
+
             if (string.IsNullOrEmpty(lang))
             {
                 lang = Utils.Utility.DefaultLang;
@@ -507,22 +580,14 @@ namespace MI.ES.BCLES
 
             if (!string.IsNullOrEmpty(keyword))
             {
-                //Type = TextQueryType.BestFields,
-                //Fuzziness = Fuzziness.Zero,
-                //Analyzer = "standard"
-
-                // Sử dụng multi_match query với trọng số cho các trường quan trọng
-                //mustQuery.Add(new MultiMatchQuery
-                //{
-                //    Fields = new[] { "itemSearchKeyword", "itemSearchKeyword.keyword", "itemSearchKeywordNorm", "itemSearchKeywordNorm.keyword" },
-                //    Query = $"*{keyword}*",
-                //    Fuzziness = Fuzziness.Auto,
-                //    Analyzer = "standard" // Sử dụng analyzer tiêu chuẩn
-                //});
-
                 mustQuery.Add(new MultiMatchQuery
                 {
-                    Fields = new[] { "itemSearchKeyword", "itemSearchKeyword.keyword", "itemSearchKeywordNorm", "itemSearchKeywordNorm.keyword", "itemSearchTag", "itemSearchTag.keyword", "itemSearchTagNorm", "itemSearchTagNorm.keyword" },
+                    Fields = new[] {
+                "itemSearchKeyword", "itemSearchKeyword.keyword",
+                "itemSearchKeywordNorm", "itemSearchKeywordNorm.keyword",
+                "itemSearchTag", "itemSearchTag.keyword",
+                "itemSearchTagNorm", "itemSearchTagNorm.keyword"
+            },
                     Query = $"*{keyword}*",
                     Type = TextQueryType.BestFields,
                     Fuzziness = Fuzziness.EditDistance(0),
@@ -531,6 +596,7 @@ namespace MI.ES.BCLES
                     Analyzer = "standard"
                 });
             }
+
             if (!string.IsNullOrEmpty(type))
             {
                 mustQuery.Add(new MatchQuery
@@ -538,17 +604,17 @@ namespace MI.ES.BCLES
                     Field = "itemType.keyword",
                     Query = type
                 });
-
             }
+
             mustQuery.Add(new MatchQuery
             {
                 Field = "languageCode.keyword",
                 Query = lang
             });
 
-            SearchRequest req = new SearchRequest(strNameIndex_HeThong)
+            var req = new SearchRequest(strNameIndex_HeThong)
             {
-                Query = new QueryContainer(new BoolQuery { Must = mustQuery }),
+                Query = new BoolQuery { Must = mustQuery },
                 From = (index - 1) * size,
                 Size = size,
                 Sort = new List<ISort>
@@ -560,6 +626,7 @@ namespace MI.ES.BCLES
             var res = client.Search<EsSearchItem>(req);
             if (res.IsValid)
             {
+                total = (int)res.Total; // hoặc res.HitsMetadata.Total.Value
                 result = res.Documents.ToList();
             }
 
@@ -567,11 +634,10 @@ namespace MI.ES.BCLES
         }
 
 
-        
 
 
-        
 
-       
+
+
     }
 }

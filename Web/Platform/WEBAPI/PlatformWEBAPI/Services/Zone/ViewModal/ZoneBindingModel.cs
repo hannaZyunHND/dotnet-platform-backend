@@ -39,6 +39,8 @@ namespace PlatformWEBAPI.Services.Zone.ViewModal
         public string order { get; set; }
         public string avatar { get; set; }
         public int sortOrder { get; set; }
+        public string endingTime { get; set; }
+        public string discountCode { get; set; }
     }
 
     public class ResponseGetZoneDetailMinify
@@ -85,6 +87,8 @@ namespace PlatformWEBAPI.Services.Zone.ViewModal
         public int TotalTour { get; set; }
         public string MapCoords { get; set; }
         public string googleMapCrood { get; set; }
+        public DateTime? endingTime { get; set; }
+        public string discountCode { get; set; }
         //public string Filter { get; set; }
 
     }

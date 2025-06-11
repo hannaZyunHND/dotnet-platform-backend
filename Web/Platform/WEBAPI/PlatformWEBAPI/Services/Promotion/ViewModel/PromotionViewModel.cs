@@ -14,4 +14,18 @@ namespace PlatformWEBAPI.Services.Promotion.ViewModel
         public string Type { get; set; }
         public decimal Value { get; set; }
     }
+
+    public class RequestCheckValuePromotionCodeByProductId {
+        public int productId { get; set; }
+        public List<string> discountCode { get; set; }
+    }
+
+    public class ResponseCheckValuePromotionCodeByProductId {
+        public int productId { get; set; }
+        public string discountCode { get; set; }
+        public bool isCanUse { get; set; }
+        public decimal discountValue { get; set; }
+        public int discountType { get; set; }
+    }
+
 }

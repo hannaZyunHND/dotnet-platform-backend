@@ -137,7 +137,8 @@ namespace PlatformWEBAPI.Controllers
 
                         if (_firstKeyword != null)
                         {
-                            var esResult = MI.ES.BCLES.AutocompleteService.SuggestJoytimeAsync(_firstKeyword, request.cultureCode, request.pageIndex, request.pageSize, "PRODUCT");
+                            int _t = 0;
+                            var esResult = MI.ES.BCLES.AutocompleteService.SuggestJoytimeAsync(_firstKeyword, request.cultureCode, out _t, request.pageIndex, request.pageSize, "PRODUCT");
                             if (esResult != null)
                             {
                                 //KHong phai la group by
@@ -169,7 +170,7 @@ namespace PlatformWEBAPI.Controllers
                                         productsMap.Add(m);
                                     }
                                     products.AddRange(p_esResult_products);
-                                    total += p_esResult_products.Count;
+                                    total += _t;
                                 }
                             }
                         }
@@ -301,7 +302,8 @@ namespace PlatformWEBAPI.Controllers
 
                         if (_firstKeyword != null)
                         {
-                            var esResult = MI.ES.BCLES.AutocompleteService.SuggestJoytimeAsync(_firstKeyword, request.cultureCode, request.pageIndex, request.pageSize, "PRODUCT");
+                            int _t = 0;
+                            var esResult = MI.ES.BCLES.AutocompleteService.SuggestJoytimeAsync(_firstKeyword, request.cultureCode, out _t, request.pageIndex, request.pageSize, "PRODUCT");
                             if (esResult != null)
                             {
                                 //KHong phai la group by
@@ -333,7 +335,7 @@ namespace PlatformWEBAPI.Controllers
                                         productsMap.Add(m);
                                     }
                                     products.AddRange(p_esResult_products);
-                                    total += p_esResult_products.Count;
+                                    total += _t;
                                 }
                             }
                         }
