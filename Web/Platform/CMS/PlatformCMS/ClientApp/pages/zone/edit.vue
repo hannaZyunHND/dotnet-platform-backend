@@ -119,11 +119,12 @@
                                 <b-form-input v-model="objRequest.mapCoords" placeholder="(x, y, bán kính)"
                                     required></b-form-input>
                             </b-form-group>
+
                             <b-form-group label="Tọa độ trên Google Map">
                                 <b-form-input v-model="objRequest.googleMapCrood" placeholder="(lat - long)"
                                     required></b-form-input>
                             </b-form-group>
-                            
+
                             <b-form-group label="Loại note (Chỉ dành cho danh mục Booking Note)">
                                 <select class="form-control" v-model="objRequest.bookingNoteType">
                                     <option value="">KHÔNG SỬ DỤNG</option>
@@ -147,8 +148,16 @@
                                 email
                             </b-form-group>
                             <b-form-group label="Số giờ cộng tối thiểu dịch vụ (Dành cho note thời gian)">
-                                <b-form-input v-model="objRequest.addHours" type="number" placeholder="Số giờ cộng tối thiểu"
+                                <b-form-input v-model="objRequest.addHours" type="number"
+                                    placeholder="Số giờ cộng tối thiểu" required></b-form-input>
+                            </b-form-group>
+                            <b-form-group label="Mã giảm giá (Dành cho danh mục Discount)">
+                                <b-form-input v-model="objRequest.discountCode" placeholder="Mã giảm giá"
                                     required></b-form-input>
+                            </b-form-group>
+                            <b-form-group label="Thời gian hết hạn (Dành cho danh mục Discount)">
+                                <b-form-input type="date" v-model="objRequest.endingTime"
+                                    placeholder="Thời gian hết hạn" required></b-form-input>
                             </b-form-group>
                         </b-card>
                         <b-card header="Hình ảnh">
@@ -298,7 +307,8 @@
                                                 </b-form-group>
                                                 <b-form-group label="Nội dung">
                                                     <MIEditor :contentEditor="c.description"
-                                                        v-on:handleEditorInput="getOrSetDataVersionComment" :index="index">
+                                                        v-on:handleEditorInput="getOrSetDataVersionComment"
+                                                        :index="index">
                                                     </MIEditor>
                                                 </b-form-group>
                                                 <b-form-group>
@@ -420,7 +430,8 @@
                                     </b-form-group>
                                     <b-form-group label="Mô tả">
                                         <b-form-textarea v-model="objRequestLanguage.dynamicschema"
-                                            placeholder="Dynamic schema (Bao gồm thẻ script)" rows="3" max-rows="6" required></b-form-textarea>
+                                            placeholder="Dynamic schema (Bao gồm thẻ script)" rows="3" max-rows="6"
+                                            required></b-form-textarea>
                                     </b-form-group>
                                     <b-form-group>
                                         <div class="row">
@@ -624,8 +635,17 @@ export default {
                     console.log(this.objRequest);
                     if (this.objRequest != null) {
                         this.Type = this.objRequest.type;
+                        console.log(this.objRequest.endingTime)
+                        // Nếu là chuỗi ISO, cắt lấy phần "YYYY-MM-DD"
+                        if (this.objRequest.endingTime) {
+                            // Nếu đã là string ISO, chỉ cần cắt phần ngày
+                            this.objRequest.endingTime = this.objRequest.endingTime.split('T')[0];
+
+                        }
+
                         if (this.objRequest.manufacturerId != "") {
                             this.objRequest.manufacturerIds = this.objRequest.manufacturerId.split(",");
+
                         }
 
                     }
@@ -644,13 +664,13 @@ export default {
                             this.statusCanonical = objCanonical.Status;
                             this.valueCanonical = objCanonical.Value;
                         }
-                        if(this.objRequestLanguage.comments){
+                        if (this.objRequestLanguage.comments) {
                             this.comments = JSON.parse(this.objRequestLanguage.comments)
                         }
-                        if(this.objRequestLanguage.faqs){
+                        if (this.objRequestLanguage.faqs) {
                             this.faqs = JSON.parse(this.objRequestLanguage.faqs)
                         }
-                        if(this.objRequestLanguage.searchTags){
+                        if (this.objRequestLanguage.searchTags) {
                             this.searchTags = JSON.parse(this.objRequestLanguage.searchTags)
                         }
                     } else {
@@ -681,8 +701,8 @@ export default {
             this.objRequestLanguage.content = value;
         },
         getOrSetDataVersionComment(value) {
-             //////console.log(value)
-             var dt = JSON.parse(value);
+            //////console.log(value)
+            var dt = JSON.parse(value);
             ////console.log(dt)
             this.comments[dt.index].description = dt.content;
         },
@@ -696,7 +716,7 @@ export default {
             object.push(JSON.parse(JSON.stringify(this.defaultItems)))
         },
         onClickRemoveExtraProperty(object, index) {
-            object.slice(index,1)
+            object.slice(index, 1)
         },
         openImg(img) {
             this.choseImg = img;

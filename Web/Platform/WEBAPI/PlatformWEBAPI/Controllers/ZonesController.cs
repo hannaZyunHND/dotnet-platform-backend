@@ -42,7 +42,10 @@ namespace PlatformWEBAPI.Controllers
                     _obj.level = item.level;
                     _obj.order = item.order;
                     _obj.avatar = item.Avatar;
-                    _obj.sortOrder = item.SortOrder;    
+                    _obj.sortOrder = item.SortOrder;
+                    _obj.discountCode = item.discountCode;
+                    if(item.endingTime != null) _obj.endingTime = item.endingTime.Value.ToString("dd/MM/yyyy");
+
                     response.Add(_obj);
                 }
                 response = response.OrderBy(r => r.sortOrder).ToList();
