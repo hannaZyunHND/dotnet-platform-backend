@@ -49,6 +49,9 @@ namespace PlatformWEBAPI.Controllers
                     newBody = RenderProductInBlogDetail(response.Body, request.cultureCode);
                     
                     response.Body = newBody;
+                    
+                    //get blog same zone
+                    response.blogSameZone = _articleRepository.GetArticlesInZoneId_Minify_FullFilter(response.ZoneId, (int)TypeZone.All, (int)TypeArticle.All, 0, request.cultureCode, "", 1, 3, out int _t);
                     return Ok(response);
                 }
             }
