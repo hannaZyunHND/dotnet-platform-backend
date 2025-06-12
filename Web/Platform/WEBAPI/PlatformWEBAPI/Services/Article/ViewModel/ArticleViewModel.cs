@@ -99,5 +99,6 @@ namespace PlatformWEBAPI.Services.Article.ViewModel
         public string MetaCanonical { get; set; }
         public string ZoneUrl { get; set; }
         public string Url { get; set; }
+        public List<ArticleMinify> blogSameZone {get;set;}
     }
 }
