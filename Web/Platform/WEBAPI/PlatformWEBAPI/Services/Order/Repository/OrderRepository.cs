@@ -298,8 +298,8 @@ namespace PlatformWEBAPI.Services.Order.Repository
                         response.country = customer.Country;
                         response.phoneNumber = customer.PhoneNumber;
                         response.avatar = customer.Avatar;
-                        response.firstName = customer.Fullname.Split(" ").FirstOrDefault();
-                        response.lastName = customer.Fullname.Split(" ").LastOrDefault();
+                        response.firstName = customer.Fullname?.Split(" ").FirstOrDefault();
+                        response.lastName = customer.Fullname?.Split(" ").LastOrDefault();
                         return response;
                     }
                 }
